@@ -1,0 +1,166 @@
+# 그리는 규칙 (figma-plugin)
+
+플러그인은 판단하지 않는다. LLM · 네트워크 호출이 없고, `storyboard.json` (schema 2) 만으로
+그린다. 같은 파일은 언제나 같은 그리기 계획이 된다 (`src/plan.ts`, 시험 모드로 해시 확인).
+아래 숫자는 `src/plan.ts` 의 상수와 같다. 하나를 바꾸면 둘 다 고친다. 좌표 단위는 px, 색은 hex.
+
+## 0. 공통
+
+| 항목 | 값 |
+|---|---|
+| 글꼴 | Noto Sans KR Regular / Bold (불러오지 못하면 Inter Regular / Bold) |
+| 줄 높이 | 글자 크기 × 1.5 (반올림) |
+| 글 색 | `#000000` (따로 적지 않으면) |
+| 주요 색 | 먹 `#000000` · 종이 `#FFFFFF` · 보조 글 `#555555` |
+
+## 1. 페이지
+
+같은 실행에서 두 페이지를 만든다. 페이지마다 플러그인 데이터 `storyboard-run = run.id` 를 붙인다.
+
+| 페이지 이름 | 내용 |
+|---|---|
+| `와이어프레임 · {run.id}` | 실행 카드 + 장 프레임 + 주석 열 |
+| `바꾼 것 · {run.id}` | changes 표 |
+
+**다시 불러오기**: `storyboard-run` 이 같은 `run.id` 인 페이지가 이미 있으면, 새 페이지 둘을
+먼저 그린 뒤 옛 페이지를 지운다 (중복 없음). 다른 `run.id` 의 페이지는 건드리지 않는다.
+
+## 2. 실행 카드 (와이어프레임 페이지의 맨 앞)
+
+- 위치 (0, 0), 너비 720, 높이는 내용에 맞춤. 세로 자동 배치, 안쪽 여백 24, 줄 사이 8.
+  채움 `#FFFFFF`, 테두리 `#000000` 1.
+- 줄 (차례대로):
+  1. `실행 {run.id}` — 20 Bold
+  2. `과제: {task.label} ({run.task})` — 14
+  3. `모델: {run.model}` — 14
+  4. `도구 커밋: {run.commit}` (+ `run.dirty` 이면 ` (dirty)`) — 14
+  5. `원본: {run.original.path} · sha256 {run.original.sha256 앞 8자}` — 14
+  6. `생성: {generated.at}` — 14
+  7. 고정 문장 — 14 Bold:
+     "이 와이어프레임은 구조 시안이다. 색 · 모양 · 아이콘 · 로고 · 보안 키패드 모양은 디자이너가 표준 부품으로 채운다."
+
+## 3. 장 배치
+
+- **열**: `main = true` 인 장을 `flow.steps[].sheet` 순서로 왼쪽 → 오른쪽 (한 번씩).
+  흐름에 없는 주요 장은 `sheets` 순서로 뒤에 붙인다.
+- **열 안 (아래로)**: `main = false` 인 장 (reveal · error · 두 번째 방문) 을 그 장의 `of` 가
+  가리키는 주요 장 열에 `sheets` 순서로 쌓는다. `of` 가 없거나 주요 장이 아니면 같은 `screen`
+  의 주요 장 열, 그것도 없으면 새 열을 오른쪽 끝에 만든다.
+- 첫 장의 y = 400. 다음 장 y = 앞 장 y + max(앞 장 높이, 앞 주석 열 어림 높이) + 160.
+- 열 너비 = max(장 너비) + 24 + 360. 다음 열 x = 앞 열 x + 열 너비 + 160.
+- **주석 열 어림 높이** (겹침을 피하는 데만 쓴다): 32 + 6 × (줄 수 − 1) + Σ 줄마다
+  ⌈글자 수 ÷ ⌊328 ÷ 글자 크기⌋⌉ × 줄 높이. 실제 주석 열은 Figma 자동 배치로 늘어난다.
+
+## 4. 장 프레임
+
+- 크기 = `sheet.size` (없으면 390 × 844), 이름 = `sheet.title` (없으면 `sheet.id`).
+- 채움 `#FFFFFF`, 테두리 없음, 내용 자르기 켬.
+- 안의 레이어 (아래 → 위):
+  1. 참고 그림 1개
+  2. 요소 (`items` 순서)
+  3. 영역 (`regions` 순서) — 채움이 없어 아래 요소를 가리지 않는다
+
+### 4.1 참고 그림
+
+- 이름 `참고 — 로우파이 그림`, 위치 (0, 0), 크기 = 장 크기, 불투명도 0.4, **잠김**.
+- 채움 = `sheet.picture` 그림 (파일 이름으로 찾는다, 맞춤 FILL). 고른 그림에 없으면
+  `#EEEEEE` 회색 채움으로 두고 끝에 "그림 없음" 으로 알린다.
+- 눈 아이콘으로 끌 수 있다 (숨김은 플러그인이 하지 않는다).
+
+### 4.2 요소 (`items`)
+
+- 프레임 하나: 위치 · 크기 = `item.box` [x, y, w, h], 이름 = `{no} {글}`, 자르기 끔.
+- **글** = `text`, 없으면 `aria`, 둘 다 없으면 `({action})`.
+  `kind = group` 이면 뒤에 ` ({group.count}개 묶음)`.
+- 안에 글 레이어 `글` 하나: 14, 글 레이어 크기 = 상자 크기 − 좌우 안쪽 (아래 표), 세로 가운데, 넘치면 말줄임.
+
+| 모양 | 해당 `tag` | 채움 | 테두리 | 모서리 | 글 정렬 | 좌우 안쪽 |
+|---|---|---|---|---|---|---|
+| button | `button` | `#F2F2F2` | `#000000` 1 실선 | 8 | 가운데 | 4 |
+| input | `input` · `textarea` · `select` | `#FFFFFF` | `#000000` 1 실선 | 4 | 왼쪽 | 12 |
+| a | `a` | 없음 | 없음 | 0 | 왼쪽 + 밑줄 | 0 |
+| 그 밖 | 나머지 (`div` 등) | 없음 | `#000000` 1 점선 [4, 4] | 0 | 가운데 | 4 |
+
+- `kind = group` (숫자판 · 은행 목록처럼 묶인 선택지): 위 모양에 테두리만 점선 [2, 2].
+- `disabled = true`: 요소 프레임 불투명도 0.4.
+- 이 실행의 `tag`: `button` 185 · `div` 3 (input · a 는 없음 — 생성 HTML 이 입력 칸도 button 으로 만든다).
+
+### 4.3 영역 (`regions`)
+
+- 프레임 하나: 위치 · 크기 = `region.box`, 이름 = `영역 {no} · {name}`, 채움 없음,
+  테두리 `#7A7A7A` 1 점선 [6, 4], 자르기 끔.
+- 왼쪽 위 (0, 0) 에 번호 원 `번호 {no}`: 24 × 24, 모서리 12, 채움 `#000000`,
+  글 `{no}` 12 Bold `#FFFFFF` 가운데.
+
+### 4.4 표시 (요소 레이어와 주석 둘 다)
+
+| 표시 | 판정 (칸) | 색 |
+|---|---|---|
+| 과제 밖 입구 | `item.entrance === true` | `#6B6B6B` |
+| 누르면 변화 없음 — 확인 필요 | `item.result.kind === "none"` | `#D9480F` |
+| 새 요소 | `original.where` 가 있고, `item.action` 이 그 키에 없음 | `#1C64F2` |
+
+- 판정 근거 — "누르면 변화 없음": 도구의 `walk.describe_change` 가 누르기 전후 화면을 비교해
+  `screen` (화면 바뀜) · `same` (같은 화면, 무엇이 바뀜 — `detail` 에 적음) · `none` (보이는 것이
+  그대로) 를 낸다. `same` 은 언제나 `detail` 에 변화가 있다 (새로 보임 · 사라짐 · 입력 칸 값 ·
+  알림창 · 글 순서 · 표시 상태 · 스크롤 중 하나 이상). 그래서 `none` 만 표시한다.
+  `disabled` (꺼져 있어 누르지 않음) 와 `failed` (누르지 못함) 는 표시하지 않고 주석의 결과 글로만 적는다.
+- 판정 근거 — "새 요소": `original.where` 는 도구가 원본 HTML 을 같은 흐름으로 걸으며 본
+  `data-action` 마다 화면 목록이다. 생성 화면의 `action` 이 거기 없으면 원본에 없던 요소다.
+  `original.where` 가 없는 파일에서는 이 표시를 하지 않는다.
+- 요소 레이어: 요소 프레임 안에 `표시` (가로 자동 배치, 사이 4) 를 오른쪽 끝이 요소 오른쪽에,
+  위가 요소 위 − 10 에 오게 둔다. 그 안에 표시마다 `표시 — {표시}`: 안쪽 여백 2 / 6, 모서리 4,
+  위 색 채움, 글 11 Bold `#FFFFFF`. 순서는 위 표 순서.
+- 주석: 요소 줄 끝에 ` [{표시}]` 를 같은 순서로.
+
+## 5. 주석 열 (장 하나에 하나)
+
+- 위치: x = 장 x + 장 너비 + 24, y = 장 y. 너비 360, 높이는 내용에 맞춤.
+  세로 자동 배치, 안쪽 여백 16, 줄 사이 6, 채움 `#FFF8D6`. 이름 `주석 — {장 이름}`.
+- 줄 (차례대로):
+  1. 장 이름 — 16 Bold
+  2. `purpose` (없으면 `(목적 없음)`) — 13
+  3. `condition` 이 있으면 `조건: {condition}` — 12 `#555555`
+  4. `영역` — 13 Bold, 그 아래 영역마다 `{no}. {name} — {description}` (+ `empty` 이면 ` (빈 영역)`) — 12
+  5. `요소` — 13 Bold, 그 아래 요소마다 `{no} {글} → {결과}{표시}` — 12
+
+| `result.kind` | 결과 글 |
+|---|---|
+| `screen` | `{to 화면의 주요 장 이름} 화면으로` (주요 장이 없으면 `to` 그대로) |
+| `same` | `같은 화면 — {detail}` |
+| `none` | `보이는 변화 없음` |
+| `disabled` | `꺼져 있어 누르지 않음` |
+| `failed` | `누르지 못함 — {detail}` |
+| 그 밖 · 없음 | `결과 없음` |
+
+## 6. 바꾼 것 페이지
+
+- (0, 0) 에 제목 `바꾼 것 — {task.label} · {run.id}` 20 Bold.
+- (0, 64) 에 표 `바꾼 것 표`: 세로 자동 배치, 줄 사이 0. 줄마다 가로 자동 배치, 안쪽 여백 8,
+  칸 사이 16, 테두리 `#CCCCCC` 1, 너비 1264.
+- 칸 너비 60 · 560 · 380 · 200, 글 13. 머리줄 (`id · 무엇 · 왜 · 어느 화면`) 은 Bold, 채움 `#F2F2F2`.
+- 줄 = `changes` 순서. `id` · `what` · `why` · `to_screens` 를 주요 장 이름으로 바꿔 `, ` 로 이음.
+- `diagnosis` 와 `addresses` 는 넣지 않는다.
+
+## 7. 입력 의존
+
+나중에 입력이 원본 HTML 에서 스크린샷으로 바뀔 때 다시 볼 곳.
+
+| 그리는 것 | storyboard.json 칸 | 채우는 단계 (senior_ui) |
+|---|---|---|
+| 장 열 순서 | `flow.steps[].sheet` | 흐름 명세 (`flows/`) → `storyboard.build.assemble` |
+| 주요 장 / 아래 줄 | `sheets[].main` · `of` · `screen` | `build.assemble` (걷기에서 켜진 화면) |
+| 장 크기 · 참고 그림 | `sheets[].size` · `picture` | `walk` 그림 페이지 (생성 HTML 을 걸으며 찍음) |
+| 장 이름 | `sheets[].title` | `storyboard.regions` (영역 묶기 모델 호출) |
+| purpose | `sheets[].purpose` | 계획 단계 (`attempt_N.plan.json`) → `build.assemble` |
+| condition | `sheets[].condition` | `build.condition_text` (흐름 명세의 reveal · error_paths) |
+| 요소 상자 · 모양 · 글 | `items[].box` · `tag` · `text` · `aria` · `action` · `disabled` | `walk` (생성 HTML 의 DOM, `data-action` 요소) → `build.itemize` |
+| 묶음 | `items[].kind` · `group.count` | `build.itemize` (선택지 무리, 검사 I) |
+| 과제 밖 입구 | `items[].entrance` | `walk.is_entrance` (`data-action` 이 `oos-` 로 시작, 검사 K 와 같은 규칙) |
+| 누르면 변화 없음 · 결과 글 | `items[].result.kind` · `detail` · `to` | `walk.verify_one` → `walk.describe_change` (확인 페이지에서 하나씩 눌러 봄) |
+| 새 요소 | `original.where` (키 = 원본 `data-action`) | `walk.survey` (원본 HTML 을 같은 흐름으로 걸음) → `features.where_in_original` |
+| 영역 상자 · 번호 · 이름 · 설명 | `regions[].box` · `no` · `name` · `description` · `empty` | `storyboard.regions` (영역 묶기 모델 호출) |
+| 바꾼 것 표 | `changes[].id` · `what` · `why` · `to_screens` | 계획 단계 (`plan.json` 의 changes) → `build.front_matter` |
+| 실행 카드 | `run.*` · `task.label` · `generated.at` | 실행 요약 (`run["summary"]` · 과제 파일) → `build.front_matter` |
+
+`data-action` 에 기대는 칸 (요소 · 입구 · 새 요소 · 결과) 은 스크린샷 입력에서는 다른 근거가 필요하다.
