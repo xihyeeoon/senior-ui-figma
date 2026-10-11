@@ -105,6 +105,7 @@ function draw(n: Node, parent: ChildrenMixin & BaseNode, images: Msg['images'], 
 }
 
 figma.ui.onmessage = async (msg: Msg) => {
+  const made: PageNode[] = [];
   try {
     const sb = JSON.parse(msg.storyboard);
     const p = plan(sb, msg.dims || {});
@@ -112,24 +113,28 @@ figma.ui.onmessage = async (msg: Msg) => {
     missingPictures = []; failedSheets = [];
     // 같은 실행을 다시 불러오면 지우고 다시 그린다 - 새 페이지를 먼저 만든 뒤 옛 것을 지운다
     const old = figma.root.children.filter(pg => pg.getPluginData(PLUGIN_KEY) === p.run);
-    const made: PageNode[] = [];
     for (const pg of p.pages) {
       const page = figma.createPage();
+      made.push(page);                                         // 도중에 멈춰도 치울 수 있게 먼저 적는다
       page.name = pg.name;
       page.setPluginData(PLUGIN_KEY, p.run);
       for (const n of pg.kids) draw(n, page, msg.images);
-      made.push(page);
     }
     await figma.setCurrentPageAsync(made[0]);
-    for (const pg of old) pg.remove();
     const card = made[0].children[0];
     if (card) figma.viewport.scrollAndZoomIntoView([card]);
+    const pages = made.splice(0);    // 여기부터 새 페이지는 완성 - 옛 것을 지우다 멈춰도 남긴다
+    for (const pg of old) pg.remove();
     const layers = p.pages.reduce((s, pg) => s + count(pg.kids), 0);
-    figma.ui.postMessage({ ok: true, text: `다 그렸다 - 페이지 ${made.length} · 레이어 ${layers}`
+    figma.ui.postMessage({ ok: true, text: `다 그렸다 - 페이지 ${pages.length} · 레이어 ${layers}`
       + ` · 지운 옛 페이지 ${old.length} · 그림 없음 ${missingPictures.length}`
       + (missingPictures.length ? ` (${missingPictures.join(', ')})` : '')
       + ` · 그림 실패 ${failedSheets.length}` + (failedSheets.length ? ` (장 id ${failedSheets.join(', ')})` : '') });
   } catch (e) {
+    // 이번에 만든 새 페이지만 지운다 - 옛 페이지는 그대로. 보고 있는 페이지는 지울 수 없어 먼저 옮긴다.
+    const keep = figma.root.children.find(pg => !made.includes(pg));
+    if (keep && made.includes(figma.currentPage)) await figma.setCurrentPageAsync(keep);
+    for (const pg of made) if (!pg.removed) pg.remove();
     figma.ui.postMessage({ ok: false, text: `그리지 못했다 - ${(e as Error).message || e}` });
   }
 };
