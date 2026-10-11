@@ -8,15 +8,11 @@ type Msg = { storyboard: string; images: Record<string, Uint8Array>; dims: Dims 
 
 figma.showUI(__html__, { width: 380, height: 320 });
 
-let FONT: FontName = { family: 'Noto Sans KR', style: 'Regular' };
-let BOLD: FontName = { family: 'Noto Sans KR', style: 'Bold' };
-async function loadFonts() {
-  try { await Promise.all([figma.loadFontAsync(FONT), figma.loadFontAsync(BOLD)]); }
-  catch {
-    FONT = { family: 'Inter', style: 'Regular' }; BOLD = { family: 'Inter', style: 'Bold' };
-    await Promise.all([figma.loadFontAsync(FONT), figma.loadFontAsync(BOLD)]);
-  }
-}
+// 다른 글꼴로 바꾸지 않는다 - Inter 에는 한글이 없고, 기계마다 그림이 달라진다.
+const FONT: FontName = { family: 'Noto Sans KR', style: 'Regular' };
+const BOLD: FontName = { family: 'Noto Sans KR', style: 'Bold' };
+const loadFonts = () => Promise.all([figma.loadFontAsync(FONT), figma.loadFontAsync(BOLD)])
+  .then(() => true, () => false);
 
 function rgb(hex: string): RGB {
   const n = parseInt(hex.slice(1), 16);
@@ -109,7 +105,8 @@ figma.ui.onmessage = async (msg: Msg) => {
   try {
     const sb = JSON.parse(msg.storyboard);
     const p = plan(sb, msg.dims || {});
-    await loadFonts();
+    if (!await loadFonts())   // 아무 노드도 만들기 전에 멈춘다
+      return figma.ui.postMessage({ ok: false, text: 'Noto Sans KR 을 불러오지 못했다 — 그리지 않았다' });
     missingPictures = []; failedSheets = [];
     // 같은 실행을 다시 불러오면 지우고 다시 그린다 - 새 페이지를 먼저 만든 뒤 옛 것을 지운다
     const old = figma.root.children.filter(pg => pg.getPluginData(PLUGIN_KEY) === p.run);
