@@ -1,9 +1,10 @@
 // Figma 쪽: UI 가 넘긴 storyboard.json 과 그림으로 plan() 의 계획을 그대로 그린다.
 // 판단은 plan.ts 에만 있다 - 여기서는 노드를 만들고 칸을 옮겨 적을 뿐이다.
-import { plan, lineH, count, type Node } from './plan.ts';
+import { plan, lineH, count, base, type Node, type Dims } from './plan.ts';
 
 const PLUGIN_KEY = 'storyboard-run';
-type Msg = { storyboard: string; images: Record<string, Uint8Array> };
+// images: `{파일 이름}#{조각 번호}` → PNG 조각, dims: 파일 이름 → 원본 [가로, 세로] px
+type Msg = { storyboard: string; images: Record<string, Uint8Array>; dims: Dims };
 
 figma.showUI(__html__, { width: 380, height: 320 });
 
@@ -22,7 +23,6 @@ function rgb(hex: string): RGB {
   return { r: (n >> 16 & 255) / 255, g: (n >> 8 & 255) / 255, b: (n & 255) / 255 };
 }
 const solid = (hex?: string | null): Paint[] => hex ? [{ type: 'SOLID', color: rgb(hex) }] : [];
-const base = (s: string) => s.split('/').pop() || s;
 
 let missingPictures: string[] = [];
 
@@ -44,13 +44,21 @@ function drawText(n: Node, layout?: 'V' | 'H'): TextNode {
   return t;
 }
 
-function drawImage(n: Node, images: Msg['images']): RectangleNode {
-  const r = figma.createRectangle();
-  r.resize(n.w!, n.h!);
-  const bytes = images[base(n.src || '')];
-  if (bytes) r.fills = [{ type: 'IMAGE', imageHash: figma.createImage(bytes).hash, scaleMode: 'FILL' }];
-  else { r.fills = solid('#EEEEEE'); missingPictures.push(n.src || '(경로 없음)'); }
-  return r;
+// 참고 그림: 조각 사각형을 장 프레임에 붙인 뒤 묶는다. 조각이 하나라도 없으면 모두 회색.
+function drawPicture(n: Node, parent: ChildrenMixin & BaseNode, images: Msg['images']): GroupNode {
+  const bytes = n.kids!.map(k => images[base(k.src || '')]);
+  const have = bytes.every(b => b);
+  if (!have) missingPictures.push(n.src || '(경로 없음)');
+  const rects = n.kids!.map((k, i) => {
+    const r = figma.createRectangle();
+    r.name = k.name; r.resize(k.w!, k.h!); parent.appendChild(r); r.x = k.x!; r.y = k.y!;
+    r.fills = have ? [{ type: 'IMAGE', imageHash: figma.createImage(bytes[i]).hash, scaleMode: 'FILL' }]
+      : solid('#EEEEEE');
+    return r;
+  });
+  const g = figma.group(rects, parent);
+  g.name = n.name; g.opacity = n.opacity ?? 1; g.locked = n.locked === true;
+  return g;
 }
 
 function drawFrame(n: Node): FrameNode {
@@ -75,9 +83,9 @@ function drawFrame(n: Node): FrameNode {
   return f;
 }
 
-function draw(n: Node, parent: ChildrenMixin, images: Msg['images'], layout?: 'V' | 'H'): SceneNode {
-  const node: SceneNode = n.t === 'text' ? drawText(n, layout)
-    : n.t === 'image' ? drawImage(n, images) : drawFrame(n);
+function draw(n: Node, parent: ChildrenMixin & BaseNode, images: Msg['images'], layout?: 'V' | 'H'): SceneNode {
+  if (n.t === 'group') return drawPicture(n, parent, images);
+  const node: SceneNode = n.t === 'text' ? drawText(n, layout) : drawFrame(n);
   node.name = n.name;
   parent.appendChild(node);
   if (n.t === 'frame') for (const k of n.kids || []) draw(k, node as FrameNode, images, n.layout);
@@ -94,7 +102,7 @@ function draw(n: Node, parent: ChildrenMixin, images: Msg['images'], layout?: 'V
 figma.ui.onmessage = async (msg: Msg) => {
   try {
     const sb = JSON.parse(msg.storyboard);
-    const p = plan(sb);
+    const p = plan(sb, msg.dims || {});
     await loadFonts();
     missingPictures = [];
     // 같은 실행을 다시 불러오면 지우고 다시 그린다 - 새 페이지를 먼저 만든 뒤 옛 것을 지운다

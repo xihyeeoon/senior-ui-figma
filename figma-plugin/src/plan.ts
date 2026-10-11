@@ -2,7 +2,7 @@
 // 파일은 언제나 같은 계획이 된다. 숫자는 모두 RULES.md 와 같다 (바꾸면 둘 다 고친다).
 
 export type Node = {
-  t: 'frame' | 'text' | 'image';
+  t: 'frame' | 'text' | 'image' | 'group';
   name: string;
   x?: number; y?: number; w?: number; h?: number;
   fill?: string | null; stroke?: string; dash?: number[]; radius?: number;
@@ -12,17 +12,20 @@ export type Node = {
   anchor?: 'right';          // x 가 오른쪽 끝 (그린 뒤 너비만큼 왼쪽으로)
   chars?: string; size?: number; bold?: boolean; color?: string;
   align?: 'L' | 'C'; underline?: boolean; trunc?: boolean;
-  src?: string;              // image: storyboard 폴더 기준 그림 경로
+  src?: string;              // image: storyboard 폴더 기준 그림 경로 (+ `#조각 번호`)
+  sheet?: string;            // group: 어느 장의 그림인지 (알림에 쓴다)
   kids?: Node[];
 };
 export type Page = { name: string; kids: Node[] };
 export type Plan = { run: string; pages: Page[] };
+export type Dims = Record<string, [number, number]>;   // 그림 파일 이름 → [가로, 세로] px
 
 const INK = '#000000', PAPER = '#FFFFFF', SUB = '#555555';
 export const MARK = { entrance: '과제 밖 입구', none: '누르면 변화 없음 — 확인 필요', fresh: '새 요소' };
 const MARK_FILL: Record<string, string> = {
   [MARK.entrance]: '#6B6B6B', [MARK.none]: '#D9480F', [MARK.fresh]: '#1C64F2' };
 const REF_NAME = '참고 — 로우파이 그림', REF_OPACITY = 0.4;
+export const MAX_PX = 4096;   // Figma createImage 가 받는 가로 · 세로 최대 (ui.html 과 같다)
 const CARD_W = 720, WF_TOP = 400;
 const ANN_GAP = 24, ANN_W = 360, ANN_PAD = 16, ANN_ITEM_GAP = 6;
 const COL_GAP = 160, ROW_GAP = 160;
@@ -55,6 +58,23 @@ function estimate(texts: Node[], innerW: number, pad: number, gap: number) {
 
 const txt = (chars: string, size: number, more: Partial<Node> = {}): Node =>
   ({ t: 'text', name: chars.slice(0, 40), chars, size, ...more });
+
+// 그림 자르기: 위→아래 줄마다 왼쪽→오른쪽, 조각 하나는 가로 · 세로 MAX_PX 이하 (ui.html 과 같다)
+const cuts = (n: number) => { const a: number[][] = [];
+  for (let p = 0; p < n; p += MAX_PX) a.push([p, Math.min(MAX_PX, n - p)]); return a; };
+export const tiles = (w: number, h: number) =>
+  cuts(h).flatMap(([y, th]) => cuts(w).map(([x, tw]) => [x, y, tw, th]));
+export const base = (s: string) => s.split('/').pop() || s;
+
+// 참고 그림 그룹: 조각마다 사각형 하나, 장 좌표 = 픽셀 ÷ 배율. 고른 그림의 크기를 모르면
+// 장 크기 × scale 을 그림 크기로 본다 (그 그림은 어차피 '그림 없음' 회색이 된다).
+function picture(s: any, w: number, h: number, dims: Dims): Node {
+  const [pw, ph] = dims[base(s.picture || '')] || [w * (s.scale || 1), h * (s.scale || 1)];
+  const k = s.scale || pw / w, ts = tiles(pw, ph);
+  return { t: 'group', name: REF_NAME, sheet: s.id, src: s.picture, opacity: REF_OPACITY,
+    locked: true, kids: ts.map(([x, y, tw, th], i): Node => ({ t: 'image', name: `조각 ${i + 1}/${ts.length}`,
+      x: x / k, y: y / k, w: tw / k, h: th / k, src: `${s.picture}#${i + 1}` })) };
+}
 
 export const labelOf = (it: any) => it.text || it.aria || `(${it.action})`;
 
@@ -146,7 +166,7 @@ function changesPage(sb: any, titleOf: (s: string) => string): Node[] {
       kids: [row(['id', '무엇', '왜', '어느 화면'], true, 0), ...rows] }];
 }
 
-export function plan(sb: any): Plan {
+export function plan(sb: any, dims: Dims = {}): Plan {
   const sheets: any[] = sb.sheets || [];
   const where = sb.original?.where ?? null;
   const byId = new Map(sheets.map(s => [s.id, s]));
@@ -179,7 +199,7 @@ export function plan(sb: any): Plan {
       const ann = annotation(s, title, where, titleOf);
       const annH = estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP);
       wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids: [
-        { t: 'image', name: REF_NAME, x: 0, y: 0, w, h, src: s.picture, opacity: REF_OPACITY, locked: true },
+        picture(s, w, h, dims),
         ...(s.items || []).map((it: any) => itemNode(it, where)),
         ...(s.regions || []).map(regionNode)] });
       wf.push({ t: 'frame', name: `주석 — ${title}`, x: x + w + ANN_GAP, y, w: ANN_W, layout: 'V',
