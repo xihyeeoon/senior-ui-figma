@@ -24,7 +24,7 @@ function rgb(hex: string): RGB {
 }
 const solid = (hex?: string | null): Paint[] => hex ? [{ type: 'SOLID', color: rgb(hex) }] : [];
 
-let missingPictures: string[] = [];
+let missingPictures: string[] = [], failedSheets: string[] = [];
 
 function drawText(n: Node, layout?: 'V' | 'H'): TextNode {
   const t = figma.createText();
@@ -44,16 +44,21 @@ function drawText(n: Node, layout?: 'V' | 'H'): TextNode {
   return t;
 }
 
-// 참고 그림: 조각 사각형을 장 프레임에 붙인 뒤 묶는다. 조각이 하나라도 없으면 모두 회색.
-function drawPicture(n: Node, parent: ChildrenMixin & BaseNode, images: Msg['images']): GroupNode {
+// 참고 그림: 조각 사각형을 장 프레임에 붙인 뒤 묶는다. 조각이 하나라도 없거나 createImage 가
+// 실패하면 그 장의 조각은 모두 회색으로 두고 계속 그린다.
+function imagePaints(n: Node, images: Msg['images']): Paint[][] | null {
   const bytes = n.kids!.map(k => images[base(k.src || '')]);
-  const have = bytes.every(b => b);
-  if (!have) missingPictures.push(n.src || '(경로 없음)');
+  if (!bytes.every(b => b)) { missingPictures.push(n.src || '(경로 없음)'); return null; }
+  try { return bytes.map(b => [{ type: 'IMAGE', imageHash: figma.createImage(b).hash, scaleMode: 'FILL' }]); }
+  catch { failedSheets.push(n.sheet || n.src || '?'); return null; }
+}
+
+function drawPicture(n: Node, parent: ChildrenMixin & BaseNode, images: Msg['images']): GroupNode {
+  const paints = imagePaints(n, images);
   const rects = n.kids!.map((k, i) => {
     const r = figma.createRectangle();
     r.name = k.name; r.resize(k.w!, k.h!); parent.appendChild(r); r.x = k.x!; r.y = k.y!;
-    r.fills = have ? [{ type: 'IMAGE', imageHash: figma.createImage(bytes[i]).hash, scaleMode: 'FILL' }]
-      : solid('#EEEEEE');
+    r.fills = paints ? paints[i] : solid('#EEEEEE');
     return r;
   });
   const g = figma.group(rects, parent);
@@ -104,7 +109,7 @@ figma.ui.onmessage = async (msg: Msg) => {
     const sb = JSON.parse(msg.storyboard);
     const p = plan(sb, msg.dims || {});
     await loadFonts();
-    missingPictures = [];
+    missingPictures = []; failedSheets = [];
     // 같은 실행을 다시 불러오면 지우고 다시 그린다 - 새 페이지를 먼저 만든 뒤 옛 것을 지운다
     const old = figma.root.children.filter(pg => pg.getPluginData(PLUGIN_KEY) === p.run);
     const made: PageNode[] = [];
@@ -122,7 +127,8 @@ figma.ui.onmessage = async (msg: Msg) => {
     const layers = p.pages.reduce((s, pg) => s + count(pg.kids), 0);
     figma.ui.postMessage({ ok: true, text: `다 그렸다 - 페이지 ${made.length} · 레이어 ${layers}`
       + ` · 지운 옛 페이지 ${old.length} · 그림 없음 ${missingPictures.length}`
-      + (missingPictures.length ? ` (${missingPictures.join(', ')})` : '') });
+      + (missingPictures.length ? ` (${missingPictures.join(', ')})` : '')
+      + ` · 그림 실패 ${failedSheets.length}` + (failedSheets.length ? ` (장 id ${failedSheets.join(', ')})` : '') });
   } catch (e) {
     figma.ui.postMessage({ ok: false, text: `그리지 못했다 - ${(e as Error).message || e}` });
   }
