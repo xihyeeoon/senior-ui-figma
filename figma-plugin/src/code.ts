@@ -4,7 +4,8 @@ import { plan, lineH, count, base, type Node, type Dims } from './plan.ts';
 
 const PLUGIN_KEY = 'storyboard-run';
 // images: `{파일 이름}#{조각 번호}` → PNG 조각, dims: 파일 이름 → 원본 [가로, 세로] px
-type Msg = { storyboard: string; images: Record<string, Uint8Array>; dims: Dims };
+// confirmed: 옛 페이지를 지워도 된다고 UI 에서 눌렀다
+type Msg = { storyboard: string; images: Record<string, Uint8Array>; dims: Dims; confirmed?: boolean };
 
 figma.showUI(__html__, { width: 380, height: 320 });
 
@@ -105,11 +106,13 @@ figma.ui.onmessage = async (msg: Msg) => {
   try {
     const sb = JSON.parse(msg.storyboard);
     const p = plan(sb, msg.dims || {});
+    // 같은 실행을 다시 불러오면 먼저 묻고, 새 페이지를 다 그린 뒤 옛 것을 지운다
+    const old = figma.root.children.filter(pg => pg.getPluginData(PLUGIN_KEY) === p.run);
+    if (old.length && !msg.confirmed) return figma.ui.postMessage({
+      ask: `옛 페이지 ${old.length}개를 지우고 다시 그린다. 디자이너가 고친 내용도 사라진다.`, yes: '지우고 다시 그리기' });
     if (!await loadFonts())   // 아무 노드도 만들기 전에 멈춘다
       return figma.ui.postMessage({ ok: false, text: 'Noto Sans KR 을 불러오지 못했다 — 그리지 않았다' });
     missingPictures = []; failedSheets = [];
-    // 같은 실행을 다시 불러오면 지우고 다시 그린다 - 새 페이지를 먼저 만든 뒤 옛 것을 지운다
-    const old = figma.root.children.filter(pg => pg.getPluginData(PLUGIN_KEY) === p.run);
     for (const pg of p.pages) {
       const page = figma.createPage();
       made.push(page);                                         // 도중에 멈춰도 치울 수 있게 먼저 적는다
