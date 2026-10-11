@@ -114,6 +114,20 @@ function itemNode(it: any, where: Record<string, unknown> | null): Node {
     opacity: it.disabled ? 0.4 : 1, clip: false, kids };
 }
 
+// 장 이름: 같은 title 이 둘 이상이면 그 장들만 '· {reveal 키 요소의 글}' (아니면 '· {state}') 을 붙이고,
+// 그래도 겹치면 ' ({sheets 순서 번호})'. 주석 · 결과 글 · 바꾼 것 표도 이 이름을 쓴다.
+function sheetNames(sheets: any[]): Map<any, string> {
+  const many = (names: string[], n: string) => names.filter(k => k === n).length > 1;
+  const titles = sheets.map(s => s.title || s.id);
+  const first = sheets.map((s, i) => {
+    if (!many(titles, titles[i])) return titles[i];
+    const key = /^reveal:(.+)$/.exec(s.state || '')?.[1];
+    const it = key && (s.items || []).find((it: any) => it.action === key);
+    return `${titles[i]} · ${it ? labelOf(it) : s.state ?? s.id}`;
+  });
+  return new Map(sheets.map((s, i) => [s, many(first, first[i]) ? `${first[i]} (${i + 1})` : first[i]]));
+}
+
 function regionNode(r: any): Node {
   const [x, y, w, h] = r.box;
   return { t: 'frame', name: `영역 ${r.no} · ${r.name}`, x, y, w, h, fill: null, stroke: '#7A7A7A',
@@ -172,7 +186,8 @@ export function plan(sb: any, dims: Dims = {}): Plan {
   const byId = new Map(sheets.map(s => [s.id, s]));
   const mainOf = new Map<string, any>();
   for (const s of sheets) if (s.main && !mainOf.has(s.screen)) mainOf.set(s.screen, s);
-  const titleOf = (screen: string) => mainOf.get(screen)?.title || screen;
+  const names = sheetNames(sheets);
+  const titleOf = (screen: string) => names.get(mainOf.get(screen)) ?? screen;
 
   // 1. 주요 장: 흐름 순서 (flow.steps 의 sheet), 흐름에 없는 주요 장은 sheets 순서로 뒤에
   const mains: any[] = [];
@@ -195,7 +210,7 @@ export function plan(sb: any, dims: Dims = {}): Plan {
   for (const col of cols) {
     let y = WF_TOP, colW = 0;
     for (const s of col) {
-      const [w, h] = s.size || DEFAULT_SIZE, title = s.title || s.id;
+      const [w, h] = s.size || DEFAULT_SIZE, title = names.get(s)!;
       const ann = annotation(s, title, where, titleOf);
       const annH = estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP);
       wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids: [
