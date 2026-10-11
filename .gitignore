@@ -1,0 +1,44 @@
+# Paths below are anchored with a leading slash on purpose. An unanchored
+# "logs/" also matches results/logs/, which is exactly the evidence we mean
+# to keep.
+
+# Secrets ---------------------------------------------------------------
+/.envs
+
+# Environment -----------------------------------------------------------
+/.venv/
+__pycache__/
+*.pyc
+
+# Run artefacts ---------------------------------------------------------
+# Everything under these is regenerable. The evidence worth keeping is
+# copied into results/, which IS tracked.
+/outputs/
+/logs/
+# 테스트가 쓰는 산출물 폴더 (SENIOR_UI_OUTPUTS). 서버가 서빙하는 범위 안에
+# 있어야 하므로 저장소 루트 아래에 둔다 - tests/test_restructure_bugs.py 참고.
+/.pytest-outputs/
+
+# OS --------------------------------------------------------------------
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 피험자 세션 데이터 -----------------------------------------------------
+# 사람에게서 받은 기록이다. 저장소는 재현에 필요한 코드와 근거만 담고,
+# 실험 데이터는 연구 데이터 관리 규정에 따라 따로 보관한다.
+/sessions/
+
+# 실제 앱 캡처 ---------------------------------------------------------
+# 신한 SOL 화면을 찍은 것으로 사람 이름이 보인다. 파일은 로컬에 두되
+# 추적하지 않는다. 원본 참조는 inputs/original_transfer.html 로만 한다.
+# (2026-10-01 에 git rm --cached 로 추적 해제. 히스토리에는 남아 있다 -
+#  아래 주석 참고.)
+/inputs/*.png
+
+# 개발용 서버의 재사용 확인 파일. 작업 트리마다 달라야 하므로 추적하지 않는다
+# (senior_ui/devserver.py 의 TREE_ID_REL).
+/.devserver-id
+
+# mock 실행이 쓰는 산출물 폴더 (tests/capture_baseline.py 의 MOCK_OUTPUTS)
+.mock-outputs/

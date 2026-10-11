@@ -1,0 +1,178 @@
+{
+  "id": "transfer",
+  "label": "이체",
+  "audience": "65세 이상 고령 사용자",
+  "note": [
+    "2026-10-08 대상 문구를 모집 기준(65세 이상)에 맞춤. 이전 실행은 '60대 이상 고령 사용자'."
+  ],
+  "description": [
+    "아래는 은행 앱의 이체 화면을 HTML 한 파일로 만든 것이다 (8화면). {{AUDIENCE}}가",
+    "**이체 과업 — 받는 사람 정하기, 계좌번호와 은행 넣기, 금액 넣기, 확인, 본인 확인, 완료 —",
+    "을 혼자서 끝낼 수 있도록** 이 화면들을 다시 설계하라."
+  ],
+  "original": "inputs/original_transfer.html",
+  "flow": "flows/original.json",
+  "done_expect": [
+    [
+      "#dn-amt",
+      "{AMOUNT_SHOWN}"
+    ]
+  ],
+  "required_truth": [
+    "ACCOUNT",
+    "AMOUNT",
+    "BANK",
+    "NAME"
+  ],
+  "keep_on_screen": {
+    "NAME": "recipient name"
+  },
+  "dialog_ok_values": [
+    "AMOUNT_SHOWN",
+    "AMOUNT",
+    "ACCOUNT"
+  ],
+  "required_error_paths": [
+    "wrong-account",
+    "wrong-bank"
+  ],
+  "not_choices": {},
+  "entrances": {
+    "note": [
+      "과제 밖 입구 - 과제 경로 위 화면에서 누를 수 있지만 이 과제에는 쓰지 않는 메뉴 · 버튼 (검사 K).",
+      "연구 원칙: 보여 주는 방식은 자유, 사용자가 할 수 있는 일은 줄이지 않는다 (연구자 결정 (나), 2026-10-06).",
+      "연구자 확정 2026-10-07 (11-7): A1 에서 누를 수 있는 것은 모두 보존한다. 선택지 데이터(메뉴 항목 · 납부 항목)는 검사 I 가 세므로 여기 없다.",
+      "id: T = 이체 경로 · B = 공과금 경로 · R = 더미앱에서는 범위 안이지만 원본 HTML 에서는 죽어 있던 요소.",
+      "action: 원본 HTML 에 붙인 data-action (ASCII - 분기를 읽는 규칙 audit/handlers.py 가 ASCII 만 읽는다). 원본의 처리기는 그것을 받고 아무 일도 하지 않는다.",
+      "label: 더미앱 OutOfScope 의 라벨 = 원본에 붙인 aria-label. text: 원본에 보이는 글자. 둘 다 판정에 쓰지 않는다 - 재시도 문구에 이름을 적고, 빌드에서 어떤 글자로 보였는지 기록할 때만 쓴다.",
+      "판정 (검사 K, 연구자 결정 2026-10-07): 원본을 걷는 동안 누를 수 있게 보인 입구마다, 빌드에 같은 data-action 이름(oos-*)을 가진 요소가 걷는 동안(reveal 포함) 누를 수 있게 보여야 한다 - 그려져 있고 disabled 가 아니다. 같은 화면이 아니어도 되고, 접어 두었으면 펼치는 조작을 reveal 에 적는다. 기술 계약이 oos-* 이름을 원본 그대로 두라고 한다."
+    ],
+    "source": "senior-ui-dummy-app 00834ca 의 OutOfScope · showOutOfScope 코드 - lib/screens/a1_home.dart · a1_transfer_entry.dart · a1_transfer_amount.dart · a1_transfer_done.dart (+ R1 menuEntry · R3 home_link_쉬운홈 · R4 home_nav_홈 은 범위 안이지만 원본 HTML 에서는 죽어 있던 요소). 표: 11-7 입구 후보표",
+    "items": [
+      {"id": "T1", "dummy": "home_header_메시지", "screen": "home", "action": "oos-message", "label": "메시지", "text": null, "remark": "원본에서는 글자 없는 그림 자리 (role=img, aria-label \"메시지 아이콘\", 11-11)"},
+      {"id": "T2", "dummy": "home_header_지갑", "screen": "home", "action": "oos-wallet", "label": "지갑", "text": null, "remark": "원본에서는 글자 없는 그림 자리 (role=img, aria-label \"지갑 아이콘\", 11-11)"},
+      {"id": "T3", "dummy": "home_header_알림", "screen": "home", "action": "oos-alarm", "label": "알림", "text": null, "remark": "원본에서는 글자 없는 그림 자리 (role=img, aria-label \"알림 아이콘\", 11-11)"},
+      {"id": "T4", "dummy": "home_irp_banner", "screen": "home", "action": "oos-irp", "label": "IRP 안내", "text": "절세혜택과 안정적인 노후, IRP로 준비하세요"},
+      {"id": "T5", "dummy": "home_button_앱카드 가입", "screen": "home", "action": "oos-appcard", "label": "앱카드 가입", "text": "앱카드 가입"},
+      {"id": "T6", "dummy": "home_pill_바로받기", "screen": "home", "action": "oos-get-coupon", "label": "바로받기", "text": "바로받기"},
+      {"id": "T7", "dummy": "home_dd_link_이벤트", "screen": "home", "action": "oos-event", "label": "이벤트", "text": "이벤트"},
+      {"id": "T8", "dummy": "home_dd_link_쿠폰", "screen": "home", "action": "oos-coupon", "label": "쿠폰", "text": "쿠폰"},
+      {"id": "T9", "dummy": "home_dd_link_포인트", "screen": "home", "action": "oos-point", "label": "포인트", "text": "포인트"},
+      {"id": "T10", "dummy": "home_spend_detail", "screen": "home", "action": "oos-spend-detail", "label": "소비 상세", "text": null, "remark": "원본 글자 › 는 다른 입구 · 목록 행에도 있어 이름으로 쓰지 않는다"},
+      {"id": "T11", "dummy": "home_point_promo", "screen": "home", "action": "oos-my-point", "label": "마이신한포인트", "text": "마이신한포인트"},
+      {"id": "T12", "dummy": "home_connect_banner", "screen": "home", "action": "oos-connect-event", "label": "자산 연결 이벤트", "text": "이벤트 바로가기"},
+      {"id": "T13", "dummy": "home_link_홈화면 설정", "screen": "home", "action": "oos-home-setting", "label": "홈화면 설정", "text": "홈화면 설정"},
+      {"id": "T14", "dummy": "home_link_금액 숨기기", "screen": "home", "action": "oos-hide-amount", "label": "금액 숨기기", "text": "금액 숨기기"},
+      {"id": "T15", "dummy": "home_nav_금융", "screen": "home", "action": "oos-tab-finance", "label": "금융", "text": "금융"},
+      {"id": "T16", "dummy": "home_nav_상품", "screen": "home", "action": "oos-tab-goods", "label": "상품", "text": "상품"},
+      {"id": "T17", "dummy": "home_nav_혜택", "screen": "home", "action": "oos-tab-benefit", "label": "혜택", "text": "혜택"},
+      {"id": "T18", "dummy": "home_nav_주식", "screen": "home", "action": "oos-tab-stock", "label": "주식", "text": "주식"},
+      {"id": "T19", "dummy": "transfer_entry_multi", "screen": "recipient", "action": "oos-multi-transfer", "label": "다건이체", "text": "다건이체"},
+      {"id": "T20", "dummy": "transfer_entry_payee_manage", "screen": "recipient", "action": "oos-payee-manage", "label": "받는 사람 관리", "text": null, "remark": "원본에서는 글자 없는 그림 자리 (role=img, aria-label \"받는 사람 관리 아이콘\", 11-11)"},
+      {"id": "T21", "dummy": "transfer_entry_search", "screen": "recipient", "action": "oos-search", "label": "검색", "text": null, "remark": "원본에서는 글자 없는 그림 자리 (role=img, aria-label \"검색 아이콘\", 11-11)"},
+      {"id": "T22", "dummy": "transfer_entry_section_자주쓰는 계좌", "screen": "recipient", "action": "oos-frequent", "label": "자주쓰는 계좌", "text": "자주쓰는 계좌", "remark": "줄 하나가 입구 하나 (편집 · 펼침을 따로 세지 않는다)"},
+      {"id": "T23", "dummy": "transfer_entry_section_내 계좌", "screen": "recipient", "action": "oos-my-accounts", "label": "내 계좌", "text": "내 계좌"},
+      {"id": "T24", "dummy": "transfer_entry_section_최근", "screen": "recipient", "action": "oos-recent", "label": "최근", "text": "최근"},
+      {"id": "T25", "dummy": "transfer_amount_from_account", "screen": "amount", "action": "oos-from-account", "label": "출금계좌 변경", "text": "[금융거래한도계좌2]신한 주거래 우대통장 계좌에서"},
+      {"id": "T26", "dummy": "transfer_done_pill_추가이체", "screen": "done", "action": "oos-more-transfer", "label": "추가이체", "text": "추가이체"},
+      {"id": "T27", "dummy": "transfer_done_pill_상세보기", "screen": "done", "action": "oos-detail", "label": "상세보기", "text": "상세보기"},
+      {"id": "T28", "dummy": "transfer_done_share", "screen": "done", "action": "oos-share", "label": "공유", "text": "공유"},
+      {"id": "R1", "dummy": "menuEntry", "screen": "home", "action": "oos-menu", "label": "전체메뉴", "text": null, "remark": "원본에서는 글자 없는 그림 자리 (role=img, aria-label \"전체메뉴 아이콘\", 11-11)"},
+      {"id": "R3", "dummy": "home_link_쉬운홈", "screen": "home", "action": "oos-easy-home", "label": "쉬운홈", "text": "쉬운홈"},
+      {"id": "R4", "dummy": "home_nav_홈", "screen": "home", "action": "oos-tab-home", "label": "홈", "text": "홈"}
+    ]
+  },
+  "prompt": {
+    "plan_errors": [
+      "원본의 오류 화면도 진단 대상이다. 오류를 어디서 어떻게 알리고 어디로 돌아가게 할지는",
+      "계획의 `errors` 에 오류마다 하나씩 적는다.",
+      "",
+      ""
+    ],
+    "plan_error_rule": [
+      "",
+      "- `errors` 에는 위 \"원본의 오류 조건\" 의 id 를 하나도 빠뜨리지 않는다. `screen` 과",
+      "  `back_to` 는 `screens` 에 있는 이름이다. 오류만 보이는 화면을 따로 둔다면 그 화면도",
+      "  `screens` 에 넣는다."
+    ],
+    "notes": [
+      "- 서버는 없다. 예금주 조회처럼 서버가 하던 조회는 원본에 있는 동작만, 원본이 보여 주는 값으로 흉내 낸다. 흉내 낸다는 것을 화면에 쓰지는 않는다."
+    ],
+    "rules": [
+      "- 완료 화면에는 보낸 금액을 담는 `id=\"dn-amt\"` 요소가 있어야 하고, 그 텍스트는 `32,000` 처럼",
+      "  천 단위 쉼표 숫자여야 한다.",
+      "- 과업: **다른 사람의 계좌로 돈을 보낸다.** 받는 은행, 계좌번호, 금액은 사용자가",
+      "  그때그때 입력한다. 잔액은 1,000,000원으로 둔다.",
+      "- **사용자가 입력해야 하는 값을 미리 채워 넣지 마라.** 계좌번호나 금액이 이미",
+      "  들어 있는 화면, 읽기 전용으로 값이 박힌 칸을 만들지 마라.",
+      "- **입력 화면을 생략하지 마라.** 계좌번호를 넣는 화면과 금액을 넣는 화면이 있어야 한다."
+    ],
+    "flow_example": [
+      "{",
+      "  \"name\": \"auto\",",
+      "  \"note\": \"한 줄 설명\",",
+      "  \"derived_from_original\": false,",
+      "  \"required_ids\": [\"phone\", \"dn-amt\", \"...\"],",
+      "  \"steps\": [",
+      "    {\"screen\": \"start\"},",
+      "    {\"screen\": \"who\", \"click\": \"[data-action='go-who']\"},",
+      "    {\"screen\": \"amount\", \"do\": [",
+      "      {\"type\": \"{ACCOUNT}\", \"key\": \"[data-action='acc-num'][data-v='%s']\"},",
+      "      {\"click\": \"#acc-next\"}",
+      "    ]},",
+      "    {\"screen\": \"sent\", \"do\": [",
+      "      {\"repeat\": 4, \"click\": \"#pwpad [data-action='pw']\", \"wait\": 0.15}",
+      "    ]}",
+      "  ],",
+      "  \"expect\": {},",
+      "  \"error_paths\": [",
+      "    {\"id\": \"<오류 id>\",",
+      "     \"from_step\": \"<갈라지는 곳: steps 의 screen 이름>\",",
+      "     \"inputs\": [{\"<동작>\": \"<steps 의 do 와 같은 형식, 잘못된 값은 자리표시자로>\"}],",
+      "     \"expect_screen\": \"<잘못된 입력 뒤에 있어야 할 화면 이름>\",",
+      "     \"expect_text_any\": [\"<알림 글에 들어 있는 낱말>\"],",
+      "     \"recover\": [{\"<동작>\": \"<되돌아가는 조작>\"}],",
+      "     \"back_to\": \"<되돌아간 뒤의 화면 이름>\"}",
+      "  ]",
+      "}"
+    ],
+    "flow_values": [
+      "- 치환 문자열: `{ACCOUNT}` = 110234567890, `{AMOUNT}` = 32000, `{AMOUNT_SHOWN}` = 32,000,",
+      "  `{BANK}` = 신한, `{NAME}` = 김철수.",
+      "  이 값들은 **검사기가 과업을 수행할 때 눌러 넣을 값**이다. 설계에 미리 채워 두라는",
+      "  뜻이 아니다. 사용자는 빈 화면에서 시작해 이 값을 직접 입력한다.",
+      "- `steps` 는 처음 보내는 계좌를 직접 입력하는 가장 긴 경로다. HTML 의 모든 화면은",
+      "  `steps` 나 `error_paths` (`expect_screen` · `back_to`) 중 하나가 지나가야 한다."
+    ],
+    "flow_errors": [
+      "",
+      "- `error_paths` 에는 \"원본의 오류 조건\" 의 오류마다 하나씩 적는다. 검사기는 정답대로",
+      "  `from_step` 까지 간 뒤 `inputs` 를 실행하고, `expect_screen` 에서 새로 나타난 글을",
+      "  찾고, `recover` 를 실행해 `back_to` 에 있는지 본다. `inputs` 의 잘못된 값은 위의",
+      "  자리표시자로만 넣는다. 버튼을 꺼서 막는 설계라면 꺼진 버튼은 누르지 않는다 —",
+      "  `expect_screen` 은 그 화면 그대로이고, 새로 보인 이유 글이 오류 상태다.",
+      "- `back_to` 는 `steps` 에 있는 화면이고 완료 화면(마지막 화면)이 아니다. 그 값을 고칠 수 있는",
+      "  화면이면 오류가 나타난 화면보다 앞이든 뒤든 된다 — 검사기가 `recover` 뒤에 실제로 거기 있는지 본다.",
+      "- `recover` 가 누르는 되돌아가는 버튼은 오류 상태에서만 보여도 된다. 검사기는 `inputs` 로 그 오류",
+      "  상태를 만든 뒤에 누른다 — 정답 경로 화면에 늘 보이게 둘 필요는 없다."
+    ],
+    "flow_done": [
+      "- `required_ids` 는 네 HTML 에 실제로 있는 id 만 적는다. `phone` 과 `dn-amt` 는 반드시 포함.",
+      "- 완료 화면은 `steps` 의 마지막 화면이다 (예시의 `sent` 도 그 설계의 마지막 화면 이름일 뿐이다).",
+      "  완료 화면의 `#dn-amt` 가 보낸 금액을 보이는지는 검사기가 과제에서 읽어 직접 확인하므로 `expect` 에",
+      "  적지 않아도 된다. `expect` 는 다른 값을 더 확인하고 싶을 때만 쓰고, 키는 `steps` 의 화면 이름이다."
+    ],
+    "errors_note": [
+      "오류는 계획의 `errors` 대로 알린다.",
+      "",
+      ""
+    ],
+    "plan_errors_form": [
+      ",",
+      "    \"errors\": [",
+      "      {\"id\": \"<오류 id>\", \"screen\": \"<오류를 알리는 화면 이름>\",",
+      "       \"how\": \"<어떻게 알리는가>\", \"back_to\": \"<고치러 돌아갈 화면 이름>\"}",
+      "    ]"
+    ]
+  }
+}

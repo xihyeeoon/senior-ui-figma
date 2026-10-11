@@ -1,0 +1,257 @@
+{
+  "model": "gpt-6.1-sol",
+  "model_source": "config.DEFAULT_MODEL",
+  "response_models": [],
+  "model_call": {
+    "api": "chat",
+    "reasoning": true,
+    "temperature": false,
+    "seed": true,
+    "family": "gpt-5+",
+    "known": true,
+    "length_param": "max_completion_tokens",
+    "encoding": "o200k_base(대체)",
+    "reasoning_effort": "medium"
+  },
+  "mock": "errors-undeclared",
+  "task": "transfer",
+  "audience": "65세 이상 고령 사용자",
+  "stage": "wireframe",
+  "stage_source": "config.DEFAULT_STAGE",
+  "budget_source": {
+    "format": "--attempts",
+    "audit": "--attempts",
+    "infra": "config.DEFAULT_BUDGET"
+  },
+  "preserved": {
+    "BANKS": 38,
+    "SECS": 29,
+    "AMT_KEYS": 11,
+    "ACC_KEYS": 10,
+    "PW_KEYS": 10,
+    "QUICK": 4
+  },
+  "plan": {
+    "attempt": 1,
+    "diagnosis": "<run>/attempt_1.diagnosis.json",
+    "diagnosis_count": 7,
+    "evidence_kinds": {
+      "screen": 0,
+      "code": 0,
+      "both": 0,
+      "missing": 7
+    },
+    "screens": [
+      "start",
+      "who",
+      "accno",
+      "bank",
+      "whoconfirm",
+      "amount",
+      "review",
+      "auth",
+      "done"
+    ],
+    "changes": 8,
+    "unaddressed": []
+  },
+  "repro": {
+    "temperature": null,
+    "seed": 20260101,
+    "response_model": null,
+    "system_fingerprint": null,
+    "openai_sdk": "<sdk>",
+    "prompt_template_sha256": "740790bea580eb8982a238510b48f0791eee4b3033dc488a0670bbdc075536cb"
+  },
+  "attempts": [
+    {
+      "n": 1,
+      "finish_reason": "stop",
+      "usage": null,
+      "repro": {
+        "temperature": null,
+        "seed": 20260101,
+        "response_model": null,
+        "system_fingerprint": null,
+        "openai_sdk": "<sdk>",
+        "prompt_template_sha256": "740790bea580eb8982a238510b48f0791eee4b3033dc488a0670bbdc075536cb"
+      },
+      "plan": "<run>/attempt_1.plan.json",
+      "calls": [
+        {
+          "stage": "plan",
+          "estimated_prompt": 19903,
+          "method": "tiktoken:o200k_base(대체)",
+          "max_tokens": 25000,
+          "usage": null,
+          "images": 15,
+          "estimated_images": 6330,
+          "image_method": "patch x1.2"
+        },
+        {
+          "stage": "generate",
+          "estimated_prompt": 15779,
+          "method": "tiktoken:o200k_base(대체)",
+          "max_tokens": 32000,
+          "usage": null,
+          "images": 0,
+          "estimated_images": 0
+        }
+      ],
+      "plan_call": {
+        "finish_reason": "stop",
+        "usage": null,
+        "seconds": 0.0
+      },
+      "model_claims_dropped": [
+        "truth"
+      ],
+      "preserved": {
+        "injected": {
+          "BANKS": 38,
+          "SECS": 29,
+          "AMT_KEYS": 11,
+          "ACC_KEYS": 10,
+          "PW_KEYS": 10,
+          "QUICK": 4
+        },
+        "redeclared": [],
+        "read": [
+          "BANKS",
+          "SECS",
+          "AMT_KEYS",
+          "QUICK"
+        ]
+      },
+      "html": "<run>/attempt_1.html",
+      "flow": "<run>/attempt_1.flow.json",
+      "model_html": "<run>/attempt_1.model.html",
+      "stage": "flow",
+      "passed": false,
+      "fatal": 2
+    }
+  ],
+  "passed": false,
+  "final": {
+    "attempt": 1,
+    "html": "<run>/attempt_1.html",
+    "flow": "<run>/attempt_1.flow.json",
+    "audit": "<run>/attempt_1.audit.json",
+    "plan": "<run>/attempt_1.plan.json",
+    "diagnosis": "<run>/attempt_1.diagnosis.json",
+    "preserved": {
+      "injected": {
+        "BANKS": 38,
+        "SECS": 29,
+        "AMT_KEYS": 11,
+        "ACC_KEYS": 10,
+        "PW_KEYS": 10,
+        "QUICK": 4
+      },
+      "redeclared": [],
+      "read": [
+        "BANKS",
+        "SECS",
+        "AMT_KEYS",
+        "QUICK"
+      ]
+    },
+    "model_html": "<run>/attempt_1.model.html"
+  },
+  "budget": {
+    "format_used": 1,
+    "format_budget": 1,
+    "audit_used": 0,
+    "audit_budget": 1,
+    "infra_used": 0,
+    "infra_budget": 3
+  },
+  "stopped_reason": "budget_exhausted",
+  "trend": [],
+  "git": {
+    "commit": "<commit>",
+    "branch": "<branch>",
+    "dirty": "<dirty>",
+    "dirty_files": "<dirty_files>"
+  },
+  "tokens": {
+    "method": "tiktoken:o200k_base(대체)",
+    "by_stage": {
+      "plan": {
+        "calls": 1,
+        "estimated_prompt": 19903,
+        "images": 15,
+        "estimated_images": 6330,
+        "max_tokens": 25000,
+        "prompt": null,
+        "completion": null,
+        "reasoning": null
+      },
+      "generate": {
+        "calls": 1,
+        "estimated_prompt": 15779,
+        "images": 0,
+        "estimated_images": 0,
+        "max_tokens": 32000,
+        "prompt": null,
+        "completion": null,
+        "reasoning": null
+      }
+    },
+    "total": {
+      "calls": 2,
+      "estimated_prompt": 35682,
+      "images": 15,
+      "estimated_images": 6330,
+      "max_tokens": 57000,
+      "prompt": null,
+      "completion": null,
+      "reasoning": null
+    },
+    "first_attempt": {
+      "calls": 2,
+      "estimated_prompt": 35682,
+      "images": 15,
+      "estimated_images": 6330,
+      "max_tokens": 57000,
+      "prompt": null,
+      "completion": null,
+      "reasoning": null
+    }
+  },
+  "ratelimit": null,
+  "cost": {
+    "currency": "USD",
+    "price_model": "gpt-6.1-sol",
+    "per_million": {
+      "input": 2.0,
+      "output": 10.0
+    },
+    "by_attempt": [
+      {
+        "attempt": 1,
+        "usd": null
+      }
+    ],
+    "total_usd": null,
+    "note": "입력 x input + 출력(생각 포함) x output, 100만 토큰당. 캐시 할인 미반영 (상한)"
+  },
+  "see": {
+    "on": true,
+    "source": "기본값 (켜짐)",
+    "original_images": 15
+  },
+  "refine": {
+    "budget": 0,
+    "source": "config.DEFAULT_REFINE",
+    "rounds": [],
+    "final_from": null,
+    "final_label": null,
+    "reverted": null,
+    "format_failures": 0,
+    "audit_failures": 0
+  },
+  "original": "inputs/original_transfer.html",
+  "original_sha256": "f76a8b2f9226e20bfc521325c0b0d0cb040d3ce3f958c9a3376377a7b6141e63",
+  "entrance_distance": null
+}

@@ -1,0 +1,950 @@
+r"""정리 전의 동작을 기준값으로 한 번 뽑는다.
+
+구조 정리는 동작을 바꾸지 않아야 한다. 그 "바꾸지 않았음" 을 사람 눈이 아니라
+파일 비교로 확인하려면 정리 전 출력이 디스크에 있어야 한다. 이 스크립트가 그
+출력을 만들고, tests/test_baseline.py 와 tests/test_drive.py 가 그것과 비교한다.
+
+senior_ui/ 는 한 줄도 건드리지 않는다. 전부 tests/_api.py 를 거쳐 호출한다.
+
+  [1] audit.py main() 과 같은 순서로 4가지 경우
+      원본 vs 원본 / Run1 / Run2 / Run3
+  [2] retry_block (실제 리포트 3개 + 합성 리포트 1개) + brief_failure
+  [3] 재구성 프롬프트 조립 (choices_block + 첫 시도 / 재시도 프롬프트 전문)
+  [4] parse_reply / mock_reply
+  [5] mock 실행 (--mock pass / fail / preserved-all / -some / -none)
+  [6] 가짜 세션 4건으로 session_report
+  [7] senior_ui.audit.report (여러 audit 를 나란히 놓는 md, --details 포함)
+  [8] 공과금 과제 (baseline/bill/): 원본 대 원본 · 프롬프트 · mock bill-identity
+  [9] 화면설계서 (baseline/storyboard/): mock pass 실행 · 저장된 이체 답 · 저장된 공과금
+      답의 storyboard.json (영역은 --mock 의 정해진 답, 그림은 기준값으로 두지 않는다)
+
+빌드는 results/ 를 쓴다. outputs/ 는 .gitignore 에 있어 PC 마다 내용이 달라서
+기준값의 입력으로 쓸 수 없다.
+
+Usage:
+  .\.venv\Scripts\python.exe tests/capture_baseline.py
+  .\.venv\Scripts\python.exe tests/capture_baseline.py --out <다른 폴더>
+  .\.venv\Scripts\python.exe tests/capture_baseline.py --only bill
+
+--only bill 은 baseline/bill/ 만, --only storyboard 는 baseline/storyboard/ 만 지우고
+다시 뽑는다. 이체 기준값은 건드리지 않는다 - 전체를 다시 뽑으면 원본의 비밀번호 숫자판이 다시 섞여 스냅샷 파일이
+바이트 단위로 달라진다 (비교에서는 빼는 값이지만 파일은 바뀐다).
+"""
+import argparse
+import asyncio
+import copy
+import hashlib
+import io
+import json
+import os
+import shutil
+import subprocess
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
+
+import _api                                                  # noqa: E402
+
+# 브라우저가 여는 서버의 주소. 서버를 띄운 뒤 use_port 가 실제 포트로 맞춘다 - 기본은
+# 빈 포트라 실행마다 다르다 (config.AUTO_PORT). 테스트의 server fixture 도 같다. 아래
+# 값은 서버를 띄우기 전의 자리 채움이다.
+BASE_URL = _api.config_module.base_url()
+
+
+def original_groups(orig, flow):
+    """생성물을 걸을 때 넘기는 원본의 선택지 무리 이름 - 검사기 CLI · 루프와 같은 것
+    (i_choices.original_groups). 원본을 먼저 걷고 그 결과로 만든다."""
+    return _api.i_choices_module.original_groups(orig, flow)
+
+
+def use_port(port):
+    """이 프로세스의 브라우저가 여는 서버의 포트를 정한다 (BASE_URL)."""
+    global BASE_URL
+    BASE_URL = _api.config_module.base_url(port)
+
+# (이름, 빌드 파일의 루트 기준 경로, 흐름 파일 이름 - None 이면 원본 흐름)
+CASES = [
+    ("original_vs_original", "inputs/original_transfer.html", None),
+    ("run1", "results/restructured_transfer.html", "restructured.json"),
+    ("run2", "results/restructured_run2.html", "run2.json"),
+    ("run3", "results/restructured_run3.html", "run3.json"),
+]
+ORIGINAL_REL = "inputs/original_transfer.html"
+
+# [7] senior_ui.audit.report 의 입력. 브라우저가 필요 없고 audit JSON 네 개만
+# 읽는다. 테스트도 이 값을 그대로 쓴다 (한곳에만 적는다).
+#
+# 입력은 tests/fixtures/report/ 에 있다. results/ 를 직접 읽지 않는 이유는 그
+# 폴더가 파이프라인의 산출물이어서다 - 다시 검사하면 내용이 바뀌고, 그러면
+# 리포트 기준값이 "report.py 가 달라졌는지" 가 아니라 "검사 결과가 달라졌는지"
+# 를 따라 흔들린다. 여기 있는 사본은 집계 버그를 고친 뒤의 Run 1~4
+# (results/audit_*.v2.json) 이고, 고정물이므로 손으로만 바꾼다.
+FIXTURE_REPORT = "tests/fixtures/report"
+REPORT_ARGS = ["Run1=%s/audit_restructured.v2.json" % FIXTURE_REPORT,
+               "Run2=%s/audit_run2.v2.json" % FIXTURE_REPORT,
+               "Run3=%s/audit_run3.v2.json" % FIXTURE_REPORT,
+               "Run4=%s/audit_run4.v2.json" % FIXTURE_REPORT]
+# (기준값 파일 이름, 덧붙일 인자)
+REPORT_OUTPUTS = [("four_runs.md", []),
+                  ("four_runs.details.md", ["--details"])]
+
+
+def say(msg):
+    print(msg, flush=True)
+
+
+# --------------------------------------------------------------------- #
+# 서버 - senior_ui/devserver.py 하나를 쓴다 (테스트의 server fixture 도 같다)
+# --------------------------------------------------------------------- #
+listening = _api.listening
+# 루프백에만 묶는 http.server 명령 (devserver.server_cmd). 아무것도 주지 않으면
+# 0.0.0.0 에 열려, 같은 망의 누구나 .envs 를 포함한 프로젝트 루트를 받아 간다.
+server_cmd = _api.devserver_module.server_cmd
+
+
+class _Reused(object):
+    """이미 떠 있던 서버. 끝에서 건드리지 않는다."""
+    pid = None
+
+    def terminate(self):
+        pass
+
+    def wait(self):
+        pass
+
+
+def start_server(port=_api.config_module.AUTO_PORT):
+    """이 작업 트리를 띄운다 (devserver.ensure_server). 기본은 빈 포트에 이 캡처만의
+    서버다 - 같은 포트를 명시하지 않으면 다른 실행 · 테스트와 동시에 돌려도 된다.
+
+    --port 로 포트를 주면 이미 떠 있는 서버가 **이 작업 트리를** 서빙하는지 확인 파일로
+    보고 재사용한다 - 기준값은 서빙 내용에 전적으로 달려 있으므로, 다른 worktree · 다른
+    폴더 · 대시보드 서버면 멈춘다."""
+    try:
+        proc = _api.ensure_server(say, port=port)
+    except RuntimeError as e:
+        raise SystemExit("멈췄습니다: %s" % e)
+    use_port(getattr(proc, "port", None) or port)
+    return proc or _Reused()
+
+
+# --------------------------------------------------------------------- #
+# 저장
+# --------------------------------------------------------------------- #
+def dump(path, obj):
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    with io.open(path, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
+def dump_text(path, text):
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    with io.open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(text)
+
+
+def read(path):
+    return io.open(path, encoding="utf-8").read()
+
+
+def sha(text):
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+# --------------------------------------------------------------------- #
+# [1] audit.py main() 과 같은 순서로 4가지 경우
+# --------------------------------------------------------------------- #
+def flow_path_of(flow_name):
+    return os.path.join(ROOT, "flows", flow_name or "original.json")
+
+
+def capture_cases(out):
+    orig_html = read(os.path.join(ROOT, ORIGINAL_REL))
+    orig_url = "%s/%s" % (BASE_URL, ORIGINAL_REL)
+    reports = {}
+
+    for name, rel, flow_name in CASES:
+        flow_path = flow_path_of(flow_name)
+        rep_url = "%s/%s" % (BASE_URL, rel)
+        rep_html = read(os.path.join(ROOT, rel))
+
+        # audit.py main() 과 같은 순서:
+        #   흐름 읽기 -> 원본 drive -> 빌드 drive (원본의 무리 이름) -> audit() -> apply_stage
+        flow = _api.load_flow(flow_path)
+        base_flow = _api.load_flow(None) \
+            if not flow.get("derived_from_original", True) else flow
+
+        say("  %s: 원본 drive" % name)
+        orig = asyncio.run(_api.drive(orig_url, base_flow,
+                                      errors=base_flow is flow))
+        say("  %s: 빌드 drive (%s)" % (name, rel))
+        rep = asyncio.run(_api.drive(rep_url, flow,
+                                     original_groups=original_groups(orig, flow)))
+
+        report = _api.audit(orig, rep, orig_html, rep_html, flow)
+        d = os.path.join(out, name)
+        dump(os.path.join(d, "snapshots.json"), {"orig": orig, "rep": rep})
+        dump(os.path.join(d, "audit.json"), report)
+        # apply_stage 는 리포트를 제자리에서 바꾼다. 사본을 넘긴다.
+        for stage in ("styled", "wireframe"):
+            dump(os.path.join(d, "audit.%s.json" % stage),
+                 _api.apply_stage(copy.deepcopy(report), stage))
+        if flow_name:
+            dump(os.path.join(d, "validate_flow.json"),
+                 _api.validate_flow(copy.deepcopy(flow), rep_html))
+        m = report["metrics"]
+        say("    -> fatal %d / warning %d / 화면 %s/%s"
+            % (len(report["fatal"]), len(report["warning"]),
+               m.get("screens_reached"), m.get("screens_expected")))
+        reports[name] = (report, rep_html, flow_path)
+    return reports
+
+
+# --------------------------------------------------------------------- #
+# [2] retry_block
+# --------------------------------------------------------------------- #
+# 합성 리포트. 실제 실행에서는 한자리에 모이기 어려운 세 가지를 일부러 함께
+# 넣는다: 파생 fatal, stack 이 붙은 JS 오류, Playwright 로그 형식의 detail.
+SYNTH_LINES = 420
+SYNTH_HTML = "\n".join('  <div class="row">줄 %d</div>' % i
+                       for i in range(1, SYNTH_LINES + 1))
+SYNTH_FLOW_TEXT = json.dumps(
+    {"name": "synthetic", "derived_from_original": False,
+     "required_ids": ["phone", "dn-amt"],
+     "steps": [{"screen": "start"},
+               {"screen": "amount", "click": "[data-action='go-amount']"}],
+     "expect": {"done": [["#dn-amt", "{AMOUNT_SHOWN}"]]}},
+    ensure_ascii=False, indent=2)
+
+PLAYWRIGHT_DETAIL = (
+    "TimeoutError: Locator.click: Timeout 30000ms exceeded.\n"
+    "Call log:\n"
+    '  - waiting for locator("[data-action=\'go-amount\']")\n'
+    '  -   locator resolved to <button disabled data-action="go-amount">'
+    "다음</button>\n"
+    "  - attempting click action\n"
+    "  -   waiting for element to be visible, enabled and stable\n"
+    "  -   element is not enabled\n"
+    "  - retrying click action\n"
+    " || [data-action='go-amount'] 는 'review' 화면에 있는데 지금 켜진 화면은 "
+    "'amount' 이다. 요소가 아니라 화면 전환을 확인하라."
+)
+
+SYNTH_REPORT = {
+    "passed": False,
+    "fatal": [
+        {"check": "A", "screen": None,
+         "detail": "JavaScript errors during the task: "
+                   "ReferenceError: S is not defined"},
+        {"check": "A", "screen": "amount",
+         "detail": "navigation failed: " + PLAYWRIGHT_DETAIL},
+        {"check": "A", "screen": "review",
+         "detail": "never reached - consequence of stopping at 'amount'",
+         "derived_from": "amount"},
+        {"check": "A", "screen": "done",
+         "detail": "never reached - consequence of stopping at 'amount'",
+         "derived_from": "amount"},
+    ],
+    "warning": [],
+    "metrics": {
+        "flow": "synthetic",
+        "js_error_details": [
+            {"name": "ReferenceError",
+             "message": "ReferenceError: S is not defined",
+             "stack": "ReferenceError: S is not defined\n"
+                      "    at HTMLButtonElement.<anonymous> "
+                      "(http://localhost:3003/synthetic.html:412:7)"},
+            {"name": "ReferenceError",
+             "message": "ReferenceError: S is not defined",
+             "stack": "ReferenceError: S is not defined\n"
+                      "    at show (http://localhost:3003/synthetic.html:412:7)"},
+        ],
+    },
+}
+
+
+def capture_retry_block(out, reports):
+    d = os.path.join(out, "retry_block")
+    for name, (report, rep_html, flow_path) in reports.items():
+        if name == "original_vs_original":
+            continue                      # b~d 만
+        dump_text(os.path.join(d, "%s.txt" % name),
+                  _api.retry_block(copy.deepcopy(report), rep_html,
+                                   read(flow_path)))
+    dump_text(os.path.join(d, "synthetic.txt"),
+              _api.retry_block(copy.deepcopy(SYNTH_REPORT), SYNTH_HTML,
+                               SYNTH_FLOW_TEXT))
+    # brief_failure 는 retry_block 안에서 쓰이지만, 긴 Playwright 로그를 한 줄로
+    # 접는 부분만 따로 고정해 둔다. 그 접기가 바뀌면 여기서 바로 드러난다.
+    dump_text(os.path.join(out, "brief_failure.txt"),
+              _api.brief_failure(PLAYWRIGHT_DETAIL) + "\n")
+    say("  retry_block: run1 / run2 / run3 / synthetic, brief_failure")
+
+
+# --------------------------------------------------------------------- #
+# [3] 재구성 프롬프트 조립
+# --------------------------------------------------------------------- #
+# 재시도 프롬프트에 넣을 retry_block. 셋 중 하나만 고정하면 된다 - retry_block
+# 자체는 [2] 에서 세 실행 + 합성까지 이미 고정했고, 여기서 보는 것은 그 블록이
+# 템플릿의 슬롯에 들어간 뒤의 프롬프트 전문이다.
+PROMPT_RETRY_CASE = "run1"
+
+
+def capture_prompt(out):
+    """choices_block 과 프롬프트 전문을 고정한다.
+
+    원본 스냅샷은 [1] 이 방금 저장한 것을 다시 읽는다. 브라우저를 또 띄우지
+    않으므로 입력이 고정되고, 따라서 출력도 고정되어야 한다 - 비밀번호 숫자판이
+    섞여도 choices_block 은 값을 세기만 하므로 결과가 흔들리지 않는다
+    (tests/README.md)."""
+    orig_html = read(os.path.join(ROOT, ORIGINAL_REL))
+    snaps = json.load(io.open(os.path.join(out, "original_vs_original",
+                                           "snapshots.json"), encoding="utf-8"))
+    choices = _api.choices_block(snaps["orig"], orig_html)
+    template = _api.load_template()
+    retry = read(os.path.join(out, "retry_block", "%s.txt" % PROMPT_RETRY_CASE))
+    plan = prompt_plan()
+
+    d = os.path.join(out, "prompt")
+    dump_text(os.path.join(d, "choices_block.txt"), choices)
+    dump_text(os.path.join(d, "plan.txt"), plan_prompt(orig_html, choices))
+    dump_text(os.path.join(d, "attempt_1.txt"),
+              _api.build_prompt(template, model_html(orig_html), "", choices, plan))
+    dump_text(os.path.join(d, "retry_%s.txt" % PROMPT_RETRY_CASE),
+              _api.build_prompt(template, model_html(orig_html),
+                                _api.prompt_module.with_reflection(retry),
+                                choices, plan))
+    say("  prompt: choices_block, 진단·계획, 첫 시도, 재시도(%s)" % PROMPT_RETRY_CASE)
+
+
+def prompt_plan():
+    """프롬프트 기준값에 넣는 계획. mock 이 쓰는 그 계획이다 (model.MOCK_PLAN) -
+    루프가 넣는 것과 같은 모양으로 적는다 (loop.plan_text)."""
+    return json.dumps(_api.model_module.MOCK_PLAN, ensure_ascii=False, indent=2)
+
+
+def model_html(orig_html):
+    """루프가 모델에 보내는 원본 - 주석 · 실험 장치 코드를 뺀 것 (prompt.model_input_html). 선택지
+    요약은 원본 그대로로 만든다 (루프와 같다)."""
+    return _api.prompt_module.model_input_html(orig_html)
+
+
+def plan_prompt(orig_html, choices):
+    """진단·계획 프롬프트 전문 (첫 호출, 재시도 블록 없음)."""
+    return _api.build_plan_prompt(_api.load_plan_template(), model_html(orig_html), choices,
+                                  _api.plan_module.screens_in(orig_html))
+
+
+# --------------------------------------------------------------------- #
+# [4] parse_reply / mock_reply
+# --------------------------------------------------------------------- #
+def capture_parse_reply(out):
+    """mock_reply 가 만든 답을 parse_reply 로 되읽는다. HTML 은 28KB 라 해시만
+    남긴다 - 바뀌었는지 알아내는 데는 그것으로 충분하다."""
+    got = {}
+    for mode in ("pass", "fail"):
+        reply = _api.mock_reply(mode)
+        html, flow, flow_text = _api.parse_reply(reply["text"])
+        got[mode] = {
+            "reply_finish_reason": reply["finish_reason"],
+            "reply_text_sha256": sha(reply["text"]),
+            "html_len": len(html),
+            "html_sha256": sha(html),
+            "flow": flow,
+            "flow_text_sha256": sha(flow_text),
+        }
+    dump(os.path.join(out, "parse_reply.json"), got)
+    say("  parse_reply: mock pass / fail")
+
+
+# --------------------------------------------------------------------- #
+# [5] mock 실행
+# --------------------------------------------------------------------- #
+def strip_volatile(summary):
+    """실행마다 바뀌는 값을 지운다: run_dir, 경로 속 타임스탬프, seconds.
+
+    재현 기록의 `openai_sdk` 는 설치된 SDK 판이라 PC 마다 다르다. 지우지 않고
+    자리만 바꿔 둔다 - 값은 비교하지 않되 "기록이 있다" 는 것은 비교한다.
+    """
+    s = copy.deepcopy(summary)
+    run_dir = (s.pop("run_dir", None) or "").replace("\\", "/")
+
+    def fix_repro(d):
+        if isinstance(d.get("repro"), dict) and "openai_sdk" in d["repro"]:
+            d["repro"]["openai_sdk"] = "<sdk>"
+
+    fix_repro(s)
+
+    root = ROOT.replace("\\", "/")
+
+    def fix(p):
+        if not isinstance(p, str) or not run_dir:
+            return p
+        # 실행 폴더 밖이지만 저장소 안인 것(승격된 사본)은 <root> 로
+        return p.replace("\\", "/").replace(run_dir, "<run>").replace(root, "<root>")
+
+    # 실행 폴더 아래를 가리키는 경로는 모두 <run> 으로 바꾼다. 키를 손으로
+    # 적어 두면 새 산출물(model_html 등)이 늘 때마다 PC 마다 다른 절대
+    # 경로가 기준값에 섞인다 - 그러면 기준값이 PC 를 따라 흔들린다.
+    for a in s.get("attempts") or []:
+        a.pop("seconds", None)
+        fix_repro(a)
+        for k, v in list(a.items()):
+            if isinstance(v, str):
+                a[k] = fix(v)
+    # 커밋과 작업 트리는 기준값을 뽑을 때마다 다르다. 자리만 남긴다 - 값은
+    # 비교하지 않되 "기록이 있다" 는 것은 비교한다.
+    if isinstance(s.get("git"), dict):
+        s["git"] = {k: "<%s>" % k for k in s["git"]}
+    for key in ("final", "plan"):
+        for k, v in list((s.get(key) or {}).items()):
+            if isinstance(v, str):
+                s[key][k] = fix(v)
+    # 보고 다듬기(11-5)의 회차 기록도 실행 폴더 아래 파일(비평 · 전후 스크린샷)을
+    # 가리킨다.
+    for row in (s.get("refine") or {}).get("rounds") or []:
+        for k, v in list(row.items()):
+            if isinstance(v, str):
+                row[k] = fix(v)
+    return s
+
+
+def ensure_mock_input():
+    """mock_reply 는 outputs/restructured_transfer.html 을 읽는다. outputs/ 는
+    추적하지 않으므로 없을 수 있다. 그때만 results/ 의 사본을 둔다."""
+    dst = os.path.join(ROOT, "outputs", "restructured_transfer.html")
+    if os.path.exists(dst):
+        return False
+    src = os.path.join(ROOT, "results", "restructured_transfer.html")
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    shutil.copy2(src, dst)
+    return True
+
+
+MOCK_RUNS = [
+    ("mock_pass", ["--mock", "pass", "--attempts", "1"]),
+    ("mock_fail", ["--mock", "fail", "--attempts", "2", "--delay", "0"]),
+    # 같은 실패가 되풀이되면 예산이 남아도 멈춘다 (막힘, loop.stuck_on). preserved-some 은
+    # 시도마다 같은 빌드라 검사 I 의 같은 fatal 로 떨어진다 - 예산 3 중 2 에서 멈춘다.
+    ("mock_stuck", ["--mock", "preserved-some", "--attempts", "3", "--delay", "0"]),
+    # 선택지 데이터를 도구가 지키는 장치의 세 경우. 셋은 Run 1 빌드의 은행
+    # 목록 한 줄에서만 다르고, 그 한 줄 때문에 각각 다른 자리에서 갈린다.
+    ("mock_preserved_all", ["--mock", "preserved-all", "--attempts", "1"]),
+    ("mock_preserved_some", ["--mock", "preserved-some", "--attempts", "1"]),
+    ("mock_preserved_none", ["--mock", "preserved-none", "--attempts", "1"]),
+    # 오류 경로의 두 경우. pass 빌드에서 오류 처리를 뺀 것이고, 오류 경로를
+    # 흐름에 적지 않았으면 형식 검사가, 적었으면 검사 J 가 잡는다.
+    ("mock_errors_undeclared", ["--mock", "errors-undeclared", "--attempts", "1"]),
+    ("mock_errors_unhandled", ["--mock", "errors-unhandled", "--attempts", "1"]),
+    # 과제 밖 입구(검사 K)의 세 경우. 다른 모드는 첫 화면에 입구를 모두 보이게
+    # 넣는다 (model.ENTRANCE_MODES). 지운 빌드는 K 에서 떨어지고, [다른 메뉴] 를
+    # 눌러야 그리거나 접어 둔 빌드는 흐름 명세의 reveal 로 펼쳐 보아 통과한다.
+    ("mock_entrances_none", ["--mock", "entrances-none", "--attempts", "1"]),
+    ("mock_entrances_reveal", ["--mock", "entrances-reveal", "--attempts", "1"]),
+    ("mock_entrances_folded", ["--mock", "entrances-folded", "--attempts", "1"]),
+]
+
+# mock 실행이 쓸 산출물 폴더. 실제 outputs/ 와 떼어 놓는다.
+#
+# 통과한 빌드는 outputs/restructured_auto.* 로 복사된다 (loop.copy_final).
+# 그 이름은 뷰어와 실험 조건이 "지금 쓰는 재구성본" 으로 읽는 것인데,
+# preserved-all 모드는 실제로 통과하므로 기준값을 뽑거나 테스트를 돌릴
+# 때마다 그 파일이 mock 결과로 덮인다. 저장소 루트 **안** 에 두는 이유는
+# 검사기가 빌드를 devserver 가 서빙하는 http:// 로 열기 때문이다.
+MOCK_OUTPUTS = os.path.join(ROOT, ".mock-outputs")
+
+
+def run_mock(args):
+    cmd = [sys.executable, "-m", "senior_ui.restructure"] + args
+    env = dict(os.environ, PYTHONIOENCODING="utf-8",
+               SENIOR_UI_OUTPUTS=MOCK_OUTPUTS)
+    p = subprocess.run(cmd, cwd=ROOT, env=env, capture_output=True, text=True,
+                       encoding="utf-8", errors="replace")
+    hits = [l for l in (p.stdout or "").splitlines() if " summary: " in l]
+    if not hits:
+        raise SystemExit("mock 실행에서 summary 경로를 찾지 못했습니다.\n"
+                         "stdout:\n%s\nstderr:\n%s"
+                         % ((p.stdout or "")[-2000:], (p.stderr or "")[-2000:]))
+    path = hits[-1].split(" summary: ", 1)[1].strip()
+    return json.load(io.open(path, encoding="utf-8")), p.returncode
+
+
+def capture_mock(out):
+    copied = ensure_mock_input()
+    for name, args in MOCK_RUNS:
+        say("  %s: python -m senior_ui.restructure %s" % (name, " ".join(args)))
+        summary, code = run_mock(args)
+        dump(os.path.join(out, "%s.json" % name), strip_volatile(summary))
+        say("    -> passed=%s exit=%d" % (summary.get("passed"), code))
+    return copied
+
+
+# --------------------------------------------------------------------- #
+# [6] 가짜 세션 + session_report
+# --------------------------------------------------------------------- #
+# web/session.html 이 /api/session 으로 보내는 그 형식이다 (participant /
+# condition / condition_label / order_index / task / instruction / completed /
+# started_at / elapsed_ms / screen_size / user_agent / metrics / log).
+# 파일 이름은 senior_ui/experiment/server.py 가 붙이는 규칙
+# "P%02d_%d_%s.json" % (pid, order_index + 1, condition) 을 그대로 쓴다.
+UA = ("Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+      " (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1")
+# 고정 시각. 실제 기록이 아니므로 아무 값이어도 되지만, 기준값이 흔들리지 않게
+# 못박아 둔다.
+T0 = 1759000000000
+CONDITION_LABEL = {"original": "원본 (신한 SOL 재현)",
+                   "restructured": "재구성본 (Run 1)"}
+TASK_NAME = "긴 과업 · 처음 보내는 계좌"
+TASK_INSTRUCTION = ("김시현 씨에게 1만 원을 보내 주세요. "
+                    "계좌번호는 3333-0000-0000-0 이고, 카카오뱅크입니다. "
+                    "저장된 목록에 있더라도 계좌번호를 직접 넣어서 보내 주세요.")
+
+
+def expand_log(spec, t0):
+    """("enter", 화면, dt) / ("tap", 화면, action, valid, dt) / ("submit", 화면, dt)
+    를 시제품이 실제로 남기는 모양으로 펼친다 (inputs/original_transfer.html 의
+    log() 를 그대로 따른다)."""
+    log, t = [], t0
+    for item in spec:
+        kind, screen, dt = item[0], item[1], item[-1]
+        t += dt
+        if kind == "enter":
+            log.append({"t": t, "screen": screen, "type": "screen_enter",
+                        "to": screen})
+        elif kind == "tap":
+            action, valid = item[2], item[3]
+            log.append({"t": t, "screen": screen, "type": "tap",
+                        "x": 195, "y": 400, "valid": valid, "action": action,
+                        "text": action or "", "tw": 120 if valid else None,
+                        "th": 56 if valid else None})
+        elif kind == "submit":
+            log.append({"t": t, "screen": screen, "type": "submit",
+                        "bank": "카카오뱅크", "account": "3333000000000",
+                        "amount": 10000})
+    return log
+
+
+def metrics_of(log, elapsed, completed):
+    """web/session.html 의 metrics() 와 같은 계산. 가짜 세션이 실제 세션과 같은
+    모양이 되도록 숫자를 손으로 적지 않고 여기서 센다."""
+    taps = [e for e in log if e["type"] == "tap"]
+    enters = [e for e in log if e["type"] == "screen_enter"]
+    dwell = {}
+    for i, e in enumerate(enters):
+        end = enters[i + 1]["t"] if i + 1 < len(enters) \
+            else (log[-1]["t"] if log else e["t"])
+        dwell[e["to"]] = dwell.get(e["to"], 0) + (end - e["t"])
+
+    def act(e):
+        return e.get("action") or ""
+
+    return {
+        "seconds": elapsed / 1000.0,
+        "completed": completed,
+        "taps": len(taps),
+        "misses": len([e for e in taps if not e["valid"]]),
+        "backs": len([e for e in taps if act(e).startswith("back")]),
+        "deletes": len([e for e in taps if act(e).endswith("del")]),
+        "screens_visited": len(enters),
+        "unique_screens": len({e["to"] for e in enters}),
+        "dwell_ms": dwell,
+    }
+
+
+# 피험자 2명 × 조건 2개. 순서는 맞바꾼다(카운터밸런스). P02 의 원본 조건만
+# completed=false 다 - 완료율 계산과 "중단 포함 / 완료만" 분기를 둘 다 밟게
+# 하려면 미완 세션이 하나는 있어야 한다.
+SESSIONS = [
+    # (participant, condition, order_index, completed, elapsed_ms, log spec)
+    (1, "original", 0, True, 92400, [
+        ("enter", "home", 0),
+        ("tap", "home", "go-recipient", True, 4200),
+        ("enter", "recipient", 120),
+        ("tap", "recipient", None, False, 6100),
+        ("tap", "recipient", "go-account", True, 3800),
+        ("enter", "account", 120),
+        ("tap", "account", "open-bank", True, 9400),
+        ("enter", "bank", 120),
+        ("tap", "bank", "pick-bank", True, 12600),
+        ("enter", "amount", 120),
+        ("tap", "amount", "acc-num", True, 5200),
+        ("tap", "amount", "acc-del", True, 2400),
+        ("tap", "amount", "acc-num", True, 1900),
+        ("tap", "amount", "amt-next", True, 7300),
+        ("enter", "confirm", 120),
+        ("tap", "confirm", "back-amount", True, 8800),
+        ("enter", "amount", 120),
+        ("tap", "amount", "amt-next", True, 4100),
+        ("enter", "confirm", 120),
+        ("tap", "confirm", "send", True, 5600),
+        ("enter", "password", 120),
+        ("tap", "password", "pw", True, 6400),
+        ("submit", "password", 400),
+        ("enter", "done", 120),
+    ]),
+    (1, "restructured", 1, True, 61300, [
+        ("enter", "start", 0),
+        ("tap", "start", "go-who", True, 3100),
+        ("enter", "who", 120),
+        ("tap", "who", "go-accno", True, 5400),
+        ("enter", "accno", 120),
+        ("tap", "accno", "acc-num", True, 8200),
+        ("tap", "accno", "go-bank", True, 3300),
+        ("enter", "bank", 120),
+        ("tap", "bank", "pick-bank", True, 7700),
+        ("enter", "amount", 120),
+        ("tap", "amount", "num", True, 6100),
+        ("tap", "amount", "go-review", True, 4200),
+        ("enter", "review", 120),
+        ("tap", "review", "send", True, 9300),
+        ("enter", "auth", 120),
+        ("tap", "auth", "pw", True, 4800),
+        ("submit", "auth", 400),
+        ("enter", "done", 120),
+    ]),
+    (2, "restructured", 0, True, 78900, [
+        ("enter", "start", 0),
+        ("tap", "start", None, False, 7400),
+        ("tap", "start", "go-who", True, 4900),
+        ("enter", "who", 120),
+        ("tap", "who", "go-accno", True, 6600),
+        ("enter", "accno", 120),
+        ("tap", "accno", "acc-num", True, 11200),
+        ("tap", "accno", "acc-del", True, 3100),
+        ("tap", "accno", "go-bank", True, 4400),
+        ("enter", "bank", 120),
+        ("tap", "bank", "pick-bank", True, 9800),
+        ("enter", "amount", 120),
+        ("tap", "amount", "num", True, 7200),
+        ("tap", "amount", "go-review", True, 3900),
+        ("enter", "review", 120),
+        ("tap", "review", "send", True, 6300),
+        ("enter", "auth", 120),
+        ("tap", "auth", "pw", True, 5200),
+        ("submit", "auth", 400),
+        ("enter", "done", 120),
+    ]),
+    (2, "original", 1, False, 184500, [
+        ("enter", "home", 0),
+        ("tap", "home", "go-recipient", True, 8800),
+        ("enter", "recipient", 120),
+        ("tap", "recipient", None, False, 14200),
+        ("tap", "recipient", None, False, 9600),
+        ("tap", "recipient", "go-account", True, 11300),
+        ("enter", "account", 120),
+        ("tap", "account", None, False, 21400),
+        ("tap", "account", "open-bank", True, 16800),
+        ("enter", "bank", 120),
+        ("tap", "bank", None, False, 28900),
+        ("tap", "bank", "back-account", True, 19700),
+        ("enter", "account", 120),
+        ("tap", "account", "acc-del", True, 13500),
+        ("tap", "account", "open-bank", True, 17200),
+        ("enter", "bank", 120),
+    ]),
+]
+
+
+def write_fixtures(fixtures):
+    if os.path.isdir(fixtures):
+        shutil.rmtree(fixtures)
+    os.makedirs(fixtures)
+    for pid, cond, order, completed, elapsed, spec in SESSIONS:
+        started = T0 + pid * 3600000 + order * 600000
+        log = expand_log(spec, started)
+        dump(os.path.join(fixtures, "P%02d_%d_%s.json" % (pid, order + 1, cond)), {
+            "participant": pid,
+            "condition": cond,
+            "condition_label": CONDITION_LABEL[cond],
+            "order_index": order,
+            "task": TASK_NAME,
+            "instruction": TASK_INSTRUCTION,
+            "completed": completed,
+            "started_at": started,
+            "elapsed_ms": elapsed,
+            "screen_size": [390, 844],
+            "user_agent": UA,
+            "metrics": metrics_of(log, elapsed, completed),
+            "log": log,
+        })
+    say("  세션 고정물 %d건 -> %s"
+        % (len(SESSIONS), os.path.relpath(fixtures, ROOT).replace(os.sep, "/")))
+
+
+def capture_session_report(out, fixtures):
+    """session_report 의 main() 을 그대로 부른다. 집계 함수만 따로 부르면 main()
+    이 조립하는 부분(제목·절 순서·설명문)이 기준값에서 빠진다."""
+    md_path = os.path.join(out, "session_report.md")
+    csv_path = os.path.join(out, "session_report.csv")
+    os.makedirs(out, exist_ok=True)
+    argv = sys.argv
+    sys.argv = ["session_report.py", "--sessions", fixtures,
+                "--out", md_path, "--csv", csv_path]
+    try:
+        code = _api.sr_main()
+    finally:
+        sys.argv = argv
+    if code != 0:
+        raise SystemExit("session_report 가 %d 로 끝났습니다." % code)
+    say("  session_report: md + csv")
+
+
+# --------------------------------------------------------------------- #
+# [7] audit report (여러 audit 를 나란히 놓는 md)
+# --------------------------------------------------------------------- #
+def run_audit_report(extra, out_path):
+    """report 의 main() 을 그대로 부르고, 쓰인 md 를 돌려준다.
+
+    render() 만 부르면 main() 이 조립하는 부분(라벨 붙이기 · --details / --max
+    기본값)이 기준값에서 빠진다. REPORT_ARGS 가 상대 경로라서 레포 루트로
+    옮겨 와 부른다 - 문서에 적힌 명령과 같은 모양을 유지한다. stdout 으로도
+    쓰므로 삼켜 둔다. test_baseline.py 도 이 함수를 쓴다."""
+    argv, stdout, cwd = sys.argv, sys.stdout, os.getcwd()
+    sys.argv = ["report.py"] + REPORT_ARGS + extra + ["--out", out_path]
+    sys.stdout = io.StringIO()
+    try:
+        os.chdir(ROOT)
+        code = _api.ar_main()
+    finally:
+        os.chdir(cwd)
+        sys.argv, sys.stdout = argv, stdout
+    if code != 0:
+        raise SystemExit("audit report 가 %d 로 끝났습니다." % code)
+    return read(out_path)
+
+
+def capture_audit_report(out):
+    """날짜·시각처럼 실행마다 바뀌는 값은 이 출력에 없다 - 전문을 그대로 비교한다."""
+    out_dir = os.path.join(out, "report")
+    os.makedirs(out_dir, exist_ok=True)
+    for name, extra in REPORT_OUTPUTS:
+        run_audit_report(extra, os.path.join(out_dir, name))
+        say("  report/%s" % name)
+
+
+# --------------------------------------------------------------------- #
+# [8] 공과금 과제 (baseline/bill/)
+# --------------------------------------------------------------------- #
+# 이체 기준값과 같은 순서로 뽑되 폴더를 따로 둔다. 공과금 원본에는 오류 경로가
+# 없고 재구성 실행의 기록(Run 1~3)도 없으므로, 원본 대 원본 · 프롬프트 ·
+# mock 하나뿐이다.
+BILL = "bill"
+BILL_TASK = "bill"
+BILL_ORIGINAL_REL = "inputs/original_bill.html"
+# (이름, 빌드, 흐름) - 원본 대 원본만
+BILL_CASES = [("original_vs_original", BILL_ORIGINAL_REL, "original_bill.json")]
+BILL_MOCK_RUNS = [
+    ("mock_bill_identity", ["--task", "bill", "--mock", "bill-identity",
+                            "--attempts", "1"]),
+]
+
+
+def bill_prompt_plan():
+    """공과금 프롬프트 기준값에 넣는 계획 - mock bill-identity 의 그 계획이다."""
+    return json.dumps(_api.model_module.BILL_PLAN, ensure_ascii=False, indent=2)
+
+
+def bill_errors():
+    """공과금 과제의 오류 조건 절 (오류 경로가 없어 빈 문자열이다)."""
+    return _api.prompt_module.errors_block(_api.flow_module.required_errors(BILL_TASK))
+
+
+def bill_prompts(orig_html, orig_snapshot):
+    """(선택지 요약, 진단·계획 프롬프트, 첫 생성 프롬프트) 전문."""
+    choices = _api.choices_block(orig_snapshot, orig_html,
+                                 not_choices=_api.load_task(BILL_TASK)["not_choices"])
+    plan = _api.build_plan_prompt(_api.load_plan_template(BILL_TASK), model_html(orig_html),
+                                  choices, _api.plan_module.screens_in(orig_html),
+                                  errors=bill_errors())
+    first = _api.build_prompt(_api.load_template(BILL_TASK), model_html(orig_html), "", choices,
+                              bill_prompt_plan(), errors=bill_errors())
+    return choices, plan, first
+
+
+def capture_bill(out):
+    d = os.path.join(out, BILL)
+    orig_html = read(os.path.join(ROOT, BILL_ORIGINAL_REL))
+    orig_url = "%s/%s" % (BASE_URL, BILL_ORIGINAL_REL)
+    for name, rel, flow_name in BILL_CASES:
+        flow = _api.load_flow(flow_path_of(flow_name))
+        say("  bill/%s: 원본 drive" % name)
+        orig = asyncio.run(_api.drive(orig_url, flow))
+        say("  bill/%s: 빌드 drive (%s)" % (name, rel))
+        rep = asyncio.run(_api.drive("%s/%s" % (BASE_URL, rel), flow,
+                                     original_groups=original_groups(orig, flow)))
+        report = _api.audit(orig, rep, orig_html, read(os.path.join(ROOT, rel)), flow)
+        c = os.path.join(d, name)
+        dump(os.path.join(c, "snapshots.json"), {"orig": orig, "rep": rep})
+        dump(os.path.join(c, "audit.json"), report)
+        for stage in ("styled", "wireframe"):
+            dump(os.path.join(c, "audit.%s.json" % stage),
+                 _api.apply_stage(copy.deepcopy(report), stage))
+        m = report["metrics"]
+        say("    -> fatal %d / warning %d / 화면 %s/%s"
+            % (len(report["fatal"]), len(report["warning"]),
+               m.get("screens_reached"), m.get("screens_expected")))
+    snaps = json.load(io.open(os.path.join(d, "original_vs_original", "snapshots.json"),
+                              encoding="utf-8"))
+    choices, plan, first = bill_prompts(orig_html, snaps["orig"])
+    dump_text(os.path.join(d, "prompt", "choices_block.txt"), choices)
+    dump_text(os.path.join(d, "prompt", "plan.txt"), plan)
+    dump_text(os.path.join(d, "prompt", "attempt_1.txt"), first)
+    say("  bill/prompt: choices_block, 진단·계획, 첫 시도")
+    for name, args in BILL_MOCK_RUNS:
+        say("  bill/%s: python -m senior_ui.restructure %s" % (name, " ".join(args)))
+        summary, code = run_mock(args)
+        dump(os.path.join(d, "%s.json" % name), strip_volatile(summary))
+        say("    -> passed=%s exit=%d" % (summary.get("passed"), code))
+
+
+# --------------------------------------------------------------------- #
+# [9] 화면설계서 (baseline/storyboard/)
+# --------------------------------------------------------------------- #
+STORYBOARD = "storyboard"
+STORYBOARD_MOCK_ARGS = ["--mock", "pass", "--attempts", "1"]
+# 저장된 실제 답 - tests/storyboard_fixture.py 의 SAVED 와 같은 이름
+STORYBOARD_SAVED = ("refine_102041", "bill_sol_4")
+
+
+def strip_storyboard(data):
+    """storyboard.json 에서 실행마다 바뀌는 값을 자리만 남긴다: 만든 시각 · 도구 커밋 ·
+    걸린 시간, 실행 id(mock 은 시각이 든다) · 커밋 · dirty, 원본 지문을 어디서 읽었는가
+    (실행 커밋이 있으면 그 커밋, 없으면 지금 파일 - 지문 값 자체는 비교한다), 호출의
+    걸린 시간."""
+    d = copy.deepcopy(data)
+    d["generated"] = {k: "<%s>" % k for k in d.get("generated") or {}}
+    run = d.get("run") or {}
+    for k in ("id", "commit", "dirty"):
+        if k in run:
+            run[k] = "<%s>" % k
+    orig = run.get("original") or {}
+    for k in ("source", "same_as_now"):
+        if k in orig:
+            orig[k] = "<%s>" % k
+    for c in (d.get("regions_call") or {}).get("calls") or []:
+        c["seconds"] = "<seconds>"
+    return d
+
+
+def capture_storyboard(out):
+    import storyboard_fixture as SF
+    d = os.path.join(out, STORYBOARD)
+    os.makedirs(d, exist_ok=True)
+    runs = []
+    say("  storyboard/mock_pass: python -m senior_ui.restructure %s"
+        % " ".join(STORYBOARD_MOCK_ARGS))
+    ensure_mock_input()
+    summary, _code = run_mock(STORYBOARD_MOCK_ARGS)
+    runs.append(("mock_pass", summary["run_dir"]))
+    for name in STORYBOARD_SAVED:
+        say("  storyboard/%s: 저장된 답으로 실행 폴더" % name)
+        runs.append((name, SF.make_saved_run(name, BASE_URL)))
+    for name, run_dir in runs:
+        say("  storyboard/%s: python -m senior_ui.storyboard <실행> --mock" % name)
+        code = _api.storyboard_main([run_dir, "--mock"])
+        if code != 0:
+            raise SystemExit("설계서를 만들지 못했다 (%s, 종료 %d)" % (name, code))
+        data = json.load(io.open(os.path.join(run_dir, "storyboard", "storyboard.json"),
+                                 encoding="utf-8"))
+        dump(os.path.join(d, "%s.json" % name), strip_storyboard(data))
+        say("    -> 장 %d · 항목 %d · 누르기 %d" % (data["counts"]["sheets"],
+                                               data["counts"]["items"],
+                                               data["counts"]["clicks"]))
+
+
+# --------------------------------------------------------------------- #
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", default=os.path.join(HERE, "baseline"),
+                    help="기준값을 쓸 폴더 (기본: tests/baseline)")
+    ap.add_argument("--fixtures",
+                    default=os.path.join(HERE, "fixtures", "sessions"))
+    ap.add_argument("--only", choices=["all", BILL, STORYBOARD], default="all",
+                    help="bill: baseline/bill/ 만, storyboard: baseline/storyboard/ 만 다시 "
+                         "뽑는다 (이체 기준값은 그대로)")
+    ap.add_argument("--port", type=int, default=_api.config_module.AUTO_PORT,
+                    help="서버 포트. 주지 않으면 빈 포트 (mock 실행은 저마다 빈 포트를 잡는다)")
+    args = ap.parse_args()
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+
+    out = os.path.abspath(args.out)
+    if args.only == STORYBOARD:
+        d = os.path.join(out, STORYBOARD)
+        if os.path.isdir(d):
+            shutil.rmtree(d)
+        say("설계서 기준값 -> %s" % d)
+        server = start_server(args.port)
+        try:
+            capture_storyboard(out)
+        finally:
+            server.terminate()
+            server.wait()
+            say("서버: 종료 (pid %s)" % (server.pid or "재사용 - 끄지 않음"))
+        say("")
+        say("끝. 기준값: %s" % d)
+        return 0
+    if args.only == BILL:
+        d = os.path.join(out, BILL)
+        if os.path.isdir(d):
+            shutil.rmtree(d)
+        say("공과금 기준값 -> %s" % d)
+        server = start_server(args.port)
+        try:
+            capture_bill(out)
+        finally:
+            server.terminate()
+            server.wait()
+            say("서버: 종료 (pid %s)" % (server.pid or "재사용 - 끄지 않음"))
+        say("")
+        say("끝. 기준값: %s" % d)
+        return 0
+    if os.path.isdir(out):
+        shutil.rmtree(out)
+    os.makedirs(out)
+
+    say("기준값 -> %s" % out)
+    server = start_server(args.port)
+    copied = False
+    try:
+        say("[1/7] audit.py main() 과 같은 순서로 4가지 경우")
+        reports = capture_cases(out)
+        say("[2/7] retry_block")
+        capture_retry_block(out, reports)
+        say("[3/7] 재구성 프롬프트 조립")
+        capture_prompt(out)
+        say("[4/7] parse_reply / mock_reply")
+        capture_parse_reply(out)
+        say("[5/7] mock 실행")
+        copied = capture_mock(out)
+        say("[+] 공과금 과제")
+        capture_bill(out)
+        say("[+] 화면설계서")
+        capture_storyboard(out)
+    finally:
+        server.terminate()
+        server.wait()
+        say("서버: 종료 (pid %s)" % (server.pid or "재사용 - 끄지 않음"))
+
+    say("[6/7] session_report")
+    write_fixtures(os.path.abspath(args.fixtures))
+    capture_session_report(out, os.path.abspath(args.fixtures))
+
+    say("[7/7] audit report")
+    capture_audit_report(out)
+
+    if copied:
+        say("")
+        say("알림: outputs/restructured_transfer.html 이 없어서 results/ 의 사본을"
+            " 복사했습니다 (mock_reply 가 그 경로를 읽습니다).")
+    say("")
+    say("끝. 기준값: %s" % out)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

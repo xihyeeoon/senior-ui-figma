@@ -1,0 +1,432 @@
+{
+  "pass": {
+    "reply_finish_reason": "stop",
+    "reply_text_sha256": "e43293680cbd3a6f9ac80dd3b5021bd431da88954bb160a41a4d1bf95256d981",
+    "html_len": 29975,
+    "html_sha256": "4c395627a88b1ff80f662a4e60c292c4a7cf459cbc11edeec2786a3a268210cf",
+    "flow": {
+      "name": "auto",
+      "truth": {
+        "BANK": "카카오뱅크",
+        "ACCOUNT": "3333000000000",
+        "AMOUNT": "10000",
+        "NAME": "김시현"
+      },
+      "note": "LLM-restructured design, 9 screens. Not a repair of the original document, so the per-screen structural comparison is skipped - see derived_from_original. This drives the long path (a first-time account) so every screen is exercised; the saved-recipient path is 5 taps shorter and skips accno/bank/whoconfirm. type 액션은 숫자판(key 에 %s, 글자마다 클릭)과 입력 칸(%s 없이 fill) 둘 다 쓸 수 있다. 이 흐름은 숫자판 형식이다.",
+      "derived_from_original": false,
+      "required_ids": [
+        "phone",
+        "acc-display",
+        "acc-count",
+        "acc-next",
+        "bank-guess",
+        "bank-search",
+        "bank-list",
+        "wc-name",
+        "wc-acc",
+        "am-who",
+        "amt-display",
+        "amt-korean",
+        "amt-next",
+        "rv-who",
+        "rv-acc",
+        "rv-amt",
+        "rv-rest",
+        "pw-dots",
+        "pwpad",
+        "dn-amt",
+        "dn-name"
+      ],
+      "steps": [
+        {
+          "screen": "start"
+        },
+        {
+          "screen": "who",
+          "click": "[data-action='go-who']"
+        },
+        {
+          "screen": "accno",
+          "click": "[data-action='go-accno']"
+        },
+        {
+          "screen": "bank",
+          "do": [
+            {
+              "type": "{ACCOUNT}",
+              "key": "[data-action='acc-num'][data-v='%s']"
+            },
+            {
+              "click": "#acc-next"
+            }
+          ]
+        },
+        {
+          "screen": "whoconfirm",
+          "click": "[data-action='bank-yes']"
+        },
+        {
+          "screen": "amount",
+          "click": "[data-action='who-yes']"
+        },
+        {
+          "screen": "review",
+          "do": [
+            {
+              "type": "{AMOUNT}",
+              "key": "[data-action='amt-num'][data-v='%s']"
+            },
+            {
+              "click": "#amt-next"
+            }
+          ]
+        },
+        {
+          "screen": "auth",
+          "click": "[data-action='send']"
+        },
+        {
+          "screen": "done",
+          "do": [
+            {
+              "click": "[data-action='use-pw']"
+            },
+            {
+              "wait": 0.2
+            },
+            {
+              "repeat": 4,
+              "click": "#pwpad [data-action='pw']",
+              "wait": 0.15
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "whoconfirm": [
+          [
+            "#wc-name",
+            "{NAME}"
+          ]
+        ],
+        "review": [
+          [
+            "#rv-acc",
+            "{ACCOUNT}"
+          ],
+          [
+            "#rv-amt",
+            "{AMOUNT_SHOWN}"
+          ]
+        ],
+        "done": [
+          [
+            "#dn-amt",
+            "{AMOUNT_SHOWN}"
+          ],
+          [
+            "#dn-name",
+            "{NAME}"
+          ]
+        ]
+      },
+      "done_amount": "#dn-amt",
+      "error_paths": [
+        {
+          "id": "wrong-account",
+          "from_step": "accno",
+          "inputs": [
+            {
+              "type": "{ACCOUNT_WRONG}",
+              "key": "[data-action='acc-num'][data-v='%s']"
+            },
+            {
+              "click": "#acc-next"
+            }
+          ],
+          "expect_screen": "accno",
+          "expect_text_any": [
+            "계좌번호"
+          ],
+          "recover": [
+            {
+              "click": "[data-action='acc-del']"
+            }
+          ],
+          "back_to": "accno"
+        },
+        {
+          "id": "wrong-bank",
+          "from_step": "accno",
+          "inputs": [
+            {
+              "type": "{ACCOUNT}",
+              "key": "[data-action='acc-num'][data-v='%s']"
+            },
+            {
+              "click": "#acc-next"
+            },
+            {
+              "click": "[data-action='bank-other']"
+            },
+            {
+              "wait": 0.2
+            },
+            {
+              "click": "[data-action='pick-bank'][data-bank='{BANK_WRONG}']"
+            },
+            {
+              "click": "[data-action='who-yes']"
+            },
+            {
+              "type": "{AMOUNT}",
+              "key": "[data-action='amt-num'][data-v='%s']"
+            },
+            {
+              "click": "#amt-next"
+            },
+            {
+              "click": "[data-action='send']"
+            }
+          ],
+          "expect_screen": "review",
+          "expect_text_any": [
+            "은행"
+          ],
+          "recover": [
+            {
+              "click": "[data-action='edit-who']"
+            }
+          ],
+          "back_to": "accno"
+        }
+      ],
+      "reveal": {
+        "pick-bank": {
+          "at": "bank",
+          "do": [
+            {
+              "click": "[data-action='bank-other']"
+            }
+          ]
+        }
+      }
+    },
+    "flow_text_sha256": "04722e48767119516eb8a538a893ae64011d539936893a6328af0fabe417a0a1"
+  },
+  "fail": {
+    "reply_finish_reason": "stop",
+    "reply_text_sha256": "11e40ed78b6680486be4d9453705fa8148045ed0dc83b9422307268dd2692e23",
+    "html_len": 29975,
+    "html_sha256": "4c395627a88b1ff80f662a4e60c292c4a7cf459cbc11edeec2786a3a268210cf",
+    "flow": {
+      "name": "auto",
+      "truth": {
+        "BANK": "카카오뱅크",
+        "ACCOUNT": "3333000000000",
+        "AMOUNT": "10000",
+        "NAME": "김시현"
+      },
+      "note": "LLM-restructured design, 9 screens. Not a repair of the original document, so the per-screen structural comparison is skipped - see derived_from_original. This drives the long path (a first-time account) so every screen is exercised; the saved-recipient path is 5 taps shorter and skips accno/bank/whoconfirm. type 액션은 숫자판(key 에 %s, 글자마다 클릭)과 입력 칸(%s 없이 fill) 둘 다 쓸 수 있다. 이 흐름은 숫자판 형식이다.",
+      "derived_from_original": false,
+      "required_ids": [
+        "phone",
+        "acc-display",
+        "acc-count",
+        "acc-next",
+        "bank-guess",
+        "bank-search",
+        "bank-list",
+        "wc-name",
+        "wc-acc",
+        "am-who",
+        "amt-display",
+        "amt-korean",
+        "amt-next",
+        "rv-who",
+        "rv-acc",
+        "rv-amt",
+        "rv-rest",
+        "pw-dots",
+        "pwpad",
+        "dn-amt",
+        "dn-name"
+      ],
+      "steps": [
+        {
+          "screen": "start"
+        },
+        {
+          "screen": "who",
+          "click": "[data-action='does-not-exist']"
+        },
+        {
+          "screen": "accno",
+          "click": "[data-action='go-accno']"
+        },
+        {
+          "screen": "bank",
+          "do": [
+            {
+              "type": "{ACCOUNT}",
+              "key": "[data-action='acc-num'][data-v='%s']"
+            },
+            {
+              "click": "#acc-next"
+            }
+          ]
+        },
+        {
+          "screen": "whoconfirm",
+          "click": "[data-action='bank-yes']"
+        },
+        {
+          "screen": "amount",
+          "click": "[data-action='who-yes']"
+        },
+        {
+          "screen": "review",
+          "do": [
+            {
+              "type": "{AMOUNT}",
+              "key": "[data-action='amt-num'][data-v='%s']"
+            },
+            {
+              "click": "#amt-next"
+            }
+          ]
+        },
+        {
+          "screen": "auth",
+          "click": "[data-action='send']"
+        },
+        {
+          "screen": "done",
+          "do": [
+            {
+              "click": "[data-action='use-pw']"
+            },
+            {
+              "wait": 0.2
+            },
+            {
+              "repeat": 4,
+              "click": "#pwpad [data-action='pw']",
+              "wait": 0.15
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "whoconfirm": [
+          [
+            "#wc-name",
+            "{NAME}"
+          ]
+        ],
+        "review": [
+          [
+            "#rv-acc",
+            "{ACCOUNT}"
+          ],
+          [
+            "#rv-amt",
+            "{AMOUNT_SHOWN}"
+          ]
+        ],
+        "done": [
+          [
+            "#dn-amt",
+            "{AMOUNT_SHOWN}"
+          ],
+          [
+            "#dn-name",
+            "{NAME}"
+          ]
+        ]
+      },
+      "done_amount": "#dn-amt",
+      "error_paths": [
+        {
+          "id": "wrong-account",
+          "from_step": "accno",
+          "inputs": [
+            {
+              "type": "{ACCOUNT_WRONG}",
+              "key": "[data-action='acc-num'][data-v='%s']"
+            },
+            {
+              "click": "#acc-next"
+            }
+          ],
+          "expect_screen": "accno",
+          "expect_text_any": [
+            "계좌번호"
+          ],
+          "recover": [
+            {
+              "click": "[data-action='acc-del']"
+            }
+          ],
+          "back_to": "accno"
+        },
+        {
+          "id": "wrong-bank",
+          "from_step": "accno",
+          "inputs": [
+            {
+              "type": "{ACCOUNT}",
+              "key": "[data-action='acc-num'][data-v='%s']"
+            },
+            {
+              "click": "#acc-next"
+            },
+            {
+              "click": "[data-action='bank-other']"
+            },
+            {
+              "wait": 0.2
+            },
+            {
+              "click": "[data-action='pick-bank'][data-bank='{BANK_WRONG}']"
+            },
+            {
+              "click": "[data-action='who-yes']"
+            },
+            {
+              "type": "{AMOUNT}",
+              "key": "[data-action='amt-num'][data-v='%s']"
+            },
+            {
+              "click": "#amt-next"
+            },
+            {
+              "click": "[data-action='send']"
+            }
+          ],
+          "expect_screen": "review",
+          "expect_text_any": [
+            "은행"
+          ],
+          "recover": [
+            {
+              "click": "[data-action='edit-who']"
+            }
+          ],
+          "back_to": "accno"
+        }
+      ],
+      "reveal": {
+        "pick-bank": {
+          "at": "bank",
+          "do": [
+            {
+              "click": "[data-action='bank-other']"
+            }
+          ]
+        }
+      }
+    },
+    "flow_text_sha256": "bbdfda581ffc5337b5ffd00919f1797a658cd51c1ce200737a877ebe1d75f94d"
+  }
+}
