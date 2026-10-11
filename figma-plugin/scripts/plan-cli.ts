@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
+import RENAMES from '../renames.json' with { type: 'json' };
 import { plan, count, marksOf, tiles, base, MARK, MAX_PX, type Node, type Dims } from '../src/plan.ts';
 
 const dir = process.argv[2];
@@ -15,7 +16,7 @@ for (const s of sb.sheets || []) {
   const f = join(dir, s.picture || '');
   if (s.picture && existsSync(f)) { const b = readFileSync(f); dims[base(s.picture)] = [b.readUInt32BE(16), b.readUInt32BE(20)]; }
 }
-const p = plan(sb, dims);
+const p = plan(sb, dims, RENAMES);
 const json = JSON.stringify(p, null, 1) + '\n';
 const outDir = join(import.meta.dirname, '..', 'out');
 mkdirSync(outDir, { recursive: true });
@@ -28,7 +29,7 @@ const missing = pics.filter(i => !existsSync(join(dir, i.src || ''))).map(i => i
 const where = sb.original?.where ?? null;
 const items = (sb.sheets || []).flatMap((s: any) => s.items || []);
 const marks = Object.values(MARK).map(m =>
-  `${m} ${items.filter((it: any) => marksOf(it, where).includes(m)).length}`);
+  `${m} ${items.filter((it: any) => marksOf(it, where, (RENAMES as any)[sb.run?.id] || {}).includes(m)).length}`);
 
 console.log(`계획: ${outFile}`);
 console.log(`페이지 ${p.pages.length} · 장 프레임 ${frames.length}`);

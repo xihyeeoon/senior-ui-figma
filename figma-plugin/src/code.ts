@@ -1,6 +1,7 @@
 // Figma 쪽: UI 가 넘긴 storyboard.json 과 그림으로 plan() 의 계획을 그대로 그린다.
 // 판단은 plan.ts 에만 있다 - 여기서는 노드를 만들고 칸을 옮겨 적을 뿐이다.
 import { plan, lineH, count, base, type Node, type Dims } from './plan.ts';
+import RENAMES from '../renames.json' with { type: 'json' };   // 빌드 때 code.js 에 들어간다 (UI 는 파일을 못 읽는다)
 
 const PLUGIN_KEY = 'storyboard-run';
 // images: `{파일 이름}#{조각 번호}` → PNG 조각, dims: 파일 이름 → 원본 [가로, 세로] px
@@ -105,7 +106,7 @@ figma.ui.onmessage = async (msg: Msg) => {
   const made: PageNode[] = [];
   try {
     const sb = JSON.parse(msg.storyboard);
-    const p = plan(sb, msg.dims || {});
+    const p = plan(sb, msg.dims || {}, RENAMES);
     // 같은 실행을 다시 불러오면 먼저 묻고, 새 페이지를 다 그린 뒤 옛 것을 지운다
     const old = figma.root.children.filter(pg => pg.getPluginData(PLUGIN_KEY) === p.run);
     if (old.length && !msg.confirmed) return figma.ui.postMessage({

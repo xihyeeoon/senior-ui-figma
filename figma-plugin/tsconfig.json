@@ -9,6 +9,7 @@
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "types": ["@figma/plugin-typings", "node"]
   },
   "include": ["src", "scripts"]
