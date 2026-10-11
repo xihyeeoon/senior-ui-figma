@@ -1,0 +1,18 @@
+{
+  "name": "senior-ui-storyboard-figma",
+  "version": "0.1.0",
+  "private": true,
+  "description": "storyboard.json 을 Figma 와이어프레임으로 그리는 개발용 플러그인 (게시하지 않음)",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/code.ts --bundle --target=es2017 --outfile=dist/code.js",
+    "typecheck": "tsc",
+    "plan": "node scripts/plan-cli.ts"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.141.0",
+    "@types/node": "^26.6.5",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  }
+}
