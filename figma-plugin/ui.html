@@ -3,7 +3,8 @@
   label { display: block; margin: 0 0 12px; font-weight: 600; }
   input { display: block; margin-top: 4px; font-weight: 400; }
   button { padding: 8px 16px; font-size: 13px; }
-  #say { margin-top: 12px; white-space: pre-wrap; }
+  #say, #pics { margin-top: 12px; white-space: pre-wrap; }
+  #pics { max-height: 160px; overflow: auto; font-size: 12px; color: #555; }
 </style>
 <label>1. storyboard.json
   <input id="json" type="file" accept=".json,application/json">
@@ -13,6 +14,7 @@
 </label>
 <button id="go">그리기</button>
 <div id="say"></div>
+<div id="pics"></div>
 <div id="ask" hidden><button id="yes"></button> <button id="no">취소</button></div>
 <script>
   const $ = id => document.getElementById(id);
@@ -46,6 +48,14 @@
   $('go').onclick = async () => {
     const json = $('json').files[0];
     if (!json) return say('storyboard.json 을 먼저 고르세요.');
+    // 그리기 전에: storyboard.json 이 기대하는 그림 (sheet.picture 의 파일 이름) 과 고른 파일을 맞춰 본다
+    let sb; try { sb = JSON.parse(await json.text()); } catch { return say('storyboard.json 을 읽지 못했다.'); }
+    const want = [...new Set((sb.sheets || []).map(s => (s.picture || '').split('/').pop()).filter(Boolean))];
+    const have = new Set([...$('shots').files].map(f => f.name)), hit = want.filter(n => have.has(n));
+    $('pics').textContent = `기대하는 그림 ${want.length} · 맞음 ${hit.length} · 빠짐 ${want.length - hit.length}\n`
+      + want.map(n => (have.has(n) ? '✓ ' : '✗ 빠짐 ') + n).join('\n');
+    if (want.length && !hit.length
+        && !await ask('고른 그림 중 맞는 이름이 하나도 없다. storyboard/shots/ 의 재설계 화면 그림이어야 한다 (원본 캡처가 아님).', '그대로 그리기')) return;
     const images = {}, dims = {};
     say('그림 읽는 중…');
     for (const f of $('shots').files) try { await slice(f, images, dims); } catch {}   // 못 읽으면 '그림 없음'

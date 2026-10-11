@@ -8,7 +8,7 @@ const PLUGIN_KEY = 'storyboard-run';
 // confirmed: 옛 페이지를 지워도 된다고 UI 에서 눌렀다
 type Msg = { storyboard: string; images: Record<string, Uint8Array>; dims: Dims; confirmed?: boolean };
 
-figma.showUI(__html__, { width: 380, height: 320 });
+figma.showUI(__html__, { width: 380, height: 480 });
 
 // 다른 글꼴로 바꾸지 않는다 - Inter 에는 한글이 없고, 기계마다 그림이 달라진다.
 const FONT: FontName = { family: 'Noto Sans KR', style: 'Regular' };
