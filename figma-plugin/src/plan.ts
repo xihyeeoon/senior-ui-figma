@@ -21,7 +21,9 @@ export type Plan = { run: string; pages: Page[] };
 export type Dims = Record<string, [number, number]>;   // 그림 파일 이름 → [가로, 세로] px
 
 const INK = '#000000', PAPER = '#FFFFFF', SUB = '#555555';
-export const MARK = { entrance: '과제 밖 입구', none: '누르면 변화 없음 — 확인 필요', fresh: '새 요소' };
+// 입구 꼬리표 글은 연구 원칙 '보여 주는 방식은 자유, 사용자가 할 수 있는 일은 줄이지 않는다' 에서 왔다
+const KEEP = '옮기거나 접어도 됨, 지우지 말 것';
+export const MARK = { entrance: `과제 밖 입구 — ${KEEP}`, none: '누르면 변화 없음 — 확인 필요', fresh: '새 요소' };
 const MARK_FILL: Record<string, string> = {
   [MARK.entrance]: '#6B6B6B', [MARK.none]: '#D9480F', [MARK.fresh]: '#1C64F2' };
 const REF_NAME = '참고 — 로우파이 그림', REF_OPACITY = 0.4;
@@ -97,18 +99,35 @@ function said(r: any, titleOf: (s: string) => string) {
   }
 }
 
-function itemNode(it: any, where: Record<string, unknown> | null): Node {
+// 꼬리표 묶음: 오른쪽 끝이 x = w, 위가 -10. 글 색은 MARK_FILL (영역 입구 꼬리표는 입구 색)
+const tags = (labels: string[], w: number): Node => ({ t: 'frame', name: '표시', x: w, y: -10,
+  anchor: 'right', layout: 'H', hug: 'wh', gap: 4, fill: null, kids: labels.map((k): Node => ({ t: 'frame',
+    name: `표시 — ${k}`, layout: 'H', hug: 'wh', pad: [2, 6, 2, 6], radius: 4,
+    fill: MARK_FILL[k] ?? MARK_FILL[MARK.entrance], kids: [txt(k, 11, { bold: true, color: PAPER })] })) });
+
+// 요소가 모두 입구인 영역: 영역 → 처음 세는 요소 수. 그 요소들은 요소 꼬리표에서 입구를 뺀다.
+function entranceRegions(s: any) {
+  const byNo = new Map((s.items || []).map((it: any) => [it.no, it]));
+  const counted = new Set<string>(), regions = new Map<any, number>();
+  for (const r of s.regions || []) {
+    const els: string[] = r.elements || [];
+    if (!els.length || !els.every(e => (byNo.get(e) as any)?.entrance === true)) continue;
+    const fresh = els.filter(e => !counted.has(e));
+    fresh.forEach(e => counted.add(e));
+    if (fresh.length) regions.set(r, fresh.length);
+  }
+  return { counted, regions };
+}
+
+function itemNode(it: any, where: Record<string, unknown> | null, grouped = false): Node {
   const [x, y, w, h] = it.box;
   const s = SHAPES[shapeOf(it.tag)];
   const group = it.kind === 'group' && it.group ? ` (${it.group.count}개 묶음)` : '';
   const label = labelOf(it) + group;
   const kids: Node[] = [txt(label, 14, { name: '글', x: s.inset, y: 0, w: Math.max(1, w - 2 * s.inset),
     h, align: s.align, underline: s.underline, trunc: true })];
-  const m = marksOf(it, where);
-  if (m.length) kids.push({ t: 'frame', name: '표시', x: w, y: -10, anchor: 'right', layout: 'H',
-    hug: 'wh', gap: 4, fill: null, kids: m.map((k): Node => ({ t: 'frame', name: `표시 — ${k}`,
-      layout: 'H', hug: 'wh', pad: [2, 6, 2, 6], radius: 4, fill: MARK_FILL[k],
-      kids: [txt(k, 11, { bold: true, color: PAPER })] })) });
+  const m = marksOf(it, where).filter(k => !(grouped && k === MARK.entrance));
+  if (m.length) kids.push(tags(m, w));
   return { t: 'frame', name: `${it.no} ${label}`, x, y, w, h, fill: s.fill, stroke: s.stroke,
     dash: it.kind === 'group' ? [2, 2] : s.dash, radius: s.radius,
     opacity: it.disabled ? 0.4 : 1, clip: false, kids };
@@ -128,12 +147,13 @@ function sheetNames(sheets: any[]): Map<any, string> {
   return new Map(sheets.map((s, i) => [s, many(first, first[i]) ? `${first[i]} (${i + 1})` : first[i]]));
 }
 
-function regionNode(r: any): Node {
+function regionNode(r: any, entrances = 0): Node {
   const [x, y, w, h] = r.box;
+  const tag = entrances ? [tags([`과제 밖 입구 · ${entrances} — ${KEEP}`], w)] : [];
   return { t: 'frame', name: `영역 ${r.no} · ${r.name}`, x, y, w, h, fill: null, stroke: '#7A7A7A',
     dash: [6, 4], clip: false, kids: [{ t: 'frame', name: `번호 ${r.no}`, x: 0, y: 0, w: 24, h: 24,
       radius: 12, fill: INK, kids: [txt(String(r.no), 12, { x: 0, y: 0, w: 24, h: 24, bold: true,
-        color: PAPER, align: 'C' })] }] };
+        color: PAPER, align: 'C' })] }, ...tag] };
 }
 
 function annotation(sheet: any, title: string, where: Record<string, unknown> | null,
@@ -212,11 +232,12 @@ export function plan(sb: any, dims: Dims = {}): Plan {
     for (const s of col) {
       const [w, h] = s.size || DEFAULT_SIZE, title = names.get(s)!;
       const ann = annotation(s, title, where, titleOf);
+      const ent = entranceRegions(s);
       const annH = estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP);
       wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids: [
         picture(s, w, h, dims),
-        ...(s.items || []).map((it: any) => itemNode(it, where)),
-        ...(s.regions || []).map(regionNode)] });
+        ...(s.items || []).map((it: any) => itemNode(it, where, ent.counted.has(it.no))),
+        ...(s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r)))] });
       wf.push({ t: 'frame', name: `주석 — ${title}`, x: x + w + ANN_GAP, y, w: ANN_W, layout: 'V',
         hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD], gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids: ann });
       y += Math.max(h, annH) + ROW_GAP;
