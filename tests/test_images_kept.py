@@ -274,3 +274,72 @@ def test_the_runs_that_dropped_every_slot_fail(server, run, n):
     assert m["images_original"] == ORIGINAL_NAMES["transfer"]
     assert m["images_kept"] == 0 and len(m["images_missing"]) == m["images_original"]
     assert len(l_fatals(report)) == 1
+
+
+# ===================================================================== #
+# 5. 검사 I 는 그림 자리의 이름을 선택지 값으로 읽지 않는다 (2026-10-12)
+# ===================================================================== #
+# 기술 계약이 선택지마다 붙은 그림 자리를 "<은행> 로고" 로 두게 한다. 검사 I 는 값을 빌드
+# 원문 어디에서든 찾으므로, 은행 선택지를 지우고 로고만 남기면 그 은행이 "남아 있다" 로
+# 읽혔다. 이제 role="img" 의 aria-label 글은 빼고 찾는다 (i_choices.strip_image_labels).
+def i_audit(rep_html, rep_choices):
+    orig = snap({"start": row("start", choices={"pick-bank": ["국민", "신한", "우리"]})})
+    rep = snap({"start": row("start", shown=[["#dn-amt", "10,000"]], choices=rep_choices)})
+    return _api.audit(orig, rep, "", rep_html, flow(["start"]))
+
+
+def test_a_logo_left_without_its_choice_does_not_keep_the_choice():
+    html = ('<html><body><span class="pic" role="img" aria-label="국민 로고"></span>'
+            '<button data-action="pick-bank" data-bank="신한">신한</button>'
+            '<button data-action="pick-bank" data-bank="우리">우리</button></body></html>')
+    report = i_audit(html, {"pick-bank": ["신한", "우리"]})
+    m = report["metrics"]
+    assert m["choice_values_missing"] == {"pick-bank": ["국민"]}
+    assert [f["check"] for f in report["fatal"]] == ["I"]
+
+
+def test_the_logo_name_is_stripped_whatever_the_attribute_order():
+    I = _api.i_choices_module
+    html = ("<i aria-label='국민 로고' class=\"pic\" role='img'></i>"
+            '<button aria-label="국민" data-action="pick-bank">국민</button>')
+    out = I.strip_image_labels(html)
+    assert "국민 로고" not in out
+    # 그림 자리가 아닌 요소의 aria-label 과 글자는 그대로 - 다른 찾기는 바뀌지 않는다
+    assert 'aria-label="국민"' in out and ">국민</button>" in out
+    assert I.present("국민", out)
+
+
+def test_a_choice_with_its_logo_still_counts():
+    """선택지와 로고가 함께 있으면 그대로 남아 있다 (값은 선택지 버튼에서 찾는다)."""
+    html = ('<html><body><button data-action="pick-bank" data-bank="국민">'
+            '<span class="pic" role="img" aria-label="국민 로고"></span>국민</button>'
+            '<button data-action="pick-bank" data-bank="신한">신한</button>'
+            '<button data-action="pick-bank" data-bank="우리">우리</button></body></html>')
+    report = i_audit(html, {"pick-bank": ["국민", "신한", "우리"]})
+    assert report["metrics"]["choice_values_missing"] == {}
+    assert [f for f in report["fatal"] if f["check"] == "I"] == []
+
+
+@pytest.mark.browser
+def test_an_original_without_one_bank_but_with_its_logo_fails_I(server):
+    """실제 원본에서 은행 목록의 '국민' 하나를 빼고 "국민 로고" 그림 자리만 남긴 빌드."""
+    import capture_baseline as C
+    t = _api.load_task("transfer")
+    f = _api.load_flow(None, task="transfer")
+    orig_html = io.open(_api.tasks_module.abs_path(t["original"]), encoding="utf-8").read()
+    assert orig_html.count("'국민',") == 1 and orig_html.count("국민") == 1
+    build = orig_html.replace("'국민',", "", 1).replace(
+        '<div id="phone">',
+        '<div id="phone"><span class="pic" role="img" aria-label="국민 로고"></span>', 1)
+    rel = ".pytest-outputs/images_logo_without_bank.html"
+    os.makedirs(os.path.join(ROOT, ".pytest-outputs"), exist_ok=True)
+    io.open(os.path.join(ROOT, rel), "w", encoding="utf-8").write(build)
+    try:
+        orig = asyncio.run(_api.drive("%s/%s" % (C.BASE_URL, t["original"]), f))
+        nf = dict(f, derived_from_original=False)
+        rep = asyncio.run(_api.drive("%s/%s" % (C.BASE_URL, rel), nf,
+                                     original_groups=C.original_groups(orig, nf)))
+        report = _api.audit(orig, rep, orig_html, build, nf)
+    finally:
+        os.remove(os.path.join(ROOT, rel))
+    assert report["metrics"]["choice_values_missing"] == {"pick-bank": ["국민"]}

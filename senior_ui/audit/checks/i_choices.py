@@ -3,7 +3,8 @@ r"""검사 I - 선택지 보존. fatal.
 원본에서 "고를 수 있던" 값이 생성물에 없으면 잡는다. 한 화면에 다 보일 필요는
 없으므로 화면 하나가 아니라 빌드 전체에서 찾는다. 보는 곳은 둘이다.
 
-    원문   재설계 HTML 의 글자. **도구가 넣은 데이터 블록은 뺀다.**
+    원문   재설계 HTML 의 글자. **도구가 넣은 데이터 블록은 뺀다.** 그림 자리(role="img")의
+           aria-label 글도 뺀다 (2026-10-12 - strip_image_labels)
     DOM    걸음마다 렌더링된 DOM 에서 모은 선택지 값 (drive 의 CHOICE_GROUPS)
 
 무리는 원본이 정하고, 생성물에서는 놓인 모양과 상관없이 센다 (original_groups).
@@ -57,6 +58,20 @@ data-action 의 형제 무리면 무엇이든 선택지로 세는 규칙은, 누
 import re
 
 from senior_ui.preserved import strip_data_block
+
+# 그림 자리(role="img")의 aria-label 은 값을 찾는 원문에서 뺀다 (2026-10-12). 기술 계약이
+# 선택지마다 붙은 그림 자리를 "<은행> 로고" 처럼 이름 붙여 두게 하므로, 은행 선택지를 지우고
+# 그 로고만 남긴 빌드에서 그 은행이 "남아 있다" 로 읽혔다. 이름은 그림이 무엇인지 말할 뿐
+# 고를 수 있는 값이 아니다. 다른 찾기(글자 · 다른 속성 · 배열 원소 · DOM)는 그대로다.
+IMAGE_TAG = re.compile(r"<[^<>]*\brole\s*=\s*([\"'])img\1[^<>]*>", re.I)
+IMAGE_LABEL = re.compile(r"(\baria-label\s*=\s*)([\"'])(.*?)\2", re.I | re.S)
+
+
+def strip_image_labels(html):
+    """원문에서 role="img" 요소의 aria-label 값을 비운다 (태그 · 다른 속성은 그대로)."""
+    return IMAGE_TAG.sub(
+        lambda tag: IMAGE_LABEL.sub(lambda a: a.group(1) + a.group(2) * 2, tag.group(0)),
+        html or "")
 
 
 # 값이 "있다" 를 어떻게 볼 것인가.
@@ -246,7 +261,7 @@ def run(ctx):
     # 스크립트 안의 배열로 들고 있어도 된다. 보는 곳은 둘이다 - 원문에서 도구가
     # 넣은 데이터 블록을 뺀 것과, 걷는 동안 렌더링된 DOM 에서 모은 선택지 값.
     # 블록을 빼는 이유와 DOM 을 더 보는 이유는 이 파일 머리말에 있다.
-    text = strip_data_block(ctx.rep_html)
+    text = strip_image_labels(strip_data_block(ctx.rep_html))
     dom = dom_values(ctx.rep)
     # 걷는 동안 누를 수 있게 보인 값 (11-8 2-3). 원본 · 생성물 둘 다 수집이 있어야 본다 -
     # 없으면 전처럼 DOM 에 있으면 고를 수 있다고 보고 그 사실을 남긴다.
