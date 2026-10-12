@@ -301,7 +301,7 @@ def judge_capture(det, st):
     plain = [b for b in boxes if not b["text"]]
     cands = [e for e in det["elements"] if e["kind"] == "img_candidate"]
     names = {}
-    for c in cands:
+    for c in cands + plain:
         if c.get("name"):
             names.setdefault(c["name"].strip(), c)
     ocr = Pool([e["text"] for e in reading(texts)])
@@ -317,7 +317,7 @@ def judge_capture(det, st):
             c = names[it["label"].strip()]
             row.update(icon=True, named=c["id"], near=c["id"], caption=c["caption"])
         elif it["kind"] == "slot" or not it["n"]:
-            pool = plain + [c for c in cands if not c.get("name")]
+            pool = [c for c in plain + cands if not c.get("name")]
             nb = near_box(r, pool) if row["in_frame"] is not False else None
             row.update(icon=True, named=None, near=nb and nb["id"], caption=nb and nb["caption"],
                        ocr_guess=nb and nb.get("ocr_guess"))

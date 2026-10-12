@@ -16,7 +16,8 @@ D2: 아이콘을 OCR 이 글자로 읽은 것(icon_texts)은 글 요소에서 �
 그 box 는 글 없는 아이콘으로 설명을 붙인다. box 의 source 는 "detector" 또는 그 글 자리로 새로
 만든 "ocr_icon". 바꾼 목록은 JSON 의 icon_from_ocr 에 남는다.
 D2: 글이 든 박스 안에서 글이 덮지 않은 그림 덩어리를 kind "img_candidate" 로 낸다 (in_box =
-그 박스, name = 은행 · 증권사 칸이면 "<칸 글> 로고", 아니면 null). img_candidates() 참고.
+그 박스, name = 은행 · 증권사 칸이면 "<칸 글> 로고", 아니면 null). 그 칸의 로고가 이미 글 없는
+박스로 잡혔으면 그 박스에 name 을 붙인다. img_candidates() 참고.
 돌린 장치 · 판 · 한 장당 시간은 <out>/_run.json 에 남긴다.
 
 paddle 과 torch 는 한 프로세스에 함께 올리지 못한다 - 둘이 가져오는 cuDNN DLL 이 서로
@@ -413,6 +414,10 @@ def img_candidates(image, els):
                  if bx > 0 and by > 0 and bx + bw < W and by + bh < H]
         blobs = [bl for bl in blobs if bl[2] >= BLOB_MIN and bl[3] >= BLOB_MIN]
         big = max(blobs, key=lambda bl: bl[2] * bl[3]) if blobs and label else None
+        if label and not blobs and icons:
+            # 로고가 이미 글 없는 박스(아이콘)로 잡혔다 - 그 박스에 이름을 붙인다
+            ic = max(icons, key=lambda o: o["box"][2] * o["box"][3])
+            ic.update(name="%s 로고" % label["text"].strip(), label=label["id"])
         for bl in blobs:
             out.append({"box": bl, "xyxy": xyxy(bl), "in_box": b["id"],
                         "name": "%s 로고" % label["text"].strip() if bl is big else None,
@@ -459,8 +464,8 @@ def overlay(image, els, path):
             col = (30, 90, 230) if e["text"] else (220, 30, 30)
             d.rectangle([ox + x, y, ox + x + bw, y + bh], outline=col, width=1)
             if not e["text"]:
-                d.text((ox + x + 2, y + 2), "%s [%s]%s" % (
-                    e["id"], e["caption"] or "",
+                d.text((ox + x + 2, y + 2), "%s %s%s" % (
+                    e["id"], e.get("name") or "[%s]" % (e["caption"] or ""),
                     " ocr:%s" % e["ocr_guess"] if e.get("ocr_guess") else ""),
                     fill=col, font=small)
     for e in els:
