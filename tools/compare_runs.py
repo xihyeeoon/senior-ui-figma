@@ -9,12 +9,20 @@ r"""재구성 실행끼리 과제 밖 입구 거리 · 선택지 수를 나란�
 
   입구          검사 K 가 남긴 입구 / 원본에서 보인 입구
   펼침 뒤로     생성 쪽 펼치기(reveal) 횟수가 원본보다 많은 입구 수
-  다른 화면     원본에서 보인 화면이 생성 쪽 화면의 plan.screens[].from 에 없는 입구 수
-  스크롤        입구마다 (생성 scroll_px - 원본 scroll_px) 의 평균 · 최대
+  다른 화면     입구를 원본에서 본 화면 o 와 생성에서 본 화면 b ('#' 앞) 가 다른 입구 수.
+                b == o 이거나 b 의 plan.screens[].from 이 정확히 [o] 하나면(이름만 바뀐 화면,
+                예 confirm → review) 옮기지 않은 것으로 본다
+  모인 화면     옮긴 입구가 가장 많이 간 생성 화면과 그 수 (예 services 22)
+  가리키는 버튼 옮긴 입구 가운데, o 에 해당하는 생성 장(sheet.screen 이 o 이거나 o 에서 이름만
+                바뀐 화면)에 글(text, 없으면 aria)이 입구 label 과 같고 result 가 화면 b 로
+                가는 요소가 있는 수 / 옮긴 수. storyboard/storyboard.json 이 없으면 -
+  스크롤        입구마다 (생성 scroll_px - 원본 scroll_px) 의 평균 · 최대. 생성 쪽은 입구가 있는
+                화면 안에서 잰 값이다 (옮겼으면 옮긴 화면 기준)
   선택지        원본을 걷는 동안 보인 값의 수 → 그 무리에서 생성 쪽이 고를 수 있게 보인 값의 수
                 (choice_values_shown_in_original → choice_values_selectable, reveal 뒤 포함)
   reveal 한 선택지 무리   흐름 명세의 reveal 중 oos- 가 아닌 것
 """
+import collections
 import io
 import json
 import os
@@ -45,17 +53,49 @@ def visit(v):
     return (v or "").split("#")[0]
 
 
-def row(run):
+def renamed(came, b, o):
+    """생성 화면 b 가 원본 화면 o 그대로이거나 o 에서 이름만 바뀐 화면인가."""
+    return b == o or came.get(b) == [o]
+
+
+def moved_entrances(run):
+    """(summary, 감사 지표, 입구 거리, 그중 다른 화면으로 옮긴 것, 생성 화면 → plan from)."""
     summary = load(os.path.join(run, "summary.json"))
     n = final_attempt(summary)
     m = load(os.path.join(run, "attempt_%d.audit.json" % n))["metrics"]
-    came = {sc["name"]: set(sc.get("from") or [])
+    came = {sc["name"]: list(sc.get("from") or [])
             for sc in plan_of(run, n).get("screens") or []}
     ed = [d for d in m.get("entrance_distance") or [] if d.get("original") and d.get("build")]
+    moved = [d for d in ed
+             if not renamed(came, visit(d["build"]["visit"]), visit(d["original"]["visit"]))]
+    return summary, m, ed, moved, came
+
+
+def storyboard_sheets(run):
+    path = os.path.join(run, "storyboard", "storyboard.json")
+    return load(path).get("sheets") or [] if os.path.exists(path) else None
+
+
+def pointing(sheets, came, d):
+    """옮긴 입구 d 를 원래 화면에서 (같은 글로) 가리켜 옮긴 화면으로 보내는 요소가 있는가."""
+    o, b = visit(d["original"]["visit"]), visit(d["build"]["visit"])
+    for sheet in sheets:
+        if not renamed(came, sheet.get("screen"), o):
+            continue
+        for it in sheet.get("items") or []:
+            res = it.get("result") or {}
+            if ((it.get("text") or it.get("aria")) == d["label"]
+                    and res.get("kind") == "screen" and res.get("to") == b):
+                return True
+    return False
+
+
+def row(run):
+    summary, m, ed, moved, came = moved_entrances(run)
     folded = [d for d in ed
               if (d["build"].get("reveal") or 0) > (d["original"].get("reveal") or 0)]
-    moved = [d for d in ed
-             if visit(d["original"]["visit"]) not in came.get(visit(d["build"]["visit"]), set())]
+    gathered = collections.Counter(visit(d["build"]["visit"]) for d in moved).most_common(1)
+    sheets = storyboard_sheets(run)
     ds = [(d["build"].get("scroll_px") or 0) - (d["original"].get("scroll_px") or 0) for d in ed]
     shown = m.get("choice_values_shown_in_original") or {}
     sel = m.get("choice_values_selectable") or {}
@@ -64,13 +104,16 @@ def row(run):
             ((summary.get("git") or {}).get("commit") or "?")[:7],
             "%s/%s" % (m.get("entrances_kept"), m.get("entrances_original")),
             str(len(folded)), str(len(moved)),
+            "%s %d" % gathered[0] if gathered else "-",
+            "-" if sheets is None
+            else "%d/%d" % (sum(pointing(sheets, came, d) for d in moved), len(moved)),
             "%+d · %+d" % (round(sum(ds) / len(ds)), max(ds)) if ds else "-",
             "%d → %d" % (sum(shown.values()), sum(sel.get(a, 0) for a in shown)),
             ", ".join(groups) or "-"]
 
 
-HEAD = ["실행", "커밋", "입구", "펼침 뒤로", "다른 화면", "스크롤 평균·최대",
-        "선택지 원본에 보임 → 생성에서 고를 수 있음", "reveal 한 선택지 무리"]
+HEAD = ["실행", "커밋", "입구", "펼침 뒤로", "다른 화면", "모인 화면", "가리키는 버튼",
+        "스크롤 평균·최대", "선택지 원본에 보임 → 생성에서 고를 수 있음", "reveal 한 선택지 무리"]
 
 
 def main(argv):
@@ -81,6 +124,8 @@ def main(argv):
     print("|%s" % ("---|" * len(HEAD)))
     for run in argv:
         print("| %s |" % " | ".join(row(run)))
+    print()
+    print("스크롤은 생성 쪽에서 입구가 있는 화면 안에서 잰 값이다 (옮겼으면 옮긴 화면 기준).")
     return 0
 
 
