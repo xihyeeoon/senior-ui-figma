@@ -919,6 +919,9 @@ def test_every_outside_package_that_is_imported_is_in_requirements():
                 names.add(node.module.split(".")[0])
     outside = sorted(n for n in names
                      if n not in sys.stdlib_module_names and n not in local)
+    # import 이름과 설치 이름이 다른 것 (Pillow 는 PIL 로 import 한다)
+    installed_as = {"PIL": "pillow"}
+    outside = [installed_as.get(n, n) for n in outside]
     listed = {re.split(r"[=<>!~ ]", l.strip())[0].lower()
               for l in io.open(os.path.join(ROOT, "requirements.txt"), encoding="utf-8")
               if l.strip() and not l.strip().startswith("#")}

@@ -454,7 +454,10 @@ def model_text(prompt, images):
 def prompt_record(prompt, images, model=None, base=None):
     """기록에 남기는 프롬프트. 그림 자리에 그림마다 한 줄 - 이름표 · 파일 · 크기 ·
     예상 토큰. 그림이 없으면 자리 표시를 지운다 (프롬프트는 그대로다). 자리가
-    없는 프롬프트에 그림을 보내면 끝에 붙으므로 (content_parts) 기록도 끝에 적는다."""
+    없는 프롬프트에 그림을 보내면 끝에 붙으므로 (content_parts) 기록도 끝에 적는다.
+
+    그림에 `source` 가 있으면 (캡처 입력 - 줄인 그림은 산출물 폴더에 있다) 파일 자리에
+    그 원래 파일을 적는다. 크기 · 토큰은 보낸 그림의 것이다."""
     if IMAGE_MARK not in prompt:
         if not images:
             return prompt
@@ -463,8 +466,8 @@ def prompt_record(prompt, images, model=None, base=None):
     for i, img in enumerate(images or [], 1):
         w, h = png_size(img["path"])
         t, _how = image_tokens(w, h, model)
-        path = (os.path.relpath(img["path"], base).replace(os.sep, "/") if base
-                else img["path"])
+        path = img.get("source") or (os.path.relpath(img["path"], base).replace(os.sep, "/")
+                                     if base else img["path"])
         lines.append("%s  <그림: %s %dx%d · 예상 %d토큰>"
                      % (image_label(i, len(images), img), path, w, h, t))
     return prompt.replace(IMAGE_MARK, "\n".join(lines))

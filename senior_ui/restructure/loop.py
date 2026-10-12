@@ -52,7 +52,8 @@ from .plan import (PlanProblems, apply_changes, critique_issues, evidence_kinds,
                    match_problems, parse_critique, parse_plan, parse_reflection,
                    plan_report, screens_in, unaddressed)
 from .preserve import inject, names_read, optional_names, preserved_data
-from .prompt import (BUILD_SHOTS_INTRO, build_plan_prompt, build_prompt,
+from . import captures as CAP
+from .prompt import (BUILD_SHOTS_INTRO, CAPTURES_SHOTS_INTRO, build_plan_prompt, build_prompt,
                      build_refine_prompt, choices_block, errors_block,
                      load_plan_template, load_refine_template, load_template,
                      model_input_html, one_line, REFINE_FIX_NOTE,
@@ -337,6 +338,9 @@ class Run:
         # 시작 때 한 번 찍는다 (run).
         self.see, see_source = see_choice(args)
         self.original_images = []
+        # 캡처 입력 (--captures): 진단·계획의 원본 그림을 연구자의 캡처로 바꾼다
+        # (restructure/captures.py). run() 이 시작 전에 읽고 확인해 넣는다.
+        self.captures = None
         # 보고 다듬기 (--refine): 통과한 빌드를 그림으로 보여 주고 다듬게 하는
         # 횟수. 형식 · 검사 예산과 따로 센다.
         self.refine, refine_source = refine_choice(args)
@@ -371,7 +375,10 @@ class Run:
                         "ratelimit": None,
                         # 시도별·전체 예상 금액 (config.MODEL_PRICES, tally_cost)
                         "cost": None,
-                        "see": {"on": self.see, "source": see_source,
+                        # source 는 보낸 그림이 어디서 왔나 (render · captures, 끄면
+                        # None), on_source 는 켜고 끈 출처 (2026-10-12 에 이름을 바꿨다)
+                        "see": {"on": self.see, "on_source": see_source,
+                                "source": "render" if self.see else None,
                                 "original_images": 0},
                         "refine": {"budget": self.refine, "source": refine_source,
                                    "rounds": [], "final_from": None,
@@ -638,7 +645,8 @@ def request_plan(r, n, p):
     prompt = build_plan_prompt(r.plan_template, r.model_original, r.choices,
                                r.original_screens, plan_retry_block(r.plan_error),
                                errors=errors_block(r.errors),
-                               shots=shots_section(images))
+                               shots=shots_section(images, intro=CAPTURES_SHOTS_INTRO)
+                               if r.captures else shots_section(images))
     io.open(p + ".plan_prompt.txt", "w", encoding="utf-8", newline="\n").write(
         prompt_record(prompt, images, r.model, base=r.run_dir))
     r.log("plan prompt: %d chars%s%s" % (len(prompt),
@@ -1818,6 +1826,14 @@ def run(args):
         original_html = io.open(args.original, encoding="utf-8").read()
         orig_rel = original_rel(args.original)
         allowed = load_allowed_removals(task["id"])
+        # 캡처 입력 - 시작 전에 대응표를 읽고 확인한다 (task · 파일 · PNG · label · taps 의
+        # 모양). 그림을 보내지 않는 실행(--see off)에는 쓸 곳이 없다.
+        cap = None
+        if getattr(args, "captures", None):
+            if getattr(args, "see", None) == "off":
+                raise RuntimeError("--captures 는 --see off 와 같이 쓸 수 없다 - 캡처는 "
+                                   "진단·계획에 보여 줄 그림이다")
+            cap = CAP.load(args.captures, task["id"])
     except (OSError, RuntimeError, ValueError) as e:
         return cannot_start(e)
 
@@ -1837,6 +1853,7 @@ def run(args):
     except (OSError, RuntimeError, ValueError) as e:
         return cannot_start(e)
     r.summary["git"] = git
+    r.captures = cap
     r.summary["original"] = orig_path
     r.summary["original_sha256"] = orig_sha
     r.allowed_removals = allowed
@@ -1898,8 +1915,23 @@ def run(args):
         r.orig_snapshot = snap
         r.original_images = see_images(shots, ORIGINAL_LABELS,
                                        [e["id"] for e in r.errors]) if r.see else []
+        if r.captures:
+            # 렌더 그림은 위에서처럼 실행 폴더에 남기고, 모델에게는 캡처를 보낸다. 줄인
+            # 그림은 산출물 폴더에 두고 실행 폴더에는 이름 · sha256 · 크기만 남긴다.
+            sent = os.path.join(outputs_dir(mock), "see-captures", os.path.basename(run_dir))
+            r.original_images, records = CAP.prepare(r.captures, sent)
+            r.summary["see"].update(source="captures", captures=r.captures["rel"],
+                                    captures_sha256=r.captures["sha256"],
+                                    captures_source=r.captures["source"],
+                                    sent_dir=CAP.rel(sent), images=records,
+                                    rendered_images=len(see_images(
+                                        shots, ORIGINAL_LABELS, [e["id"] for e in r.errors])))
+            log("보기: 캡처 %d장 (%s) - 보내는 그림 %d장 (가로 %d 로 줄이고 %d 넘는 것은 조각) · "
+                "렌더 그림은 %s 에 그대로 남긴다"
+                % (len(records), r.captures["rel"], len(r.original_images), CAP.WIDTH,
+                   CAP.HEIGHT, os.path.relpath(shots, run_dir)))
         r.summary["see"]["original_images"] = len(r.original_images)
-        if r.see:
+        if r.see and not r.captures:
             log("보기: 원본 그림 %d장 (%s)" % (len(r.original_images),
                                           os.path.relpath(shots, run_dir)))
         r.choices = choices_block(r.orig_snapshot, original_html,

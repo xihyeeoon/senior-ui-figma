@@ -213,7 +213,9 @@ def test_the_plan_call_gets_the_original_screens_and_generation_does_not(
     code, summary, sent, _d = run_with(fake_run_env, out_root, PLAN_THEN_GOOD, imgs)
     assert code == 0
     assert [len(c["images"]) for c in sent] == [3, 0]
-    assert summary["see"] == {"on": True, "source": "기본값 (켜짐)", "original_images": 3}
+    # source 는 그림의 출처 (render · captures), on_source 는 켜고 끈 출처 (2026-10-12)
+    assert summary["see"] == {"on": True, "on_source": "기본값 (켜짐)", "source": "render",
+                              "original_images": 3}
     plan, gen = summary["attempts"][0]["calls"]
     per = model.image_tokens(390, 844, "test-model")[0]
     assert plan["images"] == 3 and plan["estimated_images"] == 3 * per
@@ -251,7 +253,8 @@ def test_see_off_sends_no_images(fake_run_env, out_root):
     assert [len(c["images"]) for c in sent] == [0, 0]
     assert seen[0] == {"errors": False, "see": False, "want_shots": None}
     summary, _d = summary_of(out_root)
-    assert summary["see"]["on"] is False and summary["see"]["source"] == "--see"
+    assert summary["see"]["on"] is False and summary["see"]["on_source"] == "--see"
+    assert summary["see"]["source"] is None
 
 
 def test_the_original_walk_takes_screens_and_error_states_when_see_is_on(

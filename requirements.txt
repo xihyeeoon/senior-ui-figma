@@ -6,6 +6,8 @@
 #   tiktoken    호출마다 보내기 전에 토큰을 어림해 로그에 남긴다
 #               (senior_ui/restructure/model.py). 없으면 글자 수로 어림한다
 #   pytest      회귀 테스트 (tests/)
+#   pillow      --captures 의 캡처를 가로 390 으로 줄인다 (LANCZOS 고정 -
+#               senior_ui/restructure/captures.py). 그 밖의 실행은 import 하지 않는다
 #   httpx       테스트의 가짜 OpenAI 응답 (tests/fake_openai.py 가 직접 import 한다).
 #               openai 가 끌어오기도 하지만, 직접 쓰는 것은 직접 적는다
 #
@@ -15,3 +17,4 @@ openai==3.8.0
 pytest==9.1.1
 tiktoken==0.14.0
 httpx==0.28.1
+pillow==12.3.0

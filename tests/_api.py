@@ -31,6 +31,7 @@ from senior_ui.restructure import audit_call as _audit_call  # noqa: E402
 from senior_ui.audit import inputs as _audit_inputs          # noqa: E402
 from senior_ui.restructure import loop as _loop              # noqa: E402
 from senior_ui.restructure import model as _model            # noqa: E402
+from senior_ui.restructure import captures as _captures      # noqa: E402
 from senior_ui.restructure import plan as _plan              # noqa: E402
 from senior_ui.restructure import brief as _brief            # noqa: E402
 from senior_ui.viewer import build_index as _build_index     # noqa: E402
@@ -138,6 +139,8 @@ mock_reply = _model.mock_reply
 # 호출 실패의 종류를 가르는 예외들. 루프가 그 종류로 판단하므로 테스트도 같은
 # 것을 던져야 한다.
 model_module = _model
+# 캡처 입력 (--captures) - 대응표 읽기 · 줄이기
+captures_module = _captures
 
 # ---- senior_ui/restructure/loop.py (재시도 루프 · 예산 · 종료 코드) ----- #
 # 버그 재현 테스트는 단계 함수를 하나씩 부르고 루프 안의 이름을 바꿔 끼우므로

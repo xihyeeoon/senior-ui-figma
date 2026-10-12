@@ -183,6 +183,11 @@ def build_parser():
     ap.add_argument("--see", choices=["on", "off"], default=None,
                     help="원본 화면 그림을 진단·계획 호출에 넣는가. 주지 않으면 on. "
                          "off 는 그림 없이 글만 보내던 전의 동작이다")
+    ap.add_argument("--captures", default=None, metavar="CAPTURES_JSON",
+                    help="진단·계획에 보여 줄 원본 그림을 렌더 그림 대신 연구자의 캡처로 "
+                         "(inputs/captures/<과제>/captures.json - docs/input-contract.md "
+                         "'캡처 입력'). 원본 걷기와 비교 기준은 그대로다. --see off 와 같이 "
+                         "쓸 수 없다")
     ap.add_argument("--refine", type=int, default=None, metavar="N",
                     help="보고 다듬기 횟수. 검사를 통과한 빌드의 스크린샷을 보여 주고 "
                          "다듬게 한다. 0 이면 끈다. 형식 · 검사 예산과 따로 센다. 주지 "
