@@ -11,11 +11,15 @@ r"""재구성 실행끼리 과제 밖 입구 거리 · 선택지 수를 나란�
   펼침 뒤로     생성 쪽 펼치기(reveal) 횟수가 원본보다 많은 입구 수
   다른 화면     입구를 원본에서 본 화면 o 와 생성에서 본 화면 b ('#' 앞) 가 다른 입구 수.
                 b == o 이거나 b 의 plan.screens[].from 이 정확히 [o] 하나면(이름만 바뀐 화면,
-                예 confirm → review) 옮기지 않은 것으로 본다
+                예 confirm → review) 옮기지 않은 것으로 본다. from 에서 이름이 err- 로 시작하는
+                화면은 빼고 본다 (예 review 의 from ['confirm', 'err-bank'] → ['confirm'])
   모인 화면     옮긴 입구가 가장 많이 간 생성 화면과 그 수 (예 services 22)
-  가리키는 버튼 옮긴 입구 가운데, o 에 해당하는 생성 장(sheet.screen 이 o 이거나 o 에서 이름만
-                바뀐 화면)에 글(text, 없으면 aria)이 입구 label 과 같고 result 가 화면 b 로
-                가는 요소가 있는 수 / 옮긴 수. storyboard/storyboard.json 이 없으면 -
+  가리키는 버튼 "n/옮긴 수 · 묶음 m/옮긴 수". 옮긴 입구 가운데, o 에 해당하는 생성 장
+                (sheet.screen 이 o 이거나 o 에서 이름만 바뀐 화면)에 result 가 화면 b 로 가는
+                요소가 있는 수. 글(text, 없으면 aria)이 입구 label 과 같거나 action 이 입구
+                action 과 같으면 n 에, 그런 요소는 없고 다른 요소(예 '다른 서비스 보기' ·
+                '전체메뉴' · 탭)만 b 로 가면 묶음 입구로 이어짐으로 m 에 센다.
+                storyboard/storyboard.json 이 없으면 -
   스크롤        입구마다 (생성 scroll_px - 원본 scroll_px) 의 평균 · 최대. 생성 쪽은 입구가 있는
                 화면 안에서 잰 값이다 (옮겼으면 옮긴 화면 기준)
   선택지        원본을 걷는 동안 보인 값의 수 → 그 무리에서 생성 쪽이 고를 수 있게 보인 값의 수
@@ -54,8 +58,8 @@ def visit(v):
 
 
 def renamed(came, b, o):
-    """생성 화면 b 가 원본 화면 o 그대로이거나 o 에서 이름만 바뀐 화면인가."""
-    return b == o or came.get(b) == [o]
+    """생성 화면 b 가 원본 화면 o 그대로이거나 o 에서 이름만 바뀐 화면인가 (from 의 err- 는 뺀다)."""
+    return b == o or [f for f in came.get(b) or [] if not f.startswith("err-")] == [o]
 
 
 def moved_entrances(run):
@@ -77,17 +81,24 @@ def storyboard_sheets(run):
 
 
 def pointing(sheets, came, d):
-    """옮긴 입구 d 를 원래 화면에서 (같은 글로) 가리켜 옮긴 화면으로 보내는 요소가 있는가."""
+    """옮긴 입구 d 를 원래 화면에서 옮긴 화면 b 로 보내는 요소.
+
+    "same" 같은 글이나 같은 action 의 요소가 있다, "bundle" 그런 것은 없고 다른 요소만 b 로
+    간다 (묶음 입구로 이어짐), 둘 다 없으면 None."""
     o, b = visit(d["original"]["visit"]), visit(d["build"]["visit"])
+    found = None
     for sheet in sheets:
         if not renamed(came, sheet.get("screen"), o):
             continue
         for it in sheet.get("items") or []:
             res = it.get("result") or {}
+            if res.get("kind") != "screen" or res.get("to") != b:
+                continue
             if ((it.get("text") or it.get("aria")) == d["label"]
-                    and res.get("kind") == "screen" and res.get("to") == b):
-                return True
-    return False
+                    or (it.get("action") and it.get("action") == d.get("action"))):
+                return "same"
+            found = "bundle"
+    return found
 
 
 def row(run):
@@ -96,6 +107,7 @@ def row(run):
               if (d["build"].get("reveal") or 0) > (d["original"].get("reveal") or 0)]
     gathered = collections.Counter(visit(d["build"]["visit"]) for d in moved).most_common(1)
     sheets = storyboard_sheets(run)
+    kinds = [] if sheets is None else [pointing(sheets, came, d) for d in moved]
     ds = [(d["build"].get("scroll_px") or 0) - (d["original"].get("scroll_px") or 0) for d in ed]
     shown = m.get("choice_values_shown_in_original") or {}
     sel = m.get("choice_values_selectable") or {}
@@ -106,7 +118,8 @@ def row(run):
             str(len(folded)), str(len(moved)),
             "%s %d" % gathered[0] if gathered else "-",
             "-" if sheets is None
-            else "%d/%d" % (sum(pointing(sheets, came, d) for d in moved), len(moved)),
+            else "%d/%d · 묶음 %d/%d" % (kinds.count("same"), len(moved),
+                                         kinds.count("bundle"), len(moved)),
             "%+d · %+d" % (round(sum(ds) / len(ds)), max(ds)) if ds else "-",
             "%d → %d" % (sum(shown.values()), sum(sel.get(a, 0) for a in shown)),
             ", ".join(groups) or "-"]
