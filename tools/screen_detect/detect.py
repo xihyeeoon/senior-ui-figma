@@ -12,6 +12,9 @@ PNG 마다 <out>/<이름>.json 과 확인 그림 <out>/overlay/<이름>.png 를 
     {id, kind: "box" | "text", box: [x, y, w, h] (원본 PNG 픽셀), text, caption, score}
 
 이고, box 에는 그 안에 든 OCR 글의 id 목록 text_in 이 더 붙는다 (text 는 그 글을 이은 것).
+D2: 아이콘을 OCR 이 글자로 읽은 것(icon_texts)은 글 요소에서 빼서 box 의 ocr_guess 로 옮기고
+그 box 는 글 없는 아이콘으로 설명을 붙인다. box 의 source 는 "detector" 또는 그 글 자리로 새로
+만든 "ocr_icon". 바꾼 목록은 JSON 의 icon_from_ocr 에 남는다.
 돌린 장치 · 판 · 한 장당 시간은 <out>/_run.json 에 남긴다.
 
 paddle 과 torch 는 한 프로세스에 함께 올리지 못한다 - 둘이 가져오는 cuDNN DLL 이 서로
@@ -24,6 +27,7 @@ import io
 import json
 import os
 import platform
+import re
 import subprocess
 import sys
 import tempfile
@@ -58,6 +62,16 @@ OCR_DET = "PP-OCRv5_server_det"
 OCR_REC = "korean_PP-OCRv5_mobile_rec"
 # 박스 안에 들었다고 보는 겹침 - 글 박스 넓이의 80% 가 검출 박스 안 (OmniParser 의 is_inside)
 INSIDE = 0.8
+
+# D2 아이콘 규칙 - 아이콘을 OCR 이 글자로 읽은 것 ("Q", "요", "×", ">" 를 "7" 로). 문턱값은
+# D1 정답지로 맞췄다 (README "D2"). 짧은 글(두 글자 이하, 한글이면 한 글자)이 작은 정사각
+# 자리에 혼자 있으면 아이콘 후보다.
+ICON_SIDE = 64              # OCR 글 박스의 긴 변 (캡처 픽셀)
+ICON_ASPECT = (0.85, 1.18)  # 가로 / 세로. 숫자판 숫자는 0.69~0.84 로 세로가 길어 걸리지 않는다
+ICON_GAP = 1.0              # 같은 줄에서 글 높이의 이만큼 안에 다른 글이 붙어 있으면 낱말의 일부
+ICON_PEER_H = (0.8, 1.25)   # 한 글자 한글은 같은 줄에 이 높이 비의 한글이 있으면 글 (탭 이름 줄)
+ICON_PAD = 0.3              # 새 아이콘 박스는 OCR 글 박스를 변마다 이만큼 넓힌다
+HANGUL = re.compile("[가-힣ㄱ-ㆎ]")
 
 FONT = r"C:\Windows\Fonts\malgun.ttf"
 
@@ -142,6 +156,64 @@ def inside(a, b):
     return area(a) > 0 and inter(a, b) / area(a) > INSIDE
 
 
+def _h(t):
+    return t["xyxy"][3] - t["xyxy"][1]
+
+
+def same_line(t, u):
+    cy = lambda v: (v["xyxy"][1] + v["xyxy"][3]) / 2
+    return abs(cy(t) - cy(u)) < 0.5 * _h(t)
+
+
+def gap(t, u):
+    """두 글 박스 사이의 가로 틈 (겹치면 0)."""
+    return max(0, max(t["xyxy"][0], u["xyxy"][0]) - min(t["xyxy"][2], u["xyxy"][2]))
+
+
+def icon_texts(texts):
+    """아이콘을 글자로 읽은 것으로 보이는 OCR 글의 번호 (D2 규칙 1).
+
+    모양 - 글이 두 글자 이하다(한글이 들었으면 한 글자). 글 박스가 작고 정사각에 가깝다 (긴
+    변 ICON_SIDE 이하, 가로/세로 ICON_ASPECT 안). 모양이 맞은 것 가운데
+    - 같은 줄에서 모양이 맞지 않은 글(보통 글)과의 틈이 글 높이의 ICON_GAP 배 안이면 글이다
+      (앞뒤에 붙은 글 - "C 홍길동님" 의 C, "7월 소비 ↻" 의 ↻ 를 읽은 C)
+    - 한 글자 한글이 같은 줄에 높이가 비슷한(ICON_PEER_H) 한글을 두면 글이다 (탭 이름 "홈 금융 상품")
+    - 숫자가 같은 줄에 높이가 비슷한 숫자를 두면 글이다 (숫자판 "7 8 9")
+    나머지가 아이콘 후보다 ("Q" "요" "×" "←", 오른쪽 끝 ">" 를 읽은 "7")."""
+    def shaped(t):
+        s = t["text"].strip()
+        w, h = t["xyxy"][2] - t["xyxy"][0], _h(t)
+        han = HANGUL.findall(s)
+        if not s or len(s) > 2 or (han and len(s) != 1) or w <= 0 or h <= 0:
+            return False
+        return max(w, h) <= ICON_SIDE and ICON_ASPECT[0] <= w / h <= ICON_ASPECT[1]
+
+    def peer(t, u, kind):
+        return kind(u["text"].strip()) and ICON_PEER_H[0] <= _h(u) / _h(t) <= ICON_PEER_H[1]
+
+    shape = [shaped(t) for t in texts]
+    out = set()
+    for i, t in enumerate(texts):
+        if not shape[i]:
+            continue
+        s, h = t["text"].strip(), _h(t)
+        line = [(j, u) for j, u in enumerate(texts) if j != i and same_line(t, u)]
+        if any(not shape[j] and gap(t, u) < ICON_GAP * h for j, u in line):
+            continue
+        if HANGUL.search(s) and any(peer(t, u, HANGUL.search) for _, u in line):
+            continue
+        if s.isdigit() and any(peer(t, u, str.isdigit) for _, u in line):
+            continue
+        out.add(i)
+    return out
+
+
+def pad(b, k, size):
+    w, h = b[2] - b[0], b[3] - b[1]
+    return [max(0, b[0] - k * w), max(0, b[1] - k * h),
+            min(size[0], b[2] + k * w), min(size[1], b[3] + k * h)]
+
+
 def merge(det, texts):
     """검출 박스와 OCR 글을 합친다 - OmniParser remove_overlap_new 와 같은 규칙.
 
@@ -207,33 +279,60 @@ class Models:
 
 
 def elements_of(image, ocr_items, models):
-    """한 장의 요소 목록과 단계별 시간."""
+    """한 장의 요소 목록, 아이콘으로 바꾼 OCR 글 목록, 단계별 시간.
+
+    아이콘으로 본 OCR 글(icon_texts)은 글 요소에서 빼고 박스의 ocr_guess 로 옮긴다. 그 글이
+    든 검출 박스에 다른 글이 없으면 그 박스가, 없으면 그 글 박스를 넓힌 새 박스(source
+    "ocr_icon")가 아이콘이 된다. 아이콘 박스는 글이 없으므로(text null) 설명을 붙인다."""
     texts = [t for t in ocr_items if t["score"] >= TEXT_THRESHOLD and t["text"].strip()]
+    icons = icon_texts(texts)
+    real = [t for i, t in enumerate(texts) if i not in icons]
+    guessed = [t for i, t in enumerate(texts) if i in icons]
     t0 = time.time()
     det = models.detect(image)
     t1 = time.time()
-    keep, owner = merge(det, texts)
-    plain = [k for k in range(len(keep)) if k not in owner.values()]
-    caps = dict(zip(plain, models.caption(image, [keep[k][0] for k in plain])))
+    keep, owner = merge(det, real)
+    boxes = [{"xyxy": b, "score": s, "source": "detector", "guess": []} for b, s in keep]
+    owned = set(owner.values())
+    moved = []
+    for t in guessed:
+        free = [k for k, b in enumerate(boxes) if k not in owned]
+        hits = [k for k in free if inside(t["xyxy"], boxes[k]["xyxy"])]
+        if not hits:
+            wide = pad(t["xyxy"], ICON_PAD, image.size)
+            hits = [k for k in free if overlap(wide, boxes[k]["xyxy"]) > 0.5]
+        if hits:
+            k = min(hits, key=lambda k: area(boxes[k]["xyxy"]))
+        else:
+            boxes.append({"xyxy": pad(t["xyxy"], ICON_PAD, image.size), "score": t["score"],
+                          "source": "ocr_icon", "guess": []})
+            k = len(boxes) - 1
+        boxes[k]["guess"].append(t)
+        moved.append({"text": t["text"], "score": round(t["score"], 4), "box": xywh(t["xyxy"]),
+                      "into": "b%d" % k})
+    plain = [k for k in range(len(boxes)) if k not in owned]
+    caps = dict(zip(plain, models.caption(image, [boxes[k]["xyxy"] for k in plain])))
     t2 = time.time()
     els = []
     tid = {}
-    for ti, t in enumerate(texts):
+    for ti, t in enumerate(real):
         tid[ti] = "t%d" % ti
         els.append({"id": tid[ti], "kind": "text", "box": xywh(t["xyxy"]),
                     "text": t["text"], "caption": None, "score": round(t["score"], 4),
                     "in_box": None})
-    for k, (b, s) in enumerate(keep):
+    for k, bx in enumerate(boxes):
         mine = sorted((ti for ti, o in owner.items() if o == k),
-                      key=lambda ti: (texts[ti]["xyxy"][1], texts[ti]["xyxy"][0]))
+                      key=lambda ti: (real[ti]["xyxy"][1], real[ti]["xyxy"][0]))
         bid = "b%d" % k
         for ti in mine:
             els[ti]["in_box"] = bid
-        els.append({"id": bid, "kind": "box", "box": xywh(b),
-                    "text": " ".join(texts[ti]["text"] for ti in mine) or None,
-                    "caption": caps.get(k), "score": round(s, 4),
-                    "text_in": [tid[ti] for ti in mine]})
-    return els, {"detect": t1 - t0, "caption": t2 - t1, "raw_boxes": len(det)}
+        els.append({"id": bid, "kind": "box", "box": xywh(bx["xyxy"]),
+                    "text": " ".join(real[ti]["text"] for ti in mine) or None,
+                    "caption": caps.get(k), "score": round(bx["score"], 4),
+                    "text_in": [tid[ti] for ti in mine],
+                    "ocr_guess": " ".join(g["text"] for g in bx["guess"]) or None,
+                    "source": bx["source"]})
+    return els, moved, {"detect": t1 - t0, "caption": t2 - t1, "raw_boxes": len(det)}
 
 
 # --------------------------------------------------------------------------- #
@@ -264,8 +363,10 @@ def overlay(image, els, path):
             col = (30, 90, 230) if e["text"] else (220, 30, 30)
             d.rectangle([ox + x, y, ox + x + bw, y + bh], outline=col, width=1)
             if not e["text"]:
-                d.text((ox + x + 2, y + 2), "%s [%s]" % (e["id"], e["caption"] or ""),
-                       fill=col, font=small)
+                d.text((ox + x + 2, y + 2), "%s [%s]%s" % (
+                    e["id"], e["caption"] or "",
+                    " ocr:%s" % e["ocr_guess"] if e.get("ocr_guess") else ""),
+                    fill=col, font=small)
     for e in els:
         if e["kind"] == "text":
             x, y, bw, bh = e["box"]
@@ -305,15 +406,16 @@ def main(argv=None):
     for n, p in zip(names, paths):
         image = Image.open(p).convert("RGB")
         o = ocr["images"][os.path.basename(p)]
-        els, times = elements_of(image, o["items"], models)
+        els, moved, times = elements_of(image, o["items"], models)
         times["ocr"] = o["seconds"]
         per[n] = {k: (round(v, 3) if isinstance(v, float) else v) for k, v in times.items()}
         per[n].update(boxes=sum(e["kind"] == "box" for e in els),
                       texts=sum(e["kind"] == "text" for e in els),
-                      no_text_boxes=sum(e["kind"] == "box" and not e["text"] for e in els))
+                      no_text_boxes=sum(e["kind"] == "box" and not e["text"] for e in els),
+                      icons_from_ocr=len(moved))
         with io.open(os.path.join(a.out, n + ".json"), "w", encoding="utf-8") as f:
             json.dump({"capture": os.path.relpath(p, ROOT).replace("\\", "/"),
-                       "size": list(image.size), "elements": els},
+                       "size": list(image.size), "elements": els, "icon_from_ocr": moved},
                       f, ensure_ascii=False, indent=1)
         overlay(image, els, os.path.join(a.out, "overlay", n + ".png"))
         print(n, per[n], flush=True)
@@ -324,7 +426,9 @@ def main(argv=None):
            "settings": {"box_threshold": BOX_THRESHOLD, "nms_iou": NMS_IOU,
                         "overlap_iou": OVERLAP_IOU, "imgsz": a.imgsz,
                         "caption_prompt": CAPTION_PROMPT, "text_threshold": TEXT_THRESHOLD,
-                        "inside": INSIDE},
+                        "inside": INSIDE,
+                        "icon_rule": {"side": ICON_SIDE, "aspect": ICON_ASPECT, "gap": ICON_GAP,
+                                      "peer_height": ICON_PEER_H, "pad": ICON_PAD}},
            "detector": {"weights": "microsoft/OmniParser-v2.0 icon_detect_v3/model.pt",
                         "code": "microsoft/OmniParser util/yolov9.py @ %s" % omniparser_commit()},
            "caption": {"weights": "microsoft/OmniParser-v2.0 icon_caption",
