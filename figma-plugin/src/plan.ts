@@ -49,7 +49,7 @@ const COL_GAP = 160, ROW_GAP = 160;
 const DEFAULT_SIZE = [390, 844];
 const ENTRANCE_NOTE = '과제 밖 입구 = 이 과제에서는 쓰지 않는 메뉴 · 버튼. 옮기거나 접어도 되지만 지우지 않는다 (연구 원칙, 검사 K).';
 const SLOT_NOTE = '회색 X 상자 = 그림 (로고 · 아이콘) 이 들어갈 자리. 디자이너가 표준 아이콘 · 로고로 바꾼다.';
-const SLOT_FILL = '#E6E6E6', SLOT_LINE = '#8A8A8A', SLOT_MIN_W = 48, SLOT_MIN_H = 28;
+const SLOT_FILL = '#E6E6E6', SLOT_LINE = '#8A8A8A', SLOT_MIN_W = 48, SLOT_MIN_H = 28, SLOT_NO_W = 16, SLOT_NO_H = 12;
 const NOTICE ='이 와이어프레임은 구조 시안이다. 색 · 모양 · 아이콘 · 로고 · 보안 키패드 모양은 디자이너가 표준 부품으로 채운다.';
 
 type Shape = { fill: string | null; stroke?: string; dash?: number[]; radius: number;
@@ -145,21 +145,22 @@ const tags = (labels: string[], w: number): Node => ({ t: 'frame', name: '표시
     fill: MARK_FILL[k] ?? MARK_FILL[MARK.entrance], kids: [txt(k, 11, { bold: true, color: PAPER })] })) });
 
 // 그림 자리 (schema 3 images): 회색 X 상자. (dx, dy) = 담는 프레임의 장 좌표 (요소 안이면 요소 왼쪽 위).
-// 상자는 자르기 켬이라 작은 상자의 글 (상자 아래 바깥) 과 '새 그림' 표시는 상자 밖 형제로 둔다.
+// 큰 상자는 안에 이름 · 크기 두 줄, 작은 상자는 번호만 (아주 작으면 그것도 없음) - 줄지은 작은 로고의
+// 글이 서로 겹치지 않게. 이름 · 크기는 주석 그림 절과 레이어 이름으로 찾는다.
+// 상자는 자르기 켬이라 '새 그림' 표시는 상자 밖 형제로 둔다.
 const slotSize = (g: any) => `${Math.round(g.box[2])}×${Math.round(g.box[3])}`;
 function slotNodes(g: any, dx = 0, dy = 0): Node[] {
   const [x, y, w, h] = [g.box[0] - dx, g.box[1] - dy, g.box[2], g.box[3]];
-  const small = w < SLOT_MIN_W || h < SLOT_MIN_H;
-  const words = (pre: string, ox: number, oy: number, tw?: number): Node[] => [
-    txt(g.name, 10, { name: `${pre}이름`, x: ox, y: oy, w: tw, h: tw && lineH(10), color: '#333333',
-      align: 'C', trunc: true }),
-    txt(slotSize(g), 9, { name: `${pre}크기`, x: ox, y: oy + lineH(10), w: tw, h: tw && lineH(9),
-      color: '#666666', align: 'C', trunc: true })];
   const line = (n: number, path: string): Node => ({ t: 'line', name: `대각선 ${n}`, path, stroke: SLOT_LINE });
+  const big = w >= SLOT_MIN_W && h >= SLOT_MIN_H, oy = (h - lineH(10) - lineH(9)) / 2;
+  const words: Node[] = big ? [
+    txt(g.name, 10, { name: '이름', x: 2, y: oy, w: w - 4, h: lineH(10), color: '#333333', align: 'C', trunc: true }),
+    txt(slotSize(g), 9, { name: '크기', x: 2, y: oy + lineH(10), w: w - 4, h: lineH(9), color: '#666666',
+      align: 'C', trunc: true })]
+    : w >= SLOT_NO_W && h >= SLOT_NO_H ? [txt(String(g.no), 8, { name: '번호', x: 0, y: (h - lineH(8)) / 2, w,
+      h: lineH(8), color: '#333333', align: 'C', trunc: true })] : [];
   return [{ t: 'frame', name: `그림 ${g.no} · ${g.name}`, x, y, w, h, fill: SLOT_FILL, stroke: SLOT_LINE,
-      radius: 0, clip: true, kids: [line(1, `M 0 0 L ${w} ${h}`), line(2, `M ${w} 0 L 0 ${h}`),
-        ...(small ? [] : words('', 2, (h - lineH(10) - lineH(9)) / 2, w - 4))] },
-    ...(small ? words(`그림 ${g.no} `, x, y + h + 2) : []),
+      radius: 0, clip: true, kids: [line(1, `M 0 0 L ${w} ${h}`), line(2, `M ${w} 0 L 0 ${h}`), ...words] },
     ...(g.original === false ? [{ ...tags([NEW_PICTURE], w), x: x + w, y: y - 10 }] : [])];
 }
 

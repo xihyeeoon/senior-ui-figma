@@ -27,6 +27,25 @@
       "regions": [
         { "no": 1, "name": "머리", "description": "로고", "box": [0, 0, 390, 100], "elements": [] }
       ]
+    },
+    {
+      "id": "scr-bank", "screen": "bank", "state": "visit:bank", "kind": "visit", "main": true,
+      "title": "은행 고르기", "purpose": "줄지은 작은 로고 (은행 목록) 를 그려 본다.", "picture": "shots/visit-bank.png",
+      "size": [390, 400], "scale": 2,
+      "items": [
+        { "kind": "element", "no": "e1", "action": "pick-bank", "text": "가나은행", "aria": null,
+          "tag": "button", "box": [64, 96, 310, 48], "disabled": false, "entrance": false,
+          "result": { "kind": "screen", "to": "home" } }
+      ],
+      "images": [
+        { "no": "g1", "name": "가나은행 로고", "box": [16, 110, 40, 20], "original": true },
+        { "no": "g2", "name": "다라은행 로고", "box": [16, 166, 40, 20], "original": true },
+        { "no": "g3", "name": "마바은행 로고", "box": [16, 222, 40, 20], "original": true },
+        { "no": "g4", "name": "사아은행 로고", "box": [16, 278, 40, 20], "original": true },
+        { "no": "g5", "name": "자차은행 로고", "box": [16, 334, 40, 20], "original": true },
+        { "no": "g6", "name": "점 아이콘", "box": [370, 16, 12, 10], "original": true }
+      ],
+      "regions": []
     }
   ]
 }
