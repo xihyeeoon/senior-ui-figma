@@ -1,0 +1,321 @@
+{
+ "sheets": [
+  {
+   "id": "scr-home",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1",
+      "e2",
+      "e3",
+      "e4"
+     ],
+     "description": "(mock) 요소 e1, e2, e3, e4"
+    },
+    {
+     "no": 2,
+     "name": "영역 2",
+     "elements": [
+      "e5"
+     ],
+     "description": "(mock) 요소 e5"
+    },
+    {
+     "no": 3,
+     "name": "영역 3",
+     "elements": [
+      "e6"
+     ],
+     "description": "(mock) 요소 e6"
+    },
+    {
+     "no": 4,
+     "name": "영역 4",
+     "elements": [
+      "e7"
+     ],
+     "description": "(mock) 요소 e7"
+    },
+    {
+     "no": 5,
+     "name": "영역 5",
+     "elements": [
+      "e8"
+     ],
+     "description": "(mock) 요소 e8"
+    },
+    {
+     "no": 6,
+     "name": "영역 6",
+     "elements": [
+      "e9",
+      "e10",
+      "e11"
+     ],
+     "description": "(mock) 요소 e9, e10, e11"
+    },
+    {
+     "no": 7,
+     "name": "영역 7",
+     "elements": [
+      "e12"
+     ],
+     "description": "(mock) 요소 e12"
+    },
+    {
+     "no": 8,
+     "name": "영역 8",
+     "elements": [
+      "e13"
+     ],
+     "description": "(mock) 요소 e13"
+    },
+    {
+     "no": 9,
+     "name": "영역 9",
+     "elements": [
+      "e14"
+     ],
+     "description": "(mock) 요소 e14"
+    },
+    {
+     "no": 10,
+     "name": "영역 10",
+     "elements": [
+      "e15",
+      "e16",
+      "e17",
+      "e18",
+      "e19",
+      "e20",
+      "e21",
+      "e22"
+     ],
+     "description": "(mock) 요소 e15, e16, e17, e18, e19, e20, e21, e22"
+    }
+   ]
+  },
+  {
+   "id": "scr-recipient",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1",
+      "e3",
+      "e4",
+      "e2",
+      "e5",
+      "e6",
+      "e7",
+      "e8",
+      "e9"
+     ],
+     "description": "(mock) 요소 e1, e3, e4, e2, e5, e6, e7, e8, e9"
+    }
+   ]
+  },
+  {
+   "id": "scr-account",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1",
+      "e2"
+     ],
+     "description": "(mock) 요소 e1, e2"
+    },
+    {
+     "no": 2,
+     "name": "영역 2",
+     "elements": [
+      "e3",
+      "e4"
+     ],
+     "description": "(mock) 요소 e3, e4"
+    },
+    {
+     "no": 3,
+     "name": "영역 3",
+     "elements": [
+      "e5"
+     ],
+     "description": "(mock) 요소 e5"
+    }
+   ]
+  },
+  {
+   "id": "scr-account--visit-2",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1",
+      "e2"
+     ],
+     "description": "(mock) 요소 e1, e2"
+    },
+    {
+     "no": 2,
+     "name": "영역 2",
+     "elements": [
+      "e3",
+      "e4"
+     ],
+     "description": "(mock) 요소 e3, e4"
+    },
+    {
+     "no": 3,
+     "name": "영역 3",
+     "elements": [
+      "e5",
+      "e6",
+      "e7"
+     ],
+     "description": "(mock) 요소 e5, e6, e7"
+    }
+   ]
+  },
+  {
+   "id": "scr-bank",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1",
+      "e2",
+      "e3",
+      "e4"
+     ],
+     "description": "(mock) 요소 e1, e2, e3, e4"
+    }
+   ]
+  },
+  {
+   "id": "scr-amount",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1",
+      "e2"
+     ],
+     "description": "(mock) 요소 e1, e2"
+    },
+    {
+     "no": 2,
+     "name": "영역 2",
+     "elements": [
+      "e3",
+      "e4",
+      "e5",
+      "e6"
+     ],
+     "description": "(mock) 요소 e3, e4, e5, e6"
+    }
+   ]
+  },
+  {
+   "id": "scr-confirm",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1",
+      "e2"
+     ],
+     "description": "(mock) 요소 e1, e2"
+    },
+    {
+     "no": 2,
+     "name": "영역 2",
+     "elements": [
+      "e3"
+     ],
+     "description": "(mock) 요소 e3"
+    }
+   ]
+  },
+  {
+   "id": "scr-password",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1"
+     ],
+     "description": "(mock) 요소 e1"
+    },
+    {
+     "no": 2,
+     "name": "영역 2",
+     "elements": [
+      "e2",
+      "e3",
+      "e4"
+     ],
+     "description": "(mock) 요소 e2, e3, e4"
+    }
+   ]
+  },
+  {
+   "id": "scr-done",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1",
+      "e2"
+     ],
+     "description": "(mock) 요소 e1, e2"
+    },
+    {
+     "no": 2,
+     "name": "영역 2",
+     "elements": [
+      "e3",
+      "e4"
+     ],
+     "description": "(mock) 요소 e3, e4"
+    }
+   ]
+  },
+  {
+   "id": "scr-err-account",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1"
+     ],
+     "description": "(mock) 요소 e1"
+    }
+   ]
+  },
+  {
+   "id": "scr-err-bank",
+   "regions": [
+    {
+     "no": 1,
+     "name": "영역 1",
+     "elements": [
+      "e1"
+     ],
+     "description": "(mock) 요소 e1"
+    }
+   ]
+  }
+ ]
+}

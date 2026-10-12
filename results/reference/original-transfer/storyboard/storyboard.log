@@ -1,0 +1,25 @@
+[  0.0s] 실행 original-transfer · 과제 transfer · 최종 시도 1
+[  0.0s] 선택지 무리 (최종 검사의 choice_groups_original): acc-num, num, pick-bank, pw, quick
+[  0.1s] server: started http.server on 127.0.0.1:53906 (빈 포트, pid 66072)
+[  3.4s] 원본 걷기 - 걸음 9 · 끝까지 (3.0초)
+[  4.5s] 그림 1/11 visit:home - 요소 22개 · 390x1648
+[  5.5s] 그림 2/11 visit:recipient - 요소 9개 · 390x847
+[  6.6s] 그림 3/11 visit:account - 요소 5개 · 390x847
+[  7.6s] 그림 4/11 visit:account#2 - 요소 16개 · 390x847
+[  8.8s] 그림 5/11 visit:bank - 요소 41개 · 390x1482
+[ 10.7s] 그림 6/11 visit:amount - 요소 19개 · 390x847
+[ 12.8s] 그림 7/11 visit:confirm - 요소 3개 · 390x847
+[ 14.9s] 그림 8/11 visit:password - 요소 13개 · 390x847
+[ 17.9s] 그림 9/11 visit:done - 요소 4개 · 390x847
+[ 19.8s] 그림 10/11 error:wrong-account - 요소 1개 · 390x847
+[ 22.0s] 그림 11/11 error:wrong-bank - 요소 1개 · 390x847
+[ 28.8s] 누르기 20/66
+[ 33.5s] 누르기 40/66
+[ 40.4s] 누르기 60/66
+[ 42.7s] 누르기 66/66
+[ 42.8s] 장 11 (본 장 10) · 항목 66 · 누르기 66번 · 그림 18.6초 · 누르기 20.7초
+[ 42.8s] 영역 묶기 (mock regions) 첫 답: 문제 0건
+[ 42.9s] 기능-화면 표: 어느 장에서도 보지 못한 줄 1 - entrances:T25
+[ 42.9s] index.html · storyboard.json 을 썼다
+[ 42.9s] server: 띄운 서버를 껐다 (pid 66072)
+[ 42.9s] 끝 (42.9초) - C:\Users\xihye\senior-ui-figma-pipeline\results\reference\original-transfer\storyboard
