@@ -31,9 +31,10 @@ const valOf = (rn: Map1, action: string, screen: string): string | undefined => 
 const SPECIAL = ['new', 'made-pressable'];
 
 const INK = '#000000', PAPER = '#FFFFFF', SUB = '#555555';
-// 입구 꼬리표 글은 연구 원칙 '보여 주는 방식은 자유, 사용자가 할 수 있는 일은 줄이지 않는다' 에서 왔다
-const KEEP = '옮기거나 접어도 됨, 지우지 말 것';
-export const MARK = { entrance: `과제 밖 입구 — ${KEEP}`, none: '누르면 변화 없음 — 확인 필요', fresh: '새 요소',
+// 입구 꼬리표 글은 연구 원칙 '보여 주는 방식은 자유, 사용자가 할 수 있는 일은 줄이지 않는다' 에서 왔다.
+// 꼬리표는 짧게, 뜻은 실행 카드의 ENTRANCE_NOTE 에 한 번 적는다.
+const KEEP = '지우지 말 것';
+export const MARK = { entrance: `과제 밖 입구 · ${KEEP}`, none: '누르면 변화 없음 — 확인 필요', fresh: '새 요소',
   pressable: '새 동작 (원본에선 누를 수 없던 글)' };
 const MARK_FILL: Record<string, string> = {
   [MARK.entrance]: '#6B6B6B', [MARK.none]: '#D9480F', [MARK.fresh]: '#1C64F2',
@@ -44,6 +45,7 @@ const CARD_W = 720, WF_TOP = 400;
 const ANN_GAP = 24, ANN_W = 360, ANN_PAD = 16, ANN_ITEM_GAP = 6;
 const COL_GAP = 160, ROW_GAP = 160;
 const DEFAULT_SIZE = [390, 844];
+const ENTRANCE_NOTE = '과제 밖 입구 = 이 과제에서는 쓰지 않는 메뉴 · 버튼. 옮기거나 접어도 되지만 지우지 않는다 (연구 원칙, 검사 K).';
 const NOTICE = '이 와이어프레임은 구조 시안이다. 색 · 모양 · 아이콘 · 로고 · 보안 키패드 모양은 디자이너가 표준 부품으로 채운다.';
 
 type Shape = { fill: string | null; stroke?: string; dash?: number[]; radius: number;
@@ -182,7 +184,7 @@ function sheetNames(sheets: any[]): Map<any, string> {
 
 function regionNode(r: any, entrances = 0): Node {
   const [x, y, w, h] = r.box;
-  const tag = entrances ? [tags([`과제 밖 입구 · ${entrances} — ${KEEP}`], w)] : [];
+  const tag = entrances ? [tags([`과제 밖 입구 · ${entrances} · ${KEEP}`], w)] : [];
   return { t: 'frame', name: `영역 ${r.no} · ${r.name}`, x, y, w, h, fill: null, stroke: '#7A7A7A',
     dash: [6, 4], clip: false, kids: [{ t: 'frame', name: `번호 ${r.no}`, x: 0, y: 0, w: 24, h: 24,
       radius: 12, fill: INK, kids: [txt(String(r.no), 12, { x: 0, y: 0, w: 24, h: 24, bold: true,
@@ -215,6 +217,7 @@ function runCard(sb: any, checks: string[]): Node {
       txt(`원본: ${orig.path ?? ''} · sha256 ${String(orig.sha256 ?? '').slice(0, 8)}`, 14),
       txt(`생성: ${sb.generated?.at ?? ''}`, 14),
       txt(NOTICE, 14, { bold: true }),
+      txt(ENTRANCE_NOTE, 14),
       ...checks.map(c => txt(c, 14)),
     ] };
 }
