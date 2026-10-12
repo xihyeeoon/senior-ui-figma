@@ -144,6 +144,8 @@ def test_a_build_without_the_entrances_fails():
     assert report["metrics"]["entrances_original"] == len(WANT["transfer"])
     assert report["metrics"]["entrances_kept"] == 0
     assert "메시지" in ks[0]["detail"] and "없애지 마라" in ks[0]["detail"]
+    # 재시도 때 모델이 받는 글이 프롬프트 1절의 문장과 같다
+    assert SENTENCE in ks[0]["detail"]
     assert "oos-message" in ks[0]["detail"]
 
 
