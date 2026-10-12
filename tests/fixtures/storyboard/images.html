@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>그림 자리 칸 (설계서 시험용, schema 3)</title>
+<style>
+  body{margin:0; display:flex; justify-content:center; background:#DFE3EA;}
+  #phone{width:390px; height:844px; background:#fff; position:relative; overflow:hidden;}
+  .screen{display:none; height:844px;} .screen.on{display:block;}
+  .body{height:844px; overflow-y:auto; padding:0 20px; box-sizing:border-box;}
+  .pic{display:inline-block; background:#E4E7EC;}
+  .card{width:120px; height:60px; margin-top:20px;} .icon{width:20px; height:20px;}
+  .logo{width:32px; height:32px;}
+  .spacer{height:1500px;}
+  button{font-size:16px; display:flex; align-items:center; gap:8px; margin-top:12px;}
+</style>
+</head>
+<body>
+<div id="phone">
+<section class="screen on" data-screen="a">
+  <div class="body" id="a-body">
+    <div class="pic card" role="img" aria-label="카드 그림"></div>
+    <button data-action="go-b" id="go-b"><i class="pic icon" role="img" aria-label="다음 아이콘"></i>다음</button>
+    <div>
+      <button data-action="pick" data-bank="가"><span class="pic logo" role="img" aria-label="가 로고"></span>가</button>
+      <button data-action="pick" data-bank="나"><span class="pic logo" role="img" aria-label="나 로고"></span>나</button>
+    </div>
+    <div class="pic logo" role="img" aria-label="숨은 로고" style="display:none"></div>
+    <div class="pic logo" role="img"></div>
+    <div class="spacer"></div>
+    <div class="pic logo" id="low" role="img" aria-label="아래 로고"></div>
+  </div>
+</section>
+<section class="screen" data-screen="b">
+  <div class="body"><p>그림 없는 화면</p><button data-action="back" id="back">처음으로</button></div>
+</section>
+</div>
+<script>
+window.__screen = () => document.querySelector('.screen.on').dataset.screen;
+function show(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.dataset.screen === n));
+}
+document.getElementById('phone').addEventListener('click', e => {
+  const el = e.target.closest('[data-action]'); if (!el) return;
+  const a = el.dataset.action;
+  if (a === 'go-b') { show('b'); } else if (a === 'back') { show('a'); } else if (a === 'pick') {}
+});
+</script>
+</body>
+</html>

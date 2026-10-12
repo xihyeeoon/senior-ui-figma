@@ -155,6 +155,26 @@ opacity), `#phone` 과 겹치고, 가운데를 찍었을 때 그 요소(또는 �
 `data-action` 이름(과제가 선택지가 아니라고 선언한 `not_choices` 는 빠져 있다)이다. 대표는
 읽는 순서의 첫 것이다 (꺼진 것은 뒤로).
 
+**그림 자리 (schema 3, 2026-10-12).** 같은 때에 그 상태에서 그려져 보인 그림 자리
+(`role="img"` + aria-label — 로고 · 아이콘 · 사진이 들어갈 자리)도 모아 장의 `images` 에 둔다.
+Figma 플러그인이 이것으로 "이 자리에 이 크기로 이런 그림" 상자를 그린다.
+
+```json
+"images": [ { "no": "g1", "name": "<aria-label 그대로>", "box": [x, y, w, h], "original": true, "in": "e3" }, … ]
+```
+
+- `box` 는 `items` 의 `box` 와 같은 좌표다 — 장 왼쪽 위(`#phone`) 기준 px, `#phone` 을 늘린 뒤에
+  재므로 스크롤 아래까지 포함한 장 전체 기준, 장의 `scale` 이전 값. 검사 L 의 `images_box` 는 창
+  기준이라 스크롤에 따라 달라지므로 쓰지 않는다.
+- 그 상태에서 그려져 보인 것만 (크기 0 · 자신이나 조상의 숨김 제외 — 검사 L 의 수집과 같은
+  보임 규칙 — 그리고 `#phone` 과 겹치는 것). 순서는 문서 순서, `no` 는 장마다 `g1` 부터.
+- `original` — 그 이름이 원본을 걷는 동안 보인 그림 자리 이름 집합(검사 L 의 O)에 있으면 true,
+  아니면 false (새 그림). 집합은 검사 L 의 함수 `l_images.original_names` 로 얻는다 — 설계서가
+  원본을 한 번 걸을 때(7절의 원본 걷기) 검사 L 과 같은 수집으로 모은 것을 넘긴다.
+- 누를 수 있는 요소 안에 있으면 (아이콘 버튼 등) `"in": "<그 항목의 no>"` — 선택지 무리의
+  일원이면 그 무리의 번호. 그 상태의 항목이 아니면(덮개에 가려진 요소 등) `in` 은 없다.
+- 그림 자리가 없는 장은 `"images": []`.
+
 ### 4. 눌러 보기 — 원래 빌드에서
 
 항목마다 새 페이지(새 브라우저 문맥)에서 그 상태까지 다시 걸은 뒤, **실행 폴더의 최종
@@ -317,14 +337,14 @@ pw 10 · acc-num 10 · quick 4, 공과금 menu-item 289 · pick-bill 18 · pw 10
 |---|---|
 | `run` | 실행 id · 과제 · 생성 모델 · 최종 빌드(시도 · 다듬기 회차) · 검사 단계 · 커밋 · dirty · 원본 지문 · 생성 비용 |
 | `task` | 과제 id · 이름 · 설명 (과제 파일) |
-| `schema` | 2 (11-12b — 화면 이름 · 경로 · 원본 걷기 · 기능-화면 표가 더해졌다) |
+| `schema` | 3 (2026-10-12 — 장마다 그림 자리 `images` 가 더해졌다). 2 는 11-12b — 화면 이름 · 경로 · 원본 걷기 · 기능-화면 표가 더해졌다 |
 | `flow` | `steps` (걸음마다 장 · 앞 장에서 한 조작) · `errors` (오류마다 조건 · 넣는 곳 · 나오는 장 · 되돌아가기) · `reveals` |
 | `original` | 원본 걷기 — 원본 파일 · 걸음마다 켜진 화면 · 오류 · `where` (data-action 이름마다 원본에서 그려진 화면) · `choices` (선택지 무리마다 원본의 값 목록, 11-12c) |
 | `features` | 기능-화면 표 — `columns` (본 장 id) · `rows[]` (`section` · `key` · `cells` · `original` · `original_from` · 무리마다의 칸) · `missing`. 선택지 · 숫자판 줄은 `by` (value · name) · `values` (원본 값 수) · `found` (찾은 값 수) · `actions` (빌드의 data-action), 칸은 {`mark` · `found` · `of` · `actions` · `sheets` · `found_conditional`?}. 이름으로 찾은 줄의 칸은 {`mark` · `count` · `sheets`} |
 | `changes` · `diagnosis` | 계획의 변경(대응 진단의 문제 글까지) · 진단 (수 · 근거 종류 · 화면별 · 목록) |
 | `choice_groups` | 무리로 묶은 이름 (최종 검사의 `choice_groups_original`) |
 | `counts` | 장 · 본 장 · 항목 · 요소 · 누르기 수 |
-| `sheets[]` | 장마다 `id` · `screen` · `kind` · `main` · `of` · `condition` · `purpose` · `title` (영역 묶기의 화면 이름) · `name` · `name_source` (model · plan · screen) · `path` (장 id 목록) · `picture` · `size` · `grown` · `clipped` · `covered` · `items[]` (`no` · `kind` · `action` · `text` · `aria` · `box` · `disabled` · `entrance` · `group` · `result`) · `regions[]` (`no` · `name` · `description` · `elements` · `box` · `source` · 빈 상태면 `empty`) · `conditions` |
+| `sheets[]` | 장마다 `id` · `screen` · `kind` · `main` · `of` · `condition` · `purpose` · `title` (영역 묶기의 화면 이름) · `name` · `name_source` (model · plan · screen) · `path` (장 id 목록) · `picture` · `size` · `grown` · `clipped` · `covered` · `items[]` (`no` · `kind` · `action` · `text` · `aria` · `box` · `disabled` · `entrance` · `group` · `result`) · `images[]` (`no` · `name` · `box` · `original` · `in`? — 아래 "그림 자리") · `regions[]` (`no` · `name` · `description` · `elements` · `box` · `source` · 빈 상태면 `empty`) · `conditions` |
 | `regions_call` | 영역 묶기 호출 — 모델 · mock · 호출마다(첫 · 다시) 그림 수 · 토큰 어림 · 실측 토큰 · 비용 · 걸린 시간 · 문제 · 파일, 전체 비용, `fallback`, `error`. `--regions-from` 이면 `reused` (파일 · 실행 · 시각 · 그때 비용) 와 그때의 모델 · mock |
 | `generated` | 만든 시각 · 도구 커밋 · 그림/누르기/전체 걸린 시간 |
 

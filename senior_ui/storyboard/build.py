@@ -22,6 +22,7 @@ import shutil
 import time
 
 from senior_ui import config
+from senior_ui.audit.checks.l_images import original_names
 from senior_ui.audit.flow import load_flow, visit_keys
 from senior_ui.audit.inputs import judged_flow, read_flow
 from senior_ui.devserver import ensure_server
@@ -40,7 +41,8 @@ REUSED_NAME = "regions.from.json"
 # 2: 장마다 화면 이름(title · name · name_source)과 경로(path), 원본 걷기(original) ·
 #    기능-화면 표(features) (11-12b). 기능-화면 표의 선택지 · 숫자판을 값으로 찾으며
 #    original.choices 가 더해졌다 (11-12c)
-SCHEMA = 2
+# 3: 장마다 그림 자리(images - 이름 · 상자 · 원본에 있던 것인가 · 담은 항목, 2026-10-12)
+SCHEMA = 3
 # 화면 이름이 없을 때 쓰는 계획의 화면 목적 앞부분의 길이
 NAME_CHARS = 20
 
@@ -143,6 +145,26 @@ def item_for_index(items, index, raw):
     return None
 
 
+def images_of(got, items, raw, originals):
+    """그 상태에서 그려져 보인 그림 자리 (walk.IMAGES) → 장의 images 칸 (schema 3).
+
+    `{"no": "g1", "name", "box": [x, y, w, h], "original": bool}` - 문서 순서, 번호는 장마다
+    g1 부터. box 는 items 의 box 와 같은 좌표다 (장 왼쪽 위 기준, 스크롤 아래까지 포함, scale
+    이전). original 은 그 이름이 원본을 걷는 동안 보인 그림 자리 이름(검사 L 의 O -
+    l_images.original_names)에 있는가. 누를 수 있는 요소 안에 있으면 그 항목 번호를 "in" 에
+    적는다 (무리의 일원이면 그 무리 - item_for_index). 그 상태의 항목이 아니면(가려진 요소)
+    "in" 은 없다."""
+    out = []
+    for i, img in enumerate(got.get("images") or [], 1):
+        row = {"no": "g%d" % i, "name": img["name"], "box": list(img["box"]),
+               "original": img["name"] in originals}
+        host = item_for_index(items, img.get("in_index"), raw)
+        if host is not None:
+            row["in"] = host["no"]
+        out.append(row)
+    return out
+
+
 # --------------------------------------------------------------------------- #
 # 흐름 명세의 조작 → 사람이 읽는 말
 # --------------------------------------------------------------------------- #
@@ -186,6 +208,8 @@ def assemble(run, flow, states, walked, groups):
     plan = run.get("plan_data") or {}
     purposes = {s.get("name"): s for s in plan.get("screens") or [] if isinstance(s, dict)}
     by_key = {st["key"]: st for st in states}
+    # 원본을 걷는 동안 보인 그림 자리 이름 - 검사 L 과 같은 함수 (원본을 걷지 않았으면 빈 집합)
+    originals = set(original_names(walked.get("original") or {}))
     rows = []
     for st in states:
         got = walked["states"].get(st["key"]) or {}
@@ -229,7 +253,8 @@ def assemble(run, flow, states, walked, groups):
                  "grown": got.get("grown") or 0,
                  "clipped": got.get("clipped") or 0, "covered": got.get("covered") or 0,
                  "dialogs": got.get("dialogs") or [], "error": got.get("error"),
-                 "items": items, "regions": [], "conditions": [], "of": None,
+                 "items": items, "images": images_of(got, items, raw, originals),
+                 "regions": [], "conditions": [], "of": None,
                  "condition": None, "_raw": raw, "_sel": got.get("selector_index") or {}}
         sheets[st["key"]] = sheet
 

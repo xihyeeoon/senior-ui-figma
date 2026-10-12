@@ -1,5 +1,5 @@
 {
-  "schema": 2,
+  "schema": 3,
   "generated": {
     "at": "<at>",
     "tool_commit": "<tool_commit>",
@@ -2899,6 +2899,7 @@
           }
         }
       ],
+      "images": [],
       "regions": [
         {
           "no": 1,
@@ -3342,6 +3343,7 @@
           }
         }
       ],
+      "images": [],
       "regions": [
         {
           "no": 1,
@@ -3608,6 +3610,7 @@
           }
         }
       ],
+      "images": [],
       "regions": [
         {
           "no": 1,
@@ -3845,6 +3848,7 @@
           }
         }
       ],
+      "images": [],
       "regions": [
         {
           "no": 1,
@@ -4159,6 +4163,7 @@
           }
         }
       ],
+      "images": [],
       "regions": [
         {
           "no": 1,
@@ -4412,6 +4417,7 @@
           }
         }
       ],
+      "images": [],
       "regions": [
         {
           "no": 1,
@@ -4675,6 +4681,7 @@
           }
         }
       ],
+      "images": [],
       "regions": [
         {
           "no": 1,
@@ -4990,6 +4997,7 @@
           }
         }
       ],
+      "images": [],
       "regions": [
         {
           "no": 1,
@@ -5285,6 +5293,7 @@
           }
         }
       ],
+      "images": [],
       "regions": [
         {
           "no": 1,
@@ -5452,6 +5461,7 @@
           }
         }
       ],
+      "images": [],
       "regions": [
         {
           "no": 1,

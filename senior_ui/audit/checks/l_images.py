@@ -53,6 +53,12 @@ def shown(state):
     return [n for n, row in state.items() if row.get("visible")]
 
 
+def original_names(snapshot):
+    """원본을 걷는 동안 그려져 보인 그림 자리 이름 (O) - 처음 본 순서. 화면설계서도 이것으로
+    "원본의 그림 자리" 를 가른다 (storyboard.build - 두 곳에서 따로 세지 않는다)."""
+    return shown(seen(snapshot))
+
+
 def run(ctx):
     if "images_seen" not in ctx.orig or "images_seen" not in ctx.rep:
         ctx.skipped.append(
@@ -60,7 +66,7 @@ def run(ctx):
             "스냅샷이거나 손으로 만든 것). 판정하지 않았다.")
         return
     orig, rep = seen(ctx.orig), seen(ctx.rep)
-    in_orig = shown(orig)
+    in_orig = original_names(ctx.orig)
     in_rep = shown(rep)
     kept = set(in_rep)
     missing = [n for n in in_orig if n not in kept]

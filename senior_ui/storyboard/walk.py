@@ -33,9 +33,12 @@ import time
 
 from playwright.async_api import async_playwright
 
-from senior_ui.audit.drive import run_actions, settle
+from senior_ui.audit.drive import mark_entrances, merge_entrances, run_actions, settle
 from senior_ui.audit.flow import truth_of, visit_keys, fill
 from senior_ui.audit.probes import CHOICE_GROUPS, ENTRANCE_PREFIX
+from senior_ui.audit.probes import IMAGES as IMAGES_SEEN
+# 검사기의 보임 규칙 (이 파일의 PRESSABLE 은 덮개의 선택자라 이름을 바꿔 가져온다)
+from senior_ui.audit.probes import PRESSABLE as SHOWN_RULE
 
 VIEWPORT = {"width": 390, "height": 844}
 # 그림은 2배 해상도로 찍는다 - PDF 를 확대해 읽을 수 있게. 폭은 390px 화면 그대로다.
@@ -323,6 +326,35 @@ ELEMENTS = r"""() => {
           dom_screen: on ? (on.dataset.screen || null) : null,
           landed_on: (window.__screen && window.__screen()) || null};
 }"""
+
+# 그림 자리 (schema 3, 2026-10-12). 장마다 그려져 보인 그림 자리(role="img" + aria-label)의
+# 이름 · 상자 · 그것을 담은 누를 수 있는 요소의 순번. 상자는 ELEMENTS 의 box 와 같이 잰다 -
+# #phone 을 늘린 뒤 #phone 왼쪽 위 기준이라 스크롤 아래의 것도 장 전체 기준이다 (검사 L 의
+# images_box 는 창 기준이라 쓰지 않는다). 보임은 검사 L 의 수집(probes.IMAGES)과 같은
+# PRESSABLE - 크기 0 이 아니고 자신이나 조상이 숨기지 않았다 - 에 #phone 과 겹치는가를 더한다
+# (요소와 같다). 순서는 문서 순서. `in_index` 는 가장 가까운 [data-action] 조상(자신 포함)의
+# 순번이다 - ELEMENTS 의 index 와 같은 순서라 build 가 그 상태의 항목 번호로 바꾼다.
+IMAGES = r"""() => {
+  const phone = document.getElementById('phone');
+  const pr = phone ? phone.getBoundingClientRect()
+                   : {left: 0, top: 0, right: innerWidth, bottom: innerHeight};
+  const clean = s => (s || '').replace(/\s+/g, ' ').trim();
+  __PRESSABLE__
+  const all = Array.from(document.querySelectorAll('[data-action]'));
+  const out = [];
+  document.querySelectorAll('[role="img"][aria-label]').forEach(el => {
+    const name = clean(el.getAttribute('aria-label'));
+    if (!name || !pressable(el)) return;
+    const r = el.getBoundingClientRect();
+    if (r.right <= pr.left || r.left >= pr.right || r.bottom <= pr.top || r.top >= pr.bottom) return;
+    const host = el.closest('[data-action]');
+    out.push({name: name,
+              box: [Math.round(r.left - pr.left), Math.round(r.top - pr.top),
+                    Math.round(r.width), Math.round(r.height)],
+              in_index: host ? all.indexOf(host) : null});
+  });
+  return out;
+}""".replace("__PRESSABLE__", SHOWN_RULE.strip())
 
 # 원본을 걸으며 걸음마다 그려진 data-action 이름과 그 수 (기능-화면 표의 "원본 화면" 칸).
 # 그려졌다 = display · visibility · 조상의 opacity 로 숨지 않고 크기가 있다 - 스크롤에
@@ -632,9 +664,15 @@ async def survey(browser, url, flow):
     (probes.CHOICE_GROUPS, 원본이므로 정해 둔 무리 없이)을 그대로 쓰고 걸음들을 합친다
     (i_choices.original_choices 와 같다). 기능-화면 표가 그 값으로 빌드의 장을 찾는다.
 
+    걸음마다 그림 자리도 모은다 - 검사 L 이 원본을 걸으며 쓰는 수집(probes.IMAGES)과 합치는
+    규칙(drive.merge_entrances)을 그대로 쓴다. 설계서는 그것을 검사 L 의 함수
+    (l_images.original_names)에 넘겨 "원본의 그림 자리" 를 가른다 - 두 곳에서 따로 세지
+    않는다. 원본 흐름에는 reveal 이 없으므로 (flows/) 검사기의 원본 걷기와 같은 상태를 본다.
+
     돌려주는 것: `{"steps": [{"visit", "lit", "actions": {화면: {이름: 수}}}], "choices":
-    {이름: [값]}, "error"}`. 걷다가 막히면 거기까지와 error."""
-    out = {"steps": [], "choices": {}, "error": None}
+    {이름: [값]}, "images_seen": {이름: {visible, …}}, "error"}`. 걷다가 막히면 거기까지와
+    error."""
+    out = {"steps": [], "choices": {}, "images_seen": {}, "error": None}
     choices = {}
     ctx, page = await new_page(browser)
     attach_dialogs(page, [])
@@ -658,6 +696,8 @@ async def survey(browser, url, flow):
             out["steps"].append({"visit": visit, "lit": got["lit"], "actions": got["actions"]})
             for action, vals in (await page.evaluate(CHOICE_GROUPS, [])).items():
                 choices.setdefault(action, set()).update(v for v in vals if v)
+            merge_entrances(out["images_seen"],
+                            mark_entrances(await page.evaluate(IMAGES_SEEN), visit))
     except Exception as e:
         out["error"] = _short(e)
     finally:
@@ -716,7 +756,7 @@ async def picture_state(browser, wire_url, flow, state, shots_dir, file_id, numb
 
     깨끗한 그림에는 그림 자리의 이름("[X] 신한 로고")을 얹어 찍는다 (NAMES_ON).
 
-    돌려주는 것: {"items", "covered", "dom_screen", "landed_on", "size", "clipped",
+    돌려주는 것: {"items", "images", "covered", "dom_screen", "landed_on", "size", "clipped",
     "picture", "marked", "names", "selector_index", "dialogs", "error"}."""
     out = {"error": None, "dialogs": []}
     ctx, page = await new_page(browser, PICTURE_SCALE)
@@ -745,6 +785,8 @@ async def picture_state(browser, wire_url, flow, state, shots_dir, file_id, numb
         else:
             ex.update(await page.evaluate(PHONE_RECT), clipped=0)
         got = await page.evaluate(ELEMENTS)
+        # 그림 자리 - 요소와 같은 때 · 같은 기준으로 잰다 (이름 층을 얹기 전)
+        out["images"] = await page.evaluate(IMAGES)
         out.update(items=got["items"], covered=got["covered"],
                    dom_screen=got["dom_screen"], landed_on=got["landed_on"],
                    size=[int(round(ex["w"])), int(round(ex["h"]))],
