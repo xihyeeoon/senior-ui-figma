@@ -1,4 +1,4 @@
-# screen_detect — 스크린샷에서 UI 요소 검출 (시험 D1)
+# screen_detect — 스크린샷에서 UI 요소 검출 (시험 D1 · D2)
 
 도구의 입력을 "사람이 만든 원본 HTML" 에서 "이미 찍어 둔 스크린샷" 쪽으로 옮길 수 있는지 보는
 첫 시험의 **요소 층**이다 (계획: 1 요소 층 → 2 의미 층(LLM 이 역할) → 3 흐름 층(연구자가 전환을
@@ -10,10 +10,12 @@
 |---|---|
 | `detect.py` | PNG 마다 요소 목록 JSON + 확인 그림 (검출 · 설명 · OCR) |
 | `truth.py` | 원본 재현 HTML 을 원본 흐름대로 걸어 상태마다 보이는 것을 모은다 (정답지) |
+| `stitch.py` | (D2) 스크롤 조각을 한 장 좌표계로 잇는다 |
 | `compare.py` | 캡처 ↔ 상태 짝 **제안**, 글 재현율 · 버튼 · 입구 · 선택지 · 그림 자리 · 남는 박스 |
 
-결과: `results/detect/20261012/` — `<캡처>.json`, `overlay/<캡처>.png`, `_run.json`(장치 · 판 ·
-시간), `truth.json`, `summary.md`, `compare.json`.
+결과: D1 `results/detect/20261012/`, D2 `results/detect/20261012-d2/` — `<캡처>.json`,
+`overlay/<캡처>.png`, `_run.json`(장치 · 판 · 시간 · 설정), `truth.json`, `summary.md`,
+`compare.json`, (D2) `stitched/<화면>.json` · `overlay/stitched/<화면>.png`. D1 결과는 고치지 않는다.
 
 ## 설치 (전부 레포 밖)
 
@@ -55,10 +57,15 @@ torch 를 막은 자식 프로세스(`--stage ocr`)에서 돌린다. paddle 은 
 
 ```powershell
 $py = "C:\Users\xihye\venvs\detect\Scripts\python.exe"
-& $py tools/screen_detect/detect.py      # 19장 → results/detect/20261012/*.json, overlay/, _run.json
-& $py tools/screen_detect/truth.py       # → results/detect/20261012/truth.json
-& $py tools/screen_detect/compare.py     # → results/detect/20261012/summary.md, compare.json
+$out = "results/detect/20261012-d2"
+& $py tools/screen_detect/detect.py --out $out            # 19장 → *.json, overlay/, _run.json
+& $py tools/screen_detect/stitch.py --dir $out            # → stitched/, overlay/stitched/
+& $py tools/screen_detect/truth.py --out $out/truth.json
+& $py tools/screen_detect/compare.py --dir $out --baseline results/detect/20261012   # → summary.md, compare.json
 ```
+
+D1 은 `--out` · `--dir` 를 `results/detect/20261012` 로, stitch 없이 돌렸다 (그때의 detect.py 에는
+D2 규칙이 없다 - 커밋 `4c1e576`).
 
 `detect.py 01a 05a` 처럼 캡처 이름을 주면 그것만, `--out` 으로 다른 폴더에, `--imgsz` 로 검출 입력
 크기를 바꾼다 (기본 640 = OmniParser 기본값. 1280 · 원본 크기도 해 봤는데 박스 수가 거의 같았다).
@@ -73,7 +80,55 @@ $py = "C:\Users\xihye\venvs\detect\Scripts\python.exe"
 | 설명 | 글 없는 박스만, 64x64 로 줄여 `<CAPTION>`, 20 토큰 | `get_parsed_content_icon` |
 | OCR | 점수 0.5 미만 버림 (우리 값) | — |
 
-OCR 글은 박스에 붙었든 아니든 `kind: "text"` 요소로 모두 남는다 — 글 재현율은 OCR 만 본다.
+OCR 글은 박스에 붙었든 아니든 `kind: "text"` 요소로 모두 남는다 — 글 재현율은 OCR 만 본다
+(D2 부터는 아이콘으로 바꾼 것만 빠진다).
+
+## D2 에서 바꾼 것 (2026-10-12)
+
+**1. 아이콘을 글자로 읽은 OCR → 아이콘 박스** (`detect.icon_texts`). 짧은 글이 작은 정사각 자리에
+혼자 있으면 글 요소에서 빼고 박스의 `ocr_guess` 로 옮긴다. 그 박스는 `text: null` 이고 설명이 붙는다 -
+그 글이 든 검출 박스에 다른 글이 없으면 그 박스, 아니면 글 자리를 변마다 30% 넓힌 새 박스
+(`source: "ocr_icon"`). 바꾼 목록은 JSON 의 `icon_from_ocr`.
+
+| 조건 | 문턱값 | 왜 |
+|---|---|---|
+| 글 길이 | 두 글자 이하, 한글이 들었으면 한 글자 | 요청 |
+| 글 박스 긴 변 | 64px 이하 | 요청의 예 |
+| 가로 / 세로 | 0.85 ~ 1.18 | 요청의 예(0.75~1.33)로는 세로가 긴 숫자판 숫자(0.69~0.84)가 걸린다. 처음 규칙(0.85 하한, 숫자판 줄 규칙 없음)에서도 04 의 "7"(0.88)이 바뀌어 글 재현율 221 → 220, 선택지 102 → 101 로 떨어졌다. 아래 숫자판 줄 규칙을 더해 맞췄다 |
+| 앞뒤에 붙은 글 | 같은 줄에서 모양이 맞지 않은 글과의 틈이 글 높이의 1.0 배 안이면 글 | "C 홍길동님" 의 C, "7월 소비 ↻" 의 ↻ 를 읽은 C |
+| 탭 이름 줄 | 한 글자 한글이 같은 줄에 높이 비 0.8~1.25 의 한글을 두면 글 | "홈 금융 상품 혜택 주식" 의 홈 |
+| 숫자판 줄 | 숫자가 같은 줄에 높이 비 0.8~1.25 의 숫자를 두면 글 | "7 8 9" 의 7 |
+
+정답지로 맞춘 결과 글 재현율 221/226 · 선택지 102/102 로 D1 과 같고, 바꾼 38개 가운데 정답의 보이는
+글과 같은 것은 없다 (summary.md 6절). 아직 글로 남은 아이콘: "P"(포인트 로고, 0.83), "푸"(고정 핀,
+0.72~0.83), "8+"(받는 사람 관리, 1.28), 줄 끝 "<" · "L" · ✎ 를 읽은 "0"(앞 글에 붙음), 상태바 "57" · "767".
+
+**2. 칸 안의 그림 자리 → `img_candidate`** (`detect.img_candidates`). 글이 든 검출 박스 안에서 글이
+덮지 않은 그림 덩어리를 후보로 낸다. 정해진 규칙이고 LLM 을 쓰지 않는다.
+
+| | 값 |
+|---|---|
+| 살펴보는 자리 | 박스를 짧은 변의 6% 안쪽으로 (둥근 모서리 · 테두리 빼기) |
+| 그림 화소 | 가장자리 화소의 중앙값(칸 바탕색)과 채널 차 40 이상 |
+| 덩어리 | 7px 팽창으로 이은 연결 요소, 가로 · 세로 모두 16px 이상, 살펴보는 자리의 가장자리에 닿지 않는 것 |
+| 지우는 것 | 칸 안의 글 박스(4px 넓혀서)와 칸 안의 글 없는 박스(이미 아이콘) |
+| 이름 | 같은 크기(±15%)의 글 든 칸이 6개 이상이고 캡처에 "은행" 또는 "증권" 글이 있으면 은행 · 증권사 칸으로 본다. 칸 아래쪽 45% 의 맨 아래 글이 칸 글, 가장 큰 덩어리가 `"<칸 글> 로고"` (그 칸에서는 칸 글만 지운다 - "NH" "Kbank" 같은 로고 안 글자는 로고의 일부). 로고가 이미 글 없는 박스로 잡혔으면 그 박스에 이름을 붙인다. 그 밖의 칸은 이름 없이 후보만 |
+
+**3. 스크롤 조각 잇기** (`stitch.py`, `GROUPS` = 홈 01a~c · 은행 05a~c · 증권사 06a~c, 연구자가
+정하는 묶음). 이웃한 두 조각의 고정 띠(같은 높이의 화소 줄이 같은 것 - 상태바 · 시트 머리 · 탭바)를
+세고, 띠 밖의 같은 글 · 같은 x(±8px) · 같은 너비의 OCR 글을 닻으로 세로 어긋남을 정한다 (최빈값
+±6px 안의 중앙값). 닻이 없으면 잘린 칸으로(앞 조각에서 아래가, 뒤 조각에서 위가 잘린 같은 x · 너비의
+칸을 온전한 칸 높이로 맞춘다), 그것도 없으면 겹친 줄마다의 화소 평균 차가 모두 3 이하인 자리로(겹친
+줄 20 이상), 그것도 없으면 겹치지 않았다고 본다. 어느 방법이었는지 `fragments[].method` 에 남긴다.
+고정 띠 안의 겹친 요소는 빼고, 겹친 부분의 같은 요소(글: 같은 글 · 중심 20px 안, 그 밖: IoU 0.5
+이상)는 이름 붙은 것 · 넓은 것을 남겨 하나로 합친다. 조각 경계에서 잘려 이름이 없는 로고는 이은
+좌표에서 "로고 → 칸 글" 세로 거리의 중앙값(±20px) · 같은 열(±30px)의 글로 이름을 붙인다.
+
+**4. compare.py** — 이은 화면은 한 단위(한 상태)로 센다. 그림 자리는 (a) 상태별 정답 수 대 후보 수
+(글 없는 박스 + `img_candidate`), (b) 은행 · 증권사 로고 67개는 정답 `"<이름> 로고"` 와 후보 이름이
+같은지 자동으로 센다 (둘 다 같은 규칙으로 만든 이름), (c) 그 밖의 아이콘은 이름 대 설명을 나란히만.
+자리 맞추기는 위 · 아래 고정을 따로 맞춘다 (이은 화면에서는 둘이 멀리 떨어진다). `--baseline` 으로
+D1 과 합계를 나란히 놓는다.
 
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
@@ -82,7 +137,7 @@ OCR 글은 박스에 붙었든 아니든 `kind: "text"` 요소로 모두 남는�
 | `icon_detect_v3` (YOLOv9-E) | MIT | `icon_detect_v3/LICENSE`, 가중치 README "New: MIT licensed detector weights" |
 | `icon_caption` (Florence-2 미세조정) | MIT | `icon_caption/LICENSE` |
 | `microsoft/Florence-2-base` (처리기 · 모델 코드) | MIT | HF 모델 카드 |
-| OmniParser 코드 (`util/yolov9.py` 를 레포 밖에서 import 만 한다) | 저장소 `LICENSE` 파일은 CC BY 4.0, README 배지는 MIT | 저장소 |
+| OmniParser 코드 (`util/yolov9.py` 를 레포 밖에서 import 만 한다 - 레포로 옮겨 오지 않는다) | 두 표기가 다르다: 저장소 `LICENSE` 파일은 CC BY 4.0, README 배지는 MIT | 저장소 |
 | PaddleOCR 3.7.0 · PaddleX 3.7.2 · PaddlePaddle 3.2.0 | Apache-2.0 | 패키지 METADATA · LICENSE |
 | `PP-OCRv5_server_det` · `korean_PP-OCRv5_mobile_rec` | Apache-2.0 | HF 모델 카드 (PaddlePaddle/…) |
 | `icon_detect` (v1, YOLOv8) | AGPL-3.0 — **쓰지 않았다, 받지도 않았다** | 가중치 README |
@@ -127,4 +182,10 @@ OCR 글은 박스에 붙었든 아니든 `kind: "text"` 요소로 모두 남는�
   하나에 기대므로, 줄 높이가 다른 곳 · 스크롤 끝 근처에서 틀릴 수 있다. 판정에는 쓰지 않았다.
 - **캡처가 스크롤 조각이다.** 홈 · 은행 · 증권사는 세 장으로 나뉘어, 캡처 한 장의 재현율은 낮고
   합계는 상태마다 합쳐 센다. 상태 이름이 같은 캡처끼리 겹친 부분은 두 번 센다(글 없는 박스 수).
+- **찍지 않은 상태는 볼 수 없다.** 은행을 고른 계좌 화면, 계좌번호를 넣은 계좌 화면, ETA00325(은행이
+  틀렸다) 팝업은 캡처가 없어 정답지에만 있다. 새로 찍지 않는다 - 스크린샷 입력의 한계로 둔다
+  (연구자 결정, 2026-10-12). 스크린샷으로 들어오는 것은 찍힌 상태뿐이다.
+- **스크롤 잇기는 겹침에 기댄다.** 홈 01a → 01b 는 겹치는 글이 없어 화소(겹친 26줄, 거의 빈 줄)로
+  이었다 - 어긋남이 수십 px 틀릴 수 있다. 증권사 06a → 06b 는 겹친 내용이 거의 없어 잘린 칸의 높이로
+  짐작했다.
 - **표본 하나.** 더미앱 이체 한 과제, 19장. 실제 은행 앱 캡처는 쓰지 않았다.
