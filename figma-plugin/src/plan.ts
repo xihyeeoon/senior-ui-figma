@@ -147,9 +147,9 @@ const tags = (labels: string[], w: number): Node => ({ t: 'frame', name: '표시
 // 그림 자리 (schema 3 images): 회색 X 상자. (dx, dy) = 담는 프레임의 장 좌표 (요소 안이면 요소 왼쪽 위).
 // 큰 상자는 안에 이름 · 크기 두 줄, 작은 상자는 번호만 (아주 작으면 그것도 없음) - 줄지은 작은 로고의
 // 글이 서로 겹치지 않게. 이름 · 크기는 주석 그림 절과 레이어 이름으로 찾는다.
-// 상자는 자르기 켬이라 '새 그림' 표시는 상자 밖 형제로 둔다.
+// 상자는 자르기 켬이라, 자르기 없는 바깥 프레임에 상자와 '새 그림' 표시를 함께 담는다 (같이 움직인다).
 const slotSize = (g: any) => `${Math.round(g.box[2])}×${Math.round(g.box[3])}`;
-function slotNodes(g: any, dx = 0, dy = 0): Node[] {
+function slotNode(g: any, dx = 0, dy = 0): Node {
   const [x, y, w, h] = [g.box[0] - dx, g.box[1] - dy, g.box[2], g.box[3]];
   const line = (n: number, path: string): Node => ({ t: 'line', name: `대각선 ${n}`, path, stroke: SLOT_LINE });
   const big = w >= SLOT_MIN_W && h >= SLOT_MIN_H, oy = (h - lineH(10) - lineH(9)) / 2;
@@ -159,9 +159,10 @@ function slotNodes(g: any, dx = 0, dy = 0): Node[] {
       align: 'C', trunc: true })]
     : w >= SLOT_NO_W && h >= SLOT_NO_H ? [txt(String(g.no), 8, { name: '번호', x: 0, y: (h - lineH(8)) / 2, w,
       h: lineH(8), color: '#333333', align: 'C', trunc: true })] : [];
-  return [{ t: 'frame', name: `그림 ${g.no} · ${g.name}`, x, y, w, h, fill: SLOT_FILL, stroke: SLOT_LINE,
-      radius: 0, clip: true, kids: [line(1, `M 0 0 L ${w} ${h}`), line(2, `M ${w} 0 L 0 ${h}`), ...words] },
-    ...(g.original === false ? [{ ...tags([NEW_PICTURE], w), x: x + w, y: y - 10 }] : [])];
+  return { t: 'frame', name: `그림 ${g.no} · ${g.name}`, x, y, w, h, fill: null, clip: false, kids: [
+    { t: 'frame', name: '상자', x: 0, y: 0, w, h, fill: SLOT_FILL, stroke: SLOT_LINE, radius: 0, clip: true,
+      kids: [line(1, `M 0 0 L ${w} ${h}`), line(2, `M ${w} 0 L 0 ${h}`), ...words] },
+    ...(g.original === false ? [tags([NEW_PICTURE], w)] : [])] };
 }
 
 // 요소가 모두 입구인 영역: 영역 → 처음 세는 요소 수. 그 요소들은 요소 꼬리표에서 입구를 뺀다.
@@ -185,7 +186,7 @@ function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, scre
   const s = SHAPES[shapeOf(it.tag)];
   const group = it.kind === 'group' && it.group ? ` (${it.group.count}개 묶음)` : '';
   const label = labelOf(it) + group;
-  const kids: Node[] = [...slots.flatMap(g => slotNodes(g, x, y)), txt(label, 14, { name: '글', x: s.inset,
+  const kids: Node[] = [...slots.map(g => slotNode(g, x, y)), txt(label, 14, { name: '글', x: s.inset,
     y: 0, w: Math.max(1, w - 2 * s.inset), h, align: s.align, underline: s.underline, trunc: true })];
   const m = marksOf(it, where, rn, screen).filter(k => !(grouped && k === MARK.entrance));
   if (m.length) kids.push(tags(m, w));
@@ -307,7 +308,7 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
         notes.warnings.push(`그림 경고: 장 ${s.id} 의 그림 ${g.no} 이 가리키는 요소 ${g.in} 가 없다 — 장에 그렸다`);
       wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids: [
         picture(s, w, h, dims),
-        ...imgs.filter(g => !nos.has(g.in)).flatMap(g => slotNodes(g)),
+        ...imgs.filter(g => !nos.has(g.in)).map(g => slotNode(g)),
         ...(s.items || []).map((it: any) => itemNode(it, where, rn, s.screen, ent.counted.has(it.no),
           imgs.filter(g => g.in === it.no))),
         ...(s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r)))] });
