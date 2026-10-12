@@ -1,0 +1,32 @@
+{
+  "schema": 3,
+  "generated": { "at": "2026-10-12T00:00:00" },
+  "task": { "id": "fake", "label": "그림 자리 시험 (가짜)" },
+  "run": { "id": "fake-schema3", "task": "fake", "model": "-", "commit": "-",
+           "original": { "path": "-", "sha256": "0000000000000000" } },
+  "flow": { "steps": [ { "sheet": "scr-home" } ] },
+  "changes": [],
+  "sheets": [
+    {
+      "id": "scr-home", "screen": "home", "state": "visit:home", "kind": "visit", "main": true,
+      "title": "홈", "purpose": "그림 자리 셋을 그려 본다.", "picture": "shots/visit-home.png",
+      "size": [390, 300], "scale": 2,
+      "items": [
+        { "kind": "element", "no": "e1", "action": "go-transfer", "text": "이체하기", "aria": null,
+          "tag": "button", "box": [16, 120, 160, 56], "disabled": false, "entrance": false,
+          "result": { "kind": "screen", "to": "home" } },
+        { "kind": "element", "no": "e2", "action": "oos-alarm", "text": "알림", "aria": null,
+          "tag": "button", "box": [214, 120, 160, 56], "disabled": false, "entrance": true,
+          "result": { "kind": "none" } }
+      ],
+      "images": [
+        { "no": "g1", "name": "이체 아이콘", "box": [28, 136, 24, 24], "original": true, "in": "e1" },
+        { "no": "g2", "name": "은행 로고", "box": [16, 16, 40, 20], "original": true },
+        { "no": "g3", "name": "이벤트 배너", "box": [214, 200, 160, 80], "original": false }
+      ],
+      "regions": [
+        { "no": 1, "name": "머리", "description": "로고", "box": [0, 0, 390, 100], "elements": [] }
+      ]
+    }
+  ]
+}

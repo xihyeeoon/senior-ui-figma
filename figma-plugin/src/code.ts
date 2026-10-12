@@ -86,9 +86,17 @@ function drawFrame(n: Node): FrameNode {
   return f;
 }
 
+// 그림 자리의 대각선: 경로 하나짜리 벡터, 채움 없음, 선 1
+function drawLine(n: Node): VectorNode {
+  const v = figma.createVector();
+  v.vectorPaths = [{ windingRule: 'NONE', data: n.path || '' }];
+  v.fills = []; v.strokes = solid(n.stroke); v.strokeWeight = 1;
+  return v;
+}
+
 function draw(n: Node, parent: ChildrenMixin & BaseNode, images: Msg['images'], layout?: 'V' | 'H'): SceneNode {
   if (n.t === 'group') return drawPicture(n, parent, images);
-  const node: SceneNode = n.t === 'text' ? drawText(n, layout) : drawFrame(n);
+  const node: SceneNode = n.t === 'text' ? drawText(n, layout) : n.t === 'line' ? drawLine(n) : drawFrame(n);
   node.name = n.name;
   parent.appendChild(node);
   if (n.t === 'frame') for (const k of n.kids || []) draw(k, node as FrameNode, images, n.layout);

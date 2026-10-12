@@ -2,7 +2,7 @@
 // 파일은 언제나 같은 계획이 된다. 숫자는 모두 RULES.md 와 같다 (바꾸면 둘 다 고친다).
 
 export type Node = {
-  t: 'frame' | 'text' | 'image' | 'group';
+  t: 'frame' | 'text' | 'image' | 'group' | 'line';
   name: string;
   x?: number; y?: number; w?: number; h?: number;
   fill?: string | null; stroke?: string; dash?: number[]; radius?: number;
@@ -14,6 +14,7 @@ export type Node = {
   align?: 'L' | 'C'; underline?: boolean; trunc?: boolean;
   src?: string;              // image: storyboard 폴더 기준 그림 경로 (+ `#조각 번호`)
   sheet?: string;            // group: 어느 장의 그림인지 (알림에 쓴다)
+  path?: string;             // line: 선 하나의 SVG 경로 (노드 왼쪽 위 기준)
   kids?: Node[];
 };
 export type Page = { name: string; kids: Node[] };
@@ -36,9 +37,10 @@ const INK = '#000000', PAPER = '#FFFFFF', SUB = '#555555';
 const KEEP = '지우지 말 것';
 export const MARK = { entrance: `과제 밖 입구 · ${KEEP}`, none: '누르면 변화 없음 — 확인 필요', fresh: '새 요소',
   pressable: '새 동작 (원본에선 누를 수 없던 글)' };
+const NEW_PICTURE = '새 그림';
 const MARK_FILL: Record<string, string> = {
   [MARK.entrance]: '#6B6B6B', [MARK.none]: '#D9480F', [MARK.fresh]: '#1C64F2',
-  [MARK.pressable]: '#1C64F2' };
+  [MARK.pressable]: '#1C64F2', [NEW_PICTURE]: '#1C64F2' };
 const REF_NAME = '참고 — 로우파이 그림', REF_OPACITY = 0.4;
 export const MAX_PX = 4096;   // Figma createImage 가 받는 가로 · 세로 최대 (ui.html 과 같다)
 const CARD_W = 720, WF_TOP = 400;
@@ -46,7 +48,9 @@ const ANN_GAP = 24, ANN_W = 360, ANN_PAD = 16, ANN_ITEM_GAP = 6;
 const COL_GAP = 160, ROW_GAP = 160;
 const DEFAULT_SIZE = [390, 844];
 const ENTRANCE_NOTE = '과제 밖 입구 = 이 과제에서는 쓰지 않는 메뉴 · 버튼. 옮기거나 접어도 되지만 지우지 않는다 (연구 원칙, 검사 K).';
-const NOTICE = '이 와이어프레임은 구조 시안이다. 색 · 모양 · 아이콘 · 로고 · 보안 키패드 모양은 디자이너가 표준 부품으로 채운다.';
+const SLOT_NOTE = '회색 X 상자 = 그림 (로고 · 아이콘) 이 들어갈 자리. 디자이너가 표준 아이콘 · 로고로 바꾼다.';
+const SLOT_FILL = '#E6E6E6', SLOT_LINE = '#8A8A8A', SLOT_MIN_W = 48, SLOT_MIN_H = 28;
+const NOTICE ='이 와이어프레임은 구조 시안이다. 색 · 모양 · 아이콘 · 로고 · 보안 키패드 모양은 디자이너가 표준 부품으로 채운다.';
 
 type Shape = { fill: string | null; stroke?: string; dash?: number[]; radius: number;
                align: 'L' | 'C'; inset: number; underline?: boolean };
@@ -140,6 +144,25 @@ const tags = (labels: string[], w: number): Node => ({ t: 'frame', name: '표시
     name: `표시 — ${k}`, layout: 'H', hug: 'wh', pad: [2, 6, 2, 6], radius: 4,
     fill: MARK_FILL[k] ?? MARK_FILL[MARK.entrance], kids: [txt(k, 11, { bold: true, color: PAPER })] })) });
 
+// 그림 자리 (schema 3 images): 회색 X 상자. (dx, dy) = 담는 프레임의 장 좌표 (요소 안이면 요소 왼쪽 위).
+// 상자는 자르기 켬이라 작은 상자의 글 (상자 아래 바깥) 과 '새 그림' 표시는 상자 밖 형제로 둔다.
+const slotSize = (g: any) => `${Math.round(g.box[2])}×${Math.round(g.box[3])}`;
+function slotNodes(g: any, dx = 0, dy = 0): Node[] {
+  const [x, y, w, h] = [g.box[0] - dx, g.box[1] - dy, g.box[2], g.box[3]];
+  const small = w < SLOT_MIN_W || h < SLOT_MIN_H;
+  const words = (pre: string, ox: number, oy: number, tw?: number): Node[] => [
+    txt(g.name, 10, { name: `${pre}이름`, x: ox, y: oy, w: tw, h: tw && lineH(10), color: '#333333',
+      align: 'C', trunc: true }),
+    txt(slotSize(g), 9, { name: `${pre}크기`, x: ox, y: oy + lineH(10), w: tw, h: tw && lineH(9),
+      color: '#666666', align: 'C', trunc: true })];
+  const line = (n: number, path: string): Node => ({ t: 'line', name: `대각선 ${n}`, path, stroke: SLOT_LINE });
+  return [{ t: 'frame', name: `그림 ${g.no} · ${g.name}`, x, y, w, h, fill: SLOT_FILL, stroke: SLOT_LINE,
+      radius: 0, clip: true, kids: [line(1, `M 0 0 L ${w} ${h}`), line(2, `M ${w} 0 L 0 ${h}`),
+        ...(small ? [] : words('', 2, (h - lineH(10) - lineH(9)) / 2, w - 4))] },
+    ...(small ? words(`그림 ${g.no} `, x, y + h + 2) : []),
+    ...(g.original === false ? [{ ...tags([NEW_PICTURE], w), x: x + w, y: y - 10 }] : [])];
+}
+
 // 요소가 모두 입구인 영역: 영역 → 처음 세는 요소 수. 그 요소들은 요소 꼬리표에서 입구를 뺀다.
 function entranceRegions(s: any) {
   const byNo = new Map((s.items || []).map((it: any) => [it.no, it]));
@@ -154,13 +177,15 @@ function entranceRegions(s: any) {
   return { counted, regions };
 }
 
-function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, screen: string, grouped: boolean): Node {
+// slots: in 이 이 요소인 그림 자리 - 요소 좌표로 옮겨 글 아래에 둔다 (요소와 같이 움직인다)
+function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, screen: string, grouped: boolean,
+                  slots: any[] = []): Node {
   const [x, y, w, h] = it.box;
   const s = SHAPES[shapeOf(it.tag)];
   const group = it.kind === 'group' && it.group ? ` (${it.group.count}개 묶음)` : '';
   const label = labelOf(it) + group;
-  const kids: Node[] = [txt(label, 14, { name: '글', x: s.inset, y: 0, w: Math.max(1, w - 2 * s.inset),
-    h, align: s.align, underline: s.underline, trunc: true })];
+  const kids: Node[] = [...slots.flatMap(g => slotNodes(g, x, y)), txt(label, 14, { name: '글', x: s.inset,
+    y: 0, w: Math.max(1, w - 2 * s.inset), h, align: s.align, underline: s.underline, trunc: true })];
   const m = marksOf(it, where, rn, screen).filter(k => !(grouped && k === MARK.entrance));
   if (m.length) kids.push(tags(m, w));
   return { t: 'frame', name: `${it.no} ${label}`, x, y, w, h, fill: s.fill, stroke: s.stroke,
@@ -198,6 +223,8 @@ function annotation(sheet: any, title: string, where: Record<string, unknown> | 
   out.push(txt('영역', 13, { bold: true }));
   for (const r of sheet.regions || [])
     out.push(txt(`${r.no}. ${r.name} — ${r.description}${r.empty ? ' (빈 영역)' : ''}`, 12));
+  if (sheet.images?.length) out.push(txt('그림', 13, { bold: true }), ...sheet.images.map((g: any) =>
+    txt(`${g.no} ${g.name} · ${slotSize(g)}${g.original === false ? ` · ${NEW_PICTURE}` : ''}`, 12)));
   out.push(txt('요소', 13, { bold: true }));
   for (const it of sheet.items || []) {
     const m = marksOf(it, where, rn, sheet.screen).map(k => ` [${k}]`).join('');
@@ -218,6 +245,7 @@ function runCard(sb: any, checks: string[]): Node {
       txt(`생성: ${sb.generated?.at ?? ''}`, 14),
       txt(NOTICE, 14, { bold: true }),
       txt(ENTRANCE_NOTE, 14),
+      ...((sb.sheets || []).some((s: any) => s.images?.length) ? [txt(SLOT_NOTE, 14)] : []),
       ...checks.map(c => txt(c, 14)),
     ] };
 }
@@ -272,9 +300,15 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
       const ann = annotation(s, title, where, rn, titleOf);
       const ent = entranceRegions(s);
       const annH = estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP);
+      // 그림 자리: in 이 있는 요소면 그 요소 안, 아니면 (in 이 없는 요소를 가리켜도 - 경고) 장에
+      const nos = new Set((s.items || []).map((it: any) => it.no)), imgs: any[] = s.images || [];
+      for (const g of imgs) if (g.in && !nos.has(g.in))
+        notes.warnings.push(`그림 경고: 장 ${s.id} 의 그림 ${g.no} 이 가리키는 요소 ${g.in} 가 없다 — 장에 그렸다`);
       wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids: [
         picture(s, w, h, dims),
-        ...(s.items || []).map((it: any) => itemNode(it, where, rn, s.screen, ent.counted.has(it.no))),
+        ...imgs.filter(g => !nos.has(g.in)).flatMap(g => slotNodes(g)),
+        ...(s.items || []).map((it: any) => itemNode(it, where, rn, s.screen, ent.counted.has(it.no),
+          imgs.filter(g => g.in === it.no))),
         ...(s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r)))] });
       wf.push({ t: 'frame', name: `주석 — ${title}`, x: x + w + ANN_GAP, y, w: ANN_W, layout: 'V',
         hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD], gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids: ann });
