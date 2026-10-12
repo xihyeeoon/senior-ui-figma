@@ -251,7 +251,8 @@
   },
   "see": {
     "on": true,
-    "source": "기본값 (켜짐)",
+    "on_source": "기본값 (켜짐)",
+    "source": "render",
     "original_images": 15
   },
   "refine": {
