@@ -15,6 +15,8 @@ PNG 마다 <out>/<이름>.json 과 확인 그림 <out>/overlay/<이름>.png 를 
 D2: 아이콘을 OCR 이 글자로 읽은 것(icon_texts)은 글 요소에서 빼서 box 의 ocr_guess 로 옮기고
 그 box 는 글 없는 아이콘으로 설명을 붙인다. box 의 source 는 "detector" 또는 그 글 자리로 새로
 만든 "ocr_icon". 바꾼 목록은 JSON 의 icon_from_ocr 에 남는다.
+D2: 글이 든 박스 안에서 글이 덮지 않은 그림 덩어리를 kind "img_candidate" 로 낸다 (in_box =
+그 박스, name = 은행 · 증권사 칸이면 "<칸 글> 로고", 아니면 null). img_candidates() 참고.
 돌린 장치 · 판 · 한 장당 시간은 <out>/_run.json 에 남긴다.
 
 paddle 과 torch 는 한 프로세스에 함께 올리지 못한다 - 둘이 가져오는 cuDNN DLL 이 서로
@@ -72,6 +74,22 @@ ICON_GAP = 1.0              # 같은 줄에서 글 높이의 이만큼 안에 �
 ICON_PEER_H = (0.8, 1.25)   # 한 글자 한글은 같은 줄에 이 높이 비의 한글이 있으면 글 (탭 이름 줄)
 ICON_PAD = 0.3              # 새 아이콘 박스는 OCR 글 박스를 변마다 이만큼 넓힌다
 HANGUL = re.compile("[가-힣ㄱ-ㆎ]")
+
+# D2 칸 안의 그림 자리 (규칙 2). 글이 든 검출 박스에서 글이 덮지 않은 곳의 덩어리를 그림 자리
+# 후보(img_candidate)로 낸다. 정해진 규칙이다 - LLM 을 쓰지 않는다.
+BLOB_MIN = 16        # 덩어리의 가로 · 세로가 모두 이 이상 (캡처 픽셀)
+BLOB_INSET = 0.06    # 칸 가장자리(둥근 모서리 · 테두리)는 짧은 변의 이만큼 안쪽부터 본다
+BLOB_DIFF = 40       # 칸 바탕색(가장자리 화소의 중앙값)과 채널 차가 이 이상이면 그림 화소
+BLOB_JOIN = 7        # 이만큼 떨어진 조각까지 한 덩어리로 (팽창 커널, 픽셀)
+TEXT_PAD = 4         # 글 박스를 이만큼 넓혀 지운다
+# 이름 - 같은 크기(±GRID_TOL)의 글 든 칸이 GRID_MIN 개 이상 늘어선 목록이고 캡처에 LOGO_HEAD 의
+# 글(시트 제목 "은행 또는 증권사 선택" · 탭 "은행" "증권사")이 있으면 그 칸 글은 은행 · 증권사
+# 이름이다. 칸 아래쪽(LABEL_LOW 아래)의 맨 아래 글이 칸 글이고, 가장 큰 덩어리가 "<칸 글> 로고".
+# 그 칸에서는 칸 글만 지운다 - 로고 안의 글자("NH" "Kbank")는 로고의 일부다.
+GRID_MIN = 6
+GRID_TOL = 0.15
+LOGO_HEAD = re.compile("은행|증권")
+LABEL_LOW = 0.55
 
 FONT = r"C:\Windows\Fonts\malgun.ttf"
 
@@ -332,14 +350,86 @@ def elements_of(image, ocr_items, models):
                     "text_in": [tid[ti] for ti in mine],
                     "ocr_guess": " ".join(g["text"] for g in bx["guess"]) or None,
                     "source": bx["source"]})
-    return els, moved, {"detect": t1 - t0, "caption": t2 - t1, "raw_boxes": len(det)}
+    t3 = time.time()
+    cands = img_candidates(image, els)
+    caps = models.caption(image, [c.pop("xyxy") for c in cands])
+    for k, (c, cap) in enumerate(zip(cands, caps)):
+        els.append(dict({"id": "i%d" % k, "kind": "img_candidate", "text": None, "caption": cap,
+                         "score": None}, **c))
+    t4 = time.time()
+    return els, moved, {"detect": t1 - t0, "caption": (t2 - t1) + (t4 - t3),
+                        "raw_boxes": len(det)}
+
+
+def img_candidates(image, els):
+    """글이 든 검출 박스 안에서 글이 덮지 않은 그림 덩어리 (D2 규칙 2). 칸 안의 글 없는 박스
+    (아이콘)가 덮은 곳은 이미 요소이므로 뺀다."""
+    import cv2
+    import numpy as np
+    arr = np.asarray(image).astype(np.int16)
+    texts = {e["id"]: e for e in els if e["kind"] == "text"}
+    boxes = [e for e in els if e["kind"] == "box"]
+    filled = [b for b in boxes if b["text_in"]]
+    heading = any(LOGO_HEAD.search(t["text"]) for t in texts.values())
+
+    def like(a, b):
+        return all(abs(a["box"][i] - b["box"][i]) <= GRID_TOL * b["box"][i] for i in (2, 3))
+    grid = {b["id"] for b in filled
+            if heading and sum(like(o, b) for o in filled) >= GRID_MIN}
+
+    out = []
+    for b in filled:
+        x, y, w, h = b["box"]
+        ins = [texts[t] for t in b["text_in"]]
+        label = None
+        if b["id"] in grid:
+            low = [t for t in ins if t["box"][1] + t["box"][3] / 2 > y + LABEL_LOW * h]
+            label = max(low, key=lambda t: t["box"][1]) if low else None
+            wipe = [label] if label else []
+        else:
+            wipe = ins
+        i = int(BLOB_INSET * min(w, h))
+        x0, y0 = max(0, x + i), max(0, y + i)
+        x1, y1 = min(arr.shape[1], x + w - i), min(arr.shape[0], y + h - i)
+        if x1 - x0 < BLOB_MIN or y1 - y0 < BLOB_MIN:
+            continue
+        sub = arr[y0:y1, x0:x1]
+        ring = np.concatenate([sub[0], sub[-1], sub[:, 0], sub[:, -1]])
+        fg = (np.abs(sub - np.median(ring, axis=0)).max(axis=2) >= BLOB_DIFF).astype(np.uint8)
+        icons = [o for o in boxes if not o["text"] and o is not b
+                 and inside(xyxy(o["box"]), xyxy(b["box"]))]
+        for t in wipe + icons:
+            tx, ty, tw, th = t["box"]
+            pad_ = TEXT_PAD if t["kind"] == "text" else 0
+            fg[max(0, ty - pad_ - y0):max(0, ty + th + pad_ - y0),
+               max(0, tx - pad_ - x0):max(0, tx + tw + pad_ - x0)] = 0
+        fg = cv2.dilate(fg, np.ones((BLOB_JOIN, BLOB_JOIN), np.uint8))
+        n, _, stats, _ = cv2.connectedComponentsWithStats(fg)
+        r = BLOB_JOIN // 2
+        # 살펴보는 자리의 가장자리에 닿는 덩어리는 칸의 모양(둥근 알약의 모서리 · 테두리)이다
+        H, W = fg.shape
+        blobs = [[int(x0 + bx + r), int(y0 + by + r), int(bw - 2 * r), int(bh - 2 * r)]
+                 for bx, by, bw, bh, _ in stats[1:]
+                 if bx > 0 and by > 0 and bx + bw < W and by + bh < H]
+        blobs = [bl for bl in blobs if bl[2] >= BLOB_MIN and bl[3] >= BLOB_MIN]
+        big = max(blobs, key=lambda bl: bl[2] * bl[3]) if blobs and label else None
+        for bl in blobs:
+            out.append({"box": bl, "xyxy": xyxy(bl), "in_box": b["id"],
+                        "name": "%s 로고" % label["text"].strip() if bl is big else None,
+                        "label": label["id"] if bl is big else None})
+    return out
+
+
+def xyxy(b):
+    return [b[0], b[1], b[0] + b[2], b[1] + b[3]]
 
 
 # --------------------------------------------------------------------------- #
 # 확인 그림
 # --------------------------------------------------------------------------- #
 def overlay(image, els, path):
-    """왼쪽: 캡처 위에 박스 (파랑 = 글이 든 박스, 빨강 = 글 없는 박스, 초록 = OCR 글).
+    """왼쪽: 캡처 위에 박스 (파랑 = 글이 든 박스, 빨강 = 글 없는 박스, 초록 = OCR 글,
+    주황 = 칸 안의 그림 자리 후보).
     오른쪽: 같은 자리에 읽힌 것만 - 글은 검정, 글 없는 박스의 설명은 빨강 기울임 대신 [ ]."""
     from PIL import Image, ImageDraw, ImageFont
     w, h = image.size
@@ -351,6 +441,8 @@ def overlay(image, els, path):
         x, y, bw, bh = e["box"]
         if e["kind"] == "text":
             d.rectangle([x, y, x + bw, y + bh], outline=(0, 160, 60), width=2)
+        elif e["kind"] == "img_candidate":
+            d.rectangle([x, y, x + bw, y + bh], outline=(240, 140, 0), width=2)
         else:
             col = (30, 90, 230) if e["text"] else (220, 30, 30)
             d.rectangle([x, y, x + bw, y + bh], outline=col, width=3)
@@ -359,6 +451,10 @@ def overlay(image, els, path):
     d.rectangle([w, 0, w + 7, h], fill=(200, 200, 200))
     for e in els:
         x, y, bw, bh = e["box"]
+        if e["kind"] == "img_candidate":
+            d.rectangle([ox + x, y, ox + x + bw, y + bh], outline=(240, 140, 0), width=2)
+            d.text((ox + x + 2, y + 2), "%s %s" % (e["id"], e["name"] or "[%s]" % (e["caption"] or "")),
+                   fill=(200, 100, 0), font=small)
         if e["kind"] == "box":
             col = (30, 90, 230) if e["text"] else (220, 30, 30)
             d.rectangle([ox + x, y, ox + x + bw, y + bh], outline=col, width=1)
@@ -412,7 +508,9 @@ def main(argv=None):
         per[n].update(boxes=sum(e["kind"] == "box" for e in els),
                       texts=sum(e["kind"] == "text" for e in els),
                       no_text_boxes=sum(e["kind"] == "box" and not e["text"] for e in els),
-                      icons_from_ocr=len(moved))
+                      icons_from_ocr=len(moved),
+                      img_candidates=sum(e["kind"] == "img_candidate" for e in els),
+                      named=sum(bool(e.get("name")) for e in els))
         with io.open(os.path.join(a.out, n + ".json"), "w", encoding="utf-8") as f:
             json.dump({"capture": os.path.relpath(p, ROOT).replace("\\", "/"),
                        "size": list(image.size), "elements": els, "icon_from_ocr": moved},
@@ -428,7 +526,11 @@ def main(argv=None):
                         "caption_prompt": CAPTION_PROMPT, "text_threshold": TEXT_THRESHOLD,
                         "inside": INSIDE,
                         "icon_rule": {"side": ICON_SIDE, "aspect": ICON_ASPECT, "gap": ICON_GAP,
-                                      "peer_height": ICON_PEER_H, "pad": ICON_PAD}},
+                                      "peer_height": ICON_PEER_H, "pad": ICON_PAD},
+                        "img_rule": {"min": BLOB_MIN, "inset": BLOB_INSET, "diff": BLOB_DIFF,
+                                     "join": BLOB_JOIN, "text_pad": TEXT_PAD,
+                                     "grid_min": GRID_MIN, "grid_tol": GRID_TOL,
+                                     "head": LOGO_HEAD.pattern, "label_low": LABEL_LOW}},
            "detector": {"weights": "microsoft/OmniParser-v2.0 icon_detect_v3/model.pt",
                         "code": "microsoft/OmniParser util/yolov9.py @ %s" % omniparser_commit()},
            "caption": {"weights": "microsoft/OmniParser-v2.0 icon_caption",
