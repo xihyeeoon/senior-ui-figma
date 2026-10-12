@@ -1,1 +1,17 @@
-{}
+{
+  "20261008-131136": {
+    "settings-toggle": "new",
+    "service": "made-pressable",
+    "previous": { "recipient": "back-home", "account": "back-recipient", "amount": "back-account", "confirm": "back-amount", "password": "new" },
+    "cancel": { "account": "close-account", "bank": "close-bank", "amount": "back-home", "confirm": "back-home", "password": "back-home", "recipient": "new" },
+    "frequent-edit": "made-pressable",
+    "acc-clear": "acc-clear",
+    "acc-fix": "close-error",
+    "amt-clear": "new",
+    "edit-account": "new",
+    "edit-amount": "back-amount",
+    "edit-memo-to": "made-pressable",
+    "edit-memo-own": "made-pressable",
+    "pw-send": "new"
+  }
+}
