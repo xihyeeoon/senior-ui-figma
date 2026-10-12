@@ -1,0 +1,557 @@
+r"""검출 결과를 정답지와 견준다 - 글 · 이름으로 (스크린샷 입력 시험 D1).
+
+    C:\Users\xihye\venvs\detect\Scripts\python.exe tools/screen_detect/compare.py
+        [--dir results/detect/20261012]
+
+읽는 것: <dir>/<캡처>.json (detect.py), <dir>/truth.json (truth.py), <dir>/_run.json.
+쓰는 것: <dir>/summary.md (표), <dir>/compare.json (같은 내용의 자세한 것).
+
+1. 짝 제안. 캡처마다 정답의 상태 가운데 글이 가장 많이 겹치는 것을 고른다. 점수는 F1 -
+   재현(그 상태의 글 중 이 캡처의 OCR 이 찾은 비율)과 정밀(이 캡처의 OCR 글 중 그 상태의 글에
+   닿는 비율)의 조화평균. **제안일 뿐이다** - captures.json 은 연구자가 채운다. 이 스크립트는
+   그 파일을 만들거나 읽지 않는다.
+2. 맞추기. 글은 공백 · 기호를 뺀 뒤(`norm`) 비슷함 0.8 이상이면 찾은 것이다. 비슷함은 OCR 글
+   하나와의 비율, 또는 OCR 글을 읽는 순서로 이은 줄 안에서 가장 비슷한 같은 길이 조각과의
+   비율(부분 비율) 가운데 큰 것이다 - 한 줄이 두 줄로 읽혔거나 두 줄이 한 줄로 읽혀도 맞게.
+   두 글자 이하는 OCR 글 하나 또는 그 안의 낱말 하나와 같아야 한다 (숫자 키 "1" 이 "1,000,000"
+   안에서 찾아지지 않게). 박스 겹침은 쓰지 않는다 - 더미앱과 재현 HTML 은 자리가 다르다.
+3. 글 없는 것(그림 자리 · 아이콘만인 입구)은 글로 맞출 수 없다. 정답의 자리를 캡처 위로 대강
+   옮겨(아래 `Frame`) 그 근처의 글 없는 박스 설명을 곁에 적기만 한다. 맞았다고 판정하지 않는다.
+4. 남는 박스 - 정답 어디에도 닿지 않는 검출 박스. 글이 든 박스는 그 글이 정답의 글 · 버튼 ·
+   입구 · 선택지 어디에도 없으면, 글 없는 박스는 옮긴 정답 자리 어디에도 들지 않고 어느 그림
+   자리 · 아이콘 입구의 곁 설명으로도 뽑히지 않았으면 남는 것이다.
+
+상태 하나에 캡처가 여럿이면(스크롤한 홈 세 장 등) 합계는 상태마다 그 캡처들을 합쳐 센다 -
+한 장에는 화면의 일부만 보이기 때문이다. 캡처별 표는 한 장씩이다.
+"""
+import argparse
+import difflib
+import io
+import json
+import os
+import re
+import statistics
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
+
+FOUND = 0.8
+OWN = 0.7
+SHORT = 2
+# 재현 HTML 의 창(390x844 CSS 픽셀) → 캡처 픽셀. 가로 · 세로 비를 따로 쓴다.
+VIEW = (390, 844)
+NEAR = 40        # 옮긴 정답 자리를 이만큼 넓혀 그 안의 글 없는 박스를 곁 설명 후보로
+FAR = 120        # 그 안에 없으면 중심이 이만큼 안인 가장 가까운 것
+SPAN_PAD = 80    # 맞은 닻의 세로 범위를 이만큼 넓혀 "자리상 캡처 안" 으로 본다
+
+
+def norm(s):
+    return re.sub(r"[\W_]+", "", (s or "").lower())
+
+
+def ratio(a, b):
+    return difflib.SequenceMatcher(None, a, b, autojunk=False).ratio()
+
+
+def partial(n, s):
+    """s 안에서 n 과 가장 비슷한 같은 길이 조각과의 비율 (fuzzywuzzy partial_ratio 와 같은 길)."""
+    if len(s) <= len(n):
+        return ratio(n, s)
+    best = 0.0
+    for a, b, size in difflib.SequenceMatcher(None, n, s, autojunk=False).get_matching_blocks():
+        if not size:
+            continue
+        start = max(0, min(b - a, len(s) - len(n)))
+        best = max(best, ratio(n, s[start:start + len(n)]))
+        if best == 1.0:
+            break
+    return best
+
+
+class Pool:
+    """찾을 곳 - 글 목록(정규화 전)과 그 글들을 읽는 순서로 이은 줄."""
+
+    def __init__(self, texts, join=True):
+        self.raw = [t for t in texts if t]
+        self.items = [norm(t) for t in self.raw]
+        self.tokens = {norm(w) for t in self.raw for w in t.split()} | set(self.items)
+        self.joined = "".join(self.items) if join else ""
+
+    def best(self, n):
+        """(비슷함, 가장 비슷한 원래 글)."""
+        if not n:
+            return 0.0, None
+        if len(n) <= SHORT:
+            if n in self.tokens:
+                return 1.0, next((r for r, i in zip(self.raw, self.items)
+                                  if i == n or n in {norm(w) for w in r.split()}), n)
+            near = max(((ratio(n, i), r) for r, i in zip(self.raw, self.items) if i),
+                       default=(0.0, None))
+            return min(near[0], FOUND - 0.01), near[1]
+        got = max(((max(ratio(n, i), partial(n, i)), r) for r, i in zip(self.raw, self.items)
+                   if i), default=(0.0, None))
+        if self.joined and got[0] < 1.0:
+            j = partial(n, self.joined)
+            if j > got[0]:
+                got = (j, "(이은 줄)")
+        return got
+
+    def has(self, n):
+        return self.best(n)[0] >= FOUND
+
+
+def reading(els):
+    """OCR 글을 읽는 순서로 - 위에서 아래로, 같은 줄이면 왼쪽부터."""
+    return sorted(els, key=lambda e: (round((e["box"][1] + e["box"][3] / 2) / 24), e["box"][0]))
+
+
+# --------------------------------------------------------------------------- #
+# 자리 - 정답의 자리를 캡처 위로 대강 옮긴다
+# --------------------------------------------------------------------------- #
+class Frame:
+    """정답의 글 조각(닻)을 캡처의 OCR 글과 맞춰, 세로 자리를 직선 y' = a·y + b 로 옮긴다.
+    스크롤과 함께 움직이는 것과 움직이지 않는 것(pinned)을 따로 맞춘다. 기울기 a 는 닻 둘씩의
+    기울기의 중앙값(Theil-Sen) - 더미앱과 재현 HTML 은 줄 높이가 달라(은행 칸 88 CSS px 대
+    약 280 캡처 px) 창 비율만으로는 아래로 갈수록 어긋난다. 닻이 하나면 창 비율, 없으면 그
+    무리의 자리를 모른다. 가로는 창 비율 그대로다."""
+
+    def __init__(self, state, det):
+        w, h = det["size"]
+        self.size = (w, h)
+        self.sx, self.sy = w / VIEW[0], h / VIEW[1]
+        texts = [e for e in det["elements"] if e["kind"] == "text"]
+        counts = {}
+        for a in state["anchors"]:
+            counts[norm(a["text"])] = counts.get(norm(a["text"]), 0) + 1
+        pts = {True: [], False: []}
+        for a in state["anchors"]:
+            n = norm(a["text"])
+            if len(n) < 2 or counts[n] > 1:
+                continue
+            hits = [e for e in texts if ratio(n, norm(e["text"])) >= 0.9]
+            if len(hits) != 1:
+                continue
+            e = hits[0]
+            pts[a["pinned"]].append((a["rect"][1] + a["rect"][3] / 2, e["box"][1] + e["box"][3] / 2))
+        self.fit = {k: self._fit(v) for k, v in pts.items()}
+        self.anchors = {k: len(v) for k, v in pts.items()}
+        # 맞은 닻이 걸친 세로 범위 - 그 밖으로 늘여 옮긴 자리는 믿지 않는다 (아래 inside)
+        self.span = {k: (min(y for _, y in v), max(y for _, y in v)) if v else None
+                     for k, v in pts.items()}
+
+    def _fit(self, pts):
+        if not pts:
+            return None
+        slopes = [(y2 - v1) / (x2 - u1) for i, (u1, v1) in enumerate(pts)
+                  for x2, y2 in pts[i + 1:] if abs(x2 - u1) > 10]
+        a = statistics.median(slopes) if slopes else self.sy
+        if not 0.5 * self.sy <= a <= 2.5 * self.sy:
+            a = self.sy
+        return a, statistics.median(v - a * u for u, v in pts)
+
+    def map(self, thing):
+        """정답 자리 → 캡처 픽셀 [x, y, w, h]. 자리를 모르면 None."""
+        if not thing.get("rect"):
+            return None
+        f = self.fit[bool(thing.get("pinned"))]
+        if f is None:
+            return None
+        x, y, w, h = thing["rect"]
+        return [x * self.sx, y * f[0] + f[1], w * self.sx, h * f[0]]
+
+    def inside(self, thing):
+        """옮긴 자리의 중심이 이 캡처에 보이는 범위 안인가 - 같은 무리(움직임/고정)의 맞은 닻이
+        걸친 세로 범위 ± SPAN_PAD 안이면 그렇다. 늘여 짐작하지 않는다: 시트 머리 밑으로 스크롤해
+        들어간 줄, 더미앱에서는 스크롤로 사라지는 머리(재현 HTML 에서는 고정)가 '안' 으로
+        잘못 세지 않게. 자리를 모르면 None."""
+        r = self.map(thing)
+        span = self.span[bool(thing.get("pinned"))]
+        if r is None or span is None:
+            return None
+        cy = r[1] + r[3] / 2
+        return span[0] - SPAN_PAD <= cy <= span[1] + SPAN_PAD and 0 <= cy <= self.size[1]
+
+
+def centre(b):
+    return (b[0] + b[2] / 2, b[1] + b[3] / 2)
+
+
+def within(p, r, pad=0):
+    return r[0] - pad <= p[0] <= r[0] + r[2] + pad and r[1] - pad <= p[1] <= r[1] + r[3] + pad
+
+
+def near_box(r, boxes):
+    """옮긴 자리 r 곁의 글 없는 박스 하나 (없으면 None)."""
+    if r is None:
+        return None
+    c = centre(r)
+    dist = lambda b: ((centre(b["box"])[0] - c[0]) ** 2 + (centre(b["box"])[1] - c[1]) ** 2) ** 0.5
+    inner = [b for b in boxes if within(centre(b["box"]), r, NEAR)]
+    if inner:
+        return min(inner, key=dist)
+    close = [b for b in boxes if dist(b) <= FAR]
+    return min(close, key=dist) if close else None
+
+
+# --------------------------------------------------------------------------- #
+# 정답의 항목
+# --------------------------------------------------------------------------- #
+def items_of(state):
+    """그 상태에서 찾을 것 - kind 마다 {key, label, n(정규화 글), thing(자리)}."""
+    anchors = {}
+    for a in state["anchors"]:
+        anchors.setdefault(norm(a["text"]), a)
+
+    def anchor_of(line):
+        n = norm(line)
+        if n in anchors:
+            return anchors[n]
+        return next((a for k, a in anchors.items() if k and (k in n or n in k)), None)
+
+    out = []
+    for t in state["texts"]:
+        out.append({"kind": "text", "label": t, "n": norm(t), "thing": anchor_of(t) or {}})
+    for b in state["task_buttons"]:
+        label = b["text"] if norm(b["text"]) else (b["aria"] or b["img"] or b["text"])
+        out.append({"kind": "button", "label": label, "n": norm(b["text"]), "thing": b,
+                    "action": b["action"], "path": b["path"]})
+    for e in state["entrances"]:
+        out.append({"kind": "entrance", "label": e["text"] if norm(e["text"]) else e["aria"],
+                    "n": norm(e["text"]), "thing": e, "action": e["action"], "aria": e["aria"]})
+    for action, els in sorted(state["choice_items"].items()):
+        for c in els:
+            out.append({"kind": "choice", "label": c["text"] or c["value"], "n": norm(c["text"]),
+                        "thing": c, "action": action, "value": c["value"]})
+    for s in state["image_slots"]:
+        out.append({"kind": "slot", "label": s["label"], "n": "", "thing": s,
+                    "action": s["action"]})
+    return out
+
+
+def key(it):
+    return "%s|%s|%s" % (it["kind"], it.get("action") or "", it["label"])
+
+
+# --------------------------------------------------------------------------- #
+def pairing(truth, dets):
+    """캡처마다 상태별 (F1, 재현, 정밀, 그 상태만의 글 재현) - 제안할 것이 맨 앞.
+
+    덮개 규칙: 팝업 · 시트가 밑 화면 위에 뜬 캡처는 밑 화면의 글이 더 많아 F1 로는 밑 화면이
+    뽑힌다 (더미앱의 오류 팝업은 계좌 화면 위에 뜨고, 재현 HTML 의 오류 화면에는 팝업만 있다).
+    그래서 그 상태만의 글(다른 상태에 없는 글)이 둘 이상이고 그 OWN 이상이 이 캡처에서 찾아진
+    상태가 있으면 그것들 가운데에서 F1 이 큰 것을 앞세운다."""
+    df = {}
+    for st in truth["states"]:
+        for n in {norm(t) for t in st["texts"]} - {""}:
+            df[n] = df.get(n, 0) + 1
+    out = {}
+    for name, det in dets.items():
+        ocr = reading([e for e in det["elements"] if e["kind"] == "text"])
+        pool = Pool([e["text"] for e in ocr])
+        rows = []
+        for st in truth["states"]:
+            ns = [n for n in (norm(t) for t in st["texts"]) if n]
+            tpool = Pool(st["texts"])
+            r = sum(pool.has(n) for n in ns) / len(ns) if ns else 0
+            on = [norm(e["text"]) for e in ocr if norm(e["text"])]
+            p = sum(tpool.has(n) for n in on) / len(on) if on else 0
+            f = 2 * r * p / (r + p) if r + p else 0
+            own = [n for n in set(ns) if df[n] == 1]
+            rows.append({"state": st["state"], "screen": st["screen"], "f1": round(f, 3),
+                         "recall": round(r, 3), "precision": round(p, 3),
+                         "own": round(sum(pool.has(n) for n in own) / len(own), 3)
+                         if len(own) >= 2 else None})
+        # 같은 점수면 흐름에서 앞선 상태 (정답 걸음 · 오류 경로의 순서)
+        rows.sort(key=lambda x: -x["f1"])
+        cover = [r for r in rows if r["own"] is not None and r["own"] >= OWN]
+        if cover and cover[0] is not rows[0]:
+            rows.remove(cover[0])
+            rows.insert(0, dict(cover[0], rule="덮개"))
+        out[name] = rows
+    return out
+
+
+def judge_capture(det, st):
+    """캡처 한 장 대 상태 하나."""
+    frame = Frame(st, det)
+    texts = [e for e in det["elements"] if e["kind"] == "text"]
+    boxes = [e for e in det["elements"] if e["kind"] == "box"]
+    plain = [b for b in boxes if not b["text"]]
+    ocr = Pool([e["text"] for e in reading(texts)])
+    inbox = Pool([b["text"] for b in boxes if b["text"]], join=False)
+    rows = []
+    picked = set()
+    for it in items_of(st):
+        r = frame.map(it["thing"])
+        row = {"kind": it["kind"], "label": it["label"], "action": it.get("action"),
+               "key": key(it), "in_frame": frame.inside(it["thing"])}
+        if it["kind"] == "slot" or not it["n"]:
+            nb = near_box(r, plain) if row["in_frame"] is not False else None
+            row.update(icon=True, near=nb and nb["id"], caption=nb and nb["caption"])
+            if nb:
+                picked.add(nb["id"])
+        else:
+            sim, hit = ocr.best(it["n"])
+            row.update(icon=False, found=sim >= FOUND, in_box=inbox.has(it["n"]),
+                       sim=round(sim, 2), closest=hit)
+        rows.append(row)
+
+    # 남는 박스
+    truth_pool = Pool([it["label"] for it in items_of(st) if it["n"]])
+    places = [frame.map(it["thing"]) for it in items_of(st)]
+    places = [p for p in places if p]
+    left = []
+    for b in boxes:
+        inner = [norm(e["text"]) for e in texts if e["in_box"] == b["id"]]
+        inner = [n for n in inner if n]
+        if inner:
+            if not any(truth_pool.has(n) for n in inner):
+                left.append(b)
+        elif b["id"] not in picked and not any(within(centre(b["box"]), p, NEAR)
+                                               for p in places):
+            left.append(b)
+    extra_text = [e for e in texts if norm(e["text"]) and not truth_pool.has(norm(e["text"]))
+                  and not Pool(st["texts"]).has(norm(e["text"]))]
+    return {"rows": rows, "boxes": len(boxes), "plain_boxes": len(plain),
+            "leftover": [{"id": b["id"], "text": b["text"], "caption": b["caption"]} for b in left],
+            "extra_text": [e["text"] for e in extra_text],
+            "frame": {"fit": {str(k): v for k, v in frame.fit.items()}, "anchors": frame.anchors}}
+
+
+def tally(rows, kind):
+    rs = [r for r in rows if r["kind"] == kind]
+    words = [r for r in rs if not r["icon"]]
+    return {"total": len(rs), "with_text": len(words),
+            "found": sum(r["found"] for r in words),
+            "in_box": sum(r["in_box"] for r in words),
+            "icon": len(rs) - len(words)}
+
+
+def merge_rows(per):
+    """같은 상태의 여러 캡처를 합친다 - 한 장에서라도 찾았으면 찾은 것."""
+    out = {}
+    for name, res in per:
+        for r in res["rows"]:
+            m = out.setdefault(r["key"], dict(
+                {k: v for k, v in r.items() if k not in ("found", "in_box", "sim", "closest")},
+                captures=[], missed_in_frame=[], seen_in=[]))
+            m["captures"].append(name)
+            if not r["icon"]:
+                m["found"] = m.get("found", False) or r["found"]
+                m["in_box"] = m.get("in_box", False) or r["in_box"]
+                if r["found"]:
+                    m["seen_in"].append(name)
+                elif r["in_frame"]:
+                    m["missed_in_frame"].append(name)
+                if r["sim"] > m.get("sim", -1) and not r["found"]:
+                    m.update(sim=r["sim"], closest=r["closest"])
+            m["in_frame_any"] = m.get("in_frame_any") or bool(r["in_frame"])
+    return list(out.values())
+
+
+# --------------------------------------------------------------------------- #
+def pct(a, b):
+    return "%d/%d (%.0f%%)" % (a, b, 100.0 * a / b) if b else "-"
+
+
+def table(head, rows):
+    out = ["| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
+    for r in rows:
+        out.append("| " + " | ".join(str(c).replace("|", "\\|").replace("\n", " ")
+                                     for c in r) + " |")
+    return "\n".join(out)
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261012"))
+    a = ap.parse_args(argv)
+    load = lambda p: json.load(io.open(os.path.join(a.dir, p), encoding="utf-8"))
+    truth = load("truth.json")
+    run = load("_run.json")
+    names = sorted(f[:-5] for f in os.listdir(a.dir)
+                   if f.endswith(".json") and not f.startswith("_")
+                   and f not in ("truth.json", "compare.json"))
+    dets = {n: load(n + ".json") for n in names}
+    states = {s["state"]: s for s in truth["states"]}
+    order = [s["state"] for s in truth["states"]]
+
+    pairs = pairing(truth, dets)
+    pick = {n: pairs[n][0]["state"] for n in names}
+    per = {n: judge_capture(dets[n], states[pick[n]]) for n in names}
+    by_state = {}
+    for n in names:
+        by_state.setdefault(pick[n], []).append((n, per[n]))
+    merged = {s: merge_rows(by_state[s]) for s in order if s in by_state}
+
+    # ------------------------------------------------------------------ 합계
+    def sums(rowsets, kind):
+        t = [tally(rs, kind) for rs in rowsets]
+        return {k: sum(x[k] for x in t) for k in ("total", "with_text", "found", "in_box", "icon")}
+
+    allrows = list(merged.values())
+    tot = {k: sums(allrows, k) for k in ("text", "button", "entrance", "choice", "slot")}
+    glyphs = sum(1 for rs in allrows for r in rs if r["kind"] == "text" and r["icon"])
+    plain_by_state = {s: sum(res["plain_boxes"] for _, res in by_state[s]) for s in merged}
+    left_total = sum(len(per[n]["leftover"]) for n in names)
+    box_total = sum(per[n]["boxes"] for n in names)
+
+    md = []
+    md.append("# 스크린샷 → 요소 검출 시험 D1 (2026-10-12)\n")
+    md.append("더미앱 A1 이체 캡처 %d장(`%s`)을 검출해, 원본 재현 HTML(`%s`)을 원본 흐름(`%s`)대로 "
+              "걸어 얻은 정답지(`truth.json`)와 글 · 이름으로 견준 것이다. 만든 스크립트: "
+              "`tools/screen_detect/` (README.md).\n"
+              % (len(names), run["captures"], truth["original"], truth["flow"]))
+    md.append("- 검출: OmniParser v2 `icon_detect_v3` (YOLOv9-E), 설명: `icon_caption` (Florence-2, "
+              "`<CAPTION>`), OCR: PaddleOCR %s (%s)\n- 장치: %s (torch %s, CUDA) · OCR %s · CPU %s\n"
+              "- 설정: 박스 점수 %.2f, NMS IoU %.1f, 겹친 박스 정리 %.1f, 검출 입력 %d, OCR 점수 %.1f 미만 버림\n"
+              "- 한 장당 평균 (모델을 올린 뒤): OCR %.2f초 · 검출 %.2f초 · 설명 %.2f초\n"
+              % (run["ocr"]["versions"]["paddleocr"], " + ".join(run["ocr"]["models"]),
+                 run["torch"]["gpu"] or "CPU", run["torch"]["version"], run["ocr"]["device"],
+                 run["cpu"], run["settings"]["box_threshold"], run["settings"]["nms_iou"],
+                 run["settings"]["overlap_iou"], run["settings"]["imgsz"],
+                 run["settings"]["text_threshold"], run["per_image_seconds_mean"]["ocr"],
+                 run["per_image_seconds_mean"]["detect"], run["per_image_seconds_mean"]["caption"]))
+
+    md.append("\n## 1. 캡처 ↔ 상태 짝 제안 (연구자 확인용)\n")
+    md.append("글이 가장 많이 겹치는 상태. 점수 = F1(재현 R, 정밀 P). `덮개` 는 그 상태만의 글이 %d%% "
+              "이상 찾아져 F1 1위 대신 앞세운 것이다 (compare.pairing). `동점` 은 1 · 2위의 F1 이 같다 - "
+              "글로는 가를 수 없다. captures.json 은 만들거나 고치지 않았다. 상태 이름의 `~n` 은 그 "
+              "걸음의 n 번째 동작 뒤, `bank+tab-sec` 은 흐름 밖의 [증권사] 탭, `error:` 는 오류 경로의 "
+              "오류 상태다.\n" % (OWN * 100))
+
+    def mark(n):
+        top, nxt = pairs[n][0], pairs[n][1]
+        return ", ".join(x for x in (top.get("rule"), "동점" if top["f1"] == nxt["f1"] else None) if x)
+    md.append(table(["캡처", "제안 상태", "화면", "점수 (R / P)", "그 상태만의 글", "", "2위"], [
+        [n, pairs[n][0]["state"], pairs[n][0]["screen"],
+         "%.2f (%.2f / %.2f)" % (pairs[n][0]["f1"], pairs[n][0]["recall"], pairs[n][0]["precision"]),
+         "-" if pairs[n][0]["own"] is None else "%.2f" % pairs[n][0]["own"], mark(n) or "",
+         "%s %.2f" % (pairs[n][1]["state"], pairs[n][1]["f1"])] for n in names]))
+    lonely = [s for s in order if s not in by_state]
+    md.append("\n짝지어진 캡처가 없는 정답 상태: %s\n" % (", ".join("`%s`" % s for s in lonely) or "없음"))
+
+    md.append("\n## 2. 전체 합계 (짝지어진 상태 %d개, 상태마다 그 캡처들을 합쳐서)\n" % len(merged))
+    t = tot
+    md.append(table(["항목", "값", "메모"], [
+        ["글 재현율", pct(t["text"]["found"], t["text"]["with_text"]),
+         "기호만인 줄 %d개(‹ ✕ ⌄ ⌫ 등)는 분모에서 뺐다" % glyphs],
+        ["과제 버튼 (글 있는 것)", pct(t["button"]["found"], t["button"]["with_text"]),
+         "그중 검출 박스 안의 글로 찾은 것 %d · 아이콘만 %d" % (t["button"]["in_box"], t["button"]["icon"])],
+        ["과제 밖 입구 - 글 있는 것", pct(t["entrance"]["found"], t["entrance"]["with_text"]),
+         "그중 박스 안 %d" % t["entrance"]["in_box"]],
+        ["과제 밖 입구 - 아이콘만", "%d개" % t["entrance"]["icon"], "판정 없음 - 곁 설명은 5절"],
+        ["선택지 값 (글 있는 것)", pct(t["choice"]["found"], t["choice"]["with_text"]),
+         "그중 박스 안 %d · 글 없는 값 %d" % (t["choice"]["in_box"], t["choice"]["icon"])],
+        ["그림 자리", "정답 %d 대 글 없는 박스 %d" % (t["slot"]["total"], sum(plain_by_state.values())),
+         "글 없는 박스는 그 상태로 짝지어진 캡처들의 합 (스크롤 캡처끼리 겹치면 두 번 센다)"],
+        ["남는 박스", "%d / 검출 박스 %d" % (left_total, box_total), "캡처 %d장의 합" % len(names)],
+    ]))
+
+    md.append("\n### 상태별\n")
+    rows = []
+    for s in merged:
+        rs = merged[s]
+        tt = {k: tally(rs, k) for k in ("text", "button", "entrance", "choice", "slot")}
+        rows.append([s, ", ".join(n for n, _ in by_state[s]),
+                     pct(tt["text"]["found"], tt["text"]["with_text"]),
+                     pct(tt["button"]["found"], tt["button"]["with_text"]),
+                     "%s · 아이콘 %d" % (pct(tt["entrance"]["found"], tt["entrance"]["with_text"]),
+                                       tt["entrance"]["icon"]),
+                     pct(tt["choice"]["found"], tt["choice"]["with_text"]),
+                     "%d 대 %d" % (tt["slot"]["total"], plain_by_state[s]),
+                     sum(len(res["leftover"]) for _, res in by_state[s])])
+    md.append(table(["상태", "캡처", "글", "과제 버튼", "입구 (글 · 아이콘만)", "선택지 값",
+                     "그림 자리 대 글 없는 박스", "남는 박스"], rows))
+
+    md.append("\n## 3. 캡처별\n")
+    rows = []
+    for n in names:
+        rs = per[n]["rows"]
+        tt = {k: tally(rs, k) for k in ("text", "button", "entrance", "choice", "slot")}
+        fr = per[n]["frame"]
+        rows.append([n, pick[n], pct(tt["text"]["found"], tt["text"]["with_text"]),
+                     pct(tt["button"]["found"], tt["button"]["with_text"]),
+                     "%s · 아이콘 %d" % (pct(tt["entrance"]["found"], tt["entrance"]["with_text"]),
+                                       tt["entrance"]["icon"]),
+                     pct(tt["choice"]["found"], tt["choice"]["with_text"]),
+                     "%d 대 %d" % (tt["slot"]["total"], per[n]["plain_boxes"]),
+                     "%d / %d" % (len(per[n]["leftover"]), per[n]["boxes"]),
+                     len(per[n]["extra_text"]),
+                     "%s/%s" % (fr["anchors"][False], fr["anchors"][True])])
+    md.append(table(["캡처", "상태", "글", "과제 버튼", "입구 (글 · 아이콘만)", "선택지 값",
+                     "그림 자리 대 글 없는 박스", "남는 박스 / 박스", "정답에 없는 OCR 글",
+                     "닻 (움직임/고정)"], rows))
+    md.append("\n캡처별 분모는 그 상태의 전부다 - 스크롤한 캡처 한 장에는 일부만 보이므로 낮게 나온다. "
+              "닻은 자리를 맞추는 데 쓴 글 수(스크롤과 함께 움직이는 것 / 고정된 것)다.\n")
+
+    # ------------------------------------------------------------------ 놓친 것
+    # 캡처 한 장 단위로도 센다 - 자리상 그 캡처 안이었는데 못 찾은 것은 같은 상태의 다른
+    # 캡처에서 찾았어도 놓친 것이다 (스크롤해 다시 보인 자리에서 놓쳤다).
+    missed = []
+    for s, rs in merged.items():
+        for r in rs:
+            if r["icon"] or (r["found"] and not r["missed_in_frame"]):
+                continue
+            missed.append(dict(r, state=s))
+    prio = {"button": 0, "entrance": 1, "choice": 2, "text": 3}
+    missed.sort(key=lambda r: (r["found"], -len(r["missed_in_frame"]), prio[r["kind"]], r["state"]))
+    kname = {"text": "글", "button": "과제 버튼", "entrance": "입구", "choice": "선택지 값"}
+    md.append("\n## 4. 놓친 것\n")
+    md.append("글 있는 항목 가운데 (가) 짝지어진 캡처 어디에서도 못 찾은 것, (나) 다른 캡처에서는 "
+              "찾았지만 자리상 이 캡처 안이었는데 못 찾은 것. (가) 가 먼저, 그다음 못 찾은 캡처 수 순. "
+              "`자리상 안` 은 정답 자리를 캡처 위로 옮긴 대강의 판단이다 (Frame). `가장 비슷한 OCR` 은 "
+              "못 찾은 캡처에서 가장 가까웠던 OCR 글과 그 비슷함이다 (두 글자 이하는 같아야 찾은 것이라 "
+              "0.79 로 자른다).\n")
+    md.append(table(["#", "종류", "항목", "상태", "어디서도 못 찾음", "자리상 안인데 못 찾은 캡처",
+                     "찾은 캡처", "가장 비슷한 OCR"], [
+        [i + 1, kname[r["kind"]], r["label"], r["state"], "" if r["found"] else "예",
+         ", ".join(r["missed_in_frame"]) or "-", ", ".join(r["seen_in"]) or "-",
+         "%s (%.2f)" % (r.get("closest"), r.get("sim", 0)) if r.get("closest") else "-"]
+        for i, r in enumerate(missed)]))
+
+    # ------------------------------------------------------------------ 글 없는 것
+    md.append("\n## 5. 글 없는 것 - 정답 이름 대 OmniParser 설명 (판정하지 않는다)\n")
+    md.append("정답 자리를 캡처 위로 옮겨(Frame) 그 곁의 글 없는 박스를 고른 것이다. 자리가 맞지 않을 수 "
+              "있으니 박스 id 를 확인 그림(overlay/)에서 본다.\n")
+    kinds = {"slot": "그림 자리", "entrance": "아이콘 입구", "button": "아이콘 버튼",
+             "choice": "글 없는 선택지"}
+    rows, counts = [], []
+    for n in names:
+        icons = [r for r in per[n]["rows"] if r["icon"] and r["kind"] != "text"]
+        framed = [r for r in icons if r["in_frame"]]
+        counts.append([n, pick[n], sum(r["kind"] == "slot" for r in icons),
+                       sum(r["kind"] == "slot" for r in framed),
+                       sum(r["kind"] == "slot" and bool(r["near"]) for r in framed),
+                       sum(r["kind"] == "entrance" for r in icons),
+                       sum(r["kind"] == "entrance" and bool(r["near"]) for r in framed),
+                       per[n]["plain_boxes"]])
+        for r in framed:
+            if r["near"]:
+                rows.append([n, kinds[r["kind"]], r["label"], r["near"], r["caption"] or "-"])
+    md.append(table(["캡처", "상태", "그림 자리", "자리상 캡처 안", "곁에 글 없는 박스가 있는 것",
+                     "아이콘 입구", "곁에 박스가 있는 것", "글 없는 박스"], counts))
+    md.append("\n곁에 글 없는 박스가 있는 것만 나란히 놓는다 (같은 박스가 여러 이름 곁에 뽑힐 수 있다).\n")
+    md.append(table(["캡처", "종류", "정답 이름 (aria-label)", "박스", "OmniParser 설명"], rows))
+
+    md.append("\n## 6. 남는 박스 (캡처별)\n")
+    rows = [[n, ", ".join("%s %s" % (b["id"], b["text"] or "[%s]" % (b["caption"] or ""))
+                          for b in per[n]["leftover"]) or "-"] for n in names]
+    md.append(table(["캡처", "정답 어디에도 닿지 않은 박스 (글 또는 [설명])"], rows))
+
+    md.append("\n## 7. 정답에 없는 OCR 글 (캡처별)\n")
+    md.append("더미앱에만 있는 글, 시트 뒤에 비친 화면의 글, 잘못 읽은 글이 섞여 있다.\n")
+    md.append(table(["캡처", "글"], [[n, " · ".join(per[n]["extra_text"]) or "-"] for n in names]))
+
+    with io.open(os.path.join(a.dir, "summary.md"), "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(md) + "\n")
+    with io.open(os.path.join(a.dir, "compare.json"), "w", encoding="utf-8") as f:
+        json.dump({"pairs": {n: pairs[n][:3] for n in names}, "proposed": pick,
+                   "per_capture": per, "per_state": merged, "totals": tot,
+                   "settings": {"found": FOUND, "short": SHORT, "near": NEAR, "far": FAR}},
+                  f, ensure_ascii=False, indent=1)
+    print("\n".join(md[:12]))
+
+
+if __name__ == "__main__":
+    main()
