@@ -329,6 +329,9 @@ async def drive(url, flow, want_shots=None, errors=True, see=False, original_gro
             # 과제 밖 입구(oos-*)마다 걷는 동안 누를 수 있게 보였는가 + 기록용 글자.
             # 걸음마다 합친다 (merge_entrances) - 검사 K 가 본다.
             "entrances_seen": {},
+            # 그림 자리(role="img" + aria-label)마다 걷는 동안 그려져 보였는가 + 처음 보인
+            # 상자 · 방문. 입구와 같은 규칙으로 합친다 - 검사 L 이 본다.
+            "images_seen": {},
             # 이 걸음에 눌러 넣은 정답. 검사 B 가 원본 화면에 있던 받는 사람
             # 이름을 찾을 때 원본의 정답을 써야 한다 - 빌드의 정답과 다를 수 있다.
             "truth": truth_of(flow)}
@@ -423,6 +426,8 @@ async def walk(page, flow, data, want_shots, url, see=False, original_groups=())
             page, flow, visit, data["reached"], original_groups)
         merge_entrances(data["entrances_seen"],
                         mark_entrances(await page.evaluate(P.ENTRANCES), visit))
+        merge_entrances(data["images_seen"],
+                        mark_entrances(await page.evaluate(P.IMAGES), visit))
         if want_shots:
             await page.screenshot(path=os.path.join(
                 want_shots, "audit_%s.png" % SHOT_SAFE.sub("_", visit)))
@@ -565,7 +570,7 @@ async def walk_reveal(browser, url, flow, spec, original_groups=()):
     "error"}` - choices_shown 은 그중 누를 수 있게 보인 값이다 (probes.CHOICE_SHOWN)."""
     truth = truth_of(flow)
     row = {"at": spec.get("at"), "choices": {}, "choices_shown": {}, "error": None,
-           "violations": [], "entrances_seen": {}}
+           "violations": [], "entrances_seen": {}, "images_seen": {}}
     page = await browser.new_page(viewport={"width": 390, "height": 844})
     ed = {"js_errors": [], "js_error_details": [], "dialogs": [], "reached": []}
     tasks = attach_listeners(page, ed)
@@ -590,6 +595,10 @@ async def walk_reveal(browser, url, flow, spec, original_groups=()):
         # 몇 번 누른 뒤에 보였는지도 적는다 (entrance_distance 의 reveal, 기록만)
         merge_entrances(row["entrances_seen"],
                         mark_entrances(await page.evaluate(P.ENTRANCES), spec.get("at"),
+                                       clicks))
+        # 펼친 뒤 그려져 보인 그림 자리 - 검사 L 이 정답 경로의 것과 함께 센다
+        merge_entrances(row["images_seen"],
+                        mark_entrances(await page.evaluate(P.IMAGES), spec.get("at"),
                                        clicks))
 
     try:

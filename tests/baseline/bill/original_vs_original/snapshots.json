@@ -8132,6 +8132,485 @@
         "scroll_px": null
       }
     },
+    "images_seen": {
+      "메시지 아이콘": {
+        "visible": true,
+        "box": [
+          251,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "지갑 아이콘": {
+        "visible": true,
+        "box": [
+          285,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "알림 아이콘": {
+        "visible": true,
+        "box": [
+          319,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "전체메뉴 아이콘": {
+        "visible": true,
+        "box": [
+          353,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한은행 로고": {
+        "visible": true,
+        "box": [
+          30,
+          148,
+          34,
+          34
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "체크카드 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          331,
+          34,
+          34
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "땡겨요 쿠폰 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          540,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "오늘 쓴 돈 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          724,
+          13,
+          13
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "SOL패밀리 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          948,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "급여클럽+ 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1008,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "내 카드 승인내역 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1068,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한카드 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1332,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한투자증권 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1392,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한라이프 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1452,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "홈 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "금융 아이콘": {
+        "visible": true,
+        "box": [
+          108,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "상품 아이콘": {
+        "visible": true,
+        "box": [
+          186,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "혜택 아이콘": {
+        "visible": true,
+        "box": [
+          264,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "주식 아이콘": {
+        "visible": true,
+        "box": [
+          342,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "고객센터 채팅 아이콘": {
+        "visible": true,
+        "box": [
+          251,
+          59,
+          22,
+          22
+        ],
+        "visit": "menu",
+        "reveal": 0
+      },
+      "설정 아이콘": {
+        "visible": true,
+        "box": [
+          299,
+          59,
+          22,
+          22
+        ],
+        "visit": "menu",
+        "reveal": 0
+      },
+      "로그아웃 아이콘": {
+        "visible": true,
+        "box": [
+          347,
+          59,
+          22,
+          22
+        ],
+        "visit": "menu",
+        "reveal": 0
+      },
+      "검색 아이콘": {
+        "visible": true,
+        "box": [
+          339,
+          117,
+          17,
+          17
+        ],
+        "visit": "menu",
+        "reveal": 0
+      },
+      "고객센터 아이콘": {
+        "visible": true,
+        "box": [
+          299,
+          59,
+          22,
+          22
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "고지서 아이콘": {
+        "visible": true,
+        "box": [
+          330,
+          106,
+          40,
+          40
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "국세 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          476,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "관세 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          548,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "국고 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          620,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "국세 환급금 조회 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          692,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "지방세 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          825,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "환경개선부담금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          898,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "세외수입 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          971,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "아파트/상가관리비 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1103,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "KT통신요금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1175,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "전기요금/TV수신료 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1247,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "상하수도요금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1319,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "고속도로 통행료 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1391,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "국민연금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1523,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "공무원연금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1595,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "통합징수 보험료 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1667,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "고용/산재보험료 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1739,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "교통범칙금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1871,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "검찰청 벌과금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1943,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "AI에게 물어보기 아이콘": {
+        "visible": false,
+        "box": null
+      }
+    },
     "truth": {
       "AMOUNT": "2160",
       "ENO": "1700000000",
@@ -16275,6 +16754,485 @@
         "text": "찾는 내용이 없다면, AI에게 물어볼까요?",
         "aria": "AI에게 물어보기",
         "scroll_px": null
+      }
+    },
+    "images_seen": {
+      "메시지 아이콘": {
+        "visible": true,
+        "box": [
+          251,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "지갑 아이콘": {
+        "visible": true,
+        "box": [
+          285,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "알림 아이콘": {
+        "visible": true,
+        "box": [
+          319,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "전체메뉴 아이콘": {
+        "visible": true,
+        "box": [
+          353,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한은행 로고": {
+        "visible": true,
+        "box": [
+          30,
+          148,
+          34,
+          34
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "체크카드 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          331,
+          34,
+          34
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "땡겨요 쿠폰 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          540,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "오늘 쓴 돈 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          724,
+          13,
+          13
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "SOL패밀리 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          948,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "급여클럽+ 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1008,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "내 카드 승인내역 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1068,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한카드 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1332,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한투자증권 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1392,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한라이프 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1452,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "홈 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "금융 아이콘": {
+        "visible": true,
+        "box": [
+          108,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "상품 아이콘": {
+        "visible": true,
+        "box": [
+          186,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "혜택 아이콘": {
+        "visible": true,
+        "box": [
+          264,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "주식 아이콘": {
+        "visible": true,
+        "box": [
+          342,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "고객센터 채팅 아이콘": {
+        "visible": true,
+        "box": [
+          251,
+          59,
+          22,
+          22
+        ],
+        "visit": "menu",
+        "reveal": 0
+      },
+      "설정 아이콘": {
+        "visible": true,
+        "box": [
+          299,
+          59,
+          22,
+          22
+        ],
+        "visit": "menu",
+        "reveal": 0
+      },
+      "로그아웃 아이콘": {
+        "visible": true,
+        "box": [
+          347,
+          59,
+          22,
+          22
+        ],
+        "visit": "menu",
+        "reveal": 0
+      },
+      "검색 아이콘": {
+        "visible": true,
+        "box": [
+          339,
+          117,
+          17,
+          17
+        ],
+        "visit": "menu",
+        "reveal": 0
+      },
+      "고객센터 아이콘": {
+        "visible": true,
+        "box": [
+          299,
+          59,
+          22,
+          22
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "고지서 아이콘": {
+        "visible": true,
+        "box": [
+          330,
+          106,
+          40,
+          40
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "국세 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          476,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "관세 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          548,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "국고 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          620,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "국세 환급금 조회 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          692,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "지방세 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          825,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "환경개선부담금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          898,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "세외수입 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          971,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "아파트/상가관리비 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1103,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "KT통신요금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1175,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "전기요금/TV수신료 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1247,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "상하수도요금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1319,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "고속도로 통행료 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1391,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "국민연금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1523,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "공무원연금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1595,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "통합징수 보험료 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1667,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "고용/산재보험료 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1739,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "교통범칙금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1871,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "검찰청 벌과금 아이콘": {
+        "visible": true,
+        "box": [
+          20,
+          1943,
+          48,
+          48
+        ],
+        "visit": "bill-home",
+        "reveal": 0
+      },
+      "AI에게 물어보기 아이콘": {
+        "visible": false,
+        "box": null
       }
     },
     "truth": {

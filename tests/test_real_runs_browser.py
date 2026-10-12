@@ -106,21 +106,27 @@ def test_sol_first_attempt_now_fails_only_on_the_entrances(verdicts):
     가 생긴 뒤로 그것 하나로 떨어진다. 전에는 통과했다.
 
     남은 입구는 0 이다 - 이 답은 원본에 oos-* 이름이 붙기 전에 만들어졌다. 글자로 맞추던
-    판정에서는 다른 요소의 글자로 2개가 맞았다 (11-7b 에서 이름으로 바꿨다)."""
+    판정에서는 다른 요소의 글자로 2개가 맞았다 (11-7b 에서 이름으로 바꿨다).
+
+    검사 L (그림 자리, 2026-10-12) 도 떨어진다 - 원본에 그림 자리(role="img")가 생기기 전의
+    답이라 하나도 없다."""
     v = verdicts["sol"]
     fatal = v["loop"]["fatal"]
-    assert [f["check"] for f in fatal] == ["K"], fatal
+    assert [f["check"] for f in fatal] == ["K", "L"], fatal
     m = v["loop"]["metrics"]
     assert m["stage"] == "wireframe"
     assert (m["entrances_original"], m["entrances_kept"]) == (31, 0)
+    assert (m["images_original"], m["images_kept"]) == (60, 0)
     assert v["code"] == 1
 
 
 def test_astra_first_attempt_has_the_J_fatal_and_now_K(verdicts):
     v = verdicts["astra"]
     fatal = v["loop"]["fatal"]
+    # L - 그림 자리가 생기기 전의 답이다 (sol 과 같다)
     assert [(f["check"], f.get("error_path")) for f in fatal] == [("J", "wrong-bank"),
-                                                                    ("K", None)], fatal
+                                                                    ("K", None),
+                                                                    ("L", None)], fatal
     assert "되돌아가는 조작이 막혔다" in fatal[0]["detail"]
     assert "TimeoutError" in fatal[0]["detail"]
     assert v["code"] == 1

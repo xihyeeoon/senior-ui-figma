@@ -446,6 +446,9 @@ MOCK_RUNS = [
     ("mock_entrances_none", ["--mock", "entrances-none", "--attempts", "1"]),
     ("mock_entrances_reveal", ["--mock", "entrances-reveal", "--attempts", "1"]),
     ("mock_entrances_folded", ["--mock", "entrances-folded", "--attempts", "1"]),
+    # 그림 자리(검사 L). 다른 이체 모드는 첫 화면에 원본의 그림 자리를 모두 넣는다
+    # (model.image_swaps). 뺀 빌드는 L 에서만 떨어진다.
+    ("mock_images_dropped", ["--mock", "images-dropped", "--attempts", "1"]),
 ]
 
 # mock 실행이 쓸 산출물 폴더. 실제 outputs/ 와 떼어 놓는다.

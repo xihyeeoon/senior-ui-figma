@@ -41,11 +41,12 @@ CHECKS = [
     ("I", "선택지 보존"),
     ("J", "오류 경로"),
     ("K", "과제 밖 입구"),
+    ("L", "그림 자리"),
 ]
 SEVERITY = {"A": "fatal", "B": "fatal", "C": "fatal",
             "D": "warning", "E": "warning", "F": "warning",
             "G": "warning", "H": "warning", "I": "fatal",
-            "J": "fatal", "K": "fatal"}
+            "J": "fatal", "K": "fatal", "L": "fatal"}
 
 
 def load(arg):

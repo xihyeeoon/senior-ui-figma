@@ -58,6 +58,7 @@
 | `test_preflight_loop.py` | 최신 모델(gpt-6.1-sol · gpt-6-astra) 첫 실행의 형식 검사 거짓 실패 - 실제 답을 `fixtures/real_runs/` 에 복사해 두고 다시 넣는다. 모델도 브라우저도 부르지 않는다 |
 | `test_judge_inputs.py` | 판정 입력(`audit/inputs.judged_flow`) - 모델이 쓴 truth · 완료 화면 값 · done_amount · derived_from_original · task · stage 가 판정을 바꾸지 못하는지, 같은 빌드를 루프와 검사기 CLI 가 같게 판정하는지, 오류 경로에서 뜬 대화상자를 판정하는지. 걷기만 가짜다 |
 | `test_entrances.py` | 과제 밖 입구 (검사 K) - 과제 파일의 확정 목록(이름은 탭 대상마다 하나), 원본의 data-action · aria-label · 무동작 분기, 판정(이름 + 누를 수 있게 보임 · 지운 빌드 fatal · 숨긴 것은 안 셈 · reveal 뒤 통과 · 글자는 기록만 · 겹침 사례 일곱), 프롬프트의 한 문장과 기술 계약 한 줄. `-m browser` 에서는 mock 넷(entrances-none · -reveal · -folded · pass)과, 실제 원본에서 입구 하나만 지운 빌드 일곱(같은 낱말은 남김)을 실제로 걷는다 |
+| `test_images_kept.py` | 그림 자리 보존 (검사 L, 2026-10-12) - 판정(원본을 걷는 동안 보인 그림 자리 이름이 생성물을 걷는 동안 보이는가 · 지운 빌드 fatal · 위치 · 크기 · 화면은 자유 · 숨긴 것은 지운 것 · reveal 뒤 통과 · 새 그림은 기록만 · 원본에서 보이지 않은 것은 안 셈 · 수집 없는 옛 스냅샷은 판정하지 않음 · 두 단계 모두 · 막힘 판정용 missing), 기술 계약 한 줄과 세 프롬프트의 한 줄(메뉴 문장 바로 뒤) · 실패 안내문이 계약 문장을 그대로 담는지, mock 의 그림 자리 블록(images-dropped 만 없음 · 이름은 원본에서 · 원문에 이름을 적지 않음). `-m browser` 에서는 두 원본 대 원본(이체 60/60 · 공과금 43/43), mock images-dropped · pass, 그림 자리를 모두 지운 실제 실행 둘(20261008-131136 시도 2 · 20261012-132226 시도 1 - 둘 다 60개 중 60개를 지웠다)을 실제로 걷는다 |
 | `test_choices_shown.py` | 검사 I - 펼친 뒤 실제로 보이는가 (11-8 2-3). 원본에서 보이던 값이 생성물에서 걷는 동안 (정답 걸음 · reveal 뒤) 어느 상태에서도 누를 수 있게 보이지 않으면 fatal(`not_selectable`), 원본도 보이지 않던 값은 경고, 보이는 값의 수집(`choices_shown`)이 없는 옛 스냅샷은 전처럼, 일찍 멈춘 걷기는 파생, 설명서 문구, 기술 계약과 "원본이 가진 선택지" 칸의 글자까지 같은 한 문장(접은 값도 보여야 · 접은 묶음마다 reveal, 11-8b), mock 답의 은행 목록 펼치기. `-m browser` 에서는 보임 판정 페이지(display · visibility · 조상 opacity · 크기 0 · disabled · 닫힌 `<details>`), 두 원본이 걷는 동안 보이지 않는 값(이체 증권사 29 · 공과금 0), 원본 대 원본, mock pass · reveal · reveal-undeclared 를 실제로 걷는다 |
 | `test_entrance_distance.py` | 과제 밖 입구까지의 거리(11-8, 기록만) - 입구마다 원본 · 생성물에서 처음 보인 방문 · 펼치기 횟수 · 스크롤 거리가 검사 K 의 지표 `entrance_distance` 와 `summary.json` · 설명서의 "과제 밖 입구" 표로 남는지, 판정 · 고르기 규칙은 그 값을 보지 않는지. `-m browser` 에서는 스크롤 거리를 아는 페이지(첫 화면 0 · `.body` 안 2000px → 1206 · 고정 탭 0)와 mock pass · entrances-reveal · -folded · bill-identity 를 실제로 걷는다 |
 | `test_audience.py` | 대상 문구를 과제 파일 한 칸으로 (11-8 4) - 과제 파일의 `audience`(2026-10-08 부터 "65세 이상 고령 사용자")와 설명의 `{{AUDIENCE}}` 자리, 칸이 없으면 멈춤, 진단·계획 · 생성 · 다듬기 프롬프트에 값이 들어가고 자리가 남지 않음, 조사 이/가 를 값의 끝 글자에 맞춤, 값을 바꾼 과제 파일로 루프를 한 번 돌려(모델 · 검사기만 가짜) 세 프롬프트 · 설명서에 새 값이 들어가고 "60대" 가 남지 않음, `summary.json` 의 `audience`. 11-8b: 11-8 이 남긴 세 곳(진단·계획의 "각 화면에서 …가 어디서 멈추고" · 진단 칸 · 다듬기 비평 칸)도 자리이고, 대상을 "일반 성인 사용자" 로 바꾸면 세 프롬프트 어디에도 "고령" 이 남지 않음 |
@@ -73,7 +74,7 @@
 | `test_choice_roles.py` | 선택지 아님 선언(과제 파일 `not_choices`, 11-9) - 과제 파일의 모양, 판정 입력이 붙이고 모델의 것은 버리는지, 검사 I 가 선언된 무리를 판정에서 빼고 `choice_groups_not_choices` 로 남기는지, 프롬프트 · 형식 검사가 그 무리만 받치는 `MENU_TABS` 의 참조를 요구하지 않는지, 설명서의 표. `-m browser` 에서는 저장된 공과금 답 셋(`fixtures/real_runs/bill_sol`)을 바뀐 검사기로 판정한다 (11-9 에서는 셋 다 I 하나 - 항목이 하나뿐인 분류의 메뉴 항목 6개, 무리를 원본이 정한 11-9b 부터 셋 다 fatal 없음) |
 | `test_storyboard.py` | 화면설계서 (`python -m senior_ui.storyboard`, 11-12) - 보이는 요소를 번호 매긴 항목으로 (선택지 무리는 하나, 대표는 읽는 순서의 첫 것), 누르기 결과의 말 (다른 화면 · 같은 화면 · 아무 일 없음 · 꺼짐), 영역 묶기의 검사 · 한 번 다시 묻기 · "기타" · mock 의 정해진 답 · mock 은 키를 읽지 않음 · 모델 호출 기록 (가짜 호출), 단 나누기 · 동작 문구, 통과하지 못한 실행은 만들지 않음 (종료 2), 원본 지문의 줄끝. 11-12b 의 형식 - 로우파이 덮개가 배치 속성을 쓰지 않고 걷는 동안 꺼져 있는지, 주석 꼴 동작 문구, 장 제목 꼬리표 · 예외(비활성 · 모델이 표시한 빈 화면만), 화면 이름(영역 묶기 답 → 계획의 화면 목적 앞부분) · 경로 · 정보칸, 와이어플로(흐름 명세에서만 화살표 · 한 장에 들거나 띠마다 나눔), 기능-화면 표(● 흐름이 머무는 상태 · ○ 조건별 장 · 선택지 · 숫자판은 원본의 값으로 검사 I 의 경계 규칙대로 찾고 찾은 수 · 빌드의 이름 · 값이 아닌 글자는 보지 않음 · 원본 값이 없으면 이름으로 · 생성물의 이름 하나는 원본 무리 하나에만 - 가장 많이 덮는 무리, 동점은 바탕 원본 화면 → 같은 이름 → "같은 값" (11-12d) · 입력 칸 · 원본 화면 칸 · 보지 못한 줄, 11-12c), `--regions-from`(모델 없이 다시 쓰기 · 번호가 다르면 종료 2). `-m browser` 에서는 (가) `fixtures/storyboard/actions.html` 로 동작 확인 - 다른 화면 · 같은 화면 · 아무 일 없음 · 무리 · 꺼짐 · 과제 밖 입구 · 가려진 요소 · 늦게 넘어가는 화면 · 스크롤 화면 한 장 · 오류 · 펼침 · 덮개를 켜기 전후 위치 · 크기 · 글자 크기 · 굵기가 같은지 · 덮개 표시가 요소 값에 섞이지 않는지 · 원본 걷기(선택지 무리의 값까지), (나) mock pass 실행 · 저장된 이체 답 · 저장된 공과금 답으로 끝까지 만들어 `baseline/storyboard/` 와 견주고, 실행 폴더의 원래 파일이 바이트까지 그대로인지 · `index.html` 이 `storyboard.json` 만으로 다시 그려지는지 · mock pass 에서 다른 이름(amt-num · amt-set)으로 그린 숫자판 · 빠른 금액이 값으로 찾아지고 비밀번호 숫자판은 보지 못함인지 · 저장된 이체 답의 숫자판 셋이 각자 제 화면에만 ● 인지 본다, (다) 저장된 이체 답의 설계서를 그 `storyboard.json` 으로 `--regions-from` 해서 영역이 그대로인지 · 한 요소를 뺀 답으로는 만들지 않는지 |
 | `test_storyboard_names.py` | 설계서의 X 상자에 그림 자리 이름(11-11 1-2) - 이름은 덮개 CSS 가 아니라 찍기 직전에 얹는 층(`walk.NAMES_ON`)이고 "[X] " 를 앞에 붙인다. `-m browser` 에서는 `fixtures/storyboard/pictures.html` 로 상자마다 이름이 보이는지(이름 없는 · 숨은 자리는 빼고), 큰 상자는 큰 글자 · 작은 상자는 하한, 조상이 자른 자리는 보이는 만큼만, 얹어도 배치 · 요소 값이 그대로인지, 걷어내는지, 그림 페이지(`picture_state`)가 깨끗한 그림에 얹는지 |
-| `storyboard_fixture.py` | 저장된 실제 답(`fixtures/real_runs/`)으로 실행 폴더를 꾸민다 - 루프와 같은 순서로 답을 받고 검사도 루프의 길로 돌려 `summary.json` 까지. 설계서 기준값과 시험이 쓴다 |
+| `storyboard_fixture.py` | 저장된 실제 답(`fixtures/real_runs/`)으로 실행 폴더를 꾸민다 - 루프와 같은 순서로 답을 받고 검사도 루프의 길로 돌려 `summary.json` 까지. 설계서 기준값과 시험이 쓴다. 검사 L(그림 자리)은 빼고 판정한다 — 두 답 모두 원본에 그림 자리가 생기기 전의 것이라 하나도 없다 (뺀 사실은 audit 의 `checks_stood_down`) |
 | `fixtures/storyboard/` | 설계서 동작 확인용 작은 HTML 과 그 흐름 명세 (`actions.html` · `actions.flow.json`) |
 | `fixtures/real_runs/` | 실제 실행의 답 그대로 (`sol` = `outputs/restructure_auto/20261006-124055`, `astra` = `20261006-124838`, `bill_sol` = `20261007-103023-bill` 의 시도 2 · 3 · 4, `refine_215902` · `refine_102041` = 두 실행의 다듬기 답 `refine.response.txt` 와 그때의 계획). `attempt_N.response.txt` · 첫 계획(`plan.json`) · 도구가 넣은 선택지 데이터(`preserved.json`, `attempt_N.html` 의 블록). 설계서의 맨 앞장에 쓰려고 그 실행의 진단(`diagnosis.json` - `refine_102041` · `bill_sol`)과 `bill_sol` 의 계획(`plan.json`, 시도 4 의 것)을 실행 폴더에서 그대로 더했다 (11-12) |
 | `fake_openai.py` | `openai.OpenAI` 의 대역 (with_raw_response 의 헤더 · Responses · models.list · 429 · 400) |
@@ -132,7 +133,10 @@
   떨어진다. `mock_entrances_none` 은 과제 밖 입구를 넣지 않아 검사 K 에서 떨어지고,
   `mock_entrances_reveal` 은 입구를 [다른 메뉴] 를 눌러야 그리고, `mock_entrances_folded`
   는 접힌 `<details>` 에 넣었지만, 둘 다 흐름 명세의 reveal 로 펼쳐 보아 통과한다.
-  나머지 이체 모드는 첫 화면에 입구를 보이게 넣는다 (`model.ENTRANCE_MODES`). mock 실행은 `.mock-outputs/` 를 쓴다 — 통과한 빌드가
+  나머지 이체 모드는 첫 화면에 입구를 보이게 넣는다 (`model.ENTRANCE_MODES`).
+  `mock_images_dropped` 는 pass 에서 그림 자리만 빼서 검사 L 에서만 떨어진다 — 나머지 이체
+  모드는 첫 화면의 입구 블록 뒤에 원본의 그림 자리 60개(마크업의 이름 22 + 은행 로고 38)를 같은
+  이름의 작은 상자로 넣는다 (`model.image_swaps`, 2026-10-12). mock 실행은 `.mock-outputs/` 를 쓴다 — 통과한 빌드가
   `outputs/restructured_auto.*` 를 덮지 않게 떼어 놓았다 (이제 `--mock` 의
   기본값이기도 하다. 캡처는 같은 폴더를 환경 변수로 한 번 더 못박는다)
 - `session_report.md` / `.csv`
@@ -165,18 +169,21 @@
 |---|---|---|---|---|
 | `original_vs_original` | ○ | 0 | 3 (D 2 · J 1) (wireframe 1) | 8/8 |
 | `bill/original_vs_original` | ○ | 0 | 2 (D 2) (wireframe 0) | 8/8 |
-| `run1` | ✕ | 4 (I 3 · K 1) | 4 (D 3 · I 1) (wireframe 1) | 9/9 |
-| `run2` | ✕ | 4 (I 3 · K 1) | 4 (D 3 · I 1) (wireframe 1) | 7/7 |
-| `run3` | ✕ | 4 (I 3 · K 1) | 4 (D 3 · I 1) (wireframe 1) | 8/8 |
+| `run1` | ✕ | 5 (I 3 · K 1 · L 1) | 4 (D 3 · I 1) (wireframe 1) | 9/9 |
+| `run2` | ✕ | 5 (I 3 · K 1 · L 1) | 4 (D 3 · I 1) (wireframe 1) | 7/7 |
+| `run3` | ✕ | 5 (I 3 · K 1 · L 1) | 4 (D 3 · I 1) (wireframe 1) | 8/8 |
 
 `run1~3` 의 fatal 중 셋은 검사 I(선택지 보존)다 — 원본의 `pick-bank` 67개 중 58개,
 `quick` 의 `all`, `num` 의 `00` 이 생성물에 없다. 나머지 하나는 검사 K(과제 밖 입구)다 —
-원본의 입구 31개가 하나도 없다. 원본 대 원본은 입구 31/31 (공과금 32/32). mock 실행:
+원본의 입구 31개가 하나도 없다. 하나는 검사 L(그림 자리)이다 — 원본을 걷는 동안 보인 그림
+자리 60개가 하나도 없다 (세 빌드 모두 원본에 그림 자리가 생기기 전의 것이다). 원본 대 원본은
+입구 31/31 (공과금 32/32), 그림 자리 60/60 (공과금 43/43). mock 실행:
 `mock_pass` · `mock_preserved_all` · `mock_entrances_reveal` · `mock_entrances_folded` ·
 `bill/mock_bill_identity` 는 통과하고, `mock_fail` 은 검사에서 (2회 - 같은 실패라 막힘), `mock_preserved_some` 은 검사 I 에서
 (`mock_stuck` 은 같은 것을 예산 3 으로 - 시도 2 에서 막힘),
 `mock_preserved_none` · `mock_errors_undeclared` 는 형식 검사에서,
-`mock_errors_unhandled` 는 검사 J 에서, `mock_entrances_none` 은 검사 K 에서 떨어진다.
+`mock_errors_unhandled` 는 검사 J 에서, `mock_entrances_none` 은 검사 K 에서,
+`mock_images_dropped` 는 검사 L 에서 떨어진다.
 
 정리 단계에서는 `metrics.fatal_total` 이 0 인데 `fatal` 목록에는 1건이 있는 버그가
 기준값에 담겨 있었다 (집계가 검사 I 보다 앞에 있었다). `fix/audit-counting` 에서

@@ -23,6 +23,7 @@ from senior_ui import _cli                                   # noqa: E402
 from senior_ui import config as _config                      # noqa: E402
 from senior_ui import devserver as _devserver                # noqa: E402
 from senior_ui.audit import core as _audit_core              # noqa: E402
+from senior_ui.audit.checks import l_images as _l_images     # noqa: E402
 from senior_ui.audit import __main__ as _audit_cli           # noqa: E402
 from senior_ui.audit import stage as _audit_stage            # noqa: E402
 from senior_ui.audit import report as _audit_report          # noqa: E402
@@ -72,6 +73,8 @@ STAGES = _audit_stage.STAGES
 # 테스트가 두 모듈을 볼 수 있어야 하므로 모듈째로 내보낸다.
 count_fatals = _audit_core.count_fatals
 audit_core_module = _audit_core
+# 검사 L (그림 자리) - 실패 안내문의 문장(RULE)을 프롬프트의 것과 견준다
+l_images_module = _l_images
 audit_stage_module = _audit_stage
 
 # ---- senior_ui/audit/__main__.py (CLI - 종료 코드까지) ----------------- #

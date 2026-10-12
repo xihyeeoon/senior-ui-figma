@@ -295,8 +295,12 @@ def test_saved_bill_replies_keep_every_menu_item(bill_verdicts, n):
     v = bill_verdicts[n]
     assert v["problems"] == []
     report = v["report"]
+    # 검사 L (그림 자리, 2026-10-12) - 원본에 그림 자리가 생기기 전의 답이라 하나도 없다.
+    # 이 시험은 선택지를 보므로 따로 센다.
+    assert [f["check"] for f in report["fatal"] if f["check"] == "L"] == ["L"]
+    assert report["metrics"]["images_kept"] == 0
     got = [(f["check"], f.get("action"), len(f.get("not_selectable") or []))
-           for f in report["fatal"]]
+           for f in report["fatal"] if f["check"] != "L"]
     assert got == ([("I", "menu-item", 286)] if n == 2 else []), got
     m = report["metrics"]
     assert m["choice_values_missing"] == {}

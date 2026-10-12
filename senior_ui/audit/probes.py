@@ -675,3 +675,31 @@ ENTRANCES = r"""
   return out;
 }
 """.replace("__PREFIX__", ENTRANCE_PREFIX).replace("__PRESSABLE__", PRESSABLE.strip())
+
+
+# --- L: 그림 자리 -----------------------------------------------------------------
+# 그림 자리(role="img" + aria-label - 로고 · 아이콘 · 사진이 들어갈 자리)를 aria-label 이름으로
+# 모은다. 이름마다 지금 그려져 보이는가와, 보이면 그 상자 [x, y, w, h] (창 기준, 기록만 -
+# 검사 L 의 images_box). 보임은 입구와 같은 PRESSABLE 이다 - 그림 자리는 누르는 요소가 아니라
+# disabled 가 없으므로 "크기 0 이 아니고 자신이나 조상이 숨기지 않았다" 만 남는다. 같은 이름이
+# 여럿이면 보이는 것 하나를 고른다 (처음 것). 문서 전체를 보지만 숨은 화면 안의 요소는 크기가
+# 0 이라 보이지 않는 것이 된다 - 그 화면에 도착한 걸음에서 보인다.
+IMAGES = r"""
+() => {
+  const out = {};
+  const clean = s => (s || '').replace(/\s+/g, ' ').trim();
+  __PRESSABLE__
+  document.querySelectorAll('[role="img"][aria-label]').forEach(el => {
+    const name = clean(el.getAttribute('aria-label'));
+    if (!name) return;
+    const visible = pressable(el);
+    const r = el.getBoundingClientRect();
+    const row = {visible: visible,
+                 box: visible ? [Math.round(r.left), Math.round(r.top),
+                                 Math.round(r.width), Math.round(r.height)] : null};
+    const old = out[name];
+    if (!old || (row.visible && !old.visible)) out[name] = row;
+  });
+  return out;
+}
+""".replace("__PRESSABLE__", PRESSABLE.strip())

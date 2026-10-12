@@ -3330,6 +3330,788 @@
         "reveal": 0
       }
     },
+    "images_seen": {
+      "메시지 아이콘": {
+        "visible": true,
+        "box": [
+          251,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "지갑 아이콘": {
+        "visible": true,
+        "box": [
+          285,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "알림 아이콘": {
+        "visible": true,
+        "box": [
+          319,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "전체메뉴 아이콘": {
+        "visible": true,
+        "box": [
+          353,
+          57,
+          19,
+          19
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한은행 로고": {
+        "visible": true,
+        "box": [
+          30,
+          148,
+          34,
+          34
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "체크카드 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          331,
+          34,
+          34
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "땡겨요 쿠폰 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          540,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "오늘 쓴 돈 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          724,
+          13,
+          13
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "SOL패밀리 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          948,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "급여클럽+ 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1008,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "내 카드 승인내역 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1068,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한카드 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1332,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한투자증권 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1392,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "신한라이프 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          1452,
+          38,
+          38
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "홈 아이콘": {
+        "visible": true,
+        "box": [
+          30,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "금융 아이콘": {
+        "visible": true,
+        "box": [
+          108,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "상품 아이콘": {
+        "visible": true,
+        "box": [
+          186,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "혜택 아이콘": {
+        "visible": true,
+        "box": [
+          264,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "주식 아이콘": {
+        "visible": true,
+        "box": [
+          342,
+          796,
+          18,
+          18
+        ],
+        "visit": "home",
+        "reveal": 0
+      },
+      "받는 사람 관리 아이콘": {
+        "visible": true,
+        "box": [
+          301,
+          59,
+          22,
+          22
+        ],
+        "visit": "recipient",
+        "reveal": 0
+      },
+      "검색 아이콘": {
+        "visible": true,
+        "box": [
+          341,
+          109,
+          19,
+          19
+        ],
+        "visit": "recipient",
+        "reveal": 0
+      },
+      "카메라 아이콘": {
+        "visible": true,
+        "box": [
+          351,
+          155,
+          19,
+          19
+        ],
+        "visit": "recipient",
+        "reveal": 0
+      },
+      "신한 로고": {
+        "visible": true,
+        "box": [
+          55,
+          233,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "제주 로고": {
+        "visible": true,
+        "box": [
+          179,
+          233,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "국민 로고": {
+        "visible": true,
+        "box": [
+          303,
+          233,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "기업 로고": {
+        "visible": true,
+        "box": [
+          55,
+          330,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "농협 로고": {
+        "visible": true,
+        "box": [
+          179,
+          330,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "산업 로고": {
+        "visible": true,
+        "box": [
+          303,
+          330,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "수협 로고": {
+        "visible": true,
+        "box": [
+          55,
+          427,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "신협 로고": {
+        "visible": true,
+        "box": [
+          179,
+          427,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "우리 로고": {
+        "visible": true,
+        "box": [
+          303,
+          427,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "하나 로고": {
+        "visible": true,
+        "box": [
+          55,
+          524,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "한국씨티 로고": {
+        "visible": true,
+        "box": [
+          179,
+          524,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "카카오뱅크 로고": {
+        "visible": true,
+        "box": [
+          303,
+          524,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "케이뱅크 로고": {
+        "visible": true,
+        "box": [
+          55,
+          621,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "토스뱅크 로고": {
+        "visible": true,
+        "box": [
+          179,
+          621,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "경남 로고": {
+        "visible": true,
+        "box": [
+          303,
+          621,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "광주 로고": {
+        "visible": true,
+        "box": [
+          55,
+          718,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "아이엠뱅크(대구) 로고": {
+        "visible": true,
+        "box": [
+          179,
+          718,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "부산 로고": {
+        "visible": true,
+        "box": [
+          303,
+          718,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "전북 로고": {
+        "visible": true,
+        "box": [
+          55,
+          815,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "회원수협 로고": {
+        "visible": true,
+        "box": [
+          179,
+          815,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "새마을 로고": {
+        "visible": true,
+        "box": [
+          303,
+          815,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "우체국 로고": {
+        "visible": true,
+        "box": [
+          55,
+          912,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "저축은행 로고": {
+        "visible": true,
+        "box": [
+          179,
+          912,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "지역농.축협 로고": {
+        "visible": true,
+        "box": [
+          303,
+          912,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "도이치 로고": {
+        "visible": true,
+        "box": [
+          55,
+          1009,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "중국 로고": {
+        "visible": true,
+        "box": [
+          179,
+          1009,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "중국건설 로고": {
+        "visible": true,
+        "box": [
+          303,
+          1009,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "중국공상 로고": {
+        "visible": true,
+        "box": [
+          55,
+          1106,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "BNP파리바 로고": {
+        "visible": true,
+        "box": [
+          179,
+          1106,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "BOA 로고": {
+        "visible": true,
+        "box": [
+          303,
+          1106,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "HSBC 로고": {
+        "visible": true,
+        "box": [
+          55,
+          1203,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "JP모간 로고": {
+        "visible": true,
+        "box": [
+          179,
+          1203,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "SC 로고": {
+        "visible": true,
+        "box": [
+          303,
+          1203,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "산림조합 로고": {
+        "visible": true,
+        "box": [
+          55,
+          1300,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "국세 로고": {
+        "visible": true,
+        "box": [
+          179,
+          1300,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "지방세 로고": {
+        "visible": true,
+        "box": [
+          303,
+          1300,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "국고금 로고": {
+        "visible": true,
+        "box": [
+          55,
+          1397,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "관세 로고": {
+        "visible": true,
+        "box": [
+          179,
+          1397,
+          32,
+          32
+        ],
+        "visit": "bank",
+        "reveal": 0
+      },
+      "신한투자증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "교보증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "다올투자증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "대신증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "메리츠증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "미래에셋증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "부국증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "삼성증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "상상인증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "신영증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "에스케이증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "유안타증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "유진투자증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "LS증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "카카오페이증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "케이프투자증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "키움증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "토스증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "우리투자증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "하나증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "아이엠증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "한국투자증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "한화투자증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "현대차증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "BNK투자증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "DB증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "IBK투자증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "KB증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "NH투자증권 로고": {
+        "visible": false,
+        "box": null
+      },
+      "받는 은행 로고": {
+        "visible": false,
+        "box": null
+      }
+    },
     "truth": {
       "ACCOUNT": "110234567890",
       "AMOUNT": "32000",
@@ -4985,6 +5767,7 @@
     "js_error_details": [],
     "flow": "run3",
     "entrances_seen": {},
+    "images_seen": {},
     "truth": {
       "ACCOUNT": "3333000000000",
       "AMOUNT": "10000",

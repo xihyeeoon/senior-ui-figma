@@ -834,6 +834,9 @@ MOCKS = {
     # 입구를 모두 지운 빌드 - Run 1 그대로 (예비 실행 20261006-215902 처럼 "돈 보내기"
     # 만 남았다). 검사 K 에서 떨어져야 한다.
     "entrances-none": (BANKS_ALL, "arrays", False, "handled"),
+    # pass 에서 그림 자리만 뺀 빌드 - Run 1 그대로 (실행 20261008-131136 · 20261012-132226
+    # 처럼 role="img" 가 하나도 없다). 검사 L 에서만 떨어져야 한다.
+    "images-dropped": (BANKS_ALL, "arrays", False, "handled"),
 }
 # 펼치기 설계를 쓰는 모드와, 흐름 명세에 reveal 을 적는가.
 REVEAL_MODES = {"reveal": True, "reveal-undeclared": False}
@@ -922,6 +925,65 @@ def entrance_swaps(how):
 MOCK_ENTRANCE_REVEAL = {"oos-message": {"at": "start", "do": [{"click": "#mock-more"}]}}
 
 
+# 그림 자리를 어떻게 두는가 (검사 L). Run 1 빌드에는 그림 자리(role="img" + aria-label)가
+# 하나도 없다 - 원본에 그림 자리가 생기기 전의 빌드다. 그대로면 모든 이체 모드가 검사 L 에서
+# 떨어지므로, images-dropped 가 아닌 모드는 첫 화면의 입구 블록 뒤에 원본의 그림 자리를 같은
+# 이름의 작은 상자로 모두 넣는다 - 원본 마크업의 이름과, 은행 목록이 항목마다 그리는
+# "<은행> 로고" (원본의 BANKS 배열 - [증권사] 탭의 것은 원본을 걷는 동안 보이지 않으므로 뺀다).
+# 스크립트가 이름을 바꾸는 자리(확인 화면의 "받는 은행 로고" - id 가 있다)는 넣지 않는다 -
+# 원본에서 그 이름으로는 보이지 않고, 바뀐 이름("신한 로고")은 은행 목록의 것과 같다.
+# 실패하는 모드에도 넣는다 - 모드마다 제 이유 하나로만 떨어지게.
+#
+# 상자는 빈 블록을 두고 스크립트가 채운다. 이름 목록은 글자마다 \u 로 적는다 (BOA · HSBC 같은
+# 로마자도) - 검사 I 는 값(은행 ·
+# 증권사 이름)을 빌드 원문에서 찾으므로 (i_choices.present), 이름을 원문에 그대로 적으면
+# "신한투자증권 아이콘" · "국민 로고" 가 그 값으로 읽혀 preserved-some 의 I 판정이 바뀌고,
+# preserved-none 은 은행 이름을 모두 적은 것이 되어 형식 검사가 BANKS 참조를 요구하지 않게
+# 된다. window.PRESERVED 도 읽지 않는다 - 같은 이유다.
+IMAGE_MODES = {"images-dropped"}
+IMAGES_BLOCK_ID = "mock-pics"
+IMAGES_CSS = (".mock-pics{display:flex; flex-wrap:wrap; gap:4px; padding:8px 0;}\n"
+              ".pic{display:inline-block; width:16px; height:16px; background:#E4E7EC;}\n")
+SLOT_TAG = re.compile(r'<(\w+)\b([^>]*)\brole="img"([^>]*)>')
+
+
+def image_names():
+    """원본(이체)을 걷는 동안 보이는 그림 자리 이름 - 마크업의 것 + 은행 로고."""
+    from senior_ui.restructure.preserve import script_arrays
+    from senior_ui.tasks import abs_path, load_task
+    html = io.open(abs_path(load_task("transfer")["original"]), encoding="utf-8").read()
+    names = []
+    for tag in SLOT_TAG.finditer(html):
+        attrs = tag.group(2) + tag.group(3)
+        label = re.search(r'aria-label="([^"]+)"', attrs)
+        if not label or "${" in label.group(1) or re.search(r'\bid="', attrs):
+            continue
+        names.append(label.group(1))
+    names += ["%s 로고" % n for n in dict(script_arrays(html))["BANKS"]]
+    return list(dict.fromkeys(names))
+
+
+def image_block():
+    return '\n    <div class="mock-pics" id="%s"></div>' % IMAGES_BLOCK_ID
+
+
+def image_script():
+    names = "[%s]" % ",".join('"%s"' % "".join("\\u%04x" % ord(c) for c in n)
+                              for n in image_names())
+    return ("document.getElementById('%s').innerHTML = %s.map(n => '<span class=\"pic\" "
+            "role=\"img\" aria-label=\"' + n + '\"></span>').join('');\n"
+            % (IMAGES_BLOCK_ID, names))
+
+
+def image_swaps(mode):
+    """그 모드가 그림 자리를 넣는 바꿔치기들. 입구 블록보다 먼저 한다 - 입구 블록 뒤에 온다."""
+    if mode in IMAGE_MODES:
+        return []
+    return [(ENTRANCES_AT, ENTRANCES_AT + image_block()),
+            ("</style>", IMAGES_CSS + "</style>"),
+            ("</script>", image_script() + "</script>")]
+
+
 def swap(html, old, new):
     """한 자리를 바꾼다. 그 자리가 없으면 멈춘다."""
     if old not in html:
@@ -945,6 +1007,8 @@ def mock_build(mode):
     if mode in REVEAL_MODES:
         for old, new in REVEAL_SWAPS:
             html = swap(html, old, new)
+    for old, new in image_swaps(mode):
+        html = swap(html, old, new)
     for old, new in entrance_swaps(ENTRANCE_MODES.get(mode, "shown")):
         html = swap(html, old, new)
     return html

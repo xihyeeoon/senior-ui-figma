@@ -1,7 +1,7 @@
 r"""저장소 맨 위 README.md - 처음 보는 사람용 (11-8 5).
 
 README 는 코드와 따로 늙는다. 여기서는 코드에서 읽을 수 있는 것만 맞춰 본다 - 링크가
-있는 파일을 가리키는가, 검사 A~K 표의 "와이어프레임 단계" 표시가 검사기의 단계 정의와
+있는 파일을 가리키는가, 검사 A~L 표의 "와이어프레임 단계" 표시가 검사기의 단계 정의와
 같은가, 과제 파일의 칸이 모두 표에 있는가, 절이 다 있는가.
 
   .\.venv\Scripts\python.exe -m pytest tests/test_readme.py
@@ -26,7 +26,7 @@ def section(title):
 
 
 @pytest.mark.parametrize("title", [
-    "무엇에 쓰나", "원칙", "보존 대상", "한 번 실행의 흐름", "검사 A~K",
+    "무엇에 쓰나", "원칙", "보존 대상", "한 번 실행의 흐름", "검사 A~L",
     "과제 파일의 칸 (`tasks/<과제>.json`)", "설치", "명령", "출력 폴더", "비용 어림",
     "C 후보 고르기", "시험", "한계", "문서"])
 def test_the_readme_has_every_section(title):
@@ -42,9 +42,9 @@ def test_every_relative_link_points_to_a_file():
 
 
 def test_the_check_table_marks_the_wireframe_stage_as_the_auditor_does():
-    rows = re.findall(r"^\| ([A-K]) \| (.*) \| (fatal|warning) \| ?(✓?) ?\|$",
-                      section("검사 A~K"), re.M)
-    assert [r[0] for r in rows] == list("ABCDEFGHIJK")
+    rows = re.findall(r"^\| ([A-L]) \| (.*) \| (fatal|warning) \| ?(✓?) ?\|$",
+                      section("검사 A~L"), re.M)
+    assert [r[0] for r in rows] == list("ABCDEFGHIJKL")
     marked = [r[0] for r in rows if r[3]]
     assert marked == _api.STAGES["wireframe"]["checks"]
 

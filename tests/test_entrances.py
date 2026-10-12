@@ -357,7 +357,14 @@ def test_an_original_without_that_entrance_fails_even_if_the_word_remains(
     finally:
         os.remove(os.path.join(ROOT, rel))
     assert missing(report) == [gone], report["fatal"]
-    assert [x["check"] for x in report["fatal"]] == ["K"], report["fatal"]
+    # 지운 요소 안의 그림 자리(하단 탭의 아이콘 등)도 함께 사라진다 - 검사 L (2026-10-12) 이
+    # 그 이름만 잡는다. 다른 곳에 같은 이름이 남아 있으면 지운 것이 아니다.
+    element = re.search(ELEMENT % re.escape(by_id(task)[gone]["action"]), orig_html, re.S).group(0)
+    icons = [n for n in re.findall(r'role="img" aria-label="([^"]+)"', element)
+             if ('aria-label="%s"' % n) not in build]
+    assert [x["check"] for x in report["fatal"]] == ["K"] + (["L"] if icons else []),         report["fatal"]
+    if icons:
+        assert report["fatal"][1]["missing"] == icons
 
 
 # 닫힌 <details> 안 · 조상이 opacity:0 · disabled - 누를 수 있게 보이지 않는다 (11-8,

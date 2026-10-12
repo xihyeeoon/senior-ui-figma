@@ -147,7 +147,7 @@
       "calls": [
         {
           "stage": "retry",
-          "estimated_prompt": 27704,
+          "estimated_prompt": 29148,
           "method": "tiktoken:o200k_base(대체)",
           "max_tokens": 32000,
           "usage": null,
@@ -271,7 +271,7 @@
       },
       "retry": {
         "calls": 1,
-        "estimated_prompt": 27704,
+        "estimated_prompt": 29148,
         "images": 0,
         "estimated_images": 0,
         "max_tokens": 32000,
@@ -282,7 +282,7 @@
     },
     "total": {
       "calls": 3,
-      "estimated_prompt": 63763,
+      "estimated_prompt": 65207,
       "images": 15,
       "estimated_images": 6330,
       "max_tokens": 89000,

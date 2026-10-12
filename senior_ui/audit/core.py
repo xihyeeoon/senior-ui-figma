@@ -1,6 +1,6 @@
 r"""Machine-readable audit of a restructured build for the transfer prototype.
 
-두 스냅샷(원본 · 생성물)과 두 HTML 을 받아 검사 A~K 를 돌리고
+두 스냅샷(원본 · 생성물)과 두 HTML 을 받아 검사 A~L 을 돌리고
 {"passed", "fatal", "warning", "metrics"} 를 돌려준다. 브라우저도 파일도 건드리지
 않는 순수 함수다 - 걷기는 drive.py, 단계별 걸러내기는 stage.py, CLI 는
 __main__.py 가 한다.
@@ -37,6 +37,10 @@ Checks
                                   (the task file's `entrances`) must still be
                                   pressable somewhere in the build - only those
                                   found in the original are counted
+  L  image slots          fatal   the named picture slots (role="img" + aria-label -
+                                  logos, icons) seen while walking the original
+                                  must still be drawn somewhere in the build;
+                                  new ones and their boxes are only recorded
 
 The screens, how to reach them and what each must show live in a flow file
 under flows/ (see flow.load_flow); the in-page JavaScript probes live in
@@ -44,7 +48,7 @@ probes.py.
 """
 from .checks import (a_completion, b_display, c_dead_controls, d_contrast,
                      e_layout, f_language, g_state, h_undefined_class,
-                     i_choices, j_errors, k_entrances)
+                     i_choices, j_errors, k_entrances, l_images)
 from .context import AuditContext
 from .flow import visit_keys
 
@@ -52,7 +56,8 @@ from .flow import visit_keys
 # 순서다 - 바꾸면 출력이 바뀐다. I 도 fatal 검사이므로 여기 들어 있어야 한다.
 # 집계 뒤에 돌리면 fatal 목록에는 들어가고 숫자에는 빠진다.
 CHECKS = (a_completion, b_display, c_dead_controls, d_contrast, e_layout,
-          f_language, g_state, h_undefined_class, i_choices, j_errors, k_entrances)
+          f_language, g_state, h_undefined_class, i_choices, j_errors, k_entrances,
+          l_images)
 
 
 def count_fatals(fatal):

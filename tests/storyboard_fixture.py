@@ -23,6 +23,11 @@ OUT = os.path.join(ROOT, ".pytest-outputs", "storyboard")
 
 # 설계서 기준값에 쓰는 저장된 답. 셋 다 지금 검사기로 통과한다 (refine_102041 = 실행
 # 20261007-102041 의 다듬기 답 - 입구 31/31, bill_sol 시도 4 = 20261007-103023-bill).
+# 다만 검사 L(그림 자리, 2026-10-12)은 빼고 판정한다 - 둘 다 원본에 그림 자리(role="img")가
+# 생기기 전에 만든 답이라 그림 자리가 하나도 없고, 지금 원본과 견주면 모두 지운 것이 된다.
+# 답은 실제 답 그대로 두고, 뺀 사실과 이유를 audit 의 checks_stood_down 에 남긴다.
+BEFORE_IMAGES = ("L/그림 자리 - 저장된 답은 원본에 그림 자리가 생기기 전에 만든 것이다 "
+                 "(tests/storyboard_fixture.py). 설계서 시험용 실행 폴더에서는 판정하지 않았다.")
 SAVED = {
     "refine_102041": ("refine_102041", "refine.response.txt", "transfer"),
     "bill_sol_4": ("bill_sol", "attempt_4.response.txt", "bill"),
@@ -33,6 +38,16 @@ OPTIONAL = {"transfer": [], "bill": ["MENU_TABS"]}
 def _write(path, text):
     with io.open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
+
+
+def stand_down_images(report):
+    """검사 L 의 fatal 을 걷어내고 그 사실을 적는다 (BEFORE_IMAGES). 집계는 검사기와 같은
+    함수로 다시 센다."""
+    report["fatal"] = [f for f in report.get("fatal") or [] if f.get("check") != "L"]
+    m = report.setdefault("metrics", {})
+    m["checks_stood_down"] = list(m.get("checks_stood_down") or []) + [BEFORE_IMAGES]
+    m.update(_api.count_fatals(report["fatal"]))
+    report["passed"] = not report["fatal"]
 
 
 def make_saved_run(name, base_url, out_root=OUT):
@@ -71,6 +86,7 @@ def make_saved_run(name, base_url, out_root=OUT):
     report = _api.audit_call_module.run_audit(
         snap, orig_html, p("attempt_1.html"), p("attempt_1.flow.json"),
         "%s/%s" % (base_url, rel), None, "wireframe", original_url=orig_url, task=task)
+    stand_down_images(report)
     _write(p("attempt_1.audit.json"), json.dumps(report, ensure_ascii=False, indent=2))
     passed = bool(report.get("passed")) and not problems
     summary = {
