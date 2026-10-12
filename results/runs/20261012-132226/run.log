@@ -1,0 +1,43 @@
+13:22:26 model=gpt-6.1-sol (출처 --model) · reasoning_effort=medium (출처 config.DEFAULT_REASONING_EFFORT) — API 가 답한 판 이름은 호출마다 '응답 모델' 줄에 남는다 | stage=wireframe (출처 config.DEFAULT_STAGE) · 예산 형식 5 · 검사 6 (출처 config.DEFAULT_BUDGET) · 인프라 3 (출처 config.DEFAULT_BUDGET) | original_sha256=f76a8b2f9226e20bfc521325c0b0d0cb040d3ce3f958c9a3376377a7b6141e63 (inputs/original_transfer.html)
+13:22:26 model: 부르는 방식 chat · 추론형 · 길이 인자 max_completion_tokens · temperature 안 보냄 · seed 보냄 · 토큰 어림 o200k_base(대체) · reasoning_effort medium
+13:22:26 model: max_tokens 생성 32000 (기본값 config.OUTPUT_CAPS['reasoning']) · 진단·계획 25000 (기본값 config.OUTPUT_CAPS['reasoning']) · 호출 사이 대기 5s + 남은 토큰이 모자라면 더
+13:22:26 run: C:\Users\xihye\senior-ui-figma-pipeline\outputs\restructure_auto\20261012-132226 | model=gpt-6.1-sol | 예산 형식 5 · 검사 6 | stage=wireframe | mock=None | original=inputs/original_transfer.html | port=빈 포트 (출처 config.AUTO_PORT)
+13:22:27 server: started http.server on 127.0.0.1:52775 (빈 포트, pid 46412)
+13:22:27 audit: driving the original once (baseline for contrast / language)
+13:22:37 보기: 원본 그림 15장 (shots\original)
+13:22:37 선택지: pick-bank — 67개 (BANKS 38 + SECS 29) / num — 11개 (AMT_KEYS 11) / acc-num — 10개 (ACC_KEYS 10) / pw — 10개 (PW_KEYS 10) / quick — 4개 (QUICK 4) / window.PRESERVED.BANKS (38개) · window.PRESERVED.SECS (29개) · window.PRESERVED.AMT_KEYS (11개) · window.PRESERVED.ACC_KEYS (10개) · window.PRESERVED.PW_KEYS (10개) · window.PRESERVED.QUICK (4개)
+13:22:37 지킬 데이터: BANKS 38개 / SECS 29개 / AMT_KEYS 11개 / ACC_KEYS 10개 / PW_KEYS 10개 / QUICK 4개
+13:22:37 ---- attempt 1 (형식 0/5 · 검사 0/6)
+13:22:37 plan prompt: 37710 chars + 그림 15장
+13:22:37 tokens: plan 예상 입력 19934 (tiktoken:o200k_base(대체) · 그림 15장 6330토큰 patch x1.2) + max_tokens 25000 = 분당 한도 계산 44934
+13:24:48 그림: 15장 — 실측 입력 19917 − 글 어림 13604 = 6313 (어림 6330)
+13:24:48 분당 한도 (plan 응답 헤더): 토큰 1000000 (남은 977425) · 요청 5000
+13:24:48 model: 응답 모델 gpt-6.1-sol (fingerprint None)
+13:24:48 plan: 17295 chars, finish=stop, 127.1s, usage={'prompt': 19917, 'completion': 7772, 'reasoning': 178}
+13:24:48 plan: 근거 화면 5 · 코드 1 · 둘 다 12 · 미표시 0
+13:24:48 plan: 진단 18 · 화면 9 (home, recipient, account, bank, amount, review, verify, done, services) · 변경 17
+13:24:48 대기 5.0s (진단·계획 → 생성)
+13:24:53 prompt: 51857 chars
+13:24:53 tokens: generate 예상 입력 19439 (tiktoken:o200k_base(대체)) + max_tokens 32000 = 분당 한도 계산 51439
+13:27:10 분당 한도 (generate 응답 헤더): 토큰 1000000 (남은 983044) · 요청 5000
+13:27:10 model: 응답 모델 gpt-6.1-sol (fingerprint None)
+13:27:10 model: 28312 chars, finish=stop, 136.7s, usage={'prompt': 19445, 'completion': 10091, 'reasoning': 863}
+13:27:10 preserved: BANKS 38, SECS 29, AMT_KEYS 11, ACC_KEYS 10, PW_KEYS 10, QUICK 4 를 넣었다 (참조 BANKS, SECS, AMT_KEYS, ACC_KEYS, PW_KEYS, QUICK)
+13:27:24 audit: passed=True fatal=0 (근본 0) warning=0 screens=9/9
+13:27:24 PASSED on attempt 1
+13:27:24 다듬기: 꺼짐 (--refine 0)
+13:27:24 
+13:27:24 fatal_root 추이
+13:27:24   시도 | fatal | 근본 | 파생 | 화면    | 멈춘 곳
+13:27:24      1 |     0 |    0 |    0 | 9/9     | -
+13:27:24 server: stopped (:52775, pid 46412)
+13:27:24 
+13:27:24 토큰 (예상 입력 / 실측 입력 / 실측 출력 / 그중 생각, tiktoken:o200k_base(대체))
+13:27:24   plan     호출 1 |  19934 |  19917 |   7772 |    178
+13:27:24   generate 호출 1 |  19439 |  19445 |  10091 |    863
+13:27:24   total    호출 2 |  39373 |  39362 |  17863 |   1041
+13:27:24   첫 시도     호출 2 |  39373 |  39362 |  17863 |   1041
+13:27:24 예상 금액: 시도 1 $0.2574 · 전체 $0.2574 (가격표 gpt-6.1-sol 2.00 / 10.00, 캐시 할인 미반영)
+13:27:24 final: attempt 1 -> restructured_auto.html, restructured_auto.flow.json, audit_auto.json, restructured_auto.plan.json, restructured_auto.diagnosis.json, restructured_auto.model.html (+ .20261012-132226 사본)
+13:27:24 final: 디자이너용 설명서 -> C:\Users\xihye\senior-ui-figma-pipeline\outputs\restructure_auto\20261012-132226\designer_brief.md (+ restructured_auto.designer_brief.md)
+13:27:24 summary: C:\Users\xihye\senior-ui-figma-pipeline\outputs\restructure_auto\20261012-132226\summary.json
