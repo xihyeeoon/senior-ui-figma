@@ -1,0 +1,662 @@
+{
+ "capture": "inputs/captures/transfer/06c.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    40,
+    24,
+    64,
+    35
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9961,
+   "in_box": null
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    737,
+    24,
+    47,
+    37
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9949,
+   "in_box": null
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    32,
+    78,
+    40,
+    49
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.9484,
+   "in_box": "b17"
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    742,
+    81,
+    45,
+    47
+   ],
+   "text": "×",
+   "caption": null,
+   "score": 0.9878,
+   "in_box": null
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    33,
+    168,
+    454,
+    72
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.999,
+   "in_box": "b18"
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    34,
+    299,
+    431,
+    61
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.9912,
+   "in_box": null
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    742,
+    307,
+    46,
+    49
+   ],
+   "text": "×",
+   "caption": null,
+   "score": 0.9488,
+   "in_box": null
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    164,
+    415,
+    82,
+    53
+   ],
+   "text": "은행",
+   "caption": null,
+   "score": 0.9993,
+   "in_box": "b16"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    557,
+    411,
+    122,
+    55
+   ],
+   "text": "증권사",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "b16"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    45,
+    570,
+    209,
+    35
+   ],
+   "text": "케이프투자증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b12"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    348,
+    568,
+    125,
+    39
+   ],
+   "text": "키움증권",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b11"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    607,
+    566,
+    129,
+    42
+   ],
+   "text": "토스증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b13"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    57,
+    849,
+    184,
+    40
+   ],
+   "text": "우리투자증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b8"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    348,
+    849,
+    126,
+    42
+   ],
+   "text": "하나증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b7"
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    595,
+    850,
+    154,
+    39
+   ],
+   "text": "아이엠증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b6"
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    59,
+    1132,
+    182,
+    38
+   ],
+   "text": "한국투자증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b3"
+  },
+  {
+   "id": "t16",
+   "kind": "text",
+   "box": [
+    319,
+    1131,
+    183,
+    40
+   ],
+   "text": "한화투자증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b0"
+  },
+  {
+   "id": "t17",
+   "kind": "text",
+   "box": [
+    595,
+    1132,
+    154,
+    38
+   ],
+   "text": "현대차증권",
+   "caption": null,
+   "score": 0.9993,
+   "in_box": "b1"
+  },
+  {
+   "id": "t18",
+   "kind": "text",
+   "box": [
+    102,
+    1316,
+    96,
+    40
+   ],
+   "text": "BiNV",
+   "caption": null,
+   "score": 0.7849,
+   "in_box": "b4"
+  },
+  {
+   "id": "t19",
+   "kind": "text",
+   "box": [
+    54,
+    1412,
+    189,
+    38
+   ],
+   "text": "BNK투자증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b4"
+  },
+  {
+   "id": "t20",
+   "kind": "text",
+   "box": [
+    355,
+    1411,
+    111,
+    43
+   ],
+   "text": "DB증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b2"
+  },
+  {
+   "id": "t21",
+   "kind": "text",
+   "box": [
+    582,
+    1413,
+    177,
+    38
+   ],
+   "text": "IBK투자증권",
+   "caption": null,
+   "score": 0.9951,
+   "in_box": "b5"
+  },
+  {
+   "id": "t22",
+   "kind": "text",
+   "box": [
+    368,
+    1593,
+    86,
+    46
+   ],
+   "text": "NH",
+   "caption": null,
+   "score": 0.9978,
+   "in_box": "b10"
+  },
+  {
+   "id": "t23",
+   "kind": "text",
+   "box": [
+    94,
+    1693,
+    111,
+    43
+   ],
+   "text": "KB증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b9"
+  },
+  {
+   "id": "t24",
+   "kind": "text",
+   "box": [
+    324,
+    1693,
+    172,
+    41
+   ],
+   "text": "NH투자증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b10"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    293,
+    961,
+    236,
+    257
+   ],
+   "text": "한화투자증권",
+   "caption": null,
+   "score": 0.9531,
+   "text_in": [
+    "t16"
+   ]
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    555,
+    960,
+    237,
+    257
+   ],
+   "text": "현대차증권",
+   "caption": null,
+   "score": 0.9487,
+   "text_in": [
+    "t17"
+   ]
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    293,
+    1242,
+    236,
+    258
+   ],
+   "text": "DB증권",
+   "caption": null,
+   "score": 0.9487,
+   "text_in": [
+    "t20"
+   ]
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    31,
+    961,
+    237,
+    257
+   ],
+   "text": "한국투자증권",
+   "caption": null,
+   "score": 0.9414,
+   "text_in": [
+    "t15"
+   ]
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    31,
+    1241,
+    237,
+    259
+   ],
+   "text": "BiNV BNK투자증권",
+   "caption": null,
+   "score": 0.9395,
+   "text_in": [
+    "t18",
+    "t19"
+   ]
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    555,
+    1241,
+    238,
+    258
+   ],
+   "text": "IBK투자증권",
+   "caption": null,
+   "score": 0.9351,
+   "text_in": [
+    "t21"
+   ]
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    556,
+    679,
+    237,
+    256
+   ],
+   "text": "아이엠증권",
+   "caption": null,
+   "score": 0.9258,
+   "text_in": [
+    "t14"
+   ]
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    293,
+    679,
+    236,
+    255
+   ],
+   "text": "하나증권",
+   "caption": null,
+   "score": 0.9116,
+   "text_in": [
+    "t13"
+   ]
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    31,
+    680,
+    237,
+    255
+   ],
+   "text": "우리투자증권",
+   "caption": null,
+   "score": 0.9097,
+   "text_in": [
+    "t12"
+   ]
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    32,
+    1524,
+    236,
+    257
+   ],
+   "text": "KB증권",
+   "caption": null,
+   "score": 0.8887,
+   "text_in": [
+    "t23"
+   ]
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    293,
+    1525,
+    234,
+    255
+   ],
+   "text": "NH NH투자증권",
+   "caption": null,
+   "score": 0.8818,
+   "text_in": [
+    "t22",
+    "t24"
+   ]
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    293,
+    495,
+    236,
+    158
+   ],
+   "text": "키움증권",
+   "caption": null,
+   "score": 0.769,
+   "text_in": [
+    "t10"
+   ]
+  },
+  {
+   "id": "b12",
+   "kind": "box",
+   "box": [
+    32,
+    493,
+    238,
+    160
+   ],
+   "text": "케이프투자증권",
+   "caption": null,
+   "score": 0.7358,
+   "text_in": [
+    "t9"
+   ]
+  },
+  {
+   "id": "b13",
+   "kind": "box",
+   "box": [
+    555,
+    498,
+    237,
+    155
+   ],
+   "text": "토스증권",
+   "caption": null,
+   "score": 0.7056,
+   "text_in": [
+    "t11"
+   ]
+  },
+  {
+   "id": "b14",
+   "kind": "box",
+   "box": [
+    671,
+    26,
+    32,
+    30
+   ],
+   "text": null,
+   "caption": "Play or Start.",
+   "score": 0.2651,
+   "text_in": []
+  },
+  {
+   "id": "b15",
+   "kind": "box",
+   "box": [
+    712,
+    27,
+    28,
+    27
+   ],
+   "text": null,
+   "caption": "Wi-Fi connectivity.",
+   "score": 0.2546,
+   "text_in": []
+  },
+  {
+   "id": "b16",
+   "kind": "box",
+   "box": [
+    21,
+    387,
+    782,
+    107
+   ],
+   "text": "증권사 은행",
+   "caption": null,
+   "score": 0.1919,
+   "text_in": [
+    "t8",
+    "t7"
+   ]
+  },
+  {
+   "id": "b17",
+   "kind": "box",
+   "box": [
+    26,
+    76,
+    51,
+    56
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.15,
+   "text_in": [
+    "t2"
+   ]
+  },
+  {
+   "id": "b18",
+   "kind": "box",
+   "box": [
+    14,
+    154,
+    784,
+    101
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.1116,
+   "text_in": [
+    "t4"
+   ]
+  }
+ ]
+}

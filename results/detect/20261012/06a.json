@@ -1,0 +1,750 @@
+{
+ "capture": "inputs/captures/transfer/06a.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    40,
+    24,
+    64,
+    35
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9961,
+   "in_box": null
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    737,
+    24,
+    47,
+    37
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9949,
+   "in_box": null
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    32,
+    78,
+    40,
+    49
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.9484,
+   "in_box": "b19"
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    744,
+    83,
+    41,
+    44
+   ],
+   "text": "×",
+   "caption": null,
+   "score": 0.9963,
+   "in_box": null
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    33,
+    168,
+    454,
+    72
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.999,
+   "in_box": "b20"
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    34,
+    299,
+    431,
+    61
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.9912,
+   "in_box": null
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    740,
+    305,
+    49,
+    52
+   ],
+   "text": "×",
+   "caption": null,
+   "score": 0.8645,
+   "in_box": null
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    164,
+    415,
+    82,
+    53
+   ],
+   "text": "은행",
+   "caption": null,
+   "score": 0.9993,
+   "in_box": "b16"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    558,
+    412,
+    120,
+    53
+   ],
+   "text": "증권사",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b15"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    627,
+    609,
+    89,
+    29
+   ],
+   "text": "DAOL",
+   "caption": null,
+   "score": 0.9982,
+   "in_box": "b10"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    59,
+    699,
+    182,
+    41
+   ],
+   "text": "신한투자증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b11"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    347,
+    699,
+    127,
+    42
+   ],
+   "text": "교보증권",
+   "caption": null,
+   "score": 0.999,
+   "in_box": "b9"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    580,
+    699,
+    183,
+    41
+   ],
+   "text": "다올투자증권",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": "b10"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    368,
+    892,
+    90,
+    29
+   ],
+   "text": "meritz",
+   "caption": null,
+   "score": 0.9928,
+   "in_box": "b4"
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    624,
+    893,
+    84,
+    16
+   ],
+   "text": "MIRAEASSET",
+   "caption": null,
+   "score": 0.9408,
+   "in_box": "b5"
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    85,
+    981,
+    127,
+    42
+   ],
+   "text": "대신증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b7"
+  },
+  {
+   "id": "t16",
+   "kind": "text",
+   "box": [
+    334,
+    983,
+    153,
+    38
+   ],
+   "text": "메리츠증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b4"
+  },
+  {
+   "id": "t17",
+   "kind": "text",
+   "box": [
+    582,
+    985,
+    180,
+    35
+   ],
+   "text": "미래에셋증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b5"
+  },
+  {
+   "id": "t18",
+   "kind": "text",
+   "box": [
+    365,
+    1170,
+    96,
+    36
+   ],
+   "text": "삼성증권",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b0"
+  },
+  {
+   "id": "t19",
+   "kind": "text",
+   "box": [
+    87,
+    1264,
+    124,
+    40
+   ],
+   "text": "부국증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b8"
+  },
+  {
+   "id": "t20",
+   "kind": "text",
+   "box": [
+    349,
+    1265,
+    123,
+    40
+   ],
+   "text": "삼성증권",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b0"
+  },
+  {
+   "id": "t21",
+   "kind": "text",
+   "box": [
+    596,
+    1266,
+    152,
+    38
+   ],
+   "text": "상상인증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b1"
+  },
+  {
+   "id": "t22",
+   "kind": "text",
+   "box": [
+    371,
+    1465,
+    83,
+    29
+   ],
+   "text": "SK증권",
+   "caption": null,
+   "score": 0.7885,
+   "in_box": "b2"
+  },
+  {
+   "id": "t23",
+   "kind": "text",
+   "box": [
+    88,
+    1547,
+    123,
+    39
+   ],
+   "text": "신영증권",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b6"
+  },
+  {
+   "id": "t24",
+   "kind": "text",
+   "box": [
+    321,
+    1549,
+    179,
+    35
+   ],
+   "text": "에스케이증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b2"
+  },
+  {
+   "id": "t25",
+   "kind": "text",
+   "box": [
+    594,
+    1546,
+    154,
+    41
+   ],
+   "text": "유안타증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b3"
+  },
+  {
+   "id": "t26",
+   "kind": "text",
+   "box": [
+    374,
+    1734,
+    72,
+    39
+   ],
+   "text": "LS",
+   "caption": null,
+   "score": 0.9802,
+   "in_box": "b13"
+  },
+  {
+   "id": "t27",
+   "kind": "text",
+   "box": [
+    661,
+    1739,
+    53,
+    27
+   ],
+   "text": "pay",
+   "caption": null,
+   "score": 0.9991,
+   "in_box": "b12"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    294,
+    1093,
+    235,
+    257
+   ],
+   "text": "삼성증권 삼성증권",
+   "caption": null,
+   "score": 0.9478,
+   "text_in": [
+    "t18",
+    "t20"
+   ]
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    555,
+    1094,
+    238,
+    257
+   ],
+   "text": "상상인증권",
+   "caption": null,
+   "score": 0.9448,
+   "text_in": [
+    "t21"
+   ]
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    294,
+    1375,
+    235,
+    258
+   ],
+   "text": "SK증권 에스케이증권",
+   "caption": null,
+   "score": 0.9448,
+   "text_in": [
+    "t22",
+    "t24"
+   ]
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    555,
+    1374,
+    238,
+    259
+   ],
+   "text": "유안타증권",
+   "caption": null,
+   "score": 0.9434,
+   "text_in": [
+    "t25"
+   ]
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    294,
+    811,
+    236,
+    257
+   ],
+   "text": "meritz 메리츠증권",
+   "caption": null,
+   "score": 0.9399,
+   "text_in": [
+    "t13",
+    "t16"
+   ]
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    555,
+    811,
+    237,
+    258
+   ],
+   "text": "MIRAEASSET 미래에셋증권",
+   "caption": null,
+   "score": 0.9385,
+   "text_in": [
+    "t14",
+    "t17"
+   ]
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    32,
+    1375,
+    237,
+    258
+   ],
+   "text": "신영증권",
+   "caption": null,
+   "score": 0.9336,
+   "text_in": [
+    "t23"
+   ]
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    32,
+    812,
+    236,
+    258
+   ],
+   "text": "대신증권",
+   "caption": null,
+   "score": 0.9312,
+   "text_in": [
+    "t15"
+   ]
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    32,
+    1093,
+    237,
+    257
+   ],
+   "text": "부국증권",
+   "caption": null,
+   "score": 0.9307,
+   "text_in": [
+    "t19"
+   ]
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    293,
+    529,
+    237,
+    257
+   ],
+   "text": "교보증권",
+   "caption": null,
+   "score": 0.8916,
+   "text_in": [
+    "t11"
+   ]
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    556,
+    527,
+    237,
+    259
+   ],
+   "text": "DAOL 다올투자증권",
+   "caption": null,
+   "score": 0.8765,
+   "text_in": [
+    "t9",
+    "t12"
+   ]
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    31,
+    530,
+    238,
+    257
+   ],
+   "text": "신한투자증권",
+   "caption": null,
+   "score": 0.8662,
+   "text_in": [
+    "t10"
+   ]
+  },
+  {
+   "id": "b12",
+   "kind": "box",
+   "box": [
+    555,
+    1657,
+    237,
+    173
+   ],
+   "text": "pay",
+   "caption": null,
+   "score": 0.793,
+   "text_in": [
+    "t27"
+   ]
+  },
+  {
+   "id": "b13",
+   "kind": "box",
+   "box": [
+    293,
+    1657,
+    236,
+    173
+   ],
+   "text": "LS",
+   "caption": null,
+   "score": 0.7852,
+   "text_in": [
+    "t26"
+   ]
+  },
+  {
+   "id": "b14",
+   "kind": "box",
+   "box": [
+    32,
+    1657,
+    237,
+    173
+   ],
+   "text": null,
+   "caption": "Tennis Club",
+   "score": 0.7432,
+   "text_in": []
+  },
+  {
+   "id": "b15",
+   "kind": "box",
+   "box": [
+    412,
+    393,
+    408,
+    103
+   ],
+   "text": "증권사",
+   "caption": null,
+   "score": 0.5234,
+   "text_in": [
+    "t8"
+   ]
+  },
+  {
+   "id": "b16",
+   "kind": "box",
+   "box": [
+    7,
+    392,
+    406,
+    102
+   ],
+   "text": "은행",
+   "caption": null,
+   "score": 0.457,
+   "text_in": [
+    "t7"
+   ]
+  },
+  {
+   "id": "b17",
+   "kind": "box",
+   "box": [
+    671,
+    26,
+    32,
+    29
+   ],
+   "text": null,
+   "caption": "Play or Start.",
+   "score": 0.3081,
+   "text_in": []
+  },
+  {
+   "id": "b18",
+   "kind": "box",
+   "box": [
+    712,
+    27,
+    28,
+    27
+   ],
+   "text": null,
+   "caption": "Wi-Fi connectivity.",
+   "score": 0.283,
+   "text_in": []
+  },
+  {
+   "id": "b19",
+   "kind": "box",
+   "box": [
+    26,
+    76,
+    50,
+    56
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.1577,
+   "text_in": [
+    "t2"
+   ]
+  },
+  {
+   "id": "b20",
+   "kind": "box",
+   "box": [
+    16,
+    154,
+    781,
+    101
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.1168,
+   "text_in": [
+    "t4"
+   ]
+  },
+  {
+   "id": "b21",
+   "kind": "box",
+   "box": [
+    688,
+    0,
+    107,
+    12
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.0509,
+   "text_in": []
+  }
+ ]
+}
