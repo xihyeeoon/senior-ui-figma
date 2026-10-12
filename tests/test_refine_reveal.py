@@ -29,7 +29,7 @@ REAL = os.path.join(ROOT, "tests", "fixtures", "real_runs")
 reply = _api.reply_module
 prompt = _api.prompt_module
 
-SHAPE = ('"reveal": {"<선택지의 data-action>": {"at": "<steps 의 화면 이름>", '
+SHAPE = ('"reveal": {"<선택지나 과제 밖 입구의 data-action>": {"at": "<steps 의 화면 이름>", '
          '"do": [{"click": "<선택자>"}]}}')
 
 
