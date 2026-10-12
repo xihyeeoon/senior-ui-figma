@@ -61,7 +61,7 @@
     "response_model": null,
     "system_fingerprint": null,
     "openai_sdk": "<sdk>",
-    "prompt_template_sha256": "740790bea580eb8982a238510b48f0791eee4b3033dc488a0670bbdc075536cb"
+    "prompt_template_sha256": "44253111db99d784aa5d324b3ef9244b0b9cf621890afd00e0307cf98ced6837"
   },
   "attempts": [
     {
@@ -74,13 +74,13 @@
         "response_model": null,
         "system_fingerprint": null,
         "openai_sdk": "<sdk>",
-        "prompt_template_sha256": "740790bea580eb8982a238510b48f0791eee4b3033dc488a0670bbdc075536cb"
+        "prompt_template_sha256": "44253111db99d784aa5d324b3ef9244b0b9cf621890afd00e0307cf98ced6837"
       },
       "plan": "<run>/attempt_1.plan.json",
       "calls": [
         {
           "stage": "plan",
-          "estimated_prompt": 19903,
+          "estimated_prompt": 19934,
           "method": "tiktoken:o200k_base(대체)",
           "max_tokens": 25000,
           "usage": null,
@@ -90,7 +90,7 @@
         },
         {
           "stage": "generate",
-          "estimated_prompt": 15779,
+          "estimated_prompt": 15861,
           "method": "tiktoken:o200k_base(대체)",
           "max_tokens": 32000,
           "usage": null,
@@ -188,7 +188,7 @@
     "by_stage": {
       "plan": {
         "calls": 1,
-        "estimated_prompt": 19903,
+        "estimated_prompt": 19934,
         "images": 15,
         "estimated_images": 6330,
         "max_tokens": 25000,
@@ -198,7 +198,7 @@
       },
       "generate": {
         "calls": 1,
-        "estimated_prompt": 15779,
+        "estimated_prompt": 15861,
         "images": 0,
         "estimated_images": 0,
         "max_tokens": 32000,
@@ -209,7 +209,7 @@
     },
     "total": {
       "calls": 2,
-      "estimated_prompt": 35682,
+      "estimated_prompt": 35795,
       "images": 15,
       "estimated_images": 6330,
       "max_tokens": 57000,
@@ -219,7 +219,7 @@
     },
     "first_attempt": {
       "calls": 2,
-      "estimated_prompt": 35682,
+      "estimated_prompt": 35795,
       "images": 15,
       "estimated_images": 6330,
       "max_tokens": 57000,
