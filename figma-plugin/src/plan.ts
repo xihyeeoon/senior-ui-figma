@@ -17,11 +17,18 @@ export type Node = {
   kids?: Node[];
 };
 export type Page = { name: string; kids: Node[] };
-export type Plan = { run: string; pages: Page[] };
+// checks · warnings: 대응표 확인 · 경고 줄 (끝 메시지와 실행 카드에 그대로 옮긴다)
+export type Plan = { run: string; pages: Page[]; checks: string[]; warnings: string[] };
 export type Dims = Record<string, [number, number]>;   // 그림 파일 이름 → [가로, 세로] px
-// renames.json: run.id → { 생성 action → 원본 action | 'new' | 'made-pressable' } (연구자가 적는다)
-export type Renames = Record<string, Record<string, string>>;
-type Map1 = Record<string, string>;
+// renames.json: run.id → { 생성 action → 값 | { sheet.screen → 값 } }, 값 = 원본 action | 'new' | 'made-pressable'
+// (연구자가 적는다, RENAMES.md)
+type Val = string | Record<string, string>;
+export type Renames = Record<string, Record<string, Val>>;
+type Map1 = Record<string, Val>;
+const valOf = (rn: Map1, action: string, screen: string): string | undefined => {
+  const v = rn[action]; return typeof v === 'string' ? v : v?.[screen];
+};
+const SPECIAL = ['new', 'made-pressable'];
 
 const INK = '#000000', PAPER = '#FFFFFF', SUB = '#555555';
 // 입구 꼬리표 글은 연구 원칙 '보여 주는 방식은 자유, 사용자가 할 수 있는 일은 줄이지 않는다' 에서 왔다
@@ -85,14 +92,33 @@ function picture(s: any, w: number, h: number, dims: Dims): Node {
 
 export const labelOf = (it: any) => it.text || it.aria || `(${it.action})`;
 
-// 새 요소: 대응표가 'new' · 'made-pressable' 이면 그대로, 원본 action 이면 그 이름으로 where 를 본다
-export function marksOf(it: any, where: Record<string, unknown> | null, rn: Map1 = {}): string[] {
-  const m: string[] = [], to = rn[it.action] ?? it.action;
+// 새 요소: 대응표 값이 'new' · 'made-pressable' 이면 그대로, 원본 action 이면 새 요소가 아니다
+// (where 에 없어도 - 그건 renameNotes 가 '대응표 확인' 으로 알린다). 값이 없으면 where 로 본다.
+export function marksOf(it: any, where: Record<string, unknown> | null, rn: Map1 = {}, screen = ''): string[] {
+  const m: string[] = [], to = valOf(rn, it.action, screen);
   if (it.entrance === true) m.push(MARK.entrance);
   if (it.result?.kind === 'none') m.push(MARK.none);
   if (to === 'made-pressable') m.push(MARK.pressable);
-  else if (to === 'new' || (where && !(to in where))) m.push(MARK.fresh);
+  else if (to === 'new' || (to === undefined && where && !(it.action in where))) m.push(MARK.fresh);
   return m;
+}
+
+// 대응표 점검. 확인: 원본 action 이 원본을 걷는 동안 보이지 않았다 (where 에 없음).
+// 경고: storyboard.json 에 없는 생성 action, 또는 그 action 이 나온 장의 sheet.screen 이 아닌 화면 키.
+function renameNotes(sheets: any[], where: Record<string, unknown> | null, rn: Map1) {
+  const seen = new Map<string, Set<string>>();   // 생성 action → 나온 sheet.screen
+  for (const s of sheets) for (const it of s.items || [])
+    seen.set(it.action, (seen.get(it.action) || new Set()).add(s.screen));
+  const checks: string[] = [], warnings: string[] = [];
+  for (const [a, v] of Object.entries(rn)) {
+    const on = seen.get(a);
+    if (!on) { warnings.push(`대응표 경고: ${a} 는 storyboard.json 에 없는 생성 action 이다`); continue; }
+    const vals = typeof v === 'string' ? [v] : Object.entries(v).filter(([sc]) => on.has(sc) || !warnings.push(
+      `대응표 경고: ${a} 의 화면 ${sc} 는 그 요소가 나온 장의 sheet.screen 이 아니다 (${[...on].join(', ')})`)).map(e => e[1]);
+    for (const o of new Set(vals)) if (where && !SPECIAL.includes(o) && !(o in where))
+      checks.push(`대응표 확인: ${a} → ${o} 은 원본을 걷는 동안 보이지 않았다 (원본 HTML 에는 있음 — 연구자 확인)`);
+  }
+  return { checks, warnings };
 }
 
 function said(r: any, titleOf: (s: string) => string) {
@@ -126,14 +152,14 @@ function entranceRegions(s: any) {
   return { counted, regions };
 }
 
-function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, grouped: boolean): Node {
+function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, screen: string, grouped: boolean): Node {
   const [x, y, w, h] = it.box;
   const s = SHAPES[shapeOf(it.tag)];
   const group = it.kind === 'group' && it.group ? ` (${it.group.count}개 묶음)` : '';
   const label = labelOf(it) + group;
   const kids: Node[] = [txt(label, 14, { name: '글', x: s.inset, y: 0, w: Math.max(1, w - 2 * s.inset),
     h, align: s.align, underline: s.underline, trunc: true })];
-  const m = marksOf(it, where, rn).filter(k => !(grouped && k === MARK.entrance));
+  const m = marksOf(it, where, rn, screen).filter(k => !(grouped && k === MARK.entrance));
   if (m.length) kids.push(tags(m, w));
   return { t: 'frame', name: `${it.no} ${label}`, x, y, w, h, fill: s.fill, stroke: s.stroke,
     dash: it.kind === 'group' ? [2, 2] : s.dash, radius: s.radius,
@@ -172,13 +198,13 @@ function annotation(sheet: any, title: string, where: Record<string, unknown> | 
     out.push(txt(`${r.no}. ${r.name} — ${r.description}${r.empty ? ' (빈 영역)' : ''}`, 12));
   out.push(txt('요소', 13, { bold: true }));
   for (const it of sheet.items || []) {
-    const m = marksOf(it, where, rn).map(k => ` [${k}]`).join('');
+    const m = marksOf(it, where, rn, sheet.screen).map(k => ` [${k}]`).join('');
     out.push(txt(`${it.no} ${labelOf(it)} → ${said(it.result, titleOf)}${m}`, 12));
   }
   return out;
 }
 
-function runCard(sb: any): Node {
+function runCard(sb: any, checks: string[]): Node {
   const run = sb.run || {}, orig = run.original || {};
   return { t: 'frame', name: '실행 카드', x: 0, y: 0, w: CARD_W, layout: 'V', hug: 'h',
     pad: [24, 24, 24, 24], gap: 8, fill: PAPER, stroke: INK, kids: [
@@ -189,6 +215,7 @@ function runCard(sb: any): Node {
       txt(`원본: ${orig.path ?? ''} · sha256 ${String(orig.sha256 ?? '').slice(0, 8)}`, 14),
       txt(`생성: ${sb.generated?.at ?? ''}`, 14),
       txt(NOTICE, 14, { bold: true }),
+      ...checks.map(c => txt(c, 14)),
     ] };
 }
 
@@ -232,7 +259,8 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
     if (i >= 0) cols[i].push(s); else { mains.push(s); cols.push([s]); }
   }
 
-  const wf: Node[] = [runCard(sb)];
+  const notes = renameNotes(sheets, where, rn);
+  const wf: Node[] = [runCard(sb, notes.checks)];
   let x = 0;
   for (const col of cols) {
     let y = WF_TOP, colW = 0;
@@ -243,7 +271,7 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
       const annH = estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP);
       wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids: [
         picture(s, w, h, dims),
-        ...(s.items || []).map((it: any) => itemNode(it, where, rn, ent.counted.has(it.no))),
+        ...(s.items || []).map((it: any) => itemNode(it, where, rn, s.screen, ent.counted.has(it.no))),
         ...(s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r)))] });
       wf.push({ t: 'frame', name: `주석 — ${title}`, x: x + w + ANN_GAP, y, w: ANN_W, layout: 'V',
         hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD], gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids: ann });
@@ -253,7 +281,7 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
     x += colW + COL_GAP;
   }
   const run = String(sb.run?.id ?? 'run');
-  return { run, pages: [{ name: `와이어프레임 · ${run}`, kids: wf },
+  return { run, ...notes, pages: [{ name: `와이어프레임 · ${run}`, kids: wf },
                         { name: `바꾼 것 · ${run}`, kids: changesPage(sb, titleOf) }] };
 }
 

@@ -27,15 +27,21 @@ const frames = p.pages[0].kids.filter(n => n.t === 'frame' && n.kids?.[0]?.t ===
 const pics: Node[] = frames.map(f => f.kids![0]);
 const missing = pics.filter(i => !existsSync(join(dir, i.src || ''))).map(i => i.src);
 const where = sb.original?.where ?? null;
-const items = (sb.sheets || []).flatMap((s: any) => s.items || []);
-const marks = Object.values(MARK).map(m =>
-  `${m} ${items.filter((it: any) => marksOf(it, where, (RENAMES as any)[sb.run?.id] || {}).includes(m)).length}`);
+const rn = (RENAMES as any)[sb.run?.id] || {};
+const marked = (sb.sheets || []).flatMap((s: any) => (s.items || []).map((it: any) =>
+  ({ it, s, m: marksOf(it, where, rn, s.screen) })));
+const marks = Object.values(MARK).map(m => { const hit = marked.filter((x: any) => x.m.includes(m));
+  return `${m} ${hit.length} (action ${new Set(hit.map((x: any) => x.it.action)).size})`; });
 
 console.log(`계획: ${outFile}`);
 console.log(`페이지 ${p.pages.length} · 장 프레임 ${frames.length}`);
 for (const pg of p.pages) console.log(`  ${pg.name}: 맨 위 노드 ${pg.kids.length} · 레이어 ${count(pg.kids)}`);
 console.log(`레이어 합계 ${p.pages.reduce((n, pg) => n + count(pg.kids), 0)}`);
-console.log(`표시 (요소 기준): ${marks.join(' · ')}`);
+console.log(`표시 (요소 기준, action 종류): ${marks.join(' · ')}`);
+const fresh = new Map<string, Set<string>>();
+for (const x of marked) if (x.m.includes(MARK.fresh)) fresh.set(x.it.action, (fresh.get(x.it.action) || new Set()).add(x.s.id));
+for (const [a, ids] of fresh) console.log(`  새 요소: ${a} · ${[...ids].join(', ')}`);
+for (const l of [...p.checks, ...p.warnings]) console.log(l);
 const big = Object.values(dims).filter(([w, h]) => w > MAX_PX || h > MAX_PX).length;
 console.log(`그림 ${Object.keys(dims).length} · ${MAX_PX}px 초과 ${big} · 조각 합계 ${pics.reduce((n, g) => n + g.kids!.length, 0)}`);
 for (const [f, [w, h]] of Object.entries(dims)) console.log(`  ${f} ${w}×${h} → 조각 ${tiles(w, h).length}`);
