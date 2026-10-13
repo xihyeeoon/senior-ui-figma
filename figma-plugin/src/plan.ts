@@ -46,7 +46,7 @@ const REF_NAME = '참고 — 로우파이 그림', REF_OPACITY = 0.4;
 export const MAX_PX = 4096;   // Figma createImage 가 받는 가로 · 세로 최대 (ui.html 과 같다)
 const CARD_W = 720, WF_TOP = 400;
 const ANN_GAP = 24, ANN_W = 360, ANN_PAD = 16, ANN_ITEM_GAP = 6;
-const COL_GAP = 160, ROW_GAP = 160, REVEAL_PAD = 40, REVEAL_HEAD = 32;
+const COL_GAP = 160, ROW_GAP = 160, REVEAL_PAD = 40, REVEAL_HEAD = 32, REVEAL_GAP = 80;
 const DEFAULT_SIZE = [390, 844];
 const ENTRANCE_NOTE = '과제 밖 입구 = 이 과제에서는 쓰지 않는 메뉴 · 버튼. 옮기거나 접어도 되지만 지우지 않는다 (연구 원칙, 검사 K).';
 const SLOT_NOTE = '회색 X 상자 = 그림 (로고 · 아이콘) 이 들어갈 자리. 디자이너가 표준 아이콘 · 로고로 바꾼다.';
@@ -414,25 +414,39 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = fal
   const notes = renameNotes(sheets, where, rn);
   const wf: Node[] = [runCard(sb, notes.checks)];
   const tally: Tally = { merged: 0, into: 0, moved: 0, pushed: 0 };
+  const annFrame = (title: string, x: number, y: number, kids: Node[]): Node => ({ t: 'frame',
+    name: `주석 — ${title}`, x, y, w: ANN_W, layout: 'V', hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD],
+    gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids });
   let x = 0;
   for (const col of cols) {
-    let y = WF_TOP, colW = 0;
-    for (const s of col) {
+    // 펼친 장 (본 장 = 열 머리) 은 본 장 주석 오른쪽에 가로로 나란히, 나머지는 지금처럼 아래로
+    const row = full ? [] : col.filter(s => baseOf(s, byId) === col[0]);
+    let y = WF_TOP, colW = 0, rx = 0, rowH = 0;
+    for (const s of [col[0], ...row, ...col.slice(1).filter(s => !row.includes(s))]) {
       const [w, h] = s.size || DEFAULT_SIZE, title = names.get(s)!;
       const ann = annotation(s, title, where, rn, titleOf);
       const annH = estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP);
-      // 펼친 장 (본 장을 찾았을 때): 장 위에 한 줄, 장은 본 장과 달라진 띠만. 달라진 것이 없으면 한 줄만.
-      const base = full ? null : baseOf(s, byId), cut = base && revealCut(s, base, h);
-      const head = base && `펼친 장 — ${revealKey(s)} · ` + (cut
-        ? `본 장 ${names.get(base)} 의 y ${cut[0]}~${cut[1]}` : '본 장과 같음');
-      if (head) wf.push(txt(head, 14, { name: `펼친 장 — ${title}`, x, y, w, bold: true }));
-      if (base && !cut) { y += lineH(14) + ROW_GAP; colW = Math.max(colW, w); continue; }
-      const top = y + (base ? REVEAL_HEAD : 0), fh = cut ? cut[1] - cut[0] : h;
-      const kids = sheetKids(s, w, h, dims, where, rn, tally, notes.warnings, cut || undefined);
-      wf.push({ t: 'frame', name: title, x, y: top, w, h: fh, fill: PAPER, clip: true, kids });
-      wf.push({ t: 'frame', name: `주석 — ${title}`, x: x + w + ANN_GAP, y: top, w: ANN_W, layout: 'V',
-        hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD], gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids: ann });
-      y = top + Math.max(fh, annH) + ROW_GAP;
+      if (row.includes(s)) {
+        // 장 위에 한 줄, 장은 본 장과 달라진 띠만, 주석은 장 아래. 달라진 것이 없으면 한 줄만.
+        const cut = revealCut(s, col[0], h), sw = Math.max(w, ANN_W), top = WF_TOP + REVEAL_HEAD;
+        wf.push(txt(`펼친 장 — ${revealKey(s)} · ` + (cut ? `본 장 ${names.get(col[0])} 의 y ${cut[0]}~${cut[1]}`
+          : '본 장과 같음'), 14, { name: `펼친 장 — ${title}`, x: rx, y: WF_TOP, w: sw, bold: true }));
+        if (cut) {
+          const fh = cut[1] - cut[0];
+          wf.push({ t: 'frame', name: title, x: rx, y: top, w, h: fh, fill: PAPER, clip: true,
+            kids: sheetKids(s, w, h, dims, where, rn, tally, notes.warnings, cut) });
+          wf.push(annFrame(title, rx, top + fh + ANN_GAP, ann));
+          rowH = Math.max(rowH, REVEAL_HEAD + fh + ANN_GAP + annH);
+        } else rowH = Math.max(rowH, lineH(14));
+        rx += sw + REVEAL_GAP; colW = Math.max(colW, rx - REVEAL_GAP - x);
+        continue;
+      }
+      if (rowH) y = Math.max(y, WF_TOP + rowH + ROW_GAP);
+      const kids = sheetKids(s, w, h, dims, where, rn, tally, notes.warnings);
+      wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids });
+      wf.push(annFrame(title, x + w + ANN_GAP, y, ann));
+      if (s === col[0]) rx = x + w + ANN_GAP + ANN_W + REVEAL_GAP;
+      y += Math.max(h, annH) + ROW_GAP;
       colW = Math.max(colW, w + ANN_GAP + ANN_W);
     }
     x += colW + COL_GAP;
