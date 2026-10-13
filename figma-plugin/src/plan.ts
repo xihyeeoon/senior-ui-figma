@@ -144,6 +144,42 @@ const tags = (labels: string[], w: number): Node => ({ t: 'frame', name: '표시
     name: `표시 — ${k}`, layout: 'H', hug: 'wh', pad: [2, 6, 2, 6], radius: 4,
     fill: MARK_FILL[k] ?? MARK_FILL[MARK.entrance], kids: [txt(k, 11, { bold: true, color: PAPER })] })) });
 
+// 꼬리표 · 이름표가 겹치는지 보는 데만 쓰는 글 너비 어림 (Noto Sans KR): 한글 · 전각 1, 빈칸 0.25, 그 밖 0.6 × 크기
+const textW = (s: string, size: number) => [...s].reduce((a, c) =>
+  a + size * (c === ' ' ? 0.25 : c.charCodeAt(0) >= 0x1100 ? 1 : 0.6), 0);
+const TAG_H = lineH(11) + 4;
+type Box = [number, number, number, number];   // 장 좌표 [x, y, w, h]
+const hit = (a: Box, b: Box) => a[0] < b[0] + b[2] && b[0] < a[0] + a[2] && a[1] < b[1] + b[3] && b[1] < a[1] + a[3];
+// 장 안의 꼬리표 묶음 (`표시`) 을 그리는 순서로: home = 담은 프레임의 kids, (ox, oy) = 담은 프레임의 장 좌표
+type Tags = { node: Node; home: Node[]; ox: number; oy: number };
+function tagsIn(nodes: Node[], ox = 0, oy = 0, out: Tags[] = []): Tags[] {
+  for (const n of nodes)
+    if (n.name === '표시') out.push({ node: n, home: nodes, ox, oy });
+    else if (n.t === 'frame' && !n.layout) tagsIn(n.kids || [], ox + n.x!, oy + n.y!, out);
+  return out;
+}
+// 꼬리표 하나하나 (`표시 — …`) 의 장 좌표: 묶음은 오른쪽 끝에 맞춰 왼쪽 → 오른쪽으로 놓인다
+const pillWs = (t: Tags) => t.node.kids!.map(p => textW(p.kids![0].chars!, 11) + 12);
+function pillBoxes(t: Tags): Box[] {
+  const ws = pillWs(t), right = t.ox + t.node.x!, y = t.oy + t.node.y!;
+  let x = right - ws.reduce((a, b) => a + b, 0) - 4 * (ws.length - 1);
+  return ws.map(w => { const b: Box = [x, y, w, TAG_H]; x += w + 4; return b; });
+}
+const tagBox = (t: Tags): Box => { const bs = pillBoxes(t), l = bs[bs.length - 1];
+  return [bs[0][0], bs[0][1], l[0] + l[2] - bs[0][0], TAG_H]; };
+
+// 무리 이름표가 장 안 꼬리표와 겹치면 그 꼬리표 오른쪽 (+4) 으로 민다. 민 수를 돌려준다.
+function clearLabels(kids: Node[], groups: Node[]): number {
+  const boxes = tagsIn(kids).map(tagBox);
+  let pushed = 0;
+  for (const g of groups) {
+    const t = g.kids!.find(k => k.name === '글')!, w = textW(t.chars!, 14);
+    for (let b; (b = boxes.find(b => hit(b, [g.x! + t.x!, g.y! + t.y!, w, lineH(14)])));)
+      t.x = b[0] + b[2] + 4 - g.x!, pushed++;
+  }
+  return pushed;
+}
+
 // 그림 자리 (schema 3 images): 회색 X 상자. (dx, dy) = 담는 프레임의 장 좌표 (요소 안이면 요소 왼쪽 위).
 // 큰 상자는 안에 이름 · 크기 두 줄, 작은 상자는 번호만 (아주 작으면 그것도 없음) - 줄지은 작은 로고의
 // 글이 서로 겹치지 않게. 이름 · 크기는 주석 그림 절과 레이어 이름으로 찾는다.
@@ -185,13 +221,15 @@ function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, scre
   const [x, y, w, h] = it.box;
   const s = SHAPES[shapeOf(it.tag)];
   const group = it.kind === 'group' && it.group ? ` (${it.group.count}개 묶음)` : '';
-  const label = labelOf(it) + group;
-  const kids: Node[] = [...slots.map(g => slotNode(g, x, y)), txt(label, 14, { name: '글', x: s.inset,
-    y: 0, w: Math.max(1, w - 2 * s.inset), h, align: s.align, underline: s.underline, trunc: true })];
+  const label = labelOf(it) + group, many = it.kind === 'group';
+  // 무리 이름표는 상자 왼쪽 위 바깥 (글 너비에 맞춤) - 상자 안 키 · 칸을 가리지 않게. 꼬리표를 피하는 건 clearLabels
+  const kids: Node[] = [...slots.map(g => slotNode(g, x, y)), many
+    ? txt(label, 14, { name: '글', x: 0, y: -lineH(14), underline: s.underline })
+    : txt(label, 14, { name: '글', x: s.inset, y: 0, w: Math.max(1, w - 2 * s.inset), h, align: s.align,
+        underline: s.underline, trunc: true })];
   const m = marksOf(it, where, rn, screen).filter(k => !(grouped && k === MARK.entrance));
   if (m.length) kids.push(tags(m, w));
   // 무리는 채우지 않는다 - 단독 버튼처럼 칠하면 아래 참고 그림 (숫자 키 · 은행 칸) 을 덮는다
-  const many = it.kind === 'group';
   return { t: 'frame', name: `${it.no} ${label}`, x, y, w, h, fill: many ? null : s.fill, stroke: s.stroke,
     dash: many ? [2, 2] : s.dash, radius: s.radius,
     opacity: it.disabled ? 0.4 : 1, clip: false, kids };
@@ -308,12 +346,12 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
       const nos = new Set((s.items || []).map((it: any) => it.no)), imgs: any[] = s.images || [];
       for (const g of imgs) if (g.in && !nos.has(g.in))
         notes.warnings.push(`그림 경고: 장 ${s.id} 의 그림 ${g.no} 이 가리키는 요소 ${g.in} 가 없다 — 장에 그렸다`);
-      wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids: [
-        picture(s, w, h, dims),
-        ...imgs.filter(g => !nos.has(g.in)).map(g => slotNode(g)),
-        ...(s.items || []).map((it: any) => itemNode(it, where, rn, s.screen, ent.counted.has(it.no),
-          imgs.filter(g => g.in === it.no))),
-        ...(s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r)))] });
+      const items: Node[] = (s.items || []).map((it: any) => itemNode(it, where, rn, s.screen,
+        ent.counted.has(it.no), imgs.filter(g => g.in === it.no)));
+      const kids = [picture(s, w, h, dims), ...imgs.filter(g => !nos.has(g.in)).map(g => slotNode(g)),
+        ...items, ...(s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r)))];
+      clearLabels(kids, items.filter((_, i) => s.items[i].kind === 'group'));
+      wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids });
       wf.push({ t: 'frame', name: `주석 — ${title}`, x: x + w + ANN_GAP, y, w: ANN_W, layout: 'V',
         hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD], gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids: ann });
       y += Math.max(h, annH) + ROW_GAP;
