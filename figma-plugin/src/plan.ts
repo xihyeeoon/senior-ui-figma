@@ -248,10 +248,12 @@ function entranceRegions(s: any) {
   return { counted, regions };
 }
 
-// slots: in 이 이 요소인 그림 자리 - 요소 좌표로 옮겨 글 아래에 둔다 (요소와 같이 움직인다)
-function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, screen: string, grouped: boolean,
-                  slots: any[] = []): Node {
-  const [x, y, w, h] = it.box;
+// 계획 문맥: 장마다 같은 값 (원본 where · 대응표 · 그림 크기 · 장 이름) 과 장을 그리며 쌓는 것 (꼬리표 셈 · 경고)
+type Ctx = { where: Record<string, unknown> | null; rn: Map1; dims: Dims; tally: Tally; warnings: string[];
+             names: Map<any, string>; titleOf: (screen: string) => string };
+// at: 장의 screen · 영역 입구로 센 요소 · 그림 자리. in 이 이 요소인 그림 자리는 요소 좌표로 글 아래에 (같이 움직인다)
+function itemNode(c: Ctx, it: any, at: { screen: string; counted: Set<string>; ims: any[] }): Node {
+  const [x, y, w, h] = it.box, slots = at.ims.filter(g => g.in === it.no);
   const s = SHAPES[shapeOf(it.tag)];
   const group = it.kind === 'group' && it.group ? ` (${it.group.count}개 묶음)` : '';
   const label = labelOf(it) + group, many = it.kind === 'group';
@@ -260,7 +262,7 @@ function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, scre
     ? txt(label, BODY, { name: '글', x: 0, y: -lineH(BODY), underline: s.underline })
     : txt(label, BODY, { name: '글', x: s.inset, y: 0, w: Math.max(1, w - 2 * s.inset), h, align: s.align,
         underline: s.underline, trunc: true })];
-  const m = marksOf(it, where, rn, screen).filter(k => !(grouped && k === MARK.entrance));
+  const m = marksOf(it, c.where, c.rn, at.screen).filter(k => !(at.counted.has(it.no) && k === MARK.entrance));
   if (m.length) kids.push(tags(m, w));
   // 무리는 채우지 않는다 - 단독 버튼처럼 칠하면 아래 참고 그림 (숫자 키 · 은행 칸) 을 덮는다
   return { t: 'frame', name: `${it.no} ${label}`, x, y, w, h, fill: many ? null : s.fill, stroke: s.stroke,
@@ -317,25 +319,24 @@ function revealCut(s: any, base: any, h: number): [number, number] | null {
 
 // 장 프레임 안의 레이어. cut = [a, b] 면 그 띠만: 띠에 걸친 참고 그림 조각 · 요소 · 그림 자리를 y − a 로 옮기고
 // 영역 (과 영역 입구 묶기) 은 그리지 않는다.
-function sheetKids(s: any, w: number, h: number, dims: Dims, where: Record<string, unknown> | null, rn: Map1,
-                   tally: Tally, warnings: string[], cut?: [number, number]): Node[] {
+function sheetKids(c: Ctx, s: any, cut?: [number, number]): Node[] {
+  const [w, h] = s.size || DEFAULT_SIZE;
   // 그림 자리: in 이 있는 요소면 그 요소 안, 아니면 (in 이 없는 요소를 가리켜도 - 경고) 장에
   const nos = new Set((s.items || []).map((it: any) => it.no)), imgs: any[] = s.images || [];
   for (const g of imgs) if (g.in && !nos.has(g.in))
-    warnings.push(`그림 경고: 장 ${s.id} 의 그림 ${g.no} 이 가리키는 요소 ${g.in} 가 없다 — 장에 그렸다`);
+    c.warnings.push(`그림 경고: 장 ${s.id} 의 그림 ${g.no} 이 가리키는 요소 ${g.in} 가 없다 — 장에 그렸다`);
   const [a, b] = cut || [0, h];
   const on = (o: any) => !cut || (o.box[1] < b && o.box[1] + o.box[3] > a);
   const mv = (o: any) => cut ? { ...o, box: [o.box[0], o.box[1] - a, o.box[2], o.box[3]] } : o;
   const its: any[] = (s.items || []).filter(on).map(mv), ims = imgs.map(mv);
   const ent = cut ? { counted: new Set<string>(), regions: new Map<any, number>() } : entranceRegions(s);
-  const items: Node[] = its.map(it => itemNode(it, where, rn, s.screen, ent.counted.has(it.no),
-    ims.filter(g => g.in === it.no)));
-  const pic = picture(s, w, h, dims);
+  const items: Node[] = its.map(it => itemNode(c, it, { screen: s.screen, counted: ent.counted, ims }));
+  const pic = picture(s, w, h, c.dims);
   if (cut) pic.kids = pic.kids!.filter(k => k.y! < b && k.y! + k.h! > a).map(k => ({ ...k, y: k.y! - a }));
   const kids = [pic, ...imgs.filter(g => !nos.has(g.in) && on(g)).map(g => slotNode(mv(g))),
     ...items, ...(cut ? [] : (s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r))))];
-  untangle(kids, tally);
-  clearLabels(kids, items.filter((_, i) => its[i].kind === 'group'), tally);
+  untangle(kids, c.tally);
+  clearLabels(kids, items.filter((_, i) => its[i].kind === 'group'), c.tally);
   return kids;
 }
 
@@ -348,8 +349,7 @@ function regionNode(r: any, entrances = 0): Node {
         color: PAPER, align: 'C' })] }, ...tag] };
 }
 
-function annotation(sheet: any, title: string, where: Record<string, unknown> | null, rn: Map1,
-                    titleOf: (s: string) => string): Node[] {
+function annotation(c: Ctx, sheet: any, title: string): Node[] {
   const out: Node[] = [txt(title, 16, { bold: true }), txt(sheet.purpose || '(목적 없음)', 13)];
   if (sheet.condition) out.push(txt(`조건: ${sheet.condition}`, 12, { color: SUB }));
   out.push(txt('영역', 13, { bold: true }));
@@ -359,8 +359,8 @@ function annotation(sheet: any, title: string, where: Record<string, unknown> | 
     txt(`${g.no} ${g.name} · ${slotSize(g)}${g.original === false ? ` · ${NEW_PICTURE}` : ''}`, 12)));
   out.push(txt('요소', 13, { bold: true }));
   for (const it of sheet.items || []) {
-    const m = marksOf(it, where, rn, sheet.screen).map(k => ` [${k}]`).join('');
-    out.push(txt(`${it.no} ${labelOf(it)} → ${said(it.result, titleOf)}${m}`, 12));
+    const m = marksOf(it, c.where, c.rn, sheet.screen).map(k => ` [${k}]`).join('');
+    out.push(txt(`${it.no} ${labelOf(it)} → ${said(it.result, c.titleOf)}${m}`, 12));
   }
   return out;
 }
@@ -442,7 +442,8 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = fal
 
   const notes = renameNotes(sheets, where, rn);
   const wf: Node[] = [runCard(sb, notes.checks)];
-  const tally: Tally = { merged: 0, into: 0, moved: 0, pushed: 0 };
+  const c: Ctx = { where, rn, dims, tally: { merged: 0, into: 0, moved: 0, pushed: 0 }, warnings: notes.warnings,
+    names, titleOf };
   const annFrame = (title: string, x: number, y: number, kids: Node[]): Node => ({ t: 'frame',
     name: `주석 — ${title}`, x, y, w: ANN_W, layout: 'V', hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD],
     gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids });
@@ -457,8 +458,7 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = fal
     for (const s of [col[0], ...row, ...col.slice(1).filter(s => !row.includes(s))]) {
       const [w, h] = s.size || DEFAULT_SIZE, g = [...same.values()].find(g => g.includes(s)) || [s]; if (g[0] !== s) continue;
       const many = g.length > 1, keys = g.map(t => revealKey(t)!), title = many ? `${s.title || s.id} · ${g.length}장 묶음` : names.get(s)!;
-      const ann = many ? herdAnn(g.map(t => annotation(t, names.get(t)!, where, rn, titleOf)), keys, title)
-        : annotation(s, title, where, rn, titleOf);
+      const ann = many ? herdAnn(g.map(t => annotation(c, t, names.get(t)!)), keys, title) : annotation(c, s, title);
       const annH = estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP);
       if (row.includes(s)) {
         // 장 위에 한 줄 (넘치면 줄바꿈 - 그만큼 장을 내린다), 장은 본 장과 달라진 띠만, 주석은 장 아래. 달라진 것이 없으면 한 줄만.
@@ -471,14 +471,14 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = fal
         if (cut) {
           const fh = cut[1] - cut[0];
           wf.push({ t: 'frame', name: title, x: rx, y: top, w, h: fh, fill: PAPER, clip: true,
-            kids: sheetKids(s, w, h, dims, where, rn, tally, notes.warnings, cut) });
+            kids: sheetKids(c, s, cut) });
           wf.push(annFrame(title, rx, top + fh + ANN_GAP, ann));
           rowH = Math.max(rowH, top - WF_TOP + fh + ANN_GAP + annH);
         } else rowH = Math.max(rowH, headH);
         rx += sw + REVEAL_GAP; colW = Math.max(colW, rx - REVEAL_GAP - x); continue;
       }
       if (rowH) y = Math.max(y, WF_TOP + rowH + ROW_GAP);
-      const kids = sheetKids(s, w, h, dims, where, rn, tally, notes.warnings);
+      const kids = sheetKids(c, s);
       wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids });
       wf.push(annFrame(title, x + w + ANN_GAP, y, ann));
       if (s === col[0]) rx = x + w + ANN_GAP + ANN_W + REVEAL_GAP;
@@ -488,7 +488,7 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = fal
     x += colW + COL_GAP;
   }
   const run = String(sb.run?.id ?? 'run');
-  return { run, ...notes, tags: tallyLine(tally), pages: [{ name: `와이어프레임 · ${run}`, kids: wf },
+  return { run, ...notes, tags: tallyLine(c.tally), pages: [{ name: `와이어프레임 · ${run}`, kids: wf },
                         { name: `바꾼 것 · ${run}`, kids: changesPage(sb, titleOf) }] };
 }
 
