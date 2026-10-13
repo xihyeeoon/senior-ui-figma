@@ -1,0 +1,956 @@
+{
+ "unit": "home(01a+01b+01c)",
+ "model": "mock",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": null,
+    "completion": null,
+    "reasoning": null
+   },
+   "seconds": 0.0,
+   "finish_reason": "stop",
+   "model": "mock",
+   "cost_usd": null,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "01a:t0",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "01a:t1",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "01a:b5",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "01a:b7",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "01a:b2",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01a:b1",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01a:b0",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "요 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01a:b3",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "Q 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01a:b8",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t3",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:b10",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:b21",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "7 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01a:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01a:b18",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:b13",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t12",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 짧은 글 줄"
+  },
+  {
+   "id": "01a:b6",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:b14",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:b20",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01a:b19",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:b4",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:b22",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "7 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01a:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b16",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t0",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01b:t1",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b2",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t3",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:t2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01b:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b1",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b5",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01b:b10",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:b6",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t0",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b1",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:t2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b0",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b3",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01b:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b12",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b14",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b9",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b17",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b18",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "7 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b2",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b19",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "L 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b7",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b20",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "7 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t21",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 짧은 글 줄"
+  },
+  {
+   "id": "01c:b17",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:b10",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:b8",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:b9",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:b12",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:b11",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:b16",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "01c:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t23",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t24",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t25",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t26",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 31,
+ "estimate": {
+  "images": 31,
+  "image_tokens": 3479,
+  "text_tokens": 10750,
+  "input_tokens": 14229,
+  "answer_tokens": 5175,
+  "cost_usd": 0.080208,
+  "cost_usd_with_reasoning": 0.131958,
+  "cost_usd_cap": 0.278458,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 115 x 45"
+ }
+}

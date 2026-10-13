@@ -1,0 +1,284 @@
+{
+ "unit": "04",
+ "model": "mock",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": null,
+    "completion": null,
+    "reasoning": null
+   },
+   "seconds": 0.0,
+   "finish_reason": "stop",
+   "model": "mock",
+   "cost_usd": null,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "b3",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "b7",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "b10",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "× 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "t3",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "b4",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "b0",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "t7",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "b11",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "t10",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "t9",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "t8",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "b8",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "t13",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "t11",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "t12",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "b6",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "t15",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "t16",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "t14",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "b5",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "t17",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "keypad",
+   "image_name": null,
+   "note": "mock: 숫자"
+  },
+  {
+   "id": "b9",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "← 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "b2",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 5,
+ "estimate": {
+  "images": 5,
+  "image_tokens": 1048,
+  "text_tokens": 3004,
+  "input_tokens": 4052,
+  "answer_tokens": 1395,
+  "cost_usd": 0.022054,
+  "cost_usd_with_reasoning": 0.036004,
+  "cost_usd_cap": 0.258104,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 31 x 45"
+ }
+}

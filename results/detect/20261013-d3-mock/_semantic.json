@@ -1,0 +1,303 @@
+{
+ "model": "mock:ok",
+ "reasoning_effort": null,
+ "in": "results/detect/20261013-d25/final",
+ "task": "이체 — 받는 사람 계좌로 돈 보내기",
+ "prompt_file": "tools/screen_detect/SEMANTIC_PROMPT.md",
+ "units": {
+  "home(01a+01b+01c)": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 31,
+   "elements": 115,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 31,
+    "image_tokens": 3479,
+    "text_tokens": 10750,
+    "input_tokens": 14229,
+    "answer_tokens": 5175,
+    "cost_usd": 0.080208,
+    "cost_usd_with_reasoning": 0.131958,
+    "cost_usd_cap": 0.278458,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 115 x 45"
+   }
+  },
+  "02": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 4,
+   "elements": 27,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 4,
+    "image_tokens": 1087,
+    "text_tokens": 2741,
+    "input_tokens": 3828,
+    "answer_tokens": 1215,
+    "cost_usd": 0.019806,
+    "cost_usd_with_reasoning": 0.031956,
+    "cost_usd_cap": 0.257656,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 27 x 45"
+   }
+  },
+  "03": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 5,
+   "elements": 17,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 5,
+    "image_tokens": 1259,
+    "text_tokens": 2067,
+    "input_tokens": 3326,
+    "answer_tokens": 765,
+    "cost_usd": 0.014302,
+    "cost_usd_with_reasoning": 0.021952,
+    "cost_usd_cap": 0.256652,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 17 x 45"
+   }
+  },
+  "04": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 5,
+   "elements": 31,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 5,
+    "image_tokens": 1048,
+    "text_tokens": 3004,
+    "input_tokens": 4052,
+    "answer_tokens": 1395,
+    "cost_usd": 0.022054,
+    "cost_usd_with_reasoning": 0.036004,
+    "cost_usd_cap": 0.258104,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 31 x 45"
+   }
+  },
+  "bank(05a+05b+05c)": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 45,
+   "elements": 140,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 45,
+    "image_tokens": 5501,
+    "text_tokens": 12874,
+    "input_tokens": 18375,
+    "answer_tokens": 6300,
+    "cost_usd": 0.09975,
+    "cost_usd_with_reasoning": 0.16275,
+    "cost_usd_cap": 0.28675,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 140 x 45"
+   }
+  },
+  "bank-tab-sec(06a+06b+06c)": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 39,
+   "elements": 119,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 39,
+    "image_tokens": 4796,
+    "text_tokens": 11613,
+    "input_tokens": 16409,
+    "answer_tokens": 5355,
+    "cost_usd": 0.086368,
+    "cost_usd_with_reasoning": 0.139918,
+    "cost_usd_cap": 0.282818,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 119 x 45"
+   }
+  },
+  "07": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 8,
+   "elements": 47,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 8,
+    "image_tokens": 1152,
+    "text_tokens": 4174,
+    "input_tokens": 5326,
+    "answer_tokens": 2115,
+    "cost_usd": 0.031802,
+    "cost_usd_with_reasoning": 0.052952,
+    "cost_usd_cap": 0.260652,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 47 x 45"
+   }
+  },
+  "07a": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 7,
+   "elements": 46,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 7,
+    "image_tokens": 1113,
+    "text_tokens": 4103,
+    "input_tokens": 5216,
+    "answer_tokens": 2070,
+    "cost_usd": 0.031132,
+    "cost_usd_with_reasoning": 0.051832,
+    "cost_usd_cap": 0.260432,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 46 x 45"
+   }
+  },
+  "08": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 5,
+   "elements": 23,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 5,
+    "image_tokens": 1031,
+    "text_tokens": 2671,
+    "input_tokens": 3702,
+    "answer_tokens": 1035,
+    "cost_usd": 0.017754,
+    "cost_usd_with_reasoning": 0.028104,
+    "cost_usd_cap": 0.257404,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 23 x 45"
+   }
+  },
+  "09a": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 9,
+   "elements": 26,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 9,
+    "image_tokens": 1376,
+    "text_tokens": 2761,
+    "input_tokens": 4137,
+    "answer_tokens": 1170,
+    "cost_usd": 0.019974,
+    "cost_usd_with_reasoning": 0.031674,
+    "cost_usd_cap": 0.258274,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 26 x 45"
+   }
+  },
+  "09b": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 9,
+   "elements": 26,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 9,
+    "image_tokens": 1376,
+    "text_tokens": 2767,
+    "input_tokens": 4143,
+    "answer_tokens": 1170,
+    "cost_usd": 0.019986,
+    "cost_usd_with_reasoning": 0.031686,
+    "cost_usd_cap": 0.258286,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 26 x 45"
+   }
+  },
+  "10": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 3,
+   "elements": 14,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 3,
+    "image_tokens": 1277,
+    "text_tokens": 1855,
+    "input_tokens": 3132,
+    "answer_tokens": 630,
+    "cost_usd": 0.012564,
+    "cost_usd_with_reasoning": 0.018864,
+    "cost_usd_cap": 0.256264,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 14 x 45"
+   }
+  },
+  "11": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 7,
+   "elements": 35,
+   "fixed_overrides": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "reasoning_tokens": 0,
+   "cost_usd": 0,
+   "estimate": {
+    "images": 7,
+    "image_tokens": 1155,
+    "text_tokens": 3330,
+    "input_tokens": 4485,
+    "answer_tokens": 1575,
+    "cost_usd": 0.02472,
+    "cost_usd_with_reasoning": 0.04047,
+    "cost_usd_cap": 0.25897,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 35 x 45"
+   }
+  }
+ },
+ "totals": {
+  "prompt_tokens": 0,
+  "completion_tokens": 0,
+  "reasoning_tokens": 0,
+  "cost_usd": 0,
+  "images": 177,
+  "failed": []
+ }
+}

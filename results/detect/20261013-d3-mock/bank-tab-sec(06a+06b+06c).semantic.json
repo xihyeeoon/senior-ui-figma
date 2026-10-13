@@ -1,0 +1,1016 @@
+{
+ "unit": "bank-tab-sec(06a+06b+06c)",
+ "model": "mock",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": null,
+    "completion": null,
+    "reasoning": null
+   },
+   "seconds": 0.0,
+   "finish_reason": "stop",
+   "model": "mock",
+   "cost_usd": null,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "06a:t0",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band,behind_overlay"
+  },
+  {
+   "id": "06a:t1",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band,behind_overlay"
+  },
+  {
+   "id": "06a:b18",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band,behind_overlay"
+  },
+  {
+   "id": "06a:b20",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 system_band,behind_overlay"
+  },
+  {
+   "id": "06a:b22",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 behind_overlay"
+  },
+  {
+   "id": "06a:b24",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 behind_overlay"
+  },
+  {
+   "id": "06a:b21",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 behind_overlay"
+  },
+  {
+   "id": "06a:t2",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 behind_overlay"
+  },
+  {
+   "id": "06a:b19",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 behind_overlay"
+  },
+  {
+   "id": "06a:b23",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 behind_overlay"
+  },
+  {
+   "id": "06a:t3",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 표시 behind_overlay"
+  },
+  {
+   "id": "06a:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:b17",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "× 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "06a:b16",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:b15",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:b10",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:b9",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:b11",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:i13",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "신한투자증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:i12",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "다올투자증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "교보증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:b4",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:b5",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:b7",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "대신증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "메리츠증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "미래에셋증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:b8",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:b0",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:b1",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "삼성증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "부국증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "상상인증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:b3",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:b6",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:b2",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "신영증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "에스케이증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "06a:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "06a:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "유안타증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:t23",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:b14",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "06a:b13",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:b12",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06a:i14",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "카카오페이증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06a:t24",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06a:t25",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06b:b14",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06b:b16",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06b:b19",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06b:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06b:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06b:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06b:b9",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06b:b10",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06b:b11",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06b:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "케이프투자증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06b:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "키움증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06b:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "토스증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06b:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06b:b7",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06b:b1",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06b:b3",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06c:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "우리투자증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06c:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "하나증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06c:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "아이엠증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06c:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06b:b4",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06c:b3",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06c:b0",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06c:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "한국투자증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06c:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "한화투자증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06c:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "현대차증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06b:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06b:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:b4",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06c:b5",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06c:b2",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06c:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "BNK투자증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06c:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "IBK투자증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06c:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "DB증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06c:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06b:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06b:b12",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "06c:b9",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06b:b13",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "mock: 글 없는 박스"
+  },
+  {
+   "id": "06c:b10",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "06c:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "KB증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06c:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "NH투자증권 로고",
+   "note": "mock: 규칙 이름"
+  },
+  {
+   "id": "06c:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "06c:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "mock: 글"
+  }
+ ],
+ "fixed": {
+  "06a:i13": "신한투자증권 로고",
+  "06a:i12": "다올투자증권 로고",
+  "06a:i11": "교보증권 로고",
+  "06a:i9": "대신증권 로고",
+  "06a:i6": "메리츠증권 로고",
+  "06a:i7": "미래에셋증권 로고",
+  "06a:i0": "삼성증권 로고",
+  "06a:i10": "부국증권 로고",
+  "06a:i1": "상상인증권 로고",
+  "06a:i8": "신영증권 로고",
+  "06a:i2": "에스케이증권 로고",
+  "06a:i5": "유안타증권 로고",
+  "06a:i14": "카카오페이증권 로고",
+  "06b:i11": "케이프투자증권 로고",
+  "06b:i9": "키움증권 로고",
+  "06b:i10": "토스증권 로고",
+  "06c:i8": "우리투자증권 로고",
+  "06c:i7": "하나증권 로고",
+  "06c:i6": "아이엠증권 로고",
+  "06c:i3": "한국투자증권 로고",
+  "06c:i0": "한화투자증권 로고",
+  "06c:i1": "현대차증권 로고",
+  "06c:i4": "BNK투자증권 로고",
+  "06c:i5": "IBK투자증권 로고",
+  "06c:i2": "DB증권 로고",
+  "06c:i9": "KB증권 로고",
+  "06c:i10": "NH투자증권 로고"
+ },
+ "fixed_overrides": [],
+ "images": 39,
+ "estimate": {
+  "images": 39,
+  "image_tokens": 4796,
+  "text_tokens": 11613,
+  "input_tokens": 16409,
+  "answer_tokens": 5355,
+  "cost_usd": 0.086368,
+  "cost_usd_with_reasoning": 0.139918,
+  "cost_usd_cap": 0.282818,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 119 x 45"
+ }
+}

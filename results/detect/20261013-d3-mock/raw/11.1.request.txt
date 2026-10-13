@@ -1,0 +1,96 @@
+앱 화면 캡처에서 검출된 요소마다 역할을 적어라.
+
+과제: 이체 — 받는 사람 계좌로 돈 보내기
+화면: 11
+
+받는 것
+- 요소 목록 (JSON, 한 줄에 요소 하나). 칸의 뜻:
+  - id: 요소의 이름. 답에 그대로 쓴다.
+  - mark: 첫 그림 위에 적힌 번호.
+  - kind: 검출 종류 - box(검출 박스), text(OCR 글 줄), img_candidate(박스 안 그림 덩어리).
+  - box: [x, y, w, h], 캡처 픽셀.
+  - text: 그 자리에서 OCR 이 읽은 글. 박스는 안에 든 글을 이은 것.
+  - ocr_guess: 아이콘을 OCR 이 글자로 읽은 것.
+  - caption: 아이콘 설명 모델이 붙인 영어 설명.
+  - name: 규칙으로 붙인 로고 이름.
+  - in_box: 이 요소를 담은 박스의 id.
+  - near: 곁의 글 (inside 안에 든 글, row 같은 줄의 글, parent 담은 박스의 글).
+  - flags: system_band(여러 캡처에서 같은 자리 · 같은 모습인 띠 - 상태바 등), behind_overlay(시트 · 팝업 뒤의 어두워진 화면).
+  - 값이 없는 칸은 null 이다.
+- 그림: 첫 그림은 화면 전체를 줄이고 요소마다 mark 번호를 적은 것이다. 그다음 그림들은 글 없는 박스와 박스 안 그림 덩어리를 잘라 키운 것이고, 이름표에 mark 와 id 가 있다.
+
+지키는 규칙
+1. 요소 목록의 id 마다 답을 정확히 하나씩, 빠짐없이 낸다.
+2. 목록에 없는 id 를 만들지 않는다. 요소를 합치거나 나누지 않는다.
+3. ocr_guess · caption · name · near · flags 는 힌트일 뿐이다. 그림에 보이는 것으로 정한다. 힌트와 그림이 다르면 그림을 따른다.
+4. image_name 은 그림에 보이는 것으로만 짓는다. 글이 잘려 보이면 보이는 데까지만 쓰고 뒷부분을 채우지 않는다. 무엇인지 알아볼 수 없으면 "알 수 없는 아이콘" 이라고 쓴다.
+5. 고정값 목록에 있는 id 는 image_name 을 그 값 그대로 쓴다.
+6. 과제를 하려면 무엇을 눌러야 하는지는 정하지 않는다. 누를 수 있게 생겼는지만 본다.
+7. JSON 하나만 답한다. 그 앞뒤에 다른 글을 붙이지 않는다.
+
+답의 모양
+{"elements": [{"id": "<id>", "pressable": true 또는 false, "kind": "<kind>", "group": "<무리 이름>" 또는 null, "image_name": "<이름>" 또는 null, "note": "<짧은 근거>"}]}
+
+- kind 는 다음 가운데 하나다.
+  - button: 버튼
+  - link: 테두리 없는 글 링크, 또는 줄 전체가 누르는 곳인 것
+  - back_close: 뒤로 · 닫기
+  - tab: 탭
+  - choice: 여럿 가운데 고르는 것
+  - input: 입력칸
+  - keypad_key: 숫자판의 키
+  - image: 그림 · 아이콘 · 로고
+  - text: 누르지 않는 글
+  - system: 상태바 · 덮개 뒤처럼 이 화면의 요소가 아닌 것
+- group: 같은 무리(한 목록의 선택지, 한 숫자판의 키, 한 줄의 탭 등)는 같은 이름을 쓴다. 무리가 없으면 null.
+- image_name: kind 가 image 일 때만 "<무엇> 아이콘" 또는 "<무엇> 로고". 그 밖에는 null.
+- note: 그렇게 정한 근거 한 줄.
+
+고정값 (규칙으로 이름이 붙은 로고 - image_name 을 바꾸지 않는다)
+(없음)
+
+요소 목록
+{"id":"t1","mark":1,"kind":"text","box":[678,20,110,46],"text":"67","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["4:31"]},"flags":["system_band","behind_overlay"]}
+{"id":"t0","mark":2,"kind":"text","box":[40,24,64,35],"text":"4:31","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["67"]},"flags":["system_band","behind_overlay"]}
+{"id":"b5","mark":3,"kind":"box","box":[671,27,32,29],"text":null,"ocr_guess":null,"caption":"Play or Start.","name":null,"in_box":null,"near":{"row":["67","4:31"]},"flags":["system_band","behind_overlay"]}
+{"id":"b7","mark":4,"kind":"box","box":[731,74,68,65],"text":null,"ocr_guess":"×","caption":"Close","name":null,"in_box":null,"near":{"row":["<"]},"flags":["behind_overlay"]}
+{"id":"b8","mark":5,"kind":"box","box":[26,76,51,55],"text":"<","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["<"]},"flags":["behind_overlay"]}
+{"id":"t2","mark":6,"kind":"text","box":[33,79,37,47],"text":"<","ocr_guess":null,"caption":null,"name":null,"in_box":"b8","near":{"parent":"<"},"flags":["behind_overlay"]}
+{"id":"b4","mark":7,"kind":"box","box":[748,87,34,37],"text":null,"ocr_guess":null,"caption":"closing or cancel a window or dialog.","name":null,"in_box":null,"near":{"row":["<"]},"flags":["behind_overlay"]}
+{"id":"t3","mark":8,"kind":"text","box":[32,167,455,74],"text":"누구에게 보낼까요?","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":null,"flags":["behind_overlay"]}
+{"id":"b2","mark":9,"kind":"box","box":[40,287,741,173],"text":"계좌번호 |100","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["계좌번호","|100"]},"flags":["behind_overlay"]}
+{"id":"t4","mark":10,"kind":"text","box":[78,313,120,39],"text":"계좌번호","ocr_guess":null,"caption":null,"name":null,"in_box":"b2","near":{"parent":"계좌번호 |100"},"flags":["behind_overlay"]}
+{"id":"t5","mark":11,"kind":"text","box":[73,364,109,66],"text":"|100","ocr_guess":null,"caption":null,"name":null,"in_box":"b2","near":{"parent":"계좌번호 |100"},"flags":["behind_overlay"]}
+{"id":"b6","mark":12,"kind":"box","box":[711,379,41,44],"text":null,"ocr_guess":"×","caption":"closing or cancel an action.","name":null,"in_box":null,"near":{"row":["|100"]},"flags":["behind_overlay"]}
+{"id":"b0","mark":13,"kind":"box","box":[41,485,738,134],"text":"신한","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["신한"]},"flags":["behind_overlay"]}
+{"id":"i0","mark":14,"kind":"img_candidate","box":[83,524,55,56],"text":null,"ocr_guess":null,"caption":"Sending a message or message.","name":null,"in_box":"b0","near":{"row":["신한"],"parent":"신한"},"flags":["behind_overlay"]}
+{"id":"t6","mark":15,"kind":"text","box":[151,524,92,58],"text":"신한","ocr_guess":null,"caption":null,"name":null,"in_box":"b0","near":{"parent":"신한"},"flags":["behind_overlay"]}
+{"id":"b9","mark":16,"kind":"box","box":[55,674,717,480],"text":"ELB00016 계좌번호[100] 입력하신 계좌번호가 올바르지 않습니다. 계좌번호를 확인하시기 바랍니다.","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["ELB00016","계좌번호[100]","입력하신 계좌번호가 올바르지 않습니다.","계좌번호를 확인하시기 바랍니다."]},"flags":null}
+{"id":"t7","mark":17,"kind":"text","box":[99,724,179,38],"text":"ELB00016","ocr_guess":null,"caption":null,"name":null,"in_box":"b9","near":{"parent":"ELB00016 계좌번호[100] 입력하신 계좌번호가…"},"flags":null}
+{"id":"t8","mark":18,"kind":"text","box":[97,798,222,48],"text":"계좌번호[100]","ocr_guess":null,"caption":null,"name":null,"in_box":"b9","near":{"parent":"ELB00016 계좌번호[100] 입력하신 계좌번호가…"},"flags":null}
+{"id":"t9","mark":19,"kind":"text","box":[98,853,614,44],"text":"입력하신 계좌번호가 올바르지 않습니다.","ocr_guess":null,"caption":null,"name":null,"in_box":"b9","near":{"parent":"ELB00016 계좌번호[100] 입력하신 계좌번호가…"},"flags":null}
+{"id":"t10","mark":20,"kind":"text","box":[98,908,501,43],"text":"계좌번호를 확인하시기 바랍니다.","ocr_guess":null,"caption":null,"name":null,"in_box":"b9","near":{"parent":"ELB00016 계좌번호[100] 입력하신 계좌번호가…"},"flags":null}
+{"id":"b1","mark":21,"kind":"box","box":[99,1002,625,122],"text":"확인","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["확인"]},"flags":null}
+{"id":"t11","mark":22,"kind":"text","box":[368,1036,85,56],"text":"확인","ocr_guess":null,"caption":null,"name":null,"in_box":"b1","near":{"parent":"확인"},"flags":null}
+{"id":"t13","mark":23,"kind":"text","box":[388,1176,48,58],"text":"2","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["3","1"]},"flags":["behind_overlay"]}
+{"id":"t14","mark":24,"kind":"text","box":[664,1176,44,58],"text":"3","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["2","1"]},"flags":["behind_overlay"]}
+{"id":"t12","mark":25,"kind":"text","box":[117,1178,35,53],"text":"1","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["2","3"]},"flags":["behind_overlay"]}
+{"id":"t15","mark":26,"kind":"text","box":[116,1300,46,55],"text":"4","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["5","6"]},"flags":["behind_overlay"]}
+{"id":"t16","mark":27,"kind":"text","box":[391,1300,43,57],"text":"5","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["4","6"]},"flags":["behind_overlay"]}
+{"id":"t17","mark":28,"kind":"text","box":[667,1302,40,55],"text":"6","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["5","4"]},"flags":["behind_overlay"]}
+{"id":"t19","mark":29,"kind":"text","box":[391,1426,41,55],"text":"8","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["9","7"]},"flags":["behind_overlay"]}
+{"id":"t20","mark":30,"kind":"text","box":[667,1426,39,55],"text":"9","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["8","7"]},"flags":["behind_overlay"]}
+{"id":"t18","mark":31,"kind":"text","box":[115,1427,41,53],"text":"7","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["8","9"]},"flags":["behind_overlay"]}
+{"id":"b10","mark":32,"kind":"box","box":[642,1533,88,86],"text":null,"ocr_guess":"←","caption":"Back","name":null,"in_box":null,"near":{"row":["0"]},"flags":["behind_overlay"]}
+{"id":"t21","mark":33,"kind":"text","box":[393,1551,37,54],"text":"0","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":null,"flags":["behind_overlay"]}
+{"id":"b3","mark":34,"kind":"box","box":[32,1656,760,135],"text":"다음","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["다음"]},"flags":["behind_overlay"]}
+{"id":"t22","mark":35,"kind":"text","box":[368,1697,87,55],"text":"다음","ocr_guess":null,"caption":null,"name":null,"in_box":"b3","near":{"parent":"다음"},"flags":["behind_overlay"]}
+
+그림
+[그림 1/7] 화면 전체 - 요소마다 mark 번호  <그림: _sent/11/marks.png 600x1333 · 예상 958토큰>
+[그림 2/7] 잘라낸 그림 - mark 3 · id b5  <그림: _sent/11/crop_003.png 90x80 · 예상 11토큰>
+[그림 3/7] 잘라낸 그림 - mark 4 · id b7  <그림: _sent/11/crop_004.png 190x182 · 예상 44토큰>
+[그림 4/7] 잘라낸 그림 - mark 7 · id b4  <그림: _sent/11/crop_007.png 94x104 · 예상 15토큰>
+[그림 5/7] 잘라낸 그림 - mark 12 · id b6  <그림: _sent/11/crop_012.png 116x122 · 예상 20토큰>
+[그림 6/7] 잘라낸 그림 - mark 14 · id i0  <그림: _sent/11/crop_014.png 154x158 · 예상 30토큰>
+[그림 7/7] 잘라낸 그림 - mark 32 · id b10  <그림: _sent/11/crop_032.png 246x242 · 예상 77토큰>

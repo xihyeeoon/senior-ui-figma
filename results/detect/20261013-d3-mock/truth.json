@@ -1,0 +1,10202 @@
+{
+ "task": "transfer",
+ "original": "inputs/original_transfer.html",
+ "flow": "flows/original.json",
+ "original_sha256": "f76a8b2f9226e20bfc521325c0b0d0cb040d3ce3f958c9a3376377a7b6141e63",
+ "walk": "senior_ui.audit.drive.run_actions · settle + probes.INVENTORY · CHOICE_SHOWN · ENTRANCES (검사 I · K 와 같은 probe)",
+ "states": [
+  {
+   "screen": "home",
+   "texts": [
+    "4:31",
+    "67",
+    "C",
+    "홍길동님",
+    "자산",
+    "›",
+    "[금융거래한도계좌2]신한 주거래 우대통장",
+    "(저축예금)",
+    "금액 숨김",
+    "이체",
+    "절세혜택과 안정적인 노후, IRP로 준비하세요",
+    "Pick E 체크캐릭터형(하리보)",
+    "앱카드 가입",
+    "땡겨요",
+    "할인쿠폰 드려요",
+    "bhc치킨 최대 9,000원",
+    "바로받기",
+    "이벤트",
+    "쿠폰",
+    "포인트",
+    "7월 소비 ↻",
+    "오늘 쓴 돈",
+    "0원",
+    "카드 쓸때마다 쌓이고, 현금처럼 쓰는",
+    "마이신한포인트",
+    "시작하기",
+    "추천서비스",
+    "SOL패밀리",
+    "가족과 함께하는 금융생활",
+    "급여클럽+",
+    "급여이체 우대 혜택",
+    "내 카드 승인내역",
+    "모든 카드 실시간 승인내역",
+    "더 많은 금융자산 모두",
+    "연결하면 커피쿠폰 즉시지급!",
+    "이벤트 바로가기 ›",
+    "신한금융그룹",
+    "신한카드",
+    "나에게 맞는 카드 찾기",
+    "신한투자증권",
+    "지금 뜨는 주식 보러가기",
+    "신한라이프",
+    "내게 필요한 보험, 보장분석으로 확인하기",
+    "쉬운홈",
+    "홈화면 설정",
+    "금액 숨기기",
+    "홈",
+    "금융",
+    "상품",
+    "혜택",
+    "주식"
+   ],
+   "entrances": [
+    {
+     "action": "oos-alarm",
+     "text": null,
+     "aria": "알림",
+     "rect": [
+      319,
+      52,
+      19,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-appcard",
+     "text": "앱카드 가입",
+     "aria": "앱카드 가입",
+     "rect": [
+      30,
+      395,
+      330,
+      48
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-connect-event",
+     "text": "더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! 이벤트 바로가기 ›",
+     "aria": "자산 연결 이벤트",
+     "rect": [
+      14,
+      1147,
+      362,
+      106
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-coupon",
+     "text": "쿠폰",
+     "aria": "쿠폰",
+     "rect": [
+      182,
+      617,
+      26,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-easy-home",
+     "text": "쉬운홈",
+     "aria": "쉬운홈",
+     "rect": [
+      35,
+      1547,
+      39,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-event",
+     "text": "이벤트",
+     "aria": "이벤트",
+     "rect": [
+      68,
+      617,
+      39,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-get-coupon",
+     "text": "바로받기",
+     "aria": "바로받기",
+     "rect": [
+      274,
+      542,
+      86,
+      34
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-hide-amount",
+     "text": "금액 숨기기",
+     "aria": "금액 숨기기",
+     "rect": [
+      285,
+      1547,
+      70,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-home-setting",
+     "text": "홈화면 설정",
+     "aria": "홈화면 설정",
+     "rect": [
+      145,
+      1547,
+      70,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-irp",
+     "text": "절세혜택과 안정적인 노후, IRP로 준비하세요",
+     "aria": "IRP 안내",
+     "rect": [
+      30,
+      240,
+      330,
+      43
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-menu",
+     "text": null,
+     "aria": "전체메뉴",
+     "rect": [
+      353,
+      52,
+      19,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-message",
+     "text": null,
+     "aria": "메시지",
+     "rect": [
+      251,
+      52,
+      19,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-my-point",
+     "text": "카드 쓸때마다 쌓이고, 현금처럼 쓰는 마이신한포인트 시작하기",
+     "aria": "마이신한포인트",
+     "rect": [
+      14,
+      794,
+      362,
+      75
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-point",
+     "text": "포인트",
+     "aria": "포인트",
+     "rect": [
+      283,
+      617,
+      39,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-spend-detail",
+     "text": "›",
+     "aria": "소비 상세",
+     "rect": [
+      355,
+      684,
+      5,
+      23
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-tab-benefit",
+     "text": "혜택",
+     "aria": "혜택",
+     "rect": [
+      234,
+      783,
+      78,
+      61
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-tab-finance",
+     "text": "금융",
+     "aria": "금융",
+     "rect": [
+      78,
+      783,
+      78,
+      61
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-tab-goods",
+     "text": "상품",
+     "aria": "상품",
+     "rect": [
+      156,
+      783,
+      78,
+      61
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-tab-home",
+     "text": "홈",
+     "aria": "홈",
+     "rect": [
+      0,
+      783,
+      78,
+      61
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-tab-stock",
+     "text": "주식",
+     "aria": "주식",
+     "rect": [
+      312,
+      783,
+      78,
+      61
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-wallet",
+     "text": null,
+     "aria": "지갑",
+     "rect": [
+      285,
+      52,
+      19,
+      26
+     ],
+     "pinned": true
+    }
+   ],
+   "image_slots": [
+    {
+     "label": "메시지 아이콘",
+     "action": "oos-message",
+     "rect": [
+      251,
+      57,
+      19,
+      19
+     ],
+     "pinned": true
+    },
+    {
+     "label": "지갑 아이콘",
+     "action": "oos-wallet",
+     "rect": [
+      285,
+      57,
+      19,
+      19
+     ],
+     "pinned": true
+    },
+    {
+     "label": "알림 아이콘",
+     "action": "oos-alarm",
+     "rect": [
+      319,
+      57,
+      19,
+      19
+     ],
+     "pinned": true
+    },
+    {
+     "label": "전체메뉴 아이콘",
+     "action": "oos-menu",
+     "rect": [
+      353,
+      57,
+      19,
+      19
+     ],
+     "pinned": true
+    },
+    {
+     "label": "신한은행 로고",
+     "action": null,
+     "rect": [
+      30,
+      148,
+      34,
+      34
+     ],
+     "pinned": false
+    },
+    {
+     "label": "체크카드 아이콘",
+     "action": null,
+     "rect": [
+      30,
+      331,
+      34,
+      34
+     ],
+     "pinned": false
+    },
+    {
+     "label": "땡겨요 쿠폰 아이콘",
+     "action": null,
+     "rect": [
+      30,
+      540,
+      38,
+      38
+     ],
+     "pinned": false
+    },
+    {
+     "label": "오늘 쓴 돈 아이콘",
+     "action": null,
+     "rect": [
+      30,
+      724,
+      13,
+      13
+     ],
+     "pinned": false
+    },
+    {
+     "label": "SOL패밀리 아이콘",
+     "action": null,
+     "rect": [
+      30,
+      948,
+      38,
+      38
+     ],
+     "pinned": false
+    },
+    {
+     "label": "급여클럽+ 아이콘",
+     "action": null,
+     "rect": [
+      30,
+      1008,
+      38,
+      38
+     ],
+     "pinned": false
+    },
+    {
+     "label": "내 카드 승인내역 아이콘",
+     "action": null,
+     "rect": [
+      30,
+      1068,
+      38,
+      38
+     ],
+     "pinned": false
+    },
+    {
+     "label": "신한카드 아이콘",
+     "action": null,
+     "rect": [
+      30,
+      1332,
+      38,
+      38
+     ],
+     "pinned": false
+    },
+    {
+     "label": "신한투자증권 아이콘",
+     "action": null,
+     "rect": [
+      30,
+      1392,
+      38,
+      38
+     ],
+     "pinned": false
+    },
+    {
+     "label": "신한라이프 아이콘",
+     "action": null,
+     "rect": [
+      30,
+      1452,
+      38,
+      38
+     ],
+     "pinned": false
+    },
+    {
+     "label": "홈 아이콘",
+     "action": "oos-tab-home",
+     "rect": [
+      30,
+      796,
+      18,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "label": "금융 아이콘",
+     "action": "oos-tab-finance",
+     "rect": [
+      108,
+      796,
+      18,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "label": "상품 아이콘",
+     "action": "oos-tab-goods",
+     "rect": [
+      186,
+      796,
+      18,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "label": "혜택 아이콘",
+     "action": "oos-tab-benefit",
+     "rect": [
+      264,
+      796,
+      18,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "label": "주식 아이콘",
+     "action": "oos-tab-stock",
+     "rect": [
+      342,
+      796,
+      18,
+      18
+     ],
+     "pinned": true
+    }
+   ],
+   "choices": {},
+   "choice_items": {},
+   "fields": [],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "C",
+     "rect": [
+      25,
+      57,
+      8,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "홍길동님",
+     "rect": [
+      47,
+      52,
+      76,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "자산",
+     "rect": [
+      30,
+      110,
+      38,
+      26
+     ],
+     "pinned": false
+    },
+    {
+     "text": "›",
+     "rect": [
+      355,
+      112,
+      5,
+      23
+     ],
+     "pinned": false
+    },
+    {
+     "text": "[금융거래한도계좌2]신한 주거래 우대통장",
+     "rect": [
+      75,
+      148,
+      214,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "text": "(저축예금)",
+     "rect": [
+      75,
+      180,
+      55,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "금액 숨김",
+     "rect": [
+      75,
+      200,
+      87,
+      27
+     ],
+     "pinned": false
+    },
+    {
+     "text": "이체",
+     "rect": [
+      317,
+      156,
+      28,
+      18
+     ],
+     "pinned": false
+    },
+    {
+     "text": "절세혜택과 안정적인 노후, IRP로 준비하세요",
+     "rect": [
+      65,
+      253,
+      261,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "text": "Pick E 체크캐릭터형(하리보)",
+     "rect": [
+      75,
+      331,
+      193,
+      20
+     ],
+     "pinned": false
+    },
+    {
+     "text": "금액 숨김",
+     "rect": [
+      75,
+      354,
+      87,
+      27
+     ],
+     "pinned": false
+    },
+    {
+     "text": "앱카드 가입",
+     "rect": [
+      155,
+      409,
+      80,
+      20
+     ],
+     "pinned": false
+    },
+    {
+     "text": "땡겨요",
+     "rect": [
+      30,
+      491,
+      57,
+      26
+     ],
+     "pinned": false
+    },
+    {
+     "text": "›",
+     "rect": [
+      355,
+      492,
+      5,
+      23
+     ],
+     "pinned": false
+    },
+    {
+     "text": "할인쿠폰 드려요",
+     "rect": [
+      80,
+      542,
+      88,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "bhc치킨 최대 9,000원",
+     "rect": [
+      80,
+      558,
+      150,
+      20
+     ],
+     "pinned": false
+    },
+    {
+     "text": "바로받기",
+     "rect": [
+      289,
+      550,
+      56,
+      18
+     ],
+     "pinned": false
+    },
+    {
+     "text": "이벤트",
+     "rect": [
+      68,
+      617,
+      39,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "text": "쿠폰",
+     "rect": [
+      182,
+      617,
+      26,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "text": "포인트",
+     "rect": [
+      283,
+      617,
+      39,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "text": "7월 소비 ↻",
+     "rect": [
+      30,
+      682,
+      97,
+      26
+     ],
+     "pinned": false
+    },
+    {
+     "text": "›",
+     "rect": [
+      355,
+      684,
+      5,
+      23
+     ],
+     "pinned": false
+    },
+    {
+     "text": "오늘 쓴 돈",
+     "rect": [
+      43,
+      721,
+      66,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "text": "0원",
+     "rect": [
+      30,
+      738,
+      30,
+      26
+     ],
+     "pinned": false
+    },
+    {
+     "text": "카드 쓸때마다 쌓이고, 현금처럼 쓰는",
+     "rect": [
+      32,
+      810,
+      200,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "마이신한포인트",
+     "rect": [
+      32,
+      826,
+      140,
+      27
+     ],
+     "pinned": false
+    },
+    {
+     "text": "시작하기",
+     "rect": [
+      292,
+      823,
+      52,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "text": "추천서비스",
+     "rect": [
+      30,
+      899,
+      95,
+      26
+     ],
+     "pinned": false
+    },
+    {
+     "text": "›",
+     "rect": [
+      355,
+      900,
+      5,
+      23
+     ],
+     "pinned": false
+    },
+    {
+     "text": "SOL패밀리",
+     "rect": [
+      80,
+      948,
+      73,
+      20
+     ],
+     "pinned": false
+    },
+    {
+     "text": "가족과 함께하는 금융생활",
+     "rect": [
+      80,
+      970,
+      140,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "급여클럽+",
+     "rect": [
+      80,
+      1008,
+      71,
+      20
+     ],
+     "pinned": false
+    },
+    {
+     "text": "급여이체 우대 혜택",
+     "rect": [
+      80,
+      1030,
+      104,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "내 카드 승인내역",
+     "rect": [
+      80,
+      1068,
+      116,
+      20
+     ],
+     "pinned": false
+    },
+    {
+     "text": "모든 카드 실시간 승인내역",
+     "rect": [
+      80,
+      1090,
+      145,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "더 많은 금융자산 모두",
+     "rect": [
+      30,
+      1165,
+      171,
+      23
+     ],
+     "pinned": false
+    },
+    {
+     "text": "연결하면 커피쿠폰 즉시지급!",
+     "rect": [
+      30,
+      1188,
+      221,
+      23
+     ],
+     "pinned": false
+    },
+    {
+     "text": "이벤트 바로가기 ›",
+     "rect": [
+      30,
+      1217,
+      112,
+      18
+     ],
+     "pinned": false
+    },
+    {
+     "text": "신한금융그룹",
+     "rect": [
+      30,
+      1283,
+      114,
+      26
+     ],
+     "pinned": false
+    },
+    {
+     "text": "신한카드",
+     "rect": [
+      80,
+      1332,
+      60,
+      20
+     ],
+     "pinned": false
+    },
+    {
+     "text": "나에게 맞는 카드 찾기",
+     "rect": [
+      80,
+      1354,
+      121,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "신한투자증권",
+     "rect": [
+      80,
+      1392,
+      90,
+      20
+     ],
+     "pinned": false
+    },
+    {
+     "text": "지금 뜨는 주식 보러가기",
+     "rect": [
+      80,
+      1414,
+      133,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "신한라이프",
+     "rect": [
+      80,
+      1452,
+      75,
+      20
+     ],
+     "pinned": false
+    },
+    {
+     "text": "내게 필요한 보험, 보장분석으로 확인하기",
+     "rect": [
+      80,
+      1474,
+      224,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "쉬운홈",
+     "rect": [
+      35,
+      1547,
+      39,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "text": "홈화면 설정",
+     "rect": [
+      145,
+      1547,
+      70,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "text": "금액 숨기기",
+     "rect": [
+      285,
+      1547,
+      70,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "text": "홈",
+     "rect": [
+      34,
+      817,
+      11,
+      15
+     ],
+     "pinned": true
+    },
+    {
+     "text": "금융",
+     "rect": [
+      106,
+      817,
+      22,
+      15
+     ],
+     "pinned": true
+    },
+    {
+     "text": "상품",
+     "rect": [
+      184,
+      817,
+      22,
+      15
+     ],
+     "pinned": true
+    },
+    {
+     "text": "혜택",
+     "rect": [
+      262,
+      817,
+      22,
+      15
+     ],
+     "pinned": true
+    },
+    {
+     "text": "주식",
+     "rect": [
+      340,
+      817,
+      22,
+      15
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "oos-message",
+     "text": "",
+     "aria": "메시지",
+     "img": "메시지 아이콘",
+     "rect": [
+      251,
+      52,
+      19,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-wallet",
+     "text": "",
+     "aria": "지갑",
+     "img": "지갑 아이콘",
+     "rect": [
+      285,
+      52,
+      19,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-alarm",
+     "text": "",
+     "aria": "알림",
+     "img": "알림 아이콘",
+     "rect": [
+      319,
+      52,
+      19,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-menu",
+     "text": "",
+     "aria": "전체메뉴",
+     "img": "전체메뉴 아이콘",
+     "rect": [
+      353,
+      52,
+      19,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "action": "go-recipient",
+     "text": "이체",
+     "aria": null,
+     "img": null,
+     "rect": [
+      302,
+      148,
+      58,
+      34
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-irp",
+     "text": "절세혜택과 안정적인 노후, IRP로 준비하세요",
+     "aria": "IRP 안내",
+     "img": null,
+     "rect": [
+      30,
+      240,
+      330,
+      43
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-appcard",
+     "text": "앱카드 가입",
+     "aria": "앱카드 가입",
+     "img": null,
+     "rect": [
+      30,
+      395,
+      330,
+      48
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-get-coupon",
+     "text": "바로받기",
+     "aria": "바로받기",
+     "img": null,
+     "rect": [
+      274,
+      542,
+      86,
+      34
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-event",
+     "text": "이벤트",
+     "aria": "이벤트",
+     "img": null,
+     "rect": [
+      68,
+      617,
+      39,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-coupon",
+     "text": "쿠폰",
+     "aria": "쿠폰",
+     "img": null,
+     "rect": [
+      182,
+      617,
+      26,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-point",
+     "text": "포인트",
+     "aria": "포인트",
+     "img": null,
+     "rect": [
+      283,
+      617,
+      39,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-spend-detail",
+     "text": "›",
+     "aria": "소비 상세",
+     "img": null,
+     "rect": [
+      355,
+      684,
+      5,
+      23
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-my-point",
+     "text": "카드 쓸때마다 쌓이고, 현금처럼 쓰는 마이신한포인트 시작하기",
+     "aria": "마이신한포인트",
+     "img": null,
+     "rect": [
+      14,
+      794,
+      362,
+      75
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-connect-event",
+     "text": "더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! 이벤트 바로가기 ›",
+     "aria": "자산 연결 이벤트",
+     "img": null,
+     "rect": [
+      14,
+      1147,
+      362,
+      106
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-easy-home",
+     "text": "쉬운홈",
+     "aria": "쉬운홈",
+     "img": null,
+     "rect": [
+      35,
+      1547,
+      39,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-home-setting",
+     "text": "홈화면 설정",
+     "aria": "홈화면 설정",
+     "img": null,
+     "rect": [
+      145,
+      1547,
+      70,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-hide-amount",
+     "text": "금액 숨기기",
+     "aria": "금액 숨기기",
+     "img": null,
+     "rect": [
+      285,
+      1547,
+      70,
+      17
+     ],
+     "pinned": false
+    },
+    {
+     "action": "oos-tab-home",
+     "text": "홈",
+     "aria": "홈",
+     "img": "홈 아이콘",
+     "rect": [
+      0,
+      783,
+      78,
+      61
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-tab-finance",
+     "text": "금융",
+     "aria": "금융",
+     "img": "금융 아이콘",
+     "rect": [
+      78,
+      783,
+      78,
+      61
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-tab-goods",
+     "text": "상품",
+     "aria": "상품",
+     "img": "상품 아이콘",
+     "rect": [
+      156,
+      783,
+      78,
+      61
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-tab-benefit",
+     "text": "혜택",
+     "aria": "혜택",
+     "img": "혜택 아이콘",
+     "rect": [
+      234,
+      783,
+      78,
+      61
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-tab-stock",
+     "text": "주식",
+     "aria": "주식",
+     "img": "주식 아이콘",
+     "rect": [
+      312,
+      783,
+      78,
+      61
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "home",
+   "via": "정답 걸음 1",
+   "also": [],
+   "task_buttons": [
+    {
+     "action": "go-recipient",
+     "id": null,
+     "text": "이체",
+     "aria": null,
+     "img": null,
+     "rect": [
+      302,
+      148,
+      58,
+      34
+     ],
+     "pinned": false,
+     "selector": "[data-action='go-recipient']",
+     "path": "main"
+    }
+   ]
+  },
+  {
+   "screen": "recipient",
+   "texts": [
+    "4:31",
+    "67",
+    "‹",
+    "다건이체",
+    "✕",
+    "누구에게 보낼까요?",
+    "계좌번호 직접 입력",
+    "자주쓰는 계좌",
+    "편집",
+    "0개 ⌄",
+    "내 계좌",
+    "최근"
+   ],
+   "entrances": [
+    {
+     "action": "oos-frequent",
+     "text": "자주쓰는 계좌 편집 0개 ⌄",
+     "aria": "자주쓰는 계좌",
+     "rect": [
+      0,
+      188,
+      390,
+      60
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-multi-transfer",
+     "text": "다건이체",
+     "aria": "다건이체",
+     "rect": [
+      142,
+      60,
+      60,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-my-accounts",
+     "text": "내 계좌 0개 ⌄",
+     "aria": "내 계좌",
+     "rect": [
+      0,
+      248,
+      390,
+      60
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-payee-manage",
+     "text": null,
+     "aria": "받는 사람 관리",
+     "rect": [
+      296,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-recent",
+     "text": "최근 0개 ⌄",
+     "aria": "최근",
+     "rect": [
+      0,
+      308,
+      390,
+      60
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-search",
+     "text": null,
+     "aria": "검색",
+     "rect": [
+      330,
+      99,
+      40,
+      40
+     ],
+     "pinned": true
+    }
+   ],
+   "image_slots": [
+    {
+     "label": "받는 사람 관리 아이콘",
+     "action": "oos-payee-manage",
+     "rect": [
+      301,
+      59,
+      22,
+      22
+     ],
+     "pinned": true
+    },
+    {
+     "label": "검색 아이콘",
+     "action": "oos-search",
+     "rect": [
+      341,
+      109,
+      19,
+      19
+     ],
+     "pinned": true
+    },
+    {
+     "label": "카메라 아이콘",
+     "action": "go-account",
+     "rect": [
+      351,
+      155,
+      19,
+      19
+     ],
+     "pinned": true
+    }
+   ],
+   "choices": {},
+   "choice_items": {},
+   "fields": [],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "‹",
+     "rect": [
+      28,
+      56,
+      7,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "다건이체",
+     "rect": [
+      142,
+      60,
+      60,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      349,
+      55,
+      18,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "누구에게 보낼까요?",
+     "rect": [
+      20,
+      102,
+      220,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "계좌번호 직접 입력",
+     "rect": [
+      20,
+      153,
+      148,
+      23
+     ],
+     "pinned": true
+    },
+    {
+     "text": "자주쓰는 계좌",
+     "rect": [
+      20,
+      208,
+      95,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "편집",
+     "rect": [
+      129,
+      211,
+      22,
+      15
+     ],
+     "pinned": true
+    },
+    {
+     "text": "0개 ⌄",
+     "rect": [
+      324,
+      209,
+      32,
+      17
+     ],
+     "pinned": true
+    },
+    {
+     "text": "내 계좌",
+     "rect": [
+      20,
+      268,
+      50,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "0개 ⌄",
+     "rect": [
+      324,
+      269,
+      32,
+      17
+     ],
+     "pinned": true
+    },
+    {
+     "text": "최근",
+     "rect": [
+      20,
+      328,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "0개 ⌄",
+     "rect": [
+      324,
+      329,
+      32,
+      17
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "back-home",
+     "text": "‹",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-multi-transfer",
+     "text": "다건이체",
+     "aria": "다건이체",
+     "img": null,
+     "rect": [
+      142,
+      60,
+      60,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-payee-manage",
+     "text": "",
+     "aria": "받는 사람 관리",
+     "img": "받는 사람 관리 아이콘",
+     "rect": [
+      296,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "back-home",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      342,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-search",
+     "text": "",
+     "aria": "검색",
+     "img": "검색 아이콘",
+     "rect": [
+      330,
+      99,
+      40,
+      40
+     ],
+     "pinned": true
+    },
+    {
+     "action": "go-account",
+     "text": "계좌번호 직접 입력",
+     "aria": null,
+     "img": "카메라 아이콘",
+     "rect": [
+      20,
+      153,
+      350,
+      35
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-frequent",
+     "text": "자주쓰는 계좌 편집 0개 ⌄",
+     "aria": "자주쓰는 계좌",
+     "img": null,
+     "rect": [
+      0,
+      188,
+      390,
+      60
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-my-accounts",
+     "text": "내 계좌 0개 ⌄",
+     "aria": "내 계좌",
+     "img": null,
+     "rect": [
+      0,
+      248,
+      390,
+      60
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-recent",
+     "text": "최근 0개 ⌄",
+     "aria": "최근",
+     "img": null,
+     "rect": [
+      0,
+      308,
+      390,
+      60
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "recipient",
+   "via": "정답 걸음 2",
+   "also": [],
+   "task_buttons": [
+    {
+     "action": "go-account",
+     "id": null,
+     "text": "계좌번호 직접 입력",
+     "aria": null,
+     "img": "카메라 아이콘",
+     "rect": [
+      20,
+      153,
+      350,
+      35
+     ],
+     "pinned": true,
+     "selector": "[data-action='go-account']",
+     "path": "main"
+    }
+   ]
+  },
+  {
+   "screen": "account",
+   "texts": [
+    "4:31",
+    "67",
+    "‹",
+    "✕",
+    "누구에게 보낼까요?",
+    "계좌번호",
+    "은행 또는 증권사 선택",
+    "⌄",
+    "다음",
+    "없이 숫자만 입력"
+   ],
+   "entrances": [],
+   "image_slots": [],
+   "choices": {},
+   "choice_items": {},
+   "fields": [
+    {
+     "selector": "#acc-field",
+     "id": "acc-field",
+     "text": "계좌번호",
+     "placeholder": "없이 숫자만 입력",
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true
+    }
+   ],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "‹",
+     "rect": [
+      28,
+      56,
+      7,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      349,
+      55,
+      18,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "누구에게 보낼까요?",
+     "rect": [
+      20,
+      102,
+      220,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "계좌번호",
+     "rect": [
+      37,
+      166,
+      52,
+      17
+     ],
+     "pinned": true
+    },
+    {
+     "text": "은행 또는 증권사 선택",
+     "rect": [
+      36,
+      260,
+      191,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "⌄",
+     "rect": [
+      343,
+      259,
+      11,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "다음",
+     "rect": [
+      178,
+      786,
+      34,
+      23
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "back-recipient",
+     "text": "‹",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "close-account",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      342,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-field",
+     "text": "계좌번호",
+     "aria": null,
+     "img": null,
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true
+    },
+    {
+     "action": "open-bank",
+     "text": "은행 또는 증권사 선택 ⌄",
+     "aria": null,
+     "img": null,
+     "rect": [
+      20,
+      241,
+      350,
+      63
+     ],
+     "pinned": true
+    },
+    {
+     "action": "account-next",
+     "text": "다음",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "account",
+   "via": "정답 걸음 3",
+   "also": [],
+   "task_buttons": [
+    {
+     "action": "acc-field",
+     "id": "acc-field",
+     "text": "계좌번호",
+     "aria": null,
+     "img": null,
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true,
+     "selector": "[data-action='acc-field']",
+     "path": "main"
+    }
+   ]
+  },
+  {
+   "screen": "account",
+   "texts": [
+    "4:31",
+    "67",
+    "‹",
+    "✕",
+    "누구에게 보낼까요?",
+    "계좌번호",
+    "은행 또는 증권사 선택",
+    "⌄",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "⌫",
+    "다음",
+    "없이 숫자만 입력"
+   ],
+   "entrances": [],
+   "image_slots": [],
+   "choices": {
+    "acc-num": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "0"
+    ]
+   },
+   "choice_items": {
+    "acc-num": [
+     {
+      "value": "1",
+      "text": "1",
+      "rect": [
+       0,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "2",
+      "text": "2",
+      "rect": [
+       130,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "3",
+      "text": "3",
+      "rect": [
+       260,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "4",
+      "text": "4",
+      "rect": [
+       0,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "5",
+      "text": "5",
+      "rect": [
+       130,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "6",
+      "text": "6",
+      "rect": [
+       260,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "7",
+      "text": "7",
+      "rect": [
+       0,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "8",
+      "text": "8",
+      "rect": [
+       130,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "9",
+      "text": "9",
+      "rect": [
+       260,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "0",
+      "text": "0",
+      "rect": [
+       130,
+       693,
+       130,
+       66
+      ],
+      "pinned": true
+     }
+    ]
+   },
+   "fields": [
+    {
+     "selector": "#acc-field",
+     "id": "acc-field",
+     "text": "계좌번호",
+     "placeholder": "없이 숫자만 입력",
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true
+    }
+   ],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "‹",
+     "rect": [
+      28,
+      56,
+      7,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      349,
+      55,
+      18,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "누구에게 보낼까요?",
+     "rect": [
+      20,
+      102,
+      220,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "계좌번호",
+     "rect": [
+      37,
+      166,
+      52,
+      17
+     ],
+     "pinned": true
+    },
+    {
+     "text": "은행 또는 증권사 선택",
+     "rect": [
+      36,
+      260,
+      191,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "⌄",
+     "rect": [
+      343,
+      259,
+      11,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "1",
+     "rect": [
+      58,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "2",
+     "rect": [
+      188,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "3",
+     "rect": [
+      318,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "4",
+     "rect": [
+      58,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "5",
+     "rect": [
+      188,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "6",
+     "rect": [
+      318,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "7",
+     "rect": [
+      58,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "8",
+     "rect": [
+      188,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "9",
+     "rect": [
+      318,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "0",
+     "rect": [
+      188,
+      710,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "⌫",
+     "rect": [
+      309,
+      710,
+      32,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "다음",
+     "rect": [
+      178,
+      786,
+      34,
+      23
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "back-recipient",
+     "text": "‹",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "close-account",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      342,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-field",
+     "text": "계좌번호",
+     "aria": null,
+     "img": null,
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true
+    },
+    {
+     "action": "open-bank",
+     "text": "은행 또는 증권사 선택 ⌄",
+     "aria": null,
+     "img": null,
+     "rect": [
+      20,
+      241,
+      350,
+      63
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "1",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "2",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "3",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "4",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "5",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "6",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "7",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "8",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "9",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "0",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-del",
+     "text": "⌫",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "account-next",
+     "text": "다음",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "account#2",
+   "via": "정답 걸음 4 - 키패드 열림 — 계좌번호 입력란을 누른 뒤",
+   "also": [],
+   "task_buttons": [
+    {
+     "action": "open-bank",
+     "id": null,
+     "text": "은행 또는 증권사 선택 ⌄",
+     "aria": null,
+     "img": null,
+     "rect": [
+      20,
+      241,
+      350,
+      63
+     ],
+     "pinned": true,
+     "selector": "[data-action='open-bank']",
+     "path": "main"
+    }
+   ]
+  },
+  {
+   "screen": "bank",
+   "texts": [
+    "4:31",
+    "67",
+    "은행 또는 증권사 선택",
+    "✕",
+    "은행",
+    "증권사",
+    "신한",
+    "제주",
+    "국민",
+    "기업",
+    "농협",
+    "산업",
+    "수협",
+    "신협",
+    "우리",
+    "하나",
+    "한국씨티",
+    "카카오뱅크",
+    "케이뱅크",
+    "토스뱅크",
+    "경남",
+    "광주",
+    "아이엠뱅크(대구)",
+    "부산",
+    "전북",
+    "회원수협",
+    "새마을",
+    "우체국",
+    "저축은행",
+    "지역농.축협",
+    "도이치",
+    "중국",
+    "중국건설",
+    "중국공상",
+    "BNP파리바",
+    "BOA",
+    "HSBC",
+    "JP모간",
+    "SC",
+    "산림조합",
+    "국세",
+    "지방세",
+    "국고금",
+    "관세"
+   ],
+   "entrances": [],
+   "image_slots": [
+    {
+     "label": "신한 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      233,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "제주 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      233,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "국민 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      233,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "기업 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      330,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "농협 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      330,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "산업 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      330,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "수협 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      427,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "신협 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      427,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "우리 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      427,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "하나 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      524,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "한국씨티 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      524,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "카카오뱅크 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      524,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "케이뱅크 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      621,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "토스뱅크 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      621,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "경남 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      621,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "광주 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      718,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "아이엠뱅크(대구) 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      718,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "부산 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      718,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "전북 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      815,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "회원수협 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      815,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "새마을 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      815,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "우체국 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      912,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "저축은행 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      912,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "지역농.축협 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      912,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "도이치 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      1009,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "중국 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      1009,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "중국건설 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      1009,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "중국공상 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      1106,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "BNP파리바 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      1106,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "BOA 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      1106,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "HSBC 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      1203,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "JP모간 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      1203,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "SC 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      1203,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "산림조합 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      1300,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "국세 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      1300,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "지방세 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      1300,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "국고금 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      1397,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "관세 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      1397,
+      32,
+      32
+     ],
+     "pinned": false
+    }
+   ],
+   "choices": {
+    "pick-bank": [
+     "신한",
+     "제주",
+     "국민",
+     "기업",
+     "농협",
+     "산업",
+     "수협",
+     "신협",
+     "우리",
+     "하나",
+     "한국씨티",
+     "카카오뱅크",
+     "케이뱅크",
+     "토스뱅크",
+     "경남",
+     "광주",
+     "아이엠뱅크(대구)",
+     "부산",
+     "전북",
+     "회원수협",
+     "새마을",
+     "우체국",
+     "저축은행",
+     "지역농.축협",
+     "도이치",
+     "중국",
+     "중국건설",
+     "중국공상",
+     "BNP파리바",
+     "BOA",
+     "HSBC",
+     "JP모간",
+     "SC",
+     "산림조합",
+     "국세",
+     "지방세",
+     "국고금",
+     "관세"
+    ]
+   },
+   "choice_items": {
+    "pick-bank": [
+     {
+      "value": "신한",
+      "text": "신한",
+      "rect": [
+       14,
+       216,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "제주",
+      "text": "제주",
+      "rect": [
+       138,
+       216,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "국민",
+      "text": "국민",
+      "rect": [
+       261,
+       216,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "기업",
+      "text": "기업",
+      "rect": [
+       14,
+       313,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "농협",
+      "text": "농협",
+      "rect": [
+       138,
+       313,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "산업",
+      "text": "산업",
+      "rect": [
+       261,
+       313,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "수협",
+      "text": "수협",
+      "rect": [
+       14,
+       410,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "신협",
+      "text": "신협",
+      "rect": [
+       138,
+       410,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "우리",
+      "text": "우리",
+      "rect": [
+       261,
+       410,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "하나",
+      "text": "하나",
+      "rect": [
+       14,
+       507,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "한국씨티",
+      "text": "한국씨티",
+      "rect": [
+       138,
+       507,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "카카오뱅크",
+      "text": "카카오뱅크",
+      "rect": [
+       261,
+       507,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "케이뱅크",
+      "text": "케이뱅크",
+      "rect": [
+       14,
+       604,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "토스뱅크",
+      "text": "토스뱅크",
+      "rect": [
+       138,
+       604,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "경남",
+      "text": "경남",
+      "rect": [
+       261,
+       604,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "광주",
+      "text": "광주",
+      "rect": [
+       14,
+       701,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "아이엠뱅크(대구)",
+      "text": "아이엠뱅크(대구)",
+      "rect": [
+       138,
+       701,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "부산",
+      "text": "부산",
+      "rect": [
+       261,
+       701,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "전북",
+      "text": "전북",
+      "rect": [
+       14,
+       798,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "회원수협",
+      "text": "회원수협",
+      "rect": [
+       138,
+       798,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "새마을",
+      "text": "새마을",
+      "rect": [
+       261,
+       798,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "우체국",
+      "text": "우체국",
+      "rect": [
+       14,
+       895,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "저축은행",
+      "text": "저축은행",
+      "rect": [
+       138,
+       895,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "지역농.축협",
+      "text": "지역농.축협",
+      "rect": [
+       261,
+       895,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "도이치",
+      "text": "도이치",
+      "rect": [
+       14,
+       992,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "중국",
+      "text": "중국",
+      "rect": [
+       138,
+       992,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "중국건설",
+      "text": "중국건설",
+      "rect": [
+       261,
+       992,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "중국공상",
+      "text": "중국공상",
+      "rect": [
+       14,
+       1089,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "BNP파리바",
+      "text": "BNP파리바",
+      "rect": [
+       138,
+       1089,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "BOA",
+      "text": "BOA",
+      "rect": [
+       261,
+       1089,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "HSBC",
+      "text": "HSBC",
+      "rect": [
+       14,
+       1186,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "JP모간",
+      "text": "JP모간",
+      "rect": [
+       138,
+       1186,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "SC",
+      "text": "SC",
+      "rect": [
+       261,
+       1186,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "산림조합",
+      "text": "산림조합",
+      "rect": [
+       14,
+       1283,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "국세",
+      "text": "국세",
+      "rect": [
+       138,
+       1283,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "지방세",
+      "text": "지방세",
+      "rect": [
+       261,
+       1283,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "국고금",
+      "text": "국고금",
+      "rect": [
+       14,
+       1380,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "관세",
+      "text": "관세",
+      "rect": [
+       138,
+       1380,
+       115,
+       88
+      ],
+      "pinned": false
+     }
+    ]
+   },
+   "fields": [],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "은행 또는 증권사 선택",
+     "rect": [
+      20,
+      116,
+      171,
+      23
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      357,
+      117,
+      13,
+      21
+     ],
+     "pinned": true
+    },
+    {
+     "text": "은행",
+     "rect": [
+      83,
+      166,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "증권사",
+     "rect": [
+      270,
+      166,
+      45,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "신한",
+     "rect": [
+      59,
+      272,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "제주",
+     "rect": [
+      183,
+      272,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "국민",
+     "rect": [
+      307,
+      272,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "기업",
+     "rect": [
+      59,
+      369,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "농협",
+     "rect": [
+      183,
+      369,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "산업",
+     "rect": [
+      307,
+      369,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "수협",
+     "rect": [
+      59,
+      466,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "신협",
+     "rect": [
+      183,
+      466,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "우리",
+     "rect": [
+      307,
+      466,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "하나",
+     "rect": [
+      59,
+      563,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "한국씨티",
+     "rect": [
+      171,
+      563,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "카카오뱅크",
+     "rect": [
+      289,
+      563,
+      60,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "케이뱅크",
+     "rect": [
+      47,
+      660,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "토스뱅크",
+     "rect": [
+      171,
+      660,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "경남",
+     "rect": [
+      307,
+      660,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "광주",
+     "rect": [
+      59,
+      757,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "아이엠뱅크(대구)",
+     "rect": [
+      149,
+      757,
+      93,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "부산",
+     "rect": [
+      307,
+      757,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "전북",
+     "rect": [
+      59,
+      854,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "회원수협",
+     "rect": [
+      171,
+      854,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "새마을",
+     "rect": [
+      301,
+      854,
+      36,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "우체국",
+     "rect": [
+      53,
+      951,
+      36,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "저축은행",
+     "rect": [
+      171,
+      951,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "지역농.축협",
+     "rect": [
+      287,
+      951,
+      63,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "도이치",
+     "rect": [
+      53,
+      1048,
+      36,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "중국",
+     "rect": [
+      183,
+      1048,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "중국건설",
+     "rect": [
+      295,
+      1048,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "중국공상",
+     "rect": [
+      47,
+      1145,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "BNP파리바",
+     "rect": [
+      165,
+      1145,
+      61,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "BOA",
+     "rect": [
+      306,
+      1145,
+      25,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "HSBC",
+     "rect": [
+      56,
+      1242,
+      31,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "JP모간",
+     "rect": [
+      177,
+      1242,
+      37,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "SC",
+     "rect": [
+      311,
+      1242,
+      14,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "산림조합",
+     "rect": [
+      47,
+      1339,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "국세",
+     "rect": [
+      183,
+      1339,
+      24,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "지방세",
+     "rect": [
+      301,
+      1339,
+      36,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "국고금",
+     "rect": [
+      53,
+      1436,
+      36,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "관세",
+     "rect": [
+      183,
+      1436,
+      24,
+      16
+     ],
+     "pinned": false
+    }
+   ],
+   "actions": [
+    {
+     "action": "close-bank",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      357,
+      117,
+      13,
+      21
+     ],
+     "pinned": true
+    },
+    {
+     "action": "tab-bank",
+     "text": "은행",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      153,
+      195,
+      48
+     ],
+     "pinned": true
+    },
+    {
+     "action": "tab-sec",
+     "text": "증권사",
+     "aria": null,
+     "img": null,
+     "rect": [
+      195,
+      153,
+      195,
+      48
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pick-bank",
+     "text": "신한",
+     "aria": null,
+     "img": "신한 로고",
+     "rect": [
+      14,
+      216,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "제주",
+     "aria": null,
+     "img": "제주 로고",
+     "rect": [
+      138,
+      216,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "국민",
+     "aria": null,
+     "img": "국민 로고",
+     "rect": [
+      261,
+      216,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "기업",
+     "aria": null,
+     "img": "기업 로고",
+     "rect": [
+      14,
+      313,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "농협",
+     "aria": null,
+     "img": "농협 로고",
+     "rect": [
+      138,
+      313,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "산업",
+     "aria": null,
+     "img": "산업 로고",
+     "rect": [
+      261,
+      313,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "수협",
+     "aria": null,
+     "img": "수협 로고",
+     "rect": [
+      14,
+      410,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "신협",
+     "aria": null,
+     "img": "신협 로고",
+     "rect": [
+      138,
+      410,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "우리",
+     "aria": null,
+     "img": "우리 로고",
+     "rect": [
+      261,
+      410,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "하나",
+     "aria": null,
+     "img": "하나 로고",
+     "rect": [
+      14,
+      507,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "한국씨티",
+     "aria": null,
+     "img": "한국씨티 로고",
+     "rect": [
+      138,
+      507,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "카카오뱅크",
+     "aria": null,
+     "img": "카카오뱅크 로고",
+     "rect": [
+      261,
+      507,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "케이뱅크",
+     "aria": null,
+     "img": "케이뱅크 로고",
+     "rect": [
+      14,
+      604,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "토스뱅크",
+     "aria": null,
+     "img": "토스뱅크 로고",
+     "rect": [
+      138,
+      604,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "경남",
+     "aria": null,
+     "img": "경남 로고",
+     "rect": [
+      261,
+      604,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "광주",
+     "aria": null,
+     "img": "광주 로고",
+     "rect": [
+      14,
+      701,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "아이엠뱅크(대구)",
+     "aria": null,
+     "img": "아이엠뱅크(대구) 로고",
+     "rect": [
+      138,
+      701,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "부산",
+     "aria": null,
+     "img": "부산 로고",
+     "rect": [
+      261,
+      701,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "전북",
+     "aria": null,
+     "img": "전북 로고",
+     "rect": [
+      14,
+      798,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "회원수협",
+     "aria": null,
+     "img": "회원수협 로고",
+     "rect": [
+      138,
+      798,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "새마을",
+     "aria": null,
+     "img": "새마을 로고",
+     "rect": [
+      261,
+      798,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "우체국",
+     "aria": null,
+     "img": "우체국 로고",
+     "rect": [
+      14,
+      895,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "저축은행",
+     "aria": null,
+     "img": "저축은행 로고",
+     "rect": [
+      138,
+      895,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "지역농.축협",
+     "aria": null,
+     "img": "지역농.축협 로고",
+     "rect": [
+      261,
+      895,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "도이치",
+     "aria": null,
+     "img": "도이치 로고",
+     "rect": [
+      14,
+      992,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "중국",
+     "aria": null,
+     "img": "중국 로고",
+     "rect": [
+      138,
+      992,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "중국건설",
+     "aria": null,
+     "img": "중국건설 로고",
+     "rect": [
+      261,
+      992,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "중국공상",
+     "aria": null,
+     "img": "중국공상 로고",
+     "rect": [
+      14,
+      1089,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "BNP파리바",
+     "aria": null,
+     "img": "BNP파리바 로고",
+     "rect": [
+      138,
+      1089,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "BOA",
+     "aria": null,
+     "img": "BOA 로고",
+     "rect": [
+      261,
+      1089,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "HSBC",
+     "aria": null,
+     "img": "HSBC 로고",
+     "rect": [
+      14,
+      1186,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "JP모간",
+     "aria": null,
+     "img": "JP모간 로고",
+     "rect": [
+      138,
+      1186,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "SC",
+     "aria": null,
+     "img": "SC 로고",
+     "rect": [
+      261,
+      1186,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "산림조합",
+     "aria": null,
+     "img": "산림조합 로고",
+     "rect": [
+      14,
+      1283,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "국세",
+     "aria": null,
+     "img": "국세 로고",
+     "rect": [
+      138,
+      1283,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "지방세",
+     "aria": null,
+     "img": "지방세 로고",
+     "rect": [
+      261,
+      1283,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "국고금",
+     "aria": null,
+     "img": "국고금 로고",
+     "rect": [
+      14,
+      1380,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "관세",
+     "aria": null,
+     "img": "관세 로고",
+     "rect": [
+      138,
+      1380,
+      115,
+      88
+     ],
+     "pinned": false
+    }
+   ],
+   "state": "bank",
+   "via": "정답 걸음 5",
+   "also": [],
+   "task_buttons": [
+    {
+     "action": "pick-bank",
+     "id": null,
+     "text": "신한",
+     "aria": null,
+     "img": "신한 로고",
+     "rect": [
+      14,
+      216,
+      115,
+      88
+     ],
+     "pinned": false,
+     "selector": "[data-action='pick-bank'][data-bank='{BANK}']",
+     "path": "main"
+    }
+   ]
+  },
+  {
+   "screen": "bank",
+   "texts": [
+    "4:31",
+    "67",
+    "은행 또는 증권사 선택",
+    "✕",
+    "은행",
+    "증권사",
+    "신한투자증권",
+    "교보증권",
+    "다올투자증권",
+    "대신증권",
+    "메리츠증권",
+    "미래에셋증권",
+    "부국증권",
+    "삼성증권",
+    "상상인증권",
+    "신영증권",
+    "에스케이증권",
+    "유안타증권",
+    "유진투자증권",
+    "LS증권",
+    "카카오페이증권",
+    "케이프투자증권",
+    "키움증권",
+    "토스증권",
+    "우리투자증권",
+    "하나증권",
+    "아이엠증권",
+    "한국투자증권",
+    "한화투자증권",
+    "현대차증권",
+    "BNK투자증권",
+    "DB증권",
+    "IBK투자증권",
+    "KB증권",
+    "NH투자증권"
+   ],
+   "entrances": [],
+   "image_slots": [
+    {
+     "label": "신한투자증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      233,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "교보증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      233,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "다올투자증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      233,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "대신증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      330,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "메리츠증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      330,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "미래에셋증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      330,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "부국증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      427,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "삼성증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      427,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "상상인증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      427,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "신영증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      524,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "에스케이증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      524,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "유안타증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      524,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "유진투자증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      621,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "LS증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      621,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "카카오페이증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      621,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "케이프투자증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      718,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "키움증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      718,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "토스증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      718,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "우리투자증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      815,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "하나증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      815,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "아이엠증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      815,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "한국투자증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      912,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "한화투자증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      912,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "현대차증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      912,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "BNK투자증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      1009,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "DB증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      1009,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "IBK투자증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      303,
+      1009,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "KB증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      55,
+      1106,
+      32,
+      32
+     ],
+     "pinned": false
+    },
+    {
+     "label": "NH투자증권 로고",
+     "action": "pick-bank",
+     "rect": [
+      179,
+      1106,
+      32,
+      32
+     ],
+     "pinned": false
+    }
+   ],
+   "choices": {
+    "pick-bank": [
+     "신한투자증권",
+     "교보증권",
+     "다올투자증권",
+     "대신증권",
+     "메리츠증권",
+     "미래에셋증권",
+     "부국증권",
+     "삼성증권",
+     "상상인증권",
+     "신영증권",
+     "에스케이증권",
+     "유안타증권",
+     "유진투자증권",
+     "LS증권",
+     "카카오페이증권",
+     "케이프투자증권",
+     "키움증권",
+     "토스증권",
+     "우리투자증권",
+     "하나증권",
+     "아이엠증권",
+     "한국투자증권",
+     "한화투자증권",
+     "현대차증권",
+     "BNK투자증권",
+     "DB증권",
+     "IBK투자증권",
+     "KB증권",
+     "NH투자증권"
+    ]
+   },
+   "choice_items": {
+    "pick-bank": [
+     {
+      "value": "신한투자증권",
+      "text": "신한투자증권",
+      "rect": [
+       14,
+       216,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "교보증권",
+      "text": "교보증권",
+      "rect": [
+       138,
+       216,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "다올투자증권",
+      "text": "다올투자증권",
+      "rect": [
+       261,
+       216,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "대신증권",
+      "text": "대신증권",
+      "rect": [
+       14,
+       313,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "메리츠증권",
+      "text": "메리츠증권",
+      "rect": [
+       138,
+       313,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "미래에셋증권",
+      "text": "미래에셋증권",
+      "rect": [
+       261,
+       313,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "부국증권",
+      "text": "부국증권",
+      "rect": [
+       14,
+       410,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "삼성증권",
+      "text": "삼성증권",
+      "rect": [
+       138,
+       410,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "상상인증권",
+      "text": "상상인증권",
+      "rect": [
+       261,
+       410,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "신영증권",
+      "text": "신영증권",
+      "rect": [
+       14,
+       507,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "에스케이증권",
+      "text": "에스케이증권",
+      "rect": [
+       138,
+       507,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "유안타증권",
+      "text": "유안타증권",
+      "rect": [
+       261,
+       507,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "유진투자증권",
+      "text": "유진투자증권",
+      "rect": [
+       14,
+       604,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "LS증권",
+      "text": "LS증권",
+      "rect": [
+       138,
+       604,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "카카오페이증권",
+      "text": "카카오페이증권",
+      "rect": [
+       261,
+       604,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "케이프투자증권",
+      "text": "케이프투자증권",
+      "rect": [
+       14,
+       701,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "키움증권",
+      "text": "키움증권",
+      "rect": [
+       138,
+       701,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "토스증권",
+      "text": "토스증권",
+      "rect": [
+       261,
+       701,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "우리투자증권",
+      "text": "우리투자증권",
+      "rect": [
+       14,
+       798,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "하나증권",
+      "text": "하나증권",
+      "rect": [
+       138,
+       798,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "아이엠증권",
+      "text": "아이엠증권",
+      "rect": [
+       261,
+       798,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "한국투자증권",
+      "text": "한국투자증권",
+      "rect": [
+       14,
+       895,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "한화투자증권",
+      "text": "한화투자증권",
+      "rect": [
+       138,
+       895,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "현대차증권",
+      "text": "현대차증권",
+      "rect": [
+       261,
+       895,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "BNK투자증권",
+      "text": "BNK투자증권",
+      "rect": [
+       14,
+       992,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "DB증권",
+      "text": "DB증권",
+      "rect": [
+       138,
+       992,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "IBK투자증권",
+      "text": "IBK투자증권",
+      "rect": [
+       261,
+       992,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "KB증권",
+      "text": "KB증권",
+      "rect": [
+       14,
+       1089,
+       115,
+       88
+      ],
+      "pinned": false
+     },
+     {
+      "value": "NH투자증권",
+      "text": "NH투자증권",
+      "rect": [
+       138,
+       1089,
+       115,
+       88
+      ],
+      "pinned": false
+     }
+    ]
+   },
+   "fields": [],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "은행 또는 증권사 선택",
+     "rect": [
+      20,
+      116,
+      171,
+      23
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      357,
+      117,
+      13,
+      21
+     ],
+     "pinned": true
+    },
+    {
+     "text": "은행",
+     "rect": [
+      83,
+      166,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "증권사",
+     "rect": [
+      270,
+      166,
+      45,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "신한투자증권",
+     "rect": [
+      35,
+      272,
+      72,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "교보증권",
+     "rect": [
+      171,
+      272,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "다올투자증권",
+     "rect": [
+      283,
+      272,
+      72,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "대신증권",
+     "rect": [
+      47,
+      369,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "메리츠증권",
+     "rect": [
+      165,
+      369,
+      60,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "미래에셋증권",
+     "rect": [
+      283,
+      369,
+      72,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "부국증권",
+     "rect": [
+      47,
+      466,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "삼성증권",
+     "rect": [
+      171,
+      466,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "상상인증권",
+     "rect": [
+      289,
+      466,
+      60,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "신영증권",
+     "rect": [
+      47,
+      563,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "에스케이증권",
+     "rect": [
+      159,
+      563,
+      72,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "유안타증권",
+     "rect": [
+      289,
+      563,
+      60,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "유진투자증권",
+     "rect": [
+      35,
+      660,
+      72,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "LS증권",
+     "rect": [
+      177,
+      660,
+      37,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "카카오페이증권",
+     "rect": [
+      277,
+      660,
+      84,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "케이프투자증권",
+     "rect": [
+      29,
+      757,
+      84,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "키움증권",
+     "rect": [
+      171,
+      757,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "토스증권",
+     "rect": [
+      295,
+      757,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "우리투자증권",
+     "rect": [
+      35,
+      854,
+      72,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "하나증권",
+     "rect": [
+      171,
+      854,
+      48,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "아이엠증권",
+     "rect": [
+      289,
+      854,
+      60,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "한국투자증권",
+     "rect": [
+      35,
+      951,
+      72,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "한화투자증권",
+     "rect": [
+      159,
+      951,
+      72,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "현대차증권",
+     "rect": [
+      289,
+      951,
+      60,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "BNK투자증권",
+     "rect": [
+      35,
+      1048,
+      73,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "DB증권",
+     "rect": [
+      175,
+      1048,
+      41,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "IBK투자증권",
+     "rect": [
+      285,
+      1048,
+      67,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "KB증권",
+     "rect": [
+      52,
+      1145,
+      39,
+      16
+     ],
+     "pinned": false
+    },
+    {
+     "text": "NH투자증권",
+     "rect": [
+      162,
+      1145,
+      67,
+      16
+     ],
+     "pinned": false
+    }
+   ],
+   "actions": [
+    {
+     "action": "close-bank",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      357,
+      117,
+      13,
+      21
+     ],
+     "pinned": true
+    },
+    {
+     "action": "tab-bank",
+     "text": "은행",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      153,
+      195,
+      48
+     ],
+     "pinned": true
+    },
+    {
+     "action": "tab-sec",
+     "text": "증권사",
+     "aria": null,
+     "img": null,
+     "rect": [
+      195,
+      153,
+      195,
+      48
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pick-bank",
+     "text": "신한투자증권",
+     "aria": null,
+     "img": "신한투자증권 로고",
+     "rect": [
+      14,
+      216,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "교보증권",
+     "aria": null,
+     "img": "교보증권 로고",
+     "rect": [
+      138,
+      216,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "다올투자증권",
+     "aria": null,
+     "img": "다올투자증권 로고",
+     "rect": [
+      261,
+      216,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "대신증권",
+     "aria": null,
+     "img": "대신증권 로고",
+     "rect": [
+      14,
+      313,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "메리츠증권",
+     "aria": null,
+     "img": "메리츠증권 로고",
+     "rect": [
+      138,
+      313,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "미래에셋증권",
+     "aria": null,
+     "img": "미래에셋증권 로고",
+     "rect": [
+      261,
+      313,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "부국증권",
+     "aria": null,
+     "img": "부국증권 로고",
+     "rect": [
+      14,
+      410,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "삼성증권",
+     "aria": null,
+     "img": "삼성증권 로고",
+     "rect": [
+      138,
+      410,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "상상인증권",
+     "aria": null,
+     "img": "상상인증권 로고",
+     "rect": [
+      261,
+      410,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "신영증권",
+     "aria": null,
+     "img": "신영증권 로고",
+     "rect": [
+      14,
+      507,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "에스케이증권",
+     "aria": null,
+     "img": "에스케이증권 로고",
+     "rect": [
+      138,
+      507,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "유안타증권",
+     "aria": null,
+     "img": "유안타증권 로고",
+     "rect": [
+      261,
+      507,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "유진투자증권",
+     "aria": null,
+     "img": "유진투자증권 로고",
+     "rect": [
+      14,
+      604,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "LS증권",
+     "aria": null,
+     "img": "LS증권 로고",
+     "rect": [
+      138,
+      604,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "카카오페이증권",
+     "aria": null,
+     "img": "카카오페이증권 로고",
+     "rect": [
+      261,
+      604,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "케이프투자증권",
+     "aria": null,
+     "img": "케이프투자증권 로고",
+     "rect": [
+      14,
+      701,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "키움증권",
+     "aria": null,
+     "img": "키움증권 로고",
+     "rect": [
+      138,
+      701,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "토스증권",
+     "aria": null,
+     "img": "토스증권 로고",
+     "rect": [
+      261,
+      701,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "우리투자증권",
+     "aria": null,
+     "img": "우리투자증권 로고",
+     "rect": [
+      14,
+      798,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "하나증권",
+     "aria": null,
+     "img": "하나증권 로고",
+     "rect": [
+      138,
+      798,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "아이엠증권",
+     "aria": null,
+     "img": "아이엠증권 로고",
+     "rect": [
+      261,
+      798,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "한국투자증권",
+     "aria": null,
+     "img": "한국투자증권 로고",
+     "rect": [
+      14,
+      895,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "한화투자증권",
+     "aria": null,
+     "img": "한화투자증권 로고",
+     "rect": [
+      138,
+      895,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "현대차증권",
+     "aria": null,
+     "img": "현대차증권 로고",
+     "rect": [
+      261,
+      895,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "BNK투자증권",
+     "aria": null,
+     "img": "BNK투자증권 로고",
+     "rect": [
+      14,
+      992,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "DB증권",
+     "aria": null,
+     "img": "DB증권 로고",
+     "rect": [
+      138,
+      992,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "IBK투자증권",
+     "aria": null,
+     "img": "IBK투자증권 로고",
+     "rect": [
+      261,
+      992,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "KB증권",
+     "aria": null,
+     "img": "KB증권 로고",
+     "rect": [
+      14,
+      1089,
+      115,
+      88
+     ],
+     "pinned": false
+    },
+    {
+     "action": "pick-bank",
+     "text": "NH투자증권",
+     "aria": null,
+     "img": "NH투자증권 로고",
+     "rect": [
+      138,
+      1089,
+      115,
+      88
+     ],
+     "pinned": false
+    }
+   ],
+   "state": "bank+tab-sec",
+   "via": "은행 시트에서 [증권사] 탭을 누른 뒤 (흐름 밖)",
+   "also": [],
+   "task_buttons": []
+  },
+  {
+   "screen": "account",
+   "texts": [
+    "4:31",
+    "67",
+    "‹",
+    "✕",
+    "누구에게 보낼까요?",
+    "계좌번호",
+    "신한",
+    "⌄",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "⌫",
+    "다음",
+    "없이 숫자만 입력"
+   ],
+   "entrances": [],
+   "image_slots": [],
+   "choices": {
+    "acc-num": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "0"
+    ]
+   },
+   "choice_items": {
+    "acc-num": [
+     {
+      "value": "1",
+      "text": "1",
+      "rect": [
+       0,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "2",
+      "text": "2",
+      "rect": [
+       130,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "3",
+      "text": "3",
+      "rect": [
+       260,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "4",
+      "text": "4",
+      "rect": [
+       0,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "5",
+      "text": "5",
+      "rect": [
+       130,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "6",
+      "text": "6",
+      "rect": [
+       260,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "7",
+      "text": "7",
+      "rect": [
+       0,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "8",
+      "text": "8",
+      "rect": [
+       130,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "9",
+      "text": "9",
+      "rect": [
+       260,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "0",
+      "text": "0",
+      "rect": [
+       130,
+       693,
+       130,
+       66
+      ],
+      "pinned": true
+     }
+    ]
+   },
+   "fields": [
+    {
+     "selector": "#acc-field",
+     "id": "acc-field",
+     "text": "계좌번호",
+     "placeholder": "없이 숫자만 입력",
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true
+    }
+   ],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "‹",
+     "rect": [
+      28,
+      56,
+      7,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      349,
+      55,
+      18,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "누구에게 보낼까요?",
+     "rect": [
+      20,
+      102,
+      220,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "계좌번호",
+     "rect": [
+      37,
+      166,
+      52,
+      17
+     ],
+     "pinned": true
+    },
+    {
+     "text": "신한",
+     "rect": [
+      36,
+      260,
+      38,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "⌄",
+     "rect": [
+      343,
+      259,
+      11,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "1",
+     "rect": [
+      58,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "2",
+     "rect": [
+      188,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "3",
+     "rect": [
+      318,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "4",
+     "rect": [
+      58,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "5",
+     "rect": [
+      188,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "6",
+     "rect": [
+      318,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "7",
+     "rect": [
+      58,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "8",
+     "rect": [
+      188,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "9",
+     "rect": [
+      318,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "0",
+     "rect": [
+      188,
+      710,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "⌫",
+     "rect": [
+      309,
+      710,
+      32,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "다음",
+     "rect": [
+      178,
+      786,
+      34,
+      23
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "back-recipient",
+     "text": "‹",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "close-account",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      342,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-field",
+     "text": "계좌번호",
+     "aria": null,
+     "img": null,
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true
+    },
+    {
+     "action": "open-bank",
+     "text": "신한 ⌄",
+     "aria": null,
+     "img": null,
+     "rect": [
+      20,
+      241,
+      350,
+      63
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "1",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "2",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "3",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "4",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "5",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "6",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "7",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "8",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "9",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "0",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-del",
+     "text": "⌫",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "account-next",
+     "text": "다음",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "amount~1",
+   "via": "정답 걸음 6 의 동작 1 뒤",
+   "also": [],
+   "task_buttons": []
+  },
+  {
+   "screen": "account",
+   "texts": [
+    "4:31",
+    "67",
+    "‹",
+    "✕",
+    "누구에게 보낼까요?",
+    "계좌번호",
+    "110234567890",
+    "ⓧ",
+    "신한",
+    "⌄",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "⌫",
+    "다음"
+   ],
+   "entrances": [],
+   "image_slots": [],
+   "choices": {
+    "acc-num": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "0"
+    ]
+   },
+   "choice_items": {
+    "acc-num": [
+     {
+      "value": "1",
+      "text": "1",
+      "rect": [
+       0,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "2",
+      "text": "2",
+      "rect": [
+       130,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "3",
+      "text": "3",
+      "rect": [
+       260,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "4",
+      "text": "4",
+      "rect": [
+       0,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "5",
+      "text": "5",
+      "rect": [
+       130,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "6",
+      "text": "6",
+      "rect": [
+       260,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "7",
+      "text": "7",
+      "rect": [
+       0,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "8",
+      "text": "8",
+      "rect": [
+       130,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "9",
+      "text": "9",
+      "rect": [
+       260,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "0",
+      "text": "0",
+      "rect": [
+       130,
+       693,
+       130,
+       66
+      ],
+      "pinned": true
+     }
+    ]
+   },
+   "fields": [
+    {
+     "selector": "#acc-field",
+     "id": "acc-field",
+     "text": "계좌번호 110234567890 ⓧ",
+     "placeholder": null,
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true
+    }
+   ],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "‹",
+     "rect": [
+      28,
+      56,
+      7,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      349,
+      55,
+      18,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "누구에게 보낼까요?",
+     "rect": [
+      20,
+      102,
+      220,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "계좌번호",
+     "rect": [
+      37,
+      166,
+      52,
+      17
+     ],
+     "pinned": true
+    },
+    {
+     "text": "110234567890",
+     "rect": [
+      37,
+      186,
+      146,
+      28
+     ],
+     "pinned": true
+    },
+    {
+     "text": "ⓧ",
+     "rect": [
+      329,
+      187,
+      20,
+      27
+     ],
+     "pinned": true
+    },
+    {
+     "text": "신한",
+     "rect": [
+      36,
+      260,
+      38,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "⌄",
+     "rect": [
+      343,
+      259,
+      11,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "1",
+     "rect": [
+      58,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "2",
+     "rect": [
+      188,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "3",
+     "rect": [
+      318,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "4",
+     "rect": [
+      58,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "5",
+     "rect": [
+      188,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "6",
+     "rect": [
+      318,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "7",
+     "rect": [
+      58,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "8",
+     "rect": [
+      188,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "9",
+     "rect": [
+      318,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "0",
+     "rect": [
+      188,
+      710,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "⌫",
+     "rect": [
+      309,
+      710,
+      32,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "다음",
+     "rect": [
+      178,
+      786,
+      34,
+      23
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "back-recipient",
+     "text": "‹",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "close-account",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      342,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-field",
+     "text": "계좌번호 110234567890 ⓧ",
+     "aria": null,
+     "img": null,
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-clear",
+     "text": "ⓧ",
+     "aria": null,
+     "img": null,
+     "rect": [
+      325,
+      187,
+      28,
+      27
+     ],
+     "pinned": true
+    },
+    {
+     "action": "open-bank",
+     "text": "신한 ⌄",
+     "aria": null,
+     "img": null,
+     "rect": [
+      20,
+      241,
+      350,
+      63
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "1",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "2",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "3",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "4",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "5",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "6",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "7",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "8",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "9",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-num",
+     "text": "0",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "acc-del",
+     "text": "⌫",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "account-next",
+     "text": "다음",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "amount~2",
+   "via": "정답 걸음 6 의 동작 2 뒤",
+   "also": [],
+   "task_buttons": [
+    {
+     "action": "account-next",
+     "id": "acc-next",
+     "text": "다음",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true,
+     "selector": "#acc-next",
+     "path": "main"
+    }
+   ]
+  },
+  {
+   "screen": "amount",
+   "texts": [
+    "4:31",
+    "67",
+    "‹",
+    "✕",
+    "[금융거래한도계좌2]신한 주거래 우대통장 계좌에서 ⌄",
+    "아래 계좌로",
+    "신한 110234567890",
+    "얼마를 보낼까요?",
+    "출금가능금액 1,000,000원",
+    "+1만",
+    "+5만",
+    "+10만",
+    "전액",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "00",
+    "0",
+    "⌫",
+    "다음"
+   ],
+   "entrances": [
+    {
+     "action": "oos-from-account",
+     "text": "[금융거래한도계좌2]신한 주거래 우대통장 계좌에서 ⌄",
+     "aria": "출금계좌 변경",
+     "rect": [
+      20,
+      103,
+      339,
+      45
+     ],
+     "pinned": true
+    }
+   ],
+   "image_slots": [],
+   "choices": {
+    "quick": [
+     "10000",
+     "50000",
+     "100000",
+     "all"
+    ],
+    "num": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "00",
+     "0"
+    ]
+   },
+   "choice_items": {
+    "num": [
+     {
+      "value": "1",
+      "text": "1",
+      "rect": [
+       0,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "2",
+      "text": "2",
+      "rect": [
+       130,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "3",
+      "text": "3",
+      "rect": [
+       260,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "4",
+      "text": "4",
+      "rect": [
+       0,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "5",
+      "text": "5",
+      "rect": [
+       130,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "6",
+      "text": "6",
+      "rect": [
+       260,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "7",
+      "text": "7",
+      "rect": [
+       0,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "8",
+      "text": "8",
+      "rect": [
+       130,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "9",
+      "text": "9",
+      "rect": [
+       260,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "00",
+      "text": "00",
+      "rect": [
+       0,
+       693,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "0",
+      "text": "0",
+      "rect": [
+       130,
+       693,
+       130,
+       66
+      ],
+      "pinned": true
+     }
+    ],
+    "quick": [
+     {
+      "value": "10000",
+      "text": "+1만",
+      "rect": [
+       16,
+       443,
+       84,
+       40
+      ],
+      "pinned": true
+     },
+     {
+      "value": "50000",
+      "text": "+5만",
+      "rect": [
+       108,
+       443,
+       84,
+       40
+      ],
+      "pinned": true
+     },
+     {
+      "value": "100000",
+      "text": "+10만",
+      "rect": [
+       199,
+       443,
+       84,
+       40
+      ],
+      "pinned": true
+     },
+     {
+      "value": "all",
+      "text": "전액",
+      "rect": [
+       291,
+       443,
+       84,
+       40
+      ],
+      "pinned": true
+     }
+    ]
+   },
+   "fields": [
+    {
+     "selector": "#amt-display",
+     "id": "amt-display",
+     "text": "얼마를 보낼까요?",
+     "placeholder": null,
+     "rect": [
+      0,
+      236,
+      390,
+      36
+     ],
+     "pinned": true
+    }
+   ],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "‹",
+     "rect": [
+      28,
+      56,
+      7,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      349,
+      55,
+      18,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "[금융거래한도계좌2]신한 주거래 우대통장 계좌에서 ⌄",
+     "rect": [
+      20,
+      103,
+      339,
+      45
+     ],
+     "pinned": true
+    },
+    {
+     "text": "아래 계좌로",
+     "rect": [
+      20,
+      151,
+      86,
+      21
+     ],
+     "pinned": true
+    },
+    {
+     "text": "신한",
+     "rect": [
+      20,
+      177,
+      28,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "110234567890",
+     "rect": [
+      53,
+      177,
+      93,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "얼마를 보낼까요?",
+     "rect": [
+      90,
+      236,
+      211,
+      36
+     ],
+     "pinned": true
+    },
+    {
+     "text": "출금가능금액",
+     "rect": [
+      113,
+      284,
+      89,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "1,000,000",
+     "rect": [
+      202,
+      284,
+      60,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "원",
+     "rect": [
+      263,
+      284,
+      14,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "+1만",
+     "rect": [
+      42,
+      454,
+      32,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "+5만",
+     "rect": [
+      133,
+      454,
+      32,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "+10만",
+     "rect": [
+      221,
+      454,
+      39,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "전액",
+     "rect": [
+      318,
+      454,
+      28,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "1",
+     "rect": [
+      58,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "2",
+     "rect": [
+      188,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "3",
+     "rect": [
+      318,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "4",
+     "rect": [
+      58,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "5",
+     "rect": [
+      188,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "6",
+     "rect": [
+      318,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "7",
+     "rect": [
+      58,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "8",
+     "rect": [
+      188,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "9",
+     "rect": [
+      318,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "00",
+     "rect": [
+      51,
+      710,
+      28,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "0",
+     "rect": [
+      188,
+      710,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "⌫",
+     "rect": [
+      309,
+      710,
+      32,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "다음",
+     "rect": [
+      178,
+      786,
+      34,
+      23
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "back-account",
+     "text": "‹",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "back-home",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      342,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-from-account",
+     "text": "[금융거래한도계좌2]신한 주거래 우대통장 계좌에서 ⌄",
+     "aria": "출금계좌 변경",
+     "img": null,
+     "rect": [
+      20,
+      103,
+      339,
+      45
+     ],
+     "pinned": true
+    },
+    {
+     "action": "quick",
+     "text": "+1만",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      443,
+      84,
+      40
+     ],
+     "pinned": true
+    },
+    {
+     "action": "quick",
+     "text": "+5만",
+     "aria": null,
+     "img": null,
+     "rect": [
+      108,
+      443,
+      84,
+      40
+     ],
+     "pinned": true
+    },
+    {
+     "action": "quick",
+     "text": "+10만",
+     "aria": null,
+     "img": null,
+     "rect": [
+      199,
+      443,
+      84,
+      40
+     ],
+     "pinned": true
+    },
+    {
+     "action": "quick",
+     "text": "전액",
+     "aria": null,
+     "img": null,
+     "rect": [
+      291,
+      443,
+      84,
+      40
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "1",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "2",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "3",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "4",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "5",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "6",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "7",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "8",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "9",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "00",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "0",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "del",
+     "text": "⌫",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "amount-next",
+     "text": "다음",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "amount",
+   "via": "정답 걸음 6",
+   "also": [],
+   "task_buttons": []
+  },
+  {
+   "screen": "amount",
+   "texts": [
+    "4:31",
+    "67",
+    "‹",
+    "✕",
+    "[금융거래한도계좌2]신한 주거래 우대통장 계좌에서 ⌄",
+    "아래 계좌로",
+    "신한 110234567890",
+    "32,000원",
+    "출금가능금액 1,000,000원",
+    "+1만",
+    "+5만",
+    "+10만",
+    "전액",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "00",
+    "0",
+    "⌫",
+    "다음"
+   ],
+   "entrances": [
+    {
+     "action": "oos-from-account",
+     "text": "[금융거래한도계좌2]신한 주거래 우대통장 계좌에서 ⌄",
+     "aria": "출금계좌 변경",
+     "rect": [
+      20,
+      103,
+      339,
+      45
+     ],
+     "pinned": true
+    }
+   ],
+   "image_slots": [],
+   "choices": {
+    "quick": [
+     "10000",
+     "50000",
+     "100000",
+     "all"
+    ],
+    "num": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "00",
+     "0"
+    ]
+   },
+   "choice_items": {
+    "num": [
+     {
+      "value": "1",
+      "text": "1",
+      "rect": [
+       0,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "2",
+      "text": "2",
+      "rect": [
+       130,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "3",
+      "text": "3",
+      "rect": [
+       260,
+       495,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "4",
+      "text": "4",
+      "rect": [
+       0,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "5",
+      "text": "5",
+      "rect": [
+       130,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "6",
+      "text": "6",
+      "rect": [
+       260,
+       561,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "7",
+      "text": "7",
+      "rect": [
+       0,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "8",
+      "text": "8",
+      "rect": [
+       130,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "9",
+      "text": "9",
+      "rect": [
+       260,
+       627,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "00",
+      "text": "00",
+      "rect": [
+       0,
+       693,
+       130,
+       66
+      ],
+      "pinned": true
+     },
+     {
+      "value": "0",
+      "text": "0",
+      "rect": [
+       130,
+       693,
+       130,
+       66
+      ],
+      "pinned": true
+     }
+    ],
+    "quick": [
+     {
+      "value": "10000",
+      "text": "+1만",
+      "rect": [
+       16,
+       443,
+       84,
+       40
+      ],
+      "pinned": true
+     },
+     {
+      "value": "50000",
+      "text": "+5만",
+      "rect": [
+       108,
+       443,
+       84,
+       40
+      ],
+      "pinned": true
+     },
+     {
+      "value": "100000",
+      "text": "+10만",
+      "rect": [
+       199,
+       443,
+       84,
+       40
+      ],
+      "pinned": true
+     },
+     {
+      "value": "all",
+      "text": "전액",
+      "rect": [
+       291,
+       443,
+       84,
+       40
+      ],
+      "pinned": true
+     }
+    ]
+   },
+   "fields": [
+    {
+     "selector": "#amt-display",
+     "id": "amt-display",
+     "text": "32,000원",
+     "placeholder": null,
+     "rect": [
+      0,
+      236,
+      390,
+      36
+     ],
+     "pinned": true
+    }
+   ],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "‹",
+     "rect": [
+      28,
+      56,
+      7,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      349,
+      55,
+      18,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "[금융거래한도계좌2]신한 주거래 우대통장 계좌에서 ⌄",
+     "rect": [
+      20,
+      103,
+      339,
+      45
+     ],
+     "pinned": true
+    },
+    {
+     "text": "아래 계좌로",
+     "rect": [
+      20,
+      151,
+      86,
+      21
+     ],
+     "pinned": true
+    },
+    {
+     "text": "신한",
+     "rect": [
+      20,
+      177,
+      28,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "110234567890",
+     "rect": [
+      53,
+      177,
+      93,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "32,000원",
+     "rect": [
+      139,
+      236,
+      112,
+      36
+     ],
+     "pinned": true
+    },
+    {
+     "text": "출금가능금액",
+     "rect": [
+      113,
+      284,
+      89,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "1,000,000",
+     "rect": [
+      202,
+      284,
+      60,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "원",
+     "rect": [
+      263,
+      284,
+      14,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "+1만",
+     "rect": [
+      42,
+      454,
+      32,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "+5만",
+     "rect": [
+      133,
+      454,
+      32,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "+10만",
+     "rect": [
+      221,
+      454,
+      39,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "전액",
+     "rect": [
+      318,
+      454,
+      28,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "1",
+     "rect": [
+      58,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "2",
+     "rect": [
+      188,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "3",
+     "rect": [
+      318,
+      512,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "4",
+     "rect": [
+      58,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "5",
+     "rect": [
+      188,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "6",
+     "rect": [
+      318,
+      578,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "7",
+     "rect": [
+      58,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "8",
+     "rect": [
+      188,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "9",
+     "rect": [
+      318,
+      644,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "00",
+     "rect": [
+      51,
+      710,
+      28,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "0",
+     "rect": [
+      188,
+      710,
+      14,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "⌫",
+     "rect": [
+      309,
+      710,
+      32,
+      33
+     ],
+     "pinned": true
+    },
+    {
+     "text": "다음",
+     "rect": [
+      178,
+      786,
+      34,
+      23
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "back-account",
+     "text": "‹",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "back-home",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      342,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-from-account",
+     "text": "[금융거래한도계좌2]신한 주거래 우대통장 계좌에서 ⌄",
+     "aria": "출금계좌 변경",
+     "img": null,
+     "rect": [
+      20,
+      103,
+      339,
+      45
+     ],
+     "pinned": true
+    },
+    {
+     "action": "quick",
+     "text": "+1만",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      443,
+      84,
+      40
+     ],
+     "pinned": true
+    },
+    {
+     "action": "quick",
+     "text": "+5만",
+     "aria": null,
+     "img": null,
+     "rect": [
+      108,
+      443,
+      84,
+      40
+     ],
+     "pinned": true
+    },
+    {
+     "action": "quick",
+     "text": "+10만",
+     "aria": null,
+     "img": null,
+     "rect": [
+      199,
+      443,
+      84,
+      40
+     ],
+     "pinned": true
+    },
+    {
+     "action": "quick",
+     "text": "전액",
+     "aria": null,
+     "img": null,
+     "rect": [
+      291,
+      443,
+      84,
+      40
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "1",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "2",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "3",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      495,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "4",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "5",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "6",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      561,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "7",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "8",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "9",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      627,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "00",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "num",
+     "text": "0",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "del",
+     "text": "⌫",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      693,
+      130,
+      66
+     ],
+     "pinned": true
+    },
+    {
+     "action": "amount-next",
+     "text": "다음",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "confirm~1",
+   "via": "정답 걸음 7 의 동작 1 뒤",
+   "also": [],
+   "task_buttons": [
+    {
+     "action": "amount-next",
+     "id": "amt-next",
+     "text": "다음",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true,
+     "selector": "#amt-next",
+     "path": "main"
+    }
+   ]
+  },
+  {
+   "screen": "confirm",
+   "texts": [
+    "4:31",
+    "67",
+    "‹",
+    "✕",
+    "아래 계좌로",
+    "32,000원 보낼까요?",
+    "수수료 무료",
+    "보내는 계좌",
+    "신한 110-000-000000",
+    "받는 계좌",
+    "신한 110234567890",
+    "받는분 메모",
+    "김철수 ✎",
+    "내통장 메모",
+    "보내기"
+   ],
+   "entrances": [],
+   "image_slots": [
+    {
+     "label": "신한 로고",
+     "action": null,
+     "rect": [
+      164,
+      140,
+      62,
+      62
+     ],
+     "pinned": true
+    }
+   ],
+   "choices": {},
+   "choice_items": {},
+   "fields": [],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "‹",
+     "rect": [
+      28,
+      56,
+      7,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      349,
+      55,
+      18,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "아래 계좌로",
+     "rect": [
+      133,
+      225,
+      123,
+      31
+     ],
+     "pinned": true
+    },
+    {
+     "text": "32,000",
+     "rect": [
+      92,
+      258,
+      73,
+      31
+     ],
+     "pinned": true
+    },
+    {
+     "text": "원 보낼까요?",
+     "rect": [
+      165,
+      258,
+      134,
+      31
+     ],
+     "pinned": true
+    },
+    {
+     "text": "수수료 무료",
+     "rect": [
+      158,
+      307,
+      75,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "보내는 계좌",
+     "rect": [
+      36,
+      384,
+      75,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "신한 110-000-000000",
+     "rect": [
+      212,
+      384,
+      142,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "받는 계좌",
+     "rect": [
+      36,
+      416,
+      61,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "신한",
+     "rect": [
+      224,
+      416,
+      28,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "110234567890",
+     "rect": [
+      257,
+      416,
+      97,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "받는분 메모",
+     "rect": [
+      36,
+      448,
+      75,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "김철수 ✎",
+     "rect": [
+      293,
+      448,
+      61,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "내통장 메모",
+     "rect": [
+      36,
+      481,
+      75,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "김철수 ✎",
+     "rect": [
+      293,
+      481,
+      61,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "보내기",
+     "rect": [
+      170,
+      781,
+      51,
+      23
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "back-amount",
+     "text": "‹",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "back-home",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      342,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "send",
+     "text": "보내기",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      763,
+      358,
+      59
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "confirm",
+   "via": "정답 걸음 7",
+   "also": [],
+   "task_buttons": [
+    {
+     "action": "send",
+     "id": null,
+     "text": "보내기",
+     "aria": null,
+     "img": null,
+     "rect": [
+      16,
+      763,
+      358,
+      59
+     ],
+     "pinned": true,
+     "selector": "[data-action='send']",
+     "path": "main"
+    }
+   ]
+  },
+  {
+   "screen": "password",
+   "texts": [
+    "4:31",
+    "67",
+    "✕",
+    "계좌 비밀번호",
+    "3",
+    "9",
+    "5",
+    "7",
+    "0",
+    "6",
+    "4",
+    "2",
+    "8",
+    "재배열",
+    "1",
+    "⌫"
+   ],
+   "entrances": [],
+   "image_slots": [],
+   "choices": {
+    "pw": [
+     "3",
+     "9",
+     "5",
+     "7",
+     "0",
+     "6",
+     "4",
+     "2",
+     "8",
+     "1"
+    ]
+   },
+   "choice_items": {
+    "pw": [
+     {
+      "value": "3",
+      "text": "3",
+      "rect": [
+       0,
+       460,
+       130,
+       96
+      ],
+      "pinned": true
+     },
+     {
+      "value": "9",
+      "text": "9",
+      "rect": [
+       130,
+       460,
+       130,
+       96
+      ],
+      "pinned": true
+     },
+     {
+      "value": "5",
+      "text": "5",
+      "rect": [
+       260,
+       460,
+       130,
+       96
+      ],
+      "pinned": true
+     },
+     {
+      "value": "7",
+      "text": "7",
+      "rect": [
+       0,
+       556,
+       130,
+       96
+      ],
+      "pinned": true
+     },
+     {
+      "value": "0",
+      "text": "0",
+      "rect": [
+       130,
+       556,
+       130,
+       96
+      ],
+      "pinned": true
+     },
+     {
+      "value": "6",
+      "text": "6",
+      "rect": [
+       260,
+       556,
+       130,
+       96
+      ],
+      "pinned": true
+     },
+     {
+      "value": "4",
+      "text": "4",
+      "rect": [
+       0,
+       652,
+       130,
+       96
+      ],
+      "pinned": true
+     },
+     {
+      "value": "2",
+      "text": "2",
+      "rect": [
+       130,
+       652,
+       130,
+       96
+      ],
+      "pinned": true
+     },
+     {
+      "value": "8",
+      "text": "8",
+      "rect": [
+       260,
+       652,
+       130,
+       96
+      ],
+      "pinned": true
+     },
+     {
+      "value": "1",
+      "text": "1",
+      "rect": [
+       130,
+       748,
+       130,
+       96
+      ],
+      "pinned": true
+     }
+    ]
+   },
+   "fields": [
+    {
+     "selector": "#pw-dots",
+     "id": "pw-dots",
+     "text": "",
+     "placeholder": null,
+     "rect": [
+      0,
+      237,
+      390,
+      17
+     ],
+     "pinned": true
+    }
+   ],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✕",
+     "rect": [
+      349,
+      55,
+      18,
+      29
+     ],
+     "pinned": true
+    },
+    {
+     "text": "계좌 비밀번호",
+     "rect": [
+      131,
+      184,
+      127,
+      27
+     ],
+     "pinned": true
+    },
+    {
+     "text": "3",
+     "rect": [
+      58,
+      491,
+      14,
+      34
+     ],
+     "pinned": true
+    },
+    {
+     "text": "9",
+     "rect": [
+      188,
+      491,
+      14,
+      34
+     ],
+     "pinned": true
+    },
+    {
+     "text": "5",
+     "rect": [
+      318,
+      491,
+      14,
+      34
+     ],
+     "pinned": true
+    },
+    {
+     "text": "7",
+     "rect": [
+      58,
+      587,
+      14,
+      34
+     ],
+     "pinned": true
+    },
+    {
+     "text": "0",
+     "rect": [
+      188,
+      587,
+      14,
+      34
+     ],
+     "pinned": true
+    },
+    {
+     "text": "6",
+     "rect": [
+      318,
+      587,
+      14,
+      34
+     ],
+     "pinned": true
+    },
+    {
+     "text": "4",
+     "rect": [
+      58,
+      683,
+      14,
+      34
+     ],
+     "pinned": true
+    },
+    {
+     "text": "2",
+     "rect": [
+      188,
+      683,
+      14,
+      34
+     ],
+     "pinned": true
+    },
+    {
+     "text": "8",
+     "rect": [
+      318,
+      683,
+      14,
+      34
+     ],
+     "pinned": true
+    },
+    {
+     "text": "재배열",
+     "rect": [
+      41,
+      786,
+      48,
+      21
+     ],
+     "pinned": true
+    },
+    {
+     "text": "1",
+     "rect": [
+      188,
+      779,
+      14,
+      34
+     ],
+     "pinned": true
+    },
+    {
+     "text": "⌫",
+     "rect": [
+      308,
+      779,
+      33,
+      34
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "back-home",
+     "text": "✕",
+     "aria": null,
+     "img": null,
+     "rect": [
+      342,
+      54,
+      32,
+      32
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw",
+     "text": "3",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      460,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw",
+     "text": "9",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      460,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw",
+     "text": "5",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      460,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw",
+     "text": "7",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      556,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw",
+     "text": "0",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      556,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw",
+     "text": "6",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      556,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw",
+     "text": "4",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      652,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw",
+     "text": "2",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      652,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw",
+     "text": "8",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      652,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw-shuffle",
+     "text": "재배열",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      748,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw",
+     "text": "1",
+     "aria": null,
+     "img": null,
+     "rect": [
+      130,
+      748,
+      130,
+      96
+     ],
+     "pinned": true
+    },
+    {
+     "action": "pw-del",
+     "text": "⌫",
+     "aria": null,
+     "img": null,
+     "rect": [
+      260,
+      748,
+      130,
+      96
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "password",
+   "via": "정답 걸음 8",
+   "also": [
+    "done~1",
+    "done~2",
+    "done~3"
+   ],
+   "task_buttons": []
+  },
+  {
+   "screen": "done",
+   "texts": [
+    "4:31",
+    "67",
+    "✓",
+    "아래 계좌로",
+    "32,000원 보냈어요.",
+    "추가이체",
+    "상세보기",
+    "공유",
+    "확인"
+   ],
+   "entrances": [
+    {
+     "action": "oos-detail",
+     "text": "상세보기",
+     "aria": "상세보기",
+     "rect": [
+      200,
+      301,
+      94,
+      42
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-more-transfer",
+     "text": "추가이체",
+     "aria": "추가이체",
+     "rect": [
+      97,
+      301,
+      94,
+      42
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-share",
+     "text": "공유",
+     "aria": "공유",
+     "rect": [
+      16,
+      763,
+      108,
+      59
+     ],
+     "pinned": true
+    }
+   ],
+   "image_slots": [],
+   "choices": {},
+   "choice_items": {},
+   "fields": [],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "✓",
+     "rect": [
+      183,
+      131,
+      23,
+      41
+     ],
+     "pinned": true
+    },
+    {
+     "text": "아래 계좌로",
+     "rect": [
+      133,
+      209,
+      123,
+      31
+     ],
+     "pinned": true
+    },
+    {
+     "text": "32,000",
+     "rect": [
+      94,
+      242,
+      73,
+      31
+     ],
+     "pinned": true
+    },
+    {
+     "text": "원 보냈어요.",
+     "rect": [
+      167,
+      242,
+      129,
+      31
+     ],
+     "pinned": true
+    },
+    {
+     "text": "추가이체",
+     "rect": [
+      116,
+      313,
+      56,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "상세보기",
+     "rect": [
+      219,
+      313,
+      56,
+      18
+     ],
+     "pinned": true
+    },
+    {
+     "text": "공유",
+     "rect": [
+      53,
+      781,
+      34,
+      23
+     ],
+     "pinned": true
+    },
+    {
+     "text": "확인",
+     "rect": [
+      237,
+      781,
+      34,
+      23
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "oos-more-transfer",
+     "text": "추가이체",
+     "aria": "추가이체",
+     "img": null,
+     "rect": [
+      97,
+      301,
+      94,
+      42
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-detail",
+     "text": "상세보기",
+     "aria": "상세보기",
+     "img": null,
+     "rect": [
+      200,
+      301,
+      94,
+      42
+     ],
+     "pinned": true
+    },
+    {
+     "action": "oos-share",
+     "text": "공유",
+     "aria": "공유",
+     "img": null,
+     "rect": [
+      16,
+      763,
+      108,
+      59
+     ],
+     "pinned": true
+    },
+    {
+     "action": "finish",
+     "text": "확인",
+     "aria": null,
+     "img": null,
+     "rect": [
+      133,
+      763,
+      241,
+      59
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "done",
+   "via": "정답 걸음 9",
+   "also": [],
+   "task_buttons": []
+  },
+  {
+   "screen": "err-account",
+   "texts": [
+    "4:31",
+    "67",
+    "ELB00016",
+    "계좌번호[110234567891]",
+    "입력하신 계좌번호가 올바르지 않습니다.",
+    "계좌번호를 확인하시기 바랍니다.",
+    "확인"
+   ],
+   "entrances": [],
+   "image_slots": [],
+   "choices": {},
+   "choice_items": {},
+   "fields": [],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "ELB00016",
+     "rect": [
+      50,
+      318,
+      87,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "계좌번호[",
+     "rect": [
+      50,
+      356,
+      73,
+      23
+     ],
+     "pinned": true
+    },
+    {
+     "text": "110234567891",
+     "rect": [
+      123,
+      356,
+      112,
+      23
+     ],
+     "pinned": true
+    },
+    {
+     "text": "]",
+     "rect": [
+      236,
+      356,
+      5,
+      23
+     ],
+     "pinned": true
+    },
+    {
+     "text": "입력하신 계좌번호가 올바르지 않습니다.",
+     "rect": [
+      50,
+      381,
+      233,
+      48
+     ],
+     "pinned": true
+    },
+    {
+     "text": "계좌번호를 확인하시기 바랍니다.",
+     "rect": [
+      50,
+      430,
+      254,
+      23
+     ],
+     "pinned": true
+    },
+    {
+     "text": "확인",
+     "rect": [
+      178,
+      493,
+      34,
+      23
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "close-error",
+     "text": "",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      0,
+      390,
+      844
+     ],
+     "pinned": true
+    },
+    {
+     "action": "close-error",
+     "text": "확인",
+     "aria": null,
+     "img": null,
+     "rect": [
+      50,
+      477,
+      290,
+      55
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "error:wrong-account",
+   "via": "오류 경로 wrong-account - 계좌번호가 틀렸다 (원본 오류 코드 ELB00016)",
+   "also": [],
+   "task_buttons": [
+    {
+     "action": "close-error",
+     "id": null,
+     "text": "확인",
+     "aria": null,
+     "img": null,
+     "rect": [
+      50,
+      477,
+      290,
+      55
+     ],
+     "pinned": true,
+     "selector": "[data-screen='err-account'] .ebtn",
+     "path": "error"
+    }
+   ]
+  },
+  {
+   "screen": "err-bank",
+   "texts": [
+    "4:31",
+    "67",
+    "ETA00325",
+    "해당 계좌번호내 과목코드 오류입니다.",
+    "입력하신 계좌번호를 확인해주세요.",
+    "확인"
+   ],
+   "entrances": [],
+   "image_slots": [],
+   "choices": {},
+   "choice_items": {},
+   "fields": [],
+   "anchors": [
+    {
+     "text": "4:31",
+     "rect": [
+      22,
+      12,
+      30,
+      20
+     ],
+     "pinned": true
+    },
+    {
+     "text": "67",
+     "rect": [
+      353,
+      14,
+      15,
+      16
+     ],
+     "pinned": true
+    },
+    {
+     "text": "ETA00325",
+     "rect": [
+      50,
+      331,
+      88,
+      26
+     ],
+     "pinned": true
+    },
+    {
+     "text": "해당 계좌번호내 과목코드 오류입니다.",
+     "rect": [
+      50,
+      369,
+      199,
+      48
+     ],
+     "pinned": true
+    },
+    {
+     "text": "입력하신 계좌번호를 확인해주세요.",
+     "rect": [
+      50,
+      418,
+      271,
+      23
+     ],
+     "pinned": true
+    },
+    {
+     "text": "확인",
+     "rect": [
+      178,
+      480,
+      34,
+      23
+     ],
+     "pinned": true
+    }
+   ],
+   "actions": [
+    {
+     "action": "close-error",
+     "text": "",
+     "aria": null,
+     "img": null,
+     "rect": [
+      0,
+      0,
+      390,
+      844
+     ],
+     "pinned": true
+    },
+    {
+     "action": "close-error",
+     "text": "확인",
+     "aria": null,
+     "img": null,
+     "rect": [
+      50,
+      464,
+      290,
+      55
+     ],
+     "pinned": true
+    }
+   ],
+   "state": "error:wrong-bank",
+   "via": "오류 경로 wrong-bank - 계좌번호는 맞는데 은행이 틀렸다 (원본 오류 코드 ETA00325)",
+   "also": [],
+   "task_buttons": [
+    {
+     "action": "close-error",
+     "id": null,
+     "text": "확인",
+     "aria": null,
+     "img": null,
+     "rect": [
+      50,
+      464,
+      290,
+      55
+     ],
+     "pinned": true,
+     "selector": "[data-screen='err-bank'] .ebtn",
+     "path": "error"
+    }
+   ]
+  }
+ ]
+}
