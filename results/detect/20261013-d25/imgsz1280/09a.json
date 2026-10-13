@@ -1,0 +1,371 @@
+{
+ "capture": "inputs/captures/transfer/09a.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    38,
+    22,
+    70,
+    38
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9966,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    703,
+    20,
+    83,
+    41
+   ],
+   "text": "767",
+   "caption": null,
+   "score": 0.7493,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    253,
+    591,
+    316,
+    69
+   ],
+   "text": "계좌 비밀번호",
+   "caption": null,
+   "score": 0.9884,
+   "in_box": null
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    116,
+    1282,
+    41,
+    55
+   ],
+   "text": "8",
+   "caption": null,
+   "score": 0.9988,
+   "in_box": null
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    393,
+    1283,
+    37,
+    51
+   ],
+   "text": "0",
+   "caption": null,
+   "score": 0.9962,
+   "in_box": null
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    667,
+    1282,
+    40,
+    55
+   ],
+   "text": "6",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": null
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    115,
+    1425,
+    45,
+    56
+   ],
+   "text": "2",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": null
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    395,
+    1430,
+    28,
+    48
+   ],
+   "text": "1",
+   "caption": null,
+   "score": 0.9984,
+   "in_box": null
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    667,
+    1427,
+    41,
+    52
+   ],
+   "text": "4",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": null
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    118,
+    1571,
+    40,
+    53
+   ],
+   "text": "5",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": null
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    391,
+    1570,
+    41,
+    53
+   ],
+   "text": "9",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    666,
+    1570,
+    41,
+    55
+   ],
+   "text": "3",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": null
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    84,
+    1720,
+    104,
+    47
+   ],
+   "text": "재배열",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": null
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    388,
+    1715,
+    42,
+    52
+   ],
+   "text": "7",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    748,
+    88,
+    32,
+    33
+   ],
+   "text": null,
+   "caption": "closing or cancel a window or dialog.",
+   "score": 0.6333,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    672,
+    28,
+    29,
+    27
+   ],
+   "text": null,
+   "caption": "a play button.",
+   "score": 0.4426,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    661,
+    1722,
+    52,
+    40
+   ],
+   "text": null,
+   "caption": "Close or delete action.",
+   "score": 0.2134,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    252,
+    736,
+    43,
+    42
+   ],
+   "text": null,
+   "caption": "a loading or buffering indicator.",
+   "score": 0.1646,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    528,
+    736,
+    42,
+    42
+   ],
+   "text": null,
+   "caption": "a loading or buffering indicator.",
+   "score": 0.1417,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    344,
+    736,
+    43,
+    43
+   ],
+   "text": null,
+   "caption": "a loading or buffering indicator.",
+   "score": 0.1366,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    436,
+    736,
+    43,
+    42
+   ],
+   "text": null,
+   "caption": "a loading or buffering indicator.",
+   "score": 0.1097,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    45,
+    119,
+    743,
+    421
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.0901,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    39,
+    808,
+    735,
+    406
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.0812,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9111,
+   "box": [
+    741,
+    80,
+    48,
+    49
+   ],
+   "into": "b0"
+  }
+ ]
+}

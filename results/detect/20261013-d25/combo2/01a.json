@@ -1,0 +1,910 @@
+{
+ "capture": "inputs/captures/transfer/01a.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    38,
+    22,
+    69,
+    37
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9991,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    744,
+    23,
+    40,
+    33
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9991,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    49,
+    93,
+    35,
+    40
+   ],
+   "text": "C",
+   "caption": null,
+   "score": 0.9838,
+   "in_box": "b8"
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    110,
+    87,
+    170,
+    57
+   ],
+   "text": "홍길동님",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b8"
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    61,
+    228,
+    95,
+    63
+   ],
+   "text": "자산",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b10"
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    180,
+    318,
+    408,
+    40
+   ],
+   "text": "[금융거래한도계좌2]신한 주거",
+   "caption": null,
+   "score": 0.9952,
+   "in_box": "b10"
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    632,
+    337,
+    83,
+    56
+   ],
+   "text": "이체",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b17"
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    180,
+    366,
+    165,
+    38
+   ],
+   "text": "래 우대통장",
+   "caption": null,
+   "score": 0.9873,
+   "in_box": "b10"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    180,
+    414,
+    150,
+    44
+   ],
+   "text": "(저축예금)",
+   "caption": null,
+   "score": 0.999,
+   "in_box": "b10"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    175,
+    476,
+    188,
+    63
+   ],
+   "text": "금액 숨김",
+   "caption": null,
+   "score": 0.991,
+   "in_box": "b10"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    113,
+    614,
+    598,
+    33
+   ],
+   "text": "절세혜택과 안정적인 노후,IRP로 준비하세요",
+   "caption": null,
+   "score": 0.9807,
+   "in_box": "b10"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    185,
+    809,
+    464,
+    41
+   ],
+   "text": "Pick E체크캐릭터형(하리보)",
+   "caption": null,
+   "score": 0.9744,
+   "in_box": null
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    182,
+    866,
+    137,
+    42
+   ],
+   "text": "금액 숨김",
+   "caption": null,
+   "score": 0.9438,
+   "in_box": null
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    322,
+    977,
+    180,
+    45
+   ],
+   "text": "앱카드 가입",
+   "caption": null,
+   "score": 0.9937,
+   "in_box": "b6"
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    67,
+    1173,
+    120,
+    50
+   ],
+   "text": "팽겨요",
+   "caption": null,
+   "score": 0.8421,
+   "in_box": "b13"
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    187,
+    1261,
+    206,
+    31
+   ],
+   "text": "할인쿠폰 드려요",
+   "caption": null,
+   "score": 0.9606,
+   "in_box": "b13"
+  },
+  {
+   "id": "t16",
+   "kind": "text",
+   "box": [
+    599,
+    1290,
+    120,
+    39
+   ],
+   "text": "바로받기",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b13"
+  },
+  {
+   "id": "t17",
+   "kind": "text",
+   "box": [
+    184,
+    1312,
+    360,
+    44
+   ],
+   "text": "bhc치킨 최대 9,000원",
+   "caption": null,
+   "score": 0.9851,
+   "in_box": "b13"
+  },
+  {
+   "id": "t18",
+   "kind": "text",
+   "box": [
+    101,
+    1427,
+    100,
+    41
+   ],
+   "text": "이벤트",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b13"
+  },
+  {
+   "id": "t19",
+   "kind": "text",
+   "box": [
+    375,
+    1427,
+    73,
+    42
+   ],
+   "text": "쿠폰",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b13"
+  },
+  {
+   "id": "t20",
+   "kind": "text",
+   "box": [
+    623,
+    1429,
+    100,
+    36
+   ],
+   "text": "포인트",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b13"
+  },
+  {
+   "id": "t21",
+   "kind": "text",
+   "box": [
+    64,
+    1586,
+    158,
+    50
+   ],
+   "text": "7월 소비",
+   "caption": null,
+   "score": 0.9901,
+   "in_box": "b4"
+  },
+  {
+   "id": "t22",
+   "kind": "text",
+   "box": [
+    234,
+    1591,
+    36,
+    38
+   ],
+   "text": "C",
+   "caption": null,
+   "score": 0.9975,
+   "in_box": "b4"
+  },
+  {
+   "id": "t23",
+   "kind": "text",
+   "box": [
+    64,
+    1766,
+    36,
+    37
+   ],
+   "text": "홈",
+   "caption": null,
+   "score": 0.9534,
+   "in_box": "b12"
+  },
+  {
+   "id": "t24",
+   "kind": "text",
+   "box": [
+    218,
+    1767,
+    57,
+    35
+   ],
+   "text": "금융",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b11"
+  },
+  {
+   "id": "t25",
+   "kind": "text",
+   "box": [
+    382,
+    1766,
+    59,
+    36
+   ],
+   "text": "상품",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "b9"
+  },
+  {
+   "id": "t26",
+   "kind": "text",
+   "box": [
+    548,
+    1766,
+    57,
+    36
+   ],
+   "text": "혜택",
+   "caption": null,
+   "score": 0.9954,
+   "in_box": "b14"
+  },
+  {
+   "id": "t27",
+   "kind": "text",
+   "box": [
+    712,
+    1767,
+    57,
+    35
+   ],
+   "text": "주식",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b16"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    627,
+    82,
+    64,
+    64
+   ],
+   "text": null,
+   "caption": "Notifications",
+   "score": 0.8188,
+   "text_in": [],
+   "ocr_guess": "요",
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    528,
+    82,
+    67,
+    65
+   ],
+   "text": null,
+   "caption": "Open Document",
+   "score": 0.7812,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    426,
+    81,
+    67,
+    64
+   ],
+   "text": null,
+   "caption": "WhatsApp",
+   "score": 0.7578,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    729,
+    82,
+    63,
+    65
+   ],
+   "text": null,
+   "caption": "Find and Replace",
+   "score": 0.7056,
+   "text_in": [],
+   "ocr_guess": "Q",
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    31,
+    1540,
+    753,
+    138
+   ],
+   "text": "7월 소비 C",
+   "caption": null,
+   "score": 0.5776,
+   "text_in": [
+    "t21",
+    "t22"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    672,
+    28,
+    29,
+    28
+   ],
+   "text": null,
+   "caption": "a triangle or \"Play\" function.",
+   "score": 0.5117,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    74,
+    944,
+    678,
+    114
+   ],
+   "text": "앱카드 가입",
+   "caption": null,
+   "score": 0.4688,
+   "text_in": [
+    "t13"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    712,
+    28,
+    28,
+    28
+   ],
+   "text": null,
+   "caption": "Wi-Fi connectivity.",
+   "score": 0.46,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    36,
+    84,
+    242,
+    62
+   ],
+   "text": "홍길동님 C",
+   "caption": null,
+   "score": 0.4351,
+   "text_in": [
+    "t3",
+    "t2"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    329,
+    1680,
+    164,
+    145
+   ],
+   "text": "상품",
+   "caption": null,
+   "score": 0.3433,
+   "text_in": [
+    "t25"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    37,
+    187,
+    747,
+    529
+   ],
+   "text": "자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저축예금) 금액 숨김 절세혜택과 안정적인 노후,IRP로 준비하세요",
+   "caption": null,
+   "score": 0.2815,
+   "text_in": [
+    "t4",
+    "t5",
+    "t7",
+    "t8",
+    "t9",
+    "t10"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    163,
+    1680,
+    166,
+    147
+   ],
+   "text": "금융",
+   "caption": null,
+   "score": 0.2766,
+   "text_in": [
+    "t24"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b12",
+   "kind": "box",
+   "box": [
+    6,
+    1682,
+    154,
+    144
+   ],
+   "text": "홈",
+   "caption": null,
+   "score": 0.1919,
+   "text_in": [
+    "t23"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b13",
+   "kind": "box",
+   "box": [
+    30,
+    1129,
+    755,
+    383
+   ],
+   "text": "팽겨요 할인쿠폰 드려요 바로받기 bhc치킨 최대 9,000원 이벤트 쿠폰 포인트",
+   "caption": null,
+   "score": 0.1721,
+   "text_in": [
+    "t14",
+    "t15",
+    "t16",
+    "t17",
+    "t18",
+    "t19",
+    "t20"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b14",
+   "kind": "box",
+   "box": [
+    491,
+    1679,
+    168,
+    145
+   ],
+   "text": "혜택",
+   "caption": null,
+   "score": 0.1716,
+   "text_in": [
+    "t26"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b15",
+   "kind": "box",
+   "box": [
+    63,
+    1713,
+    38,
+    43
+   ],
+   "text": null,
+   "caption": "Home",
+   "score": 0.1427,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b16",
+   "kind": "box",
+   "box": [
+    663,
+    1679,
+    145,
+    143
+   ],
+   "text": "주식",
+   "caption": null,
+   "score": 0.1343,
+   "text_in": [
+    "t27"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b17",
+   "kind": "box",
+   "box": [
+    598,
+    317,
+    153,
+    95
+   ],
+   "text": "이체",
+   "caption": null,
+   "score": 0.1225,
+   "text_in": [
+    "t6"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b18",
+   "kind": "box",
+   "box": [
+    695,
+    228,
+    59,
+    59
+   ],
+   "text": null,
+   "caption": "Forward",
+   "score": 0.9721,
+   "text_in": [],
+   "ocr_guess": "7",
+   "source": "ocr_icon"
+  },
+  {
+   "id": "b19",
+   "kind": "box",
+   "box": [
+    694,
+    1580,
+    61,
+    61
+   ],
+   "text": null,
+   "caption": "Forward",
+   "score": 0.9804,
+   "text_in": [],
+   "ocr_guess": "7",
+   "source": "ocr_icon"
+  },
+  {
+   "id": "i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a shopping or shopping cart function.",
+   "score": null,
+   "box": [
+    395,
+    1711,
+    34,
+    42
+   ],
+   "in_box": "b9",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i1",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Sending a message or message.",
+   "score": null,
+   "box": [
+    73,
+    316,
+    87,
+    88
+   ],
+   "in_box": "b10",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i2",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a video file.",
+   "score": null,
+   "box": [
+    228,
+    1713,
+    40,
+    38
+   ],
+   "in_box": "b11",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i3",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a hamburger or sandwich.",
+   "score": null,
+   "box": [
+    72,
+    1264,
+    92,
+    92
+   ],
+   "in_box": "b13",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i4",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a tool or function related to a tool or toolbox.",
+   "score": null,
+   "box": [
+    556,
+    1711,
+    42,
+    40
+   ],
+   "in_box": "b14",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i5",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a graph or chart.",
+   "score": null,
+   "box": [
+    721,
+    1719,
+    41,
+    26
+   ],
+   "in_box": "b16",
+   "name": null,
+   "label": null
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "요",
+   "score": 0.6834,
+   "box": [
+    646,
+    91,
+    34,
+    40
+   ],
+   "into": "b0"
+  },
+  {
+   "text": "Q",
+   "score": 0.9917,
+   "box": [
+    732,
+    85,
+    57,
+    55
+   ],
+   "into": "b3"
+  },
+  {
+   "text": "7",
+   "score": 0.9721,
+   "box": [
+    706,
+    239,
+    37,
+    37
+   ],
+   "into": "b18"
+  },
+  {
+   "text": "7",
+   "score": 0.9804,
+   "box": [
+    705,
+    1591,
+    38,
+    38
+   ],
+   "into": "b19"
+  }
+ ]
+}

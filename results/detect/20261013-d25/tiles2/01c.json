@@ -1,0 +1,739 @@
+{
+ "capture": "inputs/captures/transfer/01c.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    67,
+    154,
+    196,
+    53
+   ],
+   "text": "추천서비스",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b1"
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    178,
+    245,
+    178,
+    45
+   ],
+   "text": "SOL패밀리",
+   "caption": null,
+   "score": 0.9957,
+   "in_box": "b0"
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    181,
+    299,
+    328,
+    34
+   ],
+   "text": "가족과 함께하는 금융생활",
+   "caption": null,
+   "score": 0.9992,
+   "in_box": "b0"
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    179,
+    385,
+    165,
+    45
+   ],
+   "text": "급여클럽+",
+   "caption": null,
+   "score": 0.9981,
+   "in_box": null
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    712,
+    405,
+    39,
+    49
+   ],
+   "text": "푸",
+   "caption": null,
+   "score": 0.9778,
+   "in_box": null
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    180,
+    436,
+    246,
+    38
+   ],
+   "text": "급여이체 우대 혜택",
+   "caption": null,
+   "score": 0.995,
+   "in_box": null
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    177,
+    523,
+    265,
+    49
+   ],
+   "text": "내 카드 승인내역",
+   "caption": null,
+   "score": 0.992,
+   "in_box": null
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    714,
+    546,
+    35,
+    44
+   ],
+   "text": "푸",
+   "caption": null,
+   "score": 0.9698,
+   "in_box": null
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    180,
+    577,
+    337,
+    37
+   ],
+   "text": "모든 카드 실시간 승인내역",
+   "caption": null,
+   "score": 0.9469,
+   "in_box": null
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    37,
+    721,
+    336,
+    45
+   ],
+   "text": "더 많은 금융자산 모두",
+   "caption": null,
+   "score": 0.9968,
+   "in_box": null
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    39,
+    778,
+    434,
+    41
+   ],
+   "text": "연결하면 커피쿠폰 즉시지급!",
+   "caption": null,
+   "score": 0.9971,
+   "in_box": null
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    39,
+    840,
+    207,
+    35
+   ],
+   "text": "이벤트 바로가기",
+   "caption": null,
+   "score": 0.9975,
+   "in_box": null
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    259,
+    855,
+    8,
+    14
+   ],
+   "text": "^",
+   "caption": null,
+   "score": 0.9705,
+   "in_box": "b9"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    69,
+    964,
+    229,
+    48
+   ],
+   "text": "신한금융그룹",
+   "caption": null,
+   "score": 0.9986,
+   "in_box": null
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    148,
+    1053,
+    142,
+    47
+   ],
+   "text": "신한카드",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": null
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    148,
+    1104,
+    263,
+    34
+   ],
+   "text": "나에게 맞는 카드 찾기",
+   "caption": null,
+   "score": 0.9937,
+   "in_box": null
+  },
+  {
+   "id": "t16",
+   "kind": "text",
+   "box": [
+    150,
+    1193,
+    205,
+    42
+   ],
+   "text": "신한투자증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "t17",
+   "kind": "text",
+   "box": [
+    150,
+    1244,
+    287,
+    31
+   ],
+   "text": "지금 뜨는 주식 보러가기",
+   "caption": null,
+   "score": 0.9982,
+   "in_box": null
+  },
+  {
+   "id": "t18",
+   "kind": "text",
+   "box": [
+    149,
+    1330,
+    172,
+    43
+   ],
+   "text": "신한라이프",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b12"
+  },
+  {
+   "id": "t19",
+   "kind": "text",
+   "box": [
+    150,
+    1381,
+    485,
+    32
+   ],
+   "text": "내게 필요한 보험,보장분석으로 확인하기",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": null
+  },
+  {
+   "id": "t20",
+   "kind": "text",
+   "box": [
+    135,
+    1547,
+    331,
+    44
+   ],
+   "text": "쉬운홈|홈화면 설정",
+   "caption": null,
+   "score": 0.99,
+   "in_box": null
+  },
+  {
+   "id": "t21",
+   "kind": "text",
+   "box": [
+    474,
+    1549,
+    212,
+    38
+   ],
+   "text": "| 금액 숨기기",
+   "caption": null,
+   "score": 0.9682,
+   "in_box": null
+  },
+  {
+   "id": "t22",
+   "kind": "text",
+   "box": [
+    64,
+    1766,
+    36,
+    37
+   ],
+   "text": "홈",
+   "caption": null,
+   "score": 0.9534,
+   "in_box": null
+  },
+  {
+   "id": "t23",
+   "kind": "text",
+   "box": [
+    218,
+    1766,
+    57,
+    36
+   ],
+   "text": "금융",
+   "caption": null,
+   "score": 1.0,
+   "in_box": null
+  },
+  {
+   "id": "t24",
+   "kind": "text",
+   "box": [
+    382,
+    1766,
+    59,
+    36
+   ],
+   "text": "상품",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "b2"
+  },
+  {
+   "id": "t25",
+   "kind": "text",
+   "box": [
+    548,
+    1766,
+    57,
+    36
+   ],
+   "text": "혜택",
+   "caption": null,
+   "score": 0.9954,
+   "in_box": "b3"
+  },
+  {
+   "id": "t26",
+   "kind": "text",
+   "box": [
+    712,
+    1767,
+    58,
+    35
+   ],
+   "text": "주식",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": null
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    49,
+    230,
+    723,
+    124
+   ],
+   "text": "SOL패밀리 가족과 함께하는 금융생활",
+   "caption": null,
+   "score": 0.7744,
+   "text_in": [
+    "t1",
+    "t2"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    43,
+    120,
+    737,
+    102
+   ],
+   "text": "추천서비스",
+   "caption": null,
+   "score": 0.543,
+   "text_in": [
+    "t0"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    328,
+    1682,
+    162,
+    141
+   ],
+   "text": "상품",
+   "caption": null,
+   "score": 0.3225,
+   "text_in": [
+    "t24"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    490,
+    1681,
+    170,
+    141
+   ],
+   "text": "혜택",
+   "caption": null,
+   "score": 0.2798,
+   "text_in": [
+    "t25"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    63,
+    1714,
+    39,
+    42
+   ],
+   "text": null,
+   "caption": "Home",
+   "score": 0.1045,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    47,
+    0,
+    159,
+    12
+   ],
+   "text": null,
+   "caption": "a shortcut.",
+   "score": 0.0998,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    720,
+    1718,
+    43,
+    34
+   ],
+   "text": null,
+   "caption": "a graph or chart.",
+   "score": 0.0815,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    626,
+    0,
+    151,
+    12
+   ],
+   "text": null,
+   "caption": "Increase",
+   "score": 0.0507,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    663,
+    739,
+    120,
+    120
+   ],
+   "text": null,
+   "caption": "Dictation",
+   "score": 0.1268,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector:tile"
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    256,
+    853,
+    17,
+    19
+   ],
+   "text": "^",
+   "caption": null,
+   "score": 0.0944,
+   "text_in": [
+    "t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector:tile"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    696,
+    1203,
+    63,
+    62
+   ],
+   "text": null,
+   "caption": "Next",
+   "score": 0.0854,
+   "text_in": [],
+   "ocr_guess": "L",
+   "source": "detector:tile"
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    697,
+    1065,
+    62,
+    62
+   ],
+   "text": null,
+   "caption": "Next",
+   "score": 0.0827,
+   "text_in": [],
+   "ocr_guess": "7",
+   "source": "detector:tile"
+  },
+  {
+   "id": "b12",
+   "kind": "box",
+   "box": [
+    150,
+    1332,
+    603,
+    42
+   ],
+   "text": "신한라이프",
+   "caption": null,
+   "score": 0.0708,
+   "text_in": [
+    "t18"
+   ],
+   "ocr_guess": null,
+   "source": "detector:tile"
+  },
+  {
+   "id": "b13",
+   "kind": "box",
+   "box": [
+    226,
+    1712,
+    45,
+    47
+   ],
+   "text": null,
+   "caption": "Image",
+   "score": 0.063,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector:tile"
+  },
+  {
+   "id": "b14",
+   "kind": "box",
+   "box": [
+    697,
+    1342,
+    62,
+    64
+   ],
+   "text": null,
+   "caption": "Forward",
+   "score": 0.0583,
+   "text_in": [],
+   "ocr_guess": "7",
+   "source": "detector:tile"
+  },
+  {
+   "id": "b15",
+   "kind": "box",
+   "box": [
+    80,
+    1352,
+    36,
+    42
+   ],
+   "text": null,
+   "caption": "Adding a new item or creating a new document.",
+   "score": 0.0538,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector:tile"
+  },
+  {
+   "id": "i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a stop or close button.",
+   "score": null,
+   "box": [
+    100,
+    272,
+    32,
+    36
+   ],
+   "in_box": "b0",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i1",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a shopping or shopping cart function.",
+   "score": null,
+   "box": [
+    395,
+    1711,
+    34,
+    42
+   ],
+   "in_box": "b2",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i2",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a tool or function related to a tool or toolbox.",
+   "score": null,
+   "box": [
+    556,
+    1711,
+    42,
+    40
+   ],
+   "in_box": "b3",
+   "name": null,
+   "label": null
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "7",
+   "score": 0.9915,
+   "box": [
+    705,
+    1077,
+    37,
+    38
+   ],
+   "into": "b11"
+  },
+  {
+   "text": "L",
+   "score": 0.9107,
+   "box": [
+    705,
+    1215,
+    37,
+    37
+   ],
+   "into": "b10"
+  },
+  {
+   "text": "7",
+   "score": 0.9915,
+   "box": [
+    705,
+    1353,
+    37,
+    38
+   ],
+   "into": "b14"
+  }
+ ]
+}

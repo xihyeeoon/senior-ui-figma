@@ -1,0 +1,267 @@
+{
+ "capture": "inputs/captures/transfer/10.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    38,
+    22,
+    70,
+    38
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9965,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    705,
+    23,
+    79,
+    33
+   ],
+   "text": "567",
+   "caption": null,
+   "score": 0.7453,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    270,
+    807,
+    281,
+    78
+   ],
+   "text": "아래 계좌로",
+   "caption": null,
+   "score": 0.931,
+   "in_box": null
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    187,
+    885,
+    449,
+    72
+   ],
+   "text": "10,000원 보냈어요.",
+   "caption": null,
+   "score": 0.9707,
+   "in_box": null
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    206,
+    1053,
+    145,
+    51
+   ],
+   "text": "추가이체",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b4"
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    471,
+    1053,
+    147,
+    51
+   ],
+   "text": "상세보기",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b2"
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    94,
+    1690,
+    88,
+    55
+   ],
+   "text": "공유",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b1"
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    485,
+    1687,
+    85,
+    56
+   ],
+   "text": "확인",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b0"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    268,
+    1648,
+    520,
+    134
+   ],
+   "text": "확인",
+   "caption": null,
+   "score": 0.7881,
+   "text_in": [
+    "t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    31,
+    1648,
+    210,
+    133
+   ],
+   "text": "공유",
+   "caption": null,
+   "score": 0.5601,
+   "text_in": [
+    "t6"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    426,
+    1025,
+    239,
+    104
+   ],
+   "text": "상세보기",
+   "caption": null,
+   "score": 0.4785,
+   "text_in": [
+    "t5"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    672,
+    28,
+    29,
+    27
+   ],
+   "text": null,
+   "caption": "a play button.",
+   "score": 0.4629,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    160,
+    1025,
+    238,
+    104
+   ],
+   "text": "추가이체",
+   "caption": null,
+   "score": 0.459,
+   "text_in": [
+    "t4"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    38,
+    1191,
+    760,
+    420
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.1312,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    46,
+    112,
+    741,
+    402
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.1105,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    319,
+    568,
+    186,
+    187
+   ],
+   "text": null,
+   "caption": "a completed task or confirmation.",
+   "score": 0.0734,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  }
+ ],
+ "icon_from_ocr": []
+}

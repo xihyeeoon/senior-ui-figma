@@ -1,0 +1,2463 @@
+{
+ "screen": "bank",
+ "captures": [
+  "05a",
+  "05b",
+  "05c"
+ ],
+ "size": [
+  824,
+  4220
+ ],
+ "fragments": [
+  {
+   "capture": "05a",
+   "offset": 0,
+   "top_band": 0,
+   "bottom_band": 25,
+   "shift": 0,
+   "method": null,
+   "anchors": 0,
+   "overlap_rows": 0
+  },
+  {
+   "capture": "05b",
+   "offset": 1195,
+   "top_band": 497,
+   "bottom_band": 0,
+   "shift": 1195,
+   "method": "text",
+   "anchors": 1,
+   "overlap_rows": 113
+  },
+  {
+   "capture": "05c",
+   "offset": 2390,
+   "top_band": 497,
+   "bottom_band": 0,
+   "shift": 1195,
+   "method": "text",
+   "anchors": 3,
+   "overlap_rows": 138
+  }
+ ],
+ "merged": 9,
+ "dropped_fixed": 24,
+ "named_across": 2,
+ "elements": [
+  {
+   "id": "05a:t0",
+   "kind": "text",
+   "box": [
+    40,
+    24,
+    64,
+    34
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9938,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ],
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t1",
+   "kind": "text",
+   "box": [
+    736,
+    23,
+    48,
+    38
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9949,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ],
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t2",
+   "kind": "text",
+   "box": [
+    33,
+    79,
+    37,
+    48
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.999,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ],
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t3",
+   "kind": "text",
+   "box": [
+    33,
+    167,
+    454,
+    73
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.9771,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ],
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t4",
+   "kind": "text",
+   "box": [
+    33,
+    298,
+    434,
+    63
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": null,
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t5",
+   "kind": "text",
+   "box": [
+    159,
+    410,
+    91,
+    60
+   ],
+   "text": "은행",
+   "caption": null,
+   "score": 0.9964,
+   "in_box": null,
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t6",
+   "kind": "text",
+   "box": [
+    557,
+    413,
+    121,
+    55
+   ],
+   "text": "증권사",
+   "caption": null,
+   "score": 0.9992,
+   "in_box": null,
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t7",
+   "kind": "text",
+   "box": [
+    115,
+    696,
+    73,
+    47
+   ],
+   "text": "신한",
+   "caption": null,
+   "score": 0.9993,
+   "in_box": "05a:b11",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t8",
+   "kind": "text",
+   "box": [
+    372,
+    694,
+    77,
+    50
+   ],
+   "text": "제주",
+   "caption": null,
+   "score": 0.9986,
+   "in_box": "05a:b9",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t9",
+   "kind": "text",
+   "box": [
+    635,
+    696,
+    73,
+    48
+   ],
+   "text": "국민",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "05a:b10",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t10",
+   "kind": "text",
+   "box": [
+    365,
+    881,
+    95,
+    50
+   ],
+   "text": "NH",
+   "caption": null,
+   "score": 0.9961,
+   "in_box": "05a:b5",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t11",
+   "kind": "text",
+   "box": [
+    114,
+    978,
+    72,
+    48
+   ],
+   "text": "기업",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "05a:b8",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t12",
+   "kind": "text",
+   "box": [
+    373,
+    978,
+    75,
+    47
+   ],
+   "text": "농협",
+   "caption": null,
+   "score": 0.9992,
+   "in_box": "05a:b5",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t13",
+   "kind": "text",
+   "box": [
+    635,
+    978,
+    74,
+    48
+   ],
+   "text": "산업",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "05a:b3",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t14",
+   "kind": "text",
+   "box": [
+    104,
+    1148,
+    94,
+    77
+   ],
+   "text": "Sh",
+   "caption": null,
+   "score": 0.9906,
+   "in_box": "05a:b7",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t15",
+   "kind": "text",
+   "box": [
+    114,
+    1261,
+    72,
+    47
+   ],
+   "text": "수협",
+   "caption": null,
+   "score": 0.9988,
+   "in_box": "05a:b7",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t16",
+   "kind": "text",
+   "box": [
+    375,
+    1261,
+    73,
+    47
+   ],
+   "text": "신협",
+   "caption": null,
+   "score": 0.9939,
+   "in_box": "05a:b0",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t17",
+   "kind": "text",
+   "box": [
+    636,
+    1261,
+    72,
+    47
+   ],
+   "text": "우리",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "05a:b4",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t18",
+   "kind": "text",
+   "box": [
+    648,
+    1438,
+    55,
+    65
+   ],
+   "text": "D",
+   "caption": null,
+   "score": 0.6825,
+   "in_box": "05a:b2",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t19",
+   "kind": "text",
+   "box": [
+    371,
+    1448,
+    79,
+    53
+   ],
+   "text": "citi",
+   "caption": null,
+   "score": 0.9581,
+   "in_box": "05a:b1",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t20",
+   "kind": "text",
+   "box": [
+    113,
+    1542,
+    75,
+    47
+   ],
+   "text": "하나",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "05a:b6",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t21",
+   "kind": "text",
+   "box": [
+    348,
+    1545,
+    126,
+    43
+   ],
+   "text": "한국씨티",
+   "caption": null,
+   "score": 0.9992,
+   "in_box": "05a:b1",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:t22",
+   "kind": "text",
+   "box": [
+    595,
+    1546,
+    156,
+    39
+   ],
+   "text": "카카오뱅크",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05a:b2",
+   "capture": "05a"
+  },
+  {
+   "id": "05b:t7",
+   "kind": "text",
+   "box": [
+    107,
+    1739,
+    84,
+    29
+   ],
+   "text": "Kbank",
+   "caption": null,
+   "score": 0.9442,
+   "in_box": "05b:b10",
+   "capture": "05b"
+  },
+  {
+   "id": "05a:t24",
+   "kind": "text",
+   "box": [
+    627,
+    1735,
+    90,
+    36
+   ],
+   "text": "BNV",
+   "caption": null,
+   "score": 0.9337,
+   "in_box": "05b:b11",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b0",
+   "kind": "box",
+   "box": [
+    294,
+    1093,
+    235,
+    257
+   ],
+   "text": "신협",
+   "caption": null,
+   "score": 0.9482,
+   "text_in": [
+    "05a:t16"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b1",
+   "kind": "box",
+   "box": [
+    294,
+    1375,
+    236,
+    258
+   ],
+   "text": "citi 한국씨티",
+   "caption": null,
+   "score": 0.9463,
+   "text_in": [
+    "05a:t19",
+    "05a:t21"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b2",
+   "kind": "box",
+   "box": [
+    555,
+    1375,
+    238,
+    259
+   ],
+   "text": "D 카카오뱅크",
+   "caption": null,
+   "score": 0.9443,
+   "text_in": [
+    "05a:t18",
+    "05a:t22"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b3",
+   "kind": "box",
+   "box": [
+    556,
+    812,
+    236,
+    257
+   ],
+   "text": "산업",
+   "caption": null,
+   "score": 0.9404,
+   "text_in": [
+    "05a:t13"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b4",
+   "kind": "box",
+   "box": [
+    555,
+    1094,
+    238,
+    257
+   ],
+   "text": "우리",
+   "caption": null,
+   "score": 0.9399,
+   "text_in": [
+    "05a:t17"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b5",
+   "kind": "box",
+   "box": [
+    293,
+    811,
+    236,
+    257
+   ],
+   "text": "NH 농협",
+   "caption": null,
+   "score": 0.9375,
+   "text_in": [
+    "05a:t10",
+    "05a:t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b6",
+   "kind": "box",
+   "box": [
+    32,
+    1375,
+    237,
+    258
+   ],
+   "text": "하나",
+   "caption": null,
+   "score": 0.936,
+   "text_in": [
+    "05a:t20"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b7",
+   "kind": "box",
+   "box": [
+    32,
+    1094,
+    237,
+    257
+   ],
+   "text": "Sh 수협",
+   "caption": null,
+   "score": 0.9341,
+   "text_in": [
+    "05a:t14",
+    "05a:t15"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b8",
+   "kind": "box",
+   "box": [
+    32,
+    811,
+    237,
+    258
+   ],
+   "text": "기업",
+   "caption": null,
+   "score": 0.9229,
+   "text_in": [
+    "05a:t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b9",
+   "kind": "box",
+   "box": [
+    292,
+    528,
+    237,
+    257
+   ],
+   "text": "제주",
+   "caption": null,
+   "score": 0.8882,
+   "text_in": [
+    "05a:t8"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b10",
+   "kind": "box",
+   "box": [
+    556,
+    528,
+    238,
+    257
+   ],
+   "text": "국민",
+   "caption": null,
+   "score": 0.8809,
+   "text_in": [
+    "05a:t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b11",
+   "kind": "box",
+   "box": [
+    32,
+    528,
+    237,
+    257
+   ],
+   "text": "신한",
+   "caption": null,
+   "score": 0.875,
+   "text_in": [
+    "05a:t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05b:b11",
+   "kind": "box",
+   "box": [
+    556,
+    1690,
+    237,
+    225
+   ],
+   "text": "BiNV 경남",
+   "caption": null,
+   "score": 0.8672,
+   "text_in": [
+    "05b:t8",
+    "05b:t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b9",
+   "kind": "box",
+   "box": [
+    292,
+    1691,
+    238,
+    224
+   ],
+   "text": "토스뱅크",
+   "caption": null,
+   "score": 0.8843,
+   "text_in": [
+    "05b:t10"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b10",
+   "kind": "box",
+   "box": [
+    32,
+    1695,
+    237,
+    220
+   ],
+   "text": "Kbank 케이뱅크",
+   "caption": null,
+   "score": 0.8823,
+   "text_in": [
+    "05b:t7",
+    "05b:t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05a:b15",
+   "kind": "box",
+   "box": [
+    747,
+    310,
+    36,
+    40
+   ],
+   "text": null,
+   "caption": "closing or cancel action.",
+   "score": 0.3398,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b16",
+   "kind": "box",
+   "box": [
+    671,
+    26,
+    32,
+    29
+   ],
+   "text": null,
+   "caption": "Play or Start.",
+   "score": 0.3293,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ],
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b17",
+   "kind": "box",
+   "box": [
+    712,
+    27,
+    28,
+    27
+   ],
+   "text": null,
+   "caption": "Wi-Fi connectivity.",
+   "score": 0.304,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ],
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b18",
+   "kind": "box",
+   "box": [
+    748,
+    87,
+    34,
+    37
+   ],
+   "text": null,
+   "caption": "closing or cancel a window or dialog.",
+   "score": 0.2991,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ],
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b19",
+   "kind": "box",
+   "box": [
+    688,
+    0,
+    107,
+    12
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.0517,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ],
+   "capture": "05a"
+  },
+  {
+   "id": "05a:b20",
+   "kind": "box",
+   "box": [
+    0,
+    256,
+    821,
+    41
+   ],
+   "text": null,
+   "caption": "A blank space for text or image.",
+   "score": 0.04,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "classic",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A symbol or logo related to a user interface or account.",
+   "score": null,
+   "box": [
+    361,
+    1137,
+    103,
+    103
+   ],
+   "in_box": "05a:b0",
+   "name": "신협 로고",
+   "label": "05a:t16",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i1",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Citi.",
+   "score": null,
+   "box": [
+    361,
+    1420,
+    103,
+    103
+   ],
+   "in_box": "05a:b1",
+   "name": "한국씨티 로고",
+   "label": "05a:t21",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i2",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a bookmark or bookmark function.",
+   "score": null,
+   "box": [
+    621,
+    1420,
+    104,
+    103
+   ],
+   "in_box": "05a:b2",
+   "name": "카카오뱅크 로고",
+   "label": "05a:t22",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i3",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A document or file.",
+   "score": null,
+   "box": [
+    638,
+    876,
+    71,
+    63
+   ],
+   "in_box": "05a:b3",
+   "name": "산업 로고",
+   "label": "05a:t13",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i4",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a web browser or internet browser application.",
+   "score": null,
+   "box": [
+    621,
+    1137,
+    104,
+    104
+   ],
+   "in_box": "05a:b4",
+   "name": "우리 로고",
+   "label": "05a:t17",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i5",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "NHS",
+   "score": null,
+   "box": [
+    361,
+    855,
+    103,
+    104
+   ],
+   "in_box": "05a:b5",
+   "name": "농협 로고",
+   "label": "05a:t12",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i6",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A person in a sports uniform.",
+   "score": null,
+   "box": [
+    99,
+    1420,
+    102,
+    103
+   ],
+   "in_box": "05a:b6",
+   "name": "하나 로고",
+   "label": "05a:t20",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i7",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Shark.",
+   "score": null,
+   "box": [
+    113,
+    1163,
+    75,
+    52
+   ],
+   "in_box": "05a:b7",
+   "name": "수협 로고",
+   "label": "05a:t15",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i8",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A web browser or application related to BKV.",
+   "score": null,
+   "box": [
+    99,
+    855,
+    104,
+    103
+   ],
+   "in_box": "05a:b8",
+   "name": "기업 로고",
+   "label": "05a:t11",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i9",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Sending a message or message.",
+   "score": null,
+   "box": [
+    361,
+    573,
+    103,
+    104
+   ],
+   "in_box": "05a:b9",
+   "name": "제주 로고",
+   "label": "05a:t8",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i10",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a USB-related function.",
+   "score": null,
+   "box": [
+    621,
+    573,
+    104,
+    104
+   ],
+   "in_box": "05a:b10",
+   "name": "국민 로고",
+   "label": "05a:t9",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i11",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Sending a message or message.",
+   "score": null,
+   "box": [
+    100,
+    573,
+    103,
+    104
+   ],
+   "in_box": "05a:b11",
+   "name": "신한 로고",
+   "label": "05a:t7",
+   "capture": "05a"
+  },
+  {
+   "id": "05a:i12",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a bank or financial services services.",
+   "score": null,
+   "box": [
+    626,
+    1702,
+    99,
+    103
+   ],
+   "in_box": "05b:b11",
+   "name": "경남 로고",
+   "label": "05b:t11",
+   "capture": "05a",
+   "named_in": "stitched"
+  },
+  {
+   "id": "05a:i13",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Kbank",
+   "score": null,
+   "box": [
+    99,
+    1702,
+    104,
+    103
+   ],
+   "in_box": "05b:b10",
+   "name": "케이뱅크 로고",
+   "label": "05b:t9",
+   "capture": "05a",
+   "named_in": "stitched"
+  },
+  {
+   "id": "05b:t8",
+   "kind": "text",
+   "box": [
+    624,
+    1733,
+    95,
+    40
+   ],
+   "text": "BiNV",
+   "caption": null,
+   "score": 0.7378,
+   "in_box": "05b:b11",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t9",
+   "kind": "text",
+   "box": [
+    85,
+    1827,
+    130,
+    42
+   ],
+   "text": "케이뱅크",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "05b:b10",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t10",
+   "kind": "text",
+   "box": [
+    348,
+    1830,
+    125,
+    36
+   ],
+   "text": "토스뱅크",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05b:b9",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t11",
+   "kind": "text",
+   "box": [
+    636,
+    1825,
+    74,
+    47
+   ],
+   "text": "경남",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05b:b11",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t12",
+   "kind": "text",
+   "box": [
+    628,
+    2013,
+    91,
+    37
+   ],
+   "text": "BNV",
+   "caption": null,
+   "score": 0.9119,
+   "in_box": "05b:b6",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t13",
+   "kind": "text",
+   "box": [
+    114,
+    2109,
+    71,
+    43
+   ],
+   "text": "광주",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "05b:b8",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t14",
+   "kind": "text",
+   "box": [
+    303,
+    2109,
+    201,
+    40
+   ],
+   "text": "아이엠뱅크(대.",
+   "caption": null,
+   "score": 0.9957,
+   "in_box": "05b:b5",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t15",
+   "kind": "text",
+   "box": [
+    638,
+    2109,
+    70,
+    44
+   ],
+   "text": "부산",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05b:b6",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t16",
+   "kind": "text",
+   "box": [
+    115,
+    2390,
+    70,
+    44
+   ],
+   "text": "전북",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05b:b3",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t17",
+   "kind": "text",
+   "box": [
+    347,
+    2391,
+    127,
+    42
+   ],
+   "text": "회원수협",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05b:b0",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t18",
+   "kind": "text",
+   "box": [
+    621,
+    2387,
+    101,
+    50
+   ],
+   "text": "새마을",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": "05b:b1",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t19",
+   "kind": "text",
+   "box": [
+    379,
+    2558,
+    71,
+    78
+   ],
+   "text": "SB",
+   "caption": null,
+   "score": 0.9458,
+   "in_box": "05b:b2",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t20",
+   "kind": "text",
+   "box": [
+    99,
+    2670,
+    101,
+    47
+   ],
+   "text": "우체국",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05b:b7",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t21",
+   "kind": "text",
+   "box": [
+    345,
+    2672,
+    130,
+    45
+   ],
+   "text": "저축은행",
+   "caption": null,
+   "score": 0.9986,
+   "in_box": "05b:b2",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:t22",
+   "kind": "text",
+   "box": [
+    591,
+    2674,
+    162,
+    38
+   ],
+   "text": "지역농.축협",
+   "caption": null,
+   "score": 0.9989,
+   "in_box": "05b:b4",
+   "capture": "05b"
+  },
+  {
+   "id": "05c:t7",
+   "kind": "text",
+   "box": [
+    100,
+    2957,
+    98,
+    41
+   ],
+   "text": "도이치",
+   "caption": null,
+   "score": 0.9992,
+   "in_box": "05c:b11",
+   "capture": "05c"
+  },
+  {
+   "id": "05b:t24",
+   "kind": "text",
+   "box": [
+    374,
+    2952,
+    73,
+    47
+   ],
+   "text": "중국",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05b:b12",
+   "capture": "05b"
+  },
+  {
+   "id": "05c:t9",
+   "kind": "text",
+   "box": [
+    608,
+    2956,
+    129,
+    42
+   ],
+   "text": "중국건설",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05b:b13",
+   "capture": "05c"
+  },
+  {
+   "id": "05b:b0",
+   "kind": "box",
+   "box": [
+    293,
+    2222,
+    235,
+    255
+   ],
+   "text": "회원수협",
+   "caption": null,
+   "score": 0.9419,
+   "text_in": [
+    "05b:t17"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b1",
+   "kind": "box",
+   "box": [
+    556,
+    2223,
+    237,
+    254
+   ],
+   "text": "새마을",
+   "caption": null,
+   "score": 0.9375,
+   "text_in": [
+    "05b:t18"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b2",
+   "kind": "box",
+   "box": [
+    294,
+    2502,
+    235,
+    257
+   ],
+   "text": "SB 저축은행",
+   "caption": null,
+   "score": 0.9365,
+   "text_in": [
+    "05b:t19",
+    "05b:t21"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b3",
+   "kind": "box",
+   "box": [
+    32,
+    2222,
+    236,
+    255
+   ],
+   "text": "전북",
+   "caption": null,
+   "score": 0.9302,
+   "text_in": [
+    "05b:t16"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b4",
+   "kind": "box",
+   "box": [
+    555,
+    2502,
+    237,
+    257
+   ],
+   "text": "지역농.축협",
+   "caption": null,
+   "score": 0.9287,
+   "text_in": [
+    "05b:t22"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b5",
+   "kind": "box",
+   "box": [
+    293,
+    1939,
+    236,
+    258
+   ],
+   "text": "아이엠뱅크(대.",
+   "caption": null,
+   "score": 0.9268,
+   "text_in": [
+    "05b:t14"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b6",
+   "kind": "box",
+   "box": [
+    555,
+    1938,
+    238,
+    260
+   ],
+   "text": "BNV 부산",
+   "caption": null,
+   "score": 0.9229,
+   "text_in": [
+    "05b:t12",
+    "05b:t15"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b7",
+   "kind": "box",
+   "box": [
+    32,
+    2503,
+    237,
+    257
+   ],
+   "text": "우체국",
+   "caption": null,
+   "score": 0.9214,
+   "text_in": [
+    "05b:t20"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b8",
+   "kind": "box",
+   "box": [
+    32,
+    1939,
+    237,
+    258
+   ],
+   "text": "광주",
+   "caption": null,
+   "score": 0.915,
+   "text_in": [
+    "05b:t13"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b12",
+   "kind": "box",
+   "box": [
+    294,
+    2785,
+    236,
+    240
+   ],
+   "text": "중국",
+   "caption": null,
+   "score": 0.8198,
+   "text_in": [
+    "05b:t24"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b13",
+   "kind": "box",
+   "box": [
+    555,
+    2784,
+    236,
+    241
+   ],
+   "text": "중국건설",
+   "caption": null,
+   "score": 0.8057,
+   "text_in": [
+    "05c:t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:b18",
+   "kind": "box",
+   "box": [
+    17,
+    3013,
+    238,
+    12
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.061,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "weather forecast.",
+   "score": null,
+   "box": [
+    361,
+    2265,
+    103,
+    104
+   ],
+   "in_box": "05b:b0",
+   "name": "회원수협 로고",
+   "label": "05b:t17",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i1",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "the \"toggling\" function.",
+   "score": null,
+   "box": [
+    621,
+    2265,
+    104,
+    103
+   ],
+   "in_box": "05b:b1",
+   "name": "새마을 로고",
+   "label": "05b:t18",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i2",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "S&B.",
+   "score": null,
+   "box": [
+    386,
+    2568,
+    56,
+    59
+   ],
+   "in_box": "05b:b2",
+   "name": "저축은행 로고",
+   "label": "05b:t21",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i3",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a download or e-commerce application.",
+   "score": null,
+   "box": [
+    99,
+    2265,
+    104,
+    103
+   ],
+   "in_box": "05b:b3",
+   "name": "전북 로고",
+   "label": "05b:t16",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i4",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a flame or flame-related function.",
+   "score": null,
+   "box": [
+    621,
+    2546,
+    104,
+    103
+   ],
+   "in_box": "05b:b4",
+   "name": "지역농.축협 로고",
+   "label": "05b:t22",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i5",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a health or health-related feature.",
+   "score": null,
+   "box": [
+    378,
+    2018,
+    72,
+    36
+   ],
+   "in_box": "05b:b5",
+   "name": "아이엠뱅크(대. 로고",
+   "label": "05b:t14",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i6",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a bank or financial services platform.",
+   "score": null,
+   "box": [
+    623,
+    1983,
+    102,
+    101
+   ],
+   "in_box": "05b:b6",
+   "name": "부산 로고",
+   "label": "05b:t15",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i7",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "creating or editing a document.",
+   "score": null,
+   "box": [
+    116,
+    2581,
+    76,
+    37
+   ],
+   "in_box": "05b:b7",
+   "name": "우체국 로고",
+   "label": "05b:t20",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i8",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A download or e-commerce application.",
+   "score": null,
+   "box": [
+    99,
+    1984,
+    104,
+    103
+   ],
+   "in_box": "05b:b8",
+   "name": "광주 로고",
+   "label": "05b:t13",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i9",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Water or rain.",
+   "score": null,
+   "box": [
+    380,
+    1724,
+    66,
+    60
+   ],
+   "in_box": "05b:b9",
+   "name": "토스뱅크 로고",
+   "label": "05b:t10",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i10",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a switch or switch function.",
+   "score": null,
+   "box": [
+    374,
+    2841,
+    78,
+    78
+   ],
+   "in_box": "05b:b12",
+   "name": "중국 로고",
+   "label": "05b:t24",
+   "capture": "05b"
+  },
+  {
+   "id": "05b:i11",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "toggling or reloading.",
+   "score": null,
+   "box": [
+    621,
+    2829,
+    104,
+    103
+   ],
+   "in_box": "05b:b13",
+   "name": "중국건설 로고",
+   "label": "05c:t9",
+   "capture": "05b"
+  },
+  {
+   "id": "05c:t10",
+   "kind": "text",
+   "box": [
+    84,
+    3237,
+    132,
+    46
+   ],
+   "text": "중국공상",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05c:b8",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:t11",
+   "kind": "text",
+   "box": [
+    332,
+    3239,
+    158,
+    38
+   ],
+   "text": "BNP파리바",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "05c:b6",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:t12",
+   "kind": "text",
+   "box": [
+    636,
+    3240,
+    74,
+    37
+   ],
+   "text": "BOA",
+   "caption": null,
+   "score": 0.9945,
+   "in_box": "05c:b7",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:t13",
+   "kind": "text",
+   "box": [
+    103,
+    3522,
+    95,
+    36
+   ],
+   "text": "HSBC",
+   "caption": null,
+   "score": 0.9966,
+   "in_box": "05c:b3",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:t14",
+   "kind": "text",
+   "box": [
+    357,
+    3520,
+    108,
+    40
+   ],
+   "text": "JP모간",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05c:b0",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:t15",
+   "kind": "text",
+   "box": [
+    644,
+    3519,
+    56,
+    40
+   ],
+   "text": "SC",
+   "caption": null,
+   "score": 0.8473,
+   "in_box": "05c:b2",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:t16",
+   "kind": "text",
+   "box": [
+    86,
+    3801,
+    130,
+    43
+   ],
+   "text": "산림조합",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "05c:b4",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:t17",
+   "kind": "text",
+   "box": [
+    372,
+    3797,
+    77,
+    51
+   ],
+   "text": "국세",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": "05c:b1",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:t18",
+   "kind": "text",
+   "box": [
+    620,
+    3796,
+    104,
+    51
+   ],
+   "text": "지방세",
+   "caption": null,
+   "score": 0.9976,
+   "in_box": "05c:b5",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:t19",
+   "kind": "text",
+   "box": [
+    98,
+    4081,
+    103,
+    47
+   ],
+   "text": "국고금",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "05c:b9",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:t20",
+   "kind": "text",
+   "box": [
+    373,
+    4078,
+    75,
+    51
+   ],
+   "text": "관세",
+   "caption": null,
+   "score": 0.9981,
+   "in_box": "05c:b10",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b0",
+   "kind": "box",
+   "box": [
+    294,
+    3351,
+    236,
+    256
+   ],
+   "text": "JP모간",
+   "caption": null,
+   "score": 0.9507,
+   "text_in": [
+    "05c:t14"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b1",
+   "kind": "box",
+   "box": [
+    293,
+    3632,
+    236,
+    258
+   ],
+   "text": "국세",
+   "caption": null,
+   "score": 0.9502,
+   "text_in": [
+    "05c:t17"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b2",
+   "kind": "box",
+   "box": [
+    555,
+    3350,
+    238,
+    257
+   ],
+   "text": "SC",
+   "caption": null,
+   "score": 0.9478,
+   "text_in": [
+    "05c:t15"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b3",
+   "kind": "box",
+   "box": [
+    32,
+    3351,
+    237,
+    257
+   ],
+   "text": "HSBC",
+   "caption": null,
+   "score": 0.938,
+   "text_in": [
+    "05c:t13"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b4",
+   "kind": "box",
+   "box": [
+    32,
+    3631,
+    237,
+    260
+   ],
+   "text": "산림조합",
+   "caption": null,
+   "score": 0.9365,
+   "text_in": [
+    "05c:t16"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b5",
+   "kind": "box",
+   "box": [
+    555,
+    3631,
+    238,
+    258
+   ],
+   "text": "지방세",
+   "caption": null,
+   "score": 0.9292,
+   "text_in": [
+    "05c:t18"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b6",
+   "kind": "box",
+   "box": [
+    293,
+    3068,
+    236,
+    257
+   ],
+   "text": "BNP파리바",
+   "caption": null,
+   "score": 0.9136,
+   "text_in": [
+    "05c:t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b7",
+   "kind": "box",
+   "box": [
+    556,
+    3069,
+    236,
+    257
+   ],
+   "text": "BOA",
+   "caption": null,
+   "score": 0.9116,
+   "text_in": [
+    "05c:t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b8",
+   "kind": "box",
+   "box": [
+    32,
+    3070,
+    236,
+    256
+   ],
+   "text": "중국공상",
+   "caption": null,
+   "score": 0.9092,
+   "text_in": [
+    "05c:t10"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b9",
+   "kind": "box",
+   "box": [
+    32,
+    3915,
+    236,
+    257
+   ],
+   "text": "국고금",
+   "caption": null,
+   "score": 0.8896,
+   "text_in": [
+    "05c:t19"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b10",
+   "kind": "box",
+   "box": [
+    294,
+    3915,
+    235,
+    255
+   ],
+   "text": "관세",
+   "caption": null,
+   "score": 0.8521,
+   "text_in": [
+    "05c:t20"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b11",
+   "kind": "box",
+   "box": [
+    33,
+    2885,
+    237,
+    158
+   ],
+   "text": "도이치",
+   "caption": null,
+   "score": 0.7432,
+   "text_in": [
+    "05c:t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:b19",
+   "kind": "box",
+   "box": [
+    105,
+    3119,
+    90,
+    90
+   ],
+   "text": null,
+   "caption": "A Chinese translation or translation function.",
+   "score": 0.6698,
+   "text_in": [],
+   "ocr_guess": "E3",
+   "source": "ocr_icon",
+   "name": "중국공상 로고",
+   "label": "05c:t10",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "the history or history of a document.",
+   "score": null,
+   "box": [
+    361,
+    3394,
+    103,
+    103
+   ],
+   "in_box": "05c:b0",
+   "name": "JP모간 로고",
+   "label": "05c:t14",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:i1",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Refresh or reload the page.",
+   "score": null,
+   "box": [
+    378,
+    3689,
+    70,
+    67
+   ],
+   "in_box": "05c:b1",
+   "name": "국세 로고",
+   "label": "05c:t17",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:i2",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a digital assistant or service.",
+   "score": null,
+   "box": [
+    651,
+    3412,
+    45,
+    70
+   ],
+   "in_box": "05c:b2",
+   "name": "SC 로고",
+   "label": "05c:t15",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:i3",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Movies or TV.",
+   "score": null,
+   "box": [
+    99,
+    3395,
+    104,
+    103
+   ],
+   "in_box": "05c:b3",
+   "name": "HSBC 로고",
+   "label": "05c:t13",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:i4",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A document or file.",
+   "score": null,
+   "box": [
+    108,
+    3698,
+    84,
+    52
+   ],
+   "in_box": "05c:b4",
+   "name": "산림조합 로고",
+   "label": "05c:t16",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:i5",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Refresh or reload the page.",
+   "score": null,
+   "box": [
+    638,
+    3689,
+    70,
+    67
+   ],
+   "in_box": "05c:b5",
+   "name": "지방세 로고",
+   "label": "05c:t18",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:i6",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a flight or flight-related function.",
+   "score": null,
+   "box": [
+    361,
+    3112,
+    103,
+    103
+   ],
+   "in_box": "05c:b6",
+   "name": "BNP파리바 로고",
+   "label": "05c:t11",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:i7",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Blender",
+   "score": null,
+   "box": [
+    631,
+    3141,
+    85,
+    47
+   ],
+   "in_box": "05c:b7",
+   "name": "BOA 로고",
+   "label": "05c:t12",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:i8",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Refresh or reload the page.",
+   "score": null,
+   "box": [
+    115,
+    3971,
+    71,
+    67
+   ],
+   "in_box": "05c:b9",
+   "name": "국고금 로고",
+   "label": "05c:t19",
+   "capture": "05c"
+  },
+  {
+   "id": "05c:i9",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Refresh or reload the page.",
+   "score": null,
+   "box": [
+    376,
+    3971,
+    71,
+    67
+   ],
+   "in_box": "05c:b10",
+   "name": "관세 로고",
+   "label": "05c:t20",
+   "capture": "05c"
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9878,
+   "box": [
+    742,
+    81,
+    45,
+    47
+   ],
+   "into": "b18",
+   "capture": "05a"
+  },
+  {
+   "text": "×",
+   "score": 0.8645,
+   "box": [
+    740,
+    305,
+    49,
+    52
+   ],
+   "into": "b15",
+   "capture": "05a"
+  },
+  {
+   "text": "×",
+   "score": 0.9878,
+   "box": [
+    742,
+    81,
+    45,
+    47
+   ],
+   "into": "b15",
+   "capture": "05b"
+  },
+  {
+   "text": "×",
+   "score": 0.8472,
+   "box": [
+    740,
+    305,
+    50,
+    52
+   ],
+   "into": "b14",
+   "capture": "05b"
+  },
+  {
+   "text": "×",
+   "score": 0.9878,
+   "box": [
+    742,
+    81,
+    45,
+    47
+   ],
+   "into": "b15",
+   "capture": "05c"
+  },
+  {
+   "text": "×",
+   "score": 0.9488,
+   "box": [
+    742,
+    307,
+    46,
+    49
+   ],
+   "into": "b14",
+   "capture": "05c"
+  },
+  {
+   "text": "E3",
+   "score": 0.6698,
+   "box": [
+    122,
+    746,
+    56,
+    56
+   ],
+   "into": "b19",
+   "capture": "05c"
+  }
+ ],
+ "settings": {
+  "band_diff": 2.0,
+  "anchor_x": 8,
+  "anchor_tol": 6,
+  "merge_px": 20,
+  "merge_iou": 0.5
+ }
+}

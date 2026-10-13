@@ -1,0 +1,1045 @@
+{
+ "capture": "inputs/captures/transfer/05a.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    40,
+    24,
+    64,
+    34
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9938,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    736,
+    23,
+    48,
+    38
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9949,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    33,
+    79,
+    37,
+    48
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.999,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    33,
+    167,
+    454,
+    73
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.9771,
+   "in_box": "b21",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    33,
+    298,
+    434,
+    63
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": null
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    159,
+    410,
+    91,
+    60
+   ],
+   "text": "은행",
+   "caption": null,
+   "score": 0.9964,
+   "in_box": "b15"
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    557,
+    413,
+    121,
+    55
+   ],
+   "text": "증권사",
+   "caption": null,
+   "score": 0.9992,
+   "in_box": "b16"
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    115,
+    696,
+    73,
+    47
+   ],
+   "text": "신한",
+   "caption": null,
+   "score": 0.9993,
+   "in_box": "b11"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    372,
+    694,
+    77,
+    50
+   ],
+   "text": "제주",
+   "caption": null,
+   "score": 0.9986,
+   "in_box": "b9"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    635,
+    696,
+    73,
+    48
+   ],
+   "text": "국민",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "b10"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    365,
+    881,
+    95,
+    50
+   ],
+   "text": "NH",
+   "caption": null,
+   "score": 0.9961,
+   "in_box": "b5"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    114,
+    978,
+    72,
+    48
+   ],
+   "text": "기업",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b8"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    373,
+    978,
+    75,
+    47
+   ],
+   "text": "농협",
+   "caption": null,
+   "score": 0.9992,
+   "in_box": "b5"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    635,
+    978,
+    74,
+    48
+   ],
+   "text": "산업",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b3"
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    104,
+    1148,
+    94,
+    77
+   ],
+   "text": "Sh",
+   "caption": null,
+   "score": 0.9906,
+   "in_box": "b7"
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    114,
+    1261,
+    72,
+    47
+   ],
+   "text": "수협",
+   "caption": null,
+   "score": 0.9988,
+   "in_box": "b7"
+  },
+  {
+   "id": "t16",
+   "kind": "text",
+   "box": [
+    375,
+    1261,
+    73,
+    47
+   ],
+   "text": "신협",
+   "caption": null,
+   "score": 0.9939,
+   "in_box": "b0"
+  },
+  {
+   "id": "t17",
+   "kind": "text",
+   "box": [
+    636,
+    1261,
+    72,
+    47
+   ],
+   "text": "우리",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b4"
+  },
+  {
+   "id": "t18",
+   "kind": "text",
+   "box": [
+    648,
+    1438,
+    55,
+    65
+   ],
+   "text": "D",
+   "caption": null,
+   "score": 0.6825,
+   "in_box": "b2"
+  },
+  {
+   "id": "t19",
+   "kind": "text",
+   "box": [
+    371,
+    1448,
+    79,
+    53
+   ],
+   "text": "citi",
+   "caption": null,
+   "score": 0.9581,
+   "in_box": "b1"
+  },
+  {
+   "id": "t20",
+   "kind": "text",
+   "box": [
+    113,
+    1542,
+    75,
+    47
+   ],
+   "text": "하나",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b6"
+  },
+  {
+   "id": "t21",
+   "kind": "text",
+   "box": [
+    348,
+    1545,
+    126,
+    43
+   ],
+   "text": "한국씨티",
+   "caption": null,
+   "score": 0.9992,
+   "in_box": "b1"
+  },
+  {
+   "id": "t22",
+   "kind": "text",
+   "box": [
+    595,
+    1546,
+    156,
+    39
+   ],
+   "text": "카카오뱅크",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b2"
+  },
+  {
+   "id": "t23",
+   "kind": "text",
+   "box": [
+    107,
+    1739,
+    84,
+    29
+   ],
+   "text": "Kbank",
+   "caption": null,
+   "score": 0.9557,
+   "in_box": "b14"
+  },
+  {
+   "id": "t24",
+   "kind": "text",
+   "box": [
+    627,
+    1735,
+    90,
+    36
+   ],
+   "text": "BNV",
+   "caption": null,
+   "score": 0.9337,
+   "in_box": "b12"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    294,
+    1093,
+    235,
+    257
+   ],
+   "text": "신협",
+   "caption": null,
+   "score": 0.9482,
+   "text_in": [
+    "t16"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    294,
+    1375,
+    236,
+    258
+   ],
+   "text": "citi 한국씨티",
+   "caption": null,
+   "score": 0.9463,
+   "text_in": [
+    "t19",
+    "t21"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    555,
+    1375,
+    238,
+    259
+   ],
+   "text": "D 카카오뱅크",
+   "caption": null,
+   "score": 0.9443,
+   "text_in": [
+    "t18",
+    "t22"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    556,
+    812,
+    236,
+    257
+   ],
+   "text": "산업",
+   "caption": null,
+   "score": 0.9404,
+   "text_in": [
+    "t13"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    555,
+    1094,
+    238,
+    257
+   ],
+   "text": "우리",
+   "caption": null,
+   "score": 0.9399,
+   "text_in": [
+    "t17"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    293,
+    811,
+    236,
+    257
+   ],
+   "text": "NH 농협",
+   "caption": null,
+   "score": 0.9375,
+   "text_in": [
+    "t10",
+    "t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    32,
+    1375,
+    237,
+    258
+   ],
+   "text": "하나",
+   "caption": null,
+   "score": 0.936,
+   "text_in": [
+    "t20"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    32,
+    1094,
+    237,
+    257
+   ],
+   "text": "Sh 수협",
+   "caption": null,
+   "score": 0.9341,
+   "text_in": [
+    "t14",
+    "t15"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    32,
+    811,
+    237,
+    258
+   ],
+   "text": "기업",
+   "caption": null,
+   "score": 0.9229,
+   "text_in": [
+    "t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    292,
+    528,
+    237,
+    257
+   ],
+   "text": "제주",
+   "caption": null,
+   "score": 0.8882,
+   "text_in": [
+    "t8"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    556,
+    528,
+    238,
+    257
+   ],
+   "text": "국민",
+   "caption": null,
+   "score": 0.8809,
+   "text_in": [
+    "t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    32,
+    528,
+    237,
+    257
+   ],
+   "text": "신한",
+   "caption": null,
+   "score": 0.875,
+   "text_in": [
+    "t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b12",
+   "kind": "box",
+   "box": [
+    555,
+    1657,
+    237,
+    173
+   ],
+   "text": "BNV",
+   "caption": null,
+   "score": 0.8115,
+   "text_in": [
+    "t24"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b13",
+   "kind": "box",
+   "box": [
+    293,
+    1657,
+    236,
+    173
+   ],
+   "text": null,
+   "caption": "Hotspot",
+   "score": 0.792,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b14",
+   "kind": "box",
+   "box": [
+    32,
+    1657,
+    237,
+    173
+   ],
+   "text": "Kbank",
+   "caption": null,
+   "score": 0.7852,
+   "text_in": [
+    "t23"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b15",
+   "kind": "box",
+   "box": [
+    2,
+    392,
+    410,
+    104
+   ],
+   "text": "은행",
+   "caption": null,
+   "score": 0.7168,
+   "text_in": [
+    "t5"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b16",
+   "kind": "box",
+   "box": [
+    412,
+    398,
+    405,
+    97
+   ],
+   "text": "증권사",
+   "caption": null,
+   "score": 0.7139,
+   "text_in": [
+    "t6"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b17",
+   "kind": "box",
+   "box": [
+    747,
+    310,
+    36,
+    40
+   ],
+   "text": null,
+   "caption": "closing or cancel action.",
+   "score": 0.3398,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector"
+  },
+  {
+   "id": "b18",
+   "kind": "box",
+   "box": [
+    671,
+    26,
+    32,
+    29
+   ],
+   "text": null,
+   "caption": "Play or Start.",
+   "score": 0.3293,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b19",
+   "kind": "box",
+   "box": [
+    712,
+    27,
+    28,
+    27
+   ],
+   "text": null,
+   "caption": "Wi-Fi connectivity.",
+   "score": 0.304,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b20",
+   "kind": "box",
+   "box": [
+    748,
+    87,
+    34,
+    37
+   ],
+   "text": null,
+   "caption": "closing or cancel a window or dialog.",
+   "score": 0.2991,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b21",
+   "kind": "box",
+   "box": [
+    14,
+    154,
+    782,
+    101
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.1086,
+   "text_in": [
+    "t3"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b22",
+   "kind": "box",
+   "box": [
+    688,
+    0,
+    107,
+    12
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.0517,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A symbol or logo related to a user interface or account.",
+   "score": null,
+   "box": [
+    361,
+    1137,
+    103,
+    103
+   ],
+   "in_box": "b0",
+   "name": "신협 로고",
+   "label": "t16"
+  },
+  {
+   "id": "i1",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Citi.",
+   "score": null,
+   "box": [
+    361,
+    1420,
+    103,
+    103
+   ],
+   "in_box": "b1",
+   "name": "한국씨티 로고",
+   "label": "t21"
+  },
+  {
+   "id": "i2",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a bookmark or bookmark function.",
+   "score": null,
+   "box": [
+    621,
+    1420,
+    104,
+    103
+   ],
+   "in_box": "b2",
+   "name": "카카오뱅크 로고",
+   "label": "t22"
+  },
+  {
+   "id": "i3",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A document or file.",
+   "score": null,
+   "box": [
+    638,
+    876,
+    71,
+    63
+   ],
+   "in_box": "b3",
+   "name": "산업 로고",
+   "label": "t13"
+  },
+  {
+   "id": "i4",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a web browser or internet browser application.",
+   "score": null,
+   "box": [
+    621,
+    1137,
+    104,
+    104
+   ],
+   "in_box": "b4",
+   "name": "우리 로고",
+   "label": "t17"
+  },
+  {
+   "id": "i5",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "NHS",
+   "score": null,
+   "box": [
+    361,
+    855,
+    103,
+    104
+   ],
+   "in_box": "b5",
+   "name": "농협 로고",
+   "label": "t12"
+  },
+  {
+   "id": "i6",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A person in a sports uniform.",
+   "score": null,
+   "box": [
+    99,
+    1420,
+    102,
+    103
+   ],
+   "in_box": "b6",
+   "name": "하나 로고",
+   "label": "t20"
+  },
+  {
+   "id": "i7",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Shark.",
+   "score": null,
+   "box": [
+    113,
+    1163,
+    75,
+    52
+   ],
+   "in_box": "b7",
+   "name": "수협 로고",
+   "label": "t15"
+  },
+  {
+   "id": "i8",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A web browser or application related to BKV.",
+   "score": null,
+   "box": [
+    99,
+    855,
+    104,
+    103
+   ],
+   "in_box": "b8",
+   "name": "기업 로고",
+   "label": "t11"
+  },
+  {
+   "id": "i9",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Sending a message or message.",
+   "score": null,
+   "box": [
+    361,
+    573,
+    103,
+    104
+   ],
+   "in_box": "b9",
+   "name": "제주 로고",
+   "label": "t8"
+  },
+  {
+   "id": "i10",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a USB-related function.",
+   "score": null,
+   "box": [
+    621,
+    573,
+    104,
+    104
+   ],
+   "in_box": "b10",
+   "name": "국민 로고",
+   "label": "t9"
+  },
+  {
+   "id": "i11",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Sending a message or message.",
+   "score": null,
+   "box": [
+    100,
+    573,
+    103,
+    104
+   ],
+   "in_box": "b11",
+   "name": "신한 로고",
+   "label": "t7"
+  },
+  {
+   "id": "i12",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a bank or financial services services.",
+   "score": null,
+   "box": [
+    626,
+    1702,
+    99,
+    103
+   ],
+   "in_box": "b12",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i13",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Kbank",
+   "score": null,
+   "box": [
+    99,
+    1702,
+    104,
+    103
+   ],
+   "in_box": "b14",
+   "name": null,
+   "label": null
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9878,
+   "box": [
+    742,
+    81,
+    45,
+    47
+   ],
+   "into": "b20"
+  },
+  {
+   "text": "×",
+   "score": 0.8645,
+   "box": [
+    740,
+    305,
+    49,
+    52
+   ],
+   "into": "b17"
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+{"name": "nms05", "detect_args": "--conf 0.05 --nms 0.1 --no-clahe --no-classic --tiles 0 --overlap omniparser --imgsz 640 --nms 0.5"}

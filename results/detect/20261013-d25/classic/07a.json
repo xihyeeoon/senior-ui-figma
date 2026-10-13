@@ -1,0 +1,593 @@
+{
+ "capture": "inputs/captures/transfer/07a.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    40,
+    23,
+    66,
+    35
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9993,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    743,
+    24,
+    40,
+    33
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9988,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    37,
+    84,
+    29,
+    40
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    37,
+    158,
+    690,
+    56
+   ],
+   "text": "[금융거래한도계좌2]신한 주거래 우대",
+   "caption": null,
+   "score": 0.9967,
+   "in_box": null
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    33,
+    221,
+    266,
+    59
+   ],
+   "text": "통장 계좌에서",
+   "caption": null,
+   "score": 0.9949,
+   "in_box": null
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    33,
+    295,
+    228,
+    59
+   ],
+   "text": "아래 계좌로",
+   "caption": null,
+   "score": 0.9818,
+   "in_box": null
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    39,
+    371,
+    310,
+    38
+   ],
+   "text": "신한110234567890",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    269,
+    505,
+    282,
+    88
+   ],
+   "text": "10,000원",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    207,
+    630,
+    408,
+    43
+   ],
+   "text": "출금가능금액 1,000,000원",
+   "caption": null,
+   "score": 0.9723,
+   "in_box": null
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    79,
+    1112,
+    82,
+    45
+   ],
+   "text": "+1만",
+   "caption": null,
+   "score": 0.9985,
+   "in_box": "b1"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    271,
+    1110,
+    84,
+    46
+   ],
+   "text": "+5만",
+   "caption": null,
+   "score": 0.9981,
+   "in_box": "b2"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    459,
+    1112,
+    99,
+    44
+   ],
+   "text": "+10만",
+   "caption": null,
+   "score": 0.9986,
+   "in_box": "b3"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    666,
+    1112,
+    73,
+    48
+   ],
+   "text": "전액",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b0"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    114,
+    1228,
+    44,
+    58
+   ],
+   "text": "1",
+   "caption": null,
+   "score": 0.6801,
+   "in_box": null
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    388,
+    1228,
+    47,
+    57
+   ],
+   "text": "2",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    663,
+    1227,
+    46,
+    59
+   ],
+   "text": "3",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": null
+  },
+  {
+   "id": "t16",
+   "kind": "text",
+   "box": [
+    115,
+    1352,
+    47,
+    57
+   ],
+   "text": "4",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": null
+  },
+  {
+   "id": "t17",
+   "kind": "text",
+   "box": [
+    390,
+    1352,
+    45,
+    59
+   ],
+   "text": "5",
+   "caption": null,
+   "score": 0.9991,
+   "in_box": null
+  },
+  {
+   "id": "t18",
+   "kind": "text",
+   "box": [
+    662,
+    1350,
+    48,
+    62
+   ],
+   "text": "6",
+   "caption": null,
+   "score": 0.9993,
+   "in_box": null
+  },
+  {
+   "id": "t19",
+   "kind": "text",
+   "box": [
+    110,
+    1474,
+    51,
+    61
+   ],
+   "text": "7",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": null
+  },
+  {
+   "id": "t20",
+   "kind": "text",
+   "box": [
+    390,
+    1477,
+    43,
+    55
+   ],
+   "text": "8",
+   "caption": null,
+   "score": 0.999,
+   "in_box": null
+  },
+  {
+   "id": "t21",
+   "kind": "text",
+   "box": [
+    666,
+    1476,
+    41,
+    56
+   ],
+   "text": "9",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": null
+  },
+  {
+   "id": "t22",
+   "kind": "text",
+   "box": [
+    99,
+    1597,
+    77,
+    63
+   ],
+   "text": "00",
+   "caption": null,
+   "score": 0.9991,
+   "in_box": null
+  },
+  {
+   "id": "t23",
+   "kind": "text",
+   "box": [
+    390,
+    1601,
+    43,
+    55
+   ],
+   "text": "0",
+   "caption": null,
+   "score": 0.9977,
+   "in_box": null
+  },
+  {
+   "id": "t24",
+   "kind": "text",
+   "box": [
+    368,
+    1735,
+    88,
+    55
+   ],
+   "text": "다음",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": null
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    612,
+    1088,
+    182,
+    95
+   ],
+   "text": "전액",
+   "caption": null,
+   "score": 0.8354,
+   "text_in": [
+    "t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    30,
+    1087,
+    182,
+    97
+   ],
+   "text": "+1만",
+   "caption": null,
+   "score": 0.8091,
+   "text_in": [
+    "t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    224,
+    1088,
+    182,
+    96
+   ],
+   "text": "+5만",
+   "caption": null,
+   "score": 0.7607,
+   "text_in": [
+    "t10"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    418,
+    1088,
+    181,
+    96
+   ],
+   "text": "+10만",
+   "caption": null,
+   "score": 0.749,
+   "text_in": [
+    "t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    672,
+    27,
+    31,
+    28
+   ],
+   "text": null,
+   "caption": "Play or Start.",
+   "score": 0.5078,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    712,
+    27,
+    31,
+    28
+   ],
+   "text": null,
+   "caption": "WiFi connectivity.",
+   "score": 0.498,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    748,
+    87,
+    34,
+    37
+   ],
+   "text": null,
+   "caption": "closing or cancel action.",
+   "score": 0.3999,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    665,
+    1609,
+    39,
+    43
+   ],
+   "text": null,
+   "caption": "Back",
+   "score": 0.118,
+   "text_in": [],
+   "ocr_guess": "←",
+   "source": "detector"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    694,
+    0,
+    101,
+    12
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.0608,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    746,
+    210,
+    23,
+    16
+   ],
+   "text": null,
+   "caption": "expanding or expand a section.",
+   "score": 0.04,
+   "text_in": [],
+   "ocr_guess": "L",
+   "source": "classic"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    16,
+    1057,
+    805,
+    27
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.04,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "classic"
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.8946,
+   "box": [
+    742,
+    82,
+    44,
+    46
+   ],
+   "into": "b6"
+  },
+  {
+   "text": "L",
+   "score": 0.9061,
+   "box": [
+    740,
+    195,
+    37,
+    37
+   ],
+   "into": "b9"
+  },
+  {
+   "text": "←",
+   "score": 0.9999,
+   "box": [
+    663,
+    1605,
+    48,
+    49
+   ],
+   "into": "b7"
+  }
+ ]
+}

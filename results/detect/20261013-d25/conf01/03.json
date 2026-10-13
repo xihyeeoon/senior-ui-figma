@@ -1,0 +1,281 @@
+{
+ "capture": "inputs/captures/transfer/03.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    38,
+    22,
+    69,
+    38
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9986,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    710,
+    29,
+    36,
+    25
+   ],
+   "text": "57",
+   "caption": null,
+   "score": 0.5057,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    736,
+    24,
+    47,
+    33
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.998,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    35,
+    80,
+    36,
+    47
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.999,
+   "in_box": "b6"
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    33,
+    166,
+    456,
+    79
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.999,
+   "in_box": null
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    79,
+    314,
+    121,
+    40
+   ],
+   "text": "계좌번호",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b1"
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    71,
+    367,
+    354,
+    69
+   ],
+   "text": "|없이 숫자만 입력",
+   "caption": null,
+   "score": 0.9671,
+   "in_box": "b1"
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    75,
+    529,
+    395,
+    58
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.9685,
+   "in_box": "b0"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    366,
+    1694,
+    90,
+    59
+   ],
+   "text": "다음",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b2"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    40,
+    489,
+    740,
+    139
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.875,
+   "text_in": [
+    "t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    41,
+    287,
+    740,
+    176
+   ],
+   "text": "계좌번호 |없이 숫자만 입력",
+   "caption": null,
+   "score": 0.8491,
+   "text_in": [
+    "t5",
+    "t6"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    33,
+    1656,
+    760,
+    135
+   ],
+   "text": "다음",
+   "caption": null,
+   "score": 0.7959,
+   "text_in": [
+    "t8"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    672,
+    27,
+    31,
+    28
+   ],
+   "text": null,
+   "caption": "Play or Start.",
+   "score": 0.5601,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    748,
+    87,
+    35,
+    37
+   ],
+   "text": null,
+   "caption": "closing or cancel action.",
+   "score": 0.46,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    36,
+    732,
+    743,
+    849
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.3452,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    26,
+    75,
+    53,
+    57
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.3149,
+   "text_in": [
+    "t3"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9652,
+   "box": [
+    741,
+    81,
+    46,
+    46
+   ],
+   "into": "b4"
+  }
+ ]
+}

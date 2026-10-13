@@ -1,0 +1,625 @@
+{
+ "capture": "inputs/captures/transfer/11.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    40,
+    24,
+    64,
+    35
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9961,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    678,
+    20,
+    110,
+    46
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9739,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    33,
+    79,
+    37,
+    47
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.9988,
+   "in_box": "b6",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    32,
+    167,
+    455,
+    74
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.9827,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    78,
+    313,
+    120,
+    39
+   ],
+   "text": "계좌번호",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    73,
+    364,
+    109,
+    66
+   ],
+   "text": "|100",
+   "caption": null,
+   "score": 0.9086,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    151,
+    524,
+    92,
+    58
+   ],
+   "text": "신한",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b1",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    99,
+    724,
+    179,
+    38
+   ],
+   "text": "ELB00016",
+   "caption": null,
+   "score": 0.9988,
+   "in_box": null
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    97,
+    798,
+    222,
+    48
+   ],
+   "text": "계좌번호[100]",
+   "caption": null,
+   "score": 0.9971,
+   "in_box": null
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    98,
+    853,
+    614,
+    44
+   ],
+   "text": "입력하신 계좌번호가 올바르지 않습니다.",
+   "caption": null,
+   "score": 0.9659,
+   "in_box": null
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    98,
+    908,
+    501,
+    43
+   ],
+   "text": "계좌번호를 확인하시기 바랍니다.",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    368,
+    1036,
+    85,
+    56
+   ],
+   "text": "확인",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b0"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    117,
+    1178,
+    35,
+    53
+   ],
+   "text": "1",
+   "caption": null,
+   "score": 0.7866,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    388,
+    1176,
+    48,
+    58
+   ],
+   "text": "2",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    664,
+    1176,
+    44,
+    58
+   ],
+   "text": "3",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    116,
+    1300,
+    46,
+    55
+   ],
+   "text": "4",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b4",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t16",
+   "kind": "text",
+   "box": [
+    391,
+    1300,
+    43,
+    57
+   ],
+   "text": "5",
+   "caption": null,
+   "score": 0.9989,
+   "in_box": "b4",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t17",
+   "kind": "text",
+   "box": [
+    667,
+    1302,
+    40,
+    55
+   ],
+   "text": "6",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "b4",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t18",
+   "kind": "text",
+   "box": [
+    115,
+    1427,
+    41,
+    53
+   ],
+   "text": "7",
+   "caption": null,
+   "score": 0.9971,
+   "in_box": "b7",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t19",
+   "kind": "text",
+   "box": [
+    391,
+    1426,
+    41,
+    55
+   ],
+   "text": "8",
+   "caption": null,
+   "score": 0.9956,
+   "in_box": "b7",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t20",
+   "kind": "text",
+   "box": [
+    667,
+    1426,
+    39,
+    55
+   ],
+   "text": "9",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b7",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t21",
+   "kind": "text",
+   "box": [
+    393,
+    1551,
+    37,
+    54
+   ],
+   "text": "0",
+   "caption": null,
+   "score": 0.9819,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t22",
+   "kind": "text",
+   "box": [
+    368,
+    1697,
+    87,
+    55
+   ],
+   "text": "다음",
+   "caption": null,
+   "score": 0.9991,
+   "in_box": "b2",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    99,
+    1002,
+    624,
+    123
+   ],
+   "text": "확인",
+   "caption": null,
+   "score": 0.854,
+   "text_in": [
+    "t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    40,
+    486,
+    742,
+    133
+   ],
+   "text": "신한",
+   "caption": null,
+   "score": 0.6494,
+   "text_in": [
+    "t6"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    34,
+    1655,
+    759,
+    135
+   ],
+   "text": "다음",
+   "caption": null,
+   "score": 0.3416,
+   "text_in": [
+    "t22"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    746,
+    87,
+    37,
+    37
+   ],
+   "text": null,
+   "caption": "closing or cancel a window or dialog.",
+   "score": 0.2546,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    8,
+    1268,
+    722,
+    123
+   ],
+   "text": "4 5 6",
+   "caption": null,
+   "score": 0.1956,
+   "text_in": [
+    "t15",
+    "t16",
+    "t17"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    712,
+    380,
+    40,
+    40
+   ],
+   "text": null,
+   "caption": "closing or cancel an action.",
+   "score": 0.163,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    28,
+    82,
+    46,
+    45
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.1447,
+   "text_in": [
+    "t2"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    8,
+    1395,
+    721,
+    119
+   ],
+   "text": "8 9 7",
+   "caption": null,
+   "score": 0.1404,
+   "text_in": [
+    "t19",
+    "t20",
+    "t18"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    645,
+    1538,
+    79,
+    79
+   ],
+   "text": null,
+   "caption": "Back",
+   "score": 0.1379,
+   "text_in": [],
+   "ocr_guess": "←",
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Sending a message or message.",
+   "score": null,
+   "box": [
+    83,
+    524,
+    55,
+    56
+   ],
+   "in_box": "b1",
+   "name": null,
+   "label": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9963,
+   "box": [
+    744,
+    83,
+    41,
+    44
+   ],
+   "into": "b3"
+  },
+  {
+   "text": "×",
+   "score": 0.8426,
+   "box": [
+    719,
+    385,
+    28,
+    26
+   ],
+   "into": "b5"
+  },
+  {
+   "text": "←",
+   "score": 0.9989,
+   "box": [
+    659,
+    1549,
+    55,
+    54
+   ],
+   "into": "b8"
+  }
+ ]
+}

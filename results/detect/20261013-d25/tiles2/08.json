@@ -1,0 +1,421 @@
+{
+ "capture": "inputs/captures/transfer/08.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    39,
+    22,
+    69,
+    38
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    711,
+    29,
+    34,
+    24
+   ],
+   "text": "517",
+   "caption": null,
+   "score": 0.5202,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    738,
+    24,
+    45,
+    33
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9965,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    268,
+    410,
+    285,
+    79
+   ],
+   "text": "아래계좌로",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    178,
+    494,
+    467,
+    69
+   ],
+   "text": "10,000원 보낼까요?",
+   "caption": null,
+   "score": 0.9749,
+   "in_box": null
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    314,
+    601,
+    195,
+    47
+   ],
+   "text": "수수료 무료",
+   "caption": null,
+   "score": 0.9982,
+   "in_box": null
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    76,
+    763,
+    186,
+    46
+   ],
+   "text": "보내는 계좌",
+   "caption": null,
+   "score": 0.9922,
+   "in_box": null
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    396,
+    763,
+    350,
+    45
+   ],
+   "text": "신한110-000-000000",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    75,
+    847,
+    155,
+    50
+   ],
+   "text": "받는 계좌",
+   "caption": null,
+   "score": 0.9873,
+   "in_box": "b2"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    418,
+    852,
+    328,
+    38
+   ],
+   "text": "신한110234567890",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b2"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    77,
+    935,
+    183,
+    46
+   ],
+   "text": "받는분 메모",
+   "caption": null,
+   "score": 0.9885,
+   "in_box": "b8"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    589,
+    933,
+    112,
+    51
+   ],
+   "text": "김철수",
+   "caption": null,
+   "score": 1.0,
+   "in_box": null
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    707,
+    938,
+    36,
+    36
+   ],
+   "text": "0",
+   "caption": null,
+   "score": 0.9747,
+   "in_box": null
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    76,
+    1020,
+    184,
+    45
+   ],
+   "text": "내통장 메모",
+   "caption": null,
+   "score": 0.9812,
+   "in_box": null
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    588,
+    1020,
+    111,
+    48
+   ],
+   "text": "김철수",
+   "caption": null,
+   "score": 1.0,
+   "in_box": null
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    352,
+    1736,
+    119,
+    52
+   ],
+   "text": "보내기",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": null
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    672,
+    27,
+    31,
+    29
+   ],
+   "text": null,
+   "caption": "Play or Start.",
+   "score": 0.5215,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    748,
+    87,
+    34,
+    37
+   ],
+   "text": null,
+   "caption": "closing or cancel action.",
+   "score": 0.4243,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    52,
+    831,
+    705,
+    83
+   ],
+   "text": "받는 계좌 신한110234567890",
+   "caption": null,
+   "score": 0.097,
+   "text_in": [
+    "t8",
+    "t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    329,
+    204,
+    167,
+    168
+   ],
+   "text": null,
+   "caption": "Sending a message or message.",
+   "score": 0.0637,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    710,
+    1026,
+    30,
+    37
+   ],
+   "text": null,
+   "caption": "Eyedropper",
+   "score": 0.061,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    689,
+    0,
+    105,
+    12
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.0586,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    54,
+    1142,
+    724,
+    435
+   ],
+   "text": null,
+   "caption": "M0,0L9,0 4.5,5z",
+   "score": 0.2366,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector:tile"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    37,
+    88,
+    25,
+    35
+   ],
+   "text": null,
+   "caption": "the \"Next\" or \"Forward\" action.",
+   "score": 0.2161,
+   "text_in": [],
+   "ocr_guess": "<",
+   "source": "detector:tile"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    60,
+    918,
+    216,
+    82
+   ],
+   "text": "받는분 메모",
+   "caption": null,
+   "score": 0.0616,
+   "text_in": [
+    "t10"
+   ],
+   "ocr_guess": null,
+   "source": "detector:tile"
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "<",
+   "score": 0.9547,
+   "box": [
+    30,
+    77,
+    45,
+    52
+   ],
+   "into": "b7"
+  },
+  {
+   "text": "×",
+   "score": 0.9652,
+   "box": [
+    741,
+    81,
+    46,
+    46
+   ],
+   "into": "b1"
+  }
+ ]
+}
