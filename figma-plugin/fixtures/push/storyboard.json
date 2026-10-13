@@ -1,0 +1,19 @@
+{
+ "schema": 2,
+ "run": { "id": "fixture-push", "task": "fixture" },
+ "task": { "id": "fixture", "label": "시험용 가짜 — 무리 이름표 밀기" },
+ "flow": { "steps": [ { "sheet": "s1" } ] },
+ "sheets": [
+  {
+   "id": "s1", "screen": "scr-a", "kind": "visit", "main": true, "title": "가짜 장", "size": [390, 400],
+   "purpose": "무리 이름표가 위 요소의 꼬리표와 겹쳐 옆으로 밀리는지 본다",
+   "items": [
+    { "no": "e1", "action": "tap-a", "tag": "button", "text": "위 버튼", "box": [0, 100, 200, 40],
+      "result": { "kind": "none" } },
+    { "no": "e2", "action": "pick-key", "tag": "div", "kind": "group", "group": { "count": 10 }, "text": "숫자판",
+      "box": [0, 111, 300, 100], "result": { "kind": "same", "detail": "입력 칸 값" } }
+   ],
+   "regions": []
+  }
+ ]
+}

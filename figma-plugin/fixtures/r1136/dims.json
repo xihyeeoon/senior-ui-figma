@@ -1,0 +1,62 @@
+{
+ "visit-home.png": [
+  780,
+  4926
+ ],
+ "reveal-oos-easy-home.png": [
+  780,
+  5262
+ ],
+ "reveal-oos-home-setting.png": [
+  780,
+  5262
+ ],
+ "reveal-oos-hide-amount.png": [
+  780,
+  5262
+ ],
+ "visit-recipient.png": [
+  780,
+  1998
+ ],
+ "visit-account.png": [
+  780,
+  1788
+ ],
+ "visit-account_2.png": [
+  780,
+  1788
+ ],
+ "error-wrong-account.png": [
+  780,
+  2154
+ ],
+ "visit-bank.png": [
+  780,
+  5724
+ ],
+ "error-wrong-bank.png": [
+  780,
+  6018
+ ],
+ "reveal-pick-bank.png": [
+  780,
+  5724
+ ],
+ "visit-amount.png": [
+  780,
+  2342
+ ],
+ "visit-confirm.png": [
+  780,
+  2600
+ ],
+ "visit-password.png": [
+  780,
+  1838
+ ],
+ "visit-done.png": [
+  780,
+  1688
+ ]
+}

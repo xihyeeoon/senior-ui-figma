@@ -1,0 +1,101 @@
+{
+ "src_commit": "d406421",
+ "renames_sha256": "ac28da1ebdffc0ce948af69d5c66fdc9f082dec42538a258df630d4ea53e801b",
+ "inputs": [
+  {
+   "name": "r0013",
+   "path": "fixtures/r0013",
+   "source": "senior-ui-figma-pipeline/results/runs/20261013-130053/storyboard",
+   "input_sha256": {
+    "storyboard": "4559e24e3add90dbb7be4c12f19259c8d6f8c840e7920570201df6d465bd794f",
+    "dims": "6c45554e9e96300c955a01280ef9b1bc6ae33cac1629ed17f1a41755f793e46d"
+   },
+   "normal": "1f7ab07dab3bb9f6a0633d382c53ec9d2a53c5e143dfce8f8eb6b9d935dfdd63",
+   "full": "9f6efb3bce7cd59c0ad3497b934309b03a09827cd02488cbf02866a3b913c745",
+   "sorted": {
+    "normal": "c33cc88d9e5e0f3c1ae4163b18e67fab512ed3e5a04a69d3d973d3262275daf4",
+    "full": "9591dcbc25da59c5c0271231aee7940efd789a5c57635be229337002b90352df"
+   },
+   "layers": {
+    "normal": 1723,
+    "full": 5560
+   }
+  },
+  {
+   "name": "r1136",
+   "path": "fixtures/r1136",
+   "source": "senior-ui-figma-pipeline/results/runs/20261008-131136/storyboard",
+   "input_sha256": {
+    "storyboard": "96450fd4325e1214e7cdce6cc3ff1bdea103ef4fe25ee753b2297daa9a452cb8",
+    "dims": "3d95f65445f25c087c16198c0b8217acf9ae00b13d81ada03c5b8d5680439b00"
+   },
+   "normal": "babe94aa7becb3db4b29e8548172767fc588f31d36729dc0817bad5113cfc6a3",
+   "full": "005514853664321a39dfd8b50d090b58cc77233d1e7ef3167ec9df6e2ac9afee",
+   "sorted": {
+    "normal": "c241ea4485ded55cc6884dd7abd6167e788a5f7192d44562cc870c07e40643f4",
+    "full": "7159ceccd2c77623c1fd7fb6d49ae8ece985cf7a42f8225bcb0232ce2c8beaf7"
+   },
+   "layers": {
+    "normal": 871,
+    "full": 1432
+   }
+  },
+  {
+   "name": "ref",
+   "path": "fixtures/ref",
+   "source": "senior-ui-figma-pipeline/results/reference/original-transfer/storyboard",
+   "input_sha256": {
+    "storyboard": "6e171ced36765e4ba7f61f79977dfdeb83eb8613213478b969472a1bea63ba61",
+    "dims": "034e037957f3d20dda6dcf091ec7e139ae27abc08243cb15c46f8d9d5b8cf97a"
+   },
+   "normal": "87927ce4398d10c26507c9b4fd3f027709d0b778b8ad1c0750b5c149a3f7f256",
+   "full": "87927ce4398d10c26507c9b4fd3f027709d0b778b8ad1c0750b5c149a3f7f256",
+   "sorted": {
+    "normal": "b5c05d071395a066a597487d14b3b9d3732a5aca303314072c5a02e4989551e7",
+    "full": "b5c05d071395a066a597487d14b3b9d3732a5aca303314072c5a02e4989551e7"
+   },
+   "layers": {
+    "normal": 902,
+    "full": 902
+   }
+  },
+  {
+   "name": "schema3",
+   "path": "scripts/schema3",
+   "source": null,
+   "input_sha256": {
+    "storyboard": "4c0f8bbfedcc834810041c04407cddce7ad29951daa6f1d17bea50db098c55bb",
+    "dims": null
+   },
+   "normal": "f9e9db9564f5df73de688c97bc5dcf193d0c1e2dab887439e2c055881cde75b5",
+   "full": "f9e9db9564f5df73de688c97bc5dcf193d0c1e2dab887439e2c055881cde75b5",
+   "sorted": {
+    "normal": "58af1ae411191df872866c97e88dcb4206fbc745bc4b95bb21060b1afe32141c",
+    "full": "58af1ae411191df872866c97e88dcb4206fbc745bc4b95bb21060b1afe32141c"
+   },
+   "layers": {
+    "normal": 110,
+    "full": 110
+   }
+  },
+  {
+   "name": "push",
+   "path": "fixtures/push",
+   "source": null,
+   "input_sha256": {
+    "storyboard": "f99585795ff7fc438aff3073871925073d015b84237a180c7172ddcd38737f57",
+    "dims": null
+   },
+   "normal": "1304b68bcfae776f1b23716391a989a74c978edd25fed1db3a8e85bf29bf3be4",
+   "full": "1304b68bcfae776f1b23716391a989a74c978edd25fed1db3a8e85bf29bf3be4",
+   "sorted": {
+    "normal": "b8edad12573caad444737820bf1147b008846409e3f50885c31c51957f333466",
+    "full": "b8edad12573caad444737820bf1147b008846409e3f50885c31c51957f333466"
+   },
+   "layers": {
+    "normal": 33,
+    "full": 33
+   }
+  }
+ ]
+}

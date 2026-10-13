@@ -1,0 +1,122 @@
+{
+ "visit-home.png": [
+  780,
+  1688
+ ],
+ "reveal-oos-irp.png": [
+  780,
+  5454
+ ],
+ "reveal-oos-appcard.png": [
+  780,
+  5454
+ ],
+ "reveal-oos-get-coupon.png": [
+  780,
+  5454
+ ],
+ "reveal-oos-event.png": [
+  780,
+  5454
+ ],
+ "reveal-oos-coupon.png": [
+  780,
+  5454
+ ],
+ "reveal-oos-point.png": [
+  780,
+  5454
+ ],
+ "reveal-oos-spend-detail.png": [
+  780,
+  5454
+ ],
+ "reveal-oos-my-point.png": [
+  780,
+  5454
+ ],
+ "reveal-oos-connect-event.png": [
+  780,
+  5454
+ ],
+ "reveal-service-info.png": [
+  780,
+  5454
+ ],
+ "reveal-oos-easy-home.png": [
+  780,
+  1998
+ ],
+ "reveal-oos-home-setting.png": [
+  780,
+  1998
+ ],
+ "reveal-oos-hide-amount.png": [
+  780,
+  1998
+ ],
+ "visit-recipient.png": [
+  780,
+  1688
+ ],
+ "reveal-oos-multi-transfer.png": [
+  780,
+  1688
+ ],
+ "reveal-oos-payee-manage.png": [
+  780,
+  1688
+ ],
+ "reveal-edit-saved.png": [
+  780,
+  1688
+ ],
+ "reveal-oos-frequent.png": [
+  780,
+  1688
+ ],
+ "reveal-oos-my-accounts.png": [
+  780,
+  1688
+ ],
+ "reveal-oos-recent.png": [
+  780,
+  1688
+ ],
+ "visit-account.png": [
+  780,
+  1776
+ ],
+ "error-wrong-account.png": [
+  780,
+  2384
+ ],
+ "visit-bank.png": [
+  780,
+  6882
+ ],
+ "reveal-pick-bank.png": [
+  780,
+  5514
+ ],
+ "visit-amount.png": [
+  780,
+  3132
+ ],
+ "visit-confirm.png": [
+  780,
+  2854
+ ],
+ "error-wrong-bank.png": [
+  780,
+  3450
+ ],
+ "visit-password.png": [
+  780,
+  1992
+ ],
+ "visit-done.png": [
+  780,
+  1770
+ ]
+}
