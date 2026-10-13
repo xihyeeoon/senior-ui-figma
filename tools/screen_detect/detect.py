@@ -111,6 +111,8 @@ GRID_MIN = 6
 GRID_TOL = 0.15
 LOGO_HEAD = re.compile("은행|증권")
 LABEL_LOW = 0.55
+# 칸 글은 이름처럼 생겨야 한다 - 띄어쓰기 없는 10자 이하 (홈의 "나에게 맞는 카드 찾기" 줄 목록이 걸렸다)
+NAME_LIKE = re.compile(r"^\S{1,10}$")
 
 FONT = r"C:\Windows\Fonts\malgun.ttf"
 
@@ -487,6 +489,8 @@ def img_candidates(image, els):
         if b["id"] in grid:
             low = [t for t in ins if t["box"][1] + t["box"][3] / 2 > y + LABEL_LOW * h]
             label = max(low, key=lambda t: t["box"][1]) if low else None
+            if label and not NAME_LIKE.match(label["text"].strip()):
+                label = None     # 이름처럼 생기지 않은 글 (띄어쓴 문장 · 긴 글) 은 칸 글이 아니다
             wipe = [label] if label else []
         else:
             # 박스 안의 글은 누구 것이든 지운다 - 안쪽 박스에 붙은 글도 (겹침 규칙이 "iou" 면 칸 안에
