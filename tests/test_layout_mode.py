@@ -204,6 +204,25 @@ def test_a_screen_off_the_path_is_not_judged():
     assert FF.judge(steps(*ORIGINAL), steps(*PATH), plan_of(came))["same"] is True
 
 
+def test_new_screens_off_the_path_are_recorded_but_pass():
+    """정답 경로 밖에 원본에 없던 화면 - 통과시키되 수와 이름을 남긴다 (2026-10-13).
+    원본에 없던 화면 = from 이 비었거나, 원본 화면 둘 이상에서 왔거나, 정답 경로의 원본 화면에서
+    떼어 낸 것. 원본의 경로 밖 화면 (오류 화면) 하나에서 온 것은 원본에 있던 화면이다."""
+    came = dict(RENAMED, services=["home"], guide=[], both=["amount", "confirm"],
+                oops=["err-bank"])
+    got = FF.judge(steps(*ORIGINAL), steps(*PATH), plan_of(came))
+    assert got["same"] is True and got["problems"] == []
+    assert got["new_off_path"] == ["services", "guide", "both"]
+    rep = FF.apply(report(), got, "layout")
+    assert rep["passed"] is True
+    assert rep["metrics"]["flow_fixed"]["new_off_path"] == ["services", "guide", "both"]
+
+
+def test_no_new_screen_off_the_path_is_an_empty_list():
+    got = FF.judge(steps(*ORIGINAL), steps(*PATH), plan_of(dict(RENAMED, oops=["err-bank"])))
+    assert got["new_off_path"] == []
+
+
 def report():
     return {"passed": True, "fatal": [], "warning": [],
             "metrics": {"fatal_total": 0, "fatal_root": 0, "fatal_derived": 0}}

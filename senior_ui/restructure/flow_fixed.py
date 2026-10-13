@@ -25,7 +25,8 @@ r"""흐름 고정 검사 (검사 M, 2026-10-13) - 생성물의 정답 경로가 
        한 원본 화면을 두 생성 화면으로 나누면 같은 원본 이름이 두 번 나오므로 여기서 걸린다.
 
 오류 경로는 보지 않는다 - 오류를 어디서 어떻게 알리는지는 화면 배치의 일이다 (FLOW_FIXED 의
-마지막 문장).
+마지막 문장). 정답 경로 밖에 원본에 없던 화면 (다른 메뉴를 모은 화면 등) 을 두는 것도 판정은
+통과시키고, 그 이름만 new_off_path 에 남긴다.
 """
 import json
 
@@ -85,6 +86,7 @@ def judge(orig_steps, built_steps, plan):
         original_moves · built_moves   걸음 수 (화면 수 - 1)
         original_steps · built_steps   흐름 명세의 steps 수 (기록만 - 같은 화면 안의 걸음도 센다)
         problems        같지 않은 까닭, 사람이 읽는 글
+        new_off_path    정답 경로 밖에 둔 원본에 없던 화면 (기록만 - new_off_path 참고)
     """
     came = {sc.get("name"): list(sc.get("from") or [])
             for sc in (plan or {}).get("screens") or [] if isinstance(sc, dict)}
@@ -112,7 +114,23 @@ def judge(orig_steps, built_steps, plan):
             "original": orig, "built": built, "mapped": mapped,
             "original_moves": max(len(orig) - 1, 0), "built_moves": max(len(built) - 1, 0),
             "original_steps": len(orig_steps or []), "built_steps": len(built_steps or []),
-            "problems": problems}
+            "problems": problems, "new_off_path": new_off_path(plan, built, orig)}
+
+
+def new_off_path(plan, built, orig):
+    """정답 경로 밖에 둔, 원본에 없던 화면의 이름 (계획의 차례). 판정에는 쓰지 않는다 - 기록만
+    (2026-10-13). 원본에 없던 화면 = from 이 비었거나, 원본 화면 둘 이상에서 왔거나, 정답 경로의
+    원본 화면 하나에서 떼어 낸 것 (다른 메뉴를 모은 화면 등). 원본의 경로 밖 화면 하나 (오류 화면)
+    에서 온 것은 원본에 있던 화면이다."""
+    out = []
+    for sc in (plan or {}).get("screens") or []:
+        name = sc.get("name") if isinstance(sc, dict) else None
+        if not name or name in built:
+            continue
+        froms = [s for s in sc.get("from") or [] if isinstance(s, str)]
+        if not (len(froms) == 1 and froms[0] not in orig):
+            out.append(name)
+    return out
 
 
 def detail(result):
