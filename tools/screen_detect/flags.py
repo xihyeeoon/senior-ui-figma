@@ -7,8 +7,10 @@ detect.py 의 <dir>/<캡처>.json 을 읽어 요소마다 `flags` 목록을 더�
 찾았는지 <dir>/_flags.json 에 남긴다. stitch.py 보다 먼저 돌린다 (이은 요소는 표시를 그대로 가진다).
 무엇을 버릴지는 의미 층(D3)과 연구자가 정한다 - 여기서는 표시만 한다.
 
-  system_band   캡처들 사이에서 같은 자리 · 거의 같은 화소인 위 · 아래 띠(상태바 등) 안의 요소.
-                band() 참고.
+  system_band     캡처들 사이에서 같은 자리 · 거의 같은 화소인 위 · 아래 띠(상태바 등) 안의 요소.
+                  band() 참고.
+  behind_overlay  시트 · 팝업이 떠서 뒤 화면이 어두워진 캡처에서, 밝은 판(시트 · 팝업) 밖에 있는
+                  요소. overlay() 참고.
 """
 import argparse
 import io
@@ -86,6 +88,39 @@ def band(gray):
     return {"top": top, "bottom": bottom, "top_has": top_has, "bottom_has": bottom_has}
 
 
+# 덮개 - 검은 반투명 막이 뒤 화면을 덮으면 흰 바탕이 같은 회색(이 앱은 117)이 된다. 칸(BLOCK
+# 픽셀 사각)마다 중앙값 색을 보고, 무채색(채널 차 DIM_CHROMA 이하)이면서 밝기가 DIM_L 안인 칸을
+# 어두워진 칸으로 센다. 파란 숫자판 같은 짙은 색 바탕은 무채색이 아니라서 걸리지 않는다.
+BLOCK = 16
+DIM_CHROMA = 10
+DIM_L = (90, 150)
+DIM_SHARE = 0.10     # 어두워진 칸이 화면의 이만큼 이상이어야 덮개가 뜬 캡처다
+PANEL_L = 200        # 판 - 어두워진 캡처에서 밝은 칸(중앙값 밝기 이 이상)의 가장 큰 덩어리
+
+
+def overlay(rgb):
+    """덮개가 뜬 캡처면 {dim_share, panel: [x, y, w, h]}, 아니면 None."""
+    import cv2
+    import numpy as np
+    h, w = rgb.shape[:2]
+    bh, bw = h // BLOCK, w // BLOCK
+    blocks = rgb[:bh * BLOCK, :bw * BLOCK].reshape(bh, BLOCK, bw, BLOCK, 3)
+    med = np.median(blocks, axis=(1, 3))
+    chroma = med.max(axis=2) - med.min(axis=2)
+    light = med.mean(axis=2)
+    dim = (chroma <= DIM_CHROMA) & (light >= DIM_L[0]) & (light <= DIM_L[1])
+    share = float(dim.mean())
+    if share < DIM_SHARE:
+        return None
+    bright = (light >= PANEL_L).astype(np.uint8)
+    n, lab, stats, _ = cv2.connectedComponentsWithStats(bright, connectivity=4)
+    if n < 2:
+        return None
+    k = 1 + int(np.argmax(stats[1:, cv2.CC_STAT_AREA]))
+    x, y, bw_, bh_ = (int(v) * BLOCK for v in stats[k, :4])
+    return {"dim_share": round(share, 3), "panel": [x, y, bw_, bh_]}
+
+
 def centre_y(e):
     return e["box"][1] + e["box"][3] / 2
 
@@ -128,6 +163,25 @@ def main(argv=None):
                 add(e, "system_band")
                 k += 1
         info["counts"].setdefault("system_band", {})[n] = k
+    info["behind_overlay"] = {
+        "how": "%dpx 칸마다 중앙값 색이 무채색(채널 차 <= %d)이고 밝기 %d~%d 인 칸이 화면의 %d%% 이상이면 "
+               "덮개가 뜬 캡처. 밝기 %d 이상 칸의 가장 큰 덩어리를 판(시트 · 팝업)으로 보고, 판 밖에 "
+               "중심이 있는 요소에 표시한다" % (BLOCK, DIM_CHROMA, DIM_L[0], DIM_L[1],
+                                               DIM_SHARE * 100, PANEL_L),
+        "captures": {}}
+    for n in names:
+        rgb = np.asarray(Image.open(os.path.join(a.captures, n + ".png")).convert("RGB"))
+        ov = overlay(rgb)
+        k = 0
+        if ov:
+            info["behind_overlay"]["captures"][n] = ov
+            px, py, pw, ph = ov["panel"]
+            for e in dets[n]["elements"]:
+                cx, cy = e["box"][0] + e["box"][2] / 2, centre_y(e)
+                if not (px <= cx <= px + pw and py <= cy <= py + ph):
+                    add(e, "behind_overlay")
+                    k += 1
+        info["counts"].setdefault("behind_overlay", {})[n] = k
     for n in names:
         with io.open(os.path.join(a.dir, n + ".json"), "w", encoding="utf-8") as f:
             json.dump(dets[n], f, ensure_ascii=False, indent=1)
