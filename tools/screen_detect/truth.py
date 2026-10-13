@@ -215,21 +215,33 @@ class Walk:
     def __init__(self, page, flow):
         self.page, self.truth = page, truth_of(flow)
         self.states = []
+        # (D4) 걸은 차례 - 도착한 상태와 누른 것을 순서대로. 숫자 키도 적는다 (compare_flow.py)
+        self.log = []
 
     async def keep(self, name, via):
         snap = await snapshot(self.page)
         if self.states and same(self.states[-1], snap):
             self.states[-1]["also"].append(name)
+            self.log.append({"arrive": self.states[-1]["state"], "as": name})
             return self.states[-1]
         snap.update(state=name, via=via, also=[], task_buttons=[])
         self.states.append(snap)
+        self.log.append({"arrive": name})
         return snap
 
     async def press(self, item, path, where):
         """동작 하나. 누르는 것이면 누르기 전 상태(where)에 과제 버튼으로 적는다."""
+        if "type" in item:
+            self.log.append({"type": fill(item["type"], self.truth), "selector": item["key"],
+                             "presses": len(fill(item["type"], self.truth)), "path": path})
+        t = None
+        if "click" in item:
+            t = await self.page.evaluate(TARGET, fill(item["click"], self.truth))
+            if t:
+                self.log.append({"press": t["action"], "text": t["text"], "aria": t["aria"],
+                                 "img": t["img"], "key": t["key"], "selector": item["click"],
+                                 "path": path})
         if "click" in item and where is not None:
-            sel = fill(item["click"], self.truth)
-            t = await self.page.evaluate(TARGET, sel)
             if t and not t["key"]:
                 row = dict(t, selector=item["click"], path=path)
                 row.pop("key")
@@ -260,15 +272,16 @@ async def walk(url, flow):
                                                               if step.get("state") else ""))
                 if visit == "bank":
                     # 흐름에 없는 걸음 - [증권사] 탭. 보고 나서 [은행] 탭으로 되돌린다
-                    await page.click("#tab-sec")
-                    await asyncio.sleep(0.25)
+                    await w.press({"click": "#tab-sec"}, "extra", None)
                     await w.keep("bank+tab-sec", "은행 시트에서 [증권사] 탭을 누른 뒤 (흐름 밖)")
-                    await page.click("#tab-bank")
-                    await asyncio.sleep(0.25)
-            states = w.states
+                    await w.press({"click": "#tab-bank"}, "extra", None)
+                    w.log.append({"arrive": "bank", "as": "bank (은행 탭으로 되돌림)"})
+            states, logs = w.states, {"main": w.log}
             for ep in flow.get("error_paths") or []:
-                states.append(await walk_error(browser, url, flow, ep))
-            return states
+                st, log = await walk_error(browser, url, flow, ep)
+                states.append(st)
+                logs["error:%s" % ep["id"]] = log
+            return states, logs
         finally:
             await browser.close()
 
@@ -286,13 +299,15 @@ async def walk_error(browser, url, flow, ep):
             await settle(page, step["screen"])
             if visit == ep["from_step"]:
                 break
+        # 오류 경로가 갈라지는 걸음(from_step)에서부터 적는다 - 그 앞은 정답 걸음과 같다
+        w.log.append({"arrive": ep["from_step"], "as": "오류 경로 %s 의 시작" % ep["id"]})
         for item in expand(ep.get("inputs") or []):
             await w.press(item, "error", None)
         await settle(page, ep["expect_screen"])
         st = await w.keep("error:%s" % ep["id"], "오류 경로 %s - %s" % (ep["id"], ep.get("about")))
         for item in expand(ep.get("recover") or []):
             await w.press(item, "error", st)
-        return st
+        return st, w.log
     finally:
         await page.close()
 
@@ -306,12 +321,15 @@ def main(argv=None):
     task = T.load_task(a.task)
     flow = load_flow(None, task=a.task)
     html = T.abs_path(task["original"])
-    states = asyncio.run(walk("file:///" + html.replace("\\", "/"), flow))
+    states, logs = asyncio.run(walk("file:///" + html.replace("\\", "/"), flow))
     out = {"task": a.task, "original": task["original"], "flow": task["flow"],
            "original_sha256": T.file_sha256(html),
            "walk": "senior_ui.audit.drive.run_actions · settle + probes.INVENTORY · "
                    "CHOICE_SHOWN · ENTRANCES (검사 I · K 와 같은 probe)",
-           "states": states}
+           "states": states,
+           # (D4) 걸은 차례 - 도착(arrive)과 누른 것(press · type)을 순서대로. 정답 경로(main)와
+           # 오류 경로마다(error:<id>, 갈라지는 걸음부터). 흐름 추정의 정답을 이것으로 만든다
+           "timeline": logs}
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     with io.open(a.out, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
