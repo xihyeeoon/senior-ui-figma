@@ -247,6 +247,11 @@ def items_of(state):
     for s in state["image_slots"]:
         out.append({"kind": "slot", "label": s["label"], "n": "", "thing": s,
                     "action": s["action"]})
+    for f in state.get("fields") or []:
+        # 입력칸 - 보이는 글(라벨 · 값) 또는 빈 칸의 안내 글. 둘 다 없으면(비밀번호 점) 글 없는 것
+        label = f["text"] or f["placeholder"] or f["id"]
+        out.append({"kind": "field", "label": label, "n": norm(f["text"] or f["placeholder"]),
+                    "thing": f, "action": f["id"]})
     return out
 
 
@@ -345,10 +350,15 @@ def judge_capture(det, st):
             left.append(b)
     extra_text = [e for e in texts if norm(e["text"]) and not truth_pool.has(norm(e["text"]))
                   and not Pool(st["texts"]).has(norm(e["text"]))]
+    def kind_of(b):
+        fl = b.get("flags") or []
+        return "system_band" if "system_band" in fl else \
+            "behind_overlay" if "behind_overlay" in fl else "other"
     return {"rows": rows, "boxes": len(boxes), "plain_boxes": len(plain),
             "img_candidates": len(cands), "named": len(names),
             "names": sorted(names),
-            "leftover": [{"id": b["id"], "text": b["text"], "caption": b["caption"]} for b in left],
+            "leftover": [{"id": b["id"], "text": b["text"], "caption": b["caption"],
+                          "why": kind_of(b)} for b in left],
             "extra_text": [e["text"] for e in extra_text],
             "frame": {"fit": {str(k): v for k, v in frame.fit.items()}, "anchors": frame.anchors}}
 
@@ -435,11 +445,34 @@ def baseline(folder):
                          and r.get("named"))}
 
 
+def row_table(dirs, names=None):
+    """폴더마다 compare.json 의 row 를 한 줄로 - 설정 대 지표 표 (D2.5)."""
+    def frac(v):
+        return "%d/%d" % tuple(v)
+    out = []
+    for i, d in enumerate(dirs):
+        r = json.load(io.open(os.path.join(d, "compare.json"), encoding="utf-8"))["row"]
+        b, lo = r["box_recall"], r["leftover"]
+        out.append([names[i] if names else os.path.basename(d.rstrip("/\\")), frac(r["text"]),
+                    frac(r["logos"]), frac(r["choices"]), frac(b["button"]), frac(b["entrance"]),
+                    frac(b["choice"]), frac(b["field"]), r["candidates"],
+                    "%d (%d · %d · %d)" % (lo["total"], lo["behind_overlay"], lo["system_band"],
+                                           lo["other"]),
+                    r["boxes"], "%.2f" % r["sec_per_image"] if r.get("sec_per_image") else "-"])
+    return table(["설정", "글", "로고", "선택지", "박스: 버튼", "박스: 입구", "박스: 선택지",
+                  "박스: 입력칸", "그림 자리 후보", "남는 박스 (덮개 뒤 · 고정 띠 · 그 밖)",
+                  "검출 박스", "초/장"], out)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261012-d2"))
     ap.add_argument("--baseline", help="앞 시험의 결과 폴더 (D1 대 D2 표)")
+    ap.add_argument("--table", nargs="+", help="폴더들의 compare.json 한 줄씩을 표로 내고 끝낸다")
     a = ap.parse_args(argv)
+    if a.table:
+        print(row_table(a.table))
+        return
     load = lambda p: json.load(io.open(os.path.join(a.dir, p), encoding="utf-8"))
     truth = load("truth.json")
     run = load("_run.json")
@@ -463,7 +496,7 @@ def main(argv=None):
         return {k: sum(x[k] for x in t) for k in ("total", "with_text", "found", "in_box", "icon")}
 
     allrows = list(merged.values())
-    tot = {k: sums(allrows, k) for k in ("text", "button", "entrance", "choice", "slot")}
+    tot = {k: sums(allrows, k) for k in ("text", "button", "entrance", "choice", "slot", "field")}
     glyphs = sum(1 for rs in allrows for r in rs if r["kind"] == "text" and r["icon"])
     cand_by_state = {s: sum(res["plain_boxes"] + res["img_candidates"] for _, res in by_state[s])
                      for s in merged}
@@ -471,6 +504,8 @@ def main(argv=None):
                  if r["kind"] == "slot" and r["action"] == "pick-bank"]
     logos = {"total": len(logo_rows), "named": sum(bool(r.get("named")) for r in logo_rows)}
     left_total = sum(len(per[n]["leftover"]) for n in names)
+    left_by = {w: sum(1 for n in names for b in per[n]["leftover"] if b["why"] == w)
+               for w in ("behind_overlay", "system_band", "other")}
     box_total = sum(per[n]["boxes"] for n in names)
 
     # 아이콘으로 바꾼 OCR 글 (D2 규칙 1) - 짝지은 상태의 글과 같으면 잘못 바꾼 것 (진짜 글)
@@ -538,7 +573,13 @@ def main(argv=None):
          "후보 = 글 없는 박스(아이콘) + 칸 안의 그림 후보(img_candidate). 짝지은 단위들의 합"],
         ["로고 이름 맞음", "%d/%d" % (logos["named"], logos["total"]),
          "은행 · 증권사 로고 - 정답 \"<이름> 로고\" 와 후보 이름이 같은 것 (5절)"],
-        ["남는 박스", "%d / 검출 박스 %d" % (left_total, box_total), "단위 %d개의 합" % len(names)],
+        ["남는 박스", "%d / 검출 박스 %d" % (left_total, box_total),
+         "단위 %d개의 합. 갈래: 덮개 뒤 %d · 고정 띠 %d · 그 밖 %d (flags.py 의 표시)"
+         % (len(names), left_by["behind_overlay"], left_by["system_band"], left_by["other"])],
+        ["박스 재현율", " · ".join("%s %s" % (k, pct(t[key]["in_box"], t[key]["with_text"]))
+                                   for k, key in (("버튼", "button"), ("입구", "entrance"),
+                                                  ("선택지", "choice"), ("입력칸", "field"))),
+         "글 있는 정답 항목 가운데 그 글을 감싸는 검출 박스가 있는 비율 (글은 OCR 로 찾았어도)"],
     ]))
     if a.baseline:
         b0 = baseline(a.baseline)
@@ -655,7 +696,7 @@ def main(argv=None):
               "고른 것이다. `ocr` 은 아이콘으로 바꾼 OCR 글. 자리가 맞지 않을 수 있으니 id 를 확인 "
               "그림(overlay/)에서 본다.\n")
     kinds = {"slot": "그림 자리", "entrance": "아이콘 입구", "button": "아이콘 버튼",
-             "choice": "글 없는 선택지"}
+             "choice": "글 없는 선택지", "field": "글 없는 입력칸"}
     rows = []
     for s, rs in merged.items():
         for r in rs:
@@ -692,19 +733,30 @@ def main(argv=None):
                                  d["dropped_fixed"], d.get("named_across", 0)] for _, d in sts]))
 
     md.append("\n## 8. 남는 박스 (단위별)\n")
-    rows = [[n, ", ".join("%s %s" % (b["id"], b["text"] or "[%s]" % (b["caption"] or ""))
+    tag = {"behind_overlay": " (덮개 뒤)", "system_band": " (고정 띠)", "other": ""}
+    rows = [[n, ", ".join("%s %s%s" % (b["id"], b["text"] or "[%s]" % (b["caption"] or ""),
+                                       tag[b["why"]])
                           for b in per[n]["leftover"]) or "-"] for n in names]
-    md.append(table(["단위", "정답 어디에도 닿지 않은 박스 (글 또는 [설명])"], rows))
+    md.append(table(["단위", "정답 어디에도 닿지 않은 박스 (글 또는 [설명]) (표시)"], rows))
 
     md.append("\n## 9. 정답에 없는 OCR 글 (단위별)\n")
     md.append("더미앱에만 있는 글, 시트 뒤에 비친 화면의 글, 잘못 읽은 글이 섞여 있다.\n")
     md.append(table(["캡처", "글"], [[n, " · ".join(per[n]["extra_text"]) or "-"] for n in names]))
 
+    row = {"text": [t["text"]["found"], t["text"]["with_text"]],
+           "logos": [logos["named"], logos["total"]],
+           "choices": [t["choice"]["found"], t["choice"]["with_text"]],
+           "box_recall": {k: [t[k]["in_box"], t[k]["with_text"]]
+                          for k in ("button", "entrance", "choice", "field")},
+           "candidates": sum(cand_by_state.values()), "boxes": box_total,
+           "leftover": dict(left_by, total=left_total),
+           "sec_per_image": run["per_image_seconds_mean"].get("total")}
     with io.open(os.path.join(a.dir, "summary.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(md) + "\n")
     with io.open(os.path.join(a.dir, "compare.json"), "w", encoding="utf-8") as f:
         json.dump({"pairs": {n: pairs[n][:3] for n in names}, "proposed": pick,
                    "per_capture": per, "per_state": merged, "totals": tot, "logos": logos,
+                   "row": row,
                    "icon_from_ocr": moved,
                    "settings": {"found": FOUND, "short": SHORT, "near": NEAR, "far": FAR}},
                   f, ensure_ascii=False, indent=1)
