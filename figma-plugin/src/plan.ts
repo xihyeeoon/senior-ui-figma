@@ -190,8 +190,10 @@ function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, scre
     y: 0, w: Math.max(1, w - 2 * s.inset), h, align: s.align, underline: s.underline, trunc: true })];
   const m = marksOf(it, where, rn, screen).filter(k => !(grouped && k === MARK.entrance));
   if (m.length) kids.push(tags(m, w));
-  return { t: 'frame', name: `${it.no} ${label}`, x, y, w, h, fill: s.fill, stroke: s.stroke,
-    dash: it.kind === 'group' ? [2, 2] : s.dash, radius: s.radius,
+  // 무리는 채우지 않는다 - 단독 버튼처럼 칠하면 아래 참고 그림 (숫자 키 · 은행 칸) 을 덮는다
+  const many = it.kind === 'group';
+  return { t: 'frame', name: `${it.no} ${label}`, x, y, w, h, fill: many ? null : s.fill, stroke: s.stroke,
+    dash: many ? [2, 2] : s.dash, radius: s.radius,
     opacity: it.disabled ? 0.4 : 1, clip: false, kids };
 }
 
