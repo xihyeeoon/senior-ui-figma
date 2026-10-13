@@ -7,6 +7,11 @@ r"""의미 층 - 검출된 요소마다 누를 수 있나 · 무슨 종류인가
     & $py tools/screen_detect/semantic.py                    # 실제 호출 - 연구자가 돌린다
         [--in results/detect/20261013-d25/final] [--out results/detect/<날짜>-d3]
         [--model gpt-6.1-sol] [--reasoning-effort medium] [--max-tokens 25000] [단위 …]
+        [--units "home(01a+01b+01c),02,08" --reuse results/detect/20261013-d3]
+
+--units 로 고른 단위만 부른다. --reuse 를 주면 고르지 않은 단위는 앞 실행 폴더의 답 · 원문 · 보낸 그림 ·
+truth.json 을 그대로 가져와 합친다 (결과 폴더 기본 <날짜>-d3b) - 비교는 13단위 전체로. 단위마다
+prompt_sha(그때의 SEMANTIC_PROMPT.md)와 reused_from 이 남는다.
 
 단위(--in 의 이은 화면 3 + 낱장 10 = 13)마다 모델을 한 번 부른다. 보내는 것:
 
@@ -339,7 +344,9 @@ def run_unit(unit, det, a, captures, out, call):
     from senior_ui.restructure import model as M
     prompt, images, rows, fixed = build(unit, det, captures, os.path.join(out, "_sent", unit))
     ids = [r["id"] for r in rows]
+    import hashlib
     res = {"unit": unit, "model": "mock" if a.mock else a.model, "status": None, "attempts": [],
+           "prompt_sha": hashlib.sha256(io.open(PROMPT_FILE, "rb").read()).hexdigest()[:12],
            "elements": None, "fixed": fixed, "fixed_overrides": [], "images": len(images),
            "estimate": estimate(prompt, images, rows, a.model, a.max_tokens)}
     ask = prompt
@@ -376,7 +383,7 @@ def run_unit(unit, det, a, captures, out, call):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("units", nargs="*", help="단위 이름 (없으면 전부)")
+    ap.add_argument("names", nargs="*", help="단위 이름 (없으면 전부, --units 와 같다)")
     ap.add_argument("--in", dest="inp", default=os.path.join(ROOT, "results", "detect",
                                                             "20261013-d25", "final"))
     ap.add_argument("--out")
@@ -385,12 +392,18 @@ def main(argv=None):
     ap.add_argument("--max-tokens", type=int, default=MAX_TOKENS)
     ap.add_argument("--mock", nargs="?", const="ok", choices=["ok", "bad-once", "bad-twice"])
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--units", help='고른 단위만 - 쉼표로 ("home(01a+01b+01c),02,08")')
+    ap.add_argument("--reuse", help="고르지 않은 단위의 답을 가져올 앞 실행 폴더 (예 results/detect/"
+                                    "20261013-d3). 비교는 13단위 전체로 한다")
     a = ap.parse_args(argv)
     from senior_ui import config
     a.model = a.model or config.DEFAULT_MODEL
     effort = a.reasoning_effort or config.DEFAULT_REASONING_EFFORT
     units = C.load_units(a.inp)
-    names = a.units or list(units)
+    names = (a.names + [u.strip() for u in (a.units or "").split(",") if u.strip()]) or list(units)
+    bad = [u for u in names if u not in units]
+    if bad:
+        raise SystemExit("모르는 단위: %s (있는 단위: %s)" % (", ".join(bad), ", ".join(units)))
     run = json.load(io.open(os.path.join(a.inp, "_run.json"), encoding="utf-8"))
     captures = os.path.join(ROOT, run["captures"])
     today = datetime.date.today().strftime("%Y%m%d")
@@ -422,8 +435,31 @@ def main(argv=None):
             shutil.rmtree(tmp, ignore_errors=True)
         return
 
-    out = a.out or os.path.join(ROOT, "results", "detect", today + ("-d3-mock" if a.mock else "-d3"))
+    tag = "-d3b" if a.reuse else "-d3"
+    out = a.out or os.path.join(ROOT, "results", "detect", today + tag + ("-mock" if a.mock else ""))
     os.makedirs(out, exist_ok=True)
+    reused = []
+    if a.reuse:
+        # 고르지 않은 단위 - 앞 실행의 답 · 원문 · 보낸 그림을 그대로 가져온다 (다시 부르지 않는다)
+        for u in units:
+            if u in names:
+                continue
+            src = os.path.join(a.reuse, u + ".semantic.json")
+            if not os.path.exists(src):
+                raise SystemExit("앞 실행에 %s 의 답이 없다: %s" % (u, src))
+            r = json.load(io.open(src, encoding="utf-8"))
+            r["reused_from"] = os.path.relpath(a.reuse, ROOT).replace("\\", "/")
+            write(os.path.join(out, u + ".semantic.json"), json.dumps(r, ensure_ascii=False, indent=1))
+            for f in os.listdir(os.path.join(a.reuse, "raw")) if os.path.isdir(os.path.join(a.reuse, "raw")) else []:
+                if f.startswith(u + "."):
+                    os.makedirs(os.path.join(out, "raw"), exist_ok=True)
+                    shutil.copy(os.path.join(a.reuse, "raw", f), os.path.join(out, "raw", f))
+            sent = os.path.join(a.reuse, "_sent", u)
+            if os.path.isdir(sent):
+                shutil.copytree(sent, os.path.join(out, "_sent", u), dirs_exist_ok=True)
+            reused.append(r)
+        if os.path.exists(os.path.join(a.reuse, "truth.json")):
+            shutil.copy(os.path.join(a.reuse, "truth.json"), os.path.join(out, "truth.json"))
     if a.mock:
         def call(prompt, images, rows, n):
             return mock_reply(rows, a.mock, n)
@@ -442,11 +478,14 @@ def main(argv=None):
         done.append(r)
         print(u, r["status"], "시도 %d" % len(r["attempts"]), flush=True)
     summ = {"model": "mock:%s" % a.mock if a.mock else a.model, "reasoning_effort": None if a.mock else effort,
+            "units_run": names, "reuse": (os.path.relpath(a.reuse, ROOT).replace("\\", "/")
+                                          if a.reuse else None),
             "in": os.path.relpath(a.inp, ROOT).replace("\\", "/"), "task": TASK,
             "prompt_file": os.path.relpath(PROMPT_FILE, ROOT).replace("\\", "/"),
             "units": {}, "totals": {}}
-    for r in done:
+    for r in done + reused:
         u = {"status": r["status"], "attempts": len(r["attempts"]), "images": r["images"],
+             "reused_from": r.get("reused_from"), "prompt_sha": r.get("prompt_sha"),
              "elements": len(r["elements"] or []), "fixed_overrides": len(r["fixed_overrides"]),
              "prompt_tokens": sum((x["usage"] or {}).get("prompt") or 0 for x in r["attempts"]),
              "completion_tokens": sum((x["usage"] or {}).get("completion") or 0 for x in r["attempts"]),
