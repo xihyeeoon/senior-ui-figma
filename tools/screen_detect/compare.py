@@ -332,6 +332,26 @@ def judge_capture(det, st):
     inbox = Pool([b["text"] for b in boxes if b["text"]], join=False)
     rows = []
     picked = set()
+    pools = {e["id"]: Pool([e["text"]], join=False) for e in det["elements"]
+             if e["kind"] in ("text", "box") and e.get("text")}
+    parent = {e["id"]: e.get("in_box") for e in texts}
+
+    def els_of(n):
+        """글 n 이 닿는 요소 - 그 글을 읽은 글 줄 · 박스, 그리고 그 글 줄을 담은 박스."""
+        hit = [i for i, pl in pools.items() if pl.has(n)]
+        if not hit and n:
+            # 한 요소에 다 들지 않는 항목(줄 전체가 입구인 "자주쓰는 계좌 편집 0개 ⌄", 두 줄로 읽힌
+            # "얼마를 보낼까요?") - 그 항목의 조각인 글 줄들 (두 글자 이상)
+            hit = [i for i, pl in pools.items() if pl.items[0] and len(pl.items[0]) >= 2
+                   and pl.items[0] in n]
+        return sorted(set(hit) | {parent[i] for i in hit if parent.get(i)})
+
+    def els_at(thing):
+        """글 없는 정답 것(‹ ✕ · 아이콘만)이 닿는 요소 - 옮긴 자리 안에 중심이 있는 요소."""
+        r = frame.map(thing)
+        if r is None or frame.inside(thing) is False:
+            return []
+        return [e["id"] for e in det["elements"] if within(centre(e["box"]), r, NEAR / 2)]
     for it in items_of(st):
         r = frame.map(it["thing"])
         row = {"kind": it["kind"], "label": it["label"], "action": it.get("action"),
@@ -355,7 +375,18 @@ def judge_capture(det, st):
             sim, hit = ocr.best(it["n"])
             row.update(icon=False, found=sim >= FOUND, in_box=inbox.has(it["n"]),
                        sim=round(sim, 2), closest=hit)
+        row["els"] = els_of(it["n"]) if not row["icon"] else \
+            [x for x in (row.get("named") or row.get("near"),) if x]
         rows.append(row)
+    # 누를 수 있는 정답 것 전부 (truth.py 의 actions - 뒤로 · 닫기 · 탭 · 지우기 포함)에 닿는 요소.
+    # 의미 층이 누를 수 있다고 한 요소가 정답에 있는지 가르는 데 쓴다
+    action_ids = set()
+    for act in st.get("actions") or []:
+        n = norm(act.get("text") or "")
+        action_ids.update(els_of(n) if n else els_at(act))
+    for row in rows:
+        if row["kind"] in ("button", "entrance", "choice", "field"):
+            action_ids.update(row["els"])
 
     # 남는 박스
     truth_pool = Pool([it["label"] for it in items_of(st) if it["n"]])
@@ -379,7 +410,8 @@ def judge_capture(det, st):
             "behind_overlay" if "behind_overlay" in fl else "other"
     return {"rows": rows, "boxes": len(boxes), "plain_boxes": len(plain),
             "img_candidates": len(cands), "named": len(names),
-            "names": sorted(names),
+            "names": sorted(names), "action_ids": sorted(action_ids),
+            "has_actions": "actions" in st,
             "leftover": [{"id": b["id"], "text": b["text"], "caption": b["caption"],
                           "why": kind_of(b)} for b in left],
             "extra_text": [e["text"] for e in extra_text],
@@ -487,17 +519,218 @@ def row_table(dirs, names=None):
                   "검출 박스", "초/장"], out)
 
 
+# --------------------------------------------------------------------------- #
+# 의미 층 (D3) - semantic.py 의 답을 정답과 견준다
+# --------------------------------------------------------------------------- #
+KEYPAD = {"acc-num", "num", "pw"}       # 정답의 숫자판 무리 (data-v 키) - 나머지 선택지는 choice
+
+
+def load_semantic(folder):
+    """단위 → {id: 답} (실패한 단위는 None), 그리고 _semantic.json."""
+    out = {}
+    for f in os.listdir(folder):
+        if f.endswith(".semantic.json"):
+            r = json.load(io.open(os.path.join(folder, f), encoding="utf-8"))
+            out[r["unit"]] = ({e["id"]: e for e in r["elements"]} if r["status"] == "ok"
+                              else None)
+    summ = os.path.join(folder, "_semantic.json")
+    return out, (json.load(io.open(summ, encoding="utf-8")) if os.path.exists(summ) else None)
+
+
+def is_cut(name):
+    base = (name or "").strip()
+    for tail in (" 아이콘", " 로고"):
+        if base.endswith(tail):
+            base = base[:-len(tail)]
+    return bool(base) and base[-1] in CUT_MARKS
+
+
+def roles(names, per, dets, sem, states, pick):
+    """역할 지표와 목록. 정답 항목마다 닿는 요소(els) 가운데 하나라도 그 역할이면 맞음 - 한 항목이
+    글 줄 · 박스 둘에 닿기 때문이다. 같은 상태의 여러 단위는 합친다 (하나에서라도 맞으면 맞음)."""
+    by = {}
+    for n in names:
+        ans = sem.get(n)
+        for r in per[n]["rows"]:
+            k = (pick[n], r["key"])
+            m = by.setdefault(k, dict(state=pick[n], kind=r["kind"], label=r["label"],
+                                      action=r.get("action"), icon=r["icon"],
+                                      text_only=False, pressable=False, kinds=set(),
+                                      groups=[], image_names=[], units=[], els=[],
+                                      failed=False, rule_named=False))
+            m["units"].append(n)
+            m["rule_named"] = m["rule_named"] or bool(r.get("named"))
+            if ans is None:
+                m["failed"] = True
+                continue
+            got = [ans[i] for i in r["els"] if i in ans]
+            m["els"] += r["els"]
+            m["pressable"] = m["pressable"] or any(g["pressable"] for g in got)
+            m["kinds"].update(g["kind"] for g in got)
+            pick_g = [g for g in got if g["kind"] in ("choice", "keypad_key")] or got
+            m["groups"] += [g["group"] for g in pick_g if g.get("group")]
+            m["image_names"] += [g["image_name"] for g in got if g.get("image_name")]
+            if not r["icon"] and r.get("found") and not r.get("in_box"):
+                m["text_only"] = True
+    rows = list(by.values())
+
+    def frac(rs, ok):
+        return [sum(1 for r in rs if ok(r)), len(rs)]
+    press = [r for r in rows if r["kind"] in ("button", "entrance")]
+    out = {"pressable_text": frac([r for r in press if not r["icon"]], lambda r: r["pressable"]),
+           "pressable_icon": frac([r for r in press if r["icon"]], lambda r: r["pressable"]),
+           "text_only": [dict(state=r["state"], kind=r["kind"], label=r["label"],
+                              pressable=r["pressable"], kinds=sorted(r["kinds"]))
+                         for r in rows if r["text_only"] and r["kind"] in
+                         ("button", "entrance", "choice", "field")]}
+    ch = [r for r in rows if r["kind"] == "choice" and r["action"] not in KEYPAD]
+    keys = [r for r in rows if r["kind"] == "choice" and r["action"] in KEYPAD]
+    out["choice"] = frac(ch, lambda r: "choice" in r["kinds"])
+    out["keypad"] = frac(keys, lambda r: "keypad_key" in r["kinds"])
+    out["field"] = frac([r for r in rows if r["kind"] == "field" and not r["icon"]],
+                        lambda r: "input" in r["kinds"])
+    groups = []
+    for (st, act) in sorted({(r["state"], r["action"]) for r in ch + keys}):
+        rs = [r for r in ch + keys if r["state"] == st and r["action"] == act]
+        names_ = [g for r in rs for g in r["groups"][:1]]
+        top = max(set(names_), key=names_.count) if names_ else None
+        groups.append({"state": st, "action": act, "values": len(rs),
+                       "top_group": top, "in_top": sum(1 for r in rs if top in r["groups"])})
+    out["groups"] = groups
+    slots = [r for r in rows if r["kind"] == "slot"]
+    out["image"] = frac(slots, lambda r: "image" in r["kinds"])
+    same, cut, diff = [], [], []
+    for r in slots:
+        names_ = r["image_names"]
+        if not names_:
+            continue
+        if r["label"].strip() in [x.strip() for x in names_]:
+            same.append(r)
+        elif any(is_cut(x) and r["label"].startswith(x.strip().rstrip(" 아이콘로고").rstrip(CUT_MARKS))
+                 for x in names_):
+            cut.append(r)
+        else:
+            diff.append({"state": r["state"], "label": r["label"], "image_name": names_[0]})
+    out["image_name_same"], out["image_name_cut"], out["image_name_diff"] = len(same), len(cut), diff
+    out["image_name_checked"] = sum(1 for r in slots if r["image_names"])
+    # 규칙이 이름을 붙인 로고(고정값)와 모델이 이름을 지은 것을 따로
+    out["image_name_rule"] = [sum(1 for r in same + cut if r["rule_named"]),
+                              sum(1 for r in slots if r["rule_named"] and r["image_names"])]
+    out["image_name_model"] = [sum(1 for r in same if not r["rule_named"]),
+                               sum(1 for r in slots if not r["rule_named"] and r["image_names"])]
+    # 정답에 그림 자리가 없는 상태에서 image 로 잡힌 것, 정답에 없는데 누를 수 있다고 한 것, 표시
+    zero, fp, fp_flag, flagged, flagged_sys, fp_list = 0, 0, 0, 0, 0, []
+    for n in names:
+        ans = sem.get(n)
+        if ans is None:
+            continue
+        no_slots = not states[pick[n]]["image_slots"]
+        truth_ids = set(per[n]["action_ids"])
+        for e in dets[n]["elements"]:
+            g = ans.get(e["id"])
+            if not g:
+                continue
+            if no_slots and g["kind"] == "image":
+                zero += 1
+            fl = e.get("flags") or []
+            if fl:
+                flagged += 1
+                flagged_sys += g["kind"] == "system"
+            if g["pressable"] and e["id"] not in truth_ids:
+                if fl:
+                    fp_flag += 1
+                else:
+                    fp += 1
+                    fp_list.append({"unit": n, "id": e["id"], "kind": g["kind"],
+                                    "text": e.get("text") or e.get("ocr_guess"),
+                                    "caption": e.get("caption")})
+    out.update(image_in_zero=zero, pressable_not_in_truth=fp, pressable_not_in_truth_flagged=fp_flag,
+               not_in_truth_list=fp_list, flagged=[flagged_sys, flagged],
+               failed_units=[n for n in names if sem.get(n) is None],
+               truth_has_actions=all(per[n]["has_actions"] for n in names))
+    return out
+
+
+def roles_md(ro, summ, table_):
+    pc = lambda v: "%d/%d (%.0f%%)" % (v[0], v[1], 100.0 * v[0] / v[1]) if v[1] else "-"
+    md = ["\n## 10. 의미 층 (D3)\n"]
+    if summ:
+        md.append("모델 `%s` · 프롬프트 `%s` · 입력 `%s`. 실패한 단위: %s\n"
+                  % (summ["model"], summ["prompt_file"], summ["in"],
+                     ", ".join(summ["totals"]["failed"]) or "없음"))
+    md.append("정답 항목마다 닿는 요소(그 글을 읽은 글 줄 · 박스, 글 없는 것은 옮긴 자리의 요소) 가운데 하나라도 "
+              "그 역할이면 맞음으로 센다. 과제 버튼 대 과제 밖 입구는 이 층이 정하지 않는다 - 둘을 함께 "
+              "\"누를 수 있는 것\" 으로 본다.\n")
+    md.append(table_(["항목", "값", "메모"], [
+        ["누를 수 있는 것 - 글 있는 것 (과제 버튼 + 입구)", pc(ro["pressable_text"]), "pressable=true"],
+        ["누를 수 있는 것 - 아이콘만", pc(ro["pressable_icon"]), "옮긴 자리의 요소"],
+        ["박스 없이 글 줄로만 있는 것", "%d/%d" % (sum(1 for r in ro["text_only"] if r["pressable"]
+                                                     or "input" in r["kinds"]),
+                                                 len(ro["text_only"])),
+         "누를 수 있음(입력칸은 input) - 아래 목록"],
+        ["정답에 없는데 누를 수 있다고 한 것", "%d (표시 달린 것 %d 따로)"
+         % (ro["pressable_not_in_truth"], ro["pressable_not_in_truth_flagged"]),
+         "정답 = truth 의 누를 수 있는 data-action 전부%s" % (
+             "" if ro["truth_has_actions"] else " (이 truth.json 에 actions 가 없어 과제 항목만으로 셈)")],
+        ["선택지 (숫자판 밖)", pc(ro["choice"]), "kind=choice"],
+        ["숫자판 키", pc(ro["keypad"]), "kind=keypad_key"],
+        ["입력칸", pc(ro["field"]), "kind=input (글 있는 칸)"],
+        ["그림 자리", pc(ro["image"]), "kind=image"],
+        ["그림 이름 = 정답 aria-label", "%d / 이름 있는 %d (잘린 이름 %d 따로)"
+         % (ro["image_name_same"], ro["image_name_checked"], ro["image_name_cut"]),
+         "같은 글일 때만 맞음. 그중 규칙 이름(로고 고정값) %d/%d · 모델이 지은 이름 %d/%d"
+         % tuple(ro["image_name_rule"] + ro["image_name_model"])],
+        ["그림 자리가 없는 상태에서 image", "%d" % ro["image_in_zero"], ""],
+        ["표시 달린 요소 중 kind=system", pc(ro["flagged"]), "system_band · behind_overlay"],
+    ]))
+    md.append("\n### 무리 - 같은 정답 무리가 같은 group 으로 묶였나\n")
+    md.append(table_(["상태", "정답 무리", "값", "가장 많은 group", "그 group 에 든 값"],
+                     [[g["state"], g["action"], g["values"], g["top_group"] or "-", g["in_top"]]
+                      for g in ro["groups"]]))
+    md.append("\n### 박스 없이 글 줄로만 있는 것\n")
+    md.append(table_(["상태", "종류", "항목", "누를 수 있음", "답한 kind"],
+                     [[r["state"], r["kind"], r["label"], "예" if r["pressable"] else "",
+                       ", ".join(r["kinds"]) or "-"] for r in ro["text_only"]] or [["-"] * 5]))
+    md.append("\n### 그림 이름이 정답과 다른 것 (판정하지 않고 나란히)\n")
+    md.append(table_(["상태", "정답 aria-label", "답한 image_name"],
+                     [[d["state"], d["label"], d["image_name"]] for d in ro["image_name_diff"]]
+                     or [["-"] * 3]))
+    md.append("\n### 정답에 없는데 누를 수 있다고 한 것 (표시 없는 것)\n")
+    md.append(table_(["단위", "id", "답한 kind", "글", "설명"],
+                     [[d["unit"], d["id"], d["kind"], d["text"] or "-", d["caption"] or "-"]
+                      for d in ro["not_in_truth_list"]] or [["-"] * 5]))
+    if summ:
+        md.append("\n### 토큰 · 비용\n")
+        md.append(table_(["단위", "상태", "시도", "그림", "입력 토큰", "출력 토큰 (생각)", "비용 USD",
+                          "어림 입력 토큰"],
+                         [[u, x["status"], x["attempts"], x["images"], x["prompt_tokens"],
+                           "%d (%d)" % (x["completion_tokens"], x["reasoning_tokens"]),
+                           "%.4f" % x["cost_usd"], x["estimate"]["input_tokens"]]
+                          for u, x in summ["units"].items()]
+                         + [["합계", "", "", summ["totals"]["images"], summ["totals"]["prompt_tokens"],
+                             "%d (%d)" % (summ["totals"]["completion_tokens"],
+                                          summ["totals"]["reasoning_tokens"]),
+                             "%.4f" % summ["totals"]["cost_usd"], ""]]))
+    return md
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261012-d2"))
     ap.add_argument("--baseline", help="앞 시험의 결과 폴더 (D1 대 D2 표)")
     ap.add_argument("--table", nargs="+", help="폴더들의 compare.json 한 줄씩을 표로 내고 끝낸다")
+    ap.add_argument("--semantic", help="semantic.py 의 결과 폴더 (D3). 주면 역할 지표를 더하고 "
+                                       "summary.md · compare.json 을 그 폴더에 쓴다. 정답지는 그 "
+                                       "폴더의 truth.json 이 있으면 그것")
     a = ap.parse_args(argv)
     if a.table:
         print(row_table(a.table))
         return
     load = lambda p: json.load(io.open(os.path.join(a.dir, p), encoding="utf-8"))
-    truth = load("truth.json")
+    out_dir = a.semantic or a.dir
+    tp = os.path.join(a.semantic, "truth.json") if a.semantic else None
+    truth = (json.load(io.open(tp, encoding="utf-8")) if tp and os.path.exists(tp)
+             else load("truth.json"))
     run = load("_run.json")
     dets = load_units(a.dir)
     names = list(dets)
@@ -782,12 +1015,18 @@ def main(argv=None):
            "candidates": sum(cand_by_state.values()), "boxes": box_total,
            "leftover": dict(left_by, total=left_total),
            "sec_per_image": run["per_image_seconds_mean"].get("total")}
-    with io.open(os.path.join(a.dir, "summary.md"), "w", encoding="utf-8", newline="\n") as f:
+    ro = None
+    if a.semantic:
+        sem, summ = load_semantic(a.semantic)
+        ro = roles(names, per, dets, sem, states, pick)
+        md += roles_md(ro, summ, table)
+        md[0] = md[0].replace("요소 검출 시험", "요소 검출 · 의미 층 시험")
+    with io.open(os.path.join(out_dir, "summary.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(md) + "\n")
-    with io.open(os.path.join(a.dir, "compare.json"), "w", encoding="utf-8") as f:
+    with io.open(os.path.join(out_dir, "compare.json"), "w", encoding="utf-8") as f:
         json.dump({"pairs": {n: pairs[n][:3] for n in names}, "proposed": pick,
                    "per_capture": per, "per_state": merged, "totals": tot, "logos": logos,
-                   "row": row,
+                   "row": row, "roles": ro,
                    "icon_from_ocr": moved,
                    "settings": {"found": FOUND, "short": SHORT, "near": NEAR, "far": FAR}},
                   f, ensure_ascii=False, indent=1)
