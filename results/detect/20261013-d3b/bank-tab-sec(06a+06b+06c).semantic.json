@@ -1,0 +1,1017 @@
+{
+ "unit": "bank-tab-sec(06a+06b+06c)",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 16359,
+    "completion": 5612,
+    "reasoning": 107
+   },
+   "seconds": 73.9,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.088838,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "06a:t0",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "상태바의 시각 표시다."
+  },
+  {
+   "id": "06a:t1",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "상태바의 배터리 잔량 표시다."
+  },
+  {
+   "id": "06a:b18",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "상태바의 통신 신호 표시다."
+  },
+  {
+   "id": "06a:b20",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "상태바의 와이파이 표시다."
+  },
+  {
+   "id": "06a:b22",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "선택 시트 뒤에서 어두워진 상단 영역이다."
+  },
+  {
+   "id": "06a:b24",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "선택 시트 뒤의 어두워진 닫기 영역이다."
+  },
+  {
+   "id": "06a:b21",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "선택 시트 뒤의 어두워진 뒤로가기 영역이다."
+  },
+  {
+   "id": "06a:t2",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "선택 시트 뒤의 뒤로가기 기호다."
+  },
+  {
+   "id": "06a:b19",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "선택 시트 뒤에서 어두워진 닫기 기호다."
+  },
+  {
+   "id": "06a:b23",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "선택 시트 뒤의 어두워진 제목 영역이다."
+  },
+  {
+   "id": "06a:t3",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "note": "선택 시트 뒤에 남아 있는 화면 제목이다."
+  },
+  {
+   "id": "06a:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "은행 또는 증권사 선택 시트의 제목이다."
+  },
+  {
+   "id": "06a:b17",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "시트 우측 상단의 X 모양 닫기 버튼이다."
+  },
+  {
+   "id": "06a:b16",
+   "pressable": true,
+   "kind": "tab",
+   "group": "은행·증권사 탭",
+   "image_name": null,
+   "note": "은행 목록으로 전환하는 비선택 탭이다."
+  },
+  {
+   "id": "06a:b15",
+   "pressable": true,
+   "kind": "tab",
+   "group": "은행·증권사 탭",
+   "image_name": null,
+   "note": "밑줄로 선택 상태를 나타낸 증권사 탭이다."
+  },
+  {
+   "id": "06a:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": "은행·증권사 탭",
+   "image_name": null,
+   "note": "증권사 탭 안의 글자 라벨이다."
+  },
+  {
+   "id": "06a:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": "은행·증권사 탭",
+   "image_name": null,
+   "note": "은행 탭 안의 글자 라벨이다."
+  },
+  {
+   "id": "06a:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 다올투자증권 선택 카드다."
+  },
+  {
+   "id": "06a:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 교보증권 선택 카드다."
+  },
+  {
+   "id": "06a:b11",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 신한투자증권 선택 카드다."
+  },
+  {
+   "id": "06a:i13",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "신한투자증권 로고",
+   "note": "선택 카드 안의 파란 원형 로고다."
+  },
+  {
+   "id": "06a:i12",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "다올투자증권 로고",
+   "note": "선택 카드 안의 DAOL 글자가 있는 검은 원형 로고다."
+  },
+  {
+   "id": "06a:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "교보증권 로고",
+   "note": "선택 카드 안의 초록색 심벌이다."
+  },
+  {
+   "id": "06a:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "다올투자증권 로고 안의 영문 글자다."
+  },
+  {
+   "id": "06a:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "신한투자증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "교보증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "다올투자증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 메리츠증권 선택 카드다."
+  },
+  {
+   "id": "06a:b5",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 미래에셋증권 선택 카드다."
+  },
+  {
+   "id": "06a:b7",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 대신증권 선택 카드다."
+  },
+  {
+   "id": "06a:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "대신증권 로고",
+   "note": "선택 카드 안의 회색 원형 로고다."
+  },
+  {
+   "id": "06a:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "메리츠증권 로고",
+   "note": "선택 카드 안의 빨간 원형 로고다."
+  },
+  {
+   "id": "06a:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "미래에셋증권 로고",
+   "note": "선택 카드 안의 남색 원형 로고다."
+  },
+  {
+   "id": "06a:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "메리츠증권 로고 안의 영문 글자다."
+  },
+  {
+   "id": "06a:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "미래에셋증권 로고 안의 영문 글자다."
+  },
+  {
+   "id": "06a:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "대신증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "메리츠증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "미래에셋증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:b8",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 부국증권 선택 카드다."
+  },
+  {
+   "id": "06a:b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 삼성증권 선택 카드다."
+  },
+  {
+   "id": "06a:b1",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 상상인증권 선택 카드다."
+  },
+  {
+   "id": "06a:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "삼성증권 로고",
+   "note": "선택 카드 안의 파란 원형 로고다."
+  },
+  {
+   "id": "06a:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "부국증권 로고",
+   "note": "선택 카드 안의 파란 마름모 심벌이다."
+  },
+  {
+   "id": "06a:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "상상인증권 로고",
+   "note": "선택 카드 안의 청록색 원 모양 심벌이다."
+  },
+  {
+   "id": "06a:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "삼성증권 로고 안의 글자다."
+  },
+  {
+   "id": "06a:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "부국증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "삼성증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "상상인증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 유안타증권 선택 카드다."
+  },
+  {
+   "id": "06a:b6",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 신영증권 선택 카드다."
+  },
+  {
+   "id": "06a:b2",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 에스케이증권 선택 카드다."
+  },
+  {
+   "id": "06a:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "신영증권 로고",
+   "note": "선택 카드 안의 초록색 원형 로고다."
+  },
+  {
+   "id": "06a:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "에스케이증권 로고",
+   "note": "선택 카드 안의 빨간 원형 로고다."
+  },
+  {
+   "id": "06a:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "파란 부채꼴 아이콘",
+   "note": "유안타증권 심벌의 왼쪽 위 파란 조각이다."
+  },
+  {
+   "id": "06a:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "파란 부채꼴 아이콘",
+   "note": "유안타증권 심벌의 오른쪽 위 파란 조각이다."
+  },
+  {
+   "id": "06a:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "에스케이증권 로고 안의 글자다."
+  },
+  {
+   "id": "06a:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "유안타증권 로고",
+   "note": "선택 카드 안의 파란 심벌 아래쪽 부분이다."
+  },
+  {
+   "id": "06a:t23",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "유안타증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "신영증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "에스케이증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06a:b14",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "유진투자증권 선택 카드의 위쪽 영역이다."
+  },
+  {
+   "id": "06a:b13",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "LS 로고가 있는 선택 카드의 위쪽 영역이다."
+  },
+  {
+   "id": "06a:b12",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "카카오페이증권 선택 카드의 위쪽 영역이다."
+  },
+  {
+   "id": "06a:i14",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "카카오페이증권 로고",
+   "note": "선택 카드 안의 노란 원형 로고다."
+  },
+  {
+   "id": "06a:t24",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 LS 로고 글자다."
+  },
+  {
+   "id": "06a:t25",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "카카오페이증권 로고 안의 pay 글자다."
+  },
+  {
+   "id": "06b:b14",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "유진투자증권 선택 카드의 이름 영역이다."
+  },
+  {
+   "id": "06b:b16",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "LS증권 선택 카드의 이름 영역이다."
+  },
+  {
+   "id": "06b:b19",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "카카오페이증권 선택 카드의 이름 영역이다."
+  },
+  {
+   "id": "06b:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "LS증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06b:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "카카오페이증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06b:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "유진투자증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06b:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 키움증권 선택 카드다."
+  },
+  {
+   "id": "06b:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 토스증권 선택 카드다."
+  },
+  {
+   "id": "06b:b11",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 케이프투자증권 선택 카드다."
+  },
+  {
+   "id": "06b:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "케이프투자증권 로고",
+   "note": "선택 카드 안의 하늘색 원형 로고다."
+  },
+  {
+   "id": "06b:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "키움증권 로고",
+   "note": "선택 카드 안의 K와 화살표 모양 심벌이다."
+  },
+  {
+   "id": "06b:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "토스증권 로고",
+   "note": "선택 카드 안의 파란 심벌이다."
+  },
+  {
+   "id": "06b:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "키움증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06c:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "토스증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06c:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "케이프투자증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06b:b7",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 우리투자증권 선택 카드다."
+  },
+  {
+   "id": "06b:b1",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 하나증권 선택 카드다."
+  },
+  {
+   "id": "06b:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 아이엠증권 선택 카드다."
+  },
+  {
+   "id": "06c:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "우리투자증권 로고",
+   "note": "선택 카드 안의 파란 원형 로고다."
+  },
+  {
+   "id": "06c:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "하나증권 로고",
+   "note": "선택 카드 안의 청록색과 빨간색 심벌이다."
+  },
+  {
+   "id": "06c:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "아이엠증권 로고",
+   "note": "선택 카드 안의 초록색 심벌이다."
+  },
+  {
+   "id": "06c:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "우리투자증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06c:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "하나증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06c:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "아이엠증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06b:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 현대차증권 선택 카드다."
+  },
+  {
+   "id": "06c:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 한국투자증권 선택 카드다."
+  },
+  {
+   "id": "06c:b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 한화투자증권 선택 카드다."
+  },
+  {
+   "id": "06c:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "한국투자증권 로고",
+   "note": "선택 카드 안의 갈색 원형 로고다."
+  },
+  {
+   "id": "06c:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "한화투자증권 로고",
+   "note": "선택 카드 안의 주황색 원형 로고다."
+  },
+  {
+   "id": "06c:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "현대차증권 로고",
+   "note": "선택 카드 안의 남색 원형 로고다."
+  },
+  {
+   "id": "06b:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "한국투자증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06c:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "한화투자증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06b:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "현대차증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06c:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 BNK투자증권 선택 카드다."
+  },
+  {
+   "id": "06c:b5",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 IBK투자증권 선택 카드다."
+  },
+  {
+   "id": "06c:b2",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 DB증권 선택 카드다."
+  },
+  {
+   "id": "06c:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "BNK투자증권 로고",
+   "note": "선택 카드 안의 빨간 원형 로고다."
+  },
+  {
+   "id": "06c:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "IBK투자증권 로고",
+   "note": "선택 카드 안의 파란 원형 로고다."
+  },
+  {
+   "id": "06c:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "DB증권 로고",
+   "note": "선택 카드 안의 여러 색으로 된 심벌이다."
+  },
+  {
+   "id": "06c:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "BNK투자증권 로고의 영문 글자 영역이다."
+  },
+  {
+   "id": "06b:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "BNK투자증권 로고 안의 BNK 글자다."
+  },
+  {
+   "id": "06c:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "DB증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06c:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "BNK투자증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06c:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "IBK투자증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06b:b12",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "KB증권 선택 카드의 일부만 검출된 위쪽 영역이다."
+  },
+  {
+   "id": "06c:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 KB증권 선택 카드다."
+  },
+  {
+   "id": "06b:b13",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "NH투자증권 선택 카드의 일부만 검출된 위쪽 영역이다."
+  },
+  {
+   "id": "06c:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "로고와 이름을 담은 NH투자증권 선택 카드다."
+  },
+  {
+   "id": "06c:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "KB증권 로고",
+   "note": "선택 카드 안의 짙은 원과 노란 심벌로 된 로고다."
+  },
+  {
+   "id": "06c:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택",
+   "image_name": "NH투자증권 로고",
+   "note": "선택 카드 안의 NH 글자가 있는 파란 원형 로고다."
+  },
+  {
+   "id": "06c:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "NH투자증권 로고 안의 NH 글자다."
+  },
+  {
+   "id": "06c:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "KB증권 카드의 이름 라벨이다."
+  },
+  {
+   "id": "06c:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택",
+   "image_name": null,
+   "note": "NH투자증권 카드의 이름 라벨이다."
+  }
+ ],
+ "fixed": {
+  "06a:i13": "신한투자증권 로고",
+  "06a:i12": "다올투자증권 로고",
+  "06a:i11": "교보증권 로고",
+  "06a:i9": "대신증권 로고",
+  "06a:i6": "메리츠증권 로고",
+  "06a:i7": "미래에셋증권 로고",
+  "06a:i0": "삼성증권 로고",
+  "06a:i10": "부국증권 로고",
+  "06a:i1": "상상인증권 로고",
+  "06a:i8": "신영증권 로고",
+  "06a:i2": "에스케이증권 로고",
+  "06a:i5": "유안타증권 로고",
+  "06a:i14": "카카오페이증권 로고",
+  "06b:i11": "케이프투자증권 로고",
+  "06b:i9": "키움증권 로고",
+  "06b:i10": "토스증권 로고",
+  "06c:i8": "우리투자증권 로고",
+  "06c:i7": "하나증권 로고",
+  "06c:i6": "아이엠증권 로고",
+  "06c:i3": "한국투자증권 로고",
+  "06c:i0": "한화투자증권 로고",
+  "06c:i1": "현대차증권 로고",
+  "06c:i4": "BNK투자증권 로고",
+  "06c:i5": "IBK투자증권 로고",
+  "06c:i2": "DB증권 로고",
+  "06c:i9": "KB증권 로고",
+  "06c:i10": "NH투자증권 로고"
+ },
+ "fixed_overrides": [],
+ "images": 39,
+ "estimate": {
+  "images": 39,
+  "image_tokens": 4796,
+  "text_tokens": 11613,
+  "input_tokens": 16409,
+  "answer_tokens": 5355,
+  "cost_usd": 0.086368,
+  "cost_usd_with_reasoning": 0.139918,
+  "cost_usd_cap": 0.282818,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 119 x 45"
+ },
+ "reused_from": "results/detect/20261013-d3"
+}

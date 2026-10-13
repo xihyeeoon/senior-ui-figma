@@ -1,0 +1,84 @@
+앱 화면 캡처에서 검출된 요소마다 역할을 적어라.
+
+과제: 이체 — 받는 사람 계좌로 돈 보내기
+화면: 08
+
+받는 것
+- 요소 목록 (JSON, 한 줄에 요소 하나). 칸의 뜻:
+  - id: 요소의 이름. 답에 그대로 쓴다.
+  - mark: 첫 그림 위에 적힌 번호.
+  - kind: 검출 종류 - box(검출 박스), text(OCR 글 줄), img_candidate(박스 안 그림 덩어리).
+  - box: [x, y, w, h], 캡처 픽셀.
+  - text: 그 자리에서 OCR 이 읽은 글. 박스는 안에 든 글을 이은 것.
+  - ocr_guess: 아이콘을 OCR 이 글자로 읽은 것.
+  - caption: 아이콘 설명 모델이 붙인 영어 설명.
+  - name: 규칙으로 붙인 로고 이름.
+  - in_box: 이 요소를 담은 박스의 id.
+  - near: 곁의 글 (inside 안에 든 글, row 같은 줄의 글, below 바로 아래 글, parent 담은 박스의 글).
+  - flags: system_band(여러 캡처에서 같은 자리 · 같은 모습인 띠 - 상태바 등), behind_overlay(시트 · 팝업 뒤의 어두워진 화면).
+  - 값이 없는 칸은 null 이다.
+- 그림: 첫 그림은 화면 전체를 줄이고 요소마다 mark 번호를 적은 것이다. 그다음 그림들은 글 없는 박스와 박스 안 그림 덩어리를 잘라 키운 것이고, 이름표에 mark 와 id 가 있다.
+
+지키는 규칙
+1. 요소 목록의 id 마다 답을 정확히 하나씩, 빠짐없이 낸다.
+2. 목록에 없는 id 를 만들지 않는다. 요소를 합치거나 나누지 않는다.
+3. ocr_guess · caption · name · near · flags 는 힌트일 뿐이다. 그림에 보이는 것으로 정한다. 힌트와 그림이 다르면 그림을 따른다.
+4. image_name 은 그림에 보이는 것으로만 짓는다. 글이 잘려 보이면 보이는 데까지만 쓰고 뒷부분을 채우지 않는다. 무엇인지 알아볼 수 없으면 "알 수 없는 아이콘" 이라고 쓴다.
+5. 아이콘 이름(image_name)은 그 아이콘이 가리키는 것으로 짓는다. 곁에 이름표 글(near 의 같은 박스 · 같은 줄 · 바로 아래 글)이 있으면 그 글을 쓴다 (예: 이름표 '혜택' → '혜택 아이콘'). 이름표가 없으면 보이는 모양으로 짓는다. 모양은 image_shape 칸에 따로 적는다 (예: '선물상자').
+6. 고정값 목록에 있는 id 는 image_name 을 그 값 그대로 쓴다.
+7. 과제를 하려면 무엇을 눌러야 하는지는 정하지 않는다. 누를 수 있게 생겼는지만 본다.
+8. JSON 하나만 답한다. 그 앞뒤에 다른 글을 붙이지 않는다.
+
+답의 모양
+{"elements": [{"id": "<id>", "pressable": true 또는 false, "kind": "<kind>", "group": "<무리 이름>" 또는 null, "image_name": "<이름>" 또는 null, "image_shape": "<모양>" 또는 null, "note": "<짧은 근거>"}]}
+
+- kind 는 다음 가운데 하나다.
+  - button: 버튼
+  - link: 테두리 없는 글 링크, 또는 줄 전체가 누르는 곳인 것
+  - back_close: 뒤로 · 닫기
+  - tab: 탭
+  - choice: 여럿 가운데 고르는 것
+  - input: 입력칸
+  - keypad_key: 숫자판의 키
+  - image: 그림 · 아이콘 · 로고
+  - text: 누르지 않는 글
+  - system: 상태바 · 덮개 뒤처럼 이 화면의 요소가 아닌 것
+- group: 같은 무리(한 목록의 선택지, 한 숫자판의 키, 한 줄의 탭 등)는 같은 이름을 쓴다. 무리가 없으면 null.
+- image_name: kind 가 image 일 때만 "<무엇> 아이콘" 또는 "<무엇> 로고". 그 밖에는 null.
+- image_shape: kind 가 image 일 때만 보이는 모양 (예: "선물상자"). 그 밖에는 null.
+- note: 그렇게 정한 근거 한 줄.
+
+고정값 (규칙으로 이름이 붙은 로고 - image_name 을 바꾸지 않는다)
+(없음)
+
+요소 목록
+{"id":"t0","mark":1,"kind":"text","box":[39,22,69,38],"text":"4:31","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["517","67"]},"flags":["system_band"]}
+{"id":"t2","mark":2,"kind":"text","box":[738,24,45,33],"text":"67","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["517","4:31"]},"flags":["system_band"]}
+{"id":"b0","mark":3,"kind":"box","box":[672,27,31,29],"text":null,"ocr_guess":null,"caption":"Play or Start.","name":null,"in_box":null,"near":{"row":["517","67"]},"flags":["system_band"]}
+{"id":"t1","mark":4,"kind":"text","box":[711,29,34,24],"text":"517","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["67","4:31"]},"flags":["system_band"]}
+{"id":"b3","mark":5,"kind":"box","box":[23,74,55,59],"text":null,"ocr_guess":"<","caption":"Back","name":null,"in_box":null,"near":null,"flags":null}
+{"id":"b1","mark":6,"kind":"box","box":[748,87,34,37],"text":null,"ocr_guess":"×","caption":"closing or cancel action.","name":null,"in_box":null,"near":null,"flags":null}
+{"id":"t3","mark":7,"kind":"text","box":[268,410,285,79],"text":"아래계좌로","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":null,"flags":null}
+{"id":"t4","mark":8,"kind":"text","box":[178,494,467,69],"text":"10,000원 보낼까요?","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":null,"flags":null}
+{"id":"t5","mark":9,"kind":"text","box":[314,601,195,47],"text":"수수료 무료","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":null,"flags":null}
+{"id":"b5","mark":10,"kind":"box","box":[35,712,744,397],"text":"보내는 계좌 신한110-000-000000 받는 계좌 신한110234567890","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["보내는 계좌","신한110-000-000000","받는 계좌","신한110234567890"]},"flags":null}
+{"id":"t6","mark":11,"kind":"text","box":[76,763,186,46],"text":"보내는 계좌","ocr_guess":null,"caption":null,"name":null,"in_box":"b5","near":{"row":["신한110-000-000000"],"parent":"보내는 계좌 신한110-000-000000 받는 계좌…"},"flags":null}
+{"id":"t7","mark":12,"kind":"text","box":[396,763,350,45],"text":"신한110-000-000000","ocr_guess":null,"caption":null,"name":null,"in_box":"b5","near":{"row":["보내는 계좌"],"parent":"보내는 계좌 신한110-000-000000 받는 계좌…"},"flags":null}
+{"id":"t8","mark":13,"kind":"text","box":[75,847,155,50],"text":"받는 계좌","ocr_guess":null,"caption":null,"name":null,"in_box":"b5","near":{"row":["신한110234567890"],"parent":"보내는 계좌 신한110-000-000000 받는 계좌…"},"flags":null}
+{"id":"t9","mark":14,"kind":"text","box":[418,852,328,38],"text":"신한110234567890","ocr_guess":null,"caption":null,"name":null,"in_box":"b5","near":{"row":["받는 계좌"],"parent":"보내는 계좌 신한110-000-000000 받는 계좌…"},"flags":null}
+{"id":"b2","mark":15,"kind":"box","box":[53,918,714,80],"text":"김철수 받는분 메모 0","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["김철수","받는분 메모","0"]},"flags":null}
+{"id":"t11","mark":16,"kind":"text","box":[589,933,112,51],"text":"김철수","ocr_guess":null,"caption":null,"name":null,"in_box":"b2","near":{"row":["0","받는분 메모"],"parent":"김철수 받는분 메모 0"},"flags":null}
+{"id":"t10","mark":17,"kind":"text","box":[77,935,183,46],"text":"받는분 메모","ocr_guess":null,"caption":null,"name":null,"in_box":"b2","near":{"row":["김철수","0"],"parent":"김철수 받는분 메모 0"},"flags":null}
+{"id":"t12","mark":18,"kind":"text","box":[707,938,36,36],"text":"0","ocr_guess":null,"caption":null,"name":null,"in_box":"b2","near":{"row":["김철수","받는분 메모"],"parent":"김철수 받는분 메모 0"},"flags":null}
+{"id":"b4","mark":19,"kind":"box","box":[54,1004,710,74],"text":"내통장 메모 김철수","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["내통장 메모","김철수"]},"flags":null}
+{"id":"t13","mark":20,"kind":"text","box":[76,1020,184,45],"text":"내통장 메모","ocr_guess":null,"caption":null,"name":null,"in_box":"b4","near":{"row":["김철수"],"parent":"내통장 메모 김철수"},"flags":null}
+{"id":"t14","mark":21,"kind":"text","box":[588,1020,111,48],"text":"김철수","ocr_guess":null,"caption":null,"name":null,"in_box":"b4","near":{"row":["내통장 메모"],"parent":"내통장 메모 김철수"},"flags":null}
+{"id":"i0","mark":22,"kind":"img_candidate","box":[712,1029,28,28],"text":null,"ocr_guess":null,"caption":"an eraser tool for editing or writing.","name":null,"in_box":"b4","near":{"row":["김철수","내통장 메모"],"parent":"내통장 메모 김철수"},"flags":null}
+{"id":"t15","mark":23,"kind":"text","box":[352,1736,119,52],"text":"보내기","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":null,"flags":null}
+
+그림
+[그림 1/5] 화면 전체 - 요소마다 mark 번호  <그림: _sent/08/marks.png 600x1333 · 예상 958토큰>
+[그림 2/5] 잘라낸 그림 - mark 3 · id b0  <그림: _sent/08/crop_003.png 88x80 · 예상 11토큰>
+[그림 3/5] 잘라낸 그림 - mark 5 · id b3  <그림: _sent/08/crop_005.png 154x164 · 예상 36토큰>
+[그림 4/5] 잘라낸 그림 - mark 6 · id b1  <그림: _sent/08/crop_006.png 94x104 · 예상 15토큰>
+[그림 5/5] 잘라낸 그림 - mark 22 · id i0  <그림: _sent/08/crop_022.png 78x78 · 예상 11토큰>

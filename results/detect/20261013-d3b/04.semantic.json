@@ -1,0 +1,285 @@
+{
+ "unit": "04",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 4049,
+    "completion": 1503,
+    "reasoning": 116
+   },
+   "seconds": 33.0,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.023128,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 시각 표시다."
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 배터리 수치 표시다."
+  },
+  {
+   "id": "b3",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 통신 상태 표시다."
+  },
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바에 있는 작은 수치 표시다."
+  },
+  {
+   "id": "b7",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "왼쪽을 향한 꺾쇠 모양의 뒤로가기 조작이다."
+  },
+  {
+   "id": "b10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "뒤로가기와 닫기를 함께 둘러싼 상단 영역이며 단일 버튼은 아니다."
+  },
+  {
+   "id": "t3",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "뒤로가기 버튼의 꺾쇠 기호다."
+  },
+  {
+   "id": "b4",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "상단 오른쪽의 X 모양 닫기 조작이다."
+  },
+  {
+   "id": "t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "받는 사람을 묻는 화면 제목이다."
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "input",
+   "group": null,
+   "image_name": null,
+   "note": "파란 테두리와 입력 커서가 있는 계좌번호 입력칸이다."
+  },
+  {
+   "id": "t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "입력칸의 계좌번호 항목명이다."
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "계좌번호 입력 방법을 안내하는 입력칸 내부 문구다."
+  },
+  {
+   "id": "b0",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "오른쪽 아래쪽 꺾쇠가 있는 은행·증권사 선택 컨트롤이다."
+  },
+  {
+   "id": "t7",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "은행·증권사 선택 컨트롤 안의 안내 문구다."
+  },
+  {
+   "id": "b11",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "여러 숫자 키를 둘러싼 키패드 영역으로 단일 키는 아니다."
+  },
+  {
+   "id": "t10",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "키패드의 숫자 3 키다."
+  },
+  {
+   "id": "t9",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "키패드의 숫자 2 키다."
+  },
+  {
+   "id": "t8",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "키패드의 숫자 1 키다."
+  },
+  {
+   "id": "b8",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "숫자 4·5·6 키를 함께 둘러싼 행 영역이다."
+  },
+  {
+   "id": "t13",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "키패드의 숫자 6 키다."
+  },
+  {
+   "id": "t11",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "키패드의 숫자 4 키다."
+  },
+  {
+   "id": "t12",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "키패드의 숫자 5 키다."
+  },
+  {
+   "id": "b6",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "숫자 7·8·9 키를 함께 둘러싼 행 영역이다."
+  },
+  {
+   "id": "t15",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "키패드의 숫자 8 키다."
+  },
+  {
+   "id": "t16",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "키패드의 숫자 9 키다."
+  },
+  {
+   "id": "t14",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "키패드의 숫자 7 키다."
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "숫자 0과 지우기 키를 함께 둘러싼 행 영역이다."
+  },
+  {
+   "id": "t17",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "키패드의 숫자 0 키다."
+  },
+  {
+   "id": "b9",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자 키패드",
+   "image_name": null,
+   "note": "숫자판 오른쪽 아래의 왼쪽 화살표 모양 지우기 키다."
+  },
+  {
+   "id": "b2",
+   "pressable": false,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "회색 배경과 흐린 글씨로 비활성 상태를 나타내는 다음 버튼이다."
+  },
+  {
+   "id": "t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "비활성 다음 버튼 안의 글씨다."
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 5,
+ "estimate": {
+  "images": 5,
+  "image_tokens": 1048,
+  "text_tokens": 3004,
+  "input_tokens": 4052,
+  "answer_tokens": 1395,
+  "cost_usd": 0.022054,
+  "cost_usd_with_reasoning": 0.036004,
+  "cost_usd_cap": 0.258104,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 31 x 45"
+ },
+ "reused_from": "results/detect/20261013-d3"
+}

@@ -1,0 +1,238 @@
+앱 화면 캡처에서 검출된 요소마다 역할을 적어라.
+
+과제: 이체 — 받는 사람 계좌로 돈 보내기
+화면: bank-tab-sec(06a+06b+06c)
+
+받는 것
+- 요소 목록 (JSON, 한 줄에 요소 하나). 칸의 뜻:
+  - id: 요소의 이름. 답에 그대로 쓴다.
+  - mark: 첫 그림 위에 적힌 번호.
+  - kind: 검출 종류 - box(검출 박스), text(OCR 글 줄), img_candidate(박스 안 그림 덩어리).
+  - box: [x, y, w, h], 캡처 픽셀.
+  - text: 그 자리에서 OCR 이 읽은 글. 박스는 안에 든 글을 이은 것.
+  - ocr_guess: 아이콘을 OCR 이 글자로 읽은 것.
+  - caption: 아이콘 설명 모델이 붙인 영어 설명.
+  - name: 규칙으로 붙인 로고 이름.
+  - in_box: 이 요소를 담은 박스의 id.
+  - near: 곁의 글 (inside 안에 든 글, row 같은 줄의 글, parent 담은 박스의 글).
+  - flags: system_band(여러 캡처에서 같은 자리 · 같은 모습인 띠 - 상태바 등), behind_overlay(시트 · 팝업 뒤의 어두워진 화면).
+  - 값이 없는 칸은 null 이다.
+- 그림: 첫 그림은 화면 전체를 줄이고 요소마다 mark 번호를 적은 것이다. 그다음 그림들은 글 없는 박스와 박스 안 그림 덩어리를 잘라 키운 것이고, 이름표에 mark 와 id 가 있다.
+
+지키는 규칙
+1. 요소 목록의 id 마다 답을 정확히 하나씩, 빠짐없이 낸다.
+2. 목록에 없는 id 를 만들지 않는다. 요소를 합치거나 나누지 않는다.
+3. ocr_guess · caption · name · near · flags 는 힌트일 뿐이다. 그림에 보이는 것으로 정한다. 힌트와 그림이 다르면 그림을 따른다.
+4. image_name 은 그림에 보이는 것으로만 짓는다. 글이 잘려 보이면 보이는 데까지만 쓰고 뒷부분을 채우지 않는다. 무엇인지 알아볼 수 없으면 "알 수 없는 아이콘" 이라고 쓴다.
+5. 고정값 목록에 있는 id 는 image_name 을 그 값 그대로 쓴다.
+6. 과제를 하려면 무엇을 눌러야 하는지는 정하지 않는다. 누를 수 있게 생겼는지만 본다.
+7. JSON 하나만 답한다. 그 앞뒤에 다른 글을 붙이지 않는다.
+
+답의 모양
+{"elements": [{"id": "<id>", "pressable": true 또는 false, "kind": "<kind>", "group": "<무리 이름>" 또는 null, "image_name": "<이름>" 또는 null, "note": "<짧은 근거>"}]}
+
+- kind 는 다음 가운데 하나다.
+  - button: 버튼
+  - link: 테두리 없는 글 링크, 또는 줄 전체가 누르는 곳인 것
+  - back_close: 뒤로 · 닫기
+  - tab: 탭
+  - choice: 여럿 가운데 고르는 것
+  - input: 입력칸
+  - keypad_key: 숫자판의 키
+  - image: 그림 · 아이콘 · 로고
+  - text: 누르지 않는 글
+  - system: 상태바 · 덮개 뒤처럼 이 화면의 요소가 아닌 것
+- group: 같은 무리(한 목록의 선택지, 한 숫자판의 키, 한 줄의 탭 등)는 같은 이름을 쓴다. 무리가 없으면 null.
+- image_name: kind 가 image 일 때만 "<무엇> 아이콘" 또는 "<무엇> 로고". 그 밖에는 null.
+- note: 그렇게 정한 근거 한 줄.
+
+고정값 (규칙으로 이름이 붙은 로고 - image_name 을 바꾸지 않는다)
+06a:i13: 신한투자증권 로고
+06a:i12: 다올투자증권 로고
+06a:i11: 교보증권 로고
+06a:i9: 대신증권 로고
+06a:i6: 메리츠증권 로고
+06a:i7: 미래에셋증권 로고
+06a:i0: 삼성증권 로고
+06a:i10: 부국증권 로고
+06a:i1: 상상인증권 로고
+06a:i8: 신영증권 로고
+06a:i2: 에스케이증권 로고
+06a:i5: 유안타증권 로고
+06a:i14: 카카오페이증권 로고
+06b:i11: 케이프투자증권 로고
+06b:i9: 키움증권 로고
+06b:i10: 토스증권 로고
+06c:i8: 우리투자증권 로고
+06c:i7: 하나증권 로고
+06c:i6: 아이엠증권 로고
+06c:i3: 한국투자증권 로고
+06c:i0: 한화투자증권 로고
+06c:i1: 현대차증권 로고
+06c:i4: BNK투자증권 로고
+06c:i5: IBK투자증권 로고
+06c:i2: DB증권 로고
+06c:i9: KB증권 로고
+06c:i10: NH투자증권 로고
+
+요소 목록
+{"id":"06a:t0","mark":1,"kind":"text","box":[40,24,64,35],"text":"4:31","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["67"]},"flags":["system_band","behind_overlay"]}
+{"id":"06a:t1","mark":2,"kind":"text","box":[737,24,47,37],"text":"67","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["4:31"]},"flags":["system_band","behind_overlay"]}
+{"id":"06a:b18","mark":3,"kind":"box","box":[671,26,32,29],"text":null,"ocr_guess":null,"caption":"Play or Start.","name":null,"in_box":null,"near":{"row":["67","4:31"]},"flags":["system_band","behind_overlay"]}
+{"id":"06a:b20","mark":4,"kind":"box","box":[712,27,28,27],"text":null,"ocr_guess":null,"caption":"Wi-Fi connectivity.","name":null,"in_box":null,"near":{"row":["67","4:31"]},"flags":["system_band","behind_overlay"]}
+{"id":"06a:b22","mark":5,"kind":"box","box":[30,74,761,68],"text":null,"ocr_guess":null,"caption":"Decrease","name":null,"in_box":null,"near":{"inside":["<"]},"flags":["behind_overlay"]}
+{"id":"06a:b24","mark":6,"kind":"box","box":[729,74,69,65],"text":null,"ocr_guess":"×","caption":"Close","name":null,"in_box":null,"near":{"row":["<"]},"flags":["behind_overlay"]}
+{"id":"06a:b21","mark":7,"kind":"box","box":[26,76,50,56],"text":"<","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["<"]},"flags":["behind_overlay"]}
+{"id":"06a:t2","mark":8,"kind":"text","box":[32,78,40,49],"text":"<","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b21","near":{"parent":"<"},"flags":["behind_overlay"]}
+{"id":"06a:b19","mark":9,"kind":"box","box":[748,87,34,37],"text":null,"ocr_guess":null,"caption":"closing or cancel a window or dialog.","name":null,"in_box":null,"near":{"row":["<"]},"flags":["behind_overlay"]}
+{"id":"06a:b23","mark":10,"kind":"box","box":[16,154,781,101],"text":"누구에게 보낼까요?","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["누구에게 보낼까요?"]},"flags":["behind_overlay"]}
+{"id":"06a:t3","mark":11,"kind":"text","box":[33,168,454,72],"text":"누구에게 보낼까요?","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b23","near":{"parent":"누구에게 보낼까요?"},"flags":["behind_overlay"]}
+{"id":"06a:t4","mark":12,"kind":"text","box":[34,299,431,61],"text":"은행 또는 증권사 선택","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":null,"flags":null}
+{"id":"06a:b17","mark":13,"kind":"box","box":[747,310,36,40],"text":null,"ocr_guess":"×","caption":"closing or cancel action.","name":null,"in_box":null,"near":{"row":["은행 또는 증권사 선택"]},"flags":null}
+{"id":"06a:b16","mark":14,"kind":"box","box":[7,392,406,102],"text":"은행","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["은행"],"row":["증권사"]},"flags":null}
+{"id":"06a:b15","mark":15,"kind":"box","box":[412,393,408,103],"text":"증권사","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["증권사"],"row":["은행"]},"flags":null}
+{"id":"06a:t6","mark":16,"kind":"text","box":[558,412,120,53],"text":"증권사","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b15","near":{"row":["은행"],"parent":"증권사"},"flags":null}
+{"id":"06a:t5","mark":17,"kind":"text","box":[164,415,82,53],"text":"은행","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b16","near":{"row":["증권사"],"parent":"은행"},"flags":null}
+{"id":"06a:b10","mark":18,"kind":"box","box":[556,527,237,259],"text":"DAOL 다올투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["DAOL","다올투자증권"],"row":["교보증권","신한투자증권"]},"flags":null}
+{"id":"06a:b9","mark":19,"kind":"box","box":[293,529,237,257],"text":"교보증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["교보증권"],"row":["DAOL","다올투자증권"]},"flags":null}
+{"id":"06a:b11","mark":20,"kind":"box","box":[31,530,238,257],"text":"신한투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["신한투자증권"],"row":["교보증권","DAOL"]},"flags":null}
+{"id":"06a:i13","mark":21,"kind":"img_candidate","box":[99,573,104,103],"text":null,"ocr_guess":null,"caption":"Sending a message or message.","name":"신한투자증권 로고","in_box":"06a:b11","near":{"row":["DAOL"],"parent":"신한투자증권"},"flags":null}
+{"id":"06a:i12","mark":22,"kind":"img_candidate","box":[621,573,104,104],"text":null,"ocr_guess":null,"caption":"DADol","name":"다올투자증권 로고","in_box":"06a:b10","near":{"inside":["DAOL"],"parent":"DAOL 다올투자증권"},"flags":null}
+{"id":"06a:i11","mark":23,"kind":"img_candidate","box":[377,599,70,56],"text":null,"ocr_guess":null,"caption":"A messaging or social media application.","name":"교보증권 로고","in_box":"06a:b9","near":{"row":["DAOL"],"parent":"교보증권"},"flags":null}
+{"id":"06a:t7","mark":24,"kind":"text","box":[627,609,89,29],"text":"DAOL","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b10","near":{"parent":"DAOL 다올투자증권"},"flags":null}
+{"id":"06a:t8","mark":25,"kind":"text","box":[59,699,182,41],"text":"신한투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b11","near":{"row":["교보증권","다올투자증권"],"parent":"신한투자증권"},"flags":null}
+{"id":"06a:t9","mark":26,"kind":"text","box":[347,699,127,42],"text":"교보증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b9","near":{"row":["신한투자증권","다올투자증권"],"parent":"교보증권"},"flags":null}
+{"id":"06a:t10","mark":27,"kind":"text","box":[580,699,183,41],"text":"다올투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b10","near":{"row":["교보증권","신한투자증권"],"parent":"DAOL 다올투자증권"},"flags":null}
+{"id":"06a:b4","mark":28,"kind":"box","box":[294,811,236,257],"text":"meritz 메리츠증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["meritz","메리츠증권"],"row":["MIRAEASSET","미래에셋증권"]},"flags":null}
+{"id":"06a:b5","mark":29,"kind":"box","box":[555,811,237,258],"text":"MIRAEASSET 미래에셋증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["MIRAEASSET","미래에셋증권"],"row":["meritz","메리츠증권"]},"flags":null}
+{"id":"06a:b7","mark":30,"kind":"box","box":[32,812,236,258],"text":"대신증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["대신증권"],"row":["메리츠증권","meritz"]},"flags":null}
+{"id":"06a:i9","mark":31,"kind":"img_candidate","box":[99,855,104,103],"text":null,"ocr_guess":null,"caption":"the image or image file.","name":"대신증권 로고","in_box":"06a:b7","near":{"row":["meritz","MIRAEASSET"],"parent":"대신증권"},"flags":null}
+{"id":"06a:i6","mark":32,"kind":"img_candidate","box":[361,855,103,104],"text":null,"ocr_guess":null,"caption":"Meritz","name":"메리츠증권 로고","in_box":"06a:b4","near":{"inside":["meritz"],"row":["MIRAEASSET"],"parent":"meritz 메리츠증권"},"flags":null}
+{"id":"06a:i7","mark":33,"kind":"img_candidate","box":[621,855,104,103],"text":null,"ocr_guess":null,"caption":"Airplane Accessibility","name":"미래에셋증권 로고","in_box":"06a:b5","near":{"inside":["MIRAEASSET"],"row":["meritz"],"parent":"MIRAEASSET 미래에셋증권"},"flags":null}
+{"id":"06a:t11","mark":34,"kind":"text","box":[368,892,90,29],"text":"meritz","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b4","near":{"row":["MIRAEASSET"],"parent":"meritz 메리츠증권"},"flags":null}
+{"id":"06a:t12","mark":35,"kind":"text","box":[624,893,84,16],"text":"MIRAEASSET","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b5","near":{"row":["meritz"],"parent":"MIRAEASSET 미래에셋증권"},"flags":null}
+{"id":"06a:t13","mark":36,"kind":"text","box":[85,981,127,42],"text":"대신증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b7","near":{"row":["메리츠증권","미래에셋증권"],"parent":"대신증권"},"flags":null}
+{"id":"06a:t14","mark":37,"kind":"text","box":[334,983,153,38],"text":"메리츠증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b4","near":{"row":["미래에셋증권","대신증권"],"parent":"meritz 메리츠증권"},"flags":null}
+{"id":"06a:t15","mark":38,"kind":"text","box":[582,985,180,35],"text":"미래에셋증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b5","near":{"row":["메리츠증권","대신증권"],"parent":"MIRAEASSET 미래에셋증권"},"flags":null}
+{"id":"06a:b8","mark":39,"kind":"box","box":[32,1093,237,257],"text":"부국증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["부국증권"],"row":["삼성증권","삼성증권"]},"flags":null}
+{"id":"06a:b0","mark":40,"kind":"box","box":[294,1093,235,257],"text":"삼성증권 삼성증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["삼성증권","삼성증권"],"row":["상상인증권","부국증권"]},"flags":null}
+{"id":"06a:b1","mark":41,"kind":"box","box":[555,1094,238,257],"text":"상상인증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["상상인증권"],"row":["삼성증권","삼성증권"]},"flags":null}
+{"id":"06a:i0","mark":42,"kind":"img_candidate","box":[361,1137,103,103],"text":null,"ocr_guess":null,"caption":"Korean language application.","name":"삼성증권 로고","in_box":"06a:b0","near":{"inside":["삼성증권"],"parent":"삼성증권 삼성증권"},"flags":null}
+{"id":"06a:i10","mark":43,"kind":"img_candidate","box":[109,1163,82,56],"text":null,"ocr_guess":null,"caption":"a wallet or wallet-related function.","name":"부국증권 로고","in_box":"06a:b8","near":{"row":["삼성증권"],"parent":"부국증권"},"flags":null}
+{"id":"06a:i1","mark":44,"kind":"img_candidate","box":[643,1163,61,48],"text":null,"ocr_guess":null,"caption":"A user profile or account related feature.","name":"상상인증권 로고","in_box":"06a:b1","near":{"row":["삼성증권"],"parent":"상상인증권"},"flags":null}
+{"id":"06a:t16","mark":45,"kind":"text","box":[365,1170,96,36],"text":"삼성증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b0","near":{"parent":"삼성증권 삼성증권"},"flags":null}
+{"id":"06a:t17","mark":46,"kind":"text","box":[87,1264,124,40],"text":"부국증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b8","near":{"row":["삼성증권","상상인증권"],"parent":"부국증권"},"flags":null}
+{"id":"06a:t18","mark":47,"kind":"text","box":[349,1265,123,40],"text":"삼성증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b0","near":{"row":["부국증권","상상인증권"],"parent":"삼성증권 삼성증권"},"flags":null}
+{"id":"06a:t19","mark":48,"kind":"text","box":[596,1266,152,38],"text":"상상인증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b1","near":{"row":["삼성증권","부국증권"],"parent":"상상인증권"},"flags":null}
+{"id":"06a:b3","mark":49,"kind":"box","box":[555,1374,238,259],"text":"유안타증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["유안타증권"],"row":["SK증권","에스케이증권"]},"flags":null}
+{"id":"06a:b6","mark":50,"kind":"box","box":[32,1375,237,258],"text":"신영증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["신영증권"],"row":["에스케이증권","SK증권"]},"flags":null}
+{"id":"06a:b2","mark":51,"kind":"box","box":[294,1375,235,258],"text":"SK증권 에스케이증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["SK증권","에스케이증권"],"row":["유안타증권","신영증권"]},"flags":null}
+{"id":"06a:i8","mark":52,"kind":"img_candidate","box":[99,1420,104,103],"text":null,"ocr_guess":null,"caption":"A family or family-related services.","name":"신영증권 로고","in_box":"06a:b6","near":{"row":["SK증권"],"parent":"신영증권"},"flags":null}
+{"id":"06a:i2","mark":53,"kind":"img_candidate","box":[361,1420,103,103],"text":null,"ocr_guess":null,"caption":"a user profile or account.","name":"에스케이증권 로고","in_box":"06a:b2","near":{"inside":["SK증권"],"parent":"SK증권 에스케이증권"},"flags":null}
+{"id":"06a:i3","mark":54,"kind":"img_candidate","box":[642,1439,28,25],"text":null,"ocr_guess":null,"caption":"sending or managing a message.","name":null,"in_box":"06a:b3","near":{"parent":"유안타증권"},"flags":null}
+{"id":"06a:i4","mark":55,"kind":"img_candidate","box":[678,1439,29,25],"text":null,"ocr_guess":null,"caption":"sending or starting a message.","name":null,"in_box":"06a:b3","near":{"parent":"유안타증권"},"flags":null}
+{"id":"06a:t20","mark":56,"kind":"text","box":[371,1465,83,29],"text":"SK증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b2","near":{"parent":"SK증권 에스케이증권"},"flags":null}
+{"id":"06a:i5","mark":57,"kind":"img_candidate","box":[640,1472,69,35],"text":null,"ocr_guess":null,"caption":"Microsoft Word.","name":"유안타증권 로고","in_box":"06a:b3","near":{"row":["SK증권"],"parent":"유안타증권"},"flags":null}
+{"id":"06a:t23","mark":58,"kind":"text","box":[594,1546,154,41],"text":"유안타증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b3","near":{"row":["에스케이증권","신영증권"],"parent":"유안타증권"},"flags":null}
+{"id":"06a:t21","mark":59,"kind":"text","box":[88,1547,123,39],"text":"신영증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b6","near":{"row":["에스케이증권","유안타증권"],"parent":"신영증권"},"flags":null}
+{"id":"06a:t22","mark":60,"kind":"text","box":[321,1549,179,35],"text":"에스케이증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b2","near":{"row":["유안타증권","신영증권"],"parent":"SK증권 에스케이증권"},"flags":null}
+{"id":"06a:b14","mark":61,"kind":"box","box":[32,1657,237,173],"text":null,"ocr_guess":null,"caption":"Tennis Club","name":null,"in_box":null,"near":{"row":["LS","pay"]},"flags":null}
+{"id":"06a:b13","mark":62,"kind":"box","box":[293,1657,236,173],"text":"LS","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["LS"],"row":["pay"]},"flags":null}
+{"id":"06a:b12","mark":63,"kind":"box","box":[555,1657,237,173],"text":"pay","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["pay"],"row":["LS"]},"flags":null}
+{"id":"06a:i14","mark":64,"kind":"img_candidate","box":[621,1702,104,103],"text":null,"ocr_guess":null,"caption":"Pay.","name":"카카오페이증권 로고","in_box":"06a:b12","near":{"inside":["pay"],"row":["LS"],"parent":"pay"},"flags":null}
+{"id":"06a:t24","mark":65,"kind":"text","box":[374,1734,72,39],"text":"LS","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b13","near":{"row":["pay"],"parent":"LS"},"flags":null}
+{"id":"06a:t25","mark":66,"kind":"text","box":[661,1739,53,27],"text":"pay","ocr_guess":null,"caption":null,"name":null,"in_box":"06a:b12","near":{"row":["LS"],"parent":"pay"},"flags":null}
+{"id":"06b:b14","mark":67,"kind":"box","box":[32,1813,237,101],"text":"유진투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["유진투자증권"],"row":["LS증권","카카오페이증권"]},"flags":null}
+{"id":"06b:b16","mark":68,"kind":"box","box":[292,1818,238,96],"text":"LS증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["LS증권"],"row":["카카오페이증권","유진투자증권"]},"flags":null}
+{"id":"06b:b19","mark":69,"kind":"box","box":[555,1818,237,97],"text":"카카오페이증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["카카오페이증권"],"row":["LS증권","유진투자증권"]},"flags":null}
+{"id":"06b:t8","mark":70,"kind":"text","box":[356,1825,106,44],"text":"LS증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06b:b16","near":{"row":["유진투자증권","카카오페이증권"],"parent":"LS증권"},"flags":null}
+{"id":"06b:t9","mark":71,"kind":"text","box":[562,1826,218,44],"text":"카카오페이증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06b:b19","near":{"row":["LS증권","유진투자증권"],"parent":"카카오페이증권"},"flags":null}
+{"id":"06b:t7","mark":72,"kind":"text","box":[57,1828,185,41],"text":"유진투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06b:b14","near":{"row":["LS증권","카카오페이증권"],"parent":"유진투자증권"},"flags":null}
+{"id":"06b:b9","mark":73,"kind":"box","box":[293,1939,236,257],"text":"키움증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["키움증권"],"row":["토스증권","케이프투자증권"]},"flags":null}
+{"id":"06b:b10","mark":74,"kind":"box","box":[556,1939,237,257],"text":"토스증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["토스증권"],"row":["키움증권","케이프투자증권"]},"flags":null}
+{"id":"06b:b11","mark":75,"kind":"box","box":[31,1940,238,257],"text":"케이프투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["케이프투자증권"],"row":["키움증권","토스증권"]},"flags":null}
+{"id":"06b:i11","mark":76,"kind":"img_candidate","box":[99,1984,104,103],"text":null,"ocr_guess":null,"caption":"A web browser or internet search engine.","name":"케이프투자증권 로고","in_box":"06b:b11","near":{"parent":"케이프투자증권"},"flags":null}
+{"id":"06b:i9","mark":77,"kind":"img_candidate","box":[386,2004,54,65],"text":null,"ocr_guess":null,"caption":"a bookmark.","name":"키움증권 로고","in_box":"06b:b9","near":{"parent":"키움증권"},"flags":null}
+{"id":"06b:i10","mark":78,"kind":"img_candidate","box":[641,2006,65,60],"text":null,"ocr_guess":null,"caption":"Water or rain.","name":"토스증권 로고","in_box":"06b:b10","near":{"parent":"토스증권"},"flags":null}
+{"id":"06b:t11","mark":79,"kind":"text","box":[346,2109,128,43],"text":"키움증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06b:b9","near":{"row":["케이프투자증권","토스증권"],"parent":"키움증권"},"flags":null}
+{"id":"06c:t9","mark":80,"kind":"text","box":[607,2109,129,42],"text":"토스증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06b:b10","near":{"row":["키움증권","케이프투자증권"],"parent":"토스증권"},"flags":null}
+{"id":"06c:t7","mark":81,"kind":"text","box":[45,2113,209,35],"text":"케이프투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06b:b11","near":{"row":["키움증권","토스증권"],"parent":"케이프투자증권"},"flags":null}
+{"id":"06b:b7","mark":82,"kind":"box","box":[31,2221,237,258],"text":"우리투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["우리투자증권"],"row":["하나증권","아이엠증권"]},"flags":null}
+{"id":"06b:b1","mark":83,"kind":"box","box":[294,2221,235,257],"text":"하나증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["하나증권"],"row":["아이엠증권","우리투자증권"]},"flags":null}
+{"id":"06b:b3","mark":84,"kind":"box","box":[555,2221,237,258],"text":"아이엠증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["아이엠증권"],"row":["하나증권","우리투자증권"]},"flags":null}
+{"id":"06c:i8","mark":85,"kind":"img_candidate","box":[99,2265,104,104],"text":null,"ocr_guess":null,"caption":"a web browser or internet browser application.","name":"우리투자증권 로고","in_box":"06b:b7","near":{"parent":"우리투자증권"},"flags":null}
+{"id":"06c:i7","mark":86,"kind":"img_candidate","box":[372,2284,79,72],"text":null,"ocr_guess":null,"caption":"A Chinese language translation or translation.","name":"하나증권 로고","in_box":"06b:b1","near":{"parent":"하나증권"},"flags":null}
+{"id":"06c:i6","mark":87,"kind":"img_candidate","box":[638,2297,74,38],"text":null,"ocr_guess":null,"caption":"a health or health-related feature.","name":"아이엠증권 로고","in_box":"06b:b3","near":{"parent":"아이엠증권"},"flags":null}
+{"id":"06c:t10","mark":88,"kind":"text","box":[57,2392,184,40],"text":"우리투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06b:b7","near":{"row":["하나증권","아이엠증권"],"parent":"우리투자증권"},"flags":null}
+{"id":"06c:t11","mark":89,"kind":"text","box":[348,2392,126,42],"text":"하나증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06b:b1","near":{"row":["아이엠증권","우리투자증권"],"parent":"하나증권"},"flags":null}
+{"id":"06c:t12","mark":90,"kind":"text","box":[595,2393,154,39],"text":"아이엠증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06b:b3","near":{"row":["하나증권","우리투자증권"],"parent":"아이엠증권"},"flags":null}
+{"id":"06b:b4","mark":91,"kind":"box","box":[555,2503,238,257],"text":"현대차증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["현대차증권"],"row":["한화투자증권","한국투자증권"]},"flags":null}
+{"id":"06c:b3","mark":92,"kind":"box","box":[31,2504,237,257],"text":"한국투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["한국투자증권"],"row":["한화투자증권","현대차증권"]},"flags":null}
+{"id":"06c:b0","mark":93,"kind":"box","box":[293,2504,236,257],"text":"한화투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["한화투자증권"],"row":["현대차증권","한국투자증권"]},"flags":null}
+{"id":"06c:i3","mark":94,"kind":"img_candidate","box":[99,2547,104,104],"text":null,"ocr_guess":null,"caption":"A user profile or account.","name":"한국투자증권 로고","in_box":"06c:b3","near":{"parent":"한국투자증권"},"flags":null}
+{"id":"06c:i0","mark":95,"kind":"img_candidate","box":[360,2547,104,104],"text":null,"ocr_guess":null,"caption":"A web browser or network management application.","name":"한화투자증권 로고","in_box":"06c:b0","near":{"parent":"한화투자증권"},"flags":null}
+{"id":"06c:i1","mark":96,"kind":"img_candidate","box":[621,2547,104,104],"text":null,"ocr_guess":null,"caption":"a navigation or direction feature.","name":"현대차증권 로고","in_box":"06b:b4","near":{"parent":"현대차증권"},"flags":null}
+{"id":"06b:t16","mark":97,"kind":"text","box":[58,2674,182,39],"text":"한국투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06c:b3","near":{"row":["한화투자증권","현대차증권"],"parent":"한국투자증권"},"flags":null}
+{"id":"06c:t14","mark":98,"kind":"text","box":[319,2674,183,40],"text":"한화투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06c:b0","near":{"row":["한국투자증권","현대차증권"],"parent":"한화투자증권"},"flags":null}
+{"id":"06b:t18","mark":99,"kind":"text","box":[596,2674,153,40],"text":"현대차증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06b:b4","near":{"row":["한화투자증권","한국투자증권"],"parent":"현대차증권"},"flags":null}
+{"id":"06c:b4","mark":100,"kind":"box","box":[31,2784,237,259],"text":"BiNV BNK투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["BiNV","BNK","BNK투자증권"],"row":["DB증권","IBK투자증권"]},"flags":null}
+{"id":"06c:b5","mark":101,"kind":"box","box":[555,2784,238,258],"text":"IBK투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["IBK투자증권"],"row":["DB증권","BiNV"]},"flags":null}
+{"id":"06c:b2","mark":102,"kind":"box","box":[293,2785,236,258],"text":"DB증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["DB증권"],"row":["IBK투자증권","BiNV"]},"flags":null}
+{"id":"06c:i4","mark":103,"kind":"img_candidate","box":[99,2828,104,104],"text":null,"ocr_guess":null,"caption":"a bank or financial services platform.","name":"BNK투자증권 로고","in_box":"06c:b4","near":{"inside":["BiNV","BNK"],"parent":"BiNV BNK투자증권"},"flags":null}
+{"id":"06c:i5","mark":104,"kind":"img_candidate","box":[621,2828,104,104],"text":null,"ocr_guess":null,"caption":"A web browser application.","name":"IBK투자증권 로고","in_box":"06c:b5","near":{"row":["BiNV","BNK"],"parent":"IBK투자증권"},"flags":null}
+{"id":"06c:i2","mark":105,"kind":"img_candidate","box":[385,2847,54,68],"text":null,"ocr_guess":null,"caption":"Microsoft 365.","name":"DB증권 로고","in_box":"06c:b2","near":{"row":["BiNV","BNK"],"parent":"DB증권"},"flags":null}
+{"id":"06c:t16","mark":106,"kind":"text","box":[102,2859,96,40],"text":"BiNV","ocr_guess":null,"caption":null,"name":null,"in_box":"06c:b4","near":{"parent":"BiNV BNK투자증권"},"flags":null}
+{"id":"06b:t19","mark":107,"kind":"text","box":[103,2861,93,37],"text":"BNK","ocr_guess":null,"caption":null,"name":null,"in_box":"06c:b4","near":{"parent":"BiNV BNK투자증권"},"flags":null}
+{"id":"06c:t18","mark":108,"kind":"text","box":[355,2954,111,43],"text":"DB증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06c:b2","near":{"row":["IBK투자증권","BNK투자증권"],"parent":"DB증권"},"flags":null}
+{"id":"06c:t17","mark":109,"kind":"text","box":[54,2955,189,38],"text":"BNK투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06c:b4","near":{"row":["DB증권","IBK투자증권"],"parent":"BiNV BNK투자증권"},"flags":null}
+{"id":"06c:t19","mark":110,"kind":"text","box":[582,2956,177,38],"text":"IBK투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06c:b5","near":{"row":["DB증권","BNK투자증권"],"parent":"IBK투자증권"},"flags":null}
+{"id":"06b:b12","mark":111,"kind":"box","box":[31,3067,236,82],"text":null,"ocr_guess":null,"caption":"a fuel indicator.","name":null,"in_box":null,"near":null,"flags":null}
+{"id":"06c:b9","mark":112,"kind":"box","box":[32,3067,236,257],"text":"KB증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["KB증권"],"row":["NH투자증권","NH"]},"flags":null}
+{"id":"06b:b13","mark":113,"kind":"box","box":[294,3067,236,82],"text":null,"ocr_guess":null,"caption":"Water droplet or a dropdown menu.","name":null,"in_box":null,"near":null,"flags":null}
+{"id":"06c:b10","mark":114,"kind":"box","box":[293,3068,234,255],"text":"NH NH투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["NH","NH투자증권"],"row":["KB증권"]},"flags":null}
+{"id":"06c:i9","mark":115,"kind":"img_candidate","box":[99,3110,104,104],"text":null,"ocr_guess":null,"caption":"a USB-related function.","name":"KB증권 로고","in_box":"06c:b9","near":{"row":["NH"],"parent":"KB증권"},"flags":null}
+{"id":"06c:i10","mark":116,"kind":"img_candidate","box":[360,3110,104,104],"text":null,"ocr_guess":null,"caption":"NHS","name":"NH투자증권 로고","in_box":"06c:b10","near":{"inside":["NH"],"parent":"NH NH투자증권"},"flags":null}
+{"id":"06c:t20","mark":117,"kind":"text","box":[368,3136,86,46],"text":"NH","ocr_guess":null,"caption":null,"name":null,"in_box":"06c:b10","near":{"parent":"NH NH투자증권"},"flags":null}
+{"id":"06c:t21","mark":118,"kind":"text","box":[94,3236,111,43],"text":"KB증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06c:b9","near":{"row":["NH투자증권"],"parent":"KB증권"},"flags":null}
+{"id":"06c:t22","mark":119,"kind":"text","box":[324,3236,172,41],"text":"NH투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"06c:b10","near":{"row":["KB증권"],"parent":"NH NH투자증권"},"flags":null}
+
+그림
+[그림 1/39] 화면 전체 - 요소마다 mark 번호  <그림: _sent/bank-tab-sec(06a+06b+06c)/marks.png 600x2456 · 예상 1756토큰>
+[그림 2/39] 잘라낸 그림 - mark 3 · id 06a:b18  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_003.png 90x80 · 예상 11토큰>
+[그림 3/39] 잘라낸 그림 - mark 4 · id 06a:b20  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_004.png 78x76 · 예상 11토큰>
+[그림 4/39] 잘라낸 그림 - mark 5 · id 06a:b22  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_005.png 511x59 · 예상 39토큰>
+[그림 5/39] 잘라낸 그림 - mark 6 · id 06a:b24  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_006.png 192x182 · 예상 44토큰>
+[그림 6/39] 잘라낸 그림 - mark 9 · id 06a:b19  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_009.png 94x104 · 예상 15토큰>
+[그림 7/39] 잘라낸 그림 - mark 13 · id 06a:b17  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_013.png 102x112 · 예상 20토큰>
+[그림 8/39] 잘라낸 그림 - mark 21 · id 06a:i13  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_021.png 290x288 · 예상 108토큰>
+[그림 9/39] 잘라낸 그림 - mark 22 · id 06a:i12  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_022.png 290x290 · 예상 120토큰>
+[그림 10/39] 잘라낸 그림 - mark 23 · id 06a:i11  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_023.png 196x158 · 예상 42토큰>
+[그림 11/39] 잘라낸 그림 - mark 31 · id 06a:i9  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_031.png 290x288 · 예상 108토큰>
+[그림 12/39] 잘라낸 그림 - mark 32 · id 06a:i6  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_032.png 288x290 · 예상 108토큰>
+[그림 13/39] 잘라낸 그림 - mark 33 · id 06a:i7  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_033.png 290x288 · 예상 108토큰>
+[그림 14/39] 잘라낸 그림 - mark 42 · id 06a:i0  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_042.png 288x288 · 예상 98토큰>
+[그림 15/39] 잘라낸 그림 - mark 43 · id 06a:i10  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_043.png 230x158 · 예상 48토큰>
+[그림 16/39] 잘라낸 그림 - mark 44 · id 06a:i1  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_044.png 172x134 · 예상 36토큰>
+[그림 17/39] 잘라낸 그림 - mark 52 · id 06a:i8  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_052.png 290x288 · 예상 108토큰>
+[그림 18/39] 잘라낸 그림 - mark 53 · id 06a:i2  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_053.png 288x288 · 예상 98토큰>
+[그림 19/39] 잘라낸 그림 - mark 54 · id 06a:i3  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_054.png 78x70 · 예상 11토큰>
+[그림 20/39] 잘라낸 그림 - mark 55 · id 06a:i4  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_055.png 80x70 · 예상 11토큰>
+[그림 21/39] 잘라낸 그림 - mark 57 · id 06a:i5  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_057.png 192x98 · 예상 29토큰>
+[그림 22/39] 잘라낸 그림 - mark 61 · id 06a:b14  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_061.png 512x392 · 예상 250토큰>
+[그림 23/39] 잘라낸 그림 - mark 64 · id 06a:i14  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_064.png 290x288 · 예상 108토큰>
+[그림 24/39] 잘라낸 그림 - mark 76 · id 06b:i11  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_076.png 290x288 · 예상 108토큰>
+[그림 25/39] 잘라낸 그림 - mark 77 · id 06b:i9  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_077.png 150x182 · 예상 36토큰>
+[그림 26/39] 잘라낸 그림 - mark 78 · id 06b:i10  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_078.png 182x168 · 예상 44토큰>
+[그림 27/39] 잘라낸 그림 - mark 85 · id 06c:i8  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_085.png 290x290 · 예상 120토큰>
+[그림 28/39] 잘라낸 그림 - mark 86 · id 06c:i7  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_086.png 220x202 · 예상 59토큰>
+[그림 29/39] 잘라낸 그림 - mark 87 · id 06c:i6  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_087.png 206x106 · 예상 34토큰>
+[그림 30/39] 잘라낸 그림 - mark 94 · id 06c:i3  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_094.png 290x290 · 예상 120토큰>
+[그림 31/39] 잘라낸 그림 - mark 95 · id 06c:i0  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_095.png 290x290 · 예상 120토큰>
+[그림 32/39] 잘라낸 그림 - mark 96 · id 06c:i1  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_096.png 290x290 · 예상 120토큰>
+[그림 33/39] 잘라낸 그림 - mark 103 · id 06c:i4  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_103.png 290x290 · 예상 120토큰>
+[그림 34/39] 잘라낸 그림 - mark 104 · id 06c:i5  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_104.png 290x290 · 예상 120토큰>
+[그림 35/39] 잘라낸 그림 - mark 105 · id 06c:i2  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_105.png 150x190 · 예상 36토큰>
+[그림 36/39] 잘라낸 그림 - mark 111 · id 06b:b12  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_111.png 512x187 · 예상 116토큰>
+[그림 37/39] 잘라낸 그림 - mark 113 · id 06b:b13  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_113.png 512x177 · 예상 116토큰>
+[그림 38/39] 잘라낸 그림 - mark 115 · id 06c:i9  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_115.png 290x290 · 예상 120토큰>
+[그림 39/39] 잘라낸 그림 - mark 116 · id 06c:i10  <그림: _sent/bank-tab-sec(06a+06b+06c)/crop_116.png 290x290 · 예상 120토큰>
