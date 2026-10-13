@@ -489,7 +489,9 @@ def img_candidates(image, els):
             label = max(low, key=lambda t: t["box"][1]) if low else None
             wipe = [label] if label else []
         else:
-            wipe = ins
+            # 박스 안의 글은 누구 것이든 지운다 - 안쪽 박스에 붙은 글도 (겹침 규칙이 "iou" 면 칸 안에
+            # 칸이 남아, 바깥 칸의 text_in 에는 안쪽 칸의 글이 들지 않는다)
+            wipe = [t for t in texts.values() if inside(xyxy(t["box"]), xyxy(b["box"]))]
         i = int(BLOB_INSET * min(w, h))
         x0, y0 = max(0, x + i), max(0, y + i)
         x1, y1 = min(arr.shape[1], x + w - i), min(arr.shape[0], y + h - i)
@@ -498,7 +500,8 @@ def img_candidates(image, els):
         sub = arr[y0:y1, x0:x1]
         ring = np.concatenate([sub[0], sub[-1], sub[:, 0], sub[:, -1]])
         fg = (np.abs(sub - np.median(ring, axis=0)).max(axis=2) >= BLOB_DIFF).astype(np.uint8)
-        icons = [o for o in boxes if not o["text"] and o is not b
+        # 안쪽 박스는 이미 요소다 - 은행 칸에서는 글 없는 박스(아이콘)만, 그 밖의 칸에서는 모두 지운다
+        icons = [o for o in boxes if o is not b and (not o["text"] or b["id"] not in grid)
                  and inside(xyxy(o["box"]), xyxy(b["box"]))]
         for t in wipe + icons:
             tx, ty, tw, th = t["box"]
