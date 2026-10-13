@@ -17,9 +17,11 @@ r"""캡처 입력 (--captures, 2026-10-12) - 진단·계획에 보여 줄 원본
 taps 는 스크린샷 입력 시험(feat/screen-detect)이 쓰는 칸이다. 여기서는 모양만 보고 읽지 않는다.
 
 그림 크기: 렌더 그림(폭 390 · 창 높이 844)과 조건을 맞춘다. 가로 WIDTH 로 줄이고(비율 유지,
-Pillow 의 LANCZOS - RESAMPLE), 줄인 높이가 HEIGHT 를 넘으면 렌더 그림과 같은 규칙
-(drive.see_parts - 창 높이씩, 장끼리 100px 겹치게, 마지막 장은 맨 아래에 맞춰, 최대 4장)으로
-잘라 이름표 끝에 " · 조각 {i}/{n}" 을 붙인다. 줄인 그림은 실행 폴더가 아니라 산출물 폴더
+Pillow 의 LANCZOS - RESAMPLE). 줄인 높이가 HEIGHT 를 5% 이내(ONE_PIECE_MAX = 886 이하)로
+넘으면 자르지 않고 한 장으로 보낸다 - 더미앱 캡처 824×1830 은 390×866 한 장이다 (연구자 결정
+2026-10-13: 자르면 22px 만 다른 조각이 하나 더 생겨 그림이 두 배가 된다). 그보다 길면 렌더
+그림과 같은 규칙(drive.see_parts - 창 높이씩, 장끼리 100px 겹치게, 마지막 장은 맨 아래에 맞춰,
+최대 4장)으로 잘라 이름표 끝에 " · 조각 {i}/{n}" 을 붙인다. 렌더 그림 쪽 규칙은 그대로다. 줄인 그림은 실행 폴더가 아니라 산출물 폴더
 (outputs/ 등 - git 이 무시한다)에 둔다. 실행 폴더에는 파일 이름 · sha256 · 크기만 남는다.
 """
 import hashlib
@@ -32,6 +34,8 @@ from senior_ui.config import ROOT
 
 WIDTH = 390
 HEIGHT = 844
+# 이 높이까지는 자르지 않고 한 장으로 (HEIGHT 의 5% 이내 - 캡처 쪽에서만)
+ONE_PIECE_MAX = int(HEIGHT * 1.05)
 # 줄이는 필터 - 고정한다 (같은 캡처는 늘 같은 그림이 된다)
 RESAMPLE = "LANCZOS"
 PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
@@ -140,17 +144,19 @@ def prepare(cap, out_dir):
             pic = src.convert("RGBA" if "A" in src.getbands() else "RGB")
         nh = max(1, int(round(h * WIDTH / float(w))))
         small = pic if (w, nh) == (WIDTH, h) else pic.resize((WIDTH, nh), resample)
-        parts, step, more = see_parts(nh - HEIGHT, HEIGHT)
+        one = nh <= ONE_PIECE_MAX
+        parts, step, more = (1, 0, 0) if one else see_parts(nh - HEIGHT, HEIGHT)
+        tall = nh if one else HEIGHT
         stem = "%02d_%s" % (k, os.path.splitext(os.path.basename(im["file"]))[0])
         for i in range(parts):
-            y = min(i * step, max(0, nh - HEIGHT))
-            piece = small.crop((0, y, WIDTH, min(nh, y + HEIGHT)))
+            y = min(i * step, max(0, nh - tall))
+            piece = small.crop((0, y, WIDTH, min(nh, y + tall)))
             name = "%s.%d.png" % (stem, i + 1)
             piece.save(os.path.join(out_dir, name), format="PNG")
             label = im["label"] + (PART_SUFFIX % (i + 1, parts) if parts > 1 else "")
             images.append({"label": label, "path": os.path.join(out_dir, name),
                            "source": rel(im["path"])})
         records.append({"file": im["file"], "sha256": sha256_of(im["path"]),
-                        "size": [w, h], "sent": [WIDTH, min(nh, HEIGHT)], "scaled": [WIDTH, nh],
+                        "size": [w, h], "sent": [WIDTH, min(nh, tall)], "scaled": [WIDTH, nh],
                         "parts": parts, "more_px": more, "label": im["label"]})
     return images, records

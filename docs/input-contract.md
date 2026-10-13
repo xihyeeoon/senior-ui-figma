@@ -322,19 +322,21 @@
 맞다. `--see off` 와 같이 주어도 멈춘다 (보낼 곳이 없다).
 
 **그림 크기.** 렌더 그림(폭 390 · 창 높이 844)과 조건을 맞춘다. 가로 390 으로 줄이고(비율
-유지, 필터는 Pillow 의 LANCZOS 로 고정 — `restructure/captures.py` 의 `RESAMPLE`), 줄인 높이가
-844 를 넘으면 렌더 그림과 같은 규칙(`drive.see_parts`)으로 자른다 — 창 높이 844 씩, 장끼리
-100px 겹치게, 마지막 장은 맨 아래에 맞추고, 최대 4장 (넘는 높이는 `more_px` 로 적는다).
-조각이 둘 이상이면 이름표 끝에 ` · 조각 {i}/{n}` 을 붙인다. 줄인 그림은 실행 폴더가 아니라
+유지, 필터는 Pillow 의 LANCZOS 로 고정 — `restructure/captures.py` 의 `RESAMPLE`). 줄인 높이가
+844 를 5% 이내(886 이하)로 넘으면 자르지 않고 한 장으로 보낸다 (연구자 결정 2026-10-13 — 자르면
+22px 만 다른 조각이 하나 더 생겨 그림이 두 배가 된다). 그보다 길면 렌더 그림과 같은
+규칙(`drive.see_parts`)으로 자른다 — 창 높이 844 씩, 장끼리 100px 겹치게, 마지막 장은 맨
+아래에 맞추고, 최대 4장 (넘는 높이는 `more_px` 로 적는다). 조각이 둘 이상이면 이름표 끝에
+` · 조각 {i}/{n}` 을 붙인다. 이 5% 는 캡처 쪽에서만이다 — 렌더 그림의 규칙은 그대로다. 줄인 그림은 실행 폴더가 아니라
 산출물 폴더(`outputs/see-captures/<실행>/` — git 이 무시한다)에 둔다. 더미앱 캡처
-824×1830 은 390×866 이 되어 두 조각(0 · 22px 내린 모습)이 된다.
+824×1830 은 390×866 한 장이 된다 (19장 → 그림 19장).
 
 **기록.** `summary.json` 의 `see` 에 `source` (`render` · `captures`), `captures` (대응표 경로) ·
 `captures_sha256` · `captures_source`, 그림마다 `images[]` (`file` · `sha256` · `size` 원래 크기 ·
 `scaled` 줄인 크기 · `sent` 보낸 한 장의 크기 · `parts` 조각 수 · `more_px` · `label`). 캡처
 파일은 실행 폴더에 복사하지 않는다. `attempt_1.plan_prompt.txt` 의 그림 줄에는 캡처 파일
-이름이 남는다 (`[그림 1/38] … · 조각 1/2  <그림: inputs/captures/transfer/01a.png 390x844 · 예상
-422토큰>`). `run.log` 에 `보기: 캡처 N장 (inputs/captures/…)`.
+이름이 남는다 (`[그림 1/19] 원본 화면 home — …  <그림: inputs/captures/transfer/01a.png 390x866 · 예상
+… 토큰>`). `run.log` 에 `보기: 캡처 N장 (inputs/captures/…)`.
 
 **빈 틀.** `python -m senior_ui.restructure.captures_template inputs/captures/transfer --task
 transfer` 는 폴더의 PNG 를 이름순으로 나열한 대응표를 만든다 (label 은 비고 taps 는 빈 배열 —

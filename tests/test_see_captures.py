@@ -34,7 +34,7 @@ CAP = _api.captures_module
 PLAN_WITH_SHOTS = ("PLAN_TEMPLATE {{ORIGINAL_HTML}} {{RETRY_BLOCK}} {{CHOICES}} "
                    "{{ORIGINAL_SCREENS}}\n{{ORIGINAL_SHOTS}}")
 
-# (파일, 가로, 세로, label) - 줄이면 390x866 (조각 2), 390x600 (1), 390x2000 (조각 3),
+# (파일, 가로, 세로, label) - 줄이면 390x866 (844 의 5% 이내 - 한 장), 390x600 (1), 390x2000 (조각 3),
 # 390x6000 (조각 4 + 남는 높이)
 SHOTS = [("a.png", 824, 1830, "원본 화면 home — 맨 위"),
          ("b.png", 780, 1200, "원본 화면 recipient"),
@@ -78,7 +78,7 @@ def run_captures(env, out_root, tmp_path, path, **kw):
 # ===================================================================== #
 # 1. 그림 - 수 · 순서 · 이름표 · 소개 글 · 크기 · 조각
 # ===================================================================== #
-LABELS = ["원본 화면 home — 맨 위 · 조각 1/2", "원본 화면 home — 맨 위 · 조각 2/2",
+LABELS = ["원본 화면 home — 맨 위",
           "원본 화면 recipient",
           "원본 화면 bank — 목록 · 조각 1/3", "원본 화면 bank — 목록 · 조각 2/3",
           "원본 화면 bank — 목록 · 조각 3/3",
@@ -96,7 +96,7 @@ def test_the_plan_call_sees_the_captures_in_order(fake_run_env, out_root, tmp_pa
     assert [im["label"] for im in plan["images"]] == LABELS
     assert gen["images"] == []                                  # 생성에는 그림이 없다
     sizes = [model.png_size(im["path"]) for im in plan["images"]]
-    assert sizes == [(390, 844), (390, 844), (390, 600)] + [(390, 844)] * 7
+    assert sizes == [(390, 866), (390, 600)] + [(390, 844)] * 7
     # 줄인 그림은 실행 폴더가 아니라 산출물 폴더에
     assert all(not im["path"].startswith(d) for im in plan["images"])
     assert all(os.sep + "see-captures" + os.sep in im["path"] for im in plan["images"])
@@ -106,12 +106,27 @@ def test_the_plan_call_sees_the_captures_in_order(fake_run_env, out_root, tmp_pa
 
 
 def test_the_slices_follow_the_render_rule():
-    """창 높이 844 씩, 100px 겹치게, 마지막 장은 맨 아래에 맞춰, 최대 4장."""
+    """창 높이 844 씩, 100px 겹치게, 마지막 장은 맨 아래에 맞춰, 최대 4장. 렌더 그림의 규칙은
+    그대로다 - 5% 이내 한 장은 캡처 쪽에서만이다."""
     see_parts = _api.drive_module.see_parts
     assert see_parts(866 - 844, 844) == (2, 744, 0)
     assert see_parts(2000 - 844, 844) == (3, 744, 0)
     parts, step, more = see_parts(6000 - 844, 844)
     assert (parts, step) == (4, 744) and more == 6000 - 844 - 3 * 744
+
+
+@pytest.mark.parametrize("h,parts,sent", [(886, 1, [390, 886]), (887, 2, [390, 844]),
+                                          (844, 1, [390, 844]), (600, 1, [390, 600])])
+def test_up_to_five_percent_over_is_one_picture(tmp_path, h, parts, sent):
+    """줄인 높이가 844 를 5% 이내(886 이하)로 넘으면 자르지 않는다 (연구자 결정 2026-10-13).
+    더미앱 캡처 824x1830 -> 390x866 한 장. 그보다 길면 렌더 그림 규칙대로 자른다."""
+    assert CAP.ONE_PIECE_MAX == 886
+    path = captures(tmp_path / "cap", shots=[("x.png", 390, h, "원본 화면 x")])
+    imgs, records = CAP.prepare(CAP.load(path, "transfer"), str(tmp_path / "sent"))
+    assert (records[0]["parts"], records[0]["sent"]) == (parts, sent)
+    assert [model.png_size(im["path"]) for im in imgs] == [tuple(sent)] * parts
+    assert [im["label"] for im in imgs] == (
+        ["원본 화면 x"] if parts == 1 else ["원본 화면 x · 조각 1/2", "원본 화면 x · 조각 2/2"])
 
 
 def test_prepare_records_each_capture(tmp_path):
@@ -120,7 +135,7 @@ def test_prepare_records_each_capture(tmp_path):
     imgs, records = CAP.prepare(cap, str(tmp_path / "sent"))
     assert [r["file"] for r in records] == ["a.png", "b.png", "c.png", "d.png"]
     assert [(r["size"], r["scaled"], r["sent"], r["parts"]) for r in records] == [
-        ([824, 1830], [390, 866], [390, 844], 2),
+        ([824, 1830], [390, 866], [390, 866], 1),
         ([780, 1200], [390, 600], [390, 600], 1),
         ([195, 1000], [390, 2000], [390, 844], 3),
         ([390, 6000], [390, 6000], [390, 844], 4)]
@@ -154,7 +169,7 @@ def test_the_summary_records_where_the_pictures_came_from(fake_run_env, out_root
     assert see["captures"] == CAP.rel(path) and see["captures_sha256"] == CAP.sha256_of(path)
     assert see["original_images"] == len(LABELS) and see["rendered_images"] == 2
     assert [(i["file"], i["parts"], i["sent"]) for i in see["images"]] == [
-        ("a.png", 2, [390, 844]), ("b.png", 1, [390, 600]), ("c.png", 3, [390, 844]),
+        ("a.png", 1, [390, 866]), ("b.png", 1, [390, 600]), ("c.png", 3, [390, 844]),
         ("d.png", 4, [390, 844])]
     assert set(see["images"][0]) == {"file", "sha256", "size", "scaled", "sent", "parts",
                                      "more_px", "label"}
@@ -165,7 +180,7 @@ def test_the_saved_prompt_names_the_capture_files(fake_run_env, out_root, tmp_pa
     _c, _s, _sent, d = run_captures(fake_run_env, out_root, tmp_path, path)
     saved = io.open(os.path.join(d, "attempt_1.plan_prompt.txt"), encoding="utf-8").read()
     a = CAP.rel(os.path.join(str(tmp_path / "cap"), "a.png"))
-    assert "[그림 1/10] 원본 화면 home — 맨 위 · 조각 1/2  <그림: %s 390x844 · 예상 " % a in saved
+    assert "[그림 1/9] 원본 화면 home — 맨 위  <그림: %s 390x866 · 예상 " % a in saved
     assert "see-captures" not in saved
     log = io.open(os.path.join(d, "run.log"), encoding="utf-8").read()
     assert ("보기: 캡처 4장 (%s)" % CAP.rel(path)) in log
