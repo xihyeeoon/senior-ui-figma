@@ -62,7 +62,7 @@ const SHAPES: Record<string, Shape> = {
   other:  { fill: null, stroke: INK, dash: [4, 4], radius: 0, align: 'C', inset: 4 },
 };
 const INPUT_TAGS = ['input', 'textarea', 'select'];
-export const shapeOf = (tag: string) =>
+const shapeOf = (tag: string) =>
   tag === 'button' || tag === 'a' ? tag : INPUT_TAGS.includes(tag) ? 'input' : 'other';
 
 export const lineH = (size: number) => Math.round(size * 1.5);
@@ -97,7 +97,7 @@ function picture(s: any, w: number, h: number, dims: Dims): Node {
       x: x / k, y: y / k, w: tw / k, h: th / k, src: `${s.picture}#${i + 1}` })) };
 }
 
-export const labelOf = (it: any) => it.text || it.aria || `(${it.action})`;
+const labelOf = (it: any) => it.text || it.aria || `(${it.action})`;
 
 // 새 요소: 대응표 값이 'new' · 'made-pressable' 이면 그대로, 원본 action 이면 새 요소가 아니다
 // (where 에 없어도 - 그건 renameNotes 가 '대응표 확인' 으로 알린다). 값이 없으면 where 로 본다.
@@ -170,7 +170,7 @@ const tagBox = (t: Tags): Box => { const bs = pillBoxes(t), l = bs[bs.length - 1
   return [bs[0][0], bs[0][1], l[0] + l[2] - bs[0][0], TAG_H]; };
 
 type Tally = { merged: number; into: number; moved: number; pushed: number };
-export const tallyLine = (n: Tally) => `꼬리표 겹침: 같은 글 ${n.merged}개를 ${n.into}개로 합침`
+const tallyLine = (n: Tally) => `꼬리표 겹침: 같은 글 ${n.merged}개를 ${n.into}개로 합침`
   + ` · 글이 다른 것과 겹쳐 아래로 내림 ${n.moved} · 무리 이름표를 옆으로 민 것 ${n.pushed}`;
 
 // 한 장 안에서 같은 글의 꼬리표끼리 겹치면 (이어서 겹쳐도) 하나로 합쳐 `{글} · {n}개` 를 가장 왼쪽 요소의
@@ -266,6 +266,7 @@ function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, scre
     opacity: it.disabled ? 0.4 : 1, clip: false, kids };
 }
 
+const revealKey = (s: any) => /^reveal:(.+)$/.exec(s.state || '')?.[1];
 // 장 이름: 같은 title 이 둘 이상이면 그 장들만 '· {reveal 키 요소의 글}' (아니면 '· {state}') 을 붙이고,
 // 그래도 겹치면 ' ({sheets 순서 번호})'. 주석 · 결과 글 · 바꾼 것 표도 이 이름을 쓴다.
 function sheetNames(sheets: any[]): Map<any, string> {
@@ -273,7 +274,7 @@ function sheetNames(sheets: any[]): Map<any, string> {
   const titles = sheets.map(s => s.title || s.id);
   const first = sheets.map((s, i) => {
     if (!many(titles, titles[i])) return titles[i];
-    const key = /^reveal:(.+)$/.exec(s.state || '')?.[1];
+    const key = revealKey(s);
     const it = key && (s.items || []).find((it: any) => it.action === key);
     return `${titles[i]} · ${it ? labelOf(it) : s.state ?? s.id}`;
   });
@@ -282,7 +283,6 @@ function sheetNames(sheets: any[]): Map<any, string> {
 
 // 펼친 장의 본 장: kind = reveal 이고 state = reveal:<키> 인 장의 of 가 가리키는 장이, 같은 screen 의
 // kind = visit 주요 장일 때만. 못 찾으면 null - 그 장은 전체를 그린다.
-const revealKey = (s: any) => /^reveal:(.+)$/.exec(s.state || '')?.[1];
 function baseOf(s: any, byId: Map<string, any>) {
   const b = s.kind === 'reveal' && revealKey(s) ? byId.get(s.of) : null;
   return b?.kind === 'visit' && b.main && b.screen === s.screen ? b : null;
@@ -450,7 +450,7 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = fal
     const row = full ? [] : col.filter(s => baseOf(s, byId) === col[0]);
     // 달라진 것 (키 · box) 이 같은 펼친 장끼리 한 무리 - 무리의 첫 장 자리에 한 번만 그린다
     const same = new Map<string, any[]>();
-    for (const s of row) { const k = freshKey(s, col[0]); if (k !== '[]') same.set(k, [...(same.get(k) || []), s]); }
+    for (const s of row) if (freshOf(s, col[0]).length) { const k = freshKey(s, col[0]); same.set(k, [...(same.get(k) || []), s]); }
     let y = WF_TOP, colW = 0, rx = 0, rowH = 0;
     for (const s of [col[0], ...row, ...col.slice(1).filter(s => !row.includes(s))]) {
       const [w, h] = s.size || DEFAULT_SIZE, g = [...same.values()].find(g => g.includes(s)) || [s]; if (g[0] !== s) continue;
