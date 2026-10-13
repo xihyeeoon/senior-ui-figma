@@ -231,6 +231,19 @@ def test_the_retry_block_keeps_the_whole_rule_sentence():
     assert FLOW_FIXED[2:] in block
 
 
+def test_the_rule_sentence_survives_a_javascript_error_too():
+    """JS 오류가 있으면 다른 fatal 은 [막힌 지점] 으로 간다 - 거기서도 줄이지 않는다 (실행
+    20261013-152332 시도 1 은 거기서 200자로 잘려 규칙 문장이 빠졌다)."""
+    bad = FF.judge(steps(*ORIGINAL), steps("start", "sent"), plan_of(RENAMED))
+    rep = FF.apply(report(), bad, "layout")
+    rep["fatal"].insert(0, {"check": "A", "screen": None,
+                            "detail": "JavaScript errors during the task: x is not defined"})
+    rep["metrics"]["js_error_details"] = [{"name": "ReferenceError",
+                                           "message": "x is not defined", "stack": ""}]
+    block = P.retry_block(rep, "<html></html>", "{}")
+    assert "[막힌 지점]" in block and FLOW_FIXED[2:] in block
+
+
 # ===================================================================== #
 # 3. 루프 (모델 · 검사기는 가짜)
 # ===================================================================== #

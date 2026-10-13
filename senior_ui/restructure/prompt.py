@@ -496,6 +496,15 @@ def error_part(error, has_build):
     return out
 
 
+def failure_line(f):
+    """재시도 블록의 fatal 한 줄. keep_detail 인 fatal (흐름 고정 M) 은 안내문 끝에 프롬프트의 규칙
+    문장을 담으므로 줄이지 않는다 - brief_failure 는 200자에서 자른다. [고칠 것] · [막힌 지점] 이
+    같이 쓴다 (실행 20261013-152332 시도 1 은 JS 오류와 함께 떨어져 [막힌 지점] 에서 잘렸다)."""
+    if f.get("keep_detail"):
+        return one_line(f.get("detail", ""))
+    return brief_failure(f.get("detail", ""))
+
+
 def retry_block(report, prev_html, prev_flow_text, error=None, truncated=0):
     """The slot the template leaves for a retry.
 
@@ -538,7 +547,7 @@ def retry_block(report, prev_html, prev_flow_text, error=None, truncated=0):
             parts += ["[막힌 지점]"]
             for f in other:
                 where = (f.get("screen") + ": ") if f.get("screen") else ""
-                parts.append("  " + where + brief_failure(f.get("detail", "")))
+                parts.append("  " + where + failure_line(f))
             parts.append("")
     else:
         # 규칙 4: JS 오류가 없으면 근본 fatal 만 나열한다.
@@ -546,11 +555,7 @@ def retry_block(report, prev_html, prev_flow_text, error=None, truncated=0):
             parts += ["[고칠 것]"]
             for f in other:
                 where = (f.get("screen") + ": ") if f.get("screen") else ""
-                # keep_detail - 안내문 끝에 프롬프트의 규칙 문장을 담은 fatal (흐름 고정 M).
-                # brief_failure 는 200자에서 자르므로 그 문장이 잘린다
-                text = (one_line(f.get("detail", "")) if f.get("keep_detail")
-                        else brief_failure(f.get("detail", "")))
-                parts.append("  " + where + text)
+                parts.append("  " + where + failure_line(f))
             parts.append("")
         elif not derived and not (error or truncated):
             parts += ["(fatal 목록이 비어 있지만 통과하지 못했다)", ""]
