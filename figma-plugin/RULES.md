@@ -77,8 +77,11 @@ UI 에 "옛 페이지 {N}개를 지우고 다시 그린다. 디자이너가 고�
   요소 · 그림 자리 (`in` 이 없는 것, `in` 이 있는 것은 그 요소를 따라 — 자리만 바뀐 것 포함) 만 y − a 로 옮겨 그린다 (조각 이름 `조각 {i}/{n}` 그대로).
   영역 (4.3) 은 그리지 않고, 그래서 4.5 의 입구 묶기도 없다 — 입구 꼬리표는 요소마다 달리고 4.4 꼬리표 겹침으로 합쳐진다.
   꼬리표 겹침 · 무리 이름표 밀기는 띠 안에서 다시 본다. 주석 (5) 은 장 전체 그대로.
-- **장 위 한 줄**: `펼친 장 — {키} · 본 장 {본 장 이름} 의 y {a}~{b}` — 14 Bold, 너비 max(장 너비, 360) (넘치면 줄바꿈),
-  레이어 이름 `펼친 장 — {장 이름}`. 본 장에 없던 것이 없으면 (자리만 바뀌었어도) 장 · 주석 없이 `펼친 장 — {키} · 본 장과 같음` 한 줄만.
+- **장 위 한 줄**: `펼친 장 — {이름} · 본 장 {본 장 이름} 의 y {a}~{b}` — 14 Bold, 너비 max(장 너비, 360) (넘치면 줄바꿈),
+  레이어 이름 `펼친 장 — {장 이름}`. 본 장에 없던 것이 없으면 (자리만 바뀌었어도) 장 · 주석 없이 `펼친 장 — {이름} · 본 장과 같음` 한 줄만.
+  - `{이름}` = `{연 요소의 글} ({키})`. 연 요소 = `flow.reveals[]` 중 `sheet` 가 이 장 id 이고 `at_sheet` 가 본 장 id 인 것의
+    `how` 에서 마지막 `click` 의 `item` 과 `no` 가 같은 본 장 `items` 의 요소, 글은 4.2 규칙. 못 찾으면 `{키}` 만.
+  - 예: `펼친 장 — 홈 설정 펼치기 (oos-easy-home) · 본 장 뱅킹 홈 의 y 234~506`.
 - **자리**: 본 장 주석 오른쪽 끝 + 80 부터 펼친 장을 `sheets` 순서로 가로로 둔다. 칸 너비 = max(장 너비, 360), 칸 사이 80.
   한 줄 y = 400, 장 y = 432, 주석 열 (너비 360) 은 장 아래 x = 칸 x, y = 432 + (b − a) + 24.
   열 너비 = 펼친 장 줄의 오른쪽 끝까지. 펼친 장 줄 높이 = max(32 + (b − a) + 24 + 주석 어림 높이, 한 줄만이면 21).
@@ -300,7 +303,7 @@ UI 에 "옛 페이지 {N}개를 지우고 다시 그린다. 디자이너가 고�
 |---|---|---|
 | 장 열 순서 | `flow.steps[].sheet` | 흐름 명세 (`flows/`) → `storyboard.build.assemble` |
 | 주요 장 / 아래 줄 | `sheets[].main` · `of` · `screen` | `build.assemble` (걷기에서 켜진 화면) |
-| 펼친 장 ↔ 본 장 · 띠 (3.1) | `sheets[].kind` · `state` · `of` · `screen` · `main` + `items[].action` · `box` · `images[].name` · `box` | `build.assemble` · `walk` |
+| 펼친 장 ↔ 본 장 · 띠 (3.1) | `sheets[].kind` · `state` · `of` · `screen` · `main` + `items[].action` · `box` · `images[].name` · `box` · `flow.reveals[].sheet` · `at_sheet` · `how[].item` | `build.assemble` · `walk` |
 | 장 크기 · 참고 그림 | `sheets[].size` · `picture` | `walk` 그림 페이지 (생성 HTML 을 걸으며 찍음) |
 | 장 이름 | `sheets[].title` | `storyboard.regions` (영역 묶기 모델 호출) |
 | purpose | `sheets[].purpose` | 계획 단계 (`attempt_N.plan.json`) → `build.assemble` |

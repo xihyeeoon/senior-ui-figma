@@ -287,6 +287,14 @@ function baseOf(s: any, byId: Map<string, any>) {
   const b = s.kind === 'reveal' && revealKey(s) ? byId.get(s.of) : null;
   return b?.kind === 'visit' && b.main && b.screen === s.screen ? b : null;
 }
+// 장 위 한 줄의 이름: 펼침을 연 요소의 글 (키). 연 요소 = flow.reveals 에서 sheet 가 이 장이고 at_sheet 가 본 장인
+// 것의 how 마지막 click 의 item (본 장 items 의 no). 못 찾으면 키만.
+function revealName(sb: any, s: any, base: any) {
+  const r = (sb.flow?.reveals || []).find((r: any) => r.sheet === s.id && r.at_sheet === base.id);
+  const no = (r?.how || []).filter((h: any) => h.type === 'click' && h.item).pop()?.item;
+  const it = (base.items || []).find((it: any) => it.no === no);
+  return it ? `${labelOf(it)} (${revealKey(s)})` : revealKey(s);
+}
 // 본 장에 없던 것: 키가 같은 것끼리 차례대로 짝짓고, 짝이 남지 않은 것 (자리만 바뀐 것은 짝이 있다)
 function fresh(xs: any[] = [], olds: any[] = [], key: (o: any) => string) {
   const left = new Map<string, any[]>();
@@ -429,7 +437,7 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = fal
       if (row.includes(s)) {
         // 장 위에 한 줄, 장은 본 장과 달라진 띠만, 주석은 장 아래. 달라진 것이 없으면 한 줄만.
         const cut = revealCut(s, col[0], h), sw = Math.max(w, ANN_W), top = WF_TOP + REVEAL_HEAD;
-        wf.push(txt(`펼친 장 — ${revealKey(s)} · ` + (cut ? `본 장 ${names.get(col[0])} 의 y ${cut[0]}~${cut[1]}`
+        wf.push(txt(`펼친 장 — ${revealName(sb, s, col[0])} · ` + (cut ? `본 장 ${names.get(col[0])} 의 y ${cut[0]}~${cut[1]}`
           : '본 장과 같음'), 14, { name: `펼친 장 — ${title}`, x: rx, y: WF_TOP, w: sw, bold: true }));
         if (cut) {
           const fh = cut[1] - cut[0];
