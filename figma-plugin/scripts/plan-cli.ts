@@ -7,8 +7,10 @@ import { join } from 'node:path';
 import RENAMES from '../renames.json' with { type: 'json' };
 import { plan, count, marksOf, tiles, base, MARK, MAX_PX, type Node, type Dims } from '../src/plan.ts';
 
-const dir = process.argv[2];
-if (!dir) { console.error('쓰는 법: node scripts/plan-cli.ts <storyboard 폴더> [이름]'); process.exit(2); }
+// --full: 펼친 장도 전체를 그린다 (플러그인 창의 '펼친 장 전체 그리기')
+const args = process.argv.slice(2).filter(a => a !== '--full'), full = args.length < process.argv.length - 2;
+const dir = args[0];
+if (!dir) { console.error('쓰는 법: node scripts/plan-cli.ts <storyboard 폴더> [이름] [--full]'); process.exit(2); }
 const sb = JSON.parse(readFileSync(join(dir, 'storyboard.json'), 'utf8'));
 // 그림 크기는 PNG 머리 (IHDR 의 가로 · 세로) 에서 읽는다 - UI 가 재는 것과 같은 값
 const dims: Dims = {};
@@ -16,11 +18,11 @@ for (const s of sb.sheets || []) {
   const f = join(dir, s.picture || '');
   if (s.picture && existsSync(f)) { const b = readFileSync(f); dims[base(s.picture)] = [b.readUInt32BE(16), b.readUInt32BE(20)]; }
 }
-const p = plan(sb, dims, RENAMES);
+const p = plan(sb, dims, RENAMES, full);
 const json = JSON.stringify(p, null, 1) + '\n';
 const outDir = join(import.meta.dirname, '..', 'out');
 mkdirSync(outDir, { recursive: true });
-const outFile = join(outDir, process.argv[3] || 'plan.json');
+const outFile = join(outDir, args[1] || 'plan.json');
 writeFileSync(outFile, json);
 
 const frames = p.pages[0].kids.filter(n => n.t === 'frame' && n.kids?.[0]?.t === 'group');
@@ -42,6 +44,9 @@ const fresh = new Map<string, Set<string>>();
 for (const x of marked) if (x.m.includes(MARK.fresh)) fresh.set(x.it.action, (fresh.get(x.it.action) || new Set()).add(x.s.id));
 for (const [a, ids] of fresh) console.log(`  새 요소: ${a} · ${[...ids].join(', ')}`);
 for (const l of [p.tags, ...p.checks, ...p.warnings]) console.log(l);
+const heads = p.pages[0].kids.filter(n => n.t === 'text' && n.name.startsWith('펼친 장 — '));
+console.log(`펼친 장 ${heads.length}${full ? ' (--full: 전체)' : ''}`);
+for (const n of heads) console.log(`  ${n.chars}`);
 const big = Object.values(dims).filter(([w, h]) => w > MAX_PX || h > MAX_PX).length;
 console.log(`그림 ${Object.keys(dims).length} · ${MAX_PX}px 초과 ${big} · 조각 합계 ${pics.reduce((n, g) => n + g.kids!.length, 0)}`);
 for (const [f, [w, h]] of Object.entries(dims)) console.log(`  ${f} ${w}×${h} → 조각 ${tiles(w, h).length}`);

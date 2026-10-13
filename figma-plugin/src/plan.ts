@@ -46,7 +46,7 @@ const REF_NAME = '참고 — 로우파이 그림', REF_OPACITY = 0.4;
 export const MAX_PX = 4096;   // Figma createImage 가 받는 가로 · 세로 최대 (ui.html 과 같다)
 const CARD_W = 720, WF_TOP = 400;
 const ANN_GAP = 24, ANN_W = 360, ANN_PAD = 16, ANN_ITEM_GAP = 6;
-const COL_GAP = 160, ROW_GAP = 160;
+const COL_GAP = 160, ROW_GAP = 160, REVEAL_PAD = 40, REVEAL_HEAD = 32;
 const DEFAULT_SIZE = [390, 844];
 const ENTRANCE_NOTE = '과제 밖 입구 = 이 과제에서는 쓰지 않는 메뉴 · 버튼. 옮기거나 접어도 되지만 지우지 않는다 (연구 원칙, 검사 K).';
 const SLOT_NOTE = '회색 X 상자 = 그림 (로고 · 아이콘) 이 들어갈 자리. 디자이너가 표준 아이콘 · 로고로 바꾼다.';
@@ -280,6 +280,53 @@ function sheetNames(sheets: any[]): Map<any, string> {
   return new Map(sheets.map((s, i) => [s, many(first, first[i]) ? `${first[i]} (${i + 1})` : first[i]]));
 }
 
+// 펼친 장의 본 장: kind = reveal 이고 state = reveal:<키> 인 장의 of 가 가리키는 장이, 같은 screen 의
+// kind = visit 주요 장일 때만. 못 찾으면 null - 그 장은 전체를 그린다.
+const revealKey = (s: any) => /^reveal:(.+)$/.exec(s.state || '')?.[1];
+function baseOf(s: any, byId: Map<string, any>) {
+  const b = s.kind === 'reveal' && revealKey(s) ? byId.get(s.of) : null;
+  return b?.kind === 'visit' && b.main && b.screen === s.screen ? b : null;
+}
+// 본 장에 없던 것 · 자리가 바뀐 것: 키가 같은 것끼리 차례대로 짝짓고, 상자까지 같으면 그대로다
+function changed(xs: any[] = [], olds: any[] = [], key: (o: any) => string) {
+  const left = new Map<string, any[]>();
+  for (const o of olds) left.set(key(o), [...(left.get(key(o)) || []), o]);
+  return xs.filter(x => String(left.get(key(x))?.shift()?.box) !== String(x.box));
+}
+// 달라진 요소 (action + 글) · 그림 자리 (name) 를 모두 담는 띠 [a, b] - 위아래 40, 장 밖으로는 넘지 않는다.
+// 달라진 것이 없으면 null.
+function revealCut(s: any, base: any, h: number): [number, number] | null {
+  const d = [...changed(s.items, base.items, it => `${it.action}|${labelOf(it)}`),
+    ...changed(s.images, base.images, g => g.name)];
+  if (!d.length) return null;
+  return [Math.max(0, Math.floor(Math.min(...d.map(o => o.box[1])) - REVEAL_PAD)),
+    Math.min(h, Math.ceil(Math.max(...d.map(o => o.box[1] + o.box[3])) + REVEAL_PAD))];
+}
+
+// 장 프레임 안의 레이어. cut = [a, b] 면 그 띠만: 띠에 걸친 참고 그림 조각 · 요소 · 그림 자리를 y − a 로 옮기고
+// 영역 (과 영역 입구 묶기) 은 그리지 않는다.
+function sheetKids(s: any, w: number, h: number, dims: Dims, where: Record<string, unknown> | null, rn: Map1,
+                   tally: Tally, warnings: string[], cut?: [number, number]): Node[] {
+  // 그림 자리: in 이 있는 요소면 그 요소 안, 아니면 (in 이 없는 요소를 가리켜도 - 경고) 장에
+  const nos = new Set((s.items || []).map((it: any) => it.no)), imgs: any[] = s.images || [];
+  for (const g of imgs) if (g.in && !nos.has(g.in))
+    warnings.push(`그림 경고: 장 ${s.id} 의 그림 ${g.no} 이 가리키는 요소 ${g.in} 가 없다 — 장에 그렸다`);
+  const [a, b] = cut || [0, h];
+  const on = (o: any) => !cut || (o.box[1] < b && o.box[1] + o.box[3] > a);
+  const mv = (o: any) => cut ? { ...o, box: [o.box[0], o.box[1] - a, o.box[2], o.box[3]] } : o;
+  const its: any[] = (s.items || []).filter(on).map(mv), ims = imgs.map(mv);
+  const ent = cut ? { counted: new Set<string>(), regions: new Map<any, number>() } : entranceRegions(s);
+  const items: Node[] = its.map(it => itemNode(it, where, rn, s.screen, ent.counted.has(it.no),
+    ims.filter(g => g.in === it.no)));
+  const pic = picture(s, w, h, dims);
+  if (cut) pic.kids = pic.kids!.filter(k => k.y! < b && k.y! + k.h! > a).map(k => ({ ...k, y: k.y! - a }));
+  const kids = [pic, ...imgs.filter(g => !nos.has(g.in) && on(g)).map(g => slotNode(mv(g))),
+    ...items, ...(cut ? [] : (s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r))))];
+  untangle(kids, tally);
+  clearLabels(kids, items.filter((_, i) => its[i].kind === 'group'), tally);
+  return kids;
+}
+
 function regionNode(r: any, entrances = 0): Node {
   const [x, y, w, h] = r.box;
   const tag = entrances ? [tags([`과제 밖 입구 · ${entrances} · ${KEEP}`], w)] : [];
@@ -338,7 +385,8 @@ function changesPage(sb: any, titleOf: (s: string) => string): Node[] {
       kids: [row(['id', '무엇', '왜', '어느 화면'], true, 0), ...rows] }];
 }
 
-export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
+// full: 펼친 장도 전체를 그린다 (플러그인 창의 '펼친 장 전체 그리기')
+export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = false): Plan {
   const sheets: any[] = sb.sheets || [];
   const where = sb.original?.where ?? null, rn = renames[String(sb.run?.id)] || {};
   const byId = new Map(sheets.map(s => [s.id, s]));
@@ -372,22 +420,19 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
     for (const s of col) {
       const [w, h] = s.size || DEFAULT_SIZE, title = names.get(s)!;
       const ann = annotation(s, title, where, rn, titleOf);
-      const ent = entranceRegions(s);
       const annH = estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP);
-      // 그림 자리: in 이 있는 요소면 그 요소 안, 아니면 (in 이 없는 요소를 가리켜도 - 경고) 장에
-      const nos = new Set((s.items || []).map((it: any) => it.no)), imgs: any[] = s.images || [];
-      for (const g of imgs) if (g.in && !nos.has(g.in))
-        notes.warnings.push(`그림 경고: 장 ${s.id} 의 그림 ${g.no} 이 가리키는 요소 ${g.in} 가 없다 — 장에 그렸다`);
-      const items: Node[] = (s.items || []).map((it: any) => itemNode(it, where, rn, s.screen,
-        ent.counted.has(it.no), imgs.filter(g => g.in === it.no)));
-      const kids = [picture(s, w, h, dims), ...imgs.filter(g => !nos.has(g.in)).map(g => slotNode(g)),
-        ...items, ...(s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r)))];
-      untangle(kids, tally);
-      clearLabels(kids, items.filter((_, i) => s.items[i].kind === 'group'), tally);
-      wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids });
-      wf.push({ t: 'frame', name: `주석 — ${title}`, x: x + w + ANN_GAP, y, w: ANN_W, layout: 'V',
+      // 펼친 장 (본 장을 찾았을 때): 장 위에 한 줄, 장은 본 장과 달라진 띠만. 달라진 것이 없으면 한 줄만.
+      const base = full ? null : baseOf(s, byId), cut = base && revealCut(s, base, h);
+      const head = base && `펼친 장 — ${revealKey(s)} · ` + (cut
+        ? `본 장 ${names.get(base)} 의 y ${cut[0]}~${cut[1]}` : '본 장과 같음');
+      if (head) wf.push(txt(head, 14, { name: `펼친 장 — ${title}`, x, y, w, bold: true }));
+      if (base && !cut) { y += lineH(14) + ROW_GAP; colW = Math.max(colW, w); continue; }
+      const top = y + (base ? REVEAL_HEAD : 0), fh = cut ? cut[1] - cut[0] : h;
+      const kids = sheetKids(s, w, h, dims, where, rn, tally, notes.warnings, cut || undefined);
+      wf.push({ t: 'frame', name: title, x, y: top, w, h: fh, fill: PAPER, clip: true, kids });
+      wf.push({ t: 'frame', name: `주석 — ${title}`, x: x + w + ANN_GAP, y: top, w: ANN_W, layout: 'V',
         hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD], gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids: ann });
-      y += Math.max(h, annH) + ROW_GAP;
+      y = top + Math.max(fh, annH) + ROW_GAP;
       colW = Math.max(colW, w + ANN_GAP + ANN_W);
     }
     x += colW + COL_GAP;
