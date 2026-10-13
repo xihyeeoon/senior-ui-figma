@@ -287,17 +287,17 @@ function baseOf(s: any, byId: Map<string, any>) {
   const b = s.kind === 'reveal' && revealKey(s) ? byId.get(s.of) : null;
   return b?.kind === 'visit' && b.main && b.screen === s.screen ? b : null;
 }
-// 본 장에 없던 것 · 자리가 바뀐 것: 키가 같은 것끼리 차례대로 짝짓고, 상자까지 같으면 그대로다
-function changed(xs: any[] = [], olds: any[] = [], key: (o: any) => string) {
+// 본 장에 없던 것: 키가 같은 것끼리 차례대로 짝짓고, 짝이 남지 않은 것 (자리만 바뀐 것은 짝이 있다)
+function fresh(xs: any[] = [], olds: any[] = [], key: (o: any) => string) {
   const left = new Map<string, any[]>();
   for (const o of olds) left.set(key(o), [...(left.get(key(o)) || []), o]);
-  return xs.filter(x => String(left.get(key(x))?.shift()?.box) !== String(x.box));
+  return xs.filter(x => !left.get(key(x))?.shift());
 }
-// 달라진 요소 (action + 글) · 그림 자리 (name) 를 모두 담는 띠 [a, b] - 위아래 40, 장 밖으로는 넘지 않는다.
-// 달라진 것이 없으면 null.
+// 본 장에 없던 요소 (action + 글) · 그림 자리 (name) 를 모두 담는 띠 [a, b] - 위아래 40, 장 밖으로는 넘지 않는다.
+// 그런 것이 없으면 null.
 function revealCut(s: any, base: any, h: number): [number, number] | null {
-  const d = [...changed(s.items, base.items, it => `${it.action}|${labelOf(it)}`),
-    ...changed(s.images, base.images, g => g.name)];
+  const d = [...fresh(s.items, base.items, it => `${it.action}|${labelOf(it)}`),
+    ...fresh(s.images, base.images, g => g.name)];
   if (!d.length) return null;
   return [Math.max(0, Math.floor(Math.min(...d.map(o => o.box[1])) - REVEAL_PAD)),
     Math.min(h, Math.ceil(Math.max(...d.map(o => o.box[1] + o.box[3])) + REVEAL_PAD))];
