@@ -1,0 +1,309 @@
+{
+  "name": "auto",
+  "note": "새 계좌에 은행과 계좌번호, 금액을 직접 입력하고 내용을 확인한 뒤 비밀번호와 실행 버튼으로 이체한다.",
+  "derived_from_original": false,
+  "required_ids": [
+    "phone",
+    "dn-amt",
+    "acc-input",
+    "acc-next",
+    "amt-next",
+    "amt-quick",
+    "pwpad",
+    "execute"
+  ],
+  "steps": [
+    {
+      "screen": "home"
+    },
+    {
+      "screen": "recipient",
+      "click": "[data-action='go-recipient']"
+    },
+    {
+      "screen": "bank",
+      "do": [
+        {
+          "click": "[data-action='go-account']"
+        },
+        {
+          "type": "{ACCOUNT}",
+          "key": "[data-action='acc-num'][data-v='%s']"
+        },
+        {
+          "click": "[data-action='open-bank']"
+        }
+      ]
+    },
+    {
+      "screen": "account",
+      "click": "[data-action='pick-bank'][data-bank='{BANK}']"
+    },
+    {
+      "screen": "amount",
+      "click": "#acc-next"
+    },
+    {
+      "screen": "confirm",
+      "do": [
+        {
+          "type": "{AMOUNT}",
+          "key": "[data-action='num'][data-v='%s']"
+        },
+        {
+          "click": "#amt-next"
+        }
+      ]
+    },
+    {
+      "screen": "password",
+      "click": "[data-action='send']"
+    },
+    {
+      "screen": "done",
+      "do": [
+        {
+          "repeat": 4,
+          "click": "#pwpad [data-action='pw']",
+          "wait": 0.15
+        },
+        {
+          "click": "#execute"
+        }
+      ]
+    }
+  ],
+  "expect": {},
+  "error_paths": [
+    {
+      "id": "wrong-account",
+      "from_step": "account",
+      "inputs": [
+        {
+          "click": "[data-action='acc-clear']"
+        },
+        {
+          "click": "[data-action='approve-clear']"
+        },
+        {
+          "type": "{ACCOUNT_WRONG}",
+          "key": "[data-action='acc-num'][data-v='%s']"
+        },
+        {
+          "click": "#acc-next"
+        }
+      ],
+      "expect_screen": "account",
+      "expect_text_any": [
+        "계좌번호가 올바르지 않습니다",
+        "받는 사람에게 받은 번호"
+      ],
+      "recover": [
+        {
+          "click": "[data-action='fix-account']"
+        }
+      ],
+      "back_to": "account"
+    },
+    {
+      "id": "wrong-bank",
+      "from_step": "confirm",
+      "inputs": [
+        {
+          "click": "[data-action='edit-account']"
+        },
+        {
+          "click": "[data-action='open-bank']"
+        },
+        {
+          "click": "[data-action='pick-bank'][data-bank='{BANK_WRONG}']"
+        },
+        {
+          "click": "#acc-next"
+        },
+        {
+          "click": "[data-action='send']"
+        }
+      ],
+      "expect_screen": "confirm",
+      "expect_text_any": [
+        "선택한 은행이",
+        "은행을 다시 선택해 주세요"
+      ],
+      "recover": [
+        {
+          "click": "[data-action='fix-bank']"
+        }
+      ],
+      "back_to": "account"
+    }
+  ],
+  "reveal": {
+    "pick-bank": {
+      "at": "bank",
+      "do": [
+        {
+          "click": "[data-action='clear-search']"
+        },
+        {
+          "click": "[data-action='tab-bank']"
+        },
+        {
+          "click": "[data-action='tab-sec']"
+        }
+      ]
+    },
+    "oos-irp": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-services']"
+        }
+      ]
+    },
+    "oos-appcard": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-services']"
+        }
+      ]
+    },
+    "oos-get-coupon": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-services']"
+        }
+      ]
+    },
+    "oos-event": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-services']"
+        }
+      ]
+    },
+    "oos-coupon": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-services']"
+        }
+      ]
+    },
+    "oos-point": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-services']"
+        }
+      ]
+    },
+    "oos-spend-detail": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-services']"
+        }
+      ]
+    },
+    "oos-my-point": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-services']"
+        }
+      ]
+    },
+    "oos-connect-event": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-services']"
+        }
+      ]
+    },
+    "service-info": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-services']"
+        }
+      ]
+    },
+    "oos-easy-home": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-settings']"
+        }
+      ]
+    },
+    "oos-home-setting": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-settings']"
+        }
+      ]
+    },
+    "oos-hide-amount": {
+      "at": "home",
+      "do": [
+        {
+          "click": "[data-action='toggle-settings']"
+        }
+      ]
+    },
+    "oos-multi-transfer": {
+      "at": "recipient",
+      "do": [
+        {
+          "click": "[data-action='toggle-transfer-tools']"
+        }
+      ]
+    },
+    "oos-payee-manage": {
+      "at": "recipient",
+      "do": [
+        {
+          "click": "[data-action='toggle-transfer-tools']"
+        }
+      ]
+    },
+    "edit-saved": {
+      "at": "recipient",
+      "do": [
+        {
+          "click": "[data-action='oos-frequent']"
+        }
+      ]
+    },
+    "oos-frequent": {
+      "at": "recipient",
+      "do": [
+        {
+          "click": "[data-action='oos-frequent']"
+        }
+      ]
+    },
+    "oos-my-accounts": {
+      "at": "recipient",
+      "do": [
+        {
+          "click": "[data-action='oos-my-accounts']"
+        }
+      ]
+    },
+    "oos-recent": {
+      "at": "recipient",
+      "do": [
+        {
+          "click": "[data-action='oos-recent']"
+        }
+      ]
+    }
+  }
+}
