@@ -485,12 +485,14 @@ def img_candidates(image, els):
     for b in filled:
         x, y, w, h = b["box"]
         ins = [texts[t] for t in b["text_in"]]
-        label = None
-        if b["id"] in grid:
+        label, listed = None, b["id"] in grid
+        if listed:
             low = [t for t in ins if t["box"][1] + t["box"][3] / 2 > y + LABEL_LOW * h]
             label = max(low, key=lambda t: t["box"][1]) if low else None
             if label and not NAME_LIKE.match(label["text"].strip()):
-                label = None     # 이름처럼 생기지 않은 글 (띄어쓴 문장 · 긴 글) 은 칸 글이 아니다
+                # 이름처럼 생기지 않은 글 (띄어쓴 문장 · 긴 글) - 은행 · 증권사 칸이 아니다
+                label, listed = None, False
+        if listed:
             wipe = [label] if label else []
         else:
             # 박스 안의 글은 누구 것이든 지운다 - 안쪽 박스에 붙은 글도 (겹침 규칙이 "iou" 면 칸 안에
@@ -505,7 +507,7 @@ def img_candidates(image, els):
         ring = np.concatenate([sub[0], sub[-1], sub[:, 0], sub[:, -1]])
         fg = (np.abs(sub - np.median(ring, axis=0)).max(axis=2) >= BLOB_DIFF).astype(np.uint8)
         # 안쪽 박스는 이미 요소다 - 은행 칸에서는 글 없는 박스(아이콘)만, 그 밖의 칸에서는 모두 지운다
-        icons = [o for o in boxes if o is not b and (not o["text"] or b["id"] not in grid)
+        icons = [o for o in boxes if o is not b and (not o["text"] or not listed)
                  and inside(xyxy(o["box"]), xyxy(b["box"]))]
         for t in wipe + icons:
             tx, ty, tw, th = t["box"]
