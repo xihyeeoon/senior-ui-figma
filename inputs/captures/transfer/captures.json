@@ -1,0 +1,25 @@
+{
+  "task": "transfer",
+  "source": "더미앱 A1 캡처 2026-10-11",
+  "images": [
+    {"file": "01a.png", "label": "원본 화면 home — 스크롤 1/3 (맨 위)", "taps": []},
+    {"file": "01b.png", "label": "원본 화면 home — 스크롤 2/3", "taps": []},
+    {"file": "01c.png", "label": "원본 화면 home — 스크롤 3/3 (맨 아래)", "taps": []},
+    {"file": "02.png", "label": "원본 화면 recipient", "taps": []},
+    {"file": "03.png", "label": "원본 화면 account", "taps": []},
+    {"file": "04.png", "label": "원본 화면 account#2 — 키패드 열림 — 계좌번호 입력란을 누른 뒤", "taps": []},
+    {"file": "05a.png", "label": "원본 화면 bank — 스크롤 1/3 (맨 위)", "taps": []},
+    {"file": "05b.png", "label": "원본 화면 bank — 스크롤 2/3", "taps": []},
+    {"file": "05c.png", "label": "원본 화면 bank — 스크롤 3/3 (맨 아래)", "taps": []},
+    {"file": "06a.png", "label": "원본 화면 bank — [증권사] 탭 — 스크롤 1/3 (맨 위)", "taps": []},
+    {"file": "06b.png", "label": "원본 화면 bank — [증권사] 탭 — 스크롤 2/3", "taps": []},
+    {"file": "06c.png", "label": "원본 화면 bank — [증권사] 탭 — 스크롤 3/3 (맨 아래)", "taps": []},
+    {"file": "07.png", "label": "원본 화면 amount", "taps": []},
+    {"file": "07a.png", "label": "원본 화면 amount — 금액 입력", "taps": []},
+    {"file": "08.png", "label": "원본 화면 confirm", "taps": []},
+    {"file": "09a.png", "label": "원본 화면 password — 비밀번호 입력 전", "taps": []},
+    {"file": "09b.png", "label": "원본 화면 password — 비밀번호 입력 중", "taps": []},
+    {"file": "10.png", "label": "원본 화면 done", "taps": []},
+    {"file": "11.png", "label": "원본 오류 상태 wrong-account — 잘못된 계좌번호 입력 직후", "taps": []}
+  ]
+}
