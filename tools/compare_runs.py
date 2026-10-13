@@ -30,7 +30,8 @@ r"""재구성 실행끼리 과제 밖 입구 거리 · 선택지 수를 나란�
                 senior_ui/restructure/flow_fixed.py). 감사 지표 flow_fixed 가 있으면 그것을, 없으면
                 (그 검사가 생기기 전의 실행) 같은 판정을 그 시도의 흐름 명세 · 계획으로 다시 한다.
                 "같다" 또는 "다르다 (까닭)"
-  재현본 탓 표현  진단 (계획을 세운 시도의 attempt_N.diagnosis.json) 전문에서 REPLICA_WORDS 의 낱말을
+  재현본 탓 표현  캡처 실행 (--captures) 이면 "해당 없음 (캡처)". 렌더 실행은
+                진단 (계획을 세운 시도의 attempt_N.diagnosis.json) 전문에서 REPLICA_WORDS 의 낱말을
                 센 합과 낱말별 수. 렌더 그림은 사람이 만든 재현본이라 아이콘이 회색 네모다 - 그것을
                 근거로 쓴 진단을 세려는 것이다. 한 번 센 글자를 다시 세지 않는 것은 아니다 ("빈 상자"
                 는 "상자" 에도 든다 - E 보고 7절의 비교 명령과 같은 세기)
@@ -98,8 +99,14 @@ def diagnosis_of(run):
     return load(os.path.join(run, "attempt_%d.diagnosis.json" % min(found))) if found else None
 
 
-def replica_words(run):
-    """진단 전문에서 REPLICA_WORDS 의 수. "합 n (낱말 수 · …)", 진단이 없으면 "-"."""
+def replica_words(run, summary=None):
+    """진단 전문에서 REPLICA_WORDS 의 수. "합 n (낱말 수 · …)", 진단이 없으면 "-".
+
+    캡처 실행 (summary 의 see.source 가 captures - --captures) 은 세지 않는다: 그림이 실제 앱이라
+    'X' · '그림만' 은 재현본 탓이 아니다 (20261013-152332 의 9건, 2026-10-13). see.source 가 없거나
+    다른 값인 옛 실행은 렌더 실행이다 (2026-10-12 전에는 그 칸이 켜고 끈 출처였다)."""
+    if ((summary or {}).get("see") or {}).get("source") == "captures":
+        return "해당 없음 (캡처)"
     diag = diagnosis_of(run)
     if diag is None:
         return "-"
@@ -238,7 +245,9 @@ def row(run, reports=None):
             "%+d · %+d" % (round(sum(ds) / len(ds)), max(ds)) if ds else "-",
             "%d → %d" % (sum(shown.values()), sum(sel.get(a, 0) for a in shown)),
             ", ".join(groups) or "-",
-            summary.get("mode") or "full", flow_fixed(run, summary, m), replica_words(run)]         + likeness_cells(_keep(reports, run, likeness(run, summary, came)))
+            summary.get("mode") or "full", flow_fixed(run, summary, m),
+            replica_words(run, summary)] \
+        + likeness_cells(_keep(reports, run, likeness(run, summary, came)))
 
 
 def _keep(reports, run, rep):

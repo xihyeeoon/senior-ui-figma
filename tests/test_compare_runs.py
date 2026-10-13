@@ -28,6 +28,18 @@ def test_grey_is_not_a_replica_word(tmp_path):
     assert CR.replica_words(str(tmp_path)) == "2 (네모 1 · 같은 모양 1)"
 
 
+def test_a_captures_run_is_not_counted(tmp_path):
+    """캡처 실행 (--captures) 의 그림은 실제 앱이다 - 'X' · '그림만' 은 재현본 탓이 아니다
+    (20261013-152332 의 9건). 세지 않는다 (2026-10-13). 렌더 실행은 그대로 센다."""
+    write(str(tmp_path), "attempt_1.diagnosis.json", [{"evidence": "작은 엑스와 네모"}])
+    captures = {"see": {"on": True, "source": "captures"}}
+    assert CR.replica_words(str(tmp_path), captures) == "해당 없음 (캡처)"
+    assert CR.replica_words(str(tmp_path), {"see": {"on": True, "source": "render"}}) \
+        == "2 (네모 1 · 엑스 1)"
+    # see 가 없는 옛 실행 (2026-10-12 전) 은 렌더다
+    assert CR.replica_words(str(tmp_path), {}) == "2 (네모 1 · 엑스 1)"
+
+
 def test_the_earliest_diagnosis_is_read_and_none_is_a_dash(tmp_path):
     assert CR.replica_words(str(tmp_path)) == "-"
     write(str(tmp_path), "attempt_3.diagnosis.json", [{"evidence": "네모"}])
