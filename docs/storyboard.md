@@ -352,7 +352,7 @@ pw 10 · acc-num 10 · quick 4, 공과금 menu-item 289 · pick-bill 18 · pw 10
 | `choice_groups` | 무리로 묶은 이름 (최종 검사의 `choice_groups_original`) |
 | `counts` | 장 · 본 장 · 항목 · 요소 · 누르기 수 |
 | `sheets[]` | 장마다 `id` · `screen` · `kind` · `main` · `of` · `condition` · `purpose` · `title` (영역 묶기의 화면 이름) · `name` · `name_source` (model · plan · screen) · `path` (장 id 목록) · `picture` · `size` · `grown` · `clipped` · `covered` · `items[]` (`no` · `kind` · `action` · `text` · `aria` · `box` · `disabled` · `entrance` · `group` · `result`) · `images[]` (`no` · `name` · `box` · `original` · `in`? — 아래 "그림 자리") · `regions[]` (`no` · `name` · `description` · `elements` · `box` · `source` · 빈 상태면 `empty`) · `conditions` |
-| `regions_call` | 영역 묶기 호출 — 모델 · mock · 호출마다(첫 · 다시) 그림 수 · 토큰 어림 · 실측 토큰 · 비용 · 걸린 시간 · 문제 · 파일, 전체 비용, `fallback`, `error`. `--regions-from` 이면 `reused` (파일 · 실행 · 시각 · 그때 비용) 와 그때의 모델 · mock |
+| `regions_call` | 영역 묶기 호출 — 모델 · mock · 호출마다(첫 · 다시) 그림 수 · 토큰 어림 · 비용 어림 (`estimated_usd`, 모델을 부를 때만) · 실측 토큰 · 비용 · 걸린 시간 · 문제 · 파일, 전체 비용, `fallback`, `error`. `--regions-from` 이면 `reused` (파일 · 실행 · 시각 · 그때 비용) 와 그때의 모델 · mock |
 | `generated` | 만든 시각 · 도구 커밋 · 그림/누르기/전체 걸린 시간 |
 
 ## 시간 · 비용 (11-12 의 시험에서)
@@ -362,10 +362,16 @@ pw 10 · acc-num 10 · quick 4, 공과금 menu-item 289 · pick-bill 18 · pw 10
 | mock pass (Run 1 빌드) | 11 (9) | 85 | 18초 | 33초 | 글 3,900 + 그림 11장 4,600 | 약 $0.07 |
 | 저장된 이체 답 (`refine_102041`) | 10 (8) | 91 | 16초 | 37초 | 글 5,000 + 그림 10장 6,600 | 약 $0.08 |
 | 저장된 공과금 답 (`bill_sol` 시도 4) | 18 (9) | 404 | 26초 | 139초 | 글 18,500 + 그림 18장 22,800 | 약 $0.19 |
+| 실제 실행 `20261013-130053` (2026-10-13) | 30 (8) | 447 | 42초 | 132초 | 글 22,000 + 그림 30장 25,600 | 어림 $0.23 · 실제 $0.228 |
 
-예상 금액은 입력 어림 × 2.00 + 출력(답 + 생각 3,000 토큰 어림) × 10.00 (100만 토큰당,
-`config.MODEL_PRICES`) 이다. 다시 묻기까지 가면 거의 두 배다 (다시 묻기는 그림 없이 글만).
-실제 금액은 `storyboard.json` 의 `regions_call.cost_usd` 에 남는다. 누르기 시간은 확인 페이지
+예상 금액은 입력 어림 × 2.00 + **장 수 × 450** (출력, 생각 포함) × 10.00 (100만 토큰당,
+`config.MODEL_PRICES`, `regions.estimate_usd`) 이다. 장 수에 비례하므로 장마다 약 $0.008 —
+펼친 장(reveal · 오류 · 다시 지남)도 장이다. 장당 450 은 실제 첫 답 셋(15장 5,652 · 14장 5,834 ·
+30장 13,296 토큰)의 장당 377 · 417 · 443 에서 위로 잡은 값이다. 전에는 출력을 "답 + 생각 3,000
+토큰" 으로 고정해 장 10 의 이체를 약 $0.08 로 적었는데, 입구를 접어 펼친 장이 22장 생긴
+20261013-130053 (30장) 은 실제 $0.23 이었다 (2026-10-13). 부르기 직전 `storyboard.log` 에 그 실행의
+어림이 찍히고 `regions_call.calls[].estimated_usd` 에 남는다. 다시 묻기까지 가면 거의 두 배다
+(다시 묻기는 그림 없이 글만). 실제 금액은 `storyboard.json` 의 `regions_call.cost_usd` 에 남는다. 누르기 시간은 확인 페이지
 6개로 잰 것이다 (지금 기본은 8개).
 
 ## 한계

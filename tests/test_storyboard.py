@@ -249,8 +249,26 @@ def test_the_model_call_is_recorded(tmp_path, monkeypatch):
     assert call["tokens"] == {"prompt": 3000, "completion": 500, "reasoning": 100}
     assert call["cost_usd"] == pytest.approx((3000 * 2.0 + 500 * 10.0) / 1e6)
     assert rec["cost_usd"] == pytest.approx(0.011)
+    # 부르기 전의 어림 - 장 1 x 출력 450 (2026-10-13)
+    assert call["estimated_usd"] == pytest.approx(R.estimate_usd(
+        call["estimated_text"], call["estimated_images"], 1, "gpt-6.1-sol"), abs=1e-6)
     assert shs[0]["regions"][0]["source"] == "model"
     assert (tmp_path / R.RESPONSE_FILE).read_text(encoding="utf-8").startswith("```json")
+
+
+@pytest.mark.parametrize("text, images, sheets, actual", [
+    (9229, 13375, 15, 0.101688),     # 20261008-131136
+    (7648, 10941, 14, 0.095482),     # 20261012-132226
+    (21963, 25616, 30, 0.228014),    # 20261013-130053 - 펼친 장 22 (전 어림 $0.08)
+])
+def test_the_cost_estimate_follows_the_sheet_count(text, images, sheets, actual):
+    """실제 첫 답 셋의 입력 어림 · 장 수로 - 어림은 실제보다 조금 위, 15% 안."""
+    guess = R.estimate_usd(text, images, sheets, "gpt-6.1-sol")
+    assert actual <= guess <= actual * 1.15
+
+
+def test_the_cost_estimate_is_none_without_a_price():
+    assert R.estimate_usd(1000, 0, 3, "no-such-model") is None
 
 
 def test_a_model_error_leaves_other_regions_and_is_recorded(tmp_path, monkeypatch):

@@ -38,6 +38,13 @@ DEFAULT_MOCK = "regions"
 # 출력 상한. 추론형은 생각 토큰도 이 안에서 쓴다.
 MAX_TOKENS = {"reasoning": 16000, "default": 6000}
 
+# 비용 어림의 출력 토큰 - 장마다 (생각 포함). 답은 장마다 영역 목록이라 장 수에 비례한다. 실제
+# 첫 답 셋 (gpt-6.1-sol) - 20261008-131136 15장 5,652 · 20261012-132226 14장 5,834 ·
+# 20261013-130053 30장 13,296 - 의 장당 377 · 417 · 443 에서 위로 잡았다. 전에는 문서에 "이체
+# 약 $0.08" (장 10) 로만 적혀 있어서, 펼친 장(reveal)이 22장 더해진 20261013-130053 (30장, 실제
+# $0.23) 의 어림이 세 배 가까이 낮았다 (2026-10-13).
+OUTPUT_PER_SHEET = 450
+
 # mock 의 정해진 답 - 앞 요소의 아래 끝과 다음 요소의 위 끝이 이만큼 벌어지면 나눈다.
 MOCK_GAP = 24
 
@@ -319,6 +326,17 @@ def _call(model, prompt, images, max_tokens, effort, log):
     return r, M.cost_usd(r.get("usage"), price)
 
 
+def estimate_usd(text_tokens, image_tokens, n_sheets, model):
+    """한 번 부르는 비용 어림 (USD) - 입력 어림 (글 + 그림) x 입력 가격 + 장 수 x
+    OUTPUT_PER_SHEET x 출력 가격 (100만 토큰당, config.MODEL_PRICES). 가격을 모르면 None.
+    다시 묻기도 답 전체를 다시 쓰므로 출력은 같고, 그림이 없으니 입력이 준다."""
+    price = M.price_for(model)
+    if not price:
+        return None
+    return ((text_tokens + image_tokens) * price["input"]
+            + n_sheets * OUTPUT_PER_SHEET * price["output"]) / 1e6
+
+
 def group(sheets, model=None, mock=None, out_dir=".", log=print, reasoning_effort=None):
     """장마다 영역을 정해 sheets 의 "regions" 에 넣고, 호출 기록을 돌려준다.
 
@@ -376,9 +394,12 @@ def group(sheets, model=None, mock=None, out_dir=".", log=print, reasoning_effor
                 _write(out_dir, pname, p)
             est = M.describe_images(imgs, model)
             text_tokens, _how = M.estimate_tokens(M.model_text(p, imgs), model)
-            log("영역 묶기 %s: %s 에 보낸다 (그림 %d장 · 그림 토큰 어림 %d · 글 토큰 어림 %d)"
+            guess = estimate_usd(text_tokens, est["estimated"], len(todo), model)
+            log("영역 묶기 %s: %s 에 보낸다 (그림 %d장 · 그림 토큰 어림 %d · 글 토큰 어림 %d · "
+                "예상 금액 어림 %s - 장 %d x 출력 %d)"
                 % ("첫 호출" if round_no == 1 else "다시 묻기", model, len(imgs),
-                   est["estimated"], text_tokens))
+                   est["estimated"], text_tokens,
+                   "?" if guess is None else "$%.4f" % guess, len(todo), OUTPUT_PER_SHEET))
             t0 = time.time()
             try:
                 r, usd = _call(model, p, imgs, cap, effort, log)
@@ -394,6 +415,7 @@ def group(sheets, model=None, mock=None, out_dir=".", log=print, reasoning_effor
             rec["calls"].append({"phase": "first" if round_no == 1 else "retry",
                                  "images": len(imgs), "estimated_images": est["estimated"],
                                  "estimated_text": text_tokens,
+                                 "estimated_usd": None if guess is None else round(guess, 6),
                                  "max_tokens": r.get("max_tokens"), "tokens": r.get("usage"),
                                  "cost_usd": usd, "seconds": r.get("seconds")
                                  if r.get("seconds") is not None else round(time.time() - t0, 1),
