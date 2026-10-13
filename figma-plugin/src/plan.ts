@@ -249,7 +249,7 @@ function entranceRegions(s: any) {
 }
 
 // 계획 문맥: 장마다 같은 값 (원본 where · 대응표 · 그림 크기 · 장 이름) 과 장을 그리며 쌓는 것 (꼬리표 셈 · 경고)
-type Ctx = { where: Record<string, unknown> | null; rn: Map1; dims: Dims; tally: Tally; warnings: string[];
+type Ctx = { sb: any; where: Record<string, unknown> | null; rn: Map1; dims: Dims; tally: Tally; warnings: string[];
              names: Map<any, string>; titleOf: (screen: string) => string };
 // at: 장의 screen · 영역 입구로 센 요소 · 그림 자리. in 이 이 요소인 그림 자리는 요소 좌표로 글 아래에 (같이 움직인다)
 function itemNode(c: Ctx, it: any, at: { screen: string; counted: Set<string>; ims: any[] }): Node {
@@ -414,6 +414,67 @@ function changesPage(sb: any, titleOf: (s: string) => string): Node[] {
       kids: [row(['id', '무엇', '왜', '어느 화면'], true, 0), ...rows] }];
 }
 
+// 열 (3): 주요 장을 흐름 순서 (flow.steps 의 sheet) 로, 흐름에 없는 주요 장은 sheets 순서로 뒤에.
+// 나머지 장은 of 의 열 → 같은 screen 의 주요 장 열 → 새 열. 열 안에서는 sheets 순서
+function columns(sb: any, sheets: any[], byId: Map<string, any>, mainOf: Map<string, any>): any[][] {
+  const mains: any[] = [];
+  for (const st of sb.flow?.steps || []) { const s = byId.get(st.sheet); if (s?.main && !mains.includes(s)) mains.push(s); }
+  for (const s of sheets) if (s.main && !mains.includes(s)) mains.push(s);
+  const cols: any[][] = mains.map(s => [s]);
+  for (const s of sheets) {
+    if (s.main) continue;
+    const parent = (s.of && byId.get(s.of)?.main) ? byId.get(s.of) : mainOf.get(s.screen);
+    const i = mains.indexOf(parent);
+    if (i >= 0) cols[i].push(s); else { mains.push(s); cols.push([s]); }
+  }
+  return cols;
+}
+// 달라진 것 (키 · box) 이 같은 펼친 장끼리 한 무리 - 무리의 첫 장 자리에 한 번만 그린다 (3.1 같은 펼침 묶기)
+function herds(row: any[], base: any): any[][] {
+  const same = new Map<string, any[]>();
+  for (const s of row) if (freshOf(s, base).length) { const k = freshKey(s, base); same.set(k, [...(same.get(k) || []), s]); }
+  return [...same.values()];
+}
+const annFrame = (title: string, x: number, y: number, kids: Node[]): Node => ({ t: 'frame',
+  name: `주석 — ${title}`, x, y, w: ANN_W, layout: 'V', hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD],
+  gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids });
+// 장 (또는 묶인 펼친 장 무리 g, 첫 장이 대표) 의 이름 · 주석 · 주석 어림 높이
+function entry(c: Ctx, g: any[]) {
+  const s = g[0], many = g.length > 1, keys = g.map(t => revealKey(t)!);
+  const title = many ? `${s.title || s.id} · ${g.length}장 묶음` : c.names.get(s)!;
+  const ann = many ? herdAnn(g.map(t => annotation(c, t, c.names.get(t)!)), keys, title) : annotation(c, s, title);
+  return { title, ann, annH: estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP) };
+}
+// 장 위 한 줄의 앞부분: 한 장이면 '{이름} · ', 묶음이면 '{연 요소 글들 · }이 펼침으로 보이는 입구 {n}개: {키들} · '
+function revealHead(c: Ctx, g: any[], base: any) {
+  if (g.length === 1) return `${revealName(c.sb, g[0], base)} · `;
+  const by = [...new Set(g.map(t => revealName(c.sb, t, base, false)).filter(o => o))].map(o => `${o} · `).join('');
+  return `${by}이 펼침으로 보이는 입구 ${g.length}개: ${g.map(t => revealKey(t)).join(' · ')} · `;
+}
+// 펼친 장 한 칸 (3.1): 장 위 한 줄 (넘치면 줄바꿈 - 그만큼 장을 내린다), 장은 본 장과 달라진 띠만, 주석은 장 아래.
+// 달라진 것이 없으면 한 줄만. 다음 칸의 rx 와 펼친 장 줄 높이 rowH 를 돌려준다.
+function placeReveal(c: Ctx, g: any[], base: any, rx: number, rowH: number) {
+  const s = g[0], [w, h] = s.size || DEFAULT_SIZE, e = entry(c, g);
+  const cut = revealCut(s, base, h), sw = Math.max(w, ANN_W), head = `펼친 장 — ${revealHead(c, g, base)}`
+    + (cut ? `본 장 ${c.names.get(base)} 의 y ${cut[0]}~${cut[1]}` : '본 장과 같음');
+  const headH = lineH(BODY) * Math.max(1, Math.ceil(textW(head, BODY) / sw)), top = WF_TOP + headH + REVEAL_HEAD - lineH(BODY);
+  const nodes: Node[] = [txt(head, BODY, { name: `펼친 장 — ${e.title}`, x: rx, y: WF_TOP, w: sw, bold: true })];
+  if (cut) {
+    const fh = cut[1] - cut[0];
+    nodes.push({ t: 'frame', name: e.title, x: rx, y: top, w, h: fh, fill: PAPER, clip: true, kids: sheetKids(c, s, cut) },
+      annFrame(e.title, rx, top + fh + ANN_GAP, e.ann));
+    rowH = Math.max(rowH, top - WF_TOP + fh + ANN_GAP + e.annH);
+  } else rowH = Math.max(rowH, headH);
+  return { nodes, rx: rx + sw + REVEAL_GAP, rowH };
+}
+// 아래로 쌓는 장 하나 (3 · 4): 장 프레임과 그 오른쪽 주석. 장 너비와 다음 장의 y 를 돌려준다.
+function placeStacked(c: Ctx, s: any, x: number, y: number) {
+  const [w, h] = s.size || DEFAULT_SIZE, e = entry(c, [s]);
+  const nodes: Node[] = [{ t: 'frame', name: e.title, x, y, w, h, fill: PAPER, clip: true, kids: sheetKids(c, s) },
+    annFrame(e.title, x + w + ANN_GAP, y, e.ann)];
+  return { nodes, w, y: y + Math.max(h, e.annH) + ROW_GAP };
+}
+
 // full: 펼친 장도 전체를 그린다 (플러그인 창의 '펼친 장 전체 그리기')
 export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = false): Plan {
   const sheets: any[] = sb.sheets || [];
@@ -423,67 +484,26 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = fal
   for (const s of sheets) if (s.main && !mainOf.has(s.screen)) mainOf.set(s.screen, s);
   const names = sheetNames(sheets);
   const titleOf = (screen: string) => names.get(mainOf.get(screen)) ?? screen;
-
-  // 1. 주요 장: 흐름 순서 (flow.steps 의 sheet), 흐름에 없는 주요 장은 sheets 순서로 뒤에
-  const mains: any[] = [];
-  for (const st of sb.flow?.steps || []) {
-    const s = byId.get(st.sheet);
-    if (s?.main && !mains.includes(s)) mains.push(s);
-  }
-  for (const s of sheets) if (s.main && !mains.includes(s)) mains.push(s);
-  const cols: any[][] = mains.map(s => [s]);
-  // 2. 나머지 장: of 의 열 → 같은 screen 의 주요 장 열 → 새 열. 열 안에서는 sheets 순서
-  for (const s of sheets) {
-    if (s.main) continue;
-    const parent = (s.of && byId.get(s.of)?.main) ? byId.get(s.of) : mainOf.get(s.screen);
-    const i = mains.indexOf(parent);
-    if (i >= 0) cols[i].push(s); else { mains.push(s); cols.push([s]); }
-  }
-
   const notes = renameNotes(sheets, where, rn);
   const wf: Node[] = [runCard(sb, notes.checks)];
-  const c: Ctx = { where, rn, dims, tally: { merged: 0, into: 0, moved: 0, pushed: 0 }, warnings: notes.warnings,
+  const c: Ctx = { sb, where, rn, dims, tally: { merged: 0, into: 0, moved: 0, pushed: 0 }, warnings: notes.warnings,
     names, titleOf };
-  const annFrame = (title: string, x: number, y: number, kids: Node[]): Node => ({ t: 'frame',
-    name: `주석 — ${title}`, x, y, w: ANN_W, layout: 'V', hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD],
-    gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids });
   let x = 0;
-  for (const col of cols) {
-    // 펼친 장 (본 장 = 열 머리) 은 본 장 주석 오른쪽에 가로로 나란히, 나머지는 지금처럼 아래로
-    const row = full ? [] : col.filter(s => baseOf(s, byId) === col[0]);
-    // 달라진 것 (키 · box) 이 같은 펼친 장끼리 한 무리 - 무리의 첫 장 자리에 한 번만 그린다
-    const same = new Map<string, any[]>();
-    for (const s of row) if (freshOf(s, col[0]).length) { const k = freshKey(s, col[0]); same.set(k, [...(same.get(k) || []), s]); }
+  for (const col of columns(sb, sheets, byId, mainOf)) {
+    // 펼친 장 (본 장 = 열 머리) 은 본 장 주석 오른쪽에 가로로 나란히 (같은 펼침은 한 번), 나머지는 아래로
+    const row = full ? [] : col.filter(s => baseOf(s, byId) === col[0]), hs = herds(row, col[0]);
     let y = WF_TOP, colW = 0, rx = 0, rowH = 0;
     for (const s of [col[0], ...row, ...col.slice(1).filter(s => !row.includes(s))]) {
-      const [w, h] = s.size || DEFAULT_SIZE, g = [...same.values()].find(g => g.includes(s)) || [s]; if (g[0] !== s) continue;
-      const many = g.length > 1, keys = g.map(t => revealKey(t)!), title = many ? `${s.title || s.id} · ${g.length}장 묶음` : names.get(s)!;
-      const ann = many ? herdAnn(g.map(t => annotation(c, t, names.get(t)!)), keys, title) : annotation(c, s, title);
-      const annH = estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP);
+      const g = hs.find(g => g.includes(s)) || [s]; if (g[0] !== s) continue;
       if (row.includes(s)) {
-        // 장 위에 한 줄 (넘치면 줄바꿈 - 그만큼 장을 내린다), 장은 본 장과 달라진 띠만, 주석은 장 아래. 달라진 것이 없으면 한 줄만.
-        const cut = revealCut(s, col[0], h), sw = Math.max(w, ANN_W), head = '펼친 장 — ' + (many
-          ? [...new Set(g.map(t => revealName(sb, t, col[0], false)).filter(o => o))].map(o => `${o} · `).join('')
-            + `이 펼침으로 보이는 입구 ${g.length}개: ${keys.join(' · ')} · ` : `${revealName(sb, s, col[0])} · `)
-          + (cut ? `본 장 ${names.get(col[0])} 의 y ${cut[0]}~${cut[1]}` : '본 장과 같음');
-        const headH = lineH(BODY) * Math.max(1, Math.ceil(textW(head, BODY) / sw)), top = WF_TOP + headH + REVEAL_HEAD - lineH(BODY);
-        wf.push(txt(head, BODY, { name: `펼친 장 — ${title}`, x: rx, y: WF_TOP, w: sw, bold: true }));
-        if (cut) {
-          const fh = cut[1] - cut[0];
-          wf.push({ t: 'frame', name: title, x: rx, y: top, w, h: fh, fill: PAPER, clip: true,
-            kids: sheetKids(c, s, cut) });
-          wf.push(annFrame(title, rx, top + fh + ANN_GAP, ann));
-          rowH = Math.max(rowH, top - WF_TOP + fh + ANN_GAP + annH);
-        } else rowH = Math.max(rowH, headH);
-        rx += sw + REVEAL_GAP; colW = Math.max(colW, rx - REVEAL_GAP - x); continue;
+        const r = placeReveal(c, g, col[0], rx, rowH);
+        wf.push(...r.nodes); rx = r.rx; rowH = r.rowH; colW = Math.max(colW, rx - REVEAL_GAP - x); continue;
       }
       if (rowH) y = Math.max(y, WF_TOP + rowH + ROW_GAP);
-      const kids = sheetKids(c, s);
-      wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids });
-      wf.push(annFrame(title, x + w + ANN_GAP, y, ann));
-      if (s === col[0]) rx = x + w + ANN_GAP + ANN_W + REVEAL_GAP;
-      y += Math.max(h, annH) + ROW_GAP;
-      colW = Math.max(colW, w + ANN_GAP + ANN_W);
+      const st = placeStacked(c, s, x, y);
+      wf.push(...st.nodes);
+      if (s === col[0]) rx = x + st.w + ANN_GAP + ANN_W + REVEAL_GAP;
+      y = st.y; colW = Math.max(colW, st.w + ANN_GAP + ANN_W);
     }
     x += colW + COL_GAP;
   }
