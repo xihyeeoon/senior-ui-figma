@@ -1,0 +1,956 @@
+{
+ "unit": "home(01a+01b+01c)",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 14176,
+    "completion": 5140,
+    "reasoning": 115
+   },
+   "seconds": 99.7,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.079752,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "01a:t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 시각 표시다."
+  },
+  {
+   "id": "01a:t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 배터리 잔량 표시다."
+  },
+  {
+   "id": "01a:b5",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 통신 신호 표시다."
+  },
+  {
+   "id": "01a:b7",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 와이파이 표시다."
+  },
+  {
+   "id": "01a:b2",
+   "pressable": true,
+   "kind": "button",
+   "group": "상단 바로가기",
+   "image_name": null,
+   "note": "웃는 말풍선 모양의 독립적인 아이콘 버튼이다."
+  },
+  {
+   "id": "01a:b1",
+   "pressable": true,
+   "kind": "button",
+   "group": "상단 바로가기",
+   "image_name": null,
+   "note": "지갑 모양의 독립적인 아이콘 버튼이다."
+  },
+  {
+   "id": "01a:b0",
+   "pressable": true,
+   "kind": "button",
+   "group": "상단 바로가기",
+   "image_name": null,
+   "note": "알림 점이 붙은 종 모양 버튼이다."
+  },
+  {
+   "id": "01a:b3",
+   "pressable": true,
+   "kind": "button",
+   "group": "상단 바로가기",
+   "image_name": null,
+   "note": "돋보기와 줄로 구성된 검색 모양 버튼이다."
+  },
+  {
+   "id": "01a:b8",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "note": "프로필 그림과 사용자 이름을 묶은 상단 진입 영역이다."
+  },
+  {
+   "id": "01a:t3",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "프로필 영역 안의 사용자 이름이다."
+  },
+  {
+   "id": "01a:t2",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "주황색 프로필 아이콘",
+   "note": "주황색 둥근 사각형 안에 흰색 기호가 보인다."
+  },
+  {
+   "id": "01a:b10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "계좌 정보와 별도 버튼들을 담는 자산 카드 영역이다."
+  },
+  {
+   "id": "01a:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "자산 카드의 제목이다."
+  },
+  {
+   "id": "01a:b21",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "자산 제목 오른쪽의 더보기 화살표 버튼이다."
+  },
+  {
+   "id": "01a:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "신한은행 로고",
+   "note": "파란 원 안에 흰색 신한은행 문양이 보인다."
+  },
+  {
+   "id": "01a:b18",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "연한 파란색 배경으로 구분된 이체 버튼이다."
+  },
+  {
+   "id": "01a:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "계좌 제한 안내와 통장 이름의 첫 줄이다."
+  },
+  {
+   "id": "01a:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "이체 버튼 안의 글자다."
+  },
+  {
+   "id": "01a:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "줄바꿈된 통장 이름의 나머지 부분이다."
+  },
+  {
+   "id": "01a:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "계좌의 예금 종류를 표시한다."
+  },
+  {
+   "id": "01a:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "잔액 대신 표시된 금액 숨김 상태 문구다."
+  },
+  {
+   "id": "01a:b13",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "note": "회색 배경으로 구분된 IRP 안내 배너다."
+  },
+  {
+   "id": "01a:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "IRP 배너 안의 안내 문구다."
+  },
+  {
+   "id": "01a:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "카드 상품 이름을 표시한다."
+  },
+  {
+   "id": "01a:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "카드 금액이 숨겨졌음을 표시한다."
+  },
+  {
+   "id": "01a:b6",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "넓은 연한 파란색 배경의 앱카드 가입 버튼이다."
+  },
+  {
+   "id": "01a:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "앱카드 가입 버튼의 글자다."
+  },
+  {
+   "id": "01a:b14",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "배달 할인 안내와 여러 바로가기를 담은 카드 영역이다."
+  },
+  {
+   "id": "01a:b20",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "note": "땡겨요 제목과 오른쪽 화살표가 있는 진입 행이다."
+  },
+  {
+   "id": "01a:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "진입 행의 땡겨요 제목이다."
+  },
+  {
+   "id": "01a:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "할인쿠폰 제공을 설명하는 문구다."
+  },
+  {
+   "id": "01a:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "햄버거 아이콘",
+   "note": "주황색 햄버거 그림이 보인다."
+  },
+  {
+   "id": "01a:b19",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "둥근 연한 파란색 배경의 바로받기 버튼이다."
+  },
+  {
+   "id": "01a:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "바로받기 버튼 안의 글자다."
+  },
+  {
+   "id": "01a:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "할인 대상과 최대 할인 금액을 표시한다."
+  },
+  {
+   "id": "01a:t18",
+   "pressable": true,
+   "kind": "link",
+   "group": "땡겨요 바로가기",
+   "image_name": null,
+   "note": "구분선으로 나뉜 하단 이벤트 바로가기다."
+  },
+  {
+   "id": "01a:t19",
+   "pressable": true,
+   "kind": "link",
+   "group": "땡겨요 바로가기",
+   "image_name": null,
+   "note": "구분선으로 나뉜 하단 쿠폰 바로가기다."
+  },
+  {
+   "id": "01a:t20",
+   "pressable": true,
+   "kind": "link",
+   "group": "땡겨요 바로가기",
+   "image_name": null,
+   "note": "구분선으로 나뉜 하단 포인트 바로가기다."
+  },
+  {
+   "id": "01a:b4",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "note": "7월 소비 제목과 오른쪽 화살표가 있는 진입 행이다."
+  },
+  {
+   "id": "01a:b22",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "오른쪽 화살표 아이콘",
+   "note": "소비 진입 행의 이동 방향을 나타내는 꺾쇠다."
+  },
+  {
+   "id": "01a:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "소비 영역의 제목이다."
+  },
+  {
+   "id": "01a:t22",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "소비 제목 옆의 원형 새로고침 화살표다."
+  },
+  {
+   "id": "01b:b16",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "note": "달력 그림과 오늘 쓴 금액을 묶은 소비 정보 행이다."
+  },
+  {
+   "id": "01b:t0",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "오늘 쓴 돈이라는 항목 이름이다."
+  },
+  {
+   "id": "01b:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "달력 아이콘",
+   "note": "파란색 달력 그림이 보인다."
+  },
+  {
+   "id": "01b:t1",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "오늘의 소비 금액을 표시한다."
+  },
+  {
+   "id": "01b:b2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "포인트 안내와 시작 버튼을 담는 파란색 카드 영역이다."
+  },
+  {
+   "id": "01b:t3",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "포인트의 적립과 사용을 설명하는 문구다."
+  },
+  {
+   "id": "01b:t2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "안내 카드의 분류 글자다."
+  },
+  {
+   "id": "01b:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "P 포인트 아이콘",
+   "note": "원 안에 흰색 P가 표시되어 있다."
+  },
+  {
+   "id": "01b:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "포인트 그림 안의 P 글자다."
+  },
+  {
+   "id": "01b:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "마이신한포인트 안내 제목이다."
+  },
+  {
+   "id": "01b:b1",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "진한 파란색의 넓은 시작하기 버튼이다."
+  },
+  {
+   "id": "01b:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "시작하기 버튼의 글자다."
+  },
+  {
+   "id": "01c:b5",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "파란 버튼의 잘린 하단 조각만 보여 독립적인 그림을 식별할 수 없다."
+  },
+  {
+   "id": "01b:b10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "추천서비스 제목과 여러 서비스 행을 담은 영역이다."
+  },
+  {
+   "id": "01c:b6",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "note": "추천서비스 제목과 오른쪽 화살표가 있는 더보기 행이다."
+  },
+  {
+   "id": "01c:t0",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "추천서비스 영역의 제목이다."
+  },
+  {
+   "id": "01b:t8",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "오른쪽 화살표 아이콘",
+   "note": "추천서비스 제목 오른쪽에 작은 꺾쇠가 보인다."
+  },
+  {
+   "id": "01c:b1",
+   "pressable": true,
+   "kind": "link",
+   "group": "추천서비스 목록",
+   "image_name": null,
+   "note": "집 그림과 서비스 이름 및 설명으로 구성된 서비스 행이다."
+  },
+  {
+   "id": "01b:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "추천서비스 행의 SOL패밀리 이름이다."
+  },
+  {
+   "id": "01c:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "집 아이콘",
+   "note": "분홍색 집 그림이 보인다."
+  },
+  {
+   "id": "01c:t2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "SOL패밀리의 설명 문구다."
+  },
+  {
+   "id": "01c:b0",
+   "pressable": true,
+   "kind": "link",
+   "group": "추천서비스 목록",
+   "image_name": null,
+   "note": "돼지저금통 그림과 급여클럽 이름이 있는 서비스 행이다."
+  },
+  {
+   "id": "01b:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "추천서비스 행의 급여클럽+ 이름이다."
+  },
+  {
+   "id": "01c:t4",
+   "pressable": true,
+   "kind": "button",
+   "group": "추천서비스 고정",
+   "image_name": null,
+   "note": "서비스 행 오른쪽의 압정 모양 고정 버튼이다."
+  },
+  {
+   "id": "01c:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "돼지저금통 아이콘",
+   "note": "초록색 돼지저금통 그림이 보인다."
+  },
+  {
+   "id": "01c:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "급여클럽의 혜택 설명이다."
+  },
+  {
+   "id": "01c:b3",
+   "pressable": true,
+   "kind": "link",
+   "group": "추천서비스 목록",
+   "image_name": null,
+   "note": "카드 그림과 승인내역 이름이 있는 서비스 행이다."
+  },
+  {
+   "id": "01c:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "추천서비스 행의 내 카드 승인내역 이름이다."
+  },
+  {
+   "id": "01b:t15",
+   "pressable": true,
+   "kind": "button",
+   "group": "추천서비스 고정",
+   "image_name": null,
+   "note": "서비스 행 오른쪽의 압정 모양 고정 버튼이다."
+  },
+  {
+   "id": "01c:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "카드 아이콘",
+   "note": "파란색 카드 모양 그림이 보인다."
+  },
+  {
+   "id": "01b:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "카드 승인내역 서비스의 설명이다."
+  },
+  {
+   "id": "01b:b12",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "금융자산 연결 이벤트 설명과 바로가기를 담은 영역이다."
+  },
+  {
+   "id": "01c:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "자산 연결 이벤트 안내의 첫 줄이다."
+  },
+  {
+   "id": "01c:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "꽃 장식 아이콘",
+   "note": "갈색 꽃 모양 장식 두 개가 보인다."
+  },
+  {
+   "id": "01c:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "자산 연결 시 쿠폰 지급을 알리는 문구다."
+  },
+  {
+   "id": "01c:b14",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "note": "파란색 이벤트 바로가기 글과 작은 화살표가 있는 링크 영역이다."
+  },
+  {
+   "id": "01c:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "이벤트 바로가기 링크의 글자다."
+  },
+  {
+   "id": "01b:t20",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "오른쪽 화살표 아이콘",
+   "note": "이벤트 바로가기 글 뒤에 작은 이동 화살표가 보인다."
+  },
+  {
+   "id": "01b:b9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "신한금융그룹 제목과 계열사 행들을 담는 영역이다."
+  },
+  {
+   "id": "01b:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "신한금융그룹 영역의 제목이다."
+  },
+  {
+   "id": "01b:b17",
+   "pressable": true,
+   "kind": "link",
+   "group": "신한금융그룹 목록",
+   "image_name": null,
+   "note": "카드 그림과 설명 및 이동 화살표가 있는 계열사 행이다."
+  },
+  {
+   "id": "01c:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "계열사 행의 신한카드 이름이다."
+  },
+  {
+   "id": "01c:b18",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "오른쪽 화살표 아이콘",
+   "note": "신한카드 행의 이동 방향을 나타내는 꺾쇠다."
+  },
+  {
+   "id": "01c:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "카드 아이콘",
+   "note": "파란색 카드 그림이 보인다."
+  },
+  {
+   "id": "01c:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "신한카드 행의 서비스 설명이다."
+  },
+  {
+   "id": "01c:b2",
+   "pressable": true,
+   "kind": "link",
+   "group": "신한금융그룹 목록",
+   "image_name": null,
+   "note": "상승 그래프와 설명 및 이동 화살표가 있는 계열사 행이다."
+  },
+  {
+   "id": "01c:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "계열사 행의 신한투자증권 이름이다."
+  },
+  {
+   "id": "01c:b19",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "오른쪽 화살표 아이콘",
+   "note": "신한투자증권 행의 이동 방향을 나타내는 꺾쇠다."
+  },
+  {
+   "id": "01c:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "상승 그래프 아이콘",
+   "note": "빨간색 꺾은선이 오른쪽 위로 상승한다."
+  },
+  {
+   "id": "01c:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "신한투자증권 행의 서비스 설명이다."
+  },
+  {
+   "id": "01c:b7",
+   "pressable": true,
+   "kind": "link",
+   "group": "신한금융그룹 목록",
+   "image_name": null,
+   "note": "방패 그림과 설명 및 이동 화살표가 있는 계열사 행이다."
+  },
+  {
+   "id": "01c:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "계열사 행의 신한라이프 이름이다."
+  },
+  {
+   "id": "01c:b20",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "오른쪽 화살표 아이콘",
+   "note": "신한라이프 행의 이동 방향을 나타내는 꺾쇠다."
+  },
+  {
+   "id": "01c:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "십자가 방패 아이콘",
+   "note": "초록색 방패 안에 흰색 십자가가 보인다."
+  },
+  {
+   "id": "01c:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "신한라이프 행의 보장분석 안내다."
+  },
+  {
+   "id": "01c:t20",
+   "pressable": true,
+   "kind": "link",
+   "group": "홈 화면 설정 링크",
+   "image_name": null,
+   "note": "구분선으로 나뉜 쉬운홈과 홈화면 설정 링크 글자다."
+  },
+  {
+   "id": "01c:t21",
+   "pressable": true,
+   "kind": "link",
+   "group": "홈 화면 설정 링크",
+   "image_name": null,
+   "note": "하단 설정 줄의 금액 숨기기 링크다."
+  },
+  {
+   "id": "01c:b17",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "다섯 개 탭을 담는 하단 내비게이션 영역이다."
+  },
+  {
+   "id": "01c:b10",
+   "pressable": true,
+   "kind": "tab",
+   "group": "하단 내비게이션",
+   "image_name": null,
+   "note": "선물 그림과 혜택 글자로 구성된 하단 탭이다."
+  },
+  {
+   "id": "01c:b8",
+   "pressable": true,
+   "kind": "tab",
+   "group": "하단 내비게이션",
+   "image_name": null,
+   "note": "쇼핑백 그림과 상품 글자로 구성된 하단 탭이다."
+  },
+  {
+   "id": "01c:b9",
+   "pressable": true,
+   "kind": "tab",
+   "group": "하단 내비게이션",
+   "image_name": null,
+   "note": "지갑 그림과 금융 글자로 구성된 하단 탭이다."
+  },
+  {
+   "id": "01c:b12",
+   "pressable": true,
+   "kind": "tab",
+   "group": "하단 내비게이션",
+   "image_name": null,
+   "note": "그래프 그림과 주식 글자로 구성된 하단 탭이다."
+  },
+  {
+   "id": "01c:b11",
+   "pressable": true,
+   "kind": "tab",
+   "group": "하단 내비게이션",
+   "image_name": null,
+   "note": "파란색 집 그림과 홈 글자로 표시된 선택 탭이다."
+  },
+  {
+   "id": "01c:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "쇼핑백 아이콘",
+   "note": "상품 탭 안에 회색 쇼핑백 그림이 보인다."
+  },
+  {
+   "id": "01c:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "선물상자 아이콘",
+   "note": "혜택 탭 안에 리본 달린 선물상자가 보인다."
+  },
+  {
+   "id": "01c:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "지갑 아이콘",
+   "note": "금융 탭 안에 회색 지갑 그림이 보인다."
+  },
+  {
+   "id": "01c:b16",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "집 아이콘",
+   "note": "홈 탭 안에 파란색 집 그림이 보인다."
+  },
+  {
+   "id": "01c:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "상승 그래프 아이콘",
+   "note": "주식 탭 안에 회색 상승 꺾은선이 보인다."
+  },
+  {
+   "id": "01c:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "홈 탭의 글자이며 파란색으로 선택 상태를 표시한다."
+  },
+  {
+   "id": "01c:t23",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "금융 탭의 글자다."
+  },
+  {
+   "id": "01c:t24",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "상품 탭의 글자다."
+  },
+  {
+   "id": "01c:t25",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "혜택 탭의 글자다."
+  },
+  {
+   "id": "01c:t26",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "주식 탭의 글자다."
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 31,
+ "estimate": {
+  "images": 31,
+  "image_tokens": 3479,
+  "text_tokens": 10750,
+  "input_tokens": 14229,
+  "answer_tokens": 5175,
+  "cost_usd": 0.080208,
+  "cost_usd_with_reasoning": 0.131958,
+  "cost_usd_cap": 0.278458,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 115 x 45"
+ }
+}

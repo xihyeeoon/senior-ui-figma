@@ -1,0 +1,252 @@
+{
+ "unit": "02",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 3827,
+    "completion": 1350,
+    "reasoning": 148
+   },
+   "seconds": 21.5,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.021154,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "화면 맨 위 상태바의 시각 표시다."
+  },
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 통신 및 배터리 표시 영역이다."
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바에 있는 통신 신호 표시다."
+  },
+  {
+   "id": "b7",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "왼쪽 위에 뒤로 가기 화살표가 있다."
+  },
+  {
+   "id": "t4",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "사람 윤곽과 더하기 기호로 된 추가 동작 버튼이다."
+  },
+  {
+   "id": "t5",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "오른쪽 위의 X 모양 닫기 표시다."
+  },
+  {
+   "id": "t2",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "뒤로 가기 버튼 안의 왼쪽 화살표다."
+  },
+  {
+   "id": "t3",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "note": "상단의 파란색 다건이체 글이 링크처럼 표시되어 있다."
+  },
+  {
+   "id": "b0",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "둥근 사각형 배경 안에 돋보기가 있는 검색 버튼이다."
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "받는 사람을 묻는 큰 안내 제목이다."
+  },
+  {
+   "id": "t7",
+   "pressable": true,
+   "kind": "input",
+   "group": "계좌번호 입력",
+   "image_name": null,
+   "note": "계좌번호 입력 영역의 회색 안내 문구다."
+  },
+  {
+   "id": "t8",
+   "pressable": true,
+   "kind": "input",
+   "group": "계좌번호 입력",
+   "image_name": null,
+   "note": "같은 계좌번호 입력 영역의 안내 문구 뒷부분이다."
+  },
+  {
+   "id": "b6",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "입력 영역 오른쪽에 카메라 모양 동작 버튼이 있다."
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "button",
+   "group": "계좌 목록 펼침",
+   "image_name": null,
+   "note": "개수와 화살표를 감싼 둥근 테두리의 펼침·접힘 버튼이다."
+  },
+  {
+   "id": "t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "자주쓰는 계좌 목록의 제목이다."
+  },
+  {
+   "id": "b3",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "편집 글을 감싼 작은 테두리 버튼이다."
+  },
+  {
+   "id": "t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌 목록 펼침",
+   "image_name": null,
+   "note": "자주쓰는 계좌 펼침 버튼 안의 계좌 개수 표시다."
+  },
+  {
+   "id": "t10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "편집 버튼 내부의 글자다."
+  },
+  {
+   "id": "t12",
+   "pressable": false,
+   "kind": "image",
+   "group": "계좌 목록 펼침",
+   "image_name": "위쪽 화살표 아이콘",
+   "note": "개수 옆에 있는 접힘 방향의 작은 화살표다."
+  },
+  {
+   "id": "b4",
+   "pressable": true,
+   "kind": "button",
+   "group": "계좌 목록 펼침",
+   "image_name": null,
+   "note": "내 계좌 개수와 화살표를 감싼 둥근 테두리 버튼이다."
+  },
+  {
+   "id": "t13",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "내 계좌 목록의 제목이다."
+  },
+  {
+   "id": "t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌 목록 펼침",
+   "image_name": null,
+   "note": "내 계좌 펼침 버튼 안의 계좌 개수 표시다."
+  },
+  {
+   "id": "t15",
+   "pressable": false,
+   "kind": "image",
+   "group": "계좌 목록 펼침",
+   "image_name": "위쪽 화살표 아이콘",
+   "note": "내 계좌 개수 옆의 작은 접힘 화살표다."
+  },
+  {
+   "id": "b2",
+   "pressable": true,
+   "kind": "button",
+   "group": "계좌 목록 펼침",
+   "image_name": null,
+   "note": "최근 계좌 개수와 아래 화살표를 감싼 둥근 테두리 버튼이다."
+  },
+  {
+   "id": "t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "최근 계좌 목록의 제목이다."
+  },
+  {
+   "id": "t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌 목록 펼침",
+   "image_name": null,
+   "note": "최근 계좌 펼침 버튼 안의 계좌 개수 표시다."
+  },
+  {
+   "id": "t18",
+   "pressable": false,
+   "kind": "image",
+   "group": "계좌 목록 펼침",
+   "image_name": "아래쪽 화살표 아이콘",
+   "note": "최근 계좌 개수 옆에 아래로 향한 화살표가 보인다."
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 4,
+ "estimate": {
+  "images": 4,
+  "image_tokens": 1087,
+  "text_tokens": 2741,
+  "input_tokens": 3828,
+  "answer_tokens": 1215,
+  "cost_usd": 0.019806,
+  "cost_usd_with_reasoning": 0.031956,
+  "cost_usd_cap": 0.257656,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 27 x 45"
+ }
+}

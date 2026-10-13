@@ -1,0 +1,148 @@
+{
+ "unit": "10",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 3133,
+    "completion": 644,
+    "reasoning": 0
+   },
+   "seconds": 11.9,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.012706,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바에 표시된 시각이다."
+  },
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 통신 상태와 숫자 표시이다."
+  },
+  {
+   "id": "b4",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바에 있는 삼각형 모양의 상태 표시이다."
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "체크 표시 아이콘",
+   "note": "파란 원 안에 흰 체크 표시가 있으며 버튼 형태가 아니다."
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "text",
+   "group": "이체 완료 안내",
+   "image_name": null,
+   "note": "이체 결과를 설명하는 안내 문구이다."
+  },
+  {
+   "id": "t3",
+   "pressable": false,
+   "kind": "text",
+   "group": "이체 완료 안내",
+   "image_name": null,
+   "note": "보낸 금액과 이체 완료 사실을 알리는 문구이다."
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "button",
+   "group": "이체 후 부가 기능",
+   "image_name": null,
+   "note": "추가이체 글자를 담은 둥근 사각형 버튼이다."
+  },
+  {
+   "id": "b0",
+   "pressable": true,
+   "kind": "button",
+   "group": "이체 후 부가 기능",
+   "image_name": null,
+   "note": "상세보기 글자를 담은 둥근 사각형 버튼이다."
+  },
+  {
+   "id": "t4",
+   "pressable": false,
+   "kind": "text",
+   "group": "이체 후 부가 기능",
+   "image_name": null,
+   "note": "추가이체 버튼 내부의 이름표이며 독립된 누름 영역은 아니다."
+  },
+  {
+   "id": "t5",
+   "pressable": false,
+   "kind": "text",
+   "group": "이체 후 부가 기능",
+   "image_name": null,
+   "note": "상세보기 버튼 내부의 이름표이며 독립된 누름 영역은 아니다."
+  },
+  {
+   "id": "b3",
+   "pressable": true,
+   "kind": "button",
+   "group": "하단 동작 버튼",
+   "image_name": null,
+   "note": "연한 파란 배경의 둥근 사각형 공유 버튼이다."
+  },
+  {
+   "id": "b2",
+   "pressable": true,
+   "kind": "button",
+   "group": "하단 동작 버튼",
+   "image_name": null,
+   "note": "파란 배경의 넓은 둥근 사각형 확인 버튼이다."
+  },
+  {
+   "id": "t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "하단 동작 버튼",
+   "image_name": null,
+   "note": "확인 버튼 내부의 이름표이며 독립된 누름 영역은 아니다."
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "text",
+   "group": "하단 동작 버튼",
+   "image_name": null,
+   "note": "공유 버튼 내부의 이름표이며 독립된 누름 영역은 아니다."
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 3,
+ "estimate": {
+  "images": 3,
+  "image_tokens": 1277,
+  "text_tokens": 1855,
+  "input_tokens": 3132,
+  "answer_tokens": 630,
+  "cost_usd": 0.012564,
+  "cost_usd_with_reasoning": 0.018864,
+  "cost_usd_cap": 0.256264,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 14 x 45"
+ }
+}

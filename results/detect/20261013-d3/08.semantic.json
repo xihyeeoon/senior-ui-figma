@@ -1,0 +1,220 @@
+{
+ "unit": "08",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 3700,
+    "completion": 940,
+    "reasoning": 0
+   },
+   "seconds": 20.8,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.0168,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 시간 표시다."
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 배터리 잔량 표시다."
+  },
+  {
+   "id": "b0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 통신 신호 표시다."
+  },
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 연결 상태 표시다."
+  },
+  {
+   "id": "b3",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "상단 왼쪽에 뒤로 가는 꺾쇠가 있다."
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "상단 오른쪽에 닫기 X가 있다."
+  },
+  {
+   "id": "t3",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "이체 확인을 안내하는 문구다."
+  },
+  {
+   "id": "t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "보낼 금액을 확인하는 문구다."
+  },
+  {
+   "id": "t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "수수료가 무료임을 알리는 글이다."
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "계좌와 메모 정보를 담은 배경 영역이며 자체 조작 표시는 없다."
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "보내는 계좌 정보의 항목명이다."
+  },
+  {
+   "id": "t7",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "보내는 은행과 계좌번호 표시다."
+  },
+  {
+   "id": "t8",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "받는 계좌 정보의 항목명이다."
+  },
+  {
+   "id": "t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "받는 은행과 계좌번호 표시다."
+  },
+  {
+   "id": "b2",
+   "pressable": true,
+   "kind": "link",
+   "group": "메모 편집",
+   "image_name": null,
+   "note": "오른쪽 연필 표시가 있는 받는분 메모 편집 행이다."
+  },
+  {
+   "id": "t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "메모 편집",
+   "image_name": null,
+   "note": "받는분 메모 행에 표시된 현재 내용이다."
+  },
+  {
+   "id": "t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "메모 편집",
+   "image_name": null,
+   "note": "받는분 메모 행의 항목명이다."
+  },
+  {
+   "id": "t12",
+   "pressable": true,
+   "kind": "button",
+   "group": "메모 편집",
+   "image_name": null,
+   "note": "글자 0이 아니라 메모를 수정하는 연필 모양이다."
+  },
+  {
+   "id": "b4",
+   "pressable": true,
+   "kind": "link",
+   "group": "메모 편집",
+   "image_name": null,
+   "note": "오른쪽 연필 표시가 있는 내통장 메모 편집 행이다."
+  },
+  {
+   "id": "t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "메모 편집",
+   "image_name": null,
+   "note": "내통장 메모 행의 항목명이다."
+  },
+  {
+   "id": "t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "메모 편집",
+   "image_name": null,
+   "note": "내통장 메모 행에 표시된 현재 내용이다."
+  },
+  {
+   "id": "i0",
+   "pressable": true,
+   "kind": "button",
+   "group": "메모 편집",
+   "image_name": null,
+   "note": "메모 행 오른쪽의 연필 모양 편집 버튼이다."
+  },
+  {
+   "id": "t15",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "화면 하단의 파란색 보내기 버튼이다."
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 5,
+ "estimate": {
+  "images": 5,
+  "image_tokens": 1031,
+  "text_tokens": 2671,
+  "input_tokens": 3702,
+  "answer_tokens": 1035,
+  "cost_usd": 0.017754,
+  "cost_usd_with_reasoning": 0.028104,
+  "cost_usd_cap": 0.257404,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 23 x 45"
+ }
+}

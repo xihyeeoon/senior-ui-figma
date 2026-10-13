@@ -1,0 +1,172 @@
+{
+ "unit": "03",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 3323,
+    "completion": 859,
+    "reasoning": 118
+   },
+   "seconds": 22.1,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.015236,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바에 표시된 시각이다."
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 배터리 수치 표시이다."
+  },
+  {
+   "id": "b3",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바에 있는 신호 표시이다."
+  },
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 작은 상태 표시이다."
+  },
+  {
+   "id": "b6",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "왼쪽 방향 꺾쇠로 된 뒤로 가기 컨트롤이다."
+  },
+  {
+   "id": "b7",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "뒤로 및 닫기 아이콘",
+   "note": "뒤로와 닫기 표시를 함께 포함한 영역으로, 전체가 하나의 버튼은 아니다."
+  },
+  {
+   "id": "t3",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "글자가 아니라 뒤로 가기 꺾쇠 표시이다."
+  },
+  {
+   "id": "b4",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "상단 오른쪽의 X 모양 닫기 컨트롤이다."
+  },
+  {
+   "id": "t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "받는 사람 입력을 안내하는 화면 제목이다."
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "input",
+   "group": null,
+   "image_name": null,
+   "note": "파란 테두리와 입력 커서가 있는 계좌번호 입력칸이다."
+  },
+  {
+   "id": "t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "입력칸 안의 계좌번호 항목 이름이다."
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "숫자 입력 방법을 알리는 입력칸의 안내 문구이다."
+  },
+  {
+   "id": "b0",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "오른쪽 아래 방향 꺾쇠가 있는 은행·증권사 선택 컨트롤이다."
+  },
+  {
+   "id": "t7",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "선택 컨트롤 안에 표시된 안내 문구이다."
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "note": "검출 영역이 빈 여백으로 보여 식별할 그림이나 누르는 곳이 없다."
+  },
+  {
+   "id": "b2",
+   "pressable": false,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "note": "회색 배경과 흐린 글씨로 표시된 비활성 다음 버튼이다."
+  },
+  {
+   "id": "t8",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "비활성 버튼 안의 다음 문구이다."
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 5,
+ "estimate": {
+  "images": 5,
+  "image_tokens": 1259,
+  "text_tokens": 2067,
+  "input_tokens": 3326,
+  "answer_tokens": 765,
+  "cost_usd": 0.014302,
+  "cost_usd_with_reasoning": 0.021952,
+  "cost_usd_cap": 0.256652,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 17 x 45"
+ }
+}
