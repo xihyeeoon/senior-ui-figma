@@ -59,6 +59,22 @@ NMS_IOU = 0.1
 OVERLAP_IOU = 0.7
 IMGSZ = 640
 CAPTION_PROMPT = "<CAPTION>"
+# D2.5 검출 설정 - 한 번에 하나씩 바꿔 견준다 (README "D2.5"). main() 이 인자로 고친다.
+#   tiles    캡처를 위아래 조각(TILE_OVERLAP 만큼 겹치게)으로 나눠 한 번 더 검출해 합친다 (0 = 안 함)
+#   clahe    대비를 올린 사본(CLAHE)으로 한 번 더 검출해 합친다
+#   classic  고전 영상 처리(UIED 의 요소 검출)로 찾은 박스를 합친다
+#   overlap  겹친 박스 정리 규칙 - "omniparser" 는 한 박스가 다른 박스를 70% 넘게 덮어도(포함도)
+#            큰 것을 버린다 (OmniParser 그대로). "iou" 는 IoU 가 0.7 을 넘을 때만 - 칸 안에 아이콘
+#            박스가 있어도 칸을 남긴다
+CFG = {"conf": BOX_THRESHOLD, "nms": NMS_IOU, "tiles": 0, "clahe": False, "classic": False, "overlap": "omniparser"}
+TILE_OVERLAP = 0.2
+PASS_IOU = 0.5       # 여러 번 찾은 박스끼리 IoU 가 이 이상이면 같은 것 (원본 · 전체 검출 쪽을 남긴다)
+CLAHE_CLIP, CLAHE_GRID = 2.0, 8
+UIED = os.path.join(TOOLS, "UIED")
+UIED_PARAMS = {"min-grad": 4, "min-ele-area": 50, "resize": 800}   # UIED README 의 mobile 값
+CLASSIC_SCORE = 0.04  # 고전 박스의 점수 - 검출기 박스(0.05 이상)보다 뒤에 둔다
+CLASSIC_MIN = 16      # 고전 박스의 가로 · 세로 최소 (캡처 픽셀)
+
 # OCR 글은 이 점수 아래면 버린다 - 아이콘을 글로 읽은 것("Q'", "ㅁ")이 대개 여기 걸린다.
 TEXT_THRESHOLD = 0.5
 OCR_DET = "PP-OCRv5_server_det"
@@ -170,6 +186,12 @@ def overlap(a, b):
     return max(i / (area(a) + area(b) - i + 1e-6), i / area(a), i / area(b))
 
 
+def iou(a, b):
+    i = inter(a, b)
+    u = area(a) + area(b) - i
+    return i / u if u else 0
+
+
 def inside(a, b):
     """a 의 넓이 INSIDE 이상이 b 안에 있다."""
     return area(a) > 0 and inter(a, b) / area(a) > INSIDE
@@ -236,14 +258,15 @@ def pad(b, k, size):
 def merge(det, texts):
     """검출 박스와 OCR 글을 합친다 - OmniParser remove_overlap_new 와 같은 규칙.
 
-    - 크게 겹친 박스 둘 중 큰 것을 버린다 (OVERLAP_IOU)
+    - 크게 겹친 박스 둘 중 큰 것을 버린다 (OVERLAP_IOU, 겹침 셈은 CFG["overlap"])
     - 박스가 OCR 글 박스 안에 들면 그 박스는 글 자체이므로 버린다
     - OCR 글이 박스 안에 들면 그 박스에 붙인다 (text_in). 둘 이상의 박스 안이면 가장 작은 것
     OCR 글은 붙었든 아니든 text 요소로 모두 남긴다 - 글 재현율은 OCR 만 본다.
     """
     keep = []
+    ov = overlap if CFG["overlap"] == "omniparser" else iou
     for i, (b1, s1) in enumerate(det):
-        if any(i != j and overlap(b1, b2) > OVERLAP_IOU and area(b1) > area(b2)
+        if any(i != j and ov(b1, b2) > OVERLAP_IOU and area(b1) > area(b2)
                for j, (b2, _) in enumerate(det)):
             continue
         if any(inside(b1, t["xyxy"]) for t in texts):
@@ -279,7 +302,7 @@ class Models:
         self.dtype = dtype
 
     def detect(self, path):
-        r = self.det.predict(path, conf=BOX_THRESHOLD, iou=NMS_IOU, imgsz=self.imgsz)[0].boxes
+        r = self.det.predict(path, conf=CFG["conf"], iou=CFG["nms"], imgsz=self.imgsz)[0].boxes
         return [([float(v) for v in b], float(s)) for b, s in zip(r.xyxy.tolist(), r.conf.tolist())]
 
     def caption(self, image, boxes):
@@ -297,6 +320,77 @@ class Models:
         return [t.strip() for t in self.proc.batch_decode(ids, skip_special_tokens=True)]
 
 
+def clahe(image):
+    """대비를 올린 사본 - LAB 의 밝기에 CLAHE."""
+    import cv2
+    import numpy as np
+    from PIL import Image
+    lab = cv2.cvtColor(np.asarray(image), cv2.COLOR_RGB2LAB)
+    lab[..., 0] = cv2.createCLAHE(CLAHE_CLIP, (CLAHE_GRID, CLAHE_GRID)).apply(lab[..., 0])
+    return Image.fromarray(cv2.cvtColor(lab, cv2.COLOR_LAB2RGB))
+
+
+def classic_boxes(image):
+    """UIED(MulongXie/UIED, Apache-2.0)의 요소 검출 - 기울기 이진화 → 선 지우기 → 연결 요소 →
+    거르기 · 합치기 · 블록 알아보기 · 블록 밖 포함 요소 지우기. 레포 밖의 UIED 코드를 import 한다."""
+    import cv2
+    import numpy as np
+    if UIED not in sys.path:
+        sys.path.insert(0, UIED)
+    import detect_compo.lib_ip.ip_preprocessing as pre
+    import detect_compo.lib_ip.ip_detection as det
+    import detect_compo.lib_ip.Component as Compo
+    bgr = cv2.cvtColor(np.asarray(image), cv2.COLOR_RGB2BGR)
+    h, w = bgr.shape[:2]
+    k = UIED_PARAMS["resize"] / h
+    org = cv2.resize(bgr, (int(w * k), UIED_PARAMS["resize"]))
+    binary = pre.binarization(org, grad_min=UIED_PARAMS["min-grad"])
+    det.rm_line(binary, show=False)
+    compos = det.component_detection(binary, min_obj_area=UIED_PARAMS["min-ele-area"])
+    compos = det.compo_filter(compos, min_area=UIED_PARAMS["min-ele-area"], img_shape=binary.shape)
+    compos = det.merge_intersected_compos(compos)
+    det.compo_block_recognition(binary, compos)
+    compos = det.rm_contained_compos_not_in_block(compos)
+    out = []
+    for c in compos:
+        x0, y0, x1, y1 = (v / k for v in c.put_bbox())
+        if x1 - x0 >= CLASSIC_MIN and y1 - y0 >= CLASSIC_MIN and \
+                (x1 - x0) * (y1 - y0) < 0.6 * w * h:
+            out.append([x0, y0, x1, y1])
+    return out
+
+
+def detect_all(image, models):
+    """검출 박스 [(xyxy, 점수, 출처)] - 전체 검출에 CFG 의 조각 · 대비 사본 · 고전 박스를 더해 합친다.
+    조각 검출은 조각을 자른 가장자리(이미지 끝이 아닌 곳)에 닿는 박스를 버린다 - 잘린 요소다.
+    여러 번 찾은 같은 박스(IoU PASS_IOU 이상)는 하나만 남긴다 - 전체 · 원본 · 점수 높은 쪽."""
+    w, h = image.size
+    found = [(b, s, "detector") for b, s in models.detect(image)]
+    if CFG["tiles"]:
+        n = CFG["tiles"]
+        th = h / (n - (n - 1) * TILE_OVERLAP)
+        for i in range(n):
+            y0 = int(round(i * th * (1 - TILE_OVERLAP)))
+            y1 = min(h, int(round(y0 + th)))
+            for b, s in models.detect(image.crop((0, y0, w, y1))):
+                b = [b[0], b[1] + y0, b[2], b[3] + y0]
+                if (y0 > 0 and b[1] <= y0 + 3) or (y1 < h and b[3] >= y1 - 3):
+                    continue
+                found.append((b, s, "detector:tile"))
+    if CFG["clahe"]:
+        found += [(b, s, "detector:clahe") for b, s in models.detect(clahe(image))]
+    if CFG["classic"]:
+        found += [(b, CLASSIC_SCORE, "classic") for b in classic_boxes(image)]
+    if len(found) == 0:
+        return []
+    rank = {"detector": 3, "detector:tile": 2, "detector:clahe": 1, "classic": 0}
+    keep = []
+    for b, s, src in sorted(found, key=lambda f: (rank[f[2]], f[1]), reverse=True):
+        if all(iou(b, k[0]) < PASS_IOU for k in keep):
+            keep.append((b, s, src))
+    return keep
+
+
 def elements_of(image, ocr_items, models):
     """한 장의 요소 목록, 아이콘으로 바꾼 OCR 글 목록, 단계별 시간.
 
@@ -308,10 +402,13 @@ def elements_of(image, ocr_items, models):
     real = [t for i, t in enumerate(texts) if i not in icons]
     guessed = [t for i, t in enumerate(texts) if i in icons]
     t0 = time.time()
-    det = models.detect(image)
+    found = detect_all(image, models)
+    det = [(b, s) for b, s, _ in found]
+    src = {id(b): x for b, _, x in found}
     t1 = time.time()
     keep, owner = merge(det, real)
-    boxes = [{"xyxy": b, "score": s, "source": "detector", "guess": []} for b, s in keep]
+    boxes = [{"xyxy": b, "score": s, "source": src.get(id(b), "detector"), "guess": []}
+             for b, s in keep]
     owned = set(owner.values())
     moved = []
     for t in guessed:
@@ -484,6 +581,13 @@ def main(argv=None):
     ap.add_argument("--captures", default=os.path.join(ROOT, "inputs", "captures", "transfer"))
     ap.add_argument("--out", default=os.path.join(ROOT, "results", "detect", "20261012"))
     ap.add_argument("--imgsz", type=int, default=IMGSZ, help="검출 입력 크기 (기본 640)")
+    ap.add_argument("--conf", type=float, default=CFG["conf"], help="검출 점수 문턱")
+    ap.add_argument("--nms", type=float, default=CFG["nms"], help="검출 NMS IoU")
+    ap.add_argument("--tiles", type=int, default=CFG["tiles"], help="위아래 조각 수 (0 = 안 함)")
+    ap.add_argument("--clahe", action=argparse.BooleanOptionalAction, default=CFG["clahe"])
+    ap.add_argument("--classic", action=argparse.BooleanOptionalAction, default=CFG["classic"])
+    ap.add_argument("--overlap", choices=["omniparser", "iou"], default=CFG["overlap"])
+    ap.add_argument("--ocr-cache", help="OCR 결과 JSON - 있으면 읽고(OCR 을 건너뛴다), 없으면 써 둔다")
     ap.add_argument("--stage", choices=["all", "ocr"], default="all")
     ap.add_argument("--ocr-out")
     a = ap.parse_args(argv)
@@ -493,14 +597,24 @@ def main(argv=None):
     names = a.names or sorted(f[:-4] for f in os.listdir(a.captures) if f.endswith(".png"))
     paths = [os.path.join(a.captures, n + ".png") for n in names]
 
-    ocr = ocr_in_child(paths)
+    CFG.update(conf=a.conf, nms=a.nms, tiles=a.tiles, clahe=a.clahe, classic=a.classic,
+               overlap=a.overlap)
+    cached = bool(a.ocr_cache) and os.path.exists(a.ocr_cache)
+    if cached:
+        with io.open(a.ocr_cache, encoding="utf-8") as f:
+            ocr = json.load(f)
+    else:
+        ocr = ocr_in_child(paths)
+        if a.ocr_cache:
+            with io.open(a.ocr_cache, "w", encoding="utf-8") as f:
+                json.dump(ocr, f, ensure_ascii=False)
     import torch
     from PIL import Image
     device = "cuda" if torch.cuda.is_available() else "cpu"
     t = time.time()
     models = Models(device, a.imgsz)
     load_sec = time.time() - t
-    models.detect(paths[0]); models.caption(Image.open(paths[0]).convert("RGB"), [[0, 0, 64, 64]])
+    models.detect(Image.open(paths[0]).convert("RGB")); models.caption(Image.open(paths[0]).convert("RGB"), [[0, 0, 64, 64]])
 
     os.makedirs(a.out, exist_ok=True)
     per = {}
@@ -526,8 +640,11 @@ def main(argv=None):
     import transformers
     tot = lambda k: sum(v[k] for v in per.values())
     run = {"captures": os.path.relpath(a.captures, ROOT).replace("\\", "/"),
-           "settings": {"box_threshold": BOX_THRESHOLD, "nms_iou": NMS_IOU,
+           "settings": {"box_threshold": CFG["conf"], "nms_iou": CFG["nms"],
                         "overlap_iou": OVERLAP_IOU, "imgsz": a.imgsz,
+                        "tiles": CFG["tiles"], "tile_overlap": TILE_OVERLAP, "clahe": CFG["clahe"],
+                        "classic": CFG["classic"], "overlap_rule": CFG["overlap"],
+                        "pass_iou": PASS_IOU, "ocr_from_cache": cached,
                         "caption_prompt": CAPTION_PROMPT, "text_threshold": TEXT_THRESHOLD,
                         "inside": INSIDE,
                         "icon_rule": {"side": ICON_SIDE, "aspect": ICON_ASPECT, "gap": ICON_GAP,
