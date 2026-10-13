@@ -47,3 +47,28 @@ def test_the_flow_column_rejudges_a_run_without_the_metric(tmp_path):
     assert CR.flow_fixed(d, summary, {}).startswith("다르다 (")
     # 지표가 있으면 그것을 읽는다
     assert CR.flow_fixed(d, summary, {"flow_fixed": {"same": True, "problems": []}}) == "같다"
+
+
+def test_the_likeness_cells_compare_the_run_with_the_original_storyboard(tmp_path):
+    """원본 닮음 두 칸 - 원본 화면설계서가 없으면 '-'."""
+    def el(action, y):
+        return {"kind": "element", "action": action, "text": action, "aria": None,
+                "box": [0, y, 100, 48], "no": action, "result": {"kind": "screen"}}
+    names = ["home", "recipient", "account", "bank", "amount", "confirm", "password", "done"]
+    orig = {"sheets": [{"screen": n, "main": True, "items": [el("a", 0), el("b", 60)],
+                        "images": []} for n in names]}
+    built = {"sheets": [{"screen": n, "main": True, "items": [el("b", 0), el("a", 60)],
+                         "images": []} for n in names]}
+    d = str(tmp_path / "run")
+    os.makedirs(os.path.join(d, "storyboard"))
+    write(os.path.join(d, "storyboard"), "storyboard.json", built)
+    write(str(tmp_path), "orig.json", orig)
+    came = {n: [n] for n in names}
+    rep = CR.likeness(d, {"task": "transfer"}, came, reference=str(tmp_path / "orig.json"))
+    assert CR.likeness_cells(rep) == ["요소 0.50 · 0.50 / 무리 1.00 · 1.00",
+                                      "격자 0 · 0 · 0 / 탭 0 · 0 · 0"]
+    assert CR.likeness_cells(None) == ["-", "-"]
+    assert CR.likeness(str(tmp_path), {"task": "transfer"}, came,
+                       reference=str(tmp_path / "orig.json")) is None
+    table = CR.screen_table(d, rep)
+    assert table[2].startswith("| 화면 (생성) | 짝 |") and len(table) == 4 + len(names)

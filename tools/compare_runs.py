@@ -34,6 +34,16 @@ r"""재구성 실행끼리 과제 밖 입구 거리 · 선택지 수를 나란�
                 센 합과 낱말별 수. 렌더 그림은 사람이 만든 재현본이라 아이콘이 회색 네모다 - 그것을
                 근거로 쓴 진단을 세려는 것이다. 한 번 센 글자를 다시 세지 않는 것은 아니다 ("빈 상자"
                 는 "상자" 에도 든다 - E 보고 7절의 비교 명령과 같은 세기)
+  원본 순서 같음 (요소 · 무리, 화면 평균 · 최저)
+                정답 경로 화면마다 원본과 생성의 짝지은 누를 수 있는 요소 · 무리의 위→아래 순서가
+                같은 정도 (최장 공통 부분열 / 짝지은 수, 1 이면 같다) 의 화면 평균과 최저.
+                senior_ui/storyboard/likeness.py - 짝짓기 · 무리 나누기 규칙은 거기 머리말. 원본 쪽은
+                REFERENCE 의 원본 화면설계서다. 기록만 한다 (판정에 쓰지 않는다)
+  격자·탭 (원본에도 · 새로 · 없어짐)
+                같은 화면들에서 격자 · 탭 단위를 원본에도 있음 · 새로 생김 · 원본에 있었는데 없어짐으로
+                나눈 수의 합. 판정 규칙은 likeness.py 머리말 ("격자 · 탭 판정")
+
+  --screens 를 주면 표 아래에 실행마다 화면별 표를 하나씩 더 찍는다.
 """
 import collections
 import io
@@ -47,6 +57,11 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 from senior_ui.restructure import flow_fixed as FF  # noqa: E402
+from senior_ui.storyboard import likeness as LK  # noqa: E402
+
+# 과제마다 원본을 빌드로 둔 화면설계서 (tools/reference_storyboard.py) - 원본 닮음의 원본 쪽
+REFERENCE = {"transfer": os.path.join(ROOT, "results", "reference", "original-transfer",
+                                      "storyboard", "storyboard.json")}
 
 
 def load(path):
@@ -152,7 +167,56 @@ def flow_fixed(run, summary, m):
     return "같다" if got["same"] else "다르다 (%s)" % "; ".join(got["problems"])
 
 
-def row(run):
+def likeness(run, summary, came, reference=None):
+    """원본 닮음 (likeness.run_report). 원본 · 실행의 화면설계서가 없으면 None."""
+    task = summary.get("task") or "transfer"
+    ref = reference or REFERENCE.get(task)
+    built = os.path.join(run, "storyboard", "storyboard.json")
+    if not ref or not os.path.exists(ref) or not os.path.exists(built):
+        return None
+    return LK.run_report(load(ref), load(built), came,
+                         FF.first_visits(FF.original_steps(task)))
+
+
+def _num(v):
+    return "-" if v is None else "%.2f" % v
+
+
+def likeness_cells(rep):
+    """표의 두 칸 - 순서 같음 (요소 · 무리의 평균 · 최저), 격자·탭 (원본에도 · 새로 · 없어짐)."""
+    if rep is None:
+        return ["-", "-"]
+    s = rep["summary"]
+    order = "요소 %s · %s / 무리 %s · %s" % (_num(s["elements"]["mean"]), _num(s["elements"]["min"]),
+                                         _num(s["blocks"]["mean"]), _num(s["blocks"]["min"]))
+    units = " / ".join("%s %d · %d · %d" % (name, s["units"][k]["kept"], s["units"][k]["new"],
+                                            s["units"][k]["gone"])
+                       for k, name in (("grid", "격자"), ("tab", "탭")))
+    return [order, units]
+
+
+def screen_table(run, rep):
+    """실행 하나의 화면별 원본 닮음 표 (마크다운 줄들)."""
+    name = os.path.basename(os.path.normpath(run))
+    if rep is None:
+        return ["%s: 화면설계서가 없다" % name]
+    out = ["%s" % name, "",
+           "| 화면 (생성) | 짝 | 요소 순서 같음 | 무리 순서 같음 | 격자 원본에도 · 새로 · 없어짐 "
+           "| 탭 원본에도 · 새로 · 없어짐 | 안쪽을 못 잰 무리 |", "|---|---|---|---|---|---|---|"]
+    for r in rep["screens"]:
+        u = r["units"]
+        out.append("| %s%s | %d | %s | %s | %d · %d · %d | %d · %d · %d | %s |" % (
+            r["screen"], "" if r["built"] == r["screen"] else " (%s)" % r["built"], r["paired"],
+            _num(r["elements"]), _num(r["blocks"]), u["grid"]["kept"], u["grid"]["new"],
+            u["grid"]["gone"], u["tab"]["kept"], u["tab"]["new"], u["tab"]["gone"],
+            ", ".join(r["unmeasured"]) or "-"))
+    if rep["missing"]:
+        out.append("")
+        out.append("견주지 못한 원본 화면: %s" % ", ".join(rep["missing"]))
+    return out
+
+
+def row(run, reports=None):
     summary, m, ed, moved, came = moved_entrances(run)
     folded = [d for d in ed
               if (d["build"].get("reveal") or 0) > (d["original"].get("reveal") or 0)]
@@ -174,24 +238,38 @@ def row(run):
             "%+d · %+d" % (round(sum(ds) / len(ds)), max(ds)) if ds else "-",
             "%d → %d" % (sum(shown.values()), sum(sel.get(a, 0) for a in shown)),
             ", ".join(groups) or "-",
-            summary.get("mode") or "full", flow_fixed(run, summary, m), replica_words(run)]
+            summary.get("mode") or "full", flow_fixed(run, summary, m), replica_words(run)]         + likeness_cells(_keep(reports, run, likeness(run, summary, came)))
+
+
+def _keep(reports, run, rep):
+    if reports is not None:
+        reports[run] = rep
+    return rep
 
 
 HEAD = ["실행", "커밋", "입구", "펼침 뒤로", "다른 화면", "모인 화면", "가리키는 버튼",
         "스크롤 평균·최대", "선택지 원본에 보임 → 생성에서 고를 수 있음", "reveal 한 선택지 무리",
-        "단계", "흐름 고정", "재현본 탓 표현"]
+        "단계", "흐름 고정", "재현본 탓 표현",
+        "원본 순서 같음 (요소 · 무리, 화면 평균 · 최저)", "격자·탭 (원본에도 · 새로 · 없어짐)"]
 
 
 def main(argv):
+    screens = "--screens" in argv
+    argv = [a for a in argv if a != "--screens"]
     if not argv:
         print(__doc__.strip())
         return 2
+    reports = {}
     print("| %s |" % " | ".join(HEAD))
     print("|%s" % ("---|" * len(HEAD)))
     for run in argv:
-        print("| %s |" % " | ".join(row(run)))
+        print("| %s |" % " | ".join(row(run, reports)))
     print()
     print("스크롤은 생성 쪽에서 입구가 있는 화면 안에서 잰 값이다 (옮겼으면 옮긴 화면 기준).")
+    if screens:
+        for run in argv:
+            print()
+            print("\n".join(screen_table(run, reports.get(run))))
     return 0
 
 

@@ -52,6 +52,7 @@ from senior_ui.storyboard import regions as _sb_regions      # noqa: E402
 from senior_ui.storyboard import render as _sb_render        # noqa: E402
 from senior_ui.storyboard import run as _sb_run              # noqa: E402
 from senior_ui.storyboard import features as _sb_features    # noqa: E402
+from senior_ui.storyboard import likeness as _sb_likeness    # noqa: E402
 from senior_ui.storyboard import __main__ as _sb_cli         # noqa: E402
 # ======================================================================= #
 
@@ -221,6 +222,8 @@ storyboard_regions = _sb_regions
 storyboard_render = _sb_render
 storyboard_run = _sb_run
 storyboard_features = _sb_features
+# 원본 닮음 (기록만, tools/compare_runs.py 의 칸)
+sb_likeness = _sb_likeness
 storyboard_main = _sb_cli.main
 storyboard_cli_module = _sb_cli
 storyboard_cli_parser = _sb_cli.build_parser
