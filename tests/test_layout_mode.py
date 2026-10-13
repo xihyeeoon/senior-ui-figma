@@ -36,8 +36,11 @@ FLOW_FIXED = ("- 이 단계에서 고정하는 것은 흐름뿐이다: 원본의
 # 검사 M 의 안내문 끝에 담는 a - 두 줄의 "- " 를 떼고 한 줄로 잇는다
 FLOW_RULE = " ".join(line[2:] for line in FLOW_FIXED.split("\n"))
 OLD_FLOW_FIXED = "이 단계는 흐름을 바꾸지 않는다."
-LAYOUT_FREE = ("- 화면 배치는 자유다. 세로 목록만 쓸 필요는 없다. 아이콘과 이름을 함께 둔 격자, 관련 "
-               "메뉴를 묶은 카드, 탭처럼 고령자가 찾기 쉬운 배치를 골라도 된다.")
+# 배치 허락 (b) 의 대상은 과제 파일의 audience 칸이다 ({{AUDIENCE}}, 2026-10-13) - 블록에는 자리,
+# 프롬프트에는 값 (이체 · 공과금 모두 "65세 이상 고령 사용자")
+LAYOUT_FREE_BLOCK = ("- 화면 배치는 자유다. 세로 목록만 쓸 필요는 없다. 아이콘과 이름을 함께 둔 격자, "
+                     "관련 메뉴를 묶은 카드, 탭처럼 {{AUDIENCE}}가 찾기 쉬운 배치를 골라도 된다.")
+LAYOUT_FREE = LAYOUT_FREE_BLOCK.replace("{{AUDIENCE}}", "65세 이상 고령 사용자")
 FREE_SCREENS = "- 화면을 몇 개로 나눌지, 어떤 순서로 둘지는 자유다. 원본 구조를 지킬 필요 없다."
 RULES = FLOW_FIXED + "\n" + LAYOUT_FREE + "\n"
 TASKS = ["transfer", "bill"]
@@ -50,8 +53,8 @@ LOADERS = ["load_plan_template", "load_template", "load_refine_template"]
 def test_the_blocks_are_the_two_sentences_word_for_word():
     assert P.load_block("FLOW_FIXED") == FLOW_FIXED + "\n"
     assert FF.rule_sentence() == FLOW_RULE and "\n" not in FF.rule_sentence()
-    assert P.load_block("LAYOUT_FREE") == LAYOUT_FREE + "\n"
-    assert P.mode_rules("layout") == RULES
+    assert P.load_block("LAYOUT_FREE") == LAYOUT_FREE_BLOCK + "\n"
+    assert P.mode_rules("layout") == FLOW_FIXED + "\n" + LAYOUT_FREE_BLOCK + "\n"
     assert P.mode_rules("full") == ""
     assert P.MODES == ("full", "layout") and P.DEFAULT_MODE == "full"
 

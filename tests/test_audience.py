@@ -172,6 +172,10 @@ def test_a_non_elderly_value_leaves_no_elderly_word(task, tmp_path, monkeypatch)
                          P.load_refine_template(task))
     for t in (plan, gen, refine):
         assert ADULT + "가" in t and "고령" not in t
+    # 배치 단계 (--mode layout) 의 배치 허락 문장도 대상 칸이다 (2026-10-13)
+    for f in (P.load_plan_template, P.load_template, P.load_refine_template):
+        t = f(task, mode="layout")
+        assert "탭처럼 %s가 찾기 쉬운 배치" % ADULT in t and "고령" not in t
     assert "각 화면에서 %s가 어디서 멈추고" % ADULT in plan
     assert '"problem": "<%s가 어디서 왜 막히는가>"' % ADULT in refine
 
