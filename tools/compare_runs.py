@@ -30,11 +30,16 @@ r"""재구성 실행끼리 과제 밖 입구 거리 · 선택지 수를 나란�
                 senior_ui/restructure/flow_fixed.py). 감사 지표 flow_fixed 가 있으면 그것을, 없으면
                 (그 검사가 생기기 전의 실행) 같은 판정을 그 시도의 흐름 명세 · 계획으로 다시 한다.
                 "같다" 또는 "다르다 (까닭)"
+  재현본 탓 표현  진단 (계획을 세운 시도의 attempt_N.diagnosis.json) 전문에서 REPLICA_WORDS 의 낱말을
+                센 합과 낱말별 수. 렌더 그림은 사람이 만든 재현본이라 아이콘이 회색 네모다 - 그것을
+                근거로 쓴 진단을 세려는 것이다. 한 번 센 글자를 다시 세지 않는 것은 아니다 ("빈 상자"
+                는 "상자" 에도 든다 - E 보고 7절의 비교 명령과 같은 세기)
 """
 import collections
 import io
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -62,6 +67,31 @@ def plan_of(run, n):
         if os.path.exists(path):
             return load(path)
     return {}
+
+
+# 재현본 탓 표현 - E 보고 (2026-10-12) 7절의 비교 명령에 있던 목록에서 "회색" 을 뺐다
+# (2026-10-13). 실행 20261013-130053 의 "회색" 8건은 모두 글자색 ("작은 회색 글씨" · "회색 다음
+# 버튼") 이고 재현본 탓이 아니었다.
+REPLICA_WORDS = ["네모", "사각형", "그림만", "아이콘만", "X 표", "X표", "엑스", "자리표시", "빈 상자",
+                 "상자", "기능명이 없", "이름이 없", "알 수 없는 그림", "같은 모양"]
+
+
+def diagnosis_of(run):
+    """계획을 세운 시도의 진단 (가장 앞 시도의 것, 보통 시도 1). 없으면 None."""
+    found = [int(m.group(1)) for m in
+             (re.match(r"attempt_(\d+)\.diagnosis\.json$", f) for f in os.listdir(run)) if m]
+    return load(os.path.join(run, "attempt_%d.diagnosis.json" % min(found))) if found else None
+
+
+def replica_words(run):
+    """진단 전문에서 REPLICA_WORDS 의 수. "합 n (낱말 수 · …)", 진단이 없으면 "-"."""
+    diag = diagnosis_of(run)
+    if diag is None:
+        return "-"
+    text = json.dumps(diag, ensure_ascii=False)
+    counts = [(w, text.count(w)) for w in REPLICA_WORDS if text.count(w)]
+    total = sum(c for _w, c in counts)
+    return "%d (%s)" % (total, " · ".join("%s %d" % wc for wc in counts)) if counts else "0"
 
 
 def visit(v):
@@ -144,12 +174,12 @@ def row(run):
             "%+d · %+d" % (round(sum(ds) / len(ds)), max(ds)) if ds else "-",
             "%d → %d" % (sum(shown.values()), sum(sel.get(a, 0) for a in shown)),
             ", ".join(groups) or "-",
-            summary.get("mode") or "full", flow_fixed(run, summary, m)]
+            summary.get("mode") or "full", flow_fixed(run, summary, m), replica_words(run)]
 
 
 HEAD = ["실행", "커밋", "입구", "펼침 뒤로", "다른 화면", "모인 화면", "가리키는 버튼",
         "스크롤 평균·최대", "선택지 원본에 보임 → 생성에서 고를 수 있음", "reveal 한 선택지 무리",
-        "단계", "흐름 고정"]
+        "단계", "흐름 고정", "재현본 탓 표현"]
 
 
 def main(argv):
