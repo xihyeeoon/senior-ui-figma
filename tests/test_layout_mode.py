@@ -319,3 +319,24 @@ def test_a_default_run_records_the_flow_check_but_does_not_judge_it(fake_run_env
     assert rep["passed"] is True
     ff = rep["metrics"]["flow_fixed"]
     assert ff["same"] is False and ff["judged"] is False and ff["mode"] == "full"
+
+
+# ===================================================================== #
+# 4. 실제로 걷는다 (pytest -m browser) - mock pass 를 layout 으로
+# ===================================================================== #
+@pytest.mark.browser
+def test_the_mock_pass_build_changes_the_flow_and_layout_catches_it():
+    """mock pass 는 Run 1 빌드 - 받는 사람 확인 화면(whoconfirm, from [])을 정답 경로에 더했다.
+    full 이면 통과하는 빌드가 layout 에서는 검사 M 하나로만 떨어진다."""
+    import capture_baseline as C
+    C.ensure_mock_input()
+    s, code = C.run_mock(["--mock", "pass", "--mode", "layout", "--attempts", "1"])
+    assert code == 1 and s["mode"] == "layout" and s["attempts"][0]["flow_fixed"] is False
+    rep = json.load(io.open(os.path.join(s["run_dir"], "attempt_1.audit.json"), encoding="utf-8"))
+    assert [f["check"] for f in rep["fatal"]] == ["M"]
+    ff = rep["metrics"]["flow_fixed"]
+    assert "원본에 없던 화면 whoconfirm (계획의 from 이 비었다)" in ff["problems"]
+    assert ff["original"] == ORIGINAL
+    plan_prompt = io.open(os.path.join(s["run_dir"], "attempt_1.plan_prompt.txt"),
+                          encoding="utf-8").read()
+    assert RULES in plan_prompt and FREE_SCREENS not in plan_prompt
