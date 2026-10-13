@@ -75,7 +75,7 @@ TILE_OVERLAP = 0.2
 PASS_IOU = 0.5       # 여러 번 찾은 박스끼리 IoU 가 이 이상이면 같은 것 (원본 · 전체 검출 쪽을 남긴다)
 CLAHE_CLIP, CLAHE_GRID = 2.0, 8
 UIED = os.path.join(TOOLS, "UIED")
-UIED_PARAMS = {"min-grad": 4, "min-ele-area": 50, "resize": 800}   # UIED README 의 mobile 값
+UIED_PARAMS = {"min-grad": 4, "min-ele-area": 50, "resize": 800}   # UIED run_single.py 의 mobile 권장 값
 CLASSIC_SCORE = 0.04  # 고전 박스의 점수 - 검출기 박스(0.05 이상)보다 뒤에 둔다
 CLASSIC_MIN = 16      # 고전 박스의 가로 · 세로 최소 (캡처 픽셀)
 
