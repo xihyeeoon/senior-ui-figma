@@ -24,10 +24,18 @@ P = _api.prompt_module
 loop = _api.loop_module
 FF = loop.FF
 
-# 사용자가 준 두 문장 그대로 (2026-10-13)
-FLOW_FIXED = ("- 이 단계는 흐름을 바꾸지 않는다. 원본의 화면과 그 차례, 화면마다 하는 일 (입력 · 선택 · "
-              "확인) 을 그대로 둔다. 화면을 합치거나 나누거나 없애지 않는다. 오류 표시는 원본처럼 그 "
-              "화면 위에 띄우거나 그 화면 안에 보여도 된다.")
+# 사용자가 준 문장 그대로. 흐름 고정 (a) 은 2026-10-13 두 번째 판 - 흐름만 고정하고 화면 안의
+# 구성은 원본을 따르지 않아도 된다는 줄을 더했다 (첫 판 "이 단계는 흐름을 바꾸지 않는다. …" 를
+# 모델이 "화면 모양까지 원본대로" 로 읽었다는 가설, 실행 20261013-152332)
+FLOW_FIXED = ("- 이 단계에서 고정하는 것은 흐름뿐이다: 원본의 화면, 그 차례, 화면마다 사용자가 하는 일 "
+              "(입력 · 선택 · 확인) 을 그대로 둔다. 화면을 합치거나 나누거나 없애지 않는다. 오류 "
+              "표시는 원본처럼 그 화면 위에 띄우거나 그 화면 안에 보여도 된다.\n"
+              "- 화면 안의 구성은 원본을 따를 필요가 없다. 무엇을 위에 둘지, 무엇을 묶을지, 무엇을 "
+              "접을지, 크기와 모양은 새로 정한다. 원본 HTML 과 원본 캡처는 무엇이 있는지 알려 주는 "
+              "자료이지 따라야 할 모양이 아니다.")
+# 검사 M 의 안내문 끝에 담는 a - 두 줄의 "- " 를 떼고 한 줄로 잇는다
+FLOW_RULE = " ".join(line[2:] for line in FLOW_FIXED.split("\n"))
+OLD_FLOW_FIXED = "이 단계는 흐름을 바꾸지 않는다."
 LAYOUT_FREE = ("- 화면 배치는 자유다. 세로 목록만 쓸 필요는 없다. 아이콘과 이름을 함께 둔 격자, 관련 "
                "메뉴를 묶은 카드, 탭처럼 고령자가 찾기 쉬운 배치를 골라도 된다.")
 FREE_SCREENS = "- 화면을 몇 개로 나눌지, 어떤 순서로 둘지는 자유다. 원본 구조를 지킬 필요 없다."
@@ -41,6 +49,7 @@ LOADERS = ["load_plan_template", "load_template", "load_refine_template"]
 # ===================================================================== #
 def test_the_blocks_are_the_two_sentences_word_for_word():
     assert P.load_block("FLOW_FIXED") == FLOW_FIXED + "\n"
+    assert FF.rule_sentence() == FLOW_RULE and "\n" not in FF.rule_sentence()
     assert P.load_block("LAYOUT_FREE") == LAYOUT_FREE + "\n"
     assert P.mode_rules("layout") == RULES
     assert P.mode_rules("full") == ""
@@ -54,6 +63,7 @@ def test_full_is_the_default_and_carries_neither_sentence(task, loader):
     assert f(task) == f(task, mode="full")
     text = f(task)
     assert FLOW_FIXED not in text and LAYOUT_FREE not in text
+    assert OLD_FLOW_FIXED not in f(task, mode="layout")
     assert "{{MODE_" not in text
 
 
@@ -211,7 +221,7 @@ def test_layout_makes_a_changed_flow_fatal_and_quotes_the_rule():
     assert rep["passed"] is False
     (f,) = rep["fatal"]
     assert f["check"] == "M" and f["keep_detail"] is True
-    assert FLOW_FIXED[2:] in f["detail"]
+    assert FLOW_RULE in f["detail"]
     assert "원본 home → recipient → account" in f["detail"]
     assert rep["metrics"]["fatal_total"] == 1 and rep["metrics"]["fatal_root"] == 1
     assert rep["metrics"]["flow_fixed"]["judged"] is True
@@ -228,7 +238,7 @@ def test_the_retry_block_keeps_the_whole_rule_sentence():
     bad = FF.judge(steps(*ORIGINAL), steps("start", "sent"), plan_of(RENAMED))
     rep = FF.apply(report(), bad, "layout")
     block = P.retry_block(rep, "<html></html>", "{}")
-    assert FLOW_FIXED[2:] in block
+    assert FLOW_RULE in block
 
 
 def test_the_rule_sentence_survives_a_javascript_error_too():
@@ -241,7 +251,7 @@ def test_the_rule_sentence_survives_a_javascript_error_too():
     rep["metrics"]["js_error_details"] = [{"name": "ReferenceError",
                                            "message": "x is not defined", "stack": ""}]
     block = P.retry_block(rep, "<html></html>", "{}")
-    assert "[막힌 지점]" in block and FLOW_FIXED[2:] in block
+    assert "[막힌 지점]" in block and FLOW_RULE in block
 
 
 # ===================================================================== #
@@ -290,7 +300,7 @@ def test_a_layout_run_that_changes_the_flow_fails_on_M(layout_env, out_root):
     assert rep["metrics"]["flow_fixed"]["judged"] is True
     # 재시도 프롬프트의 [고칠 것] 에 규칙 문장이 통째로 간다
     retry = io.open(os.path.join(d, "attempt_2.prompt.txt"), encoding="utf-8").read()
-    assert "[고칠 것]" in retry and FLOW_FIXED[2:] in retry
+    assert "[고칠 것]" in retry and FLOW_RULE in retry
     log = io.open(os.path.join(d, "run.log"), encoding="utf-8").read()
     assert "mode=layout" in log and "flow_fixed: 다르다" in log
 

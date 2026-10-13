@@ -1,8 +1,8 @@
 r"""흐름 고정 검사 (검사 M, 2026-10-13) - 생성물의 정답 경로가 원본의 화면 차례를 그대로 밟는가.
 
 재설계를 두 단계로 나눈다 - ① 흐름 단축 → ② 레이아웃 재구성. `--mode layout` 이 ② 이고,
-프롬프트에 "이 단계는 흐름을 바꾸지 않는다 …" (docs/restructure-prompt.md 의 FLOW_FIXED) 를
-넣는다. 이 검사는 그 문장이 지켜졌는지 본다. `--mode layout` 에서는 fatal, `--mode full`
+프롬프트에 "이 단계에서 고정하는 것은 흐름뿐이다 …" (docs/restructure-prompt.md 의 FLOW_FIXED,
+두 줄) 를 넣는다. 이 검사는 그 문장이 지켜졌는지 본다. `--mode layout` 에서는 fatal, `--mode full`
 에서는 기록만 한다 (검사 리포트의 metrics.flow_fixed) - 앞 실행들이 흐름을 얼마나 바꿨는지도
 같은 잣대로 잴 수 있게.
 
@@ -40,8 +40,10 @@ ERROR_PREFIX = "err-"
 
 
 def rule_sentence():
-    """FLOW_FIXED 블록의 문장 - 프롬프트에 넣은 것과 글자까지 같다 (앞의 "- " 와 줄바꿈만 뗀다)."""
-    return load_block("FLOW_FIXED").strip().lstrip("- ").strip()
+    """FLOW_FIXED 블록의 문장 - 프롬프트에 넣은 것과 글자까지 같다. 블록의 줄마다 앞의 "- " 를
+    떼고 한 줄로 잇는다 (안내문은 한 줄이다 - 재시도 블록의 failure_line)."""
+    lines = [ln.strip() for ln in load_block("FLOW_FIXED").splitlines() if ln.strip()]
+    return " ".join(ln[2:] if ln.startswith("- ") else ln for ln in lines)
 
 
 def original_steps(task=None):
