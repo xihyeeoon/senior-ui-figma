@@ -22,7 +22,7 @@ semantic.py 가 채운다 - `{{TASK}}` 과제 이름 한 줄, `{{UNIT}}` 단위 
   - caption: 아이콘 설명 모델이 붙인 영어 설명.
   - name: 규칙으로 붙인 로고 이름.
   - in_box: 이 요소를 담은 박스의 id.
-  - near: 곁의 글 (inside 안에 든 글, row 같은 줄의 글, parent 담은 박스의 글).
+  - near: 곁의 글 (inside 안에 든 글, row 같은 줄의 글, below 바로 아래 글, parent 담은 박스의 글).
   - flags: system_band(여러 캡처에서 같은 자리 · 같은 모습인 띠 - 상태바 등), behind_overlay(시트 · 팝업 뒤의 어두워진 화면).
   - 값이 없는 칸은 null 이다.
 - 그림: 첫 그림은 화면 전체를 줄이고 요소마다 mark 번호를 적은 것이다. 그다음 그림들은 글 없는 박스와 박스 안 그림 덩어리를 잘라 키운 것이고, 이름표에 mark 와 id 가 있다.

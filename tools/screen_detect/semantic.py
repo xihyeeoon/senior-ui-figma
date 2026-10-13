@@ -63,6 +63,7 @@ MARK_WIDTH = 600      # 화면 전체 그림의 폭 (캡처 824 → 600)
 CROP_PAD = 0.2        # 잘라낼 때 변마다 넓히는 비율
 CROP_SCALE = 2        # 잘라낸 그림을 키우는 배수
 CROP_MAX = 512        # 잘라낸 그림의 긴 변 상한 (큰 빈 박스가 그림 토큰을 다 먹지 않게)
+BELOW_GAP = 1.0       # 바로 아래 글로 보는 틈 - 요소 높이(40px 이상)의 이만큼
 ANSWER_TOKENS = 45    # 어림 - 요소 하나의 답 토큰 (id · 칸 · 짧은 note)
 MAX_TOKENS = 25000    # 출력 상한 (생각 토큰 포함) - 파이프라인의 진단 · 계획 호출과 같은 값
 FONT = r"C:\Windows\Fonts\malgun.ttf"
@@ -89,7 +90,8 @@ def short(s, n=30):
 
 def near_of(e, els):
     """곁의 글 - inside(이 요소 안에 든 OCR 글), row(같은 줄 양옆에서 가장 가까운 글 둘),
-    parent(담은 박스의 글)."""
+    below(바로 아래 글 - 가로 중심이 이 요소 폭 안이고 위 끝이 아래 끝에서 BELOW_GAP 안인 가장 가까운
+    글, 탭바 아이콘 밑의 이름표 같은 것), parent(담은 박스의 글)."""
     x, y, w, h = e["box"]
     cy = y + h / 2
     texts = [t for t in els if t["kind"] == "text" and t is not e]
@@ -98,12 +100,17 @@ def near_of(e, els):
     row = sorted((t for t in texts if abs(t["box"][1] + t["box"][3] / 2 - cy) < max(h, 20) / 2
                   and not (x <= t["box"][0] + t["box"][2] / 2 <= x + w)),
                  key=lambda t: abs(t["box"][0] + t["box"][2] / 2 - (x + w / 2)))[:2]
+    gap = max(h, 40) * BELOW_GAP
+    under = sorted((t for t in texts if x <= t["box"][0] + t["box"][2] / 2 <= x + w
+                    and 0 <= t["box"][1] - (y + h) <= gap), key=lambda t: t["box"][1])
     parent = next((p for p in els if p["id"] == e.get("in_box")), None)
     out = {}
     if inside and e["kind"] != "text":
         out["inside"] = [short(t) for t in inside[:4]]
     if row:
         out["row"] = [short(t["text"]) for t in row]
+    if under and not e.get("text"):      # 글 없는 박스 · 칸 안 그림만 - 이름표 찾기
+        out["below"] = short(under[0]["text"])
     if parent and parent.get("text"):
         out["parent"] = short(parent["text"])
     return out or None
