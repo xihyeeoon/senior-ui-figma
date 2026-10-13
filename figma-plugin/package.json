@@ -7,7 +7,8 @@
   "scripts": {
     "build": "esbuild src/code.ts --bundle --target=es2017 --outfile=dist/code.js",
     "typecheck": "tsc",
-    "plan": "node scripts/plan-cli.ts"
+    "plan": "node scripts/plan-cli.ts",
+    "test": "node --test test/plan.test.ts"
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.141.0",
