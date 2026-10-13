@@ -27,6 +27,8 @@ r"""정답지 - 원본 재현 HTML 을 걸어 화면 · 상태마다 보이는 �
   image_slots   그림 자리 - 켜진 화면 안의 보이는 role="img" 와 그 aria-label
   choices       선택지 값 (CHOICE_SHOWN - 누를 수 있게 보이는 값, 무리 규칙은 검사 I 와 같다)
   fields        입력칸 - FIELDS 의 선택자 가운데 보이는 것
+  actions       (D3) 누를 수 있게 보이는 data-action 요소 전부 - 뒤로 · 닫기 · 탭 · 지우기도.
+                의미 층이 누를 수 있다고 한 것이 정답에 있는지 보는 데 쓴다
 """
 import argparse
 import asyncio
@@ -117,6 +119,16 @@ STATE = r"""(args) => {
     if (pressable(e) && !ent[e.getAttribute('data-action')])
       ent[e.getAttribute('data-action')] = place(e);
   });
+  /* 누를 수 있는 것 전부 - 켜진 화면 안과 화면 밖에 떠 있는 것의 보이는 data-action 요소 (D3:
+     의미 층이 "누를 수 있다" 고 한 것이 정답에 있는지 본다. 뒤로 · 닫기 · 탭 · 지우기도 든다) */
+  const actions = [];
+  document.querySelectorAll('[data-action]').forEach(e => {
+    if (!pressable(e)) return;
+    const img = e.querySelector('[role="img"]');
+    actions.push(Object.assign({action: e.getAttribute('data-action'), text: clean(e.innerText),
+                                aria: e.getAttribute('aria-label'),
+                                img: img ? img.getAttribute('aria-label') : null}, place(e)));
+  });
   /* 글 조각 - 보이는 글 노드마다 한 줄. 캡처와 자리를 맞추는 닻으로만 쓴다 */
   const anchors = [];
   const walk = root => {
@@ -132,7 +144,7 @@ STATE = r"""(args) => {
   };
   walk(on);
   return {slots: slots, fields: out.map(({el, ...rest}) => rest), choice_items: items,
-          entrance_places: ent, anchors: anchors,
+          entrance_places: ent, anchors: anchors, actions: actions,
           placeholders: out.map(o => o.placeholder).filter(Boolean)};
 }""".replace("__PRESSABLE__", P.PRESSABLE.strip()).replace("__PLACE__", PLACE.strip())
 
@@ -176,7 +188,8 @@ async def snapshot(page):
             "choices": choices,
             "choice_items": st["choice_items"],
             "fields": st["fields"],
-            "anchors": st["anchors"]}
+            "anchors": st["anchors"],
+            "actions": st["actions"]}
 
 
 def same(a, b):
