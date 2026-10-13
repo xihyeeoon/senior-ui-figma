@@ -8,7 +8,8 @@ r"""화면설계서의 그림 자리 칸 (storyboard.json schema 3, 2026-10-12).
 
   - box 는 items 의 box 와 같은 좌표 (장 왼쪽 위 기준, 스크롤 아래까지 포함한 장 전체, scale 이전)
   - 문서 순서, 장마다 g1 부터. 크기 0 · 숨김 · 이름 없는 자리는 빼고, 없으면 []
-  - original = 원본을 걷는 동안 보인 이름 집합(검사 L 의 O, l_images.original_names)에 있는가
+  - original = 원본 문서의 이름 집합(l_images.document_names - 걷는 동안 보인 검사 L 의 O 와
+    숨어 있던 images_not_in_original, 2026-10-13)에 있는가
   - 누를 수 있는 요소 안이면 "in" = 그 항목 번호 (무리의 일원이면 무리)
 
   .\.venv\Scripts\python.exe -m pytest tests/test_storyboard_images.py
@@ -79,11 +80,15 @@ def test_an_image_in_an_element_that_is_not_an_item_has_no_in():
 
 
 def test_the_original_names_come_from_check_L():
-    """설계서와 검사 L 이 같은 함수로 "원본의 그림 자리" 를 가른다."""
-    assert B.original_names is L.original_names
-    snap = {"images_seen": {"가 로고": {"visible": True}, "숨은 로고": {"visible": False}}}
+    """설계서와 검사 L 이 같은 수집으로 "원본의 그림 자리" 를 가른다. 설계서는 원본 문서에 있던
+    이름을 모두 원본으로 본다 - 걷는 동안 숨어 있던 것도 (2026-10-13, 증권사 로고 29 등).
+    검사 L 의 판정은 보인 것만 본다."""
+    assert B.document_names is L.document_names
+    snap = {"images_seen": {"숨은 로고": {"visible": False}, "가 로고": {"visible": True}}}
     assert L.original_names(snap) == ["가 로고"]
-    assert L.original_names({}) == []
+    # 보인 것 먼저, 그다음 숨어 있던 것
+    assert L.document_names(snap) == ["가 로고", "숨은 로고"]
+    assert L.original_names({}) == [] and L.document_names({}) == []
 
 
 def test_the_schema_is_3():
@@ -157,14 +162,21 @@ def walked_sheets(server):
     w2 = copy.deepcopy(walked)
     w2["original"]["images_seen"].pop("아래 로고")
     sheets2, _ = B.assemble(run, FLOW, states, w2, ["pick"])
+    # 원본에는 있었지만 걷는 동안 숨어 있던 것으로 다시 - 원본의 그림 (original true)
+    w3 = copy.deepcopy(walked)
+    w3["original"]["images_seen"]["아래 로고"]["visible"] = False
+    sheets3, _ = B.assemble(run, FLOW, states, w3, ["pick"])
     return {"walked": walked, "sheets": {s["id"]: s for s in sheets},
-            "sheets2": {s["id"]: s for s in sheets2}}
+            "sheets2": {s["id"]: s for s in sheets2},
+            "sheets3": {s["id"]: s for s in sheets3}}
 
 
 @pytest.mark.browser
 def test_the_original_walk_collects_the_names_like_check_L(walked_sheets):
     got = L.original_names(walked_sheets["walked"]["original"])
     assert got == ["카드 그림", "다음 아이콘", "가 로고", "나 로고", "아래 로고"]
+    # 문서에 있지만 숨은 것 (display:none) 은 원본 문서의 이름에만 든다
+    assert L.document_names(walked_sheets["walked"]["original"]) == got + ["숨은 로고"]
 
 
 @pytest.mark.browser
@@ -207,6 +219,13 @@ def test_a_name_the_original_did_not_show_is_not_original(walked_sheets):
     imgs = {g["name"]: g for g in walked_sheets["sheets2"]["scr-a"]["images"]}
     assert imgs["아래 로고"]["original"] is False
     assert imgs["카드 그림"]["original"] is True
+
+
+@pytest.mark.browser
+def test_a_name_the_original_hid_during_the_walk_is_still_original(walked_sheets):
+    """검사 L 의 images_not_in_original (원본 문서에 있지만 걷는 동안 숨은 것) 도 원본의 그림이다."""
+    imgs = {g["name"]: g for g in walked_sheets["sheets3"]["scr-a"]["images"]}
+    assert imgs["아래 로고"]["original"] is True
 
 
 @pytest.mark.browser

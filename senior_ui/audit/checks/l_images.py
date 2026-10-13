@@ -54,9 +54,18 @@ def shown(state):
 
 
 def original_names(snapshot):
-    """원본을 걷는 동안 그려져 보인 그림 자리 이름 (O) - 처음 본 순서. 화면설계서도 이것으로
-    "원본의 그림 자리" 를 가른다 (storyboard.build - 두 곳에서 따로 세지 않는다)."""
+    """원본을 걷는 동안 그려져 보인 그림 자리 이름 (O) - 처음 본 순서. 판정은 이것으로 한다."""
     return shown(seen(snapshot))
+
+
+def document_names(snapshot):
+    """원본 문서에 있는 그림 자리 이름 - 걷는 동안 보인 것 (O) 먼저, 그다음 한 번도 보이지 않은
+    것 (images_not_in_original - 은행 시트의 [증권사] 탭 뒤 증권사 로고 29개 등). 화면설계서가
+    "원본의 그림 자리" (images[].original) 를 이것으로 가른다 (storyboard.build, 2026-10-13) -
+    원본에 있던 그림이 원본에서 숨어 있었다고 새 그림으로 적히지 않게."""
+    state = seen(snapshot)
+    visible = shown(state)
+    return visible + [n for n in state if n not in set(visible)]
 
 
 def run(ctx):

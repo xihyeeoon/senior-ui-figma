@@ -22,7 +22,7 @@ import shutil
 import time
 
 from senior_ui import config
-from senior_ui.audit.checks.l_images import original_names
+from senior_ui.audit.checks.l_images import document_names
 from senior_ui.audit.flow import load_flow, visit_keys
 from senior_ui.audit.inputs import judged_flow, read_flow
 from senior_ui.devserver import ensure_server
@@ -150,8 +150,9 @@ def images_of(got, items, raw, originals):
 
     `{"no": "g1", "name", "box": [x, y, w, h], "original": bool}` - 문서 순서, 번호는 장마다
     g1 부터. box 는 items 의 box 와 같은 좌표다 (장 왼쪽 위 기준, 스크롤 아래까지 포함, scale
-    이전). original 은 그 이름이 원본을 걷는 동안 보인 그림 자리 이름(검사 L 의 O -
-    l_images.original_names)에 있는가. 누를 수 있는 요소 안에 있으면 그 항목 번호를 "in" 에
+    이전). original 은 그 이름이 원본 문서의 그림 자리 이름(l_images.document_names - 걷는 동안
+    보인 검사 L 의 O 와, 문서에 있지만 숨어 있던 images_not_in_original)에 있는가. 누를 수 있는
+    요소 안에 있으면 그 항목 번호를 "in" 에
     적는다 (무리의 일원이면 그 무리 - item_for_index). 그 상태의 항목이 아니면(가려진 요소)
     "in" 은 없다."""
     out = []
@@ -208,8 +209,9 @@ def assemble(run, flow, states, walked, groups):
     plan = run.get("plan_data") or {}
     purposes = {s.get("name"): s for s in plan.get("screens") or [] if isinstance(s, dict)}
     by_key = {st["key"]: st for st in states}
-    # 원본을 걷는 동안 보인 그림 자리 이름 - 검사 L 과 같은 함수 (원본을 걷지 않았으면 빈 집합)
-    originals = set(original_names(walked.get("original") or {}))
+    # 원본 문서의 그림 자리 이름 - 걷는 동안 보인 것과 숨어 있던 것 (검사 L 의 수집 그대로,
+    # 원본을 걷지 않았으면 빈 집합)
+    originals = set(document_names(walked.get("original") or {}))
     rows = []
     for st in states:
         got = walked["states"].get(st["key"]) or {}

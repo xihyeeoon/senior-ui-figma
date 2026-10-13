@@ -666,7 +666,7 @@ async def survey(browser, url, flow):
 
     걸음마다 그림 자리도 모은다 - 검사 L 이 원본을 걸으며 쓰는 수집(probes.IMAGES)과 합치는
     규칙(drive.merge_entrances)을 그대로 쓴다. 설계서는 그것을 검사 L 의 함수
-    (l_images.original_names)에 넘겨 "원본의 그림 자리" 를 가른다 - 두 곳에서 따로 세지
+    (l_images.document_names)에 넘겨 "원본의 그림 자리" 를 가른다 - 두 곳에서 따로 세지
     않는다. 원본 흐름에는 reveal 이 없으므로 (flows/) 검사기의 원본 걷기와 같은 상태를 본다.
 
     돌려주는 것: `{"steps": [{"visit", "lit", "actions": {화면: {이름: 수}}}], "choices":
