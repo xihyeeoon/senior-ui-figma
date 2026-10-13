@@ -2,6 +2,7 @@
   body { font: 13px/1.5 system-ui, sans-serif; margin: 16px; color: #000; }
   label { display: block; margin: 0 0 12px; font-weight: 600; }
   input { display: block; margin-top: 4px; font-weight: 400; }
+  label.check { font-weight: 400; } label.check input { display: inline; margin: 0 4px 0 0; }
   button { padding: 8px 16px; font-size: 13px; }
   #say, #pics { margin-top: 12px; white-space: pre-wrap; }
   #pics { max-height: 160px; overflow: auto; font-size: 12px; color: #555; }
@@ -12,6 +13,7 @@
 <label>2. shots/ 의 그림 (여러 개 고르기)
   <input id="shots" type="file" accept="image/png" multiple>
 </label>
+<label class="check"><input id="full" type="checkbox"> 펼친 장 전체 그리기 (끄면 본 장과 달라진 부분만)</label>
 <button id="go">그리기</button>
 <div id="say"></div>
 <div id="pics"></div>
@@ -60,7 +62,7 @@
     say('그림 읽는 중…');
     for (const f of $('shots').files) try { await slice(f, images, dims); } catch {}   // 못 읽으면 '그림 없음'
     say('그리는 중…');
-    send({ storyboard: await json.text(), images, dims });
+    send({ storyboard: await json.text(), images, dims, full: $('full').checked });
   };
   onmessage = async e => {
     const m = e.data.pluginMessage;

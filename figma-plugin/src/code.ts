@@ -5,10 +5,11 @@ import RENAMES from '../renames.json' with { type: 'json' };   // 빌드 때 cod
 
 const PLUGIN_KEY = 'storyboard-run';
 // images: `{파일 이름}#{조각 번호}` → PNG 조각, dims: 파일 이름 → 원본 [가로, 세로] px
-// confirmed: 옛 페이지를 지워도 된다고 UI 에서 눌렀다
-type Msg = { storyboard: string; images: Record<string, Uint8Array>; dims: Dims; confirmed?: boolean };
+// confirmed: 옛 페이지를 지워도 된다고 UI 에서 눌렀다, full: '펼친 장 전체 그리기' 를 켰다
+type Msg = { storyboard: string; images: Record<string, Uint8Array>; dims: Dims; confirmed?: boolean;
+             full?: boolean };
 
-figma.showUI(__html__, { width: 380, height: 480 });
+figma.showUI(__html__, { width: 380, height: 520 });
 
 // 다른 글꼴로 바꾸지 않는다 - Inter 에는 한글이 없고, 기계마다 그림이 달라진다.
 const FONT: FontName = { family: 'Noto Sans KR', style: 'Regular' };
@@ -114,7 +115,7 @@ figma.ui.onmessage = async (msg: Msg) => {
   const made: PageNode[] = [];
   try {
     const sb = JSON.parse(msg.storyboard);
-    const p = plan(sb, msg.dims || {}, RENAMES);
+    const p = plan(sb, msg.dims || {}, RENAMES, msg.full === true);
     // 같은 실행을 다시 불러오면 먼저 묻고, 새 페이지를 다 그린 뒤 옛 것을 지운다
     const old = figma.root.children.filter(pg => pg.getPluginData(PLUGIN_KEY) === p.run);
     if (old.length && !msg.confirmed) return figma.ui.postMessage({
