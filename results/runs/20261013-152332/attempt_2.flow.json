@@ -1,0 +1,169 @@
+{
+  "name": "auto",
+  "note": "계좌 입력 화면에서 빈 계좌번호를 직접 입력한 뒤 은행을 선택하고 금액 입력, 내용 확인, 본인 확인을 차례로 진행합니다.",
+  "derived_from_original": false,
+  "required_ids": [
+    "phone",
+    "dn-amt",
+    "acc-input",
+    "acc-clear",
+    "acc-next",
+    "amt-next",
+    "pwpad"
+  ],
+  "steps": [
+    {
+      "screen": "home"
+    },
+    {
+      "screen": "recipient",
+      "click": "[data-action='go-recipient']"
+    },
+    {
+      "screen": "account",
+      "do": [
+        {
+          "click": "[data-action='go-account']"
+        },
+        {
+          "type": "{ACCOUNT}",
+          "key": "[data-action='acc-num'][data-v='%s']"
+        }
+      ]
+    },
+    {
+      "screen": "bank",
+      "click": "[data-action='open-bank']"
+    },
+    {
+      "screen": "account",
+      "click": "[data-action='pick-bank'][data-bank='{BANK}']"
+    },
+    {
+      "screen": "amount",
+      "click": "#acc-next"
+    },
+    {
+      "screen": "confirm",
+      "do": [
+        {
+          "type": "{AMOUNT}",
+          "key": "[data-action='num'][data-v='%s']"
+        },
+        {
+          "click": "#amt-next"
+        }
+      ]
+    },
+    {
+      "screen": "password",
+      "click": "[data-action='send']"
+    },
+    {
+      "screen": "done",
+      "do": [
+        {
+          "repeat": 4,
+          "click": "#pwpad [data-action='pw']",
+          "wait": 0.15
+        }
+      ]
+    }
+  ],
+  "expect": {},
+  "error_paths": [
+    {
+      "id": "wrong-account",
+      "from_step": "account",
+      "inputs": [
+        {
+          "click": "[data-action='open-bank']"
+        },
+        {
+          "click": "[data-action='pick-bank'][data-bank='{BANK}']"
+        },
+        {
+          "click": "#acc-clear"
+        },
+        {
+          "click": "[data-action='dialog-yes']"
+        },
+        {
+          "type": "{ACCOUNT_WRONG}",
+          "key": "[data-action='acc-num'][data-v='%s']"
+        },
+        {
+          "click": "#acc-next"
+        }
+      ],
+      "expect_screen": "err-account",
+      "expect_text_any": [
+        "계좌번호를",
+        "일치하지 않습니다"
+      ],
+      "recover": [
+        {
+          "click": "[data-action='fix-account']"
+        }
+      ],
+      "back_to": "account"
+    },
+    {
+      "id": "wrong-bank",
+      "from_step": "confirm",
+      "inputs": [
+        {
+          "click": "[data-action='edit-account']"
+        },
+        {
+          "click": "[data-action='open-bank']"
+        },
+        {
+          "click": "[data-action='clear-search']"
+        },
+        {
+          "click": "[data-action='tab-bank']"
+        },
+        {
+          "click": "[data-action='pick-bank'][data-bank='{BANK_WRONG}']"
+        },
+        {
+          "click": "#acc-next"
+        },
+        {
+          "click": "#amt-next"
+        },
+        {
+          "click": "[data-action='send']"
+        }
+      ],
+      "expect_screen": "err-bank",
+      "expect_text_any": [
+        "받는 은행을",
+        "아직 이체되지 않았습니다"
+      ],
+      "recover": [
+        {
+          "click": "[data-action='fix-bank']"
+        }
+      ],
+      "back_to": "bank"
+    }
+  ],
+  "reveal": {
+    "pick-bank": {
+      "at": "bank",
+      "do": [
+        {
+          "click": "[data-action='clear-search']"
+        },
+        {
+          "click": "[data-action='tab-bank']"
+        },
+        {
+          "click": "[data-action='tab-sec']"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1887 @@
+{
+  "passed": false,
+  "fatal": [
+    {
+      "check": "A",
+      "screen": "amount",
+      "detail": "navigation failed: TimeoutError: Page.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#acc-next\")\n    - locator resolved to <button disabled id=\"acc-next\" class=\"primary\" data-action=\"account-next\">다음: 금액 입력</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    58 × waiting for element to be visible, enabled and stable\n       - element is not enabled\n     - retrying click action\n       - waiting 500ms\n"
+    },
+    {
+      "check": "A",
+      "screen": "confirm",
+      "detail": "never reached - consequence of stopping at 'amount'",
+      "derived_from": "amount"
+    },
+    {
+      "check": "A",
+      "screen": "password",
+      "detail": "never reached - consequence of stopping at 'amount'",
+      "derived_from": "amount"
+    },
+    {
+      "check": "A",
+      "screen": "done",
+      "detail": "never reached - consequence of stopping at 'amount'",
+      "derived_from": "amount"
+    },
+    {
+      "check": "A",
+      "screen": null,
+      "detail": "JavaScript errors during the task: Cannot set properties of null (setting 'disabled') | Cannot set properties of null (setting 'disabled') | Cannot set properties of null (setting 'disabled')"
+    },
+    {
+      "check": "I",
+      "screen": null,
+      "detail": "원본의 num 선택지 11개 중 1개가 생성물 문서 안에는 있지만 걷는 동안 어느 상태에서도 누를 수 있게 보이지 않았다 (예: 00). 원본에서는 걷는 동안 보이던 값이다. 숨기거나 접어 둔 값은 사용자가 고를 수 없다 - 눌러야 보이는 목록이면 그 조작을 흐름 명세의 reveal 에 적어라 (검사기는 정답 걸음과 reveal 뒤에 보이는 값만 센다). 걷기가 amount 에서 멈춰 그 뒤 화면을 보지 못했다.",
+      "action": "num",
+      "not_selectable": [
+        "00"
+      ],
+      "derived_from": "amount"
+    },
+    {
+      "check": "I",
+      "screen": null,
+      "detail": "원본의 quick 선택지 4개 중 4개가 생성물 문서 안에는 있지만 걷는 동안 어느 상태에서도 누를 수 있게 보이지 않았다 (예: 10000, 100000, 50000, all). 원본에서는 걷는 동안 보이던 값이다. 숨기거나 접어 둔 값은 사용자가 고를 수 없다 - 눌러야 보이는 목록이면 그 조작을 흐름 명세의 reveal 에 적어라 (검사기는 정답 걸음과 reveal 뒤에 보이는 값만 센다). 걷기가 amount 에서 멈춰 그 뒤 화면을 보지 못했다.",
+      "action": "quick",
+      "not_selectable": [
+        "10000",
+        "100000",
+        "50000",
+        "all"
+      ],
+      "derived_from": "amount"
+    },
+    {
+      "check": "J",
+      "screen": "err-account",
+      "detail": "오류 경로 wrong-account: 잘못된 입력을 넣다가 막혔다: TimeoutError: Page.click: Timeout 30000ms exceeded. / Call log: / - waiting for locator(\"#acc-next\") / - locator resolved to <button disabled id=\"acc-next\" class=\"primary\" data-action=\"account-next\">다음: 금액 입력</button> / - attempting click action / 2 × waiting for element to be visible, enabled and s",
+      "error_path": "wrong-account"
+    },
+    {
+      "check": "J",
+      "screen": "err-account",
+      "detail": "오류 경로 wrong-account 를 걷는 중 JavaScript 오류: Cannot set properties of null (setting 'disabled') | Cannot set properties of null (setting 'disabled') | Cannot set properties of null (setting 'disabled')",
+      "error_path": "wrong-account"
+    },
+    {
+      "check": "J",
+      "screen": "err-bank",
+      "detail": "오류 경로 wrong-bank: 정답 경로가 'amount' 에서 멈춰 갈라지는 곳(confirm)까지 가지 못했다",
+      "derived_from": "amount",
+      "error_path": "wrong-bank"
+    },
+    {
+      "check": "K",
+      "screen": null,
+      "detail": "원본의 과제 밖 입구 31개 중 4개가 생성물에서 누를 수 있게 보이지 않는다: 출금계좌 변경(oos-from-account), 추가이체(oos-more-transfer), 상세보기(oos-detail), 공유(oos-share). 그중 oos-from-account, oos-more-transfer, oos-detail, oos-share 는 문서에는 있지만 한 번도 보이지 않았다. 원본의 다른 메뉴와 버튼도 사용자가 쓸 수 있는 기능이다. 배치 · 묶음 · 크기 · 위치는 바꿔도 된다. 자주 쓰지 않는다고 판단한 것은 펼치기 · 더보기 뒤나 다른 화면으로 옮겨도 된다. 다만 없애지 마라. 검사기는 원본의 data-action 이름(oos-…)을 그대로 가진 요소가 걷는 동안 누를 수 있게 보이는지 본다. 눌러야 보이는 요소라면 그 조작을 흐름 명세의 reveal 에 적어라.",
+      "missing": [
+        "T25",
+        "T26",
+        "T27",
+        "T28"
+      ]
+    },
+    {
+      "check": "M",
+      "screen": null,
+      "detail": "정답 경로의 화면 차례가 원본과 다르다: 화면 차례가 다르다. 원본 home → recipient → account → bank → amount → confirm → password → done (걸음 7) · 생성물 home → recipient → bank → account → amount → confirm → password → done (걸음 7). 이 단계는 흐름을 바꾸지 않는다. 원본의 화면과 그 차례, 화면마다 하는 일 (입력 · 선택 · 확인) 을 그대로 둔다. 화면을 합치거나 나누거나 없애지 않는다. 오류 표시는 원본처럼 그 화면 위에 띄우거나 그 화면 안에 보여도 된다. 화면 이름은 바꿔도 된다 - 계획의 screens[].from 에 원본 화면 하나를 적으면 된다. 계획을 고쳐야 하면 반성의 plan_changes 에 적어라.",
+      "keep_detail": true
+    }
+  ],
+  "warning": [],
+  "metrics": {
+    "flow": "auto",
+    "derived_from_original": false,
+    "screens_in_flow": [
+      "home",
+      "recipient",
+      "bank",
+      "account",
+      "amount",
+      "confirm",
+      "password",
+      "done"
+    ],
+    "screens_comparable_to_original": [],
+    "screens_expected": 8,
+    "screens_reached": 4,
+    "screens_unlit": [],
+    "screens_landed_on": {
+      "home": {
+        "hook": "home",
+        "dom": "home"
+      },
+      "recipient": {
+        "hook": "recipient",
+        "dom": "recipient"
+      },
+      "bank": {
+        "hook": "bank",
+        "dom": "bank"
+      },
+      "account": {
+        "hook": "account",
+        "dom": "account"
+      },
+      "amount": {
+        "hook": null,
+        "dom": null
+      }
+    },
+    "done_screen": "done",
+    "done_amount": null,
+    "data-screen_original": 10,
+    "data-screen_repaired": 10,
+    "data-action_original": 57,
+    "data-action_repaired": 43,
+    "id_original": 25,
+    "id_repaired": 15,
+    "per_screen_attr_loss": {},
+    "injected_dialog_calls": 0,
+    "onclick_added": 0,
+    "dialogs_during_task": 0,
+    "handled_actions": 66,
+    "dead_controls_unverifiable": [],
+    "dead_controls_new": 0,
+    "dead_controls_pre_existing": [],
+    "low_contrast_after": 0,
+    "low_contrast_before": null,
+    "low_contrast_by_screen": {
+      "home": {
+        "before": null,
+        "after": 0
+      },
+      "recipient": {
+        "before": null,
+        "after": 0
+      },
+      "bank": {
+        "before": null,
+        "after": 0
+      },
+      "account": {
+        "before": null,
+        "after": 0
+      },
+      "amount": {
+        "before": null,
+        "after": 0
+      },
+      "confirm": {
+        "before": null,
+        "after": null
+      },
+      "password": {
+        "before": null,
+        "after": null
+      },
+      "done": {
+        "before": null,
+        "after": null
+      }
+    },
+    "new_inherited_colour": null,
+    "inherited_colour_unreadable": 0,
+    "contrast_undetermined": 0,
+    "contrast_undetermined_before": 2,
+    "low_contrast_gained_text": 0,
+    "overlaps_new": 3,
+    "overflows_new": 0,
+    "screens_much_taller": 0,
+    "newly_wrapped_text": 0,
+    "new_english_words": [],
+    "new_english_words_markup_only": [],
+    "state_pairs_checked": 1,
+    "state_pairs_collapsed": 0,
+    "undefined_classes_new": [],
+    "choice_groups_original": {
+      "pick-bank": 67,
+      "acc-num": 10,
+      "quick": 4,
+      "num": 11,
+      "pw": 10
+    },
+    "choice_groups_not_choices": {},
+    "choice_values_removed_by_design": {},
+    "choice_values_kept": {
+      "pick-bank": 67,
+      "acc-num": 10,
+      "quick": 4,
+      "num": 11,
+      "pw": 10
+    },
+    "choice_values_selectable": {
+      "pick-bank": 67,
+      "acc-num": 10,
+      "quick": 0,
+      "num": 10,
+      "pw": 10
+    },
+    "choice_values_shown_in_original": {
+      "pick-bank": 38,
+      "acc-num": 10,
+      "quick": 4,
+      "num": 11,
+      "pw": 10
+    },
+    "choice_values_not_selectable": {
+      "quick": [
+        "10000",
+        "100000",
+        "50000",
+        "all"
+      ],
+      "num": [
+        "00"
+      ]
+    },
+    "choice_values_missing": {},
+    "reveal": {
+      "pick-bank": {
+        "at": "bank",
+        "values": 104,
+        "error": null
+      }
+    },
+    "error_paths": {
+      "wrong-account": {
+        "appeared": false,
+        "recovered": false
+      },
+      "wrong-bank": {
+        "appeared": false,
+        "recovered": false
+      }
+    },
+    "entrances_original": 31,
+    "entrances_kept": 27,
+    "entrances_missing": [
+      "T25",
+      "T26",
+      "T27",
+      "T28"
+    ],
+    "entrances_hidden": [
+      "T25",
+      "T26",
+      "T27",
+      "T28"
+    ],
+    "entrances_not_in_original": [],
+    "entrances_shown_as": {
+      "T1": {
+        "text": "메시지",
+        "aria": ""
+      },
+      "T2": {
+        "text": "지갑",
+        "aria": ""
+      },
+      "T3": {
+        "text": "알림",
+        "aria": ""
+      },
+      "T4": {
+        "text": "절세혜택과 안정적인 노후 개인형 퇴직연금 안내",
+        "aria": ""
+      },
+      "T5": {
+        "text": "앱카드 가입",
+        "aria": ""
+      },
+      "T6": {
+        "text": "바로받기",
+        "aria": ""
+      },
+      "T7": {
+        "text": "이벤트",
+        "aria": ""
+      },
+      "T8": {
+        "text": "쿠폰",
+        "aria": ""
+      },
+      "T9": {
+        "text": "포인트",
+        "aria": ""
+      },
+      "T10": {
+        "text": "소비 상세",
+        "aria": ""
+      },
+      "T11": {
+        "text": "시작하기",
+        "aria": ""
+      },
+      "T12": {
+        "text": "자산 연결 이벤트",
+        "aria": ""
+      },
+      "T13": {
+        "text": "홈화면 설정",
+        "aria": ""
+      },
+      "T14": {
+        "text": "금액 보기 · 숨기기",
+        "aria": ""
+      },
+      "T15": {
+        "text": "금융",
+        "aria": ""
+      },
+      "T16": {
+        "text": "상품",
+        "aria": ""
+      },
+      "T17": {
+        "text": "혜택",
+        "aria": ""
+      },
+      "T18": {
+        "text": "주식",
+        "aria": ""
+      },
+      "T19": {
+        "text": "다건이체",
+        "aria": ""
+      },
+      "T20": {
+        "text": "받는 사람 관리",
+        "aria": ""
+      },
+      "T21": {
+        "text": "검색",
+        "aria": ""
+      },
+      "T22": {
+        "text": "자주쓰는 계좌 편집",
+        "aria": ""
+      },
+      "T23": {
+        "text": "내 계좌 보기",
+        "aria": ""
+      },
+      "T24": {
+        "text": "최근 계좌 보기",
+        "aria": ""
+      },
+      "R1": {
+        "text": "전체메뉴",
+        "aria": ""
+      },
+      "R3": {
+        "text": "쉬운홈",
+        "aria": ""
+      },
+      "R4": {
+        "text": "홈",
+        "aria": ""
+      }
+    },
+    "entrance_distance": [
+      {
+        "id": "T1",
+        "label": "메시지",
+        "action": "oos-message",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T2",
+        "label": "지갑",
+        "action": "oos-wallet",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T3",
+        "label": "알림",
+        "action": "oos-alarm",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T4",
+        "label": "IRP 안내",
+        "action": "oos-irp",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T5",
+        "label": "앱카드 가입",
+        "action": "oos-appcard",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 158
+        }
+      },
+      {
+        "id": "T6",
+        "label": "바로받기",
+        "action": "oos-get-coupon",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 348
+        }
+      },
+      {
+        "id": "T7",
+        "label": "이벤트",
+        "action": "oos-event",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 396
+        }
+      },
+      {
+        "id": "T8",
+        "label": "쿠폰",
+        "action": "oos-coupon",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 396
+        }
+      },
+      {
+        "id": "T9",
+        "label": "포인트",
+        "action": "oos-point",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 454
+        }
+      },
+      {
+        "id": "T10",
+        "label": "소비 상세",
+        "action": "oos-spend-detail",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 638
+        }
+      },
+      {
+        "id": "T11",
+        "label": "마이신한포인트",
+        "action": "oos-my-point",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 87
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 842
+        }
+      },
+      {
+        "id": "T12",
+        "label": "자산 연결 이벤트",
+        "action": "oos-connect-event",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 471
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 1326
+        }
+      },
+      {
+        "id": "T13",
+        "label": "홈화면 설정",
+        "action": "oos-home-setting",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 782
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T14",
+        "label": "금액 숨기기",
+        "action": "oos-hide-amount",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 782
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T15",
+        "label": "금융",
+        "action": "oos-tab-finance",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T16",
+        "label": "상품",
+        "action": "oos-tab-goods",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T17",
+        "label": "혜택",
+        "action": "oos-tab-benefit",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T18",
+        "label": "주식",
+        "action": "oos-tab-stock",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T19",
+        "label": "다건이체",
+        "action": "oos-multi-transfer",
+        "original": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 227
+        }
+      },
+      {
+        "id": "T20",
+        "label": "받는 사람 관리",
+        "action": "oos-payee-manage",
+        "original": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 169
+        }
+      },
+      {
+        "id": "T21",
+        "label": "검색",
+        "action": "oos-search",
+        "original": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 169
+        }
+      },
+      {
+        "id": "T22",
+        "label": "자주쓰는 계좌",
+        "action": "oos-frequent",
+        "original": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T23",
+        "label": "내 계좌",
+        "action": "oos-my-accounts",
+        "original": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "T24",
+        "label": "최근",
+        "action": "oos-recent",
+        "original": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "recipient",
+          "reveal": 0,
+          "scroll_px": 16
+        }
+      },
+      {
+        "id": "T25",
+        "label": "출금계좌 변경",
+        "action": "oos-from-account",
+        "original": {
+          "visit": "amount",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": null
+      },
+      {
+        "id": "T26",
+        "label": "추가이체",
+        "action": "oos-more-transfer",
+        "original": {
+          "visit": "done",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": null
+      },
+      {
+        "id": "T27",
+        "label": "상세보기",
+        "action": "oos-detail",
+        "original": {
+          "visit": "done",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": null
+      },
+      {
+        "id": "T28",
+        "label": "공유",
+        "action": "oos-share",
+        "original": {
+          "visit": "done",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": null
+      },
+      {
+        "id": "R1",
+        "label": "전체메뉴",
+        "action": "oos-menu",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "R3",
+        "label": "쉬운홈",
+        "action": "oos-easy-home",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 782
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      },
+      {
+        "id": "R4",
+        "label": "홈",
+        "action": "oos-tab-home",
+        "original": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        },
+        "build": {
+          "visit": "home",
+          "reveal": 0,
+          "scroll_px": 0
+        }
+      }
+    ],
+    "images_original": 60,
+    "images_kept": 60,
+    "images_missing": [],
+    "images_new": [
+      "선택한 은행 로고",
+      "한 자리 삭제 아이콘",
+      "신한투자증권 로고",
+      "교보증권 로고",
+      "다올투자증권 로고",
+      "대신증권 로고",
+      "메리츠증권 로고",
+      "미래에셋증권 로고",
+      "부국증권 로고",
+      "삼성증권 로고",
+      "상상인증권 로고",
+      "신영증권 로고",
+      "에스케이증권 로고",
+      "유안타증권 로고",
+      "유진투자증권 로고",
+      "LS증권 로고",
+      "카카오페이증권 로고",
+      "케이프투자증권 로고",
+      "키움증권 로고",
+      "토스증권 로고",
+      "우리투자증권 로고",
+      "하나증권 로고",
+      "아이엠증권 로고",
+      "한국투자증권 로고",
+      "한화투자증권 로고",
+      "현대차증권 로고",
+      "BNK투자증권 로고",
+      "DB증권 로고",
+      "IBK투자증권 로고",
+      "KB증권 로고",
+      "NH투자증권 로고"
+    ],
+    "images_not_in_original": [
+      "신한투자증권 로고",
+      "교보증권 로고",
+      "다올투자증권 로고",
+      "대신증권 로고",
+      "메리츠증권 로고",
+      "미래에셋증권 로고",
+      "부국증권 로고",
+      "삼성증권 로고",
+      "상상인증권 로고",
+      "신영증권 로고",
+      "에스케이증권 로고",
+      "유안타증권 로고",
+      "유진투자증권 로고",
+      "LS증권 로고",
+      "카카오페이증권 로고",
+      "케이프투자증권 로고",
+      "키움증권 로고",
+      "토스증권 로고",
+      "우리투자증권 로고",
+      "하나증권 로고",
+      "아이엠증권 로고",
+      "한국투자증권 로고",
+      "한화투자증권 로고",
+      "현대차증권 로고",
+      "BNK투자증권 로고",
+      "DB증권 로고",
+      "IBK투자증권 로고",
+      "KB증권 로고",
+      "NH투자증권 로고",
+      "받는 은행 로고"
+    ],
+    "images_box": {
+      "메시지 아이콘": {
+        "box": [
+          41,
+          107,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "지갑 아이콘": {
+        "box": [
+          132,
+          107,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "알림 아이콘": {
+        "box": [
+          223,
+          107,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "전체메뉴 아이콘": {
+        "box": [
+          314,
+          107,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "신한은행 로고": {
+        "box": [
+          33,
+          271,
+          44,
+          44
+        ],
+        "screen": "home"
+      },
+      "체크카드 아이콘": {
+        "box": [
+          33,
+          810,
+          44,
+          44
+        ],
+        "screen": "home"
+      },
+      "땡겨요 쿠폰 아이콘": {
+        "box": [
+          33,
+          1013,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "오늘 쓴 돈 아이콘": {
+        "box": [
+          33,
+          1306,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "SOL패밀리 아이콘": {
+        "box": [
+          33,
+          1708,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "급여클럽+ 아이콘": {
+        "box": [
+          33,
+          1772,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "내 카드 승인내역 아이콘": {
+        "box": [
+          33,
+          1836,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "신한카드 아이콘": {
+        "box": [
+          33,
+          2192,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "신한투자증권 아이콘": {
+        "box": [
+          33,
+          2256,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "신한라이프 아이콘": {
+        "box": [
+          33,
+          2332,
+          36,
+          36
+        ],
+        "screen": "home"
+      },
+      "홈 아이콘": {
+        "box": [
+          27,
+          777,
+          28,
+          28
+        ],
+        "screen": "home"
+      },
+      "금융 아이콘": {
+        "box": [
+          104,
+          777,
+          28,
+          28
+        ],
+        "screen": "home"
+      },
+      "상품 아이콘": {
+        "box": [
+          181,
+          777,
+          28,
+          28
+        ],
+        "screen": "home"
+      },
+      "혜택 아이콘": {
+        "box": [
+          258,
+          777,
+          28,
+          28
+        ],
+        "screen": "home"
+      },
+      "주식 아이콘": {
+        "box": [
+          335,
+          777,
+          28,
+          28
+        ],
+        "screen": "home"
+      },
+      "카메라 아이콘": {
+        "box": [
+          29,
+          259,
+          36,
+          36
+        ],
+        "screen": "recipient"
+      },
+      "검색 아이콘": {
+        "box": [
+          29,
+          942,
+          36,
+          36
+        ],
+        "screen": "recipient"
+      },
+      "받는 사람 관리 아이콘": {
+        "box": [
+          213,
+          942,
+          36,
+          36
+        ],
+        "screen": "recipient"
+      },
+      "선택한 은행 로고": {
+        "box": [
+          29,
+          418,
+          36,
+          36
+        ],
+        "screen": "account"
+      },
+      "한 자리 삭제 아이콘": {
+        "box": [
+          150,
+          713,
+          22,
+          22
+        ],
+        "screen": "account"
+      },
+      "신한 로고": {
+        "box": [
+          85,
+          369,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "제주 로고": {
+        "box": [
+          269,
+          369,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "국민 로고": {
+        "box": [
+          85,
+          485,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "기업 로고": {
+        "box": [
+          269,
+          485,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "농협 로고": {
+        "box": [
+          85,
+          601,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "산업 로고": {
+        "box": [
+          269,
+          601,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "수협 로고": {
+        "box": [
+          85,
+          717,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "신협 로고": {
+        "box": [
+          269,
+          717,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "우리 로고": {
+        "box": [
+          85,
+          833,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "하나 로고": {
+        "box": [
+          269,
+          833,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "한국씨티 로고": {
+        "box": [
+          85,
+          949,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "카카오뱅크 로고": {
+        "box": [
+          269,
+          949,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "케이뱅크 로고": {
+        "box": [
+          85,
+          1065,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "토스뱅크 로고": {
+        "box": [
+          269,
+          1065,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "경남 로고": {
+        "box": [
+          85,
+          1181,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "광주 로고": {
+        "box": [
+          269,
+          1181,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "아이엠뱅크(대구) 로고": {
+        "box": [
+          85,
+          1297,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "부산 로고": {
+        "box": [
+          269,
+          1297,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "전북 로고": {
+        "box": [
+          85,
+          1413,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "회원수협 로고": {
+        "box": [
+          269,
+          1413,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "새마을 로고": {
+        "box": [
+          85,
+          1529,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "우체국 로고": {
+        "box": [
+          269,
+          1529,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "저축은행 로고": {
+        "box": [
+          85,
+          1645,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "지역농.축협 로고": {
+        "box": [
+          269,
+          1645,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "도이치 로고": {
+        "box": [
+          85,
+          1761,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "중국 로고": {
+        "box": [
+          269,
+          1761,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "중국건설 로고": {
+        "box": [
+          85,
+          1877,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "중국공상 로고": {
+        "box": [
+          269,
+          1877,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "BNP파리바 로고": {
+        "box": [
+          85,
+          1993,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "BOA 로고": {
+        "box": [
+          269,
+          1993,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "HSBC 로고": {
+        "box": [
+          85,
+          2109,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "JP모간 로고": {
+        "box": [
+          269,
+          2109,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "SC 로고": {
+        "box": [
+          85,
+          2225,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "산림조합 로고": {
+        "box": [
+          269,
+          2225,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "국세 로고": {
+        "box": [
+          85,
+          2341,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "지방세 로고": {
+        "box": [
+          269,
+          2341,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "국고금 로고": {
+        "box": [
+          85,
+          2457,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "관세 로고": {
+        "box": [
+          269,
+          2457,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "신한투자증권 로고": {
+        "box": [
+          85,
+          369,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "교보증권 로고": {
+        "box": [
+          269,
+          369,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "다올투자증권 로고": {
+        "box": [
+          85,
+          485,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "대신증권 로고": {
+        "box": [
+          269,
+          485,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "메리츠증권 로고": {
+        "box": [
+          85,
+          601,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "미래에셋증권 로고": {
+        "box": [
+          269,
+          601,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "부국증권 로고": {
+        "box": [
+          85,
+          717,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "삼성증권 로고": {
+        "box": [
+          269,
+          717,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "상상인증권 로고": {
+        "box": [
+          85,
+          833,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "신영증권 로고": {
+        "box": [
+          269,
+          833,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "에스케이증권 로고": {
+        "box": [
+          85,
+          949,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "유안타증권 로고": {
+        "box": [
+          269,
+          949,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "유진투자증권 로고": {
+        "box": [
+          85,
+          1065,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "LS증권 로고": {
+        "box": [
+          269,
+          1065,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "카카오페이증권 로고": {
+        "box": [
+          85,
+          1181,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "케이프투자증권 로고": {
+        "box": [
+          269,
+          1181,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "키움증권 로고": {
+        "box": [
+          85,
+          1297,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "토스증권 로고": {
+        "box": [
+          269,
+          1297,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "우리투자증권 로고": {
+        "box": [
+          85,
+          1413,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "하나증권 로고": {
+        "box": [
+          269,
+          1413,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "아이엠증권 로고": {
+        "box": [
+          85,
+          1529,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "한국투자증권 로고": {
+        "box": [
+          269,
+          1529,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "한화투자증권 로고": {
+        "box": [
+          85,
+          1645,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "현대차증권 로고": {
+        "box": [
+          269,
+          1645,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "BNK투자증권 로고": {
+        "box": [
+          85,
+          1761,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "DB증권 로고": {
+        "box": [
+          269,
+          1761,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "IBK투자증권 로고": {
+        "box": [
+          85,
+          1877,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "KB증권 로고": {
+        "box": [
+          269,
+          1877,
+          36,
+          36
+        ],
+        "screen": "bank"
+      },
+      "NH투자증권 로고": {
+        "box": [
+          85,
+          1993,
+          36,
+          36
+        ],
+        "screen": "bank"
+      }
+    },
+    "fatal_duplicates_removed": 0,
+    "fatal_total": 12,
+    "fatal_derived": 6,
+    "fatal_root": 6,
+    "stopped_at": "amount",
+    "js_error_details": [
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:604:48"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at show (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:359:3)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:498:26)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at show (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:359:3)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:500:29)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:513:5)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at show (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:359:3)\n    at openBank (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:443:55)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:517:28)"
+      },
+      {
+        "name": "TypeError",
+        "message": "Cannot set properties of null (setting 'disabled')",
+        "stack": "TypeError: Cannot set properties of null (setting 'disabled')\n    at renderAccount (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:367:26)\n    at show (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:359:3)\n    at HTMLDivElement.<anonymous> (http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html:522:51)"
+      }
+    ],
+    "flow_notes": [],
+    "checks_stood_down": [
+      "A/preservation (new design, nothing to preserve)",
+      "A/per-screen attribute loss",
+      "D/저명암 개수 전후 비교 (합계·화면별) - 새 설계라 짝이 되는 원본 화면이 없다. 화면 이름이 같다고 같은 화면이 아니므로, 견주면 두 설계가 다른 것을 결함으로 읽는다.",
+      "D/gained-text (저대비 요소에 글이 늘었는지) - 새 설계라 짝이 되는 원본 화면이 없다. 화면 이름이 같다고 같은 화면이 아니므로, 견주면 두 설계가 다른 것을 결함으로 읽는다.",
+      "E/newly-wrapped text and height growth (no shared screens)",
+      "D/스테이지 밖 (와이어프레임) - 시각 디테일이 아직 없는 단계입니다. 대비·레이아웃·상태 색은 스타일 이식 후에 봅니다.",
+      "E/스테이지 밖 (와이어프레임) - 시각 디테일이 아직 없는 단계입니다. 대비·레이아웃·상태 색은 스타일 이식 후에 봅니다.",
+      "G/스테이지 밖 (와이어프레임) - 시각 디테일이 아직 없는 단계입니다. 대비·레이아웃·상태 색은 스타일 이식 후에 봅니다.",
+      "H/스테이지 밖 (와이어프레임) - 시각 디테일이 아직 없는 단계입니다. 대비·레이아웃·상태 색은 스타일 이식 후에 봅니다."
+    ],
+    "stage": "wireframe",
+    "stage_checks": [
+      "A",
+      "B",
+      "C",
+      "F",
+      "I",
+      "J",
+      "K",
+      "L"
+    ],
+    "flow_fixed": {
+      "same": false,
+      "original": [
+        "home",
+        "recipient",
+        "account",
+        "bank",
+        "amount",
+        "confirm",
+        "password",
+        "done"
+      ],
+      "built": [
+        "home",
+        "recipient",
+        "bank",
+        "account",
+        "amount",
+        "confirm",
+        "password",
+        "done"
+      ],
+      "mapped": [
+        "home",
+        "recipient",
+        "bank",
+        "account",
+        "amount",
+        "confirm",
+        "password",
+        "done"
+      ],
+      "original_moves": 7,
+      "built_moves": 7,
+      "original_steps": 9,
+      "built_steps": 8,
+      "problems": [
+        "화면 차례가 다르다"
+      ],
+      "mode": "layout",
+      "judged": true
+    }
+  },
+  "inputs": {
+    "original": "http://localhost:61304/inputs/original_transfer.html",
+    "repaired": "http://localhost:61304/outputs/restructure_auto/20261013-152332/attempt_1.html",
+    "flow": "C:\\Users\\xihye\\senior-ui-figma-pipeline\\outputs\\restructure_auto\\20261013-152332\\attempt_1.flow.json",
+    "stage": "wireframe",
+    "flow_author": "model"
+  }
+}
