@@ -23,18 +23,25 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 PY = sys.executable
 
-# 한 번에 하나씩 바꾼 설정 (d2 = D2 그대로)
+# 한 번에 하나씩 바꾼 설정. D2 의 설정(BASE)에서 하나씩만 바꾼다 - detect.py 의 기본값은 D2.5 에서
+# 고른 묶음으로 바뀌었으므로(final) 바탕을 인자로 다 적는다.
+BASE = "--conf 0.05 --nms 0.1 --no-clahe --no-classic --tiles 0 --overlap omniparser --imgsz 640"
 CONFIGS = {
-    "d2": "",
-    "imgsz1024": "--imgsz 1024",
-    "imgsz1280": "--imgsz 1280",
-    "tiles2": "--tiles 2",
-    "clahe": "--clahe",
-    "nms03": "--nms 0.3",
-    "nms05": "--nms 0.5",
-    "classic": "--classic",
-    "conf01": "--conf 0.1",
-    "overlap_iou": "--overlap iou",
+    "d2": BASE,
+    "imgsz1024": BASE + " --imgsz 1024",
+    "imgsz1280": BASE + " --imgsz 1280",
+    "tiles2": BASE + " --tiles 2",
+    "clahe": BASE + " --clahe",
+    "nms03": BASE + " --nms 0.3",
+    "nms05": BASE + " --nms 0.5",
+    "classic": BASE + " --classic",
+    "conf01": BASE + " --conf 0.1",
+    "overlap_iou": BASE + " --overlap iou",
+    # 좋은 것끼리 묶은 것 (combo2 는 크게 오른 둘만 - 나머지 둘이 보태는지 보려고)
+    "combo": BASE + " --conf 0.1 --overlap iou --clahe --nms 0.3",
+    "combo2": BASE + " --conf 0.1 --overlap iou",
+    # detect.py 의 기본값 (= combo 로 바꾼 뒤)
+    "final": "",
 }
 GUARD = {"text": 221, "logos": 63, "choices": 102}
 
@@ -69,6 +76,19 @@ def guard(d):
     return bad
 
 
+def shown(args):
+    """표에 적는 인자 - D2 바탕(BASE)에서 바꾼 것만."""
+    if args is None:
+        return "?"
+    if not args:
+        return "detect.py 기본값"
+    if args == BASE:
+        return "D2 그대로 (`%s`)" % BASE
+    if args.startswith(BASE):
+        return "D2 + `%s`" % args[len(BASE):].strip()
+    return "`%s`" % args
+
+
 def write_summary(root, order):
     sys.path.insert(0, HERE)
     import compare as C
@@ -87,8 +107,8 @@ def write_summary(root, order):
           "지키는 선: 글 %d/226 · 로고 %d/67 · 선택지 %d/102 - 떨어지면 버린다.\n"
           % (GUARD["text"], GUARD["logos"], GUARD["choices"]),
           C.row_table(dirs, names), "",
-          C.table(["설정", "detect 인자", "지키는 선"],
-                  [[n, "`%s`" % args_of.get(n, "") if args_of.get(n) else "(기본)",
+          C.table(["설정", "detect 인자 (D2 에서 바꾼 것)", "지키는 선"],
+                  [[n, shown(args_of.get(n)),
                     "지킴" if not guard(d) else "버림 (%s)" % ", ".join(guard(d))]
                    for n, d in zip(names, dirs)]),
           "\n박스 재현율 = 글 있는 정답 항목 가운데 그 글을 감싸는 검출 박스가 있는 것. 남는 박스 = 정답 "
@@ -112,7 +132,7 @@ def main(argv=None):
     os.makedirs(a.root, exist_ok=True)
     if not os.path.exists(os.path.join(a.root, "truth.json")):
         run([os.path.join(HERE, "truth.py"), "--out", os.path.join(a.root, "truth.json")])
-    for n in a.names or list(CONFIGS):
+    for n in a.names or [k for k in CONFIGS if k != "final"]:
         one(a.root, n, configs[n])
         print(n, "지킴" if not guard(os.path.join(a.root, n)) else "버림", flush=True)
     order = a.order or list(dict.fromkeys(list(CONFIGS) + [k for k in configs if k not in CONFIGS]
