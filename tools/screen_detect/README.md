@@ -10,12 +10,15 @@
 |---|---|
 | `detect.py` | PNG 마다 요소 목록 JSON + 확인 그림 (검출 · 설명 · OCR) |
 | `truth.py` | 원본 재현 HTML 을 원본 흐름대로 걸어 상태마다 보이는 것을 모은다 (정답지) |
+| `flags.py` | (D2.5) 요소에 표시를 단다 - 고정 띠(`system_band`) · 덮개 뒤(`behind_overlay`). 지우지 않는다 |
 | `stitch.py` | (D2) 스크롤 조각을 한 장 좌표계로 잇는다 |
-| `compare.py` | 캡처 ↔ 상태 짝 **제안**, 글 재현율 · 버튼 · 입구 · 선택지 · 그림 자리 · 남는 박스 |
+| `compare.py` | 캡처 ↔ 상태 짝 **제안**, 글 재현율 · 버튼 · 입구 · 선택지 · 그림 자리 · 박스 재현율 · 남는 박스 |
+| `sweep.py` | (D2.5) 검출 설정마다 detect → flags → stitch → compare 를 돌려 한 표로 |
 
-결과: D1 `results/detect/20261012/`, D2 `results/detect/20261012-d2/` — `<캡처>.json`,
-`overlay/<캡처>.png`, `_run.json`(장치 · 판 · 시간 · 설정), `truth.json`, `summary.md`,
-`compare.json`, (D2) `stitched/<화면>.json` · `overlay/stitched/<화면>.png`. D1 결과는 고치지 않는다.
+결과: D1 `results/detect/20261012/`, D2 `results/detect/20261012-d2/`, D2.5
+`results/detect/20261013-d25/<설정>/` (**D3 의 입력은 `final/`**) — `<캡처>.json`, `overlay/<캡처>.png`,
+`_run.json`(장치 · 판 · 시간 · 설정), `truth.json`, `summary.md`, `compare.json`, (D2~) `stitched/<화면>.json`
+· `overlay/stitched/<화면>.png`, (D2.5) `_flags.json` · `_sweep.json`. 앞 시험의 결과는 고치지 않는다.
 
 ## 설치 (전부 레포 밖)
 
@@ -57,25 +60,32 @@ torch 를 막은 자식 프로세스(`--stage ocr`)에서 돌린다. paddle 은 
 
 ```powershell
 $py = "C:\Users\xihye\venvs\detect\Scripts\python.exe"
-$out = "results/detect/20261012-d2"
+$out = "results/detect/20261013-d25/final"
 & $py tools/screen_detect/detect.py --out $out            # 19장 → *.json, overlay/, _run.json
+& $py tools/screen_detect/flags.py --dir $out             # → 요소의 flags, _flags.json
 & $py tools/screen_detect/stitch.py --dir $out            # → stitched/, overlay/stitched/
 & $py tools/screen_detect/truth.py --out $out/truth.json
-& $py tools/screen_detect/compare.py --dir $out --baseline results/detect/20261012   # → summary.md, compare.json
+& $py tools/screen_detect/compare.py --dir $out           # → summary.md, compare.json
+# 설정 시험 전체 (D2.5): 설정마다 위 순서 → results/detect/20261013-d25/<설정>/, 맨 위 summary.md
+& $py tools/screen_detect/sweep.py                        # 한 번에 하나씩 바꾼 설정 + 묶음
+& $py tools/screen_detect/sweep.py final                  # detect.py 기본값으로
 ```
 
-D1 은 `--out` · `--dir` 를 `results/detect/20261012` 로, stitch 없이 돌렸다 (그때의 detect.py 에는
-D2 규칙이 없다 - 커밋 `4c1e576`).
+D1 은 `results/detect/20261012` 로 flags · stitch 없이(커밋 `4c1e576` 의 detect.py), D2 는
+`results/detect/20261012-d2` 로 flags 없이(D2 의 detect.py 기본값 = 지금의 `--conf 0.05 --nms 0.1
+--no-clahe --overlap omniparser`) 돌렸다.
 
-`detect.py 01a 05a` 처럼 캡처 이름을 주면 그것만, `--out` 으로 다른 폴더에, `--imgsz` 로 검출 입력
-크기를 바꾼다 (기본 640 = OmniParser 기본값. 1280 · 원본 크기도 해 봤는데 박스 수가 거의 같았다).
+`detect.py 01a 05a` 처럼 캡처 이름을 주면 그것만, `--out` 으로 다른 폴더에. 검출 설정 인자는
+`--imgsz` · `--conf` · `--nms` · `--tiles` · `--clahe/--no-clahe` · `--classic/--no-classic` ·
+`--overlap {omniparser,iou}` (D2.5 절). `--ocr-cache` 를 주면 OCR 결과를 그 파일에서 읽는다 (없으면 써 둔다).
 
-### 설정 (OmniParser 기본값을 따른다)
+### 설정 (D1 · D2 는 OmniParser 기본값, D2.5 부터 기본값이 바뀌었다)
 
-| | 값 | 어디서 |
-|---|---|---|
-| 검출 점수 · NMS IoU · 입력 | 0.05 · 0.1 · 640 | `gradio_demo.py` · `util/utils.py` |
-| 겹친 박스 정리 | IoU 0.7 넘게 겹치면 큰 것을 버림, OCR 글 박스 안에 든 박스는 버림 | `remove_overlap_new` |
+| | D1 · D2 값 | D2.5 기본값 | 어디서 |
+|---|---|---|---|
+| 검출 점수 · NMS IoU · 입력 | 0.05 · 0.1 · 640 | **0.1 · 0.3** · 640 | `gradio_demo.py` · `util/utils.py` |
+| 대비 올린 사본으로 한 번 더 | 안 함 | **함** (CLAHE) | (D2.5) |
+| 겹친 박스 정리 | 한 박스가 다른 박스를 70% 넘게 덮으면(포함 포함) 큰 것을 버림, OCR 글 박스 안에 든 박스는 버림 | **IoU 0.7 을 넘을 때만** 큰 것을 버림 (칸 안에 아이콘이 있어도 칸을 남긴다), 글 안 박스는 같다 | `remove_overlap_new` |
 | 글을 박스에 붙임 | 글 박스 넓이의 80% 가 검출 박스 안 (`text_in`, 여럿이면 가장 작은 박스) | `is_inside` |
 | 설명 | 글 없는 박스만, 64x64 로 줄여 `<CAPTION>`, 20 토큰 | `get_parsed_content_icon` |
 | OCR | 점수 0.5 미만 버림 (우리 값) | — |
@@ -130,6 +140,49 @@ OCR 글은 박스에 붙었든 아니든 `kind: "text"` 요소로 모두 남는�
 자리 맞추기는 위 · 아래 고정을 따로 맞춘다 (이은 화면에서는 둘이 멀리 떨어진다). `--baseline` 으로
 D1 과 합계를 나란히 놓는다.
 
+## D2.5 에서 바꾼 것 (2026-10-13) — 표시 · 설정 시험
+
+**이 앱 캡처로 고른 설정이다.** 같은 19장을 보며 맞췄으므로 다른 앱에서는 다시 봐야 한다. 문턱은 몇 개
+후보 값만 시험했다. 지키는 선(D2 의 값) - 글 재현율 221/226 · 로고 이름 63/67 · 선택지 102/102 - 에서
+떨어진 설정은 버린다 (이번에는 모두 지켰다). 결과 표: `results/detect/20261013-d25/summary.md`.
+
+**재는 것 (compare.py)**
+- 박스 재현율: 정답의 과제 버튼 · 입구(글 있는 것) · 선택지 · 입력칸마다 그 글을 감싸는 검출 박스가
+  있는 비율 (박스 하나의 글 안에서 비슷함 0.8 이상). 입력칸은 보이는 글(라벨 · 값) 또는 빈 칸의 안내 글.
+- 남는 박스의 갈래: 요소의 표시로 고정 띠 · 덮개 뒤 · 그 밖. 둘 다 달렸으면 고정 띠로 센다.
+- `compare.json` 의 `row` 한 줄, `compare.py --table <폴더> …` 로 설정 대 지표 표.
+
+**표시 (flags.py) - 지우지 않고 `flags` 만 단다. 무엇을 버릴지는 D3 와 연구자가 정한다**
+
+| 표시 | 규칙 | 이번 결과 |
+|---|---|---|
+| `system_band` | 줄마다 바탕(그 줄의 중앙값)을 빼고 남은 잉크를 캡처끼리 견준다 - 빈 줄(잉크 표준편차 < 3)은 빈 줄끼리, 아니면 상관 ≥ 0.9 면 같다. 서로 같은 캡처가 75% 이상인 줄이 위(아래)에서부터 이어지는 마지막 줄까지가 띠 (4줄까지의 틈은 넘는다 - 글자 가장자리 줄이 어두운 캡처에서 빈 줄로 읽힌다. 빈 줄만이면 띠가 아니다). 캡처는 띠 줄의 90% 이상에서 다수와 같아야 그 띠를 가진다. 바탕을 빼므로 회색 바탕(홈)과 덮개로 어두워진 캡처도 같은 띠로 본다 | 위 87px (상태바), 아래 없음. 17장이 가진다 (스크롤해 상태바 없이 찍힌 01b · 01c 는 안 가진다) |
+| `behind_overlay` | 16px 칸마다 중앙값 색이 무채색(채널 차 ≤ 10)이고 밝기 90~150 인 칸이 화면의 10% 이상이면 덮개가 뜬 캡처 (반투명 검은 막이 흰 바탕을 117 회색으로 만든다 - 파란 숫자판처럼 짙은 유채색은 걸리지 않는다). 밝기 200 이상 칸의 가장 큰 덩어리를 판(시트 · 팝업)으로 보고 판 밖에 중심이 있는 요소에 단다 | 7장 - 은행 · 증권사 시트 05a~06c (판 [0, 256, 816, 1568]), 오류 팝업 11 (판 [64, 672, 704, 480]) |
+
+**검출 설정 시험 (detect.py 인자, sweep.py)** - D2 바탕에서 하나씩 바꾼 뒤 좋아진 것을 묶었다.
+
+| 설정 | 무엇 | 결과 (표 참고) |
+|---|---|---|
+| `--imgsz 1024` · `1280` | 검출 입력 크기 | 박스 재현율이 거의 그대로, 그 밖 남는 박스 +6 · +10 |
+| `--tiles 2` | 위아래 두 조각(20% 겹침)으로 한 번 더 검출해 합침. 조각을 자른 가장자리에 닿는 박스는 버린다 | 입구 박스 9 → 7 |
+| `--clahe` | LAB 밝기에 CLAHE(clip 2.0, 8x8) 한 사본으로 한 번 더 검출해 합침 | 버튼 +1 · 입구 +1, 남는 박스 그대로 |
+| `--nms 0.3` · `0.5` | 검출 NMS IoU | 입구 +1 · 선택지 +1 (0.3) |
+| `--classic` | 고전 영상 처리 - UIED 의 요소 검출(기울기 이진화 → 선 지우기 → 연결 요소 → 거르기 · 합치기 · 블록 알아보기)을 레포 밖에서 import, run_single.py 의 mobile 권장 값(min-grad 4, min-ele-area 50) · 높이 800 으로 줄여서, 16px 미만 · 화면 60% 이상 버림, 점수 0.04 로 검출기 뒤에 | 입구 9 → 6 - 작은 고전 박스가 포함 규칙으로 바깥 칸을 지운다 |
+| `--conf 0.1` | 검출 점수 문턱 | 버튼 +1 · 입구 +3 · 선택지 +8 · 입력칸 +2, 그 밖 남는 박스 11 → 8 - 점수 낮은 작은 박스가 포함 규칙으로 바깥 칸을 지우던 것이 줄었다 |
+| `--overlap iou` (요청 밖, 더한 것) | 겹친 박스 정리를 IoU 로만 | 입구 +7 · 선택지 73 → 102, 그 밖 남는 박스 +5 |
+
+여러 번 찾은 박스(조각 · 사본 · 고전)는 IoU 0.5 이상이면 하나로 합친다 (전체 · 원본 검출 쪽을 남긴다).
+박스마다 출처가 `source` 에 남는다 (`detector` · `detector:tile` · `detector:clahe` · `classic` · `ocr_icon`).
+
+**고른 기본값 = combo** (`--conf 0.1 --nms 0.3 --clahe --overlap iou`): 박스 재현율이 가장 높고(버튼 5/7 ·
+입구 17/24 · 선택지 102/102 · 입력칸 2/3) 지키는 선을 지킨다. 표시 없는 남는 박스는 12 로 D2(11)와
+비슷하다 (conf 0.1 하나만이 8 로 가장 적지만 입구 12/24 · 선택지 81/102 에 그친다).
+
+**설정을 바꾸며 드러나 고친 것** - IoU 겹침 규칙에서는 칸 안에 칸이 남아 칸 안 그림 후보에 숫자판 ·
+표의 글자가 덩어리로 나왔다 → 은행 칸이 아닌 칸은 안에 든 글 · 안쪽 박스를 모두 지운 뒤 찾는다. 홈의
+줄 목록이 은행 칸으로 읽혀 "나에게 맞는 카드 찾기 로고" 가 붙었다 → 칸 글이 이름처럼(띄어쓰기 없는
+10자 이하) 생겼을 때만 이름을 붙인다.
+
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
 | 무엇 | 라이선스 | 근거 |
@@ -141,6 +194,7 @@ D1 과 합계를 나란히 놓는다.
 | PaddleOCR 3.7.0 · PaddleX 3.7.2 · PaddlePaddle 3.2.0 | Apache-2.0 | 패키지 METADATA · LICENSE |
 | `PP-OCRv5_server_det` · `korean_PP-OCRv5_mobile_rec` | Apache-2.0 | HF 모델 카드 (PaddlePaddle/…) |
 | `icon_detect` (v1, YOLOv8) | AGPL-3.0 — **쓰지 않았다, 받지도 않았다** | 가중치 README |
+| UIED (MulongXie/UIED @ `0a9862a`, `detect_compo/` 만 레포 밖 `C:\Users\xihye\tools\UIED` 에서 import - `--classic`) | Apache-2.0 | 저장소 `LICENSE` · GitHub API (2026-10-13). 기본값에서는 쓰지 않는다 |
 
 ## 정답지 (`truth.py`)
 
