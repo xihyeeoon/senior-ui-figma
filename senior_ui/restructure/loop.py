@@ -53,7 +53,8 @@ from .plan import (PlanProblems, apply_changes, critique_issues, evidence_kinds,
                    plan_report, screens_in, unaddressed)
 from .preserve import inject, names_read, optional_names, preserved_data
 from . import captures as CAP
-from .prompt import (BUILD_SHOTS_INTRO, CAPTURES_SHOTS_INTRO, build_plan_prompt, build_prompt,
+from .prompt import (BUILD_SHOTS_INTRO, CAPTURES_SHOTS_INTRO, DEFAULT_MODE, build_plan_prompt,
+                     build_prompt,
                      build_refine_prompt, choices_block, errors_block,
                      load_plan_template, load_refine_template, load_template,
                      model_input_html, one_line, REFINE_FIX_NOTE,
@@ -292,6 +293,8 @@ class Run:
         # 프롬프트의 오류 조건 · 형식 검사 · 설명서가 같은 목록을 쓴다.
         self.task = task or load_task(DEFAULT_TASK)
         self.errors = required_errors(self.task["id"])
+        # 재설계의 단계 (--mode). layout 이면 프롬프트에 흐름 고정 · 배치 허락 두 문장이 들어간다.
+        self.mode = getattr(args, "mode", None) or DEFAULT_MODE
         # 진단과 지금의 계획. 계획은 실행에 하나이고 재시도에서 고쳐진다.
         self.diagnosis = None
         self.plan = None
@@ -384,6 +387,10 @@ class Run:
                                    "rounds": [], "final_from": None,
                                    "final_label": None, "reverted": None,
                                    "format_failures": 0, "audit_failures": 0}}
+        # 단계는 기본(full)이 아닐 때만 적는다 - full 실행의 summary 는 --mode 가 생기기 전과
+        # 같은 모양이다 (mode 칸이 없으면 full).
+        if self.mode != DEFAULT_MODE:
+            self.summary["mode"] = self.mode
 
 
 # --------------------------------------------------------------------------- #
@@ -1790,6 +1797,8 @@ def run(args):
            " · reasoning_effort=%s (출처 %s)" % (effort, effort_source) if effort else "")
         + " | " + describe_settings((args.stage, args.stage_source), budget_choice(args))
         + " | original_sha256=%s (%s)" % (orig_sha or "읽지 못함", orig_path or "?")
+        + ("" if (getattr(args, "mode", None) or DEFAULT_MODE) == DEFAULT_MODE
+           else " | mode=%s (흐름 고정 · 배치 자유)" % args.mode)
         + (" | " + warning if warning else ""))
     if mock:
         log(MOCK_ENV_NOTE % ", ".join(config.MODEL_ENV_VARS))
@@ -1820,9 +1829,13 @@ def run(args):
         if args.mock and MOCK_TASK.get(args.mock) != task["id"]:
             raise RuntimeError("--mock %s 는 %s 과제의 mock 이다 (지금 과제: %s)"
                                % (args.mock, MOCK_TASK.get(args.mock), task["id"]))
-        template = load_template(task["id"])
-        plan_template = load_plan_template(task["id"])
-        refine_template = load_refine_template(task["id"])
+        # 단계(--mode)가 세 프롬프트의 갈래를 정한다. full 은 전과 바이트까지 같다 - 기본 단계는
+        # 인자를 넘기지 않고 전과 똑같이 부른다.
+        mode = getattr(args, "mode", None) or DEFAULT_MODE
+        by_mode = {} if mode == DEFAULT_MODE else {"mode": mode}
+        template = load_template(task["id"], **by_mode)
+        plan_template = load_plan_template(task["id"], **by_mode)
+        refine_template = load_refine_template(task["id"], **by_mode)
         original_html = io.open(args.original, encoding="utf-8").read()
         orig_rel = original_rel(args.original)
         allowed = load_allowed_removals(task["id"])

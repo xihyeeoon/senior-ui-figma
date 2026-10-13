@@ -47,11 +47,35 @@ def load_block(name, text=None):
 
 TASK_SLOT = re.compile(r"\{\{TASK_([A-Z_]+)\}\}")
 
+# 재설계의 단계 (--mode, 2026-10-13). full 은 전과 같다 - 프롬프트가 바이트까지 같다.
+# layout 은 "① 흐름 단축 → ② 레이아웃 재구성" 의 ② 만: 흐름은 원본 그대로, 배치는 자유.
+MODES = ("full", "layout")
+DEFAULT_MODE = "full"
 
-def _with_task(name, task=None):
+
+def mode_rules(mode):
+    """layout 의 두 문장 (흐름 고정 FLOW_FIXED · 배치 허락 LAYOUT_FREE), 한 줄씩. full 이면
+    빈 글자."""
+    if mode not in MODES:
+        raise ValueError("모르는 단계 %r (있는 것: %s)" % (mode, ", ".join(MODES)))
+    if mode == "full":
+        return ""
+    return load_block("FLOW_FIXED") + load_block("LAYOUT_FREE")
+
+
+def _with_mode(text, mode):
+    """`{{MODE_PLAN}}` (진단·계획 - full 은 "원본 구조를 지킬 필요 없다" 문장, layout 은 그
+    자리를 두 문장으로 바꾼다) 과 `{{MODE_RULES}}` (생성 · 다듬기 - layout 일 때만 두 문장을
+    더한다) 를 채운다. docs/restructure-prompt.md 의 "단계" 절."""
+    plan = load_block("PLAN_SCREENS_FREE") if mode == "full" else mode_rules(mode)
+    return text.replace("{{MODE_PLAN}}", plan).replace("{{MODE_RULES}}", mode_rules(mode))
+
+
+def _with_task(name, task=None, mode=DEFAULT_MODE):
     """블록의 `{{TASK}}` 는 과제 설명으로, `{{TASK_<칸>}}` 은 과제 파일 prompt 의
     그 칸(줄 목록)으로 채운다. 칸이 없는 슬롯이 남으면 멈춘다 - 빈 문자열로
-    두면 과제의 규칙 한 덩이가 말없이 프롬프트에서 사라진다."""
+    두면 과제의 규칙 한 덩이가 말없이 프롬프트에서 사라진다. 단계(`mode`)의 슬롯은
+    _with_mode 가 채운다."""
     t = load_task(task)
     # 기술 계약은 생성 · 다듬기가 같은 블록을 쓴다 (CONTRACT). 계약 안에도 과제
     # 칸({{TASK_RULES}})이 있으므로 칸을 채우기 전에 넣는다. 흐름 명세의 펼치기
@@ -59,6 +83,7 @@ def _with_task(name, task=None):
     text = (load_block(name)
             .replace("{{CONTRACT}}", load_block("CONTRACT").rstrip("\n"))
             .replace("{{REVEAL}}", load_block("REVEAL").rstrip("\n")))
+    text = _with_mode(text, mode)
     text = text.replace("{{TASK}}", t["description"])
     # 대상 문구 (과제 파일의 audience). 과제 설명의 자리는 load_task 가 이미 채웠다
     text = fill_audience(text, t["audience"])
@@ -74,15 +99,15 @@ def _with_task(name, task=None):
     return TASK_SLOT.sub(fill, text)
 
 
-def load_template(task=None):
+def load_template(task=None, mode=DEFAULT_MODE):
     """생성 프롬프트. 과제 설명은 과제 파일(tasks/<과제>.json)에서 채운 뒤다.
     과제를 주지 않으면 기본 과제(이체)다."""
-    return _with_task("PROMPT", task)
+    return _with_task("PROMPT", task, mode)
 
 
-def load_plan_template(task=None):
+def load_plan_template(task=None, mode=DEFAULT_MODE):
     """진단·계획 프롬프트. 과제 설명은 생성 프롬프트와 같은 과제 파일의 것이다."""
-    return _with_task("PLAN_PROMPT", task)
+    return _with_task("PLAN_PROMPT", task, mode)
 
 
 # 원본 HTML 의 주석은 모델에 보내지 않는다. 화면으로 알 수 없는 정보다 - 원본에는
@@ -144,9 +169,9 @@ def model_input_html(html):
     return HTML_COMMENT.sub("", HTML_COMMENT_LINE.sub("", html))
 
 
-def load_refine_template(task=None):
+def load_refine_template(task=None, mode=DEFAULT_MODE):
     """보고 다듬기 프롬프트 (REFINE_PROMPT). 기술 계약은 생성과 같은 블록이다."""
-    return _with_task("REFINE_PROMPT", task)
+    return _with_task("REFINE_PROMPT", task, mode)
 
 
 BUILD_SHOTS_INTRO = (

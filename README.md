@@ -153,6 +153,7 @@ uv pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m senior_ui.restructure --model gpt-6.1-sol --task bill      # 공과금
 .\.venv\Scripts\python.exe -m senior_ui.restructure --mock pass                          # API 없이
 .\.venv\Scripts\python.exe -m senior_ui.restructure --model gpt-6.1-sol --refine 2       # 보고 다듬기를 켠다
+.\.venv\Scripts\python.exe -m senior_ui.restructure --model gpt-6.1-sol --mode layout   # 배치 단계 - 흐름은 원본 그대로 (docs/README.md "단계")
 
 # 화면설계서 - 통과한 실행 하나에서
 .\.venv\Scripts\python.exe -m senior_ui.storyboard outputs\restructure_auto\<실행> --model gpt-6.1-sol

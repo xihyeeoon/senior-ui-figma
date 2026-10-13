@@ -51,6 +51,7 @@ Usage:
   python -m senior_ui.restructure --model gpt-6.1-sol   # real model, 형식 5 · 검사 6, wireframe
   python -m senior_ui.restructure --model gpt-6.1-sol --attempts 2
   python -m senior_ui.restructure --model gpt-6.1-sol --task bill   # 공과금 (기본 transfer)
+  python -m senior_ui.restructure --model gpt-6.1-sol --mode layout # 흐름은 원본 그대로, 배치만
   python -m senior_ui.restructure --mock pass     # no API: replays Run 1
   python -m senior_ui.restructure --mock fail     # no API: a broken flow, every attempt fails
   python -m senior_ui.restructure --list-models   # 이 키로 쓸 수 있는 gpt- 모델 (요금 없음)
@@ -114,6 +115,7 @@ from senior_ui.audit.stage import STAGES
 from senior_ui.tasks import DEFAULT_TASK, task_names
 
 from .loop import run
+from .prompt import DEFAULT_MODE, MODES
 from .model import ALL_MODES, APIS, REASONING_EFFORTS, REFINE_MODES, SEED, TEMPERATURE
 from .probe import list_models, probe
 
@@ -188,6 +190,10 @@ def build_parser():
                          "(inputs/captures/<과제>/captures.json - docs/input-contract.md "
                          "'캡처 입력'). 원본 걷기와 비교 기준은 그대로다. --see off 와 같이 "
                          "쓸 수 없다")
+    ap.add_argument("--mode", choices=MODES, default=DEFAULT_MODE,
+                    help="재설계의 단계 (① 흐름 단축 → ② 레이아웃 재구성). full (기본) 은 전과 "
+                         "같다 - 프롬프트가 바이트까지 같다. layout 은 ② 만: 세 프롬프트에 흐름 "
+                         "고정 · 배치 허락 두 문장을 넣는다 (docs/restructure-prompt.md '단계')")
     ap.add_argument("--refine", type=int, default=None, metavar="N",
                     help="보고 다듬기 횟수. 검사를 통과한 빌드의 스크린샷을 보여 주고 "
                          "다듬게 한다. 0 이면 끈다. 형식 · 검사 예산과 따로 센다. 주지 "
