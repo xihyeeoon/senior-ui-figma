@@ -556,7 +556,7 @@ def roles(names, per, dets, sem, states, pick):
             m = by.setdefault(k, dict(state=pick[n], kind=r["kind"], label=r["label"],
                                       action=r.get("action"), icon=r["icon"],
                                       text_only=False, pressable=False, kinds=set(),
-                                      groups=[], image_names=[], units=[], els=[],
+                                      groups=[], image_names=[], image_shapes=[], units=[], els=[],
                                       failed=False, rule_named=False))
             m["units"].append(n)
             m["rule_named"] = m["rule_named"] or bool(r.get("named"))
@@ -570,6 +570,8 @@ def roles(names, per, dets, sem, states, pick):
             pick_g = [g for g in got if g["kind"] in ("choice", "keypad_key")] or got
             m["groups"] += [g["group"] for g in pick_g if g.get("group")]
             m["image_names"] += [g["image_name"] for g in got if g.get("image_name")]
+            # 보이는 모양 (D3b - image_name 은 뜻 이름, image_shape 는 모양). 앞 판의 답에는 없다
+            m["image_shapes"] += [g.get("image_shape") for g in got if g.get("image_name")]
             if not r["icon"] and r.get("found") and not r.get("in_box"):
                 m["text_only"] = True
     rows = list(by.values())
@@ -610,7 +612,8 @@ def roles(names, per, dets, sem, states, pick):
                  for x in names_):
             cut.append(r)
         else:
-            diff.append({"state": r["state"], "label": r["label"], "image_name": names_[0]})
+            diff.append({"state": r["state"], "label": r["label"], "image_name": names_[0],
+                         "image_shape": r["image_shapes"][0] if r["image_shapes"] else None})
     out["image_name_same"], out["image_name_cut"], out["image_name_diff"] = len(same), len(cut), diff
     out["image_name_checked"] = sum(1 for r in slots if r["image_names"])
     # 규칙이 이름을 붙인 로고(고정값)와 모델이 이름을 지은 것을 따로
@@ -692,9 +695,9 @@ def roles_md(ro, summ, table_):
                      [[r["state"], r["kind"], r["label"], "예" if r["pressable"] else "",
                        ", ".join(r["kinds"]) or "-"] for r in ro["text_only"]] or [["-"] * 5]))
     md.append("\n### 그림 이름이 정답과 다른 것 (판정하지 않고 나란히)\n")
-    md.append(table_(["상태", "정답 aria-label", "답한 image_name"],
-                     [[d["state"], d["label"], d["image_name"]] for d in ro["image_name_diff"]]
-                     or [["-"] * 3]))
+    md.append(table_(["상태", "정답 aria-label", "답한 image_name", "답한 image_shape"],
+                     [[d["state"], d["label"], d["image_name"], d.get("image_shape") or "-"]
+                      for d in ro["image_name_diff"]] or [["-"] * 4]))
     md.append("\n### 정답에 없는데 누를 수 있다고 한 것 (표시 없는 것)\n")
     md.append(table_(["단위", "id", "답한 kind", "글", "설명"],
                      [[d["unit"], d["id"], d["kind"], d["text"] or "-", d["caption"] or "-"]

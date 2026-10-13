@@ -21,7 +21,8 @@ r"""의미 층 - 검출된 요소마다 누를 수 있나 · 무슨 종류인가
 
 프롬프트 문장은 SEMANTIC_PROMPT.md 에 있고 이 파일은 그것을 읽어 자리만 채운다.
 
-답은 요소 id 마다 하나, 빠짐없이 {id, pressable, kind, group, image_name, note}. 없는 id · 빠진 id ·
+답은 요소 id 마다 하나, 빠짐없이 {id, pressable, kind, group, image_name, image_shape, note}
+(image_shape 는 kind 가 image 일 때 보이는 모양 - image_name 은 이름표 글로 지은 뜻 이름). 없는 id · 빠진 id ·
 틀린 값이 있으면 한 번 다시 묻고(문제를 적어), 그래도 틀리면 그 단위를 실패로 적는다 - 짐작해 메우지
 않는다. 규칙으로 이름이 붙은 로고(name)는 고정값으로 넘기고, 모델이 다른 image_name 을 내면 고정값으로
 되돌리고 그 수를 적는다.
@@ -240,10 +241,17 @@ def check(obj, ids):
                 probs.append("%s: kind 가 image 인데 image_name 이 '<무엇> 아이콘/로고' 가 아니다" % i)
         elif name is not None:
             probs.append("%s: kind 가 image 가 아닌데 image_name 이 있다" % i)
+        shape = a.get("image_shape")
+        if a.get("kind") == "image":
+            if not isinstance(shape, str) or not shape.strip():
+                probs.append("%s: kind 가 image 인데 image_shape 가 없다" % i)
+        elif shape is not None:
+            probs.append("%s: kind 가 image 가 아닌데 image_shape 가 있다" % i)
         if a.get("group") is not None and not isinstance(a.get("group"), str):
             probs.append("%s: group 이 글이나 null 이 아니다" % i)
         got[i] = {"id": i, "pressable": a.get("pressable"), "kind": a.get("kind"),
-                  "group": a.get("group"), "image_name": name, "note": a.get("note")}
+                  "group": a.get("group"), "image_name": name, "image_shape": shape,
+                  "note": a.get("note")}
     missing = [i for i in ids if i not in got]
     if missing:
         probs.append("답이 없는 id %d개: %s" % (len(missing), ", ".join(missing[:20])
@@ -270,12 +278,14 @@ def mock_answer(r):
                     note="mock: 표시 %s" % ",".join(fl))
     if r.get("name"):
         return dict(pressable=False, kind="image", group=None, image_name=r["name"],
-                    note="mock: 규칙 이름")
+                    image_shape="로고", note="mock: 규칙 이름")
     if r["kind"] == "img_candidate" or (r["kind"] == "box" and not t):
-        what = r.get("ocr_guess") or "알 수 없는"
+        near = r.get("near") or {}
+        label = near.get("below") or near.get("parent") or (near.get("row") or [None])[0]
+        shape = (r.get("caption") or "알 수 없는 모양").split(".")[0][:20]
         return dict(pressable=r["kind"] == "box", kind="image", group=None,
-                    image_name="%s 아이콘" % what if what != "알 수 없는" else "알 수 없는 아이콘",
-                    note="mock: 글 없는 박스")
+                    image_name="%s 아이콘" % label if label else "알 수 없는 아이콘",
+                    image_shape=shape, note="mock: 이름표 %s" % (label or "없음"))
     if KEY.match(t):
         return dict(pressable=True, kind="keypad_key", group="keypad", image_name=None,
                     note="mock: 숫자")
@@ -287,7 +297,7 @@ def mock_answer(r):
 
 
 def mock_reply(rows, mode, attempt):
-    ans = [dict(id=r["id"], **mock_answer(r)) for r in rows]
+    ans = [dict(dict(image_shape=None), id=r["id"], **mock_answer(r)) for r in rows]
     if mode == "bad-once" and attempt == 1 or mode == "bad-twice":
         ans = ans[1:] + [dict(ans[0], id="없는-id")]     # 하나 빠지고 없는 id 하나
     text = json.dumps({"elements": ans}, ensure_ascii=False)
