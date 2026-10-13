@@ -139,7 +139,7 @@ figma.ui.onmessage = async (msg: Msg) => {
       + ` · 지운 옛 페이지 ${old.length} · 그림 없음 ${missingPictures.length}`
       + (missingPictures.length ? ` (${missingPictures.join(', ')})` : '')
       + ` · 그림 실패 ${failedSheets.length}` + (failedSheets.length ? ` (장 id ${failedSheets.join(', ')})` : '')
-      + [...p.checks, ...p.warnings].map(l => `\n${l}`).join('') });
+      + `\n${p.tags}` + [...p.checks, ...p.warnings].map(l => `\n${l}`).join('') });
   } catch (e) {
     // 이번에 만든 새 페이지만 지운다 - 옛 페이지는 그대로. 보고 있는 페이지는 지울 수 없어 먼저 옮긴다.
     const keep = figma.root.children.find(pg => !made.includes(pg));

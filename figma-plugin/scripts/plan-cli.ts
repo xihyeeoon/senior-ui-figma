@@ -41,7 +41,7 @@ console.log(`표시 (요소 기준, action 종류): ${marks.join(' · ')}`);
 const fresh = new Map<string, Set<string>>();
 for (const x of marked) if (x.m.includes(MARK.fresh)) fresh.set(x.it.action, (fresh.get(x.it.action) || new Set()).add(x.s.id));
 for (const [a, ids] of fresh) console.log(`  새 요소: ${a} · ${[...ids].join(', ')}`);
-for (const l of [...p.checks, ...p.warnings]) console.log(l);
+for (const l of [p.tags, ...p.checks, ...p.warnings]) console.log(l);
 const big = Object.values(dims).filter(([w, h]) => w > MAX_PX || h > MAX_PX).length;
 console.log(`그림 ${Object.keys(dims).length} · ${MAX_PX}px 초과 ${big} · 조각 합계 ${pics.reduce((n, g) => n + g.kids!.length, 0)}`);
 for (const [f, [w, h]] of Object.entries(dims)) console.log(`  ${f} ${w}×${h} → 조각 ${tiles(w, h).length}`);

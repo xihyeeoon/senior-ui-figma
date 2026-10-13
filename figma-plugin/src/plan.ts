@@ -19,7 +19,8 @@ export type Node = {
 };
 export type Page = { name: string; kids: Node[] };
 // checks · warnings: 대응표 확인 · 경고 줄 (끝 메시지와 실행 카드에 그대로 옮긴다)
-export type Plan = { run: string; pages: Page[]; checks: string[]; warnings: string[] };
+// tags: 꼬리표를 합치고 내린 수 한 줄 (끝 메시지에만)
+export type Plan = { run: string; pages: Page[]; checks: string[]; warnings: string[]; tags: string };
 export type Dims = Record<string, [number, number]>;   // 그림 파일 이름 → [가로, 세로] px
 // renames.json: run.id → { 생성 action → 값 | { sheet.screen → 값 } }, 값 = 원본 action | 'new' | 'made-pressable'
 // (연구자가 적는다, RENAMES.md)
@@ -168,16 +169,46 @@ function pillBoxes(t: Tags): Box[] {
 const tagBox = (t: Tags): Box => { const bs = pillBoxes(t), l = bs[bs.length - 1];
   return [bs[0][0], bs[0][1], l[0] + l[2] - bs[0][0], TAG_H]; };
 
-// 무리 이름표가 장 안 꼬리표와 겹치면 그 꼬리표 오른쪽 (+4) 으로 민다. 민 수를 돌려준다.
-function clearLabels(kids: Node[], groups: Node[]): number {
+type Tally = { merged: number; into: number; moved: number; pushed: number };
+export const tallyLine = (n: Tally) => `꼬리표 겹침: 같은 글 ${n.merged}개를 ${n.into}개로 합침`
+  + ` · 글이 다른 것과 겹쳐 아래로 내림 ${n.moved} · 무리 이름표를 옆으로 민 것 ${n.pushed}`;
+
+// 한 장 안에서 같은 글의 꼬리표끼리 겹치면 (이어서 겹쳐도) 하나로 합쳐 `{글} · {n}개` 를 가장 왼쪽 요소의
+// 자리에 한 번만 둔다 (빈 묶음은 지운다). 그 뒤 묶음끼리 겹치면 뒤 (그리는 순서) 의 것을 한 줄 (24) 씩 내린다.
+function untangle(kids: Node[], n: Tally) {
+  const all = tagsIn(kids);
+  const pills = all.flatMap(t => pillBoxes(t).map((b, i) => ({ t, p: t.node.kids![i], b })));
+  const root = pills.map((_, i) => i);
+  const find = (i: number): number => root[i] === i ? i : (root[i] = find(root[i]));
+  pills.forEach((a, i) => pills.forEach((b, j) => {
+    if (j > i && a.p.kids![0].chars === b.p.kids![0].chars && hit(a.b, b.b)) root[find(j)] = find(i);
+  }));
+  const comps = new Map<number, typeof pills>();
+  pills.forEach((x, i) => comps.set(find(i), [...(comps.get(find(i)) || []), x]));
+  for (const c of comps.values()) {
+    if (c.length < 2) continue;
+    const keep = c.reduce((a, x) => x.t.ox < a.t.ox ? x : a), t = keep.p.kids![0];
+    t.chars = `${t.chars} · ${c.length}개`; t.name = t.chars.slice(0, 40); keep.p.name = `표시 — ${t.chars}`;
+    for (const x of c) if (x !== keep) x.t.node.kids!.splice(x.t.node.kids!.indexOf(x.p), 1);
+    n.merged += c.length; n.into++;
+  }
+  for (const t of all) if (!t.node.kids!.length) t.home.splice(t.home.indexOf(t.node), 1);
+  const placed: Box[] = [];
+  for (const t of all.filter(t => t.node.kids!.length)) {
+    if (placed.some(p => hit(p, tagBox(t)))) n.moved++;
+    while (placed.some(p => hit(p, tagBox(t)))) t.node.y = t.node.y! + 24;
+    placed.push(tagBox(t));
+  }
+}
+
+// 무리 이름표가 장 안 꼬리표와 겹치면 그 꼬리표 오른쪽 (+4) 으로 민다.
+function clearLabels(kids: Node[], groups: Node[], n: Tally) {
   const boxes = tagsIn(kids).map(tagBox);
-  let pushed = 0;
   for (const g of groups) {
     const t = g.kids!.find(k => k.name === '글')!, w = textW(t.chars!, 14);
     for (let b; (b = boxes.find(b => hit(b, [g.x! + t.x!, g.y! + t.y!, w, lineH(14)])));)
-      t.x = b[0] + b[2] + 4 - g.x!, pushed++;
+      t.x = b[0] + b[2] + 4 - g.x!, n.pushed++;
   }
-  return pushed;
 }
 
 // 그림 자리 (schema 3 images): 회색 X 상자. (dx, dy) = 담는 프레임의 장 좌표 (요소 안이면 요소 왼쪽 위).
@@ -334,6 +365,7 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
 
   const notes = renameNotes(sheets, where, rn);
   const wf: Node[] = [runCard(sb, notes.checks)];
+  const tally: Tally = { merged: 0, into: 0, moved: 0, pushed: 0 };
   let x = 0;
   for (const col of cols) {
     let y = WF_TOP, colW = 0;
@@ -350,7 +382,8 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
         ent.counted.has(it.no), imgs.filter(g => g.in === it.no)));
       const kids = [picture(s, w, h, dims), ...imgs.filter(g => !nos.has(g.in)).map(g => slotNode(g)),
         ...items, ...(s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r)))];
-      clearLabels(kids, items.filter((_, i) => s.items[i].kind === 'group'));
+      untangle(kids, tally);
+      clearLabels(kids, items.filter((_, i) => s.items[i].kind === 'group'), tally);
       wf.push({ t: 'frame', name: title, x, y, w, h, fill: PAPER, clip: true, kids });
       wf.push({ t: 'frame', name: `주석 — ${title}`, x: x + w + ANN_GAP, y, w: ANN_W, layout: 'V',
         hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD], gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids: ann });
@@ -360,7 +393,7 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}): Plan {
     x += colW + COL_GAP;
   }
   const run = String(sb.run?.id ?? 'run');
-  return { run, ...notes, pages: [{ name: `와이어프레임 · ${run}`, kids: wf },
+  return { run, ...notes, tags: tallyLine(tally), pages: [{ name: `와이어프레임 · ${run}`, kids: wf },
                         { name: `바꾼 것 · ${run}`, kids: changesPage(sb, titleOf) }] };
 }
 
