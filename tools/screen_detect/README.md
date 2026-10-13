@@ -14,6 +14,7 @@
 | `stitch.py` | (D2) 스크롤 조각을 한 장 좌표계로 잇는다 |
 | `compare.py` | 캡처 ↔ 상태 짝 **제안**, 글 재현율 · 버튼 · 입구 · 선택지 · 그림 자리 · 박스 재현율 · 남는 박스 |
 | `sweep.py` | (D2.5) 검출 설정마다 detect → flags → stitch → compare 를 돌려 한 표로 |
+| `semantic.py` · `SEMANTIC_PROMPT.md` | (D3) 의미 층 - 요소마다 누를 수 있나 · 종류 · 무리 · 그림 이름을 LLM 이 붙인다 |
 
 결과: D1 `results/detect/20261012/`, D2 `results/detect/20261012-d2/`, D2.5
 `results/detect/20261013-d25/<설정>/` (**D3 의 입력은 `final/`**) — `<캡처>.json`, `overlay/<캡처>.png`,
@@ -184,6 +185,71 @@ D1 과 합계를 나란히 놓는다.
 표의 글자가 덩어리로 나왔다 → 은행 칸이 아닌 칸은 안에 든 글 · 안쪽 박스를 모두 지운 뒤 찾는다. 홈의
 줄 목록이 은행 칸으로 읽혀 "나에게 맞는 카드 찾기 로고" 가 붙었다 → 칸 글이 이름처럼(띄어쓰기 없는
 10자 이하) 생겼을 때만 이름을 붙인다.
+
+## D3 — 의미 층 (2026-10-13)
+
+검출된 요소마다 "누를 수 있나 · 무슨 종류인가 · 무리 · 그림이면 이름" 을 LLM 이 붙이고 정답과 견준다.
+입력은 `results/detect/20261013-d25/final/` (13단위 - 이은 화면 3 + 낱장 10).
+
+**이 층이 정하지 않는 것 - 과제 경로.** 과제 버튼 대 과제 밖 입구는 흐름 층에서 연구자가 적는
+`captures.json` 의 taps 로 정한다 (누른 것 = 과제 버튼, 누를 수 있지만 안 누른 것 = 과제 밖 입구). 모델에게는
+과제 이름 한 줄("이체 — 받는 사람 계좌로 돈 보내기")만 주고 어느 버튼이 과제 경로인지는 알려 주지 않는다.
+compare 도 둘을 함께 "누를 수 있는 것" 으로 센다.
+
+**보내는 것 (단위마다 한 번):**
+- 요소 JSON - 검출 박스 · img_candidate · OCR 글 줄 모두. 칸은 id · mark(그림 위 번호) · kind · box · text ·
+  ocr_guess · caption · name · in_box · near(곁의 글 - inside · row · parent) · flags. 표시 달린 요소도 넣는다.
+- 화면 전체를 폭 600 으로 줄이고 mark 번호를 적은 그림 한 장 (이은 화면은 `stitch.compose` 로 다시 이어서).
+- 글 없는 박스 · img_candidate 의 잘라낸 그림 (변마다 20% 넓혀 2배, 긴 변 512 까지). 글만 있는 요소는 안 보낸다.
+- 규칙으로 이름이 붙은 로고는 고정값으로 넘긴다 - 모델이 다른 이름을 내면 고정값으로 되돌리고 그 수를 적는다.
+
+**받는 것:** 요소 id 마다 하나 `{id, pressable, kind, group, image_name, note}` - kind 는 button · link ·
+back_close · tab · choice · input · keypad_key · image · text · system. 없는 id · 빠진 id · 틀린 값(kind 밖,
+image 인데 이름 모양이 아님 …)이면 문제를 적어 한 번 다시 묻고, 그래도 틀리면 그 단위를 실패로 적는다 -
+짐작해 메우지 않는다.
+
+**프롬프트**는 `SEMANTIC_PROMPT.md` 의 `---` 아래 글 그대로다 (지키는 규칙만 - 빠짐없이, 새 요소 금지, 힌트는
+힌트일 뿐, 이름은 보이는 것만 · 잘린 글을 채우지 않음). 모델 호출 · 키 읽기 · 그림 토큰 어림 · 가격은
+파이프라인의 `senior_ui.restructure.model` · `senior_ui.config` 를 그대로 쓴다 (기본 모델 `gpt-6.1-sol`,
+reasoning medium, 출력 상한 25,000, 그림 detail high).
+
+**돌리기:**
+```powershell
+$py = "C:\Users\xihye\venvs\detect\Scripts\python.exe"
+uv pip install --python $py "openai==3.8.0" "tiktoken==0.14.0"      # 한 번 (레포 requirements.txt 와 같은 판)
+& $py tools/screen_detect/semantic.py --dry-run          # 그림 수 · 어림 토큰 · 어림 비용만 (키를 읽지 않는다)
+& $py tools/screen_detect/semantic.py --mock             # 가짜 답으로 끝까지 (키를 읽지 않는다) → results/detect/<오늘>-d3-mock
+& $py tools/screen_detect/semantic.py                    # 실제 호출 → results/detect/<오늘>-d3  (--model 로 바꾼다)
+$d = "results/detect/<오늘>-d3"
+& $py tools/screen_detect/truth.py --out $d/truth.json   # 정답지 (누를 수 있는 data-action 전부를 담은 판)
+& $py tools/screen_detect/compare.py --dir results/detect/20261013-d25/final --semantic $d   # → $d/summary.md
+```
+`--mock bad-once` · `--mock bad-twice` 는 다시 묻기 · 실패 기록 길을 시험한다.
+
+**키:** 실제 호출 때만 읽는다 - 환경 변수 `OPENAI_API_KEY`, 없으면 이 레포 뿌리의 `.envs` (파이프라인과 같은
+방식, `load_env`). `.envs` 는 `.gitignore` 에 있어 커밋되지 않는다.
+
+**비용 어림 (`--dry-run`, gpt-6.1-sol, 2026-10-13):** 13단위 · 요소 666 · 그림 177장(그림 토큰 약 25,650) ·
+입력 약 90,000 토큰. 답만 세면 약 $0.48, 생각 토큰이 답과 같다고 보면 약 $0.78, 출력 상한(단위마다 25,000)을
+다 쓰는 최악은 $3.43. 다시 묻기가 생긴 단위는 그만큼 한 번 더 든다.
+
+**쓰는 것:** `<단위>.semantic.json` (답 · 시도마다 토큰 · 비용 · 문제 · 고정값 되돌림), `raw/<단위>.<n>.request.txt`
+· `.request.json` · `.response.txt` (요청 · 응답 원문 - 키 · 헤더 없음), `_sent/<단위>/` (보낸 그림),
+`_semantic.json` (단위마다 상태 · 토큰 · 비용, 합계).
+
+**견주기 (`compare.py --semantic`):** 정답 항목마다 닿는 요소(그 글을 읽은 글 줄 · 박스, 한 요소에 다 들지 않으면
+조각 글 줄들, 글 없는 것은 옮긴 자리의 요소) 가운데 하나라도 그 역할이면 맞음. 누를 수 있는 것(글 있는 것 ·
+아이콘만 · 박스 없이 글 줄로만 있는 것 - D2.5 의 10개) · 정답에 없는데 누를 수 있다고 한 것(표시 달린 것 따로,
+정답 = truth 의 누를 수 있는 data-action 전부) · 선택지(kind=choice)와 무리(group) · 숫자판 키 · 입력칸 ·
+그림 자리(kind=image) · 그림 이름(같은 글일 때만 맞음, 규칙 이름 · 모델 이름 · 잘린 이름 따로, 다르면 나란히) ·
+그림 자리가 없는 상태의 image 수 · 표시 달린 요소의 system 비율 · 토큰과 비용.
+
+**잘린 이름** (연구자 결정 2026-10-13): 화면이 이름을 잘라 보인 것("아이엠뱅크(대. 로고")은 앞부분이 정답과
+같으면 맞음으로 세되 "잘린 이름" 으로 따로 센다. 뒷부분을 짐작해 채우지 않는다. 남은 OCR 오독("P" · "푸" ·
+"8+")은 규칙을 그대로 두고 의미 층이 ocr_guess 를 힌트로 판단한다.
+
+`results/detect/20261013-d3-mock/` 는 가짜 답으로 끝까지 돌린 것이다 (코드가 도는지 보려는 것 - 품질 측정이
+아니다. 보낸 그림 `_sent/` 는 커밋하지 않았다).
 
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
