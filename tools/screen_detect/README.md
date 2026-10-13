@@ -15,6 +15,7 @@
 | `compare.py` | 캡처 ↔ 상태 짝 **제안**, 글 재현율 · 버튼 · 입구 · 선택지 · 그림 자리 · 박스 재현율 · 남는 박스 |
 | `sweep.py` | (D2.5) 검출 설정마다 detect → flags → stitch → compare 를 돌려 한 표로 |
 | `semantic.py` · `SEMANTIC_PROMPT.md` | (D3) 의미 층 - 요소마다 누를 수 있나 · 종류 · 무리 · 그림 이름을 LLM 이 붙인다 |
+| `flow.py` · `FLOW_PROMPT.md` · `compare_flow.py` | (D4) 흐름 층 - 캡처 짝마다 누른 것을 LLM 이 추정하고 원본의 실제 연결과 견준다 |
 
 결과: D1 `results/detect/20261012/`, D2 `results/detect/20261012-d2/`, D2.5
 `results/detect/20261013-d25/<설정>/` (**D3 의 입력은 `final/`**) — `<캡처>.json`, `overlay/<캡처>.png`,
@@ -258,6 +259,39 @@ $d = "results/detect/<오늘>-d3"
 
 `results/detect/20261013-d3-mock/` 는 가짜 답으로 끝까지 돌린 것이다 (코드가 도는지 보려는 것 - 품질 측정이
 아니다. 보낸 그림 `_sent/` 는 커밋하지 않았다).
+
+## D4 — 흐름 층 (2026-10-13)
+
+연구자가 누른 것을 손으로 적지 않는다 - 원본 재현 HTML 의 연결도 캡처 순서와 화면 글로 AI 가 추정해 만들었다.
+같은 방식으로 LLM 이 "어느 캡처에서 무엇을 누르면 어느 캡처로 가나" 를 추정하고, 연구자는 그 목록을 검토만 한다.
+
+**입력:** 캡처 순서와 연구자의 이름표 - `origin/feat/see-captures` 의 `inputs/captures/transfer/captures.json` 을
+`git show` 로 읽기만 한다 (이 브랜치에 가져오거나 고치지 않는다, taps 는 비어 있다). 단위마다 누를 수 있는 요소 -
+`results/detect/20261013-d25/final` (요소, 스크롤 조각은 이은 화면 하나) + `results/detect/20261013-d3b` (역할 ·
+이름)에서 pressable 이고 표시(flags)가 없는 것 [id · 글 · kind · group]. **글만 보낸다 - 그림 0장** (입력 약 7,400 토큰).
+
+**출력:** 이웃한 캡처 짝(18)마다 `{from, to, tap, tap_text, kind, confidence, reason}` - kind 는 tap · scroll ·
+skipped(사이 상태가 캡처에 없음) · error_path · unknown. 짝 빠짐 · 목록에 없는 요소 · 글을 바꾼 tap_text · 틀린 값은
+한 번 다시 묻고 그래도 틀리면 실패. `flow.proposed.json` 과 그것을 captures.json 의 taps 꼴(`{text, to}` + kind ·
+confidence)로 바꾼 `taps.proposed.json` - **captures.json 자체는 쓰지 않는다**. 규칙은 `FLOW_PROMPT.md`.
+
+**정답 (compare_flow.py):** `truth.py` 가 걸으며 남긴 timeline(도착한 상태와 누른 것의 차례, 오류 경로 따로)에서
+캡처 짝 사이에 실제로 누른 것과 kind 를 얻는다. 이름표 → 상태는 "원본 화면 <방문>" · "원본 오류 상태 <id>" ·
+"[증권사] 탭" · "… 입력(중)" 으로 옮긴다. 누름이 하나(숫자 키 하나 포함)이고 사이 상태가 없으면 tap, 아니면 skipped.
+누른 것은 글로 맞추고(정답의 첫 누름이 숫자 키면 숫자판 키면 맞음 - 정답 값 32000 과 더미앱 값 10000 이 다르다),
+kind 는 같으면 맞음.
+
+```powershell
+$py = "C:\Users\xihye\venvs\detect\Scripts\python.exe"
+& $py tools/screen_detect/flow.py --dry-run              # 어림 (키를 읽지 않는다)
+& $py tools/screen_detect/flow.py --mock                 # 가짜 답으로 끝까지 (키를 읽지 않는다)
+& $py tools/screen_detect/flow.py --max-usd 0.60         # 실제 호출 → results/detect/<오늘>-d4
+& $py tools/screen_detect/truth.py --out results/detect/<오늘>-d4/truth.json
+& $py tools/screen_detect/compare_flow.py --dir results/detect/<오늘>-d4     # → summary.md
+```
+
+**첫 실제 실행 (`results/detect/20261013-d4`, gpt-6.1-sol, $0.026, 시도 1):** 누른 것 14/18 · kind 14/18 · 둘 다
+13/18. confidence 가 모두 0.85 이상이라 confidence 로 틀린 것을 가려내지 못했다 (틀린 5짝도 0.85~0.98).
 
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
