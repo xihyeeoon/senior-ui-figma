@@ -52,6 +52,8 @@ const ENTRANCE_NOTE = '과제 밖 입구 = 이 과제에서는 쓰지 않는 메
 const SLOT_NOTE = '회색 X 상자 = 그림 (로고 · 아이콘) 이 들어갈 자리. 디자이너가 표준 아이콘 · 로고로 바꾼다.';
 const SLOT_FILL = '#E6E6E6', SLOT_LINE = '#8A8A8A', SLOT_MIN_W = 48, SLOT_MIN_H = 28, SLOT_NO_W = 16, SLOT_NO_H = 12;
 const NOTICE ='이 와이어프레임은 구조 시안이다. 색 · 모양 · 아이콘 · 로고 · 보안 키패드 모양은 디자이너가 표준 부품으로 채운다.';
+const BODY = 14, NAME_MAX = 40;   // 기본 글 크기 · 레이어 이름 최대 글자
+const TAG = { size: 11, padX: 6, padY: 2, gap: 4, lift: -10, step: 24 };   // 꼬리표 (4.4): 글 · 안쪽 여백 · 사이 · 위 · 내림
 
 type Shape = { fill: string | null; stroke?: string; dash?: number[]; radius: number;
                align: 'L' | 'C'; inset: number; underline?: boolean };
@@ -78,7 +80,7 @@ function estimate(texts: Node[], innerW: number, pad: number, gap: number) {
 }
 
 const txt = (chars: string, size: number, more: Partial<Node> = {}): Node =>
-  ({ t: 'text', name: chars.slice(0, 40), chars, size, ...more });
+  ({ t: 'text', name: chars.slice(0, NAME_MAX), chars, size, ...more });
 
 // 그림 자르기: 위→아래 줄마다 왼쪽→오른쪽, 조각 하나는 가로 · 세로 MAX_PX 이하 (ui.html 과 같다)
 const cuts = (n: number) => { const a: number[][] = [];
@@ -140,15 +142,15 @@ function said(r: any, titleOf: (s: string) => string) {
 }
 
 // 꼬리표 묶음: 오른쪽 끝이 x = w, 위가 -10. 글 색은 MARK_FILL (영역 입구 꼬리표는 입구 색)
-const tags = (labels: string[], w: number): Node => ({ t: 'frame', name: '표시', x: w, y: -10,
-  anchor: 'right', layout: 'H', hug: 'wh', gap: 4, fill: null, kids: labels.map((k): Node => ({ t: 'frame',
-    name: `표시 — ${k}`, layout: 'H', hug: 'wh', pad: [2, 6, 2, 6], radius: 4,
-    fill: MARK_FILL[k] ?? MARK_FILL[MARK.entrance], kids: [txt(k, 11, { bold: true, color: PAPER })] })) });
+const tags = (labels: string[], w: number): Node => ({ t: 'frame', name: '표시', x: w, y: TAG.lift,
+  anchor: 'right', layout: 'H', hug: 'wh', gap: TAG.gap, fill: null, kids: labels.map((k): Node => ({ t: 'frame',
+    name: `표시 — ${k}`, layout: 'H', hug: 'wh', pad: [TAG.padY, TAG.padX, TAG.padY, TAG.padX], radius: 4,
+    fill: MARK_FILL[k] ?? MARK_FILL[MARK.entrance], kids: [txt(k, TAG.size, { bold: true, color: PAPER })] })) });
 
 // 꼬리표 · 이름표가 겹치는지 보는 데만 쓰는 글 너비 어림 (Noto Sans KR): 한글 · 전각 1, 빈칸 0.25, 그 밖 0.6 × 크기
 const textW = (s: string, size: number) => [...s].reduce((a, c) =>
   a + size * (c === ' ' ? 0.25 : c.charCodeAt(0) >= 0x1100 ? 1 : 0.6), 0);
-const TAG_H = lineH(11) + 4;
+const TAG_H = lineH(TAG.size) + 2 * TAG.padY;
 type Box = [number, number, number, number];   // 장 좌표 [x, y, w, h]
 const hit = (a: Box, b: Box) => a[0] < b[0] + b[2] && b[0] < a[0] + a[2] && a[1] < b[1] + b[3] && b[1] < a[1] + a[3];
 // 장 안의 꼬리표 묶음 (`표시`) 을 그리는 순서로: home = 담은 프레임의 kids, (ox, oy) = 담은 프레임의 장 좌표
@@ -160,11 +162,11 @@ function tagsIn(nodes: Node[], ox = 0, oy = 0, out: Tags[] = []): Tags[] {
   return out;
 }
 // 꼬리표 하나하나 (`표시 — …`) 의 장 좌표: 묶음은 오른쪽 끝에 맞춰 왼쪽 → 오른쪽으로 놓인다
-const pillWs = (t: Tags) => t.node.kids!.map(p => textW(p.kids![0].chars!, 11) + 12);
+const pillWs = (t: Tags) => t.node.kids!.map(p => textW(p.kids![0].chars!, TAG.size) + 2 * TAG.padX);
 function pillBoxes(t: Tags): Box[] {
   const ws = pillWs(t), right = t.ox + t.node.x!, y = t.oy + t.node.y!;
-  let x = right - ws.reduce((a, b) => a + b, 0) - 4 * (ws.length - 1);
-  return ws.map(w => { const b: Box = [x, y, w, TAG_H]; x += w + 4; return b; });
+  let x = right - ws.reduce((a, b) => a + b, 0) - TAG.gap * (ws.length - 1);
+  return ws.map(w => { const b: Box = [x, y, w, TAG_H]; x += w + TAG.gap; return b; });
 }
 const tagBox = (t: Tags): Box => { const bs = pillBoxes(t), l = bs[bs.length - 1];
   return [bs[0][0], bs[0][1], l[0] + l[2] - bs[0][0], TAG_H]; };
@@ -188,7 +190,7 @@ function untangle(kids: Node[], n: Tally) {
   for (const c of comps.values()) {
     if (c.length < 2) continue;
     const keep = c.reduce((a, x) => x.t.ox < a.t.ox ? x : a), t = keep.p.kids![0];
-    t.chars = `${t.chars} · ${c.length}개`; t.name = t.chars.slice(0, 40); keep.p.name = `표시 — ${t.chars}`;
+    t.chars = `${t.chars} · ${c.length}개`; t.name = t.chars.slice(0, NAME_MAX); keep.p.name = `표시 — ${t.chars}`;
     for (const x of c) if (x !== keep) x.t.node.kids!.splice(x.t.node.kids!.indexOf(x.p), 1);
     n.merged += c.length; n.into++;
   }
@@ -196,7 +198,7 @@ function untangle(kids: Node[], n: Tally) {
   const placed: Box[] = [];
   for (const t of all.filter(t => t.node.kids!.length)) {
     if (placed.some(p => hit(p, tagBox(t)))) n.moved++;
-    while (placed.some(p => hit(p, tagBox(t)))) t.node.y = t.node.y! + 24;
+    while (placed.some(p => hit(p, tagBox(t)))) t.node.y = t.node.y! + TAG.step;
     placed.push(tagBox(t));
   }
 }
@@ -205,8 +207,8 @@ function untangle(kids: Node[], n: Tally) {
 function clearLabels(kids: Node[], groups: Node[], n: Tally) {
   const boxes = tagsIn(kids).map(tagBox);
   for (const g of groups) {
-    const t = g.kids!.find(k => k.name === '글')!, w = textW(t.chars!, 14);
-    for (let b; (b = boxes.find(b => hit(b, [g.x! + t.x!, g.y! + t.y!, w, lineH(14)])));)
+    const t = g.kids!.find(k => k.name === '글')!, w = textW(t.chars!, BODY);
+    for (let b; (b = boxes.find(b => hit(b, [g.x! + t.x!, g.y! + t.y!, w, lineH(BODY)])));)
       t.x = b[0] + b[2] + 4 - g.x!, n.pushed++;
   }
 }
@@ -255,8 +257,8 @@ function itemNode(it: any, where: Record<string, unknown> | null, rn: Map1, scre
   const label = labelOf(it) + group, many = it.kind === 'group';
   // 무리 이름표는 상자 왼쪽 위 바깥 (글 너비에 맞춤) - 상자 안 키 · 칸을 가리지 않게. 꼬리표를 피하는 건 clearLabels
   const kids: Node[] = [...slots.map(g => slotNode(g, x, y)), many
-    ? txt(label, 14, { name: '글', x: 0, y: -lineH(14), underline: s.underline })
-    : txt(label, 14, { name: '글', x: s.inset, y: 0, w: Math.max(1, w - 2 * s.inset), h, align: s.align,
+    ? txt(label, BODY, { name: '글', x: 0, y: -lineH(BODY), underline: s.underline })
+    : txt(label, BODY, { name: '글', x: s.inset, y: 0, w: Math.max(1, w - 2 * s.inset), h, align: s.align,
         underline: s.underline, trunc: true })];
   const m = marksOf(it, where, rn, screen).filter(k => !(grouped && k === MARK.entrance));
   if (m.length) kids.push(tags(m, w));
@@ -374,7 +376,7 @@ function herdAnn(anns: Node[][], keys: string[], title: string): Node[] {
     let p = 0, q = 0; while (p < m && cs.every(c => c[p] === cs[0][p])) p++;
     while (q < m - p && cs.every(c => at(c, q) === at(cs[0], q))) q++;
     const mids = cs.map(c => c.slice(p, c.length - q)), one = `${cs[0].slice(0, p)}{키}${cs[0].slice(cs[0].length - q)}`;
-    out.push({ ...n0, name: one.slice(0, 40), chars: one },
+    out.push({ ...n0, name: one.slice(0, NAME_MAX), chars: one },
       ...(mids.every((d, j) => d === keys[j]) ? [] : mids.map((d, j) => txt(`· ${keys[j]}: ${d}`, n0.size!))));
   }
   return out;
@@ -385,15 +387,15 @@ function runCard(sb: any, checks: string[]): Node {
   return { t: 'frame', name: '실행 카드', x: 0, y: 0, w: CARD_W, layout: 'V', hug: 'h',
     pad: [24, 24, 24, 24], gap: 8, fill: PAPER, stroke: INK, kids: [
       txt(`실행 ${run.id}`, 20, { bold: true }),
-      txt(`과제: ${sb.task?.label ?? ''} (${run.task ?? sb.task?.id ?? ''})`, 14),
-      txt(`모델: ${run.model ?? ''}`, 14),
-      txt(`도구 커밋: ${run.commit ?? ''}${run.dirty ? ' (dirty)' : ''}`, 14),
-      txt(`원본: ${orig.path ?? ''} · sha256 ${String(orig.sha256 ?? '').slice(0, 8)}`, 14),
-      txt(`생성: ${sb.generated?.at ?? ''}`, 14),
-      txt(NOTICE, 14, { bold: true }),
-      txt(ENTRANCE_NOTE, 14),
-      ...((sb.sheets || []).some((s: any) => s.images?.length) ? [txt(SLOT_NOTE, 14)] : []),
-      ...checks.map(c => txt(c, 14)),
+      txt(`과제: ${sb.task?.label ?? ''} (${run.task ?? sb.task?.id ?? ''})`, BODY),
+      txt(`모델: ${run.model ?? ''}`, BODY),
+      txt(`도구 커밋: ${run.commit ?? ''}${run.dirty ? ' (dirty)' : ''}`, BODY),
+      txt(`원본: ${orig.path ?? ''} · sha256 ${String(orig.sha256 ?? '').slice(0, 8)}`, BODY),
+      txt(`생성: ${sb.generated?.at ?? ''}`, BODY),
+      txt(NOTICE, BODY, { bold: true }),
+      txt(ENTRANCE_NOTE, BODY),
+      ...((sb.sheets || []).some((s: any) => s.images?.length) ? [txt(SLOT_NOTE, BODY)] : []),
+      ...checks.map(c => txt(c, BODY)),
     ] };
 }
 
@@ -464,8 +466,8 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = fal
           ? [...new Set(g.map(t => revealName(sb, t, col[0], false)).filter(o => o))].map(o => `${o} · `).join('')
             + `이 펼침으로 보이는 입구 ${g.length}개: ${keys.join(' · ')} · ` : `${revealName(sb, s, col[0])} · `)
           + (cut ? `본 장 ${names.get(col[0])} 의 y ${cut[0]}~${cut[1]}` : '본 장과 같음');
-        const headH = lineH(14) * Math.max(1, Math.ceil(textW(head, 14) / sw)), top = WF_TOP + headH + REVEAL_HEAD - lineH(14);
-        wf.push(txt(head, 14, { name: `펼친 장 — ${title}`, x: rx, y: WF_TOP, w: sw, bold: true }));
+        const headH = lineH(BODY) * Math.max(1, Math.ceil(textW(head, BODY) / sw)), top = WF_TOP + headH + REVEAL_HEAD - lineH(BODY);
+        wf.push(txt(head, BODY, { name: `펼친 장 — ${title}`, x: rx, y: WF_TOP, w: sw, bold: true }));
         if (cut) {
           const fh = cut[1] - cut[0];
           wf.push({ t: 'frame', name: title, x: rx, y: top, w, h: fh, fill: PAPER, clip: true,
