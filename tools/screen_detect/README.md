@@ -203,7 +203,7 @@ compare 도 둘을 함께 "누를 수 있는 것" 으로 센다.
 - 글 없는 박스 · img_candidate 의 잘라낸 그림 (변마다 20% 넓혀 2배, 긴 변 512 까지). 글만 있는 요소는 안 보낸다.
 - 규칙으로 이름이 붙은 로고는 고정값으로 넘긴다 - 모델이 다른 이름을 내면 고정값으로 되돌리고 그 수를 적는다.
 
-**받는 것:** 요소 id 마다 하나 `{id, pressable, kind, group, image_name, note}` - kind 는 button · link ·
+**받는 것:** 요소 id 마다 하나 `{id, pressable, kind, group, image_name, image_shape, note}` - kind 는 button · link ·
 back_close · tab · choice · input · keypad_key · image · text · system. 없는 id · 빠진 id · 틀린 값(kind 밖,
 image 인데 이름 모양이 아님 …)이면 문제를 적어 한 번 다시 묻고, 그래도 틀리면 그 단위를 실패로 적는다 -
 짐작해 메우지 않는다.
@@ -225,6 +225,14 @@ $d = "results/detect/<오늘>-d3"
 & $py tools/screen_detect/compare.py --dir results/detect/20261013-d25/final --semantic $d   # → $d/summary.md
 ```
 `--mock bad-once` · `--mock bad-twice` 는 다시 묻기 · 실패 기록 길을 시험한다.
+
+**아이콘 이름 고침 (D3b, 2026-10-13):** 첫 실제 실행(`results/detect/20261013-d3`, 실패 0, $0.49)에서 모델이 지은 아이콘 이름이 정답과 1/13 만 같았다 - 모양으로 지었다(혜택 → 선물상자, 주식 → 상승 그래프). 디자이너가 표준 아이콘으로 바꿀 때는 뜻 이름이 필요하다. 그래서 프롬프트 규칙 5 를 더했다 - 이름표 글(near 의 같은 박스 · 같은 줄 · 바로 아래 글 `below`)이 있으면 그 글로(이름표 '혜택' → '혜택 아이콘'), 없으면 모양으로 짓고, 모양은 `image_shape` 에 따로 적는다. 규칙 4(보이는 것만 · 잘린 글 채우지 않기)는 그대로다. 고친 단위만 다시 부를 수 있다:
+```powershell
+& $py tools/screen_detect/semantic.py --units "home(01a+01b+01c),02,08" --reuse results/detect/20261013-d3
+#   → results/detect/<오늘>-d3b  (고르지 않은 10단위는 앞 실행의 답 · 원문 · 보낸 그림 · truth.json 을 그대로)
+& $py tools/screen_detect/compare.py --dir results/detect/20261013-d25/final --semantic results/detect/<오늘>-d3b
+```
+가져온 단위는 `<단위>.semantic.json` 의 `reused_from` 에, 단위마다 그때의 프롬프트는 `prompt_sha` 에 남는다 (앞 실행의 답에는 없다 - 그 판에는 image_shape 도 없다).
 
 **키:** 실제 호출 때만 읽는다 - 환경 변수 `OPENAI_API_KEY`, 없으면 이 레포 뿌리의 `.envs` (파이프라인과 같은
 방식, `load_env`). `.envs` 는 `.gitignore` 에 있어 커밋되지 않는다.
