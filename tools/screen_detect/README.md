@@ -20,6 +20,8 @@
 `_run.json`(장치 · 판 · 시간 · 설정), `truth.json`, `summary.md`, `compare.json`, (D2~) `stitched/<화면>.json`
 · `overlay/stitched/<화면>.png`, (D2.5) `_flags.json` · `_sweep.json`. 앞 시험의 결과는 고치지 않는다.
 
+**설정 시험(sweep)의 확인 그림은 `final/` 것만 커밋한다.** 다른 설정 폴더는 json · summary 만 남긴다 (2026-10-13 연구자 결정 - D2.5 의 다른 설정 폴더에서 `overlay/` 를 지웠다. 다시 보려면 `sweep.py <설정>` 으로 다시 만든다).
+
 ## 설치 (전부 레포 밖)
 
 레포에는 우리 스크립트 · 결과 · 이 설명만 둔다. 환경 · 검출기 코드 · 가중치 · 모델 캐시는
