@@ -288,12 +288,12 @@ function baseOf(s: any, byId: Map<string, any>) {
   return b?.kind === 'visit' && b.main && b.screen === s.screen ? b : null;
 }
 // 장 위 한 줄의 이름: 펼침을 연 요소의 글 (키). 연 요소 = flow.reveals 에서 sheet 가 이 장이고 at_sheet 가 본 장인
-// 것의 how 마지막 click 의 item (본 장 items 의 no). 못 찾으면 키만.
-function revealName(sb: any, s: any, base: any) {
+// 것의 how 마지막 click 의 item (본 장 items 의 no). 못 찾으면 키만. key = false 면 글만 (못 찾으면 '').
+function revealName(sb: any, s: any, base: any, key = true) {
   const r = (sb.flow?.reveals || []).find((r: any) => r.sheet === s.id && r.at_sheet === base.id);
   const no = (r?.how || []).filter((h: any) => h.type === 'click' && h.item).pop()?.item;
   const it = (base.items || []).find((it: any) => it.no === no);
-  return it ? `${labelOf(it)} (${revealKey(s)})` : revealKey(s);
+  return it ? labelOf(it) + (key ? ` (${revealKey(s)})` : '') : key ? revealKey(s) : '';
 }
 // 본 장에 없던 것: 키가 같은 것끼리 차례대로 짝짓고, 짝이 남지 않은 것 (자리만 바뀐 것은 짝이 있다)
 function fresh(xs: any[] = [], olds: any[] = [], key: (o: any) => string) {
@@ -301,11 +301,13 @@ function fresh(xs: any[] = [], olds: any[] = [], key: (o: any) => string) {
   for (const o of olds) left.set(key(o), [...(left.get(key(o)) || []), o]);
   return xs.filter(x => !left.get(key(x))?.shift());
 }
-// 본 장에 없던 요소 (action + 글) · 그림 자리 (name) 를 모두 담는 띠 [a, b] - 위아래 40, 장 밖으로는 넘지 않는다.
-// 그런 것이 없으면 null.
+// 본 장에 없던 요소 (action + 글) · 그림 자리 (name). 키 · box 가 같은 펼친 장끼리 한 무리로 묶는다 (freshKey)
+const itKey = (it: any) => `${it.action}|${labelOf(it)}`;
+const freshOf = (s: any, base: any) => [...fresh(s.items, base.items, itKey), ...fresh(s.images, base.images, g => g.name)];
+const freshKey = (s: any, base: any) => JSON.stringify(freshOf(s, base).map(o => [o.action ? itKey(o) : o.name, o.box]));
+// 그것들을 모두 담는 띠 [a, b] - 위아래 40, 장 밖으로는 넘지 않는다. 그런 것이 없으면 null.
 function revealCut(s: any, base: any, h: number): [number, number] | null {
-  const d = [...fresh(s.items, base.items, it => `${it.action}|${labelOf(it)}`),
-    ...fresh(s.images, base.images, g => g.name)];
+  const d = freshOf(s, base);
   if (!d.length) return null;
   return [Math.max(0, Math.floor(Math.min(...d.map(o => o.box[1])) - REVEAL_PAD)),
     Math.min(h, Math.ceil(Math.max(...d.map(o => o.box[1] + o.box[3])) + REVEAL_PAD))];
@@ -357,6 +359,23 @@ function annotation(sheet: any, title: string, where: Record<string, unknown> | 
   for (const it of sheet.items || []) {
     const m = marksOf(it, where, rn, sheet.screen).map(k => ` [${k}]`).join('');
     out.push(txt(`${it.no} ${labelOf(it)} → ${said(it.result, titleOf)}${m}`, 12));
+  }
+  return out;
+}
+
+// 묶인 펼친 장의 주석 하나: 제목 · 묶인 키 다음, 모두 같은 줄은 한 번, 다른 줄 (조건 등) 은 같은 앞뒤를 한 번 적고
+// 가운데를 `{키}` 로 (가운데가 키 그대로가 아니면 아래에 `· {키}: {가운데}` 를 키마다)
+function herdAnn(anns: Node[][], keys: string[], title: string): Node[] {
+  const out = [txt(title, 16, { bold: true }), txt(`묶인 펼친 장 ${keys.length}: ${keys.join(' · ')}`, 12, { bold: true })];
+  for (let i = 1; i < Math.max(...anns.map(a => a.length)); i++) {
+    const cs = anns.map(a => a[i]?.chars ?? ''), n0 = anns.find(a => a[i])![i];
+    if (cs.every(c => c === cs[0])) { out.push(n0); continue; }
+    const m = Math.min(...cs.map(c => c.length)), at = (c: string, j: number) => c[c.length - 1 - j];
+    let p = 0, q = 0; while (p < m && cs.every(c => c[p] === cs[0][p])) p++;
+    while (q < m - p && cs.every(c => at(c, q) === at(cs[0], q))) q++;
+    const mids = cs.map(c => c.slice(p, c.length - q)), one = `${cs[0].slice(0, p)}{키}${cs[0].slice(cs[0].length - q)}`;
+    out.push({ ...n0, name: one.slice(0, 40), chars: one },
+      ...(mids.every((d, j) => d === keys[j]) ? [] : mids.map((d, j) => txt(`· ${keys[j]}: ${d}`, n0.size!))));
   }
   return out;
 }
@@ -429,25 +448,32 @@ export function plan(sb: any, dims: Dims = {}, renames: Renames = {}, full = fal
   for (const col of cols) {
     // 펼친 장 (본 장 = 열 머리) 은 본 장 주석 오른쪽에 가로로 나란히, 나머지는 지금처럼 아래로
     const row = full ? [] : col.filter(s => baseOf(s, byId) === col[0]);
+    // 달라진 것 (키 · box) 이 같은 펼친 장끼리 한 무리 - 무리의 첫 장 자리에 한 번만 그린다
+    const same = new Map<string, any[]>();
+    for (const s of row) { const k = freshKey(s, col[0]); if (k !== '[]') same.set(k, [...(same.get(k) || []), s]); }
     let y = WF_TOP, colW = 0, rx = 0, rowH = 0;
     for (const s of [col[0], ...row, ...col.slice(1).filter(s => !row.includes(s))]) {
-      const [w, h] = s.size || DEFAULT_SIZE, title = names.get(s)!;
-      const ann = annotation(s, title, where, rn, titleOf);
+      const [w, h] = s.size || DEFAULT_SIZE, g = [...same.values()].find(g => g.includes(s)) || [s]; if (g[0] !== s) continue;
+      const many = g.length > 1, keys = g.map(t => revealKey(t)!), title = many ? `${s.title || s.id} · ${g.length}장 묶음` : names.get(s)!;
+      const ann = many ? herdAnn(g.map(t => annotation(t, names.get(t)!, where, rn, titleOf)), keys, title)
+        : annotation(s, title, where, rn, titleOf);
       const annH = estimate(ann, ANN_W - 2 * ANN_PAD, ANN_PAD, ANN_ITEM_GAP);
       if (row.includes(s)) {
-        // 장 위에 한 줄, 장은 본 장과 달라진 띠만, 주석은 장 아래. 달라진 것이 없으면 한 줄만.
-        const cut = revealCut(s, col[0], h), sw = Math.max(w, ANN_W), top = WF_TOP + REVEAL_HEAD;
-        wf.push(txt(`펼친 장 — ${revealName(sb, s, col[0])} · ` + (cut ? `본 장 ${names.get(col[0])} 의 y ${cut[0]}~${cut[1]}`
-          : '본 장과 같음'), 14, { name: `펼친 장 — ${title}`, x: rx, y: WF_TOP, w: sw, bold: true }));
+        // 장 위에 한 줄 (넘치면 줄바꿈 - 그만큼 장을 내린다), 장은 본 장과 달라진 띠만, 주석은 장 아래. 달라진 것이 없으면 한 줄만.
+        const cut = revealCut(s, col[0], h), sw = Math.max(w, ANN_W), head = '펼친 장 — ' + (many
+          ? [...new Set(g.map(t => revealName(sb, t, col[0], false)).filter(o => o))].map(o => `${o} · `).join('')
+            + `이 펼침으로 보이는 입구 ${g.length}개: ${keys.join(' · ')} · ` : `${revealName(sb, s, col[0])} · `)
+          + (cut ? `본 장 ${names.get(col[0])} 의 y ${cut[0]}~${cut[1]}` : '본 장과 같음');
+        const headH = lineH(14) * Math.max(1, Math.ceil(textW(head, 14) / sw)), top = WF_TOP + headH + REVEAL_HEAD - lineH(14);
+        wf.push(txt(head, 14, { name: `펼친 장 — ${title}`, x: rx, y: WF_TOP, w: sw, bold: true }));
         if (cut) {
           const fh = cut[1] - cut[0];
           wf.push({ t: 'frame', name: title, x: rx, y: top, w, h: fh, fill: PAPER, clip: true,
             kids: sheetKids(s, w, h, dims, where, rn, tally, notes.warnings, cut) });
           wf.push(annFrame(title, rx, top + fh + ANN_GAP, ann));
-          rowH = Math.max(rowH, REVEAL_HEAD + fh + ANN_GAP + annH);
-        } else rowH = Math.max(rowH, lineH(14));
-        rx += sw + REVEAL_GAP; colW = Math.max(colW, rx - REVEAL_GAP - x);
-        continue;
+          rowH = Math.max(rowH, top - WF_TOP + fh + ANN_GAP + annH);
+        } else rowH = Math.max(rowH, headH);
+        rx += sw + REVEAL_GAP; colW = Math.max(colW, rx - REVEAL_GAP - x); continue;
       }
       if (rowH) y = Math.max(y, WF_TOP + rowH + ROW_GAP);
       const kids = sheetKids(s, w, h, dims, where, rn, tally, notes.warnings);
