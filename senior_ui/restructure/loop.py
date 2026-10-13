@@ -53,6 +53,7 @@ from .plan import (PlanProblems, apply_changes, critique_issues, evidence_kinds,
                    plan_report, screens_in, unaddressed)
 from .preserve import inject, names_read, optional_names, preserved_data
 from . import captures as CAP
+from . import flow_fixed as FF
 from .prompt import (BUILD_SHOTS_INTRO, CAPTURES_SHOTS_INTRO, DEFAULT_MODE, build_plan_prompt,
                      build_prompt,
                      build_refine_prompt, choices_block, errors_block,
@@ -293,8 +294,10 @@ class Run:
         # 프롬프트의 오류 조건 · 형식 검사 · 설명서가 같은 목록을 쓴다.
         self.task = task or load_task(DEFAULT_TASK)
         self.errors = required_errors(self.task["id"])
-        # 재설계의 단계 (--mode). layout 이면 프롬프트에 흐름 고정 · 배치 허락 두 문장이 들어간다.
+        # 재설계의 단계 (--mode). layout 이면 흐름 고정 검사(flow_fixed, 검사 M)가 fatal 이고,
+        # full 이면 기록만 한다. 그 검사의 잣대인 원본 흐름의 정답 경로를 한 번 읽어 둔다.
         self.mode = getattr(args, "mode", None) or DEFAULT_MODE
+        self.original_steps = FF.original_steps(self.task["id"])
         # 진단과 지금의 계획. 계획은 실행에 하나이고 재시도에서 고쳐진다.
         self.diagnosis = None
         self.plan = None
@@ -1154,6 +1157,8 @@ def audit_build(r, n, entry, build):
         entry.update(stage="flow", passed=False, fatal=len(violated))
         r.budget.spend("format")
         return problems_report(violated)
+    # 흐름 고정 (검사 M) - layout 이면 fatal, full 이면 metrics 에 기록만 (flow_fixed.py)
+    flow_fixed(r, entry, build, report)
     entry.update(stage="audit", passed=bool(report.get("passed")),
                  fatal=len(report.get("fatal", [])),
                  warning=len(report.get("warning", [])))
@@ -1161,6 +1166,21 @@ def audit_build(r, n, entry, build):
         r.budget.spend("audit")
     _note_audit(r, n, report)
     return report
+
+
+def flow_fixed(r, entry, build, report):
+    """생성물의 정답 경로가 원본의 화면 차례를 밟는지 보고 리포트에 붙인다 (flow_fixed.apply).
+    시도 기록 · 로그에는 layout 일 때만 남긴다 - full 의 summary 는 전과 같은 모양이다."""
+    with io.open(build["flow_path"], encoding="utf-8") as f:
+        steps = json.load(f).get("steps") or []
+    result = FF.judge(r.original_steps, steps, r.plan)
+    FF.apply(report, result, r.mode)
+    if r.mode != DEFAULT_MODE:
+        entry["flow_fixed"] = result["same"]
+        r.log("flow_fixed: %s — 원본 %s · 생성물 %s%s"
+              % ("같다" if result["same"] else "다르다", " → ".join(result["original"]),
+                 " → ".join(result["mapped"]),
+                 "" if result["same"] else " (%s)" % "; ".join(result["problems"])))
 
 
 def _drive_audit(r, n, entry, build):

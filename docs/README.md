@@ -150,6 +150,11 @@ fatal 을 (검사 · 대상 · 개수)로 줄여 — 대상은 fatal 의 `action
   "원본 구조를 지킬 필요 없다" 는 그 두 문장으로 바뀐다. 문장 전문과 자리는
   [`restructure-prompt.md`](restructure-prompt.md) 의 "단계". `summary.json` 에 `mode: "layout"`
   이 남는다 (full 실행에는 그 칸이 없다 — 전의 summary 와 같은 모양).
+- 흐름 고정 검사 (검사 M, `senior_ui/restructure/flow_fixed.py`) — 생성물의 정답 경로가 원본 흐름의
+  화면 차례를 그대로 밟는지 본다. 화면 이름은 바뀌어도 된다 (계획의 `screens[].from` 으로 맞춘다,
+  `err-` 화면은 그 화면에 합쳐도 된다). layout 에서는 fatal 이고 안내문 끝에 흐름 고정 문장이
+  그대로 들어간다. full 에서는 검사 리포트의 `metrics.flow_fixed` 에 기록만 한다. 판정 규칙은
+  [`defect-types.md`](defect-types.md) 의 M.
 
 ### 화면 보여 주기 (11-5)
 

@@ -546,7 +546,11 @@ def retry_block(report, prev_html, prev_flow_text, error=None, truncated=0):
             parts += ["[고칠 것]"]
             for f in other:
                 where = (f.get("screen") + ": ") if f.get("screen") else ""
-                parts.append("  " + where + brief_failure(f.get("detail", "")))
+                # keep_detail - 안내문 끝에 프롬프트의 규칙 문장을 담은 fatal (흐름 고정 M).
+                # brief_failure 는 200자에서 자르므로 그 문장이 잘린다
+                text = (one_line(f.get("detail", "")) if f.get("keep_detail")
+                        else brief_failure(f.get("detail", "")))
+                parts.append("  " + where + text)
             parts.append("")
         elif not derived and not (error or truncated):
             parts += ["(fatal 목록이 비어 있지만 통과하지 못했다)", ""]

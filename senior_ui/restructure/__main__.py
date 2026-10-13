@@ -193,7 +193,8 @@ def build_parser():
     ap.add_argument("--mode", choices=MODES, default=DEFAULT_MODE,
                     help="재설계의 단계 (① 흐름 단축 → ② 레이아웃 재구성). full (기본) 은 전과 "
                          "같다 - 프롬프트가 바이트까지 같다. layout 은 ② 만: 세 프롬프트에 흐름 "
-                         "고정 · 배치 허락 두 문장을 넣는다 (docs/restructure-prompt.md '단계')")
+                         "고정 · 배치 허락 두 문장을 넣고 (docs/restructure-prompt.md '단계'), 흐름 "
+                         "고정 검사(M)를 fatal 로 본다. full 에서는 그 검사를 기록만 한다")
     ap.add_argument("--refine", type=int, default=None, metavar="N",
                     help="보고 다듬기 횟수. 검사를 통과한 빌드의 스크린샷을 보여 주고 "
                          "다듬게 한다. 0 이면 끈다. 형식 · 검사 예산과 따로 센다. 주지 "

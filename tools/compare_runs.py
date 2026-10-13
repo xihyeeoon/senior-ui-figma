@@ -25,12 +25,23 @@ r"""재구성 실행끼리 과제 밖 입구 거리 · 선택지 수를 나란�
   선택지        원본을 걷는 동안 보인 값의 수 → 그 무리에서 생성 쪽이 고를 수 있게 보인 값의 수
                 (choice_values_shown_in_original → choice_values_selectable, reveal 뒤 포함)
   reveal 한 선택지 무리   흐름 명세의 reveal 중 oos- 가 아닌 것
+  단계          summary 의 mode (칸이 없으면 full - --mode 가 생기기 전의 실행도 full 이다)
+  흐름 고정     생성물의 정답 경로가 원본의 화면 차례를 그대로 밟는가 (검사 M,
+                senior_ui/restructure/flow_fixed.py). 감사 지표 flow_fixed 가 있으면 그것을, 없으면
+                (그 검사가 생기기 전의 실행) 같은 판정을 그 시도의 흐름 명세 · 계획으로 다시 한다.
+                "같다" 또는 "다르다 (까닭)"
 """
 import collections
 import io
 import json
 import os
 import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
+from senior_ui.restructure import flow_fixed as FF  # noqa: E402
 
 
 def load(path):
@@ -101,6 +112,16 @@ def pointing(sheets, came, d):
     return found
 
 
+def flow_fixed(run, summary, m):
+    """흐름 고정 판정 - 감사 지표에 있으면 그것, 없으면 그 시도의 흐름 명세 · 계획으로 다시."""
+    got = m.get("flow_fixed")
+    if got is None:
+        n = final_attempt(summary)
+        steps = load(os.path.join(run, "attempt_%d.flow.json" % n)).get("steps") or []
+        got = FF.judge(FF.original_steps(summary.get("task")), steps, plan_of(run, n))
+    return "같다" if got["same"] else "다르다 (%s)" % "; ".join(got["problems"])
+
+
 def row(run):
     summary, m, ed, moved, came = moved_entrances(run)
     folded = [d for d in ed
@@ -122,11 +143,13 @@ def row(run):
                                          kinds.count("bundle"), len(moved)),
             "%+d · %+d" % (round(sum(ds) / len(ds)), max(ds)) if ds else "-",
             "%d → %d" % (sum(shown.values()), sum(sel.get(a, 0) for a in shown)),
-            ", ".join(groups) or "-"]
+            ", ".join(groups) or "-",
+            summary.get("mode") or "full", flow_fixed(run, summary, m)]
 
 
 HEAD = ["실행", "커밋", "입구", "펼침 뒤로", "다른 화면", "모인 화면", "가리키는 버튼",
-        "스크롤 평균·최대", "선택지 원본에 보임 → 생성에서 고를 수 있음", "reveal 한 선택지 무리"]
+        "스크롤 평균·최대", "선택지 원본에 보임 → 생성에서 고를 수 있음", "reveal 한 선택지 무리",
+        "단계", "흐름 고정"]
 
 
 def main(argv):
