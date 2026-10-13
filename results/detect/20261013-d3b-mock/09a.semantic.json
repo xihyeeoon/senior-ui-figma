@@ -1,0 +1,245 @@
+{
+ "unit": "09a",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 4128,
+    "completion": 1358,
+    "reasoning": 164
+   },
+   "seconds": 23.3,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.021836,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 통신 상태와 배터리 잔량 표시다."
+  },
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바에 표시된 시각이다."
+  },
+  {
+   "id": "b0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 신호 세기 표시다."
+  },
+  {
+   "id": "b4",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "화면 오른쪽 위의 X 모양 닫기 버튼이다."
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "입력할 정보를 안내하는 계좌 비밀번호 제목이다."
+  },
+  {
+   "id": "b1",
+   "pressable": false,
+   "kind": "image",
+   "group": "비밀번호 입력 상태",
+   "image_name": "비밀번호 빈자리 아이콘",
+   "note": "비밀번호 입력 상태를 보여 주는 첫 번째 빈 원이다."
+  },
+  {
+   "id": "b2",
+   "pressable": false,
+   "kind": "image",
+   "group": "비밀번호 입력 상태",
+   "image_name": "비밀번호 빈자리 아이콘",
+   "note": "비밀번호 입력 상태를 보여 주는 두 번째 빈 원이다."
+  },
+  {
+   "id": "b3",
+   "pressable": false,
+   "kind": "image",
+   "group": "비밀번호 입력 상태",
+   "image_name": "비밀번호 빈자리 아이콘",
+   "note": "비밀번호 입력 상태를 보여 주는 세 번째 빈 원이다."
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "image",
+   "group": "비밀번호 입력 상태",
+   "image_name": "비밀번호 빈자리 아이콘",
+   "note": "비밀번호 입력 상태를 보여 주는 네 번째 빈 원이다."
+  },
+  {
+   "id": "b11",
+   "pressable": false,
+   "kind": "image",
+   "group": "숫자판",
+   "image_name": "숫자판 아이콘",
+   "note": "여러 숫자 키와 기능 키를 담은 전체 영역이며 단일 버튼은 아니다."
+  },
+  {
+   "id": "b10",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "8, 0, 6의 개별 키를 함께 감싼 행으로 단일 키가 아니다."
+  },
+  {
+   "id": "t3",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판의 8 입력 키다."
+  },
+  {
+   "id": "t5",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판의 6 입력 키다."
+  },
+  {
+   "id": "t4",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판의 0 입력 키다."
+  },
+  {
+   "id": "b8",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "2, 1, 4의 개별 키를 함께 감싼 행으로 단일 키가 아니다."
+  },
+  {
+   "id": "t6",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판의 2 입력 키다."
+  },
+  {
+   "id": "t8",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판의 4 입력 키다."
+  },
+  {
+   "id": "t7",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판의 1 입력 키다."
+  },
+  {
+   "id": "b6",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "5, 9, 3의 개별 키를 함께 감싼 행으로 단일 키가 아니다."
+  },
+  {
+   "id": "t10",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판의 9 입력 키다."
+  },
+  {
+   "id": "t11",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판의 3 입력 키다."
+  },
+  {
+   "id": "t9",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판의 5 입력 키다."
+  },
+  {
+   "id": "b7",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "재배열, 7, 삭제의 개별 키를 함께 감싼 행으로 단일 키가 아니다."
+  },
+  {
+   "id": "t13",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판의 7 입력 키다."
+  },
+  {
+   "id": "t12",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판 왼쪽 아래에 놓인 재배열 기능 키다."
+  },
+  {
+   "id": "b9",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "note": "숫자판 오른쪽 아래의 백스페이스 모양 삭제 키다."
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 9,
+ "estimate": {
+  "images": 9,
+  "image_tokens": 1376,
+  "text_tokens": 2761,
+  "input_tokens": 4137,
+  "answer_tokens": 1170,
+  "cost_usd": 0.019974,
+  "cost_usd_with_reasoning": 0.031674,
+  "cost_usd_cap": 0.258274,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 26 x 45"
+ },
+ "reused_from": "results/detect/20261013-d3"
+}

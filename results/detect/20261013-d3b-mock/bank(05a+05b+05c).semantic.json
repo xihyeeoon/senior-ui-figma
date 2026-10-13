@@ -1,0 +1,1196 @@
+{
+ "unit": "bank(05a+05b+05c)",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 18312,
+    "completion": 6279,
+    "reasoning": 89
+   },
+   "seconds": 86.2,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.099414,
+   "problems": []
+  }
+ ],
+ "elements": [
+  {
+   "id": "05a:t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 배터리 잔량 표시다."
+  },
+  {
+   "id": "05a:t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 시간 표시다."
+  },
+  {
+   "id": "05a:b18",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 통신 신호 표시다."
+  },
+  {
+   "id": "05a:b19",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "note": "상태바의 와이파이 표시다."
+  },
+  {
+   "id": "05a:b22",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "note": "선택 시트 뒤에서 어두워진 상단 영역이다."
+  },
+  {
+   "id": "05a:b23",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "note": "선택 시트 뒤에서 어두워진 닫기 영역이다."
+  },
+  {
+   "id": "05a:b21",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "note": "선택 시트 뒤에서 어두워진 뒤로가기 영역이다."
+  },
+  {
+   "id": "05a:t2",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "note": "어두워진 배경 화면의 뒤로가기 표시다."
+  },
+  {
+   "id": "05a:b20",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "note": "어두워진 배경 화면의 닫기 표시다."
+  },
+  {
+   "id": "05a:b24",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "note": "선택 시트 뒤에서 어두워진 제목 영역이다."
+  },
+  {
+   "id": "05a:t3",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "note": "어두워진 배경 화면의 제목이다."
+  },
+  {
+   "id": "05a:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "note": "선택 시트의 제목이다."
+  },
+  {
+   "id": "05a:b17",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "note": "시트 오른쪽 위의 X 모양 닫기 버튼이다."
+  },
+  {
+   "id": "05a:b15",
+   "pressable": true,
+   "kind": "tab",
+   "group": "기관 유형 탭",
+   "image_name": null,
+   "note": "밑줄로 선택 상태를 표시한 은행 탭이다."
+  },
+  {
+   "id": "05a:b16",
+   "pressable": true,
+   "kind": "tab",
+   "group": "기관 유형 탭",
+   "image_name": null,
+   "note": "은행 탭과 나란히 배치된 증권사 탭이다."
+  },
+  {
+   "id": "05a:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 유형 탭",
+   "image_name": null,
+   "note": "은행 탭 안의 이름 글자다."
+  },
+  {
+   "id": "05a:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 유형 탭",
+   "image_name": null,
+   "note": "증권사 탭 안의 이름 글자다."
+  },
+  {
+   "id": "05a:b11",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "신한 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "제주 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "국민 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "신한 로고",
+   "note": "신한 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "제주 로고",
+   "note": "제주 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "국민 로고",
+   "note": "국민 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 제주 이름이다."
+  },
+  {
+   "id": "05a:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 신한 이름이다."
+  },
+  {
+   "id": "05a:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 국민 이름이다."
+  },
+  {
+   "id": "05a:b8",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "기업 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:b5",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "농협 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "산업 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "기업 로고",
+   "note": "기업 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "농협 로고",
+   "note": "농협 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "산업 로고",
+   "note": "산업 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "농협 로고 내부의 NH 문자다."
+  },
+  {
+   "id": "05a:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 기업 이름이다."
+  },
+  {
+   "id": "05a:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 농협 이름이다."
+  },
+  {
+   "id": "05a:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 산업 이름이다."
+  },
+  {
+   "id": "05a:b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "신협 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:b7",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "수협 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "우리 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "신협 로고",
+   "note": "신협 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "우리 로고",
+   "note": "우리 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "수협 로고 내부의 Sh 문자다."
+  },
+  {
+   "id": "05a:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "수협 로고",
+   "note": "수협 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 수협 이름이다."
+  },
+  {
+   "id": "05a:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 신협 이름이다."
+  },
+  {
+   "id": "05a:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 우리 이름이다."
+  },
+  {
+   "id": "05a:b6",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "하나 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:b1",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "한국씨티 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:b2",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "카카오뱅크 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "하나 로고",
+   "note": "하나 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "한국씨티 로고",
+   "note": "한국씨티 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "카카오뱅크 로고",
+   "note": "카카오뱅크 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "카카오뱅크 로고 내부의 문자 모양이다."
+  },
+  {
+   "id": "05a:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "한국씨티 로고 내부의 citi 문자다."
+  },
+  {
+   "id": "05a:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 하나 이름이다."
+  },
+  {
+   "id": "05a:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 한국씨티 이름이다."
+  },
+  {
+   "id": "05a:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 카카오뱅크 이름이다."
+  },
+  {
+   "id": "05b:b11",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "경남 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "토스뱅크 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "케이뱅크 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05a:i13",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "케이뱅크 로고",
+   "note": "케이뱅크 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05a:i12",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "경남 로고",
+   "note": "경남 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "토스뱅크 로고",
+   "note": "토스뱅크 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "경남 로고 내부의 BNK 문자다."
+  },
+  {
+   "id": "05a:t24",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "경남 로고 내부의 BNK 문자 영역이다."
+  },
+  {
+   "id": "05b:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "케이뱅크 로고 내부의 Kbank 문자다."
+  },
+  {
+   "id": "05b:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 경남 이름이다."
+  },
+  {
+   "id": "05b:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 케이뱅크 이름이다."
+  },
+  {
+   "id": "05b:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 토스뱅크 이름이다."
+  },
+  {
+   "id": "05b:b6",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "부산 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:b8",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "광주 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:b5",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "아이엠뱅크 로고와 잘린 이름을 담은 선택 카드다."
+  },
+  {
+   "id": "05b:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "부산 로고",
+   "note": "부산 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "광주 로고",
+   "note": "광주 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "부산 로고 내부의 BNK 문자다."
+  },
+  {
+   "id": "05b:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "아이엠뱅크(대. 로고",
+   "note": "아이엠뱅크 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 광주 이름이다."
+  },
+  {
+   "id": "05b:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안에서 뒷부분이 잘린 기관 이름이다."
+  },
+  {
+   "id": "05b:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 부산 이름이다."
+  },
+  {
+   "id": "05b:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "전북 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "회원수협 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:b1",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "새마을 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "전북 로고",
+   "note": "전북 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "회원수협 로고",
+   "note": "회원수협 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "새마을 로고",
+   "note": "새마을 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 새마을 이름이다."
+  },
+  {
+   "id": "05b:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 전북 이름이다."
+  },
+  {
+   "id": "05b:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 회원수협 이름이다."
+  },
+  {
+   "id": "05b:b2",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "저축은행 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "지역농.축협 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:b7",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "우체국 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "지역농.축협 로고",
+   "note": "지역농.축협 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "저축은행 로고 내부의 SB 문자다."
+  },
+  {
+   "id": "05b:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "저축은행 로고",
+   "note": "저축은행 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "우체국 로고",
+   "note": "우체국 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 우체국 이름이다."
+  },
+  {
+   "id": "05b:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 저축은행 이름이다."
+  },
+  {
+   "id": "05b:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 지역농.축협 이름이다."
+  },
+  {
+   "id": "05b:b13",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "중국건설 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:b14",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "도이치 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:b12",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "중국 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05b:i12",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "도이치 로고",
+   "note": "도이치 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "중국건설 로고",
+   "note": "중국건설 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "중국 로고",
+   "note": "중국 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05b:t24",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 중국 이름이다."
+  },
+  {
+   "id": "05c:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 중국건설 이름이다."
+  },
+  {
+   "id": "05c:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 도이치 이름이다."
+  },
+  {
+   "id": "05c:b6",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "BNP파리바 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:b7",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "BOA 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:b8",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "중국공상 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "BNP파리바 로고",
+   "note": "BNP파리바 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05c:b21",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "중국공상 로고",
+   "note": "중국공상 선택 카드 안의 붉은 로고다."
+  },
+  {
+   "id": "05c:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "BOA 로고",
+   "note": "BOA 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05c:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 중국공상 이름이다."
+  },
+  {
+   "id": "05c:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 BNP파리바 이름이다."
+  },
+  {
+   "id": "05c:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 BOA 이름이다."
+  },
+  {
+   "id": "05c:b2",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "SC 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "HSBC 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "JP모간 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "JP모간 로고",
+   "note": "JP모간 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05c:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "HSBC 로고",
+   "note": "HSBC 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05c:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "SC 로고",
+   "note": "SC 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05c:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 SC 이름이다."
+  },
+  {
+   "id": "05c:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 JP모간 이름이다."
+  },
+  {
+   "id": "05c:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 HSBC 이름이다."
+  },
+  {
+   "id": "05c:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "산림조합 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:b5",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "지방세 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:b1",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "국세 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "국세 로고",
+   "note": "국세 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05c:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "지방세 로고",
+   "note": "지방세 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05c:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "산림조합 로고",
+   "note": "산림조합 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05c:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 지방세 이름이다."
+  },
+  {
+   "id": "05c:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 국세 이름이다."
+  },
+  {
+   "id": "05c:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 산림조합 이름이다."
+  },
+  {
+   "id": "05c:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "국고금 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "관세 로고와 이름을 담은 둥근 선택 카드다."
+  },
+  {
+   "id": "05c:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "국고금 로고",
+   "note": "국고금 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05c:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "기관 선택",
+   "image_name": "관세 로고",
+   "note": "관세 선택 카드 안의 로고다."
+  },
+  {
+   "id": "05c:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 관세 이름이다."
+  },
+  {
+   "id": "05c:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": "기관 선택",
+   "image_name": null,
+   "note": "선택 카드 안의 국고금 이름이다."
+  }
+ ],
+ "fixed": {
+  "05a:i11": "신한 로고",
+  "05a:i9": "제주 로고",
+  "05a:i10": "국민 로고",
+  "05a:i8": "기업 로고",
+  "05a:i5": "농협 로고",
+  "05a:i3": "산업 로고",
+  "05a:i0": "신협 로고",
+  "05a:i4": "우리 로고",
+  "05a:i7": "수협 로고",
+  "05a:i6": "하나 로고",
+  "05a:i1": "한국씨티 로고",
+  "05a:i2": "카카오뱅크 로고",
+  "05a:i13": "케이뱅크 로고",
+  "05a:i12": "경남 로고",
+  "05b:i9": "토스뱅크 로고",
+  "05b:i6": "부산 로고",
+  "05b:i8": "광주 로고",
+  "05b:i5": "아이엠뱅크(대. 로고",
+  "05b:i3": "전북 로고",
+  "05b:i0": "회원수협 로고",
+  "05b:i1": "새마을 로고",
+  "05b:i4": "지역농.축협 로고",
+  "05b:i2": "저축은행 로고",
+  "05b:i7": "우체국 로고",
+  "05b:i12": "도이치 로고",
+  "05b:i11": "중국건설 로고",
+  "05b:i10": "중국 로고",
+  "05c:i6": "BNP파리바 로고",
+  "05c:b21": "중국공상 로고",
+  "05c:i7": "BOA 로고",
+  "05c:i0": "JP모간 로고",
+  "05c:i3": "HSBC 로고",
+  "05c:i2": "SC 로고",
+  "05c:i1": "국세 로고",
+  "05c:i5": "지방세 로고",
+  "05c:i4": "산림조합 로고",
+  "05c:i8": "국고금 로고",
+  "05c:i9": "관세 로고"
+ },
+ "fixed_overrides": [],
+ "images": 45,
+ "estimate": {
+  "images": 45,
+  "image_tokens": 5501,
+  "text_tokens": 12874,
+  "input_tokens": 18375,
+  "answer_tokens": 6300,
+  "cost_usd": 0.09975,
+  "cost_usd_with_reasoning": 0.16275,
+  "cost_usd_cap": 0.28675,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 140 x 45"
+ },
+ "reused_from": "results/detect/20261013-d3"
+}

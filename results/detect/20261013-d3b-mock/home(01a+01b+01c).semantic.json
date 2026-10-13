@@ -1,0 +1,1072 @@
+{
+ "unit": "home(01a+01b+01c)",
+ "model": "mock",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": null,
+    "completion": null,
+    "reasoning": null
+   },
+   "seconds": 0.0,
+   "finish_reason": "stop",
+   "model": "mock",
+   "cost_usd": null,
+   "problems": []
+  }
+ ],
+ "prompt_sha": "e715607afa69",
+ "elements": [
+  {
+   "id": "01a:t0",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "01a:t1",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "01a:b5",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "01a:b7",
+   "pressable": false,
+   "kind": "system",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 표시 system_band"
+  },
+  {
+   "id": "01a:b2",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "홍길동님 아이콘",
+   "image_shape": "WhatsApp",
+   "note": "mock: 이름표 홍길동님"
+  },
+  {
+   "id": "01a:b1",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "홍길동님 아이콘",
+   "image_shape": "Open Document",
+   "note": "mock: 이름표 홍길동님"
+  },
+  {
+   "id": "01a:b0",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "홍길동님 아이콘",
+   "image_shape": "Notifications",
+   "note": "mock: 이름표 홍길동님"
+  },
+  {
+   "id": "01a:b3",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "홍길동님 아이콘",
+   "image_shape": "Find and Replace",
+   "note": "mock: 이름표 홍길동님"
+  },
+  {
+   "id": "01a:b8",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t3",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:b10",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:b21",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "자산 아이콘",
+   "image_shape": "Forward",
+   "note": "mock: 이름표 자산"
+  },
+  {
+   "id": "01a:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저… 아이콘",
+   "image_shape": "Sending a message or",
+   "note": "mock: 이름표 자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저…"
+  },
+  {
+   "id": "01a:b18",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:b13",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t12",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 짧은 글 줄"
+  },
+  {
+   "id": "01a:b6",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:b14",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:b20",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "이벤트 아이콘",
+   "image_shape": "a hamburger or sandw",
+   "note": "mock: 이름표 이벤트"
+  },
+  {
+   "id": "01a:b19",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:b4",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01a:b22",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "C 아이콘",
+   "image_shape": "Forward",
+   "note": "mock: 이름표 C"
+  },
+  {
+   "id": "01a:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01a:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b16",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t0",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "오늘쓴 돈 0원 아이콘",
+   "image_shape": "a calendar or schedu",
+   "note": "mock: 이름표 오늘쓴 돈 0원"
+  },
+  {
+   "id": "01b:t1",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b2",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t3",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:t2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "쓸때마다 쌓이고,현금처럼 쓰는 카드 P 마이신한포인트 아이콘",
+   "image_shape": "PowerPoint",
+   "note": "mock: 이름표 쓸때마다 쌓이고,현금처럼 쓰는 카드 P 마이신한포인트"
+  },
+  {
+   "id": "01b:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b1",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b5",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "image_shape": "a stopwatch function",
+   "note": "mock: 이름표 없음"
+  },
+  {
+   "id": "01b:b10",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "더 많은 금융자산 모두 아이콘",
+   "image_shape": "Increase",
+   "note": "mock: 이름표 더 많은 금융자산 모두"
+  },
+  {
+   "id": "01c:b6",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t0",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b1",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "SOL패밀리 가족과 함께하는 금융생활 아이콘",
+   "image_shape": "a stop or close butt",
+   "note": "mock: 이름표 SOL패밀리 가족과 함께하는 금융생활"
+  },
+  {
+   "id": "01c:t2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b0",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "급여클럽+ 푸 급여이체 우대 혜택 아이콘",
+   "image_shape": "a trash bin or trash",
+   "note": "mock: 이름표 급여클럽+ 푸 급여이체 우대 혜택"
+  },
+  {
+   "id": "01c:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b3",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "내 카드 승인내역 푸 모든 카드 실시간 승인내역 아이콘",
+   "image_shape": "a loading or bufferi",
+   "note": "mock: 이름표 내 카드 승인내역 푸 모든 카드 실시간 승인내역"
+  },
+  {
+   "id": "01b:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b12",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! … 아이콘",
+   "image_shape": "Pants",
+   "note": "mock: 이름표 더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! …"
+  },
+  {
+   "id": "01c:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b14",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b9",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01b:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01b:b17",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b18",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "나에게 맞는 카드 찾기 아이콘",
+   "image_shape": "Forward",
+   "note": "mock: 이름표 나에게 맞는 카드 찾기"
+  },
+  {
+   "id": "01c:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "신한카드 나에게 맞는 카드 찾기 아이콘",
+   "image_shape": "a credit card or pay",
+   "note": "mock: 이름표 신한카드 나에게 맞는 카드 찾기"
+  },
+  {
+   "id": "01c:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b2",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b19",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "지금 뜨는 주식 보러가기 아이콘",
+   "image_shape": "Forward",
+   "note": "mock: 이름표 지금 뜨는 주식 보러가기"
+  },
+  {
+   "id": "01c:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "신한투자증권 지금 뜨는 주식 보러가기 아이콘",
+   "image_shape": "a graph or chart",
+   "note": "mock: 이름표 신한투자증권 지금 뜨는 주식 보러가기"
+  },
+  {
+   "id": "01c:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b7",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:b20",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "내게 필요한 보험,보장분석으로 확인하기 아이콘",
+   "image_shape": "Forward",
+   "note": "mock: 이름표 내게 필요한 보험,보장분석으로 확인하기"
+  },
+  {
+   "id": "01c:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "신한라이프 내게 필요한 보험,보장분석으로 확인하기 아이콘",
+   "image_shape": "Adding a new item or",
+   "note": "mock: 이름표 신한라이프 내게 필요한 보험,보장분석으로 확인하기"
+  },
+  {
+   "id": "01c:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t21",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 짧은 글 줄"
+  },
+  {
+   "id": "01c:b17",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "알 수 없는 아이콘",
+   "image_shape": "a calendar or date l",
+   "note": "mock: 이름표 없음"
+  },
+  {
+   "id": "01c:b10",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:b8",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:b9",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:b12",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:b11",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글 든 박스"
+  },
+  {
+   "id": "01c:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "상품 아이콘",
+   "image_shape": "a shopping or shoppi",
+   "note": "mock: 이름표 상품"
+  },
+  {
+   "id": "01c:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "혜택 아이콘",
+   "image_shape": "a tool or function r",
+   "note": "mock: 이름표 혜택"
+  },
+  {
+   "id": "01c:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "금융 아이콘",
+   "image_shape": "a video file",
+   "note": "mock: 이름표 금융"
+  },
+  {
+   "id": "01c:b16",
+   "pressable": true,
+   "kind": "image",
+   "group": null,
+   "image_name": "홈 아이콘",
+   "image_shape": "Home",
+   "note": "mock: 이름표 홈"
+  },
+  {
+   "id": "01c:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "주식 아이콘",
+   "image_shape": "a graph or chart",
+   "note": "mock: 이름표 주식"
+  },
+  {
+   "id": "01c:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t23",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t24",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t25",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  },
+  {
+   "id": "01c:t26",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "mock: 글"
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 31,
+ "estimate": {
+  "images": 31,
+  "image_tokens": 3479,
+  "text_tokens": 10931,
+  "input_tokens": 14410,
+  "answer_tokens": 5175,
+  "cost_usd": 0.08057,
+  "cost_usd_with_reasoning": 0.13232,
+  "cost_usd_cap": 0.27882,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 115 x 45"
+ }
+}
