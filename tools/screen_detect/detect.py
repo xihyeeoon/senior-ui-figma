@@ -66,7 +66,11 @@ CAPTION_PROMPT = "<CAPTION>"
 #   overlap  겹친 박스 정리 규칙 - "omniparser" 는 한 박스가 다른 박스를 70% 넘게 덮어도(포함도)
 #            큰 것을 버린다 (OmniParser 그대로). "iou" 는 IoU 가 0.7 을 넘을 때만 - 칸 안에 아이콘
 #            박스가 있어도 칸을 남긴다
-CFG = {"conf": BOX_THRESHOLD, "nms": NMS_IOU, "tiles": 0, "clahe": False, "classic": False, "overlap": "omniparser"}
+# 기본값은 D2.5 시험(results/detect/20261013-d25/summary.md)에서 고른 묶음이다 - **이 앱 캡처로 고른
+# 설정**: 박스 점수 0.1 · NMS 0.3 · 대비 사본 · IoU 겹침 규칙. 박스 재현율(버튼 · 입구 · 선택지 ·
+# 입력칸)이 4/7 · 9/24 · 73/102 · 0/3 → 5/7 · 17/24 · 102/102 · 2/3 이고 지키는 선(글 · 로고 · 선택지)은
+# 그대로다. OmniParser 기본값(D1 · D2)으로 돌리려면 --conf 0.05 --nms 0.1 --no-clahe --overlap omniparser.
+CFG = {"conf": 0.1, "nms": 0.3, "tiles": 0, "clahe": True, "classic": False, "overlap": "iou"}
 TILE_OVERLAP = 0.2
 PASS_IOU = 0.5       # 여러 번 찾은 박스끼리 IoU 가 이 이상이면 같은 것 (원본 · 전체 검출 쪽을 남긴다)
 CLAHE_CLIP, CLAHE_GRID = 2.0, 8
