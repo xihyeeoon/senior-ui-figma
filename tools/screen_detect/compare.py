@@ -661,6 +661,16 @@ def roles_md(ro, summ, table_):
         md.append("모델 `%s` · 프롬프트 `%s` · 입력 `%s`. 실패한 단위: %s\n"
                   % (summ["model"], summ["prompt_file"], summ["in"],
                      ", ".join(summ["totals"]["failed"]) or "없음"))
+        reused = {u: x for u, x in summ["units"].items() if x.get("reused_from")}
+        if reused:
+            # 고른 단위만 다시 부르고 나머지는 앞 실행에서 가져온 결과 - 프롬프트 판이 섞여 있다
+            fresh = [u for u in summ["units"] if u not in reused]
+            md.append("**섞인 판이다.** 이번에 부른 단위 %d개(%s)는 프롬프트 `%s` 이고, 나머지 %d개(%s)는 `%s` "
+                      "에서 그때의 답을 그대로 가져왔다 (앞 판 프롬프트 - image_shape 칸이 없다).\n"
+                      % (len(fresh), ", ".join(fresh),
+                         ", ".join(sorted({summ["units"][u].get("prompt_sha") or "?" for u in fresh})),
+                         len(reused), ", ".join(reused),
+                         ", ".join(sorted({x["reused_from"] for x in reused.values()}))))
     md.append("정답 항목마다 닿는 요소(그 글을 읽은 글 줄 · 박스, 글 없는 것은 옮긴 자리의 요소) 가운데 하나라도 "
               "그 역할이면 맞음으로 센다. 과제 버튼 대 과제 밖 입구는 이 층이 정하지 않는다 - 둘을 함께 "
               "\"누를 수 있는 것\" 으로 본다.\n")

@@ -353,7 +353,15 @@ def run_unit(unit, det, a, captures, out, call):
     for n in (1, 2):
         write(os.path.join(out, "raw", "%s.%d.request.txt" % (unit, n)),
               M.prompt_record(ask, images, a.model, base=out))
+        need = res["estimate"]["cost_usd_with_reasoning"] or 0
+        if a.max_usd is not None and not a.mock and a.spent + need > a.max_usd:
+            # 이 호출을 하면 허락한 금액을 넘을 것 같다 - 부르지 않고 멈춘다
+            res["status"] = "stopped"
+            res["stopped"] = "쓴 돈 $%.4f + 이 호출 어림 $%.4f > 상한 $%.2f" % (a.spent, need, a.max_usd)
+            return res
         reply = call(ask, images, rows, n)
+        if not a.mock:
+            a.spent += M.cost_usd(reply.get("usage"), M.price_for(a.model)) or need
         write(os.path.join(out, "raw", "%s.%d.request.json" % (unit, n)),
               json.dumps({k: v for k, v in reply.items() if k in ("sent", "api", "max_tokens",
                                                                   "temperature", "seed")},
@@ -392,10 +400,13 @@ def main(argv=None):
     ap.add_argument("--max-tokens", type=int, default=MAX_TOKENS)
     ap.add_argument("--mock", nargs="?", const="ok", choices=["ok", "bad-once", "bad-twice"])
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--max-usd", type=float, help="이번 실행에 쓸 상한 (USD). 다음 호출의 어림(생각 = 답)을 "
+                                                "더해 넘을 것 같으면 부르지 않고 멈춘다")
     ap.add_argument("--units", help='고른 단위만 - 쉼표로 ("home(01a+01b+01c),02,08")')
     ap.add_argument("--reuse", help="고르지 않은 단위의 답을 가져올 앞 실행 폴더 (예 results/detect/"
                                     "20261013-d3). 비교는 13단위 전체로 한다")
     a = ap.parse_args(argv)
+    a.spent = 0.0
     from senior_ui import config
     a.model = a.model or config.DEFAULT_MODEL
     effort = a.reasoning_effort or config.DEFAULT_REASONING_EFFORT
@@ -476,7 +487,9 @@ def main(argv=None):
         r = run_unit(u, units[u], a, captures, out, call)
         write(os.path.join(out, u + ".semantic.json"), json.dumps(r, ensure_ascii=False, indent=1))
         done.append(r)
-        print(u, r["status"], "시도 %d" % len(r["attempts"]), flush=True)
+        print(u, r["status"], "시도 %d" % len(r["attempts"]), r.get("stopped") or "", flush=True)
+        if r["status"] == "stopped":
+            break
     summ = {"model": "mock:%s" % a.mock if a.mock else a.model, "reasoning_effort": None if a.mock else effort,
             "units_run": names, "reuse": (os.path.relpath(a.reuse, ROOT).replace("\\", "/")
                                           if a.reuse else None),
