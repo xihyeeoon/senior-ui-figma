@@ -298,6 +298,25 @@ def pairing(truth, dets):
     return out
 
 
+CUT_MARKS = ".…"
+
+
+def truncated_match(label, names):
+    """잘린 이름의 후보 - 후보 이름("<앞부분>. 로고" · "<앞부분>… 로고")의 앞부분으로 정답 이름이
+    시작하면 그 후보. 앞부분은 두 글자 이상이어야 한다."""
+    want = label.strip()
+    if not want.endswith(" 로고"):
+        return None
+    for name, c in names.items():
+        base = name[:-len(" 로고")] if name.endswith(" 로고") else None
+        if not base or base[-1] not in CUT_MARKS:
+            continue
+        head = base.rstrip(CUT_MARKS)
+        if len(head) >= 2 and want[:-len(" 로고")].startswith(head) and want != name:
+            return c
+    return None
+
+
 def judge_capture(det, st):
     """캡처 한 장 대 상태 하나."""
     frame = Frame(st, det)
@@ -317,10 +336,14 @@ def judge_capture(det, st):
         r = frame.map(it["thing"])
         row = {"kind": it["kind"], "label": it["label"], "action": it.get("action"),
                "key": key(it), "in_frame": frame.inside(it["thing"])}
-        if it["kind"] == "slot" and it["label"].strip() in names:
-            # 로고 - 후보 이름이 정답 이름과 같다 (둘 다 "<이름> 로고" 규칙이라 판정한다)
-            c = names[it["label"].strip()]
-            row.update(icon=True, named=c["id"], near=c["id"], caption=c["caption"])
+        cut = truncated_match(it["label"], names) if it["kind"] == "slot" else None
+        if it["kind"] == "slot" and (it["label"].strip() in names or cut):
+            # 로고 - 후보 이름이 정답 이름과 같다 (둘 다 "<이름> 로고" 규칙이라 판정한다).
+            # 화면이 이름을 잘라 보인 것("아이엠뱅크(대." 로고)은 앞부분이 같으면 맞음이되
+            # 잘린 이름으로 따로 센다 - 뒷부분을 짐작해 채우지 않는다 (연구자 결정 2026-10-13)
+            c = names.get(it["label"].strip()) or cut
+            row.update(icon=True, named=c["id"], near=c["id"], caption=c["caption"],
+                       truncated=c["name"] if cut and it["label"].strip() not in names else None)
         elif it["kind"] == "slot" or not it["n"]:
             pool = [c for c in plain + cands if not c.get("name")]
             nb = near_box(r, pool) if row["in_frame"] is not False else None
@@ -502,7 +525,8 @@ def main(argv=None):
                      for s in merged}
     logo_rows = [r for rs in allrows for r in rs
                  if r["kind"] == "slot" and r["action"] == "pick-bank"]
-    logos = {"total": len(logo_rows), "named": sum(bool(r.get("named")) for r in logo_rows)}
+    logos = {"total": len(logo_rows), "named": sum(bool(r.get("named")) for r in logo_rows),
+             "truncated": sum(bool(r.get("truncated")) for r in logo_rows)}
     left_total = sum(len(per[n]["leftover"]) for n in names)
     left_by = {w: sum(1 for n in names for b in per[n]["leftover"] if b["why"] == w)
                for w in ("behind_overlay", "system_band", "other")}
@@ -571,7 +595,8 @@ def main(argv=None):
          "그중 박스 안 %d · 글 없는 값 %d" % (t["choice"]["in_box"], t["choice"]["icon"])],
         ["그림 자리", "정답 %d 대 후보 %d" % (t["slot"]["total"], sum(cand_by_state.values())),
          "후보 = 글 없는 박스(아이콘) + 칸 안의 그림 후보(img_candidate). 짝지은 단위들의 합"],
-        ["로고 이름 맞음", "%d/%d" % (logos["named"], logos["total"]),
+        ["로고 이름 맞음", "%d/%d (잘린 이름 %d 포함)" % (logos["named"], logos["total"],
+                                                    logos["truncated"]),
          "은행 · 증권사 로고 - 정답 \"<이름> 로고\" 와 후보 이름이 같은 것 (5절)"],
         ["남는 박스", "%d / 검출 박스 %d" % (left_total, box_total),
          "단위 %d개의 합. 갈래: 덮개 뒤 %d · 고정 띠 %d · 그 밖 %d (flags.py 의 표시)"
@@ -680,12 +705,18 @@ def main(argv=None):
     md.append(table(["상태", "정답 그림 자리", "글 없는 박스", "칸 안 후보", "그중 이름 붙은 것"], rows))
 
     md.append("\n### (b) 로고 이름 - 정답 \"<이름> 로고\" 대 후보 이름 (자동 판정)\n")
-    md.append("둘 다 같은 규칙(\"<칸 글> 로고\")으로 만든 이름이므로 같으면 맞음으로 센다. 맞음 %d/%d.\n"
+    md.append("둘 다 같은 규칙(\"<칸 글> 로고\")으로 만든 이름이므로 같으면 맞음으로 센다. 화면이 이름을 잘라 "
+              "보인 것(\"…(대. 로고\")은 앞부분이 같으면 맞음이되 잘린 이름으로 따로 센다. 맞음 %d/%d.\n"
               % (logos["named"], logos["total"]))
     unnamed = [r for r in logo_rows if not r.get("named")]
+    cut_rows = [r for r in logo_rows if r.get("truncated")]
+    if cut_rows:
+        md.append("잘린 이름으로 맞음 %d: %s\n" % (len(cut_rows), ", ".join(
+            "%s ← 후보 \"%s\"" % (r["label"], r["truncated"]) for r in cut_rows)))
     states_of = {r["key"]: s for s, rs in merged.items() for r in rs}
     extra = sorted({c for s in ("bank", "bank+tab-sec") for _, res in by_state.get(s, [])
-                    for c in res["names"]} - {r["label"].strip() for r in logo_rows})
+                    for c in res["names"]} - {r["label"].strip() for r in logo_rows}
+                   - {r["truncated"] for r in logo_rows if r.get("truncated")})
     md.append(table(["못 맞은 정답 이름", "상태"], [[r["label"], states_of[r["key"]]]
                                                    for r in unnamed] or [["-", "-"]]))
     md.append("\n정답에 없는 후보 이름 (OCR 이 칸 글을 다르게 읽은 것 등): %s\n"
@@ -744,7 +775,7 @@ def main(argv=None):
     md.append(table(["캡처", "글"], [[n, " · ".join(per[n]["extra_text"]) or "-"] for n in names]))
 
     row = {"text": [t["text"]["found"], t["text"]["with_text"]],
-           "logos": [logos["named"], logos["total"]],
+           "logos": [logos["named"], logos["total"]], "logos_truncated": logos["truncated"],
            "choices": [t["choice"]["found"], t["choice"]["with_text"]],
            "box_recall": {k: [t[k]["in_box"], t[k]["with_text"]]
                           for k in ("button", "entrance", "choice", "field")},
