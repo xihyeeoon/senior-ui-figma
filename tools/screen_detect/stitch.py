@@ -190,6 +190,19 @@ def name_across(out):
     return n
 
 
+def compose(frags, imgs):
+    """이은 그림 - 첫 조각은 통째로, 그다음 조각은 위 고정 띠를 빼고, 마지막이 아닌 조각은 아래 고정
+    띠를 빼고 offset 자리에 붙인다. semantic.py 도 이것으로 이은 화면을 다시 만든다."""
+    from PIL import Image
+    w, h = imgs[0].size
+    canvas = Image.new("RGB", (w, frags[-1]["offset"] + h), "white")
+    for i, (f, im) in enumerate(zip(frags, imgs)):
+        lo = 0 if i == 0 else f["top_band"]
+        hi = h if i == len(frags) - 1 else h - f["bottom_band"]
+        canvas.paste(im.crop((0, lo, w, hi)), (0, f["offset"] + lo))
+    return canvas
+
+
 def stitch(name, caps, folder, captures):
     import numpy as np
     from PIL import Image
@@ -218,14 +231,7 @@ def stitch(name, caps, folder, captures):
     # 마지막 조각은 아래 띠를 지우지 않는다 - 거기가 진짜 아래(탭바)다
     height = frags[-1]["offset"] + h
 
-    canvas = Image.new("RGB", (w, height), "white")
-    for f, im in zip(frags, imgs):
-        lo, hi = f["top_band"], h - f["bottom_band"]
-        if f is frags[0]:
-            lo = 0
-        if f is frags[-1]:
-            hi = h
-        canvas.paste(im.crop((0, lo, w, hi)), (0, f["offset"] + lo))
+    canvas = compose(frags, imgs)
 
     out, alias, merged, dropped = [], {}, 0, 0
     for f, det in zip(frags, dets):
