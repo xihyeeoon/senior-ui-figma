@@ -317,6 +317,9 @@ function revealCut(s: any, base: any, h: number): [number, number] | null {
     Math.min(h, Math.ceil(Math.max(...d.map(o => o.box[1] + o.box[3])) + REVEAL_PAD))];
 }
 
+// 띠 [a, b] 에 걸침 (위 끝 < b, 아래 끝 > a) · 띠 좌표로 옮기기 (y − a, box 가 있으면 box 의 y)
+const inBand = ([a, b]: [number, number], y: number, h: number) => y < b && y + h > a;
+const up = (o: any, a: number) => o.box ? { ...o, box: [o.box[0], o.box[1] - a, o.box[2], o.box[3]] } : { ...o, y: o.y - a };
 // 장 프레임 안의 레이어. cut = [a, b] 면 그 띠만: 띠에 걸친 참고 그림 조각 · 요소 · 그림 자리를 y − a 로 옮기고
 // 영역 (과 영역 입구 묶기) 은 그리지 않는다.
 function sheetKids(c: Ctx, s: any, cut?: [number, number]): Node[] {
@@ -325,14 +328,13 @@ function sheetKids(c: Ctx, s: any, cut?: [number, number]): Node[] {
   const nos = new Set((s.items || []).map((it: any) => it.no)), imgs: any[] = s.images || [];
   for (const g of imgs) if (g.in && !nos.has(g.in))
     c.warnings.push(`그림 경고: 장 ${s.id} 의 그림 ${g.no} 이 가리키는 요소 ${g.in} 가 없다 — 장에 그렸다`);
-  const [a, b] = cut || [0, h];
-  const on = (o: any) => !cut || (o.box[1] < b && o.box[1] + o.box[3] > a);
-  const mv = (o: any) => cut ? { ...o, box: [o.box[0], o.box[1] - a, o.box[2], o.box[3]] } : o;
+  const on = (o: any) => !cut || inBand(cut, o.box[1], o.box[3]);
+  const mv = (o: any) => cut ? up(o, cut[0]) : o;
   const its: any[] = (s.items || []).filter(on).map(mv), ims = imgs.map(mv);
   const ent = cut ? { counted: new Set<string>(), regions: new Map<any, number>() } : entranceRegions(s);
   const items: Node[] = its.map(it => itemNode(c, it, { screen: s.screen, counted: ent.counted, ims }));
   const pic = picture(s, w, h, c.dims);
-  if (cut) pic.kids = pic.kids!.filter(k => k.y! < b && k.y! + k.h! > a).map(k => ({ ...k, y: k.y! - a }));
+  if (cut) pic.kids = pic.kids!.filter(k => inBand(cut, k.y!, k.h!)).map(k => up(k, cut[0]));
   const kids = [pic, ...imgs.filter(g => !nos.has(g.in) && on(g)).map(g => slotNode(mv(g))),
     ...items, ...(cut ? [] : (s.regions || []).map((r: any) => regionNode(r, ent.regions.get(r))))];
   untangle(kids, c.tally);
@@ -382,10 +384,12 @@ function herdAnn(anns: Node[][], keys: string[], title: string): Node[] {
   return out;
 }
 
+// 세로 자동 배치 · 높이는 내용에 맞춤 (실행 카드 · 주석 · 바꾼 것 표). 안쪽 여백 pad 는 네 방향 같게, 0 이면 두지 않는다
+const colFrame = (more: Partial<Node>, pad: number, kids: Node[]): Node =>
+  ({ t: 'frame', name: '', layout: 'V', hug: 'h', ...(pad ? { pad: [pad, pad, pad, pad] } : {}), ...more, kids });
 function runCard(sb: any, checks: string[]): Node {
   const run = sb.run || {}, orig = run.original || {};
-  return { t: 'frame', name: '실행 카드', x: 0, y: 0, w: CARD_W, layout: 'V', hug: 'h',
-    pad: [24, 24, 24, 24], gap: 8, fill: PAPER, stroke: INK, kids: [
+  return colFrame({ name: '실행 카드', x: 0, y: 0, w: CARD_W, gap: 8, fill: PAPER, stroke: INK }, 24, [
       txt(`실행 ${run.id}`, 20, { bold: true }),
       txt(`과제: ${sb.task?.label ?? ''} (${run.task ?? sb.task?.id ?? ''})`, BODY),
       txt(`모델: ${run.model ?? ''}`, BODY),
@@ -396,7 +400,7 @@ function runCard(sb: any, checks: string[]): Node {
       txt(ENTRANCE_NOTE, BODY),
       ...((sb.sheets || []).some((s: any) => s.images?.length) ? [txt(SLOT_NOTE, BODY)] : []),
       ...checks.map(c => txt(c, BODY)),
-    ] };
+    ]);
 }
 
 function changesPage(sb: any, titleOf: (s: string) => string): Node[] {
@@ -410,8 +414,7 @@ function changesPage(sb: any, titleOf: (s: string) => string): Node[] {
   const rows = (sb.changes || []).map((c: any, i: number) => row([c.id, c.what, c.why,
     (c.to_screens || []).map(titleOf).join(', ')], false, i + 1));
   return [txt(`바꾼 것 — ${sb.task?.label ?? ''} · ${sb.run?.id ?? ''}`, 20, { x: 0, y: 0, bold: true }),
-    { t: 'frame', name: '바꾼 것 표', x: 0, y: 64, w: W, layout: 'V', hug: 'h', gap: 0, fill: null,
-      kids: [row(['id', '무엇', '왜', '어느 화면'], true, 0), ...rows] }];
+    colFrame({ name: '바꾼 것 표', x: 0, y: 64, w: W, gap: 0, fill: null }, 0, [row(['id', '무엇', '왜', '어느 화면'], true, 0), ...rows])];
 }
 
 // 열 (3): 주요 장을 흐름 순서 (flow.steps 의 sheet) 로, 흐름에 없는 주요 장은 sheets 순서로 뒤에.
@@ -435,9 +438,8 @@ function herds(row: any[], base: any): any[][] {
   for (const s of row) if (freshOf(s, base).length) { const k = freshKey(s, base); same.set(k, [...(same.get(k) || []), s]); }
   return [...same.values()];
 }
-const annFrame = (title: string, x: number, y: number, kids: Node[]): Node => ({ t: 'frame',
-  name: `주석 — ${title}`, x, y, w: ANN_W, layout: 'V', hug: 'h', pad: [ANN_PAD, ANN_PAD, ANN_PAD, ANN_PAD],
-  gap: ANN_ITEM_GAP, fill: '#FFF8D6', kids });
+const annFrame = (title: string, x: number, y: number, kids: Node[]): Node =>
+  colFrame({ name: `주석 — ${title}`, x, y, w: ANN_W, gap: ANN_ITEM_GAP, fill: '#FFF8D6' }, ANN_PAD, kids);
 // 장 (또는 묶인 펼친 장 무리 g, 첫 장이 대표) 의 이름 · 주석 · 주석 어림 높이
 function entry(c: Ctx, g: any[]) {
   const s = g[0], many = g.length > 1, keys = g.map(t => revealKey(t)!);
