@@ -52,6 +52,7 @@ Usage:
   python -m senior_ui.restructure --model gpt-6.1-sol --attempts 2
   python -m senior_ui.restructure --model gpt-6.1-sol --task bill   # 공과금 (기본 transfer)
   python -m senior_ui.restructure --model gpt-6.1-sol --mode layout # 흐름은 원본 그대로, 배치만
+  python -m senior_ui.restructure --model gpt-6.1-sol --mode layout --principles ga  # 문헌 원칙 9개
   python -m senior_ui.restructure --mock pass     # no API: replays Run 1
   python -m senior_ui.restructure --mock fail     # no API: a broken flow, every attempt fails
   python -m senior_ui.restructure --list-models   # 이 키로 쓸 수 있는 gpt- 모델 (요금 없음)
@@ -116,6 +117,7 @@ from senior_ui.tasks import DEFAULT_TASK, task_names
 
 from .loop import run
 from .prompt import DEFAULT_MODE, MODES
+from . import principles as PR
 from .model import ALL_MODES, APIS, REASONING_EFFORTS, REFINE_MODES, SEED, TEMPERATURE
 from .probe import list_models, probe
 
@@ -195,6 +197,12 @@ def build_parser():
                          "같다 - 프롬프트가 바이트까지 같다. layout 은 ② 만: 세 프롬프트에 흐름 "
                          "고정 · 배치 허락 두 문장을 넣고 (docs/restructure-prompt.md '단계'), 흐름 "
                          "고정 검사(M)를 fatal 로 본다. full 에서는 그 검사를 기록만 한다")
+    ap.add_argument("--principles", choices=PR.CONDITIONS, default=PR.DEFAULT,
+                    help="프롬프트에 넣는 문헌 원칙 (prompts/principles/<조건>.json). none (기본) 은 "
+                         "넣지 않는다 - 프롬프트가 바이트까지 같다. ga 는 고정 원칙 9개, na 는 화면 "
+                         "수준 원칙 27개 (모델이 화면마다 고른다). 진단·계획 · 생성 · 다듬기에 같은 "
+                         "원칙이 들어간다 (docs/restructure-prompt.md '원칙'). 파일이 없거나 깨졌으면 "
+                         "모델을 부르기 전에 멈춘다")
     ap.add_argument("--refine", type=int, default=None, metavar="N",
                     help="보고 다듬기 횟수. 검사를 통과한 빌드의 스크린샷을 보여 주고 "
                          "다듬게 한다. 0 이면 끈다. 형식 · 검사 예산과 따로 센다. 주지 "

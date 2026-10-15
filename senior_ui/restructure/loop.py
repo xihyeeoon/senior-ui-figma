@@ -54,6 +54,7 @@ from .plan import (PlanProblems, apply_changes, critique_issues, evidence_kinds,
 from .preserve import inject, names_read, optional_names, preserved_data
 from . import captures as CAP
 from . import flow_fixed as FF
+from . import principles as PR
 from .prompt import (BUILD_SHOTS_INTRO, CAPTURES_SHOTS_INTRO, DEFAULT_MODE, build_plan_prompt,
                      build_prompt,
                      build_refine_prompt, choices_block, errors_block,
@@ -1853,6 +1854,11 @@ def run(args):
         # 인자를 넘기지 않고 전과 똑같이 부른다.
         mode = getattr(args, "mode", None) or DEFAULT_MODE
         by_mode = {} if mode == DEFAULT_MODE else {"mode": mode}
+        # 문헌 원칙 (--principles) 도 같은 규칙이다 - none 은 인자를 넘기지 않는다. 파일이 없거나
+        # 깨졌으면 여기서 멈춘다 (모델을 부르기 전, cannot_start).
+        principles = PR.load(getattr(args, "principles", None) or PR.DEFAULT)
+        if principles:
+            by_mode["principles"] = principles["condition"]
         template = load_template(task["id"], **by_mode)
         plan_template = load_plan_template(task["id"], **by_mode)
         refine_template = load_refine_template(task["id"], **by_mode)

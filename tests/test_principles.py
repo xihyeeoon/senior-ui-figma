@@ -249,3 +249,82 @@ def test_principles_are_not_tied_to_the_mode(cond):
 def test_an_unknown_condition_stops():
     with pytest.raises(ValueError):
         P.load_template("transfer", principles="xx")
+
+
+# ===================================================================== #
+# 3. 명령 줄 · 루프 (모델 · 서버 · 브라우저는 부르지 않는다 - test_restructure_bugs 의 fake_run_env)
+# ===================================================================== #
+from test_restructure_bugs import (GOOD_PLAN_REPLY, GOOD_REPLY, PLAN_TEMPLATE,  # noqa: E402,F401
+                                   fake_run_env, is_plan_prompt, make_args, out_root,
+                                   run_dirs)
+
+loop = _api.loop_module
+
+
+def test_the_option_defaults_to_none():
+    ap = _api.restructure_parser()
+    assert ap.parse_args([]).principles == "none"
+    assert ap.parse_args(["--principles", "na"]).principles == "na"
+    with pytest.raises(SystemExit):
+        ap.parse_args(["--principles", "xx"])
+
+
+def recording_templates(monkeypatch, seen):
+    """루프가 템플릿을 무엇으로 불렀는지 적는다. 템플릿은 fake_run_env 의 대역 그대로다."""
+    def fake(kind, text):
+        def load(task=None, **kw):
+            seen.append((kind, kw))
+            return text
+        return load
+    monkeypatch.setattr(loop, "load_template",
+                        fake("generate", "TEMPLATE {{ORIGINAL_HTML}} {{RETRY_BLOCK}} {{CHOICES}}"))
+    monkeypatch.setattr(loop, "load_plan_template", fake("plan", PLAN_TEMPLATE))
+    monkeypatch.setattr(loop, "load_refine_template", fake("refine", "REFINE"))
+
+
+def run_with(monkeypatch, out_root, calls, **kw):
+    def call_model(model_, prompt, *a, **k):
+        calls.append(prompt)
+        text = GOOD_PLAN_REPLY if is_plan_prompt(prompt) else GOOD_REPLY
+        return {"text": text, "finish_reason": "stop", "seconds": 0.0, "usage": None}
+    monkeypatch.setattr(loop, "call_model", call_model)
+    code = loop.run(make_args(out_root, **kw))
+    d = run_dirs(out_root)[-1]
+    summary = json.load(io.open(os.path.join(d, "summary.json"), encoding="utf-8"))
+    log = io.open(os.path.join(d, "run.log"), encoding="utf-8").read().splitlines()
+    return code, summary, log
+
+
+@pytest.mark.parametrize("cond", ["ga", "na"])
+def test_the_loop_asks_for_the_templates_with_the_principles(fake_run_env, out_root, cond):
+    seen, calls = [], []
+    recording_templates(fake_run_env, seen)
+    code, summary, _log = run_with(fake_run_env, out_root, calls, principles=cond)
+    assert code == 0 and calls
+    assert sorted(k for k, _ in seen) == ["generate", "plan", "refine"]
+    assert all(kw == {"principles": cond} for _, kw in seen)
+
+
+def test_none_asks_for_the_templates_as_before(fake_run_env, out_root):
+    """none 은 인자를 넘기지 않고 전과 똑같이 부른다 - 단계(--mode)와 같은 규칙."""
+    seen, calls = [], []
+    recording_templates(fake_run_env, seen)
+    code, _summary, _log = run_with(fake_run_env, out_root, calls, principles="none")
+    assert code == 0
+    assert all(kw == {} for _, kw in seen)
+
+
+@pytest.mark.parametrize("broken", ["missing", "not-json", "wrong-shape"])
+def test_a_missing_or_broken_file_stops_before_the_model(fake_run_env, out_root, tmp_path,
+                                                         broken):
+    if broken == "not-json":
+        (tmp_path / "ga.json").write_text("{\"condition\": \"ga\", ", encoding="utf-8")
+    elif broken == "wrong-shape":
+        (tmp_path / "ga.json").write_text(json.dumps({"condition": "ga", "items": [{"id": "S02"}]}),
+                                          encoding="utf-8")
+    fake_run_env.setattr(PR, "DIR", str(tmp_path))
+    calls = []
+    code, summary, _log = run_with(fake_run_env, out_root, calls, principles="ga")
+    assert code == 2 and summary["stopped_reason"] == "cannot_start"
+    assert calls == []
+    assert "ga.json" in summary["error"]
