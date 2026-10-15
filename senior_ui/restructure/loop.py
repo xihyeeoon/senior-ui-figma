@@ -298,6 +298,8 @@ class Run:
         # 재설계의 단계 (--mode). layout 이면 흐름 고정 검사(flow_fixed, 검사 M)가 fatal 이고,
         # full 이면 기록만 한다. 그 검사의 잣대인 원본 흐름의 정답 경로를 한 번 읽어 둔다.
         self.mode = getattr(args, "mode", None) or DEFAULT_MODE
+        # 문헌 원칙 (--principles) - principles.load 가 읽은 것. none 이면 None (run 이 채운다)
+        self.principles = None
         self.original_steps = FF.original_steps(self.task["id"])
         # 진단과 지금의 계획. 계획은 실행에 하나이고 재시도에서 고쳐진다.
         self.diagnosis = None
@@ -663,8 +665,10 @@ def request_plan(r, n, p):
     r.log("plan prompt: %d chars%s%s" % (len(prompt),
                                          " (with retry block)" if r.plan_error else "",
                                          " + 그림 %d장" % len(images) if images else ""))
-    reply, outcome = ask_model(r, n, p, prompt, r.caps["plan"], mock_plan_reply, "plan",
-                               images=images)
+    # 문헌 원칙을 넣은 mock 실행이면 mock 계획에 applied 가 붙는다 (none 은 전과 같은 함수)
+    mock = (lambda mode: mock_plan_reply(mode, principles=r.principles)) if r.principles \
+        else mock_plan_reply
+    reply, outcome = ask_model(r, n, p, prompt, r.caps["plan"], mock, "plan", images=images)
     if reply is None:
         return None, outcome
     io.open(p + ".plan_response.txt", "w", encoding="utf-8",
@@ -1515,14 +1519,17 @@ def write_briefs(r, out, name):
     쓴다 - 같은 스크린샷을 가리키되 링크 글자가 다르다."""
     f = r.summary["final"]
     tid = r.task["id"]
+    # 원칙 적용표는 원칙을 넣은 실행에만 - none 의 설명서는 전과 같다
+    by = {"principles": PR.record(r.principles)} if r.principles else {}
     path = write_brief(r.summary, r.original_screens, os.path.join(r.run_dir, BRIEF),
-                       errors=r.errors)
+                       errors=r.errors, **by)
     if not path:
         r.log("final: 계획이 없어 설명서를 쓰지 않았다")
         return
     f["brief"] = path
     promoted = write_brief(r.summary, r.original_screens,
-                           os.path.join(out, promoted_name("brief", tid)), errors=r.errors)
+                           os.path.join(out, promoted_name("brief", tid)), errors=r.errors,
+                           **by)
     shutil.copy2(promoted, os.path.join(out, promoted_name("brief", tid, "." + name)))
     f["brief_promoted"] = promoted
     r.log("final: 디자이너용 설명서 -> %s (+ %s)" % (path, promoted_name("brief", tid)))
@@ -1893,6 +1900,7 @@ def run(args):
         return cannot_start(e)
     r.summary["git"] = git
     r.captures = cap
+    r.principles = principles
     r.summary["original"] = orig_path
     r.summary["original_sha256"] = orig_sha
     r.allowed_removals = allowed

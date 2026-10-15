@@ -328,3 +328,110 @@ def test_a_missing_or_broken_file_stops_before_the_model(fake_run_env, out_root,
     assert code == 2 and summary["stopped_reason"] == "cannot_start"
     assert calls == []
     assert "ga.json" in summary["error"]
+
+
+# ===================================================================== #
+# 4. 계획의 applied 칸 - 형식 검사는 보지 않고, 설명서에 적용표로 남는다
+# ===================================================================== #
+M = _api.model_module
+PLAN = _api.plan_module
+BRIEF = _api.brief_module
+ORIGINAL_SCREENS = ["home", "recipient", "account", "bank", "amount", "confirm", "password",
+                    "done", "err-account", "err-bank"]
+
+
+def mock_plan(cond):
+    reply = M.mock_plan_reply("pass", principles=PR.load(cond) if cond != "none" else None)
+    return json.loads(reply["text"].split("```json\n", 1)[1].rsplit("```", 1)[0])
+
+
+def test_the_mock_plan_is_unchanged_without_principles():
+    assert M.mock_plan_reply("pass") == M.mock_plan_reply("pass", principles=None)
+    assert "applied" not in M.mock_plan_reply("pass")["text"]
+
+
+@pytest.mark.parametrize("cond", ["ga", "na"])
+def test_the_mock_plan_writes_applied_for_every_screen(cond):
+    data = mock_plan(cond)
+    ids = [it["id"] for it in read(cond)["items"]]
+    for sc in data["plan"]["screens"]:
+        assert sc["applied"], sc["name"]
+        for a in sc["applied"]:
+            assert a["id"] in ids and a["how"]
+            assert ("why" in a) == (cond == "na")
+    if cond == "ga":
+        # 고정 원칙은 모든 화면에 하나씩 - 해당 없으면 '해당 없음 — 이유'
+        assert all([a["id"] for a in sc["applied"]] == ids for sc in data["plan"]["screens"])
+    # 진단·계획 전역의 MOCK_PLAN 은 그대로다
+    assert all("applied" not in sc for sc in M.MOCK_PLAN["screens"])
+
+
+@pytest.mark.parametrize("cond", ["none", "ga", "na"])
+def test_the_format_check_does_not_look_at_applied(cond):
+    data = mock_plan(cond)
+    diagnosis, plan = PLAN.parse_plan("```json\n%s\n```" % json.dumps(data, ensure_ascii=False),
+                                      ORIGINAL_SCREENS, ["wrong-account", "wrong-bank"])
+    assert plan == data["plan"]
+    # 모양이 틀린 applied 도 막지 않는다 - 통과 · 실패에 쓰지 않는다
+    data["plan"]["screens"][0]["applied"] = "아무 글"
+    PLAN.parse_plan(json.dumps(data, ensure_ascii=False), ORIGINAL_SCREENS,
+                    ["wrong-account", "wrong-bank"])
+
+
+def brief_text(plan, principles):
+    kw = {} if principles is None else {"principles": principles}
+    return BRIEF.render_brief("run", 1, plan, [], {}, ORIGINAL_SCREENS, "shots", ".", **kw)
+
+
+def test_the_brief_is_unchanged_without_principles():
+    plan = mock_plan("none")["plan"]
+    assert brief_text(plan, None) == BRIEF.render_brief("run", 1, plan, [], {}, ORIGINAL_SCREENS,
+                                                        "shots", ".")
+    assert "원칙" not in brief_text(plan, None)
+
+
+@pytest.mark.parametrize("cond", ["ga", "na"])
+def test_the_brief_has_a_table_of_screens_by_principle(cond):
+    plan = mock_plan(cond)["plan"]
+    plan["screens"][1]["applied"] = []
+    plan["screens"][2]["applied"] = ["글 하나 | 줄바꿈\n있음"]
+    rec = PR.record(PR.load(cond))
+    text = brief_text(plan, rec)
+    assert "## 화면별 원칙 적용표" in text
+    assert "`%s`" % rec["file"] in text and rec["sha256"][:12] in text
+    head = text.index("## 화면별 원칙 적용표")
+    table = text[head:text.index("\n## ", head + 1)]
+    assert "| 화면 | 원칙 | 왜 | 어떻게 |" in table
+    first = plan["screens"][0]
+    for a in first["applied"]:
+        assert "| `%s` | %s | %s | %s |" % (first["name"], a["id"], a.get("why", "-"),
+                                             a["how"]) in table
+    assert "| `%s` | (적지 않음) | | |" % plan["screens"][1]["name"] in table
+    assert r"글 하나 \| 줄바꿈 있음" in table
+    # 변경 목록 다음, 오류 경로 앞
+    assert text.index("## 변경 목록") < head
+
+
+def test_a_principled_mock_run_keeps_applied_in_the_plan_and_the_brief(fake_run_env, out_root):
+    """--mock pass --principles na 를 서버 · 브라우저 없이 끝까지 (검사는 fake_run_env 의 통과)."""
+    recording_templates(fake_run_env, [])
+    fake_run_env.setattr(loop, "call_model", None)
+    code = loop.run(make_args(out_root, mock="pass", model=None, attempts=1, principles="na"))
+    d = run_dirs(out_root)[-1]
+    plan = json.load(io.open(os.path.join(d, "attempt_1.plan.json"), encoding="utf-8"))
+    brief = io.open(os.path.join(d, "designer_brief.md"), encoding="utf-8").read()
+    assert code == 0
+    assert all(sc.get("applied") for sc in plan["screens"])
+    assert "## 화면별 원칙 적용표" in brief
+
+
+def test_a_mock_run_without_principles_has_no_applied(fake_run_env, out_root):
+    recording_templates(fake_run_env, [])
+    fake_run_env.setattr(loop, "call_model", None)
+    code = loop.run(make_args(out_root, mock="pass", model=None, attempts=1))
+    d = run_dirs(out_root)[-1]
+    plan = json.load(io.open(os.path.join(d, "attempt_1.plan.json"), encoding="utf-8"))
+    brief = io.open(os.path.join(d, "designer_brief.md"), encoding="utf-8").read()
+    assert code == 0
+    assert not any("applied" in sc for sc in plan["screens"])
+    assert "원칙" not in brief

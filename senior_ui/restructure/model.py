@@ -1171,13 +1171,35 @@ def bill_flow():
             "error_paths": []}
 
 
-def mock_plan_reply(mode):
+def mock_applied(plan, principles):
+    """계획의 화면마다 원칙 적용 (`applied`, --principles). ga 는 고정 원칙을 모든 화면에 하나씩,
+    na 는 화면마다 셋을 골라 왜 골랐는지와 함께. 원래 계획은 고치지 않고 사본을 돌려준다."""
+    plan = json.loads(json.dumps(plan))
+    items = principles["items"]
+    for i, sc in enumerate(plan["screens"]):
+        if principles["condition"] == "ga":
+            picked = items
+        else:
+            picked = [items[(2 * i) % (len(items) - 1)], items[(2 * i + 1) % (len(items) - 1)],
+                      items[-1]]
+        sc["applied"] = [dict({"id": it["id"]},
+                              **({"why": "mock - %s 화면에 맞아 골랐다" % sc["name"]}
+                                 if principles["condition"] == "na" else {}),
+                              how="mock - %s 를 %s 화면에 적용한 방법 한 줄" % (it["id"], sc["name"]))
+                         for it in picked]
+    return plan
+
+
+def mock_plan_reply(mode, principles=None):
     """No API: 진단·계획 단계의 답. 이체 일곱 모드가 같은 답을 쓰고, 공과금
-    모드는 공과금 원본의 화면 그대로인 계획이다."""
+    모드는 공과금 원본의 화면 그대로인 계획이다. 문헌 원칙을 넣은 실행(`principles`,
+    principles.load 가 읽은 것)이면 화면마다 `applied` 가 붙는다 - 없으면 전과 같은 답이다."""
     if mode not in MOCK_TASK:
         raise ValueError("mock 모드가 아니다: %s" % mode)
     diagnosis, plan = (BILL_DIAGNOSIS, BILL_PLAN) if mode in BILL_MODES \
         else (MOCK_DIAGNOSIS, MOCK_PLAN)
+    if principles:
+        plan = mock_applied(plan, principles)
     text = "```json\n%s\n```\n" % json.dumps(
         {"diagnosis": diagnosis, "plan": plan}, ensure_ascii=False, indent=2)
     return {"text": text, "finish_reason": "stop", "seconds": 0.0, "usage": None,

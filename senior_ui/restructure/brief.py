@@ -256,10 +256,38 @@ def error_rows(errors, plan, metrics, warnings):
     return rows
 
 
+def applied_section(plan, principles):
+    """화면별 원칙 적용표 (--principles 가 none 이 아닐 때만, 2026-10-15). 계획의 화면마다 모델이
+    적은 `applied` - 원칙 id · 왜 (na) · 어떻게. 형식 검사는 이 칸을 보지 않으므로 모양이 틀린 것도
+    그대로 옮긴다 (객체가 아니면 글로)."""
+    if not principles:
+        return []
+    out = ["## 화면별 원칙 적용표", "",
+           "조건 `%s` — 원칙 파일 `%s` (sha256 `%s`). 계획의 화면마다 모델이 적은 `applied` 다 "
+           "(형식 검사는 이 칸을 보지 않는다)." % (principles.get("condition"),
+                                            principles.get("file"),
+                                            (principles.get("sha256") or "")[:12]), "",
+           "| 화면 | 원칙 | 왜 | 어떻게 |", "|---|---|---|---|"]
+    for sc in plan.get("screens") or []:
+        items = sc.get("applied")
+        if not items:
+            out.append("| `%s` | (적지 않음) | | |" % sc.get("name"))
+            continue
+        for a in items if isinstance(items, list) else [items]:
+            if isinstance(a, dict):
+                out.append("| `%s` | %s | %s | %s |" % (
+                    sc.get("name"), _cell(a.get("id") or "?"), _cell(a.get("why") or "-"),
+                    _cell(a.get("how"))))
+            else:
+                out.append("| `%s` | ? | - | %s |" % (sc.get("name"), _cell(a)))
+    out.append("")
+    return out
+
+
 def render_brief(run_name, attempt, plan, diagnosis, report, original_screens,
                  shots_dir, brief_dir, preserved=None, redeclared=None,
                  model_html=None, git=None, reflections=None, errors=None,
-                 refine=None, audience=None):
+                 refine=None, audience=None, principles=None):
     report = report or {}
     metrics = report.get("metrics") or {}
     diag = {d["id"]: d for d in diagnosis or []}
@@ -306,6 +334,8 @@ def render_brief(run_name, attempt, plan, diagnosis, report, original_screens,
                                                x.get("plan_changes", 0))
                 for x in reflections]
         out.append("")
+
+    out += applied_section(plan, principles)
 
     rows = error_rows(errors, plan, metrics, report.get("warning"))
     if rows:
@@ -408,13 +438,14 @@ def _read(path):
         else None
 
 
-def write_brief(summary, original_screens, brief_path, errors=None):
+def write_brief(summary, original_screens, brief_path, errors=None, principles=None):
     """summary.json 이 가리키는 파일들로 설명서를 쓴다. 쓴 경로를 돌려준다.
 
     통과한 빌드에만 부른다. 계획이 없으면(진단·계획 단계 이전의 실행) 쓰지
     않는다 - 대응표와 변경 목록이 설명서의 몸통이다.
 
-    `errors` 는 과제가 정한 오류 경로다. 주지 않으면 기본 과제(이체)의 것."""
+    `errors` 는 과제가 정한 오류 경로다. 주지 않으면 기본 과제(이체)의 것. `principles` 는
+    문헌 원칙의 기록 (principles.record) - 주면 화면별 원칙 적용표가 붙는다."""
     final = summary.get("final") or {}
     plan = _read(final.get("plan"))
     if not plan:
@@ -437,6 +468,7 @@ def write_brief(summary, original_screens, brief_path, errors=None):
         model_html=final.get("model_html_promoted") or final.get("model_html"),
         git=summary.get("git"), reflections=reflections,
         errors=original_error_paths() if errors is None else errors,
-        refine=summary.get("refine"), audience=summary.get("audience"))
+        refine=summary.get("refine"), audience=summary.get("audience"),
+        principles=principles)
     io.open(brief_path, "w", encoding="utf-8", newline="\n").write(text)
     return brief_path
