@@ -200,7 +200,7 @@ def build_parser():
     ap.add_argument("--principles", choices=PR.CONDITIONS, default=PR.DEFAULT,
                     help="프롬프트에 넣는 문헌 원칙 (prompts/principles/<조건>.json). none (기본) 은 "
                          "넣지 않는다 - 프롬프트가 바이트까지 같다. ga 는 고정 원칙 9개, na 는 화면 "
-                         "수준 원칙 27개 (모델이 화면마다 고른다). 진단·계획 · 생성 · 다듬기에 같은 "
+                         "수준 원칙 25개 (모델이 화면마다 고른다). 진단·계획 · 생성 · 다듬기에 같은 "
                          "원칙이 들어간다 (docs/restructure-prompt.md '원칙'). 파일이 없거나 깨졌으면 "
                          "모델을 부르기 전에 멈춘다")
     ap.add_argument("--refine", type=int, default=None, metavar="N",

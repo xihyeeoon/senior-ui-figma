@@ -146,7 +146,7 @@ window.PRESERVED = {…}</script>` 로 다시 넣는다. 모델이 목록을 다
 **원칙 (`--principles`, 2026-10-15).** 문헌 원칙을 넣은 조건이다 — 실행 ④ (`20261013-170616`, 원칙 없음)
 와 모든 조건을 같게 두고 원칙만 넣어 차이를 본다. `none` (기본) 은 아무것도 넣지 않는다 — 세 프롬프트가
 바이트까지 같다 (아래 슬롯 둘은 빈 글자, 진단·계획의 문장은 그대로). `ga` 는 고정 원칙 9개, `na` 는 화면
-수준 원칙 27개 (모델이 화면마다 고른다). 원칙 문장은 `prompts/principles/<조건>.json` 의 `given_text` 이고
+수준 원칙 25개 (모델이 화면마다 고른다). 원칙 문장은 `prompts/principles/<조건>.json` 의 `given_text` 이고
 (`- <id>: <given_text>` 줄), `strength` · `source` · `db_text` · `change` 는 넣지 않는다 (그 폴더의 README).
 문장을 둘러싼 글은 아래 블록 다섯이다.
 

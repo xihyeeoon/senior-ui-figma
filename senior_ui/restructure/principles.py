@@ -5,7 +5,7 @@ r"""문헌 원칙 (`--principles none|ga|na`, 2026-10-15).
 
   none  원칙 없음 (기본) - 아무 파일도 읽지 않는다. 프롬프트는 이 옵션이 생기기 전과 바이트까지 같다
   ga    고정 원칙 9개 - 모든 화면에 적용하라고 준다
-  na    화면 수준 원칙 26개 + C01 - 모델이 화면마다 고른다
+  na    화면 수준 원칙 24개 + C01 (S07 · S20 · S21 없음) - 모델이 화면마다 고른다
 
 원칙은 prompts/principles/<조건>.json 에 있다 (칸 뜻은 그 폴더의 README). 프롬프트에 들어가는
 것은 id 와 given_text 뿐이다 - db_text · change · source · strength 는 기록이고 넣지 않는다.

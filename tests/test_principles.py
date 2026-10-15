@@ -6,7 +6,7 @@ r"""문헌 원칙 (`--principles none|ga|na`, 2026-10-15).
 
   1. 원칙 파일 - 모양 · id 순서 · ga 의 아홉 항목이 na 의 같은 항목과 글자까지 같은지 · 바꾸지 않은
      항목은 db_text = given_text
-  2. 프롬프트에 넣기 - none 은 그대로 · ga 9줄 · na 27줄 · given_text 만 들어가고 db_text · source ·
+  2. 프롬프트에 넣기 - none 은 그대로 · ga 9줄 · na 25줄 · given_text 만 들어가고 db_text · source ·
      strength · change 는 들어가지 않음 · 진단·계획은 "규칙 목록은 주지 않는다." 한 문장만 [목표 +
      머리말 + 원칙 줄] 로 바뀜 · 계획 형식의 applied 한 줄 · 생성 · 다듬기는 과제 설명 바로 뒤 (applied
      문장은 뺌) · 글은 docs/restructure-prompt.md 한 곳
@@ -25,7 +25,8 @@ import _api
 ROOT = _api.ROOT_DIR
 DIR = os.path.join(ROOT, "prompts", "principles")
 GA_IDS = ["S02", "S03", "S04", "S06", "S08", "S09", "S17", "S22", "C01"]
-NA_IDS = ["S%02d" % i for i in range(1, 28) if i != 7] + ["C01"]
+# S07 (흐름을 바꿈) · S20 (영상 안내) · S21 (연습 모드) 은 na 에 없다 - prompts/principles/README
+NA_IDS = ["S%02d" % i for i in range(1, 28) if i not in (7, 20, 21)] + ["C01"]
 KEYS = ["id", "given_text", "db_text", "change", "source", "strength"]
 SOURCE_DB = "guideline-db-1014 (조율 채팅 프로젝트 문서, 세 리뷰 논문에서 뽑아 원문 대조)"
 
@@ -50,9 +51,15 @@ def test_the_file_has_the_agreed_shape_and_order(cond, ids):
         assert it["strength"] in (1, 2, 3, "보조"), it["id"]
 
 
-def test_na_has_no_s07_because_it_changes_the_flow():
-    assert "S07" not in [it["id"] for it in read("na")["items"]]
-    assert len(NA_IDS) == 27
+def test_na_has_no_s07_s20_s21():
+    """S07 은 흐름을 바꾸고, S20 (영상 안내) 은 파일 하나 · 외부 자원 없음 계약으로 만들 수 없고, S21
+    (연습 모드) 은 "연습이라는 것을 화면 문구로 알리지 마라" 와 부딪친다 (10/15 시현)."""
+    ids = [it["id"] for it in read("na")["items"]]
+    assert not {"S07", "S20", "S21"} & set(ids)
+    assert len(NA_IDS) == 25
+    readme = io.open(os.path.join(DIR, "README.md"), encoding="utf-8").read()
+    assert "파일 하나 · 외부 자원 없음 계약으로 영상 안내를 만들 수 없음 (10/15 시현)" in readme
+    assert "평가 계약 '연습이라는 것을 화면 문구로 알리지 마라' 와 부딪침 (10/15 시현)" in readme
 
 
 def test_ga_items_are_the_na_items_letter_for_letter():
@@ -178,7 +185,7 @@ def test_every_given_text_goes_in_and_nothing_else(task, mode, cond):
             assert it["change"] == "그대로" or it["change"] not in t, (name, it["id"])
         for word in ("strength", "보조", "db_text", "guideline-db", "source_db"):
             assert word not in t, (name, word)
-        assert len(LINE.findall(t)) == {"ga": 9, "na": 27}[cond], name
+        assert len(LINE.findall(t)) == {"ga": 9, "na": 25}[cond], name
         assert "{{" not in aud(GOAL, task) and aud(GOAL, task) in t, name
 
 
