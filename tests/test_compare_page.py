@@ -12,20 +12,23 @@ r"""비교 페이지 (tools/compare_page.py, 2026-10-15).
   .\.venv\Scripts\python.exe -m pytest tests/test_compare_page.py -m browser
 """
 import hashlib
+import importlib.util
 import io
 import json
 import os
 import re
 import shutil
-import sys
 
 import pytest
 
 import _api
 
 ROOT = _api.ROOT_DIR
-sys.path.insert(0, os.path.join(ROOT, "tools"))
-import compare_page as CP  # noqa: E402
+# 도구는 패키지가 아니다 - 파일로 읽는다 (test_compare_runs 와 같다)
+SPEC = importlib.util.spec_from_file_location(
+    "compare_page", os.path.join(_api.ROOT, "tools", "compare_page.py"))
+CP = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(CP)
 
 T = _api.tasks_module
 PR = _api.principles_module
