@@ -154,11 +154,15 @@ uv pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m senior_ui.restructure --mock pass                          # API 없이
 .\.venv\Scripts\python.exe -m senior_ui.restructure --model gpt-6.1-sol --refine 2       # 보고 다듬기를 켠다
 .\.venv\Scripts\python.exe -m senior_ui.restructure --model gpt-6.1-sol --mode layout   # 배치 단계 - 흐름은 원본 그대로 (docs/README.md "단계")
+.\.venv\Scripts\python.exe -m senior_ui.restructure --model gpt-6.1-sol --mode layout --principles ga   # 문헌 원칙을 넣는다 (none 기본 · ga · na - prompts/principles/README.md)
 
 # 화면설계서 - 통과한 실행 하나에서
 .\.venv\Scripts\python.exe -m senior_ui.storyboard outputs\restructure_auto\<실행> --model gpt-6.1-sol
 .\.venv\Scripts\python.exe -m senior_ui.storyboard outputs\restructure_auto\<실행> --mock
 .\.venv\Scripts\python.exe -m senior_ui.storyboard outputs\restructure_auto\<실행> --regions-from <저장된 storyboard.json>
+
+# 비교 페이지 - 원본과 실행 여럿의 그림 · 숫자 · 원칙 적용을 한 페이지에 (outputs/compare/<이름>/index.html)
+.\.venv\Scripts\python.exe tools\compare_page.py --runs 20261013-152332 20261013-170616 --name db-effect-pre
 
 # C 후보 고르기 - 과제마다 여러 번 돌린 실행에 순위를 매긴다 (저장된 결과만 읽는다)
 .\.venv\Scripts\python.exe -m senior_ui.select --task transfer

@@ -5,7 +5,8 @@
 `<!-- 이름 -->` 과 `<!-- /이름 -->` 으로 감싼 블록들뿐이고, 그 밖은 사람용 메모다:
 `PLAN_PROMPT` (진단·계획) · `PROMPT` (생성과 재시도) · `REFINE_PROMPT` (보고 다듬기) ·
 `CONTRACT` (셋이 함께 쓰는 기술 계약, `{{CONTRACT}}` 자리) · `REVEAL` (생성 · 다듬기가 함께 쓰는
-흐름 명세 `reveal` 의 모양, `{{REVEAL}}` 자리) · `REFLECT` (재시도의 반성 요청).
+흐름 명세 `reveal` 의 모양, `{{REVEAL}}` 자리) · `REFLECT` (재시도의 반성 요청) · `PRINCIPLES_*` (문헌 원칙을
+넣을 때만, `--principles` - 아래 "원칙").
 
 **출처 메모.** Run 1 (`outputs/restructured_transfer.html`) 은 대화에서 직접 지시해 만들었고
 그 문장은 저장소에 남아 있지 않다. 아래 본문은 `restructure-runs.md` 에 인용된 브리프
