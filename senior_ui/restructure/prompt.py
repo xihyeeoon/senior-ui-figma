@@ -78,20 +78,24 @@ def _with_mode(text, mode):
 # 진단·계획에서는 1절의 이 한 문장만 원칙으로 바꾼다 - 그 뒤의 진단 지시 ("각 화면에서 … 직접 보고
 # 적어라") 는 그대로 둔다. 문장은 PLAN_PROMPT 안에 있고, 여기 있는 것은 찾을 자리다.
 NO_RULES = "- 규칙 목록은 주지 않는다. "
-# 머리말 블록 안에서 진단·계획에만 남는 문장 (계획의 applied 를 적으라는 말)
+# 머리말 블록 안에서 진단·계획에만 남는 글 (계획의 applied 를 적으라는 말, na 의 "이유를 적어라") 과
+# 생성 · 재시도 · 다듬기에만 남는 글 (그 자리를 대신하는 끝맺음)
 PLAN_ONLY = re.compile(r"\{\{PLAN_ONLY:(.*?)\}\}", re.S)
+BUILD_ONLY = re.compile(r"\{\{BUILD_ONLY:(.*?)\}\}", re.S)
 # 계획 형식의 화면 칸에 더하는 applied 한 줄의 들여쓰기 - PLAN_PROMPT 의 "from" 줄과 같다
 APPLIED_INDENT = ",\n       "
 
 
 def principles_block(condition, plan):
-    """[목표 + 빈 줄 + 머리말 + 원칙 줄]. `plan` 이 아니면 (생성 · 다듬기) 머리말의 PLAN_ONLY
-    문장을 뺀다. none 이면 빈 글자."""
+    """[목표 + 빈 줄 + 머리말 + 원칙 줄]. 머리말의 PLAN_ONLY 글은 `plan` 일 때만, BUILD_ONLY 글은
+    `plan` 이 아닐 때 (생성 · 재시도 · 다듬기) 만 남긴다. none 이면 빈 글자."""
     loaded = PR.load(condition)
     if loaded is None:
         return ""
     head = load_block("PRINCIPLES_HEAD_%s" % condition.upper()).rstrip("\n")
-    head = PLAN_ONLY.sub((lambda m: m.group(1)) if plan else "", head)
+    keep, drop = (lambda m: m.group(1)), ""
+    head = PLAN_ONLY.sub(keep if plan else drop, head)
+    head = BUILD_ONLY.sub(drop if plan else keep, head)
     return "%s\n\n%s\n%s" % (load_block("PRINCIPLES_GOAL").rstrip("\n"), head,
                              PR.lines(loaded["items"]))
 

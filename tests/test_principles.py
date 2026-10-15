@@ -137,9 +137,17 @@ def plan_head(cond):
     return "".join(HEAD[cond])
 
 
+# na 머리말의 마지막 문장 - 생성 · 재시도 · 다듬기에서는 이유를 적을 자리가 없으므로 "고른다." 로
+# 끝낸다 (10/15 시현)
+NA_LAST_PLAN = "그 화면에 맞는 쪽을 골라 이유를 적어라."
+NA_LAST_BUILD = "그 화면에 맞는 쪽을 고른다."
+
+
 def build_head(cond):
-    """생성 · 다듬기에는 applied 를 적으라는 문장이 없다 - 계획을 쓰지 않는 단계다."""
-    return "".join(h for h in HEAD[cond] if "applied" not in h)
+    """생성 · 다듬기에는 applied 를 적으라는 문장이 없다 - 계획을 쓰지 않는 단계다. na 의 마지막
+    문장은 이유를 적으라는 말 없이 끝난다."""
+    head = "".join(h for h in HEAD[cond] if "applied" not in h)
+    return head.replace(NA_LAST_PLAN, NA_LAST_BUILD)
 
 
 def principle_lines(cond):
@@ -231,6 +239,7 @@ def test_generate_and_refine_get_the_same_block_after_the_task(task, mode, cond)
         t = ts[name]
         assert "## 1. 과제\n\n%s\n\n%s%s" % (desc, block, after) in t, name
         assert "applied" not in t, name
+        assert "이유를 적어라" not in t, name
         # 원칙을 빼면 none 과 같다
         assert t.replace(block, "") == templates(task, mode, "none")[name], name
 
@@ -467,3 +476,21 @@ def test_none_leaves_the_summary_and_the_log_as_before(fake_run_env, out_root):
     assert code == 0
     assert "principles" not in summary
     assert " | principles=" not in log[0]
+
+
+@pytest.mark.parametrize("mode", MODES)
+@pytest.mark.parametrize("task", TASKS)
+def test_the_na_reason_sentence_stays_in_the_plan_only(task, mode):
+    """na 머리말의 "…골라 이유를 적어라." 는 진단·계획에만. 생성 · 재시도 · 다듬기는 "…고른다." (10/15)."""
+    ts = templates(task, mode, "na")
+    assert ts["plan"].count("둘 다 적용하려 하지 말고 " + NA_LAST_PLAN) == 1
+    assert NA_LAST_BUILD not in ts["plan"]
+    for name in ("generate", "refine"):
+        assert ts[name].count("둘 다 적용하려 하지 말고 " + NA_LAST_BUILD + "\n- S01: ") == 1, name
+        assert "이유를 적어라" not in ts[name], name
+    retry = P.build_prompt(ts["generate"], "<html></html>", P.with_reflection("## 이전 시도의 실패\n"),
+                           "", "{}", errors="")
+    assert NA_LAST_BUILD in retry and "이유를 적어라" not in retry
+    for cond in ("ga", "na"):
+        for t in templates(task, mode, cond).values():
+            assert "BUILD_ONLY" not in t and "PLAN_ONLY" not in t
