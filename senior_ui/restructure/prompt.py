@@ -28,6 +28,7 @@ from senior_ui.config import ROOT
 from senior_ui.preserved import GLOBAL_NAME
 from senior_ui.tasks import fill_audience, load_task
 
+from . import principles as PR
 from .model import IMAGE_MARK
 from .preserve import optional_names, preserved_data, split_groups
 from .reply import read_forms
@@ -71,7 +72,48 @@ def _with_mode(text, mode):
     return text.replace("{{MODE_PLAN}}", plan).replace("{{MODE_RULES}}", mode_rules(mode))
 
 
-def _with_task(name, task=None, mode=DEFAULT_MODE):
+# 문헌 원칙 (--principles, 2026-10-15). none 은 아무것도 넣지 않는다 - 세 프롬프트가 바이트까지
+# 같다. docs/restructure-prompt.md 의 "원칙" 절.
+#
+# 진단·계획에서는 1절의 이 한 문장만 원칙으로 바꾼다 - 그 뒤의 진단 지시 ("각 화면에서 … 직접 보고
+# 적어라") 는 그대로 둔다. 문장은 PLAN_PROMPT 안에 있고, 여기 있는 것은 찾을 자리다.
+NO_RULES = "- 규칙 목록은 주지 않는다. "
+# 머리말 블록 안에서 진단·계획에만 남는 문장 (계획의 applied 를 적으라는 말)
+PLAN_ONLY = re.compile(r"\{\{PLAN_ONLY:(.*?)\}\}", re.S)
+# 계획 형식의 화면 칸에 더하는 applied 한 줄의 들여쓰기 - PLAN_PROMPT 의 "from" 줄과 같다
+APPLIED_INDENT = ",\n       "
+
+
+def principles_block(condition, plan):
+    """[목표 + 빈 줄 + 머리말 + 원칙 줄]. `plan` 이 아니면 (생성 · 다듬기) 머리말의 PLAN_ONLY
+    문장을 뺀다. none 이면 빈 글자."""
+    loaded = PR.load(condition)
+    if loaded is None:
+        return ""
+    head = load_block("PRINCIPLES_HEAD_%s" % condition.upper()).rstrip("\n")
+    head = PLAN_ONLY.sub((lambda m: m.group(1)) if plan else "", head)
+    return "%s\n\n%s\n%s" % (load_block("PRINCIPLES_GOAL").rstrip("\n"), head,
+                             PR.lines(loaded["items"]))
+
+
+def _with_principles(text, name, condition):
+    """원칙 자리를 채운다. 진단·계획은 NO_RULES 문장 자리와 계획 형식의 applied 한 줄, 생성 ·
+    다듬기는 과제 설명 뒤의 {{PRINCIPLES}}. none 이면 슬롯만 빈 글자로 지운다."""
+    none = condition in (None, PR.DEFAULT)
+    if not none:
+        PR.load(condition)    # 모르는 조건 · 없는 파일 · 깨진 파일은 여기서 멈춘다
+    if name == "PLAN_PROMPT" and not none:
+        if text.count(NO_RULES) != 1:
+            raise RuntimeError("%s 의 진단·계획 1절에 %r 이 한 번 있어야 원칙을 넣는다 (%d번)"
+                               % (PROMPT_FILE, NO_RULES, text.count(NO_RULES)))
+        text = text.replace(NO_RULES, principles_block(condition, plan=True) + "\n\n- ")
+    applied = "" if none else APPLIED_INDENT + load_block(
+        "PRINCIPLES_APPLIED_%s" % condition.upper()).strip("\n")
+    block = "" if none else principles_block(condition, plan=False) + "\n\n"
+    return text.replace("{{PRINCIPLES_APPLIED}}", applied).replace("{{PRINCIPLES}}", block)
+
+
+def _with_task(name, task=None, mode=DEFAULT_MODE, principles=PR.DEFAULT):
     """블록의 `{{TASK}}` 는 과제 설명으로, `{{TASK_<칸>}}` 은 과제 파일 prompt 의
     그 칸(줄 목록)으로 채운다. 칸이 없는 슬롯이 남으면 멈춘다 - 빈 문자열로
     두면 과제의 규칙 한 덩이가 말없이 프롬프트에서 사라진다. 단계(`mode`)의 슬롯은
@@ -84,6 +126,8 @@ def _with_task(name, task=None, mode=DEFAULT_MODE):
             .replace("{{CONTRACT}}", load_block("CONTRACT").rstrip("\n"))
             .replace("{{REVEAL}}", load_block("REVEAL").rstrip("\n")))
     text = _with_mode(text, mode)
+    # 원칙은 대상 문구보다 먼저 - 목표 문장의 {{AUDIENCE}} 도 같이 채운다
+    text = _with_principles(text, name, principles)
     text = text.replace("{{TASK}}", t["description"])
     # 대상 문구 (과제 파일의 audience). 과제 설명의 자리는 load_task 가 이미 채웠다
     text = fill_audience(text, t["audience"])
@@ -99,15 +143,15 @@ def _with_task(name, task=None, mode=DEFAULT_MODE):
     return TASK_SLOT.sub(fill, text)
 
 
-def load_template(task=None, mode=DEFAULT_MODE):
+def load_template(task=None, mode=DEFAULT_MODE, principles=PR.DEFAULT):
     """생성 프롬프트. 과제 설명은 과제 파일(tasks/<과제>.json)에서 채운 뒤다.
     과제를 주지 않으면 기본 과제(이체)다."""
-    return _with_task("PROMPT", task, mode)
+    return _with_task("PROMPT", task, mode, principles)
 
 
-def load_plan_template(task=None, mode=DEFAULT_MODE):
+def load_plan_template(task=None, mode=DEFAULT_MODE, principles=PR.DEFAULT):
     """진단·계획 프롬프트. 과제 설명은 생성 프롬프트와 같은 과제 파일의 것이다."""
-    return _with_task("PLAN_PROMPT", task, mode)
+    return _with_task("PLAN_PROMPT", task, mode, principles)
 
 
 # 원본 HTML 의 주석은 모델에 보내지 않는다. 화면으로 알 수 없는 정보다 - 원본에는
@@ -169,9 +213,9 @@ def model_input_html(html):
     return HTML_COMMENT.sub("", HTML_COMMENT_LINE.sub("", html))
 
 
-def load_refine_template(task=None, mode=DEFAULT_MODE):
+def load_refine_template(task=None, mode=DEFAULT_MODE, principles=PR.DEFAULT):
     """보고 다듬기 프롬프트 (REFINE_PROMPT). 기술 계약은 생성과 같은 블록이다."""
-    return _with_task("REFINE_PROMPT", task, mode)
+    return _with_task("REFINE_PROMPT", task, mode, principles)
 
 
 BUILD_SHOTS_INTRO = (

@@ -34,6 +34,7 @@ from senior_ui.restructure import model as _model            # noqa: E402
 from senior_ui.restructure import captures as _captures      # noqa: E402
 from senior_ui.restructure import captures_template as _captures_template  # noqa: E402
 from senior_ui.restructure import plan as _plan              # noqa: E402
+from senior_ui.restructure import principles as _principles  # noqa: E402
 from senior_ui.restructure import brief as _brief            # noqa: E402
 from senior_ui.viewer import build_index as _build_index     # noqa: E402
 from senior_ui.restructure import __main__ as _restructure_cli  # noqa: E402
@@ -115,6 +116,8 @@ brief_failure = _prompt.brief_failure
 load_plan_template = _prompt.load_plan_template
 build_plan_prompt = _prompt.build_plan_prompt
 prompt_module = _prompt
+# 문헌 원칙 (--principles, 2026-10-15)
+principles_module = _principles
 
 # ---- senior_ui/tasks.py (과제 정의 tasks/<이름>.json) ------------------- #
 load_task = _tasks.load_task

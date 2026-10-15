@@ -6,10 +6,15 @@ r"""문헌 원칙 (`--principles none|ga|na`, 2026-10-15).
 
   1. 원칙 파일 - 모양 · id 순서 · ga 의 아홉 항목이 na 의 같은 항목과 글자까지 같은지 · 바꾸지 않은
      항목은 db_text = given_text
+  2. 프롬프트에 넣기 - none 은 그대로 · ga 9줄 · na 27줄 · given_text 만 들어가고 db_text · source ·
+     strength · change 는 들어가지 않음 · 진단·계획은 "규칙 목록은 주지 않는다." 한 문장만 [목표 +
+     머리말 + 원칙 줄] 로 바뀜 · 계획 형식의 applied 한 줄 · 생성 · 다듬기는 과제 설명 바로 뒤 (applied
+     문장은 뺌) · 글은 docs/restructure-prompt.md 한 곳
 
   .\.venv\Scripts\python.exe -m pytest tests/test_principles.py
 """
 import io
+import re
 import json
 import os
 
@@ -83,3 +88,164 @@ def test_the_readme_explains_the_fields():
     for word in KEYS + ["strength 는 프롬프트에 넣지 않는다", "change", "Gomez-Hernandez",
                         "Nurgalieva", "Mattick", "kb/README.md"]:
         assert word in text, word
+
+
+# ===================================================================== #
+# 2. 프롬프트에 넣기
+# ===================================================================== #
+# 글은 docs/restructure-prompt.md 한 곳에 있다. 아래는 연구자가 준 전문 그대로다 - 블록이 바뀌면
+# 이 시험이 먼저 안다.
+P = _api.prompt_module
+PR = _api.principles_module
+T = _api.tasks_module
+TASKS = ("transfer", "bill")
+MODES = ("full", "layout")
+GOAL = ("목표: {{AUDIENCE}}가 이 과제를 혼자 끝낼 수 있는 화면을 만든다. 좋은 화면은 다음과 같다.\n"
+        "1. 각 화면에서 지금 할 일과 다음에 누를 것 하나가 한눈에 보인다.\n"
+        "2. 지금 단계에서 쓰지 않는 것은 접히거나 덜 눈에 띄는 자리에 있다. 지우지는 않는다 — 원본에서 "
+        "할 수 있던 일은 모두 할 수 있어야 한다.\n"
+        "3. 단순하지만 기능과 보기 좋음을 지운 '시니어 모드' 는 아니다.\n"
+        "글자 크기 · 누르는 영역 · 대비 같은 요소 수준은 네 판단대로 하라. 이 지면은 화면의 짜임 — 무엇을 "
+        "위에 두고, 무엇을 접고, 무엇을 옮길지 — 에 쓴다. 아래 원칙은 그 판단의 근거다. 원칙이 기능 보존 "
+        "약속 (입구 · 선택지 · 오류 경로 · 그림 자리를 지우지 않기) 과 부딪치면 약속이 먼저다.")
+HEAD = {"ga": ("아래 원칙을 모든 화면에 적용하라.",
+               " 계획의 화면마다 applied 에 원칙마다 이 화면에서 어떻게 적용했는지 한 줄씩 적어라 "
+               "(해당 없으면 '해당 없음 — 이유')."),
+        "na": ("아래 원칙 가운데 화면마다 맞는 것을 골라 적용하라.",
+               " 계획의 화면마다 applied 에 고른 원칙마다 왜 골랐는지와 어떻게 적용했는지 적어라.",
+               " 서로 부딪치는 원칙이 있다 — S14 와 S15 (조작 위치), S01 · S02 와 C01 (지나친 단순화), "
+               "S27 (익숙한 조작을 바꾸는 것). 둘 다 적용하려 하지 말고 그 화면에 맞는 쪽을 골라 이유를 "
+               "적어라.")}
+LINE = re.compile(r"^- (?:S\d\d|C01): ", re.M)
+DIAGNOSE = ("각 화면에서 {{AUDIENCE}}가 어디서 멈추고, 무엇을 잘못 누르고,\n"
+            "  무엇을 못 읽을지를 원본에서 직접 보고 적어라.")
+GENERAL = "원본에서 가리킬 수 없는 일반론은 적지 마라."
+
+
+def aud(text, task):
+    return T.fill_audience(text, T.load_task(task)["audience"])
+
+
+def plan_head(cond):
+    return "".join(HEAD[cond])
+
+
+def build_head(cond):
+    """생성 · 다듬기에는 applied 를 적으라는 문장이 없다 - 계획을 쓰지 않는 단계다."""
+    return "".join(h for h in HEAD[cond] if "applied" not in h)
+
+
+def principle_lines(cond):
+    return "\n".join("- %s: %s" % (it["id"], it["given_text"]) for it in read(cond)["items"])
+
+
+def templates(task, mode, cond):
+    kw = {} if cond is None else {"principles": cond}
+    return {"plan": P.load_plan_template(task, mode=mode, **kw),
+            "generate": P.load_template(task, mode=mode, **kw),
+            "refine": P.load_refine_template(task, mode=mode, **kw)}
+
+
+@pytest.mark.parametrize("mode", MODES)
+@pytest.mark.parametrize("task", TASKS)
+def test_none_is_the_prompt_without_the_option(task, mode):
+    """none 은 아무것도 넣지 않는다. 9d1a33e 와의 바이트 비교는 기준값 (tests/baseline/prompt ·
+    bill/prompt) 과 보고의 sha 표가 한다."""
+    before, none = templates(task, mode, None), templates(task, mode, "none")
+    assert before == none
+    for name, t in none.items():
+        assert "{{" not in t.replace("{{ORIGINAL_HTML}}", "").replace("{{RETRY_BLOCK}}", "") \
+            .replace("{{CHOICES}}", "").replace("{{ERRORS}}", "").replace("{{PLAN}}", "") \
+            .replace("{{ORIGINAL_SHOTS}}", "").replace("{{ORIGINAL_SCREENS}}", "") \
+            .replace("{{CURRENT_HTML}}", "").replace("{{CURRENT_FLOW}}", "") \
+            .replace("{{BUILD_SHOTS}}", ""), name
+        assert "applied" not in t and "목표:" not in t, name
+    assert "- 규칙 목록은 주지 않는다. " + aud(DIAGNOSE, task) in none["plan"]
+
+
+@pytest.mark.parametrize("cond", ["ga", "na"])
+@pytest.mark.parametrize("mode", MODES)
+@pytest.mark.parametrize("task", TASKS)
+def test_every_given_text_goes_in_and_nothing_else(task, mode, cond):
+    items = read(cond)["items"]
+    for name, t in templates(task, mode, cond).items():
+        for it in items:
+            assert "- %s: %s\n" % (it["id"], it["given_text"]) in t, (name, it["id"])
+            if it["db_text"] != it["given_text"]:
+                assert it["db_text"] not in t, (name, it["id"])
+            assert it["source"] not in t, (name, it["id"])
+            # "그대로" 는 프롬프트의 다른 문장에도 있는 낱말이라 바꾼 기록만 본다
+            assert it["change"] == "그대로" or it["change"] not in t, (name, it["id"])
+        for word in ("strength", "보조", "db_text", "guideline-db", "source_db"):
+            assert word not in t, (name, word)
+        assert len(LINE.findall(t)) == {"ga": 9, "na": 27}[cond], name
+        assert "{{" not in aud(GOAL, task) and aud(GOAL, task) in t, name
+
+
+@pytest.mark.parametrize("cond", ["ga", "na"])
+@pytest.mark.parametrize("mode", MODES)
+@pytest.mark.parametrize("task", TASKS)
+def test_the_plan_prompt_swaps_only_the_no_rules_sentence(task, mode, cond):
+    t = templates(task, mode, cond)["plan"]
+    assert "규칙 목록은 주지 않는다." not in t
+    block = "%s\n\n%s\n%s\n\n- %s" % (aud(GOAL, task), plan_head(cond), principle_lines(cond),
+                                      aud(DIAGNOSE, task))
+    assert block in t
+    assert GENERAL in t
+    # 나머지는 none 과 같다 - 그 한 문장 자리와 계획 형식의 applied 한 줄만 다르다
+    none = templates(task, mode, "none")["plan"]
+    assert t.replace(block, "").replace(applied_line(cond), "") ==         none.replace("- 규칙 목록은 주지 않는다. " + aud(DIAGNOSE, task), "")
+
+
+def applied_line(cond):
+    if cond == "ga":
+        return (',\n       "applied": [{"id": "<원칙 id>", '
+                '"how": "<이 화면에서 어떻게 적용했는지 한 줄>"}]')
+    return (',\n       "applied": [{"id": "<원칙 id>", "why": "<이 화면에 왜 골랐는지>", '
+            '"how": "<이 화면에서 어떻게 적용했는지 한 줄>"}]')
+
+
+@pytest.mark.parametrize("cond", ["ga", "na"])
+@pytest.mark.parametrize("task", TASKS)
+def test_the_plan_form_has_the_optional_applied_field(task, cond):
+    t = templates(task, "layout", cond)["plan"]
+    assert '"from": ["<바탕이 된 원본 data-screen>"]' + applied_line(cond) + "}" in t
+
+
+@pytest.mark.parametrize("cond", ["ga", "na"])
+@pytest.mark.parametrize("mode", MODES)
+@pytest.mark.parametrize("task", TASKS)
+def test_generate_and_refine_get_the_same_block_after_the_task(task, mode, cond):
+    ts = templates(task, mode, cond)
+    block = "%s\n\n%s\n%s\n\n" % (aud(GOAL, task), build_head(cond), principle_lines(cond))
+    desc = T.load_task(task)["description"]
+    for name, after in (("generate", '아래 "계획" 은 이 원본을 진단해 세운 것이다.'),
+                        ("refine", "아래 그림들은 네가 만든 재설계를")):
+        t = ts[name]
+        assert "## 1. 과제\n\n%s\n\n%s%s" % (desc, block, after) in t, name
+        assert "applied" not in t, name
+        # 원칙을 빼면 none 과 같다
+        assert t.replace(block, "") == templates(task, mode, "none")[name], name
+
+
+def test_the_texts_live_in_the_prompt_file_only():
+    """글은 docs/restructure-prompt.md 한 곳 - 코드에 문장을 두지 않는다."""
+    doc = io.open(os.path.join(ROOT, "docs", "restructure-prompt.md"), encoding="utf-8").read()
+    for name in ("PRINCIPLES_GOAL", "PRINCIPLES_HEAD_GA", "PRINCIPLES_HEAD_NA"):
+        assert "<!-- %s -->" % name in doc and "<!-- /%s -->" % name in doc
+    code = io.open(os.path.join(ROOT, "senior_ui", "restructure", "prompt.py"),
+                   encoding="utf-8").read()
+    assert "좋은 화면은 다음과 같다" not in code and "모든 화면에 적용하라" not in code
+
+
+@pytest.mark.parametrize("cond", ["ga", "na"])
+def test_principles_are_not_tied_to_the_mode(cond):
+    for task in TASKS:
+        full, layout = templates(task, "full", cond), templates(task, "layout", cond)
+        for name in full:
+            assert principle_lines(cond) in full[name] and principle_lines(cond) in layout[name]
+
+
+def test_an_unknown_condition_stops():
+    with pytest.raises(ValueError):
+        P.load_template("transfer", principles="xx")
