@@ -1827,6 +1827,9 @@ def run(args):
         + " | original_sha256=%s (%s)" % (orig_sha or "읽지 못함", orig_path or "?")
         + ("" if (getattr(args, "mode", None) or DEFAULT_MODE) == DEFAULT_MODE
            else " | mode=%s (흐름 고정 · 배치 자유)" % args.mode)
+        # 문헌 원칙도 결과를 가르는 조건이다. none 이면 적지 않는다 - 첫 줄이 전과 같다
+        + ("" if (getattr(args, "principles", None) or PR.DEFAULT) == PR.DEFAULT
+           else " | principles=%s" % args.principles)
         + (" | " + warning if warning else ""))
     if mock:
         log(MOCK_ENV_NOTE % ", ".join(config.MODEL_ENV_VARS))
@@ -1901,6 +1904,9 @@ def run(args):
     r.summary["git"] = git
     r.captures = cap
     r.principles = principles
+    # 원칙의 조건 · 파일 · sha256. none 이면 칸을 두지 않는다 - summary 가 전과 같은 모양이다
+    if principles:
+        r.summary["principles"] = PR.record(principles)
     r.summary["original"] = orig_path
     r.summary["original_sha256"] = orig_sha
     r.allowed_removals = allowed

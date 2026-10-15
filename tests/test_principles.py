@@ -435,3 +435,28 @@ def test_a_mock_run_without_principles_has_no_applied(fake_run_env, out_root):
     assert code == 0
     assert not any("applied" in sc for sc in plan["screens"])
     assert "원칙" not in brief
+
+
+# ===================================================================== #
+# 5. 기록 - summary 의 principles (none 이면 칸이 없다 - mock summary 기준값이 그대로)
+# ===================================================================== #
+@pytest.mark.parametrize("cond", ["ga", "na"])
+def test_the_summary_records_the_condition_file_and_sha(fake_run_env, out_root, cond):
+    recording_templates(fake_run_env, [])
+    code, summary, log = run_with(fake_run_env, out_root, [], principles=cond)
+    path = os.path.join(DIR, "%s.json" % cond)
+    assert code == 0
+    assert summary["principles"] == {"condition": cond,
+                                     "file": "prompts/principles/%s.json" % cond,
+                                     "sha256": T.file_sha256(path)}
+    assert len(summary["principles"]["sha256"]) == 64
+    # run.log 첫 줄 - 모델 · 단계와 같이 결과를 가르는 조건이다
+    assert " | principles=%s" % cond in log[0]
+
+
+def test_none_leaves_the_summary_and_the_log_as_before(fake_run_env, out_root):
+    recording_templates(fake_run_env, [])
+    code, summary, log = run_with(fake_run_env, out_root, [], principles="none")
+    assert code == 0
+    assert "principles" not in summary
+    assert " | principles=" not in log[0]
