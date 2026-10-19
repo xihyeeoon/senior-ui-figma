@@ -1,0 +1,368 @@
+{
+ "capture": "inputs/captures/transfer/03.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    38,
+    22,
+    69,
+    38
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9986,
+   "in_box": "b3",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    710,
+    29,
+    36,
+    25
+   ],
+   "text": "57",
+   "caption": null,
+   "score": 0.5057,
+   "in_box": "b2",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    736,
+    24,
+    47,
+    33
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.998,
+   "in_box": "b2",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    35,
+    80,
+    36,
+    47
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.999,
+   "in_box": null
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    33,
+    166,
+    456,
+    79
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.999,
+   "in_box": null
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    79,
+    314,
+    121,
+    40
+   ],
+   "text": "계좌번호",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b1"
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    71,
+    367,
+    354,
+    69
+   ],
+   "text": "|없이 숫자만 입력",
+   "caption": null,
+   "score": 0.9671,
+   "in_box": "b6"
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    75,
+    529,
+    395,
+    58
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.9685,
+   "in_box": "b5"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    366,
+    1694,
+    90,
+    59
+   ],
+   "text": "다음",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b0"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    371,
+    1693,
+    88,
+    71
+   ],
+   "text": "다음",
+   "caption": null,
+   "score": 0.7652,
+   "text_in": [
+    "t8"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    82,
+    302,
+    119,
+    63
+   ],
+   "text": "계좌번호",
+   "caption": null,
+   "score": 0.6673,
+   "text_in": [
+    "t5"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    668,
+    10,
+    129,
+    71
+   ],
+   "text": "67 57",
+   "caption": null,
+   "score": 0.6373,
+   "text_in": [
+    "t2",
+    "t1"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    38,
+    12,
+    69,
+    60
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.5944,
+   "text_in": [
+    "t0"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    44,
+    1651,
+    759,
+    156
+   ],
+   "text": null,
+   "caption": "Center",
+   "score": 0.579,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    70,
+    488,
+    714,
+    141
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.5601,
+   "text_in": [
+    "t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    69,
+    273,
+    723,
+    200
+   ],
+   "text": "|없이 숫자만 입력",
+   "caption": null,
+   "score": 0.512,
+   "text_in": [
+    "t6"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    173,
+    522,
+    78,
+    76
+   ],
+   "text": null,
+   "caption": "Show history",
+   "score": 0.3769,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    196,
+    353,
+    128,
+    92
+   ],
+   "text": null,
+   "caption": "Korean (Korean)",
+   "score": 0.3323,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    691,
+    529,
+    51,
+    53
+   ],
+   "text": null,
+   "caption": "Expand to the next item",
+   "score": 0.3309,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    335,
+    355,
+    88,
+    88
+   ],
+   "text": null,
+   "caption": "Cross-reference",
+   "score": 0.3242,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    727,
+    67,
+    74,
+    74
+   ],
+   "text": null,
+   "caption": "Close",
+   "score": 0.9652,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "ocr_icon"
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9652,
+   "box": [
+    741,
+    81,
+    46,
+    46
+   ],
+   "into": "b11"
+  }
+ ]
+}

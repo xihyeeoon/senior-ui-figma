@@ -1,0 +1,482 @@
+{
+ "capture": "inputs/captures/transfer/09a.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    38,
+    22,
+    70,
+    38
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9966,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    703,
+    20,
+    83,
+    41
+   ],
+   "text": "767",
+   "caption": null,
+   "score": 0.7493,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    253,
+    591,
+    316,
+    69
+   ],
+   "text": "계좌 비밀번호",
+   "caption": null,
+   "score": 0.9884,
+   "in_box": null
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    116,
+    1282,
+    41,
+    55
+   ],
+   "text": "8",
+   "caption": null,
+   "score": 0.9988,
+   "in_box": "b6"
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    393,
+    1283,
+    37,
+    51
+   ],
+   "text": "0",
+   "caption": null,
+   "score": 0.9962,
+   "in_box": "b9"
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    667,
+    1282,
+    40,
+    55
+   ],
+   "text": "6",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": "b3"
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    115,
+    1425,
+    45,
+    56
+   ],
+   "text": "2",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b11"
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    395,
+    1430,
+    28,
+    48
+   ],
+   "text": "1",
+   "caption": null,
+   "score": 0.9984,
+   "in_box": null
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    667,
+    1427,
+    41,
+    52
+   ],
+   "text": "4",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b7"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    118,
+    1571,
+    40,
+    53
+   ],
+   "text": "5",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": null
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    391,
+    1570,
+    41,
+    53
+   ],
+   "text": "9",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b13"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    666,
+    1570,
+    41,
+    55
+   ],
+   "text": "3",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b10"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    84,
+    1720,
+    104,
+    47
+   ],
+   "text": "재배열",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b12"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    388,
+    1715,
+    42,
+    52
+   ],
+   "text": "7",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b8"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    435,
+    727,
+    48,
+    62
+   ],
+   "text": null,
+   "caption": "Oval",
+   "score": 0.6838,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    251,
+    730,
+    48,
+    56
+   ],
+   "text": null,
+   "caption": "Circle",
+   "score": 0.6643,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    343,
+    730,
+    48,
+    56
+   ],
+   "text": null,
+   "caption": "Start",
+   "score": 0.6573,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    667,
+    1279,
+    41,
+    68
+   ],
+   "text": "6",
+   "caption": null,
+   "score": 0.6346,
+   "text_in": [
+    "t5"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    657,
+    1701,
+    65,
+    85
+   ],
+   "text": null,
+   "caption": "Close",
+   "score": 0.6206,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    527,
+    726,
+    48,
+    62
+   ],
+   "text": null,
+   "caption": "Oval",
+   "score": 0.6009,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    120,
+    1275,
+    39,
+    78
+   ],
+   "text": "8",
+   "caption": null,
+   "score": 0.5788,
+   "text_in": [
+    "t3"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    666,
+    1422,
+    43,
+    76
+   ],
+   "text": "4",
+   "caption": null,
+   "score": 0.5468,
+   "text_in": [
+    "t8"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    392,
+    1702,
+    40,
+    81
+   ],
+   "text": "7",
+   "caption": null,
+   "score": 0.5087,
+   "text_in": [
+    "t13"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    393,
+    1276,
+    40,
+    74
+   ],
+   "text": "0",
+   "caption": null,
+   "score": 0.4419,
+   "text_in": [
+    "t4"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    665,
+    1557,
+    41,
+    84
+   ],
+   "text": "3",
+   "caption": null,
+   "score": 0.3993,
+   "text_in": [
+    "t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    119,
+    1413,
+    38,
+    83
+   ],
+   "text": "2",
+   "caption": null,
+   "score": 0.3354,
+   "text_in": [
+    "t6"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b12",
+   "kind": "box",
+   "box": [
+    83,
+    1713,
+    111,
+    72
+   ],
+   "text": "재배열",
+   "caption": null,
+   "score": 0.3283,
+   "text_in": [
+    "t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b13",
+   "kind": "box",
+   "box": [
+    393,
+    1553,
+    36,
+    87
+   ],
+   "text": "9",
+   "caption": null,
+   "score": 0.3228,
+   "text_in": [
+    "t10"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b14",
+   "kind": "box",
+   "box": [
+    727,
+    65,
+    77,
+    78
+   ],
+   "text": null,
+   "caption": "Close",
+   "score": 0.9111,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "ocr_icon"
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9111,
+   "box": [
+    741,
+    80,
+    48,
+    49
+   ],
+   "into": "b14"
+  }
+ ]
+}

@@ -1,0 +1,198 @@
+{
+ "captures": "inputs/captures/transfer",
+ "detector": {
+  "model": "racineai/UI-DETR-1@0f0dda5ec55a9a873f2937dd755863df6218ef80",
+  "code": "rfdetr 1.5.0 RFDETRMedium",
+  "weights": "C:\\Users\\xihye\\tools\\UI-DETR-1\\model.pth",
+  "resolution": 1600,
+  "threshold": 0.3,
+  "license": "MIT (가중치) · Apache-2.0 (rfdetr)"
+ },
+ "settings": {
+  "box_threshold": 0.3,
+  "nms_iou": 0,
+  "overlap_iou": 0.7,
+  "imgsz": 1600,
+  "tiles": 0,
+  "clahe": false,
+  "classic": false,
+  "overlap_rule": "iou",
+  "ocr_from_cache": true,
+  "text_threshold": 0.5,
+  "inside": 0.8,
+  "icon_rule": {
+   "side": 64,
+   "aspect": [
+    0.85,
+    1.18
+   ],
+   "gap": 1.0,
+   "peer_height": [
+    0.8,
+    1.25
+   ],
+   "pad": 0.3
+  },
+  "logo_rule": "off (strict)",
+  "nms": "없음 (DETR)"
+ },
+ "torch": {
+  "version": "2.11.0+cu128",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER"
+ },
+ "ocr": {
+  "models": [
+   "PP-OCRv5_server_det",
+   "korean_PP-OCRv5_mobile_rec"
+  ],
+  "device": "gpu:0",
+  "versions": {
+   "paddlepaddle": "3.2.0",
+   "paddleocr": "3.7.0"
+  }
+ },
+ "model_load_seconds": 3.9,
+ "per_image_seconds_mean": {
+  "detect": 0.147,
+  "caption": 0.67,
+  "ocr": 0.0,
+  "total": 0.817
+ },
+ "images": {
+  "01a": {
+   "uidetr_seconds": 0.148,
+   "raw_boxes": 36,
+   "boxes": 36,
+   "img_candidates": 1,
+   "caption_seconds": 1.571
+  },
+  "01b": {
+   "uidetr_seconds": 0.142,
+   "raw_boxes": 25,
+   "boxes": 25,
+   "img_candidates": 4,
+   "caption_seconds": 1.768
+  },
+  "01c": {
+   "uidetr_seconds": 0.23,
+   "raw_boxes": 25,
+   "boxes": 27,
+   "img_candidates": 4,
+   "caption_seconds": 0.151
+  },
+  "02": {
+   "uidetr_seconds": 0.137,
+   "raw_boxes": 10,
+   "boxes": 9,
+   "img_candidates": 0,
+   "caption_seconds": 0.047
+  },
+  "03": {
+   "uidetr_seconds": 0.143,
+   "raw_boxes": 13,
+   "boxes": 12,
+   "img_candidates": 0,
+   "caption_seconds": 0.653
+  },
+  "04": {
+   "uidetr_seconds": 0.145,
+   "raw_boxes": 11,
+   "boxes": 10,
+   "img_candidates": 0,
+   "caption_seconds": 0.636
+  },
+  "05a": {
+   "uidetr_seconds": 0.144,
+   "raw_boxes": 26,
+   "boxes": 26,
+   "img_candidates": 3,
+   "caption_seconds": 1.219
+  },
+  "05b": {
+   "uidetr_seconds": 0.139,
+   "raw_boxes": 31,
+   "boxes": 31,
+   "img_candidates": 2,
+   "caption_seconds": 1.653
+  },
+  "05c": {
+   "uidetr_seconds": 0.143,
+   "raw_boxes": 30,
+   "boxes": 31,
+   "img_candidates": 0,
+   "caption_seconds": 1.165
+  },
+  "06a": {
+   "uidetr_seconds": 0.14,
+   "raw_boxes": 34,
+   "boxes": 34,
+   "img_candidates": 1,
+   "caption_seconds": 0.187
+  },
+  "06b": {
+   "uidetr_seconds": 0.139,
+   "raw_boxes": 35,
+   "boxes": 34,
+   "img_candidates": 1,
+   "caption_seconds": 1.255
+  },
+  "06c": {
+   "uidetr_seconds": 0.145,
+   "raw_boxes": 33,
+   "boxes": 34,
+   "img_candidates": 1,
+   "caption_seconds": 1.223
+  },
+  "07": {
+   "uidetr_seconds": 0.137,
+   "raw_boxes": 13,
+   "boxes": 13,
+   "img_candidates": 0,
+   "caption_seconds": 0.646
+  },
+  "07a": {
+   "uidetr_seconds": 0.139,
+   "raw_boxes": 14,
+   "boxes": 13,
+   "img_candidates": 0,
+   "caption_seconds": 0.115
+  },
+  "08": {
+   "uidetr_seconds": 0.144,
+   "raw_boxes": 9,
+   "boxes": 11,
+   "img_candidates": 0,
+   "caption_seconds": 0.099
+  },
+  "09a": {
+   "uidetr_seconds": 0.142,
+   "raw_boxes": 16,
+   "boxes": 15,
+   "img_candidates": 0,
+   "caption_seconds": 0.059
+  },
+  "09b": {
+   "uidetr_seconds": 0.143,
+   "raw_boxes": 11,
+   "boxes": 10,
+   "img_candidates": 0,
+   "caption_seconds": 0.061
+  },
+  "10": {
+   "uidetr_seconds": 0.145,
+   "raw_boxes": 10,
+   "boxes": 7,
+   "img_candidates": 0,
+   "caption_seconds": 0.083
+  },
+  "11": {
+   "uidetr_seconds": 0.145,
+   "raw_boxes": 14,
+   "boxes": 15,
+   "img_candidates": 0,
+   "caption_seconds": 0.133
+  }
+ },
+ "cpu": "Intel(R) Core(TM) i7-14700"
+}

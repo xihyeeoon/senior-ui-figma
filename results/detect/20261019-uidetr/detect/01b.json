@@ -1,0 +1,930 @@
+{
+ "capture": "inputs/captures/transfer/01b.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    174,
+    18,
+    138,
+    42
+   ],
+   "text": "오늘쓴 돈",
+   "caption": null,
+   "score": 0.9017,
+   "in_box": null
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    170,
+    66,
+    80,
+    56
+   ],
+   "text": "0원",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b15"
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    73,
+    248,
+    65,
+    35
+   ],
+   "text": "카드",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b20"
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    135,
+    246,
+    404,
+    41
+   ],
+   "text": "쓸때마다 쌓이고,현금처럼 쓰는",
+   "caption": null,
+   "score": 0.9673,
+   "in_box": "b20"
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    674,
+    275,
+    43,
+    52
+   ],
+   "text": "P",
+   "caption": null,
+   "score": 0.997,
+   "in_box": "b0"
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    74,
+    303,
+    304,
+    55
+   ],
+   "text": "마이신한포인트",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b20"
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    338,
+    426,
+    144,
+    51
+   ],
+   "text": "시작하기",
+   "caption": null,
+   "score": 0.9989,
+   "in_box": "b16"
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    66,
+    625,
+    195,
+    52
+   ],
+   "text": "추천서비스",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b19"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    717,
+    637,
+    20,
+    28
+   ],
+   "text": ">",
+   "caption": null,
+   "score": 0.993,
+   "in_box": "b14"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    178,
+    718,
+    177,
+    46
+   ],
+   "text": "SOL패밀리",
+   "caption": null,
+   "score": 0.9973,
+   "in_box": "b22"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    181,
+    772,
+    328,
+    34
+   ],
+   "text": "가족과 함께하는 금융생활",
+   "caption": null,
+   "score": 0.9991,
+   "in_box": null
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    178,
+    856,
+    166,
+    48
+   ],
+   "text": "급여클럽+",
+   "caption": null,
+   "score": 0.9967,
+   "in_box": null
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    714,
+    879,
+    36,
+    50
+   ],
+   "text": "푸",
+   "caption": null,
+   "score": 0.9517,
+   "in_box": "b21"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    180,
+    910,
+    245,
+    36
+   ],
+   "text": "급여이체 우대 혜택",
+   "caption": null,
+   "score": 0.9376,
+   "in_box": null
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    177,
+    996,
+    265,
+    49
+   ],
+   "text": "내 카드 승인내역",
+   "caption": null,
+   "score": 0.9953,
+   "in_box": "b17"
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    713,
+    1018,
+    38,
+    46
+   ],
+   "text": "푸",
+   "caption": null,
+   "score": 0.9735,
+   "in_box": "b13"
+  },
+  {
+   "id": "t16",
+   "kind": "text",
+   "box": [
+    178,
+    1048,
+    339,
+    41
+   ],
+   "text": "모든 카드 실시간 승인내역",
+   "caption": null,
+   "score": 0.949,
+   "in_box": "b17"
+  },
+  {
+   "id": "t17",
+   "kind": "text",
+   "box": [
+    37,
+    1194,
+    336,
+    44
+   ],
+   "text": "더 많은 금융자산 모두",
+   "caption": null,
+   "score": 0.9952,
+   "in_box": "b8"
+  },
+  {
+   "id": "t18",
+   "kind": "text",
+   "box": [
+    39,
+    1250,
+    434,
+    41
+   ],
+   "text": "연결하면 커피쿠폰 즉시지급!",
+   "caption": null,
+   "score": 0.9967,
+   "in_box": "b8"
+  },
+  {
+   "id": "t19",
+   "kind": "text",
+   "box": [
+    39,
+    1313,
+    205,
+    35
+   ],
+   "text": "이벤트 바로가기",
+   "caption": null,
+   "score": 0.998,
+   "in_box": "b8"
+  },
+  {
+   "id": "t20",
+   "kind": "text",
+   "box": [
+    258,
+    1326,
+    12,
+    17
+   ],
+   "text": "^",
+   "caption": null,
+   "score": 0.9808,
+   "in_box": "b8"
+  },
+  {
+   "id": "t21",
+   "kind": "text",
+   "box": [
+    68,
+    1436,
+    230,
+    50
+   ],
+   "text": "신한금융그룹",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": null
+  },
+  {
+   "id": "t22",
+   "kind": "text",
+   "box": [
+    150,
+    1529,
+    139,
+    43
+   ],
+   "text": "신한카드",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": null
+  },
+  {
+   "id": "t23",
+   "kind": "text",
+   "box": [
+    150,
+    1578,
+    261,
+    34
+   ],
+   "text": "나에게 맞는 카드 찾기",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": null
+  },
+  {
+   "id": "t24",
+   "kind": "text",
+   "box": [
+    65,
+    1767,
+    33,
+    34
+   ],
+   "text": "홈",
+   "caption": null,
+   "score": 0.8654,
+   "in_box": "b11"
+  },
+  {
+   "id": "t25",
+   "kind": "text",
+   "box": [
+    218,
+    1767,
+    57,
+    35
+   ],
+   "text": "금융",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b9"
+  },
+  {
+   "id": "t26",
+   "kind": "text",
+   "box": [
+    382,
+    1766,
+    59,
+    36
+   ],
+   "text": "상품",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "b6"
+  },
+  {
+   "id": "t27",
+   "kind": "text",
+   "box": [
+    548,
+    1766,
+    57,
+    36
+   ],
+   "text": "혜택",
+   "caption": null,
+   "score": 0.9954,
+   "in_box": "b3"
+  },
+  {
+   "id": "t28",
+   "kind": "text",
+   "box": [
+    712,
+    1767,
+    57,
+    35
+   ],
+   "text": "주식",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b18"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    645,
+    248,
+    107,
+    105
+   ],
+   "text": "P",
+   "caption": null,
+   "score": 0.8723,
+   "text_in": [
+    "t4"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    70,
+    20,
+    93,
+    107
+   ],
+   "text": null,
+   "caption": "Save",
+   "score": 0.8349,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    667,
+    1215,
+    120,
+    117
+   ],
+   "text": null,
+   "caption": "Deezer",
+   "score": 0.8055,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    549,
+    1700,
+    63,
+    125
+   ],
+   "text": "혜택",
+   "caption": null,
+   "score": 0.7754,
+   "text_in": [
+    "t27"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    70,
+    714,
+    94,
+    106
+   ],
+   "text": null,
+   "caption": "Home",
+   "score": 0.7567,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    278,
+    7,
+    37,
+    62
+   ],
+   "text": null,
+   "caption": "Showcase",
+   "score": 0.7494,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    381,
+    1698,
+    64,
+    127
+   ],
+   "text": "상품",
+   "caption": null,
+   "score": 0.7295,
+   "text_in": [
+    "t26"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    70,
+    854,
+    93,
+    102
+   ],
+   "text": null,
+   "caption": "Paste",
+   "score": 0.6568,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    45,
+    1190,
+    431,
+    177
+   ],
+   "text": "더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! 이벤트 바로가기 ^",
+   "caption": null,
+   "score": 0.6475,
+   "text_in": [
+    "t17",
+    "t18",
+    "t19",
+    "t20"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    215,
+    1696,
+    67,
+    128
+   ],
+   "text": "금융",
+   "caption": null,
+   "score": 0.6387,
+   "text_in": [
+    "t25"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    181,
+    8,
+    58,
+    55
+   ],
+   "text": null,
+   "caption": "Increase",
+   "score": 0.6094,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    54,
+    1695,
+    61,
+    131
+   ],
+   "text": "홈",
+   "caption": null,
+   "score": 0.5671,
+   "text_in": [
+    "t24"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b12",
+   "kind": "box",
+   "box": [
+    69,
+    984,
+    96,
+    121
+   ],
+   "text": null,
+   "caption": "Subtitles",
+   "score": 0.5503,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b13",
+   "kind": "box",
+   "box": [
+    710,
+    1006,
+    43,
+    67
+   ],
+   "text": "푸",
+   "caption": null,
+   "score": 0.5272,
+   "text_in": [
+    "t15"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b14",
+   "kind": "box",
+   "box": [
+    711,
+    626,
+    33,
+    49
+   ],
+   "text": ">",
+   "caption": null,
+   "score": 0.479,
+   "text_in": [
+    "t8"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b15",
+   "kind": "box",
+   "box": [
+    174,
+    59,
+    93,
+    79
+   ],
+   "text": "0원",
+   "caption": null,
+   "score": 0.4616,
+   "text_in": [
+    "t1"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b16",
+   "kind": "box",
+   "box": [
+    98,
+    395,
+    667,
+    120
+   ],
+   "text": "시작하기",
+   "caption": null,
+   "score": 0.4364,
+   "text_in": [
+    "t6"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b17",
+   "kind": "box",
+   "box": [
+    60,
+    985,
+    460,
+    128
+   ],
+   "text": "내 카드 승인내역 모든 카드 실시간 승인내역",
+   "caption": null,
+   "score": 0.4132,
+   "text_in": [
+    "t14",
+    "t16"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b18",
+   "kind": "box",
+   "box": [
+    714,
+    1757,
+    62,
+    60
+   ],
+   "text": "주식",
+   "caption": null,
+   "score": 0.3795,
+   "text_in": [
+    "t28"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b19",
+   "kind": "box",
+   "box": [
+    69,
+    609,
+    190,
+    79
+   ],
+   "text": "추천서비스",
+   "caption": null,
+   "score": 0.3753,
+   "text_in": [
+    "t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b20",
+   "kind": "box",
+   "box": [
+    73,
+    228,
+    675,
+    149
+   ],
+   "text": "쓸때마다 쌓이고,현금처럼 쓰는 카드 마이신한포인트",
+   "caption": null,
+   "score": 0.3649,
+   "text_in": [
+    "t3",
+    "t2",
+    "t5"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b21",
+   "kind": "box",
+   "box": [
+    710,
+    859,
+    42,
+    78
+   ],
+   "text": "푸",
+   "caption": null,
+   "score": 0.3585,
+   "text_in": [
+    "t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b22",
+   "kind": "box",
+   "box": [
+    185,
+    702,
+    207,
+    130
+   ],
+   "text": "SOL패밀리",
+   "caption": null,
+   "score": 0.3125,
+   "text_in": [
+    "t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b23",
+   "kind": "box",
+   "box": [
+    714,
+    1707,
+    59,
+    59
+   ],
+   "text": null,
+   "caption": "Chart",
+   "score": 0.3073,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b24",
+   "kind": "box",
+   "box": [
+    694,
+    1540,
+    59,
+    59
+   ],
+   "text": null,
+   "caption": "Forward",
+   "score": 0.9894,
+   "text_in": [],
+   "ocr_guess": "L",
+   "source": "ocr_icon"
+  },
+  {
+   "id": "i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a tool or function related to a tool or toolbox.",
+   "score": null,
+   "box": [
+    556,
+    1711,
+    42,
+    40
+   ],
+   "in_box": "b3",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i1",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a shopping or shopping cart function.",
+   "score": null,
+   "box": [
+    395,
+    1711,
+    34,
+    42
+   ],
+   "in_box": "b6",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i2",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a video file.",
+   "score": null,
+   "box": [
+    228,
+    1713,
+    40,
+    38
+   ],
+   "in_box": "b9",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i3",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Home or main page.",
+   "score": null,
+   "box": [
+    65,
+    1713,
+    34,
+    38
+   ],
+   "in_box": "b11",
+   "name": null,
+   "label": null
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "L",
+   "score": 0.9894,
+   "box": [
+    705,
+    1551,
+    37,
+    37
+   ],
+   "into": "b24"
+  }
+ ]
+}

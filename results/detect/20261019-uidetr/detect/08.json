@@ -1,0 +1,464 @@
+{
+ "capture": "inputs/captures/transfer/08.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    39,
+    22,
+    69,
+    38
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": "b5",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    711,
+    29,
+    34,
+    24
+   ],
+   "text": "517",
+   "caption": null,
+   "score": 0.5202,
+   "in_box": "b7",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    738,
+    24,
+    45,
+    33
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9965,
+   "in_box": "b7",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    268,
+    410,
+    285,
+    79
+   ],
+   "text": "아래계좌로",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b3"
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    178,
+    494,
+    467,
+    69
+   ],
+   "text": "10,000원 보낼까요?",
+   "caption": null,
+   "score": 0.9749,
+   "in_box": "b3"
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    314,
+    601,
+    195,
+    47
+   ],
+   "text": "수수료 무료",
+   "caption": null,
+   "score": 0.9982,
+   "in_box": null
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    76,
+    763,
+    186,
+    46
+   ],
+   "text": "보내는 계좌",
+   "caption": null,
+   "score": 0.9922,
+   "in_box": null
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    396,
+    763,
+    350,
+    45
+   ],
+   "text": "신한110-000-000000",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b0"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    75,
+    847,
+    155,
+    50
+   ],
+   "text": "받는 계좌",
+   "caption": null,
+   "score": 0.9873,
+   "in_box": null
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    418,
+    852,
+    328,
+    38
+   ],
+   "text": "신한110234567890",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b1"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    77,
+    935,
+    183,
+    46
+   ],
+   "text": "받는분 메모",
+   "caption": null,
+   "score": 0.9885,
+   "in_box": null
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    589,
+    933,
+    112,
+    51
+   ],
+   "text": "김철수",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b4"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    707,
+    938,
+    36,
+    36
+   ],
+   "text": "0",
+   "caption": null,
+   "score": 0.9747,
+   "in_box": null
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    76,
+    1020,
+    184,
+    45
+   ],
+   "text": "내통장 메모",
+   "caption": null,
+   "score": 0.9812,
+   "in_box": null
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    588,
+    1020,
+    111,
+    48
+   ],
+   "text": "김철수",
+   "caption": null,
+   "score": 1.0,
+   "in_box": null
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    352,
+    1736,
+    119,
+    52
+   ],
+   "text": "보내기",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b6"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    396,
+    750,
+    347,
+    69
+   ],
+   "text": "신한110-000-000000",
+   "caption": null,
+   "score": 0.7269,
+   "text_in": [
+    "t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    420,
+    834,
+    325,
+    77
+   ],
+   "text": "신한110234567890",
+   "caption": null,
+   "score": 0.6653,
+   "text_in": [
+    "t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    330,
+    199,
+    178,
+    190
+   ],
+   "text": null,
+   "caption": "Siri Siri",
+   "score": 0.6617,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    180,
+    411,
+    459,
+    160
+   ],
+   "text": "아래계좌로 10,000원 보낼까요?",
+   "caption": null,
+   "score": 0.6403,
+   "text_in": [
+    "t3",
+    "t4"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    590,
+    930,
+    108,
+    68
+   ],
+   "text": "김철수",
+   "caption": null,
+   "score": 0.5744,
+   "text_in": [
+    "t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    38,
+    6,
+    70,
+    73
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.5653,
+   "text_in": [
+    "t0"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    351,
+    1729,
+    124,
+    80
+   ],
+   "text": "보내기",
+   "caption": null,
+   "score": 0.5001,
+   "text_in": [
+    "t15"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    668,
+    1,
+    134,
+    135
+   ],
+   "text": "67 517",
+   "caption": null,
+   "score": 0.4204,
+   "text_in": [
+    "t2",
+    "t1"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    192,
+    750,
+    68,
+    71
+   ],
+   "text": null,
+   "caption": "Korean (K)",
+   "score": 0.3426,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    16,
+    61,
+    72,
+    83
+   ],
+   "text": null,
+   "caption": "Back",
+   "score": 0.9547,
+   "text_in": [],
+   "ocr_guess": "<",
+   "source": "ocr_icon"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    727,
+    67,
+    74,
+    74
+   ],
+   "text": null,
+   "caption": "Close",
+   "score": 0.9652,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "ocr_icon"
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "<",
+   "score": 0.9547,
+   "box": [
+    30,
+    77,
+    45,
+    52
+   ],
+   "into": "b9"
+  },
+  {
+   "text": "×",
+   "score": 0.9652,
+   "box": [
+    741,
+    81,
+    46,
+    46
+   ],
+   "into": "b10"
+  }
+ ]
+}

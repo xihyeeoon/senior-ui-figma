@@ -1,0 +1,2294 @@
+{
+ "screen": "06a+06b+06c",
+ "captures": [
+  "06a",
+  "06b",
+  "06c"
+ ],
+ "size": [
+  824,
+  3387
+ ],
+ "fragments": [
+  {
+   "capture": "06a",
+   "offset": 0,
+   "top_band": 0,
+   "bottom_band": 0,
+   "shift": 0,
+   "method": null,
+   "anchors": 0,
+   "overlap_rows": 0
+  },
+  {
+   "capture": "06b",
+   "offset": 1333,
+   "top_band": 497,
+   "bottom_band": 0,
+   "shift": 1333,
+   "method": "겹침 없음 가정",
+   "anchors": 0,
+   "overlap_rows": 0
+  },
+  {
+   "capture": "06c",
+   "offset": 1557,
+   "top_band": 497,
+   "bottom_band": 0,
+   "shift": 224,
+   "method": "text",
+   "anchors": 12,
+   "overlap_rows": 1109
+  }
+ ],
+ "merged": 29,
+ "dropped_fixed": 21,
+ "named_across": 0,
+ "elements": [
+  {
+   "id": "06a:t0",
+   "kind": "text",
+   "box": [
+    40,
+    24,
+    64,
+    35
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9961,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ],
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t1",
+   "kind": "text",
+   "box": [
+    737,
+    24,
+    47,
+    37
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9949,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ],
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t2",
+   "kind": "text",
+   "box": [
+    32,
+    78,
+    40,
+    49
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.9484,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ],
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t3",
+   "kind": "text",
+   "box": [
+    33,
+    168,
+    454,
+    72
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.999,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ],
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t4",
+   "kind": "text",
+   "box": [
+    34,
+    299,
+    431,
+    61
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.9912,
+   "in_box": "06a:b23",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t5",
+   "kind": "text",
+   "box": [
+    164,
+    415,
+    82,
+    53
+   ],
+   "text": "은행",
+   "caption": null,
+   "score": 0.9993,
+   "in_box": null,
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t6",
+   "kind": "text",
+   "box": [
+    558,
+    412,
+    120,
+    53
+   ],
+   "text": "증권사",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "06a:b30",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t7",
+   "kind": "text",
+   "box": [
+    627,
+    609,
+    89,
+    29
+   ],
+   "text": "DAOL",
+   "caption": null,
+   "score": 0.9982,
+   "in_box": "06a:b11",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t8",
+   "kind": "text",
+   "box": [
+    59,
+    699,
+    182,
+    41
+   ],
+   "text": "신한투자증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "06a:b20",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t9",
+   "kind": "text",
+   "box": [
+    347,
+    699,
+    127,
+    42
+   ],
+   "text": "교보증권",
+   "caption": null,
+   "score": 0.999,
+   "in_box": "06a:b22",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t10",
+   "kind": "text",
+   "box": [
+    580,
+    699,
+    183,
+    41
+   ],
+   "text": "다올투자증권",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": null,
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t11",
+   "kind": "text",
+   "box": [
+    368,
+    892,
+    90,
+    29
+   ],
+   "text": "meritz",
+   "caption": null,
+   "score": 0.9928,
+   "in_box": "06a:b25",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t12",
+   "kind": "text",
+   "box": [
+    624,
+    893,
+    84,
+    16
+   ],
+   "text": "MIRAEASSET",
+   "caption": null,
+   "score": 0.9408,
+   "in_box": "06a:b21",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t13",
+   "kind": "text",
+   "box": [
+    85,
+    981,
+    127,
+    42
+   ],
+   "text": "대신증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": null,
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t14",
+   "kind": "text",
+   "box": [
+    334,
+    983,
+    153,
+    38
+   ],
+   "text": "메리츠증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "06a:b3",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t15",
+   "kind": "text",
+   "box": [
+    582,
+    985,
+    180,
+    35
+   ],
+   "text": "미래에셋증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "06a:b29",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t16",
+   "kind": "text",
+   "box": [
+    365,
+    1170,
+    96,
+    36
+   ],
+   "text": "삼성증권",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "06a:b31",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t17",
+   "kind": "text",
+   "box": [
+    87,
+    1264,
+    124,
+    40
+   ],
+   "text": "부국증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "06a:b26",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t18",
+   "kind": "text",
+   "box": [
+    349,
+    1265,
+    123,
+    40
+   ],
+   "text": "삼성증권",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "06a:b1",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t19",
+   "kind": "text",
+   "box": [
+    596,
+    1266,
+    152,
+    38
+   ],
+   "text": "상상인증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "06a:b28",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t20",
+   "kind": "text",
+   "box": [
+    371,
+    1465,
+    83,
+    29
+   ],
+   "text": "SK증권",
+   "caption": null,
+   "score": 0.7885,
+   "in_box": "06a:b10",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t21",
+   "kind": "text",
+   "box": [
+    88,
+    1547,
+    123,
+    39
+   ],
+   "text": "신영증권",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "06a:b0",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t22",
+   "kind": "text",
+   "box": [
+    321,
+    1549,
+    179,
+    35
+   ],
+   "text": "에스케이증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "06a:b7",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t23",
+   "kind": "text",
+   "box": [
+    594,
+    1546,
+    154,
+    41
+   ],
+   "text": "유안타증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "06a:b27",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t24",
+   "kind": "text",
+   "box": [
+    374,
+    1734,
+    72,
+    39
+   ],
+   "text": "LS",
+   "caption": null,
+   "score": 0.9802,
+   "in_box": "06a:b9",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:t25",
+   "kind": "text",
+   "box": [
+    661,
+    1739,
+    53,
+    27
+   ],
+   "text": "pay",
+   "caption": null,
+   "score": 0.9991,
+   "in_box": "06a:b15",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b0",
+   "kind": "box",
+   "box": [
+    35,
+    1381,
+    241,
+    264
+   ],
+   "text": "신영증권",
+   "caption": null,
+   "score": 0.9365,
+   "text_in": [
+    "06a:t21"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b1",
+   "kind": "box",
+   "box": [
+    294,
+    1097,
+    240,
+    262
+   ],
+   "text": "삼성증권",
+   "caption": null,
+   "score": 0.9183,
+   "text_in": [
+    "06a:t18"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b2",
+   "kind": "box",
+   "box": [
+    557,
+    1662,
+    242,
+    172
+   ],
+   "text": null,
+   "caption": "Pivy",
+   "score": 0.8925,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b3",
+   "kind": "box",
+   "box": [
+    293,
+    813,
+    240,
+    259
+   ],
+   "text": "메리츠증권",
+   "caption": null,
+   "score": 0.8857,
+   "text_in": [
+    "06a:t14"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b4",
+   "kind": "box",
+   "box": [
+    99,
+    854,
+    106,
+    111
+   ],
+   "text": null,
+   "caption": "Microsoft PowerPoint.",
+   "score": 0.8676,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b5",
+   "kind": "box",
+   "box": [
+    98,
+    566,
+    109,
+    129
+   ],
+   "text": null,
+   "caption": "Siri Siri",
+   "score": 0.8587,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b6",
+   "kind": "box",
+   "box": [
+    625,
+    1420,
+    100,
+    111
+   ],
+   "text": null,
+   "caption": "Avatar",
+   "score": 0.854,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b7",
+   "kind": "box",
+   "box": [
+    298,
+    1379,
+    243,
+    258
+   ],
+   "text": "에스케이증권",
+   "caption": null,
+   "score": 0.8501,
+   "text_in": [
+    "06a:t22"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b8",
+   "kind": "box",
+   "box": [
+    362,
+    572,
+    106,
+    115
+   ],
+   "text": null,
+   "caption": "WhatsApp",
+   "score": 0.85,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b9",
+   "kind": "box",
+   "box": [
+    364,
+    1696,
+    102,
+    111
+   ],
+   "text": "LS",
+   "caption": null,
+   "score": 0.8316,
+   "text_in": [
+    "06a:t24"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b10",
+   "kind": "box",
+   "box": [
+    361,
+    1419,
+    106,
+    111
+   ],
+   "text": "SK증권",
+   "caption": null,
+   "score": 0.8308,
+   "text_in": [
+    "06a:t20"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b11",
+   "kind": "box",
+   "box": [
+    622,
+    571,
+    106,
+    116
+   ],
+   "text": "DAOL",
+   "caption": null,
+   "score": 0.8245,
+   "text_in": [
+    "06a:t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b12",
+   "kind": "box",
+   "box": [
+    624,
+    1138,
+    104,
+    110
+   ],
+   "text": null,
+   "caption": "Tibetan",
+   "score": 0.8168,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b13",
+   "kind": "box",
+   "box": [
+    100,
+    1138,
+    105,
+    108
+   ],
+   "text": null,
+   "caption": "Adobe Photoshop",
+   "score": 0.7972,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b14",
+   "kind": "box",
+   "box": [
+    101,
+    1702,
+    109,
+    119
+   ],
+   "text": null,
+   "caption": "Mushroom",
+   "score": 0.7762,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b15",
+   "kind": "box",
+   "box": [
+    623,
+    1701,
+    105,
+    116
+   ],
+   "text": "pay",
+   "caption": null,
+   "score": 0.7531,
+   "text_in": [
+    "06a:t25"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b16",
+   "kind": "box",
+   "box": [
+    168,
+    412,
+    39,
+    68
+   ],
+   "text": null,
+   "caption": "Slide",
+   "score": 0.7434,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b17",
+   "kind": "box",
+   "box": [
+    98,
+    1417,
+    110,
+    119
+   ],
+   "text": null,
+   "caption": "Elevator",
+   "score": 0.7391,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b18",
+   "kind": "box",
+   "box": [
+    34,
+    1106,
+    237,
+    264
+   ],
+   "text": null,
+   "caption": "Kohongshu (Little Red Book)",
+   "score": 0.6969,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b19",
+   "kind": "box",
+   "box": [
+    35,
+    1663,
+    241,
+    173
+   ],
+   "text": null,
+   "caption": "Fantsa",
+   "score": 0.6772,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b20",
+   "kind": "box",
+   "box": [
+    54,
+    695,
+    194,
+    50
+   ],
+   "text": "신한투자증권",
+   "caption": null,
+   "score": 0.6192,
+   "text_in": [
+    "06a:t8"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b21",
+   "kind": "box",
+   "box": [
+    625,
+    874,
+    98,
+    77
+   ],
+   "text": "MIRAEASSET",
+   "caption": null,
+   "score": 0.5973,
+   "text_in": [
+    "06a:t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b22",
+   "kind": "box",
+   "box": [
+    305,
+    695,
+    210,
+    50
+   ],
+   "text": "교보증권",
+   "caption": null,
+   "score": 0.5875,
+   "text_in": [
+    "06a:t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b23",
+   "kind": "box",
+   "box": [
+    34,
+    289,
+    430,
+    79
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.5676,
+   "text_in": [
+    "06a:t4"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b24",
+   "kind": "box",
+   "box": [
+    291,
+    1664,
+    244,
+    172
+   ],
+   "text": null,
+   "caption": "LS",
+   "score": 0.5333,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b25",
+   "kind": "box",
+   "box": [
+    365,
+    880,
+    97,
+    65
+   ],
+   "text": "meritz",
+   "caption": null,
+   "score": 0.5318,
+   "text_in": [
+    "06a:t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b26",
+   "kind": "box",
+   "box": [
+    92,
+    1253,
+    123,
+    59
+   ],
+   "text": "부국증권",
+   "caption": null,
+   "score": 0.4786,
+   "text_in": [
+    "06a:t17"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b27",
+   "kind": "box",
+   "box": [
+    600,
+    1537,
+    157,
+    60
+   ],
+   "text": "유안타증권",
+   "caption": null,
+   "score": 0.4783,
+   "text_in": [
+    "06a:t23"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b28",
+   "kind": "box",
+   "box": [
+    600,
+    1256,
+    160,
+    60
+   ],
+   "text": "상상인증권",
+   "caption": null,
+   "score": 0.4433,
+   "text_in": [
+    "06a:t19"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b29",
+   "kind": "box",
+   "box": [
+    574,
+    971,
+    214,
+    65
+   ],
+   "text": "미래에셋증권",
+   "caption": null,
+   "score": 0.4357,
+   "text_in": [
+    "06a:t15"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b30",
+   "kind": "box",
+   "box": [
+    565,
+    404,
+    116,
+    68
+   ],
+   "text": "증권사",
+   "caption": null,
+   "score": 0.4194,
+   "text_in": [
+    "06a:t6"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b31",
+   "kind": "box",
+   "box": [
+    361,
+    1138,
+    116,
+    117
+   ],
+   "text": "삼성증권",
+   "caption": null,
+   "score": 0.3726,
+   "text_in": [
+    "06a:t16"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b32",
+   "kind": "box",
+   "box": [
+    732,
+    70,
+    66,
+    70
+   ],
+   "text": null,
+   "caption": "Close",
+   "score": 0.9963,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "ocr_icon",
+   "flags": [
+    "behind_overlay"
+   ],
+   "capture": "06a"
+  },
+  {
+   "id": "06a:b33",
+   "kind": "box",
+   "box": [
+    725,
+    289,
+    78,
+    83
+   ],
+   "text": null,
+   "caption": "Close",
+   "score": 0.8645,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "ocr_icon",
+   "capture": "06a"
+  },
+  {
+   "id": "06a:i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a stop or error indicator.",
+   "score": null,
+   "box": [
+    369,
+    855,
+    88,
+    25
+   ],
+   "in_box": "06a:b3",
+   "name": null,
+   "label": null,
+   "capture": "06a"
+  },
+  {
+   "id": "06b:t7",
+   "kind": "text",
+   "box": [
+    57,
+    1842,
+    185,
+    41
+   ],
+   "text": "유진투자증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "06b:b19",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:t8",
+   "kind": "text",
+   "box": [
+    356,
+    1839,
+    106,
+    44
+   ],
+   "text": "LS증권",
+   "caption": null,
+   "score": 0.9985,
+   "in_box": null,
+   "capture": "06b"
+  },
+  {
+   "id": "06b:t9",
+   "kind": "text",
+   "box": [
+    562,
+    1840,
+    218,
+    44
+   ],
+   "text": "카카오페이증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "06b:b17",
+   "capture": "06b"
+  },
+  {
+   "id": "06c:t7",
+   "kind": "text",
+   "box": [
+    45,
+    2127,
+    209,
+    35
+   ],
+   "text": "케이프투자증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "06b:b18",
+   "capture": "06c"
+  },
+  {
+   "id": "06b:t11",
+   "kind": "text",
+   "box": [
+    346,
+    2123,
+    128,
+    43
+   ],
+   "text": "키움증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "06b:b28",
+   "capture": "06b"
+  },
+  {
+   "id": "06c:t9",
+   "kind": "text",
+   "box": [
+    607,
+    2123,
+    129,
+    42
+   ],
+   "text": "토스증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "06c:b30",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:t10",
+   "kind": "text",
+   "box": [
+    57,
+    2406,
+    184,
+    40
+   ],
+   "text": "우리투자증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "06c:b15",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:t11",
+   "kind": "text",
+   "box": [
+    348,
+    2406,
+    126,
+    42
+   ],
+   "text": "하나증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "06c:b26",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:t12",
+   "kind": "text",
+   "box": [
+    595,
+    2407,
+    154,
+    39
+   ],
+   "text": "아이엠증권",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "06b:b23",
+   "capture": "06c"
+  },
+  {
+   "id": "06b:t16",
+   "kind": "text",
+   "box": [
+    58,
+    2688,
+    182,
+    39
+   ],
+   "text": "한국투자증권",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "06c:b31",
+   "capture": "06b"
+  },
+  {
+   "id": "06c:t14",
+   "kind": "text",
+   "box": [
+    319,
+    2688,
+    183,
+    40
+   ],
+   "text": "한화투자증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "06b:b2",
+   "capture": "06c"
+  },
+  {
+   "id": "06b:t18",
+   "kind": "text",
+   "box": [
+    596,
+    2688,
+    153,
+    40
+   ],
+   "text": "현대차증권",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "06b:b0",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:t19",
+   "kind": "text",
+   "box": [
+    103,
+    2875,
+    93,
+    37
+   ],
+   "text": "BNK",
+   "caption": null,
+   "score": 0.8086,
+   "in_box": "06b:b5",
+   "capture": "06b"
+  },
+  {
+   "id": "06c:t17",
+   "kind": "text",
+   "box": [
+    54,
+    2969,
+    189,
+    38
+   ],
+   "text": "BNK투자증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "06c:b0",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:t18",
+   "kind": "text",
+   "box": [
+    355,
+    2968,
+    111,
+    43
+   ],
+   "text": "DB증권",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "06c:b3",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:t19",
+   "kind": "text",
+   "box": [
+    582,
+    2970,
+    177,
+    38
+   ],
+   "text": "IBK투자증권",
+   "caption": null,
+   "score": 0.9951,
+   "in_box": null,
+   "capture": "06c"
+  },
+  {
+   "id": "06b:b0",
+   "kind": "box",
+   "box": [
+    551,
+    2516,
+    244,
+    264
+   ],
+   "text": "현대차증권",
+   "caption": null,
+   "score": 0.9219,
+   "text_in": [
+    "06b:t18"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06c:b0",
+   "kind": "box",
+   "box": [
+    33,
+    2803,
+    242,
+    259
+   ],
+   "text": "BNK투자증권",
+   "caption": null,
+   "score": 0.9192,
+   "text_in": [
+    "06c:t17"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06b:b2",
+   "kind": "box",
+   "box": [
+    292,
+    2522,
+    246,
+    261
+   ],
+   "text": "한화투자증권",
+   "caption": null,
+   "score": 0.913,
+   "text_in": [
+    "06c:t14"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b3",
+   "kind": "box",
+   "box": [
+    35,
+    2239,
+    236,
+    264
+   ],
+   "text": null,
+   "caption": "Korean web browser.",
+   "score": 0.8772,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06c:b31",
+   "kind": "box",
+   "box": [
+    36,
+    2525,
+    239,
+    271
+   ],
+   "text": "한국투자증권",
+   "caption": null,
+   "score": 0.3569,
+   "text_in": [
+    "06b:t16"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06b:b5",
+   "kind": "box",
+   "box": [
+    98,
+    2837,
+    110,
+    119
+   ],
+   "text": "BNK",
+   "caption": null,
+   "score": 0.8555,
+   "text_in": [
+    "06b:t19"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b6",
+   "kind": "box",
+   "box": [
+    296,
+    1956,
+    239,
+    264
+   ],
+   "text": null,
+   "caption": "Kindergarten",
+   "score": 0.8536,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b7",
+   "kind": "box",
+   "box": [
+    362,
+    2841,
+    104,
+    112
+   ],
+   "text": null,
+   "caption": "Apple",
+   "score": 0.836,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b8",
+   "kind": "box",
+   "box": [
+    623,
+    2000,
+    106,
+    114
+   ],
+   "text": null,
+   "caption": "Chartered",
+   "score": 0.835,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b9",
+   "kind": "box",
+   "box": [
+    622,
+    2275,
+    107,
+    119
+   ],
+   "text": null,
+   "caption": "Notifications",
+   "score": 0.8333,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b10",
+   "kind": "box",
+   "box": [
+    621,
+    2838,
+    108,
+    120
+   ],
+   "text": null,
+   "caption": "BKK",
+   "score": 0.8272,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b11",
+   "kind": "box",
+   "box": [
+    295,
+    3083,
+    238,
+    81
+   ],
+   "text": null,
+   "caption": "Evaluation (⌘⌥⌃)",
+   "score": 0.8135,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b12",
+   "kind": "box",
+   "box": [
+    33,
+    1953,
+    239,
+    264
+   ],
+   "text": null,
+   "caption": "Kohongshu (Little Red Book)",
+   "score": 0.8094,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06c:b9",
+   "kind": "box",
+   "box": [
+    358,
+    2557,
+    110,
+    119
+   ],
+   "text": null,
+   "caption": "Reload",
+   "score": 0.7774,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06b:b14",
+   "kind": "box",
+   "box": [
+    360,
+    2000,
+    108,
+    112
+   ],
+   "text": null,
+   "caption": "Kortik",
+   "score": 0.7704,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06c:b3",
+   "kind": "box",
+   "box": [
+    293,
+    2799,
+    245,
+    262
+   ],
+   "text": "DB증권",
+   "caption": null,
+   "score": 0.8878,
+   "text_in": [
+    "06c:t18"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06b:b16",
+   "kind": "box",
+   "box": [
+    557,
+    1959,
+    241,
+    263
+   ],
+   "text": null,
+   "caption": "Korean (K)",
+   "score": 0.7442,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b17",
+   "kind": "box",
+   "box": [
+    564,
+    1832,
+    222,
+    58
+   ],
+   "text": "카카오페이증권",
+   "caption": null,
+   "score": 0.6877,
+   "text_in": [
+    "06b:t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b18",
+   "kind": "box",
+   "box": [
+    39,
+    2116,
+    226,
+    57
+   ],
+   "text": "케이프투자증권",
+   "caption": null,
+   "score": 0.676,
+   "text_in": [
+    "06c:t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b19",
+   "kind": "box",
+   "box": [
+    34,
+    1831,
+    230,
+    60
+   ],
+   "text": "유진투자증권",
+   "caption": null,
+   "score": 0.6667,
+   "text_in": [
+    "06b:t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b20",
+   "kind": "box",
+   "box": [
+    295,
+    2232,
+    244,
+    265
+   ],
+   "text": "하나증권",
+   "caption": null,
+   "score": 0.6533,
+   "text_in": [
+    "06c:t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06c:b30",
+   "kind": "box",
+   "box": [
+    571,
+    2114,
+    219,
+    63
+   ],
+   "text": "토스증권",
+   "caption": null,
+   "score": 0.3808,
+   "text_in": [
+    "06c:t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b15",
+   "kind": "box",
+   "box": [
+    42,
+    2394,
+    215,
+    67
+   ],
+   "text": "우리투자증권",
+   "caption": null,
+   "score": 0.6743,
+   "text_in": [
+    "06c:t10"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06b:b23",
+   "kind": "box",
+   "box": [
+    565,
+    2396,
+    216,
+    72
+   ],
+   "text": "아이엠증권",
+   "caption": null,
+   "score": 0.512,
+   "text_in": [
+    "06c:t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b24",
+   "kind": "box",
+   "box": [
+    70,
+    3116,
+    173,
+    46
+   ],
+   "text": null,
+   "caption": "A warning or alert alert.",
+   "score": 0.4975,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b25",
+   "kind": "box",
+   "box": [
+    103,
+    2557,
+    118,
+    126
+   ],
+   "text": null,
+   "caption": "Brush",
+   "score": 0.4136,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b26",
+   "kind": "box",
+   "box": [
+    98,
+    1994,
+    144,
+    117
+   ],
+   "text": null,
+   "caption": "Sending a message or message.",
+   "score": 0.3996,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b27",
+   "kind": "box",
+   "box": [
+    584,
+    2959,
+    197,
+    65
+   ],
+   "text": "IBK투자증권",
+   "caption": null,
+   "score": 0.364,
+   "text_in": [
+    "06c:t19"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b28",
+   "kind": "box",
+   "box": [
+    310,
+    2118,
+    210,
+    54
+   ],
+   "text": "키움증권",
+   "caption": null,
+   "score": 0.3585,
+   "text_in": [
+    "06b:t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b29",
+   "kind": "box",
+   "box": [
+    43,
+    2958,
+    220,
+    63
+   ],
+   "text": "BNK투자증권",
+   "caption": null,
+   "score": 0.344,
+   "text_in": [
+    "06c:t17"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b30",
+   "kind": "box",
+   "box": [
+    620,
+    2561,
+    112,
+    131
+   ],
+   "text": null,
+   "caption": "Tennisennis",
+   "score": 0.3432,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:b31",
+   "kind": "box",
+   "box": [
+    360,
+    2961,
+    116,
+    59
+   ],
+   "text": "DB증권",
+   "caption": null,
+   "score": 0.3103,
+   "text_in": [
+    "06c:t18"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06b"
+  },
+  {
+   "id": "06b:i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A sports player or player in a sports game.",
+   "score": null,
+   "box": [
+    372,
+    2298,
+    79,
+    72
+   ],
+   "in_box": "06b:b20",
+   "name": null,
+   "label": null,
+   "capture": "06b"
+  },
+  {
+   "id": "06c:t16",
+   "kind": "text",
+   "box": [
+    102,
+    2873,
+    96,
+    40
+   ],
+   "text": "BiNV",
+   "caption": null,
+   "score": 0.7849,
+   "in_box": "06b:b5",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:t20",
+   "kind": "text",
+   "box": [
+    368,
+    3150,
+    86,
+    46
+   ],
+   "text": "NH",
+   "caption": null,
+   "score": 0.9978,
+   "in_box": "06c:b11",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:t21",
+   "kind": "text",
+   "box": [
+    94,
+    3250,
+    111,
+    43
+   ],
+   "text": "KB증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "06c:b29",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:t22",
+   "kind": "text",
+   "box": [
+    324,
+    3250,
+    172,
+    41
+   ],
+   "text": "NH투자증권",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "06c:b21",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b4",
+   "kind": "box",
+   "box": [
+    98,
+    3120,
+    110,
+    113
+   ],
+   "text": null,
+   "caption": "Bluetooth connectivity.",
+   "score": 0.8724,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b7",
+   "kind": "box",
+   "box": [
+    360,
+    2277,
+    109,
+    113
+   ],
+   "text": null,
+   "caption": "Norton",
+   "score": 0.8322,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b10",
+   "kind": "box",
+   "box": [
+    34,
+    3086,
+    245,
+    261
+   ],
+   "text": null,
+   "caption": "Kohongshu (Kohoo)",
+   "score": 0.7579,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b11",
+   "kind": "box",
+   "box": [
+    359,
+    3119,
+    110,
+    114
+   ],
+   "text": "NH",
+   "caption": null,
+   "score": 0.7543,
+   "text_in": [
+    "06c:t20"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b12",
+   "kind": "box",
+   "box": [
+    98,
+    2272,
+    121,
+    124
+   ],
+   "text": null,
+   "caption": "Subtract",
+   "score": 0.7316,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b16",
+   "kind": "box",
+   "box": [
+    365,
+    2047,
+    97,
+    48
+   ],
+   "text": null,
+   "caption": "Microsoft Edge",
+   "score": 0.6718,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b17",
+   "kind": "box",
+   "box": [
+    100,
+    2044,
+    110,
+    69
+   ],
+   "text": null,
+   "caption": "Keebok Football Club",
+   "score": 0.6664,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b21",
+   "kind": "box",
+   "box": [
+    304,
+    3236,
+    217,
+    67
+   ],
+   "text": "NH투자증권",
+   "caption": null,
+   "score": 0.6245,
+   "text_in": [
+    "06c:t22"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b22",
+   "kind": "box",
+   "box": [
+    558,
+    2240,
+    239,
+    246
+   ],
+   "text": null,
+   "caption": "Kohongshu (Kohohong)",
+   "score": 0.6183,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b26",
+   "kind": "box",
+   "box": [
+    327,
+    2396,
+    186,
+    63
+   ],
+   "text": "하나증권",
+   "caption": null,
+   "score": 0.5087,
+   "text_in": [
+    "06c:t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b27",
+   "kind": "box",
+   "box": [
+    624,
+    2040,
+    98,
+    52
+   ],
+   "text": null,
+   "caption": "A weather forecast application.",
+   "score": 0.5072,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:b29",
+   "kind": "box",
+   "box": [
+    92,
+    3240,
+    113,
+    56
+   ],
+   "text": "KB증권",
+   "caption": null,
+   "score": 0.3838,
+   "text_in": [
+    "06c:t21"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "capture": "06c"
+  },
+  {
+   "id": "06c:i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A user profile or account.",
+   "score": null,
+   "box": [
+    99,
+    2561,
+    104,
+    104
+   ],
+   "in_box": "06c:b31",
+   "name": null,
+   "label": null,
+   "capture": "06c"
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9963,
+   "box": [
+    744,
+    83,
+    41,
+    44
+   ],
+   "into": "b32",
+   "capture": "06a"
+  },
+  {
+   "text": "×",
+   "score": 0.8645,
+   "box": [
+    740,
+    305,
+    49,
+    52
+   ],
+   "into": "b33",
+   "capture": "06a"
+  },
+  {
+   "text": "×",
+   "score": 0.9878,
+   "box": [
+    742,
+    81,
+    45,
+    47
+   ],
+   "into": "b32",
+   "capture": "06b"
+  },
+  {
+   "text": "×",
+   "score": 0.8372,
+   "box": [
+    740,
+    305,
+    49,
+    51
+   ],
+   "into": "b33",
+   "capture": "06b"
+  },
+  {
+   "text": "×",
+   "score": 0.9878,
+   "box": [
+    742,
+    81,
+    45,
+    47
+   ],
+   "into": "b32",
+   "capture": "06c"
+  },
+  {
+   "text": "×",
+   "score": 0.9488,
+   "box": [
+    742,
+    307,
+    46,
+    49
+   ],
+   "into": "b33",
+   "capture": "06c"
+  }
+ ],
+ "settings": {
+  "band_diff": 2.0,
+  "anchor_x": 8,
+  "anchor_tol": 6,
+  "merge_px": 20,
+  "merge_iou": 0.5
+ }
+}

@@ -1,0 +1,979 @@
+{
+ "capture": "inputs/captures/transfer/05b.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    40,
+    24,
+    64,
+    34
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9938,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    736,
+    23,
+    48,
+    38
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9949,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    32,
+    78,
+    41,
+    49
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.6082,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    32,
+    167,
+    455,
+    74
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.9817,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    33,
+    298,
+    433,
+    64
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.9789,
+   "in_box": "b24"
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    160,
+    410,
+    90,
+    60
+   ],
+   "text": "은행",
+   "caption": null,
+   "score": 0.9977,
+   "in_box": null
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    558,
+    412,
+    120,
+    56
+   ],
+   "text": "증권사",
+   "caption": null,
+   "score": 0.999,
+   "in_box": null
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    107,
+    544,
+    84,
+    29
+   ],
+   "text": "Kbank",
+   "caption": null,
+   "score": 0.9442,
+   "in_box": "b8"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    624,
+    538,
+    95,
+    40
+   ],
+   "text": "BiNV",
+   "caption": null,
+   "score": 0.7378,
+   "in_box": "b18"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    85,
+    632,
+    130,
+    42
+   ],
+   "text": "케이뱅크",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b25"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    348,
+    635,
+    125,
+    36
+   ],
+   "text": "토스뱅크",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b22"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    636,
+    630,
+    74,
+    47
+   ],
+   "text": "경남",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b18"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    628,
+    818,
+    91,
+    37
+   ],
+   "text": "BNV",
+   "caption": null,
+   "score": 0.9119,
+   "in_box": "b12"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    114,
+    914,
+    71,
+    43
+   ],
+   "text": "광주",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b0"
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    303,
+    914,
+    201,
+    40
+   ],
+   "text": "아이엠뱅크(대.",
+   "caption": null,
+   "score": 0.9957,
+   "in_box": "b28"
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    638,
+    914,
+    70,
+    44
+   ],
+   "text": "부산",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": null
+  },
+  {
+   "id": "t16",
+   "kind": "text",
+   "box": [
+    115,
+    1195,
+    70,
+    44
+   ],
+   "text": "전북",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b4"
+  },
+  {
+   "id": "t17",
+   "kind": "text",
+   "box": [
+    347,
+    1196,
+    127,
+    42
+   ],
+   "text": "회원수협",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b7"
+  },
+  {
+   "id": "t18",
+   "kind": "text",
+   "box": [
+    621,
+    1192,
+    101,
+    50
+   ],
+   "text": "새마을",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": "b1"
+  },
+  {
+   "id": "t19",
+   "kind": "text",
+   "box": [
+    379,
+    1363,
+    71,
+    78
+   ],
+   "text": "SB",
+   "caption": null,
+   "score": 0.9458,
+   "in_box": "b10"
+  },
+  {
+   "id": "t20",
+   "kind": "text",
+   "box": [
+    99,
+    1475,
+    101,
+    47
+   ],
+   "text": "우체국",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b2"
+  },
+  {
+   "id": "t21",
+   "kind": "text",
+   "box": [
+    345,
+    1477,
+    130,
+    45
+   ],
+   "text": "저축은행",
+   "caption": null,
+   "score": 0.9986,
+   "in_box": "b19"
+  },
+  {
+   "id": "t22",
+   "kind": "text",
+   "box": [
+    591,
+    1479,
+    162,
+    38
+   ],
+   "text": "지역농.축협",
+   "caption": null,
+   "score": 0.9989,
+   "in_box": "b14"
+  },
+  {
+   "id": "t23",
+   "kind": "text",
+   "box": [
+    101,
+    1762,
+    96,
+    40
+   ],
+   "text": "도이치",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": "b5"
+  },
+  {
+   "id": "t24",
+   "kind": "text",
+   "box": [
+    374,
+    1757,
+    73,
+    47
+   ],
+   "text": "중국",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b23"
+  },
+  {
+   "id": "t25",
+   "kind": "text",
+   "box": [
+    611,
+    1764,
+    123,
+    36
+   ],
+   "text": "중국건설",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b3"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    35,
+    748,
+    237,
+    266
+   ],
+   "text": "광주",
+   "caption": null,
+   "score": 0.9377,
+   "text_in": [
+    "t13"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    553,
+    1028,
+    242,
+    264
+   ],
+   "text": "새마을",
+   "caption": null,
+   "score": 0.9223,
+   "text_in": [
+    "t18"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    32,
+    1314,
+    243,
+    263
+   ],
+   "text": "우체국",
+   "caption": null,
+   "score": 0.9208,
+   "text_in": [
+    "t20"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    558,
+    1592,
+    239,
+    241
+   ],
+   "text": "중국건설",
+   "caption": null,
+   "score": 0.919,
+   "text_in": [
+    "t25"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    33,
+    1031,
+    240,
+    270
+   ],
+   "text": "전북",
+   "caption": null,
+   "score": 0.9146,
+   "text_in": [
+    "t16"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    35,
+    1589,
+    242,
+    238
+   ],
+   "text": "도이치",
+   "caption": null,
+   "score": 0.9108,
+   "text_in": [
+    "t23"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    297,
+    748,
+    240,
+    261
+   ],
+   "text": null,
+   "caption": "Kohongshu - Free-to-Kohand",
+   "score": 0.9105,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    294,
+    1032,
+    242,
+    265
+   ],
+   "text": "회원수협",
+   "caption": null,
+   "score": 0.9015,
+   "text_in": [
+    "t17"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    98,
+    502,
+    111,
+    119
+   ],
+   "text": "Kbank",
+   "caption": null,
+   "score": 0.8525,
+   "text_in": [
+    "t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    100,
+    1352,
+    104,
+    107
+   ],
+   "text": null,
+   "caption": "Adobe Reader",
+   "score": 0.8522,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    361,
+    1350,
+    103,
+    108
+   ],
+   "text": "SB",
+   "caption": null,
+   "score": 0.8038,
+   "text_in": [
+    "t19"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    361,
+    1627,
+    104,
+    118
+   ],
+   "text": null,
+   "caption": "Swiss medical",
+   "score": 0.7906,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b12",
+   "kind": "box",
+   "box": [
+    623,
+    781,
+    108,
+    118
+   ],
+   "text": "BNV",
+   "caption": null,
+   "score": 0.7807,
+   "text_in": [
+    "t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b13",
+   "kind": "box",
+   "box": [
+    621,
+    1067,
+    107,
+    120
+   ],
+   "text": null,
+   "caption": "Toggle",
+   "score": 0.7693,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b14",
+   "kind": "box",
+   "box": [
+    557,
+    1310,
+    240,
+    259
+   ],
+   "text": "지역농.축협",
+   "caption": null,
+   "score": 0.7658,
+   "text_in": [
+    "t22"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b15",
+   "kind": "box",
+   "box": [
+    359,
+    1065,
+    110,
+    119
+   ],
+   "text": null,
+   "caption": "Weather",
+   "score": 0.6677,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b16",
+   "kind": "box",
+   "box": [
+    359,
+    791,
+    107,
+    107
+   ],
+   "text": null,
+   "caption": "Notifications",
+   "score": 0.6602,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b17",
+   "kind": "box",
+   "box": [
+    620,
+    1633,
+    113,
+    131
+   ],
+   "text": null,
+   "caption": "Toggleoggleoggle",
+   "score": 0.6475,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b18",
+   "kind": "box",
+   "box": [
+    564,
+    499,
+    235,
+    236
+   ],
+   "text": "BiNV 경남",
+   "caption": null,
+   "score": 0.6343,
+   "text_in": [
+    "t8",
+    "t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b19",
+   "kind": "box",
+   "box": [
+    297,
+    1311,
+    244,
+    265
+   ],
+   "text": "저축은행",
+   "caption": null,
+   "score": 0.6255,
+   "text_in": [
+    "t21"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b20",
+   "kind": "box",
+   "box": [
+    98,
+    1632,
+    115,
+    119
+   ],
+   "text": null,
+   "caption": "Lightning",
+   "score": 0.6165,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b21",
+   "kind": "box",
+   "box": [
+    360,
+    502,
+    151,
+    117
+   ],
+   "text": null,
+   "caption": "Chartered",
+   "score": 0.5742,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b22",
+   "kind": "box",
+   "box": [
+    353,
+    628,
+    123,
+    47
+   ],
+   "text": "토스뱅크",
+   "caption": null,
+   "score": 0.5221,
+   "text_in": [
+    "t10"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b23",
+   "kind": "box",
+   "box": [
+    298,
+    1581,
+    244,
+    247
+   ],
+   "text": "중국",
+   "caption": null,
+   "score": 0.4161,
+   "text_in": [
+    "t24"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b24",
+   "kind": "box",
+   "box": [
+    32,
+    287,
+    432,
+    87
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.413,
+   "text_in": [
+    "t4"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b25",
+   "kind": "box",
+   "box": [
+    90,
+    621,
+    123,
+    59
+   ],
+   "text": "케이뱅크",
+   "caption": null,
+   "score": 0.4043,
+   "text_in": [
+    "t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b26",
+   "kind": "box",
+   "box": [
+    106,
+    1067,
+    110,
+    115
+   ],
+   "text": null,
+   "caption": "Microsoft Edge browser.",
+   "score": 0.3646,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b27",
+   "kind": "box",
+   "box": [
+    618,
+    1350,
+    111,
+    113
+   ],
+   "text": null,
+   "caption": "Guitar",
+   "score": 0.3455,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b28",
+   "kind": "box",
+   "box": [
+    305,
+    898,
+    217,
+    68
+   ],
+   "text": "아이엠뱅크(대.",
+   "caption": null,
+   "score": 0.3359,
+   "text_in": [
+    "t14"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b29",
+   "kind": "box",
+   "box": [
+    728,
+    67,
+    72,
+    75
+   ],
+   "text": null,
+   "caption": "Close",
+   "score": 0.9878,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "ocr_icon",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b30",
+   "kind": "box",
+   "box": [
+    725,
+    289,
+    80,
+    83
+   ],
+   "text": null,
+   "caption": "Close",
+   "score": 0.8472,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "ocr_icon"
+  },
+  {
+   "id": "i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A download or file application.",
+   "score": null,
+   "box": [
+    99,
+    789,
+    104,
+    103
+   ],
+   "in_box": "b0",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i1",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a notification or alert.",
+   "score": null,
+   "box": [
+    627,
+    582,
+    93,
+    28
+   ],
+   "in_box": "b18",
+   "name": null,
+   "label": null
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9878,
+   "box": [
+    742,
+    81,
+    45,
+    47
+   ],
+   "into": "b29"
+  },
+  {
+   "text": "×",
+   "score": 0.8472,
+   "box": [
+    740,
+    305,
+    50,
+    52
+   ],
+   "into": "b30"
+  }
+ ]
+}
