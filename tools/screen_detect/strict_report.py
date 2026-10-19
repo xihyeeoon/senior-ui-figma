@@ -32,7 +32,10 @@ VERSIONS = [("v1 + 로고 규칙", os.path.join(R, "20261013-d25", "final"), os.
             ("직전 strict", os.path.join(R, "20261019-strict", "detect"), os.path.join(R, "20261019-strict", "semantic"),
              os.path.join(R, "20261019-strict", "flow")),
             ("strict2", os.path.join(R, "20261019-strict2", "detect"), os.path.join(R, "20261019-strict2", "semantic"),
-             os.path.join(R, "20261019-strict2", "flow"))]
+             os.path.join(R, "20261019-strict2", "flow")),
+            # strict3 (10/19 저녁) - 검출은 strict2 그대로, 의미 층은 은행만 다시 (칸 짝 검사를 경고로), 흐름 다시
+            ("strict3", os.path.join(R, "20261019-strict2", "detect"), os.path.join(R, "20261019-strict3", "semantic"),
+             os.path.join(R, "20261019-strict3", "flow"))]
 GROUPS = [("홈", "01a+01b+01c"), ("은행", "05a+05b+05c"), ("증권사", "06a+06b+06c")]
 
 
@@ -135,7 +138,8 @@ def flow_table(md):
     if not have:
         return
     data = [(nm, load(p)) for nm, p in have]
-    names = {"v1 + 로고 규칙": "이름표 있음 (D4)", "직전 strict": "이름표 없음 · 글만", "strict2": "이름표 없음 · 그림 포함"}
+    names = {"v1 + 로고 규칙": "이름표 있음 (D4)", "직전 strict": "이름표 없음 · 글만", "strict2": "이름표 없음 · 그림 포함",
+             "strict3": "strict3 (은행 고침 · 그림 포함)"}
     md.append("\n## 3. 흐름 D4\n")
     fmt = lambda p: "%s · %s%s" % (p.get("tap_text") or "-", p["kind"], "" if p["tap_ok"] and p["kind_ok"] else " ✗")
     rows = []
@@ -151,11 +155,17 @@ def flow_table(md):
                                                ("둘 다 맞음", "both_ok"))]))
 
 
+def dirs_of(root):
+    """그 판의 (검출 폴더, 의미 층 폴더) - VERSIONS 에서 이름이 root 와 같은 판."""
+    v = next((v for v in VERSIONS if os.path.basename(root).endswith(v[0])), None)
+    return (v[1], v[2]) if v else (os.path.join(root, "detect"), os.path.join(root, "semantic"))
+
+
 def semantic_tables(md, root):
-    sem = os.path.join(root, "semantic")
+    det_dir, sem = dirs_of(root)
     if not os.path.isdir(sem):
         return
-    det = C.load_units(os.path.join(root, "detect"))
+    det = C.load_units(det_dir)
     fixed, icons = [], []
     for name, d in det.items():
         f = sem_file(sem, name, d)
@@ -178,7 +188,7 @@ def crop_check(root):
     """"아이엠뱅크(대." 칸을 캡처에서 잘라 둔다 (연구자가 text_fixed "…(대..." 를 눈으로 확인)."""
     from PIL import Image
     out = []
-    det = C.load_units(os.path.join(root, "detect"))
+    det = C.load_units(dirs_of(root)[0])
     for name, d in det.items():
         els = {e["id"]: e for e in d["elements"]}
         for e in d["elements"]:
@@ -206,7 +216,7 @@ def main(argv=None):
           "채점은 사람 파일(정답지 · 이름표 짝짓기)을 쓴다. 만드는 줄은 `--inputs strict` (감사 훅을 켠 채) 로 돌았다.\n"]
     detect_table(md)
 
-    md.append("\n## 2. 그림 이름이 정답과 같은 수 (같은 새 셈, 세 판)\n")
+    md.append("\n## 2. 그림 이름이 정답과 같은 수 (같은 새 셈, 판마다)\n")
     md.append("닿은 요소의 image_name · icon.name 가운데 하나라도 정답 aria-label 과 같으면 맞음 (띄어쓰기 · 끝말 로고/아이콘 "
               "차이는 같게). \"답 없는 단위 있음\" = 그 판에서 의미 층을 안 돌렸거나 출력 검사에 두 번 걸려 실패한 단위가 있다 (0 으로 셈).\n")
     counts = []
