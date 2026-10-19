@@ -239,6 +239,7 @@ def parse(text):
 
 
 IMAGE_NAME = re.compile(r".+ (아이콘|로고)$")
+WARNINGS = []         # (v2) 마지막 check 의 경고 - 요소 id · 까닭 (단위를 실패시키지 않는다)
 
 
 def check(obj, ids):
@@ -247,6 +248,7 @@ def check(obj, ids):
     if not isinstance(obj, dict) or not isinstance(obj.get("elements"), list):
         return None, ['답이 {"elements": [...]} 모양의 JSON 이 아니다']
     got = {}
+    del WARNINGS[:]
     for a in obj["elements"]:
         if not isinstance(a, dict) or "id" not in a:
             probs.append("id 가 없는 답이 있다")
@@ -280,7 +282,9 @@ def check(obj, ids):
                   "group": a.get("group"), "image_name": name, "image_shape": shape,
                   "note": a.get("note")}
         if V2:
-            probs += check_v2(i, a)
+            p, w = check_v2(i, a)
+            probs += p
+            WARNINGS.extend(w)
             got[i].update(icon=a.get("icon"), text_is_icon=a.get("text_is_icon"),
                           text_fixed=a.get("text_fixed"))
     missing = [i for i in ids if i not in got]
@@ -298,18 +302,21 @@ def check_v2(i, a):
         if not (isinstance(icon, dict) and isinstance(icon.get("name"), str)
                 and IMAGE_NAME.match(icon["name"].strip()) and isinstance(icon.get("shape"), str)):
             probs.append("%s: icon 이 {name: '<무엇> 아이콘/로고', shape: '<모양>'} 이나 null 이 아니다" % i)
+    # 칸끼리 짝이 안 맞는 것 둘은 경고로만 적는다 (10/19 연구자 결정) - 단위를 실패시키지 않고, 그 요소의 칸은 모델 답
+    # 그대로 둔다 (고쳐 메우지 않는다)
+    warns = []
     if a.get("kind") == "image" and (not isinstance(icon, dict) or icon.get("name") != a.get("image_name")):
-        probs.append("%s: kind 가 image 인데 icon.name 이 image_name 과 같지 않다" % i)
+        warns.append({"id": i, "why": "kind 가 image 인데 icon.name 이 image_name 과 같지 않다"})
     if not isinstance(a.get("text_is_icon"), bool):
         probs.append("%s: text_is_icon 이 true/false 가 아니다" % i)
     elif a["text_is_icon"] and icon is None:
-        probs.append("%s: text_is_icon 이 true 인데 icon 이 없다" % i)
+        warns.append({"id": i, "why": "text_is_icon 이 true 인데 icon 이 없다"})
     tf = a.get("text_fixed")
     if tf is not None and not (isinstance(tf, str) and tf.strip()):
         probs.append("%s: text_fixed 가 글이나 null 이 아니다" % i)
     if tf is not None and a.get("text_is_icon"):
         probs.append("%s: text_is_icon 이 true 인데 text_fixed 가 있다" % i)
-    return probs
+    return probs, warns
 
 
 def reask(prompt, probs):
@@ -425,7 +432,7 @@ def run_unit(unit, det, a, captures, out, call):
                                 "finish_reason": reply.get("finish_reason"),
                                 "model": reply.get("model"),
                                 "cost_usd": M.cost_usd(usage, M.price_for(a.model)) if not a.mock else None,
-                                "problems": probs})
+                                "problems": probs, "warnings": list(WARNINGS)})
         if not probs:
             for i, name in fixed.items():
                 if got[i].get("image_name") != name or got[i].get("kind") != "image":
@@ -433,6 +440,7 @@ def run_unit(unit, det, a, captures, out, call):
                                                    "kind": got[i].get("kind")})
                     got[i].update(kind="image", image_name=name)
             res["elements"] = [got[i] for i in ids]
+            res["warnings"] = list(WARNINGS)
             res["status"] = "ok"
             return res
         if n == 1:
@@ -559,6 +567,7 @@ def main(argv=None):
         u = {"status": r["status"], "attempts": len(r["attempts"]), "images": r["images"],
              "reused_from": r.get("reused_from"), "prompt_sha": r.get("prompt_sha"),
              "elements": len(r["elements"] or []), "fixed_overrides": len(r["fixed_overrides"]),
+             "warnings": r.get("warnings") or [],
              "prompt_tokens": sum((x["usage"] or {}).get("prompt") or 0 for x in r["attempts"]),
              "completion_tokens": sum((x["usage"] or {}).get("completion") or 0 for x in r["attempts"]),
              "reasoning_tokens": sum((x["usage"] or {}).get("reasoning") or 0 for x in r["attempts"]),
