@@ -1,0 +1,1221 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>스크린샷에서 조립한 원본 (2단계 LLM 판)</title>
+<!-- 조립 2단계 - 규칙 부분 + LLM 마크업 (LLM_PROMPT_V3) - 대신한 화면은 규칙 시안 마크업. 만든 것: tools/screen_detect/assemble/llm_build.py (스크린샷만, strict) -->
+<style>
+  html,body{margin:0;padding:0;background:#DFE3EA;font-family:"Malgun Gothic",-apple-system,sans-serif;}
+  body{display:flex;justify-content:center;}
+  #phone{width:390px;height:844px;position:relative;overflow:hidden;background:#fff;}
+  .screen{position:absolute;inset:0;display:none;overflow-y:auto;overflow-x:hidden;}
+  .screen.on{display:block;}
+  .canvas{position:relative;width:390px;overflow:hidden;}
+  button{all:unset;box-sizing:border-box;cursor:pointer;}
+  [data-action]{cursor:pointer;}
+  .pic{box-sizing:border-box;border-radius:3px;box-shadow:inset 0 0 0 1px #B8BDC7;background:
+    linear-gradient(to top right, transparent calc(50% - .75px), #9AA0A8 calc(50% - .75px), #9AA0A8 calc(50% + .75px), transparent calc(50% + .75px)),
+    linear-gradient(to bottom right, transparent calc(50% - .75px), #9AA0A8 calc(50% - .75px), #9AA0A8 calc(50% + .75px), transparent calc(50% + .75px)), #E4E7EC;}
+  .canvas[data-markup="llm"] button{text-align:center;}
+</style></head><body>
+<div id="phone">
+<section class="screen" data-screen="s01" data-captures="01a+01b+01c"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="box-sizing:border-box;width:390px;max-width:100%;margin:0;background:#f4f5f7;color:#202124;font-family:Arial,'Noto Sans KR',sans-serif;font-size:16px;line-height:1.35;padding-top:38px;">
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:0 17px 19px;gap:12px;">
+    <button data-action="a-s01-05" data-src="01a:b8" style="display:flex;align-items:center;gap:8px;border:0;padding:0;background:none;color:inherit;white-space:nowrap;">
+      <div class="pic" role="img" aria-label="홍길동님 아이콘" data-src="01a:t2" style="width:27px;height:27px;border-radius:8px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      <strong data-src="01a:t3" style="font-size:22px;">홍길동님</strong>
+    </button>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <button data-action="a-s01-01" data-src="01a:b2" style="border:0;padding:0;background:none;">
+        <div class="pic" role="img" aria-label="웃는 말풍선 아이콘" style="width:29px;height:29px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      </button>
+      <button data-action="a-s01-02" data-src="01a:b1" style="border:0;padding:0;background:none;">
+        <div class="pic" role="img" aria-label="지갑 아이콘" style="width:29px;height:29px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      </button>
+      <button data-action="a-s01-03" data-src="01a:b0" style="border:0;padding:0;background:none;">
+        <div class="pic" role="img" aria-label="알림 아이콘" style="width:29px;height:29px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      </button>
+      <button data-action="a-s01-04" data-src="01a:b3" style="border:0;padding:0;background:none;">
+        <div class="pic" role="img" aria-label="검색 아이콘" style="width:29px;height:29px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      </button>
+    </div>
+  </header>
+
+  <main style="display:flex;flex-direction:column;gap:15px;padding:0 15px;">
+    <div data-src="01a:b10" style="background:#fff;border-radius:20px;padding:18px 19px 19px;min-height:218px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:17px;">
+        <strong data-src="01a:t4" style="font-size:22px;">자산</strong>
+        <button data-action="a-s01-06" data-src="01a:b21" style="border:0;background:none;color:#999da4;font-size:28px;padding:0 5px;line-height:1;">›</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;">
+        <div class="pic" role="img" aria-label="신한은행 로고" data-src="01a:i1" style="flex-shrink:0;width:41px;height:42px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+        <div style="flex:1;min-width:0;color:#4b4e54;font-size:16px;">
+          <span data-src="01a:t5" style="display:block;white-space:nowrap;">[금융거래한도계좌2]신한 주거</span>
+          <span data-src="01a:t7" style="display:block;">래 우대통장</span>
+          <span data-src="01a:t8" style="display:block;margin-top:2px;">(저축예금)</span>
+          <strong data-src="01a:t9" style="display:block;margin-top:8px;font-size:23px;color:#9ba0a9;">금액 숨김</strong>
+        </div>
+        <button data-action="a-s01-07" data-src="01a:b18" style="flex-shrink:0;width:72px;height:45px;border:0;border-radius:10px;background:#eaf0ff;color:#306eff;font-size:20px;font-weight:700;">
+          <span data-src="01a:t6">이체</span>
+        </button>
+      </div>
+      <button data-action="a-s01-08" data-src="01a:b13" style="width:100%;height:53px;margin-top:18px;border:0;border-radius:11px;background:#f5f5f7;color:#202124;font-size:15px;font-weight:700;white-space:nowrap;">
+        <span data-src="01a:t10">절세혜택과 안정적인 노후,IRP로 준비하세요</span>
+      </button>
+    </div>
+
+    <div style="background:#fff;border-radius:20px;padding:23px 19px 18px;">
+      <div style="display:flex;align-items:center;gap:10px;min-height:45px;margin-bottom:19px;">
+        <!-- g5에는 목록에 등록된 그림 요소가 없으므로 그림을 추가하지 않고 여백만 유지한다. -->
+        <div style="width:44px;flex-shrink:0;height:44px;"></div>
+        <div>
+          <strong data-src="01a:t11" style="display:block;font-size:18px;white-space:nowrap;">Pick E체크캐릭터형(하리보)</strong>
+          <span data-src="01a:t12" style="display:block;margin-top:5px;color:#9ba0a9;font-size:17px;">금액 숨김</span>
+        </div>
+      </div>
+      <button data-action="a-s01-09" data-src="01a:b6" style="width:100%;height:54px;border:0;border-radius:11px;background:#eaf0ff;color:#306eff;font-size:20px;font-weight:700;">
+        <span data-src="01a:t13">앱카드 가입</span>
+      </button>
+    </div>
+
+    <div data-src="01a:b14" style="background:#fff;border-radius:20px;padding:12px 19px 18px;">
+      <button data-action="a-s01-10" data-src="01a:b20" data-ocr="팽겨요" style="display:flex;align-items:center;justify-content:space-between;width:100%;height:40px;border:0;background:none;padding:0;color:inherit;text-align:left;">
+        <strong data-src="01a:t14" data-ocr="팽겨요" style="font-size:22px;">땡겨요</strong>
+      </button>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:9px;">
+        <div class="pic" role="img" aria-label="할인쿠폰 드려요 아이콘" data-src="01a:i3" style="width:44px;height:44px;flex-shrink:0;border-radius:10px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+        <div style="flex:1;white-space:nowrap;">
+          <span data-src="01a:t15" style="display:block;font-size:14px;color:#91959c;">할인쿠폰 드려요</span>
+          <strong data-src="01a:t17" style="display:block;margin-top:5px;font-size:19px;">bhc치킨 최대 9,000원</strong>
+        </div>
+        <button data-action="a-s01-11" data-src="01a:b19" style="border:0;background:#eaf0ff;color:#306eff;border-radius:18px;padding:9px 12px;font-size:16px;font-weight:700;white-space:nowrap;">
+          <span data-src="01a:t16">바로받기</span>
+        </button>
+      </div>
+      <div style="display:flex;justify-content:space-around;border-top:1px solid #eceef1;margin-top:19px;padding-top:15px;">
+        <button data-action="a-s01-12" data-src="01a:t18" style="border:0;background:none;padding:0 10px;font-size:17px;color:inherit;">이벤트</button>
+        <button data-action="a-s01-13" data-src="01a:t19" style="border:0;border-left:1px solid #e0e3e9;border-right:1px solid #e0e3e9;background:none;padding:0 39px;font-size:17px;color:inherit;">쿠폰</button>
+        <button data-action="a-s01-14" data-src="01a:t20" style="border:0;background:none;padding:0 10px;font-size:17px;color:inherit;">포인트</button>
+      </div>
+    </div>
+
+    <button data-action="a-s01-15" data-src="01a:b4" data-ocr="7월 소비 C" style="display:flex;align-items:center;gap:8px;min-height:65px;padding:16px 19px;border:0;border-radius:20px 20px 0 0;background:#fff;color:inherit;text-align:left;">
+      <strong data-src="01a:t21" style="font-size:22px;">7월 소비</strong>
+      <div data-action="a-s01-17" role="button" data-src="01a:t22" tabindex="0">
+        <div class="pic" role="img" aria-label="새로고침 아이콘" style="width:18px;height:18px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      </div>
+      <div data-action="a-s01-16" role="button" data-src="01a:b22" tabindex="0" style="margin-left:auto;color:#999da4;font-size:28px;line-height:1;">›</div>
+    </button>
+
+    <button data-action="a-s01-18" data-src="01b:b16" style="display:flex;align-items:center;gap:10px;margin-top:24px;min-height:78px;padding:13px 19px;border:0;border-radius:0 0 20px 20px;background:#fff;text-align:left;color:inherit;">
+      <div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#eaf0fb;">
+        <div class="pic" role="img" aria-label="오늘 쓴 돈 아이콘" data-src="01b:i9" style="width:16px;height:18px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      </div>
+      <div>
+        <span data-src="01b:t0" data-ocr="오늘쓴 돈" style="display:block;font-size:16px;color:#93969d;">오늘 쓴 돈</span>
+        <strong data-src="01b:t1" style="display:block;font-size:24px;">0원</strong>
+      </div>
+    </button>
+
+    <div data-src="01b:b2" style="display:flex;flex-direction:column;min-height:166px;box-sizing:border-box;padding:22px 21px 20px;border-radius:20px;background:linear-gradient(120deg,#3978fc,#5893fb);color:#fff;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div>
+          <div style="font-size:15px;color:#d5e3ff;white-space:nowrap;">
+            <span data-src="01b:t2">카드</span><span data-src="01b:t3" data-ocr="쓸때마다 쌓이고,현금처럼 쓰는">쓸 때마다 쌓이고, 현금처럼 쓰는</span>
+          </div>
+          <strong data-src="01b:t5" style="display:block;margin-top:7px;font-size:25px;">마이신한포인트</strong>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+          <div class="pic" role="img" aria-label="마이신한포인트 아이콘" data-src="01b:i1" style="width:49px;height:30px;border-radius:20px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+          <span data-src="01b:t4" style="font-size:22px;font-weight:700;">P</span>
+        </div>
+      </div>
+      <!-- g13의 b5는 시작하기 버튼 하단과 겹쳐 검출되어, 중첩 버튼 대신 내부 role=button 영역으로 둔다. -->
+      <button data-action="a-s01-19" data-src="01b:b1" style="display:flex;flex-direction:column;justify-content:flex-end;width:100%;min-height:53px;margin-top:18px;padding:10px 0 0;border:0;border-radius:11px;background:#285fd4;color:#fff;font-size:22px;font-weight:700;">
+        <span data-src="01b:t6">시작하기</span>
+        <div data-action="a-s01-20" role="button" data-src="01c:b5" tabindex="0" style="width:100%;height:16px;"></div>
+      </button>
+    </div>
+
+    <div data-src="01b:b10" style="background:#fff;border-radius:20px;padding:12px 19px 18px;">
+      <button data-action="a-s01-21" data-src="01c:b6" style="display:flex;align-items:center;justify-content:space-between;width:100%;height:41px;padding:0;border:0;background:none;color:inherit;text-align:left;">
+        <strong data-src="01c:t0" style="font-size:22px;">추천서비스</strong>
+        <span data-src="01b:t8" style="color:#999da4;font-size:24px;">›</span>
+      </button>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <button data-action="a-s01-22" data-src="01c:b1" style="display:flex;align-items:center;gap:10px;min-height:59px;padding:4px 0;border:0;background:none;color:inherit;text-align:left;">
+          <div style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:#fce8ec;flex-shrink:0;">
+            <div class="pic" role="img" aria-label="SOL패밀리 아이콘" data-src="01c:i1" style="width:15px;height:17px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+          </div>
+          <div>
+            <strong data-src="01b:t9" style="display:block;font-size:20px;">SOL패밀리</strong>
+            <span data-src="01c:t2" style="display:block;margin-top:3px;font-size:15px;color:#92959c;">가족과 함께하는 금융생활</span>
+          </div>
+        </button>
+        <button data-action="a-s01-23" data-src="01c:b0" data-ocr="급여클럽+ 푸 급여이체 우대 혜택" style="display:flex;align-items:center;gap:10px;min-height:59px;padding:4px 0;border:0;background:none;color:inherit;text-align:left;">
+          <div style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:#e6f4eb;flex-shrink:0;">
+            <div class="pic" role="img" aria-label="급여클럽+ 아이콘" data-src="01c:i0" style="width:19px;height:18px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+          </div>
+          <div style="flex:1;">
+            <strong data-src="01b:t11" style="display:block;font-size:20px;">급여클럽+</strong>
+            <span data-src="01c:t5" style="display:block;margin-top:3px;font-size:15px;color:#92959c;">급여이체 우대 혜택</span>
+          </div>
+          <div data-action="a-s01-24" role="button" data-src="01c:t4" tabindex="0">
+            <div class="pic" role="img" aria-label="고정 핀 아이콘" style="width:18px;height:23px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+          </div>
+        </button>
+        <button data-action="a-s01-25" data-src="01c:b3" data-ocr="내 카드 승인내역 푸 모든 카드 실시간 승인내역" style="display:flex;align-items:center;gap:10px;min-height:59px;padding:4px 0;border:0;background:none;color:inherit;text-align:left;">
+          <div style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:#eaf0fb;flex-shrink:0;">
+            <div class="pic" role="img" aria-label="내 카드 승인내역 아이콘" data-src="01c:i3" style="width:19px;height:15px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+          </div>
+          <div style="flex:1;">
+            <strong data-src="01c:t6" style="display:block;font-size:20px;">내 카드 승인내역</strong>
+            <span data-src="01b:t16" style="display:block;margin-top:3px;font-size:15px;color:#92959c;">모든 카드 실시간 승인내역</span>
+          </div>
+          <div data-action="a-s01-26" role="button" data-src="01b:t15" tabindex="0">
+            <div class="pic" role="img" aria-label="고정 핀 아이콘" style="width:18px;height:22px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- g18은 독립 구역으로 분류되었지만 그림에서는 이벤트 문구 오른쪽에 있으므로 같은 행에 묶는다. -->
+    <div data-src="01b:b12" data-ocr="더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! 이벤트 바로가기 ^" style="display:flex;align-items:center;justify-content:space-between;min-height:99px;padding:0 3px;">
+      <div>
+        <strong data-src="01c:t9" style="display:block;font-size:19px;">더 많은 금융자산 모두</strong>
+        <strong data-src="01c:t10" style="display:block;font-size:19px;margin-top:4px;white-space:nowrap;">연결하면 커피쿠폰 즉시지급!</strong>
+        <button data-action="a-s01-27" data-src="01c:b14" data-ocr="이벤트 바로가기 ^" style="border:0;background:none;color:#387aff;padding:8px 0 0;font-size:16px;">
+          <span data-src="01c:t11">이벤트 바로가기</span>
+          <span data-src="01b:t20" style="margin-left:3px;">›</span>
+        </button>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:57px;height:57px;background:#f0e7dc;border-radius:16px;">
+        <div class="pic" role="img" aria-label="알 수 없는 아이콘" data-src="01c:i10" style="width:24px;height:24px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      </div>
+    </div>
+
+    <!-- g19의 b9 검출 상자는 첫 항목까지만 덮지만, 그림의 흰 바탕은 그룹 전체를 감싸므로 세 항목을 함께 넣는다. -->
+    <div data-src="01b:b9" style="background:#fff;border-radius:20px;padding:21px 17px 15px;">
+      <strong data-src="01b:t21" style="display:block;font-size:22px;margin-bottom:11px;">신한금융그룹</strong>
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <button data-action="a-s01-28" data-src="01b:b17" style="display:flex;align-items:center;gap:14px;width:100%;min-height:62px;padding:5px 3px;border:0;background:none;color:inherit;text-align:left;">
+          <div class="pic" role="img" aria-label="신한카드 아이콘" data-src="01c:i4" style="width:21px;height:17px;flex-shrink:0;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+          <div style="flex:1;">
+            <strong data-src="01c:t14" style="display:block;font-size:20px;">신한카드</strong>
+            <span data-src="01c:t15" style="display:block;margin-top:3px;font-size:14px;color:#92959c;">나에게 맞는 카드 찾기</span>
+          </div>
+          <span data-src="01c:b18" style="color:#999da4;font-size:28px;">›</span>
+        </button>
+        <button data-action="a-s01-29" data-src="01c:b2" style="display:flex;align-items:center;gap:14px;width:100%;min-height:61px;padding:5px 3px;border:0;background:none;color:inherit;text-align:left;">
+          <div class="pic" role="img" aria-label="신한투자증권 아이콘" data-src="01c:i2" style="width:20px;height:13px;flex-shrink:0;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+          <div style="flex:1;">
+            <strong data-src="01c:t16" style="display:block;font-size:20px;">신한투자증권</strong>
+            <span data-src="01c:t17" style="display:block;margin-top:3px;font-size:14px;color:#92959c;">지금 뜨는 주식 보러가기</span>
+          </div>
+          <span data-src="01c:b19" style="color:#999da4;font-size:28px;">›</span>
+        </button>
+        <button data-action="a-s01-30" data-src="01c:b7" style="display:flex;align-items:center;gap:14px;width:100%;min-height:71px;padding:5px 3px;border:0;background:none;color:inherit;text-align:left;">
+          <div class="pic" role="img" aria-label="신한라이프 아이콘" data-src="01c:i5" style="width:17px;height:21px;flex-shrink:0;margin-right:3px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+          <div style="flex:1;">
+            <strong data-src="01c:t18" style="display:block;font-size:20px;">신한라이프</strong>
+            <span data-src="01c:t19" data-ocr="내게 필요한 보험,보장분석으로 확인하기" style="display:block;margin-top:3px;font-size:14px;color:#92959c;white-space:nowrap;">내게 필요한 보험, 보장분석으로 확인하기</span>
+          </div>
+          <span data-src="01c:b20" style="color:#999da4;font-size:28px;">›</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer style="display:flex;align-items:center;justify-content:center;gap:4px;min-height:94px;padding:4px 0 0;">
+    <button data-action="a-s01-31" data-src="01c:t20" data-ocr="쉬운홈|홈화면 설정" style="border:0;padding:0;background:none;font-size:17px;color:#575a61;white-space:pre;">쉬운홈 | 홈화면 설정</button>
+    <button data-action="a-s01-32" data-src="01c:t21" style="border:0;padding:0;background:none;font-size:17px;color:#575a61;">| 금액 숨기기</button>
+  </footer>
+
+  <nav data-src="01c:b17" style="display:flex;align-items:stretch;background:#fff;border-top:1px solid #eceef1;min-height:71px;">
+    <button data-action="a-s01-37" data-src="01c:b11" style="display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 0;border:0;background:none;color:#3074ff;">
+      <div class="pic" role="img" aria-label="홈 아이콘" data-src="01c:b16" style="width:18px;height:20px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      <span data-src="01c:t22" style="font-size:13px;">홈</span>
+    </button>
+    <button data-action="a-s01-35" data-src="01c:b9" style="display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 0;border:0;background:none;color:#999da5;">
+      <div class="pic" role="img" aria-label="금융 아이콘" data-src="01c:i7" style="width:19px;height:20px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      <span data-src="01c:t23" style="font-size:13px;">금융</span>
+    </button>
+    <button data-action="a-s01-34" data-src="01c:b8" style="display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 0;border:0;background:none;color:#999da5;">
+      <div class="pic" role="img" aria-label="상품 아이콘" data-src="01c:i6" style="width:16px;height:20px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      <span data-src="01c:t24" style="font-size:13px;">상품</span>
+    </button>
+    <button data-action="a-s01-33" data-src="01c:b10" style="display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 0;border:0;background:none;color:#999da5;">
+      <div class="pic" role="img" aria-label="혜택 아이콘" data-src="01c:i8" style="width:20px;height:20px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      <span data-src="01c:t25" style="font-size:13px;">혜택</span>
+    </button>
+    <button data-action="a-s01-36" data-src="01c:b12" style="display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 0;border:0;background:none;color:#999da5;">
+      <div class="pic" role="img" aria-label="주식 아이콘" data-src="01c:i9" style="width:19px;height:20px;background:linear-gradient(45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aeb3ba 49%,#aeb3ba 51%,transparent 52%),#e1e3e7;"></div>
+      <span data-src="01c:t26" style="font-size:13px;">주식</span>
+    </button>
+  </nav>
+</section></div></section>
+<section class="screen" data-screen="s02" data-captures="02"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="box-sizing:border-box;width:390px;min-height:866px;margin:0;background:#fff;color:#1d1d1f;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <header style="display:flex;align-items:center;gap:14px;padding:35px 17px 0 11px;height:27px;box-sizing:content-box;">
+    <button data-action="a-s02-01" data-src="b7" style="display:flex;align-items:center;justify-content:center;width:26px;height:27px;padding:0;border:0;background:transparent;color:inherit;">
+      <span data-src="t2" style="font-size:36px;line-height:24px;">‹</span>
+    </button>
+    <div style="flex:1;"></div>
+    <button data-action="a-s02-04" data-src="t3" style="padding:0;border:0;background:transparent;color:#3276ff;font-size:20px;font-weight:700;white-space:nowrap;">다건이체</button>
+    <button data-action="a-s02-02" data-src="t4" style="display:flex;align-items:center;justify-content:center;width:28px;height:25px;padding:0;border:0;background:transparent;">
+      <div class="pic" role="img" aria-label="사람 추가 아이콘" style="width:28px;height:22px;background:linear-gradient(45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),#eee;"></div>
+    </button>
+    <button data-action="a-s02-03" data-src="t5" style="display:flex;align-items:center;justify-content:center;width:23px;height:25px;padding:0;border:0;background:transparent;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:23px;height:21px;background:linear-gradient(45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),#eee;"></div>
+    </button>
+  </header>
+
+  <div style="padding:15px 19px 16px 17px;border-bottom:1px solid #e5e6ea;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;height:46px;">
+      <h1 data-src="t6" style="margin:0;font-size:26px;line-height:32px;font-weight:700;letter-spacing:-1px;white-space:nowrap;">누구에게 보낼까요?</h1>
+      <button data-action="a-s02-05" data-src="b0" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:45px;height:46px;padding:0;border:0;border-radius:13px;background:#f0f0f3;">
+        <div class="pic" role="img" aria-label="검색 아이콘" style="width:22px;height:22px;background:linear-gradient(45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),#ddd;"></div>
+      </button>
+    </div>
+
+    <div style="display:flex;align-items:center;height:28px;margin-top:23px;">
+      <!-- 두 입력 검출 영역은 그림에서 하나의 연속된 입력 안내 문구로 보이므로 붙여 배치한다. -->
+      <div data-action="a-s02-06" data-src="t7" style="box-sizing:border-box;height:28px;border:1px solid transparent;border-bottom-color:#eee;color:#999da7;font-size:21px;line-height:26px;white-space:nowrap;">계좌번호 직접</div>
+      <div data-action="a-s02-07" data-src="t8" style="box-sizing:border-box;height:28px;border:1px solid transparent;border-bottom-color:#eee;color:#999da7;font-size:21px;line-height:26px;white-space:nowrap;">입력</div>
+      <div style="flex:1;"></div>
+      <button data-action="a-s02-08" data-src="b6" style="display:flex;align-items:center;justify-content:center;width:23px;height:25px;padding:0;border:0;background:transparent;">
+        <div class="pic" role="img" aria-label="계좌번호 직접 입력 아이콘" style="width:20px;height:19px;background:linear-gradient(45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),#eee;"></div>
+      </button>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:34px;padding:25px 19px 0 16px;">
+    <div style="display:flex;align-items:center;gap:8px;min-height:40px;">
+      <h2 data-src="t9" style="margin:0;font-size:20px;line-height:26px;font-weight:700;letter-spacing:-0.7px;white-space:nowrap;">자주쓰는 계좌</h2>
+      <button data-action="a-s02-10" data-src="b3" style="display:flex;align-items:center;justify-content:center;width:45px;height:26px;padding:0;border:1px solid #dedee2;border-radius:3px;background:#f4f4f5;color:#777;font:inherit;">
+        <span data-src="t10" style="font-size:16px;line-height:20px;">편집</span>
+      </button>
+      <div style="flex:1;"></div>
+      <button data-action="a-s02-09" data-src="b1" style="display:flex;align-items:center;justify-content:center;gap:7px;flex-shrink:0;width:75px;height:40px;padding:0;border:1px solid #dfe1e7;border-radius:24px;background:#fff;color:#27272a;font:inherit;">
+        <span data-src="t11" style="font-size:18px;">0개</span>
+        <span data-src="t12" style="color:#777;font-size:20px;line-height:20px;">⌄</span>
+      </button>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;min-height:40px;">
+      <h2 data-src="t13" style="margin:0;font-size:20px;line-height:26px;font-weight:700;letter-spacing:-0.7px;">내 계좌</h2>
+      <button data-action="a-s02-11" data-src="b4" style="display:flex;align-items:center;justify-content:center;gap:7px;width:75px;height:39px;padding:0;border:1px solid #dfe1e7;border-radius:24px;background:#fff;color:#27272a;font:inherit;">
+        <span data-src="t14" style="font-size:18px;">0개</span>
+        <span data-src="t15" style="color:#777;font-size:20px;line-height:20px;">⌄</span>
+      </button>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;min-height:39px;">
+      <h2 data-src="t16" style="margin:0;font-size:21px;line-height:29px;font-weight:700;letter-spacing:-0.7px;">최근</h2>
+      <button data-action="a-s02-12" data-src="b2" style="display:flex;align-items:center;justify-content:center;gap:7px;width:75px;height:39px;padding:0;border:1px solid #dfe1e7;border-radius:24px;background:#fff;color:#27272a;font:inherit;">
+        <span data-src="t17" style="font-size:18px;">0개</span>
+        <span data-src="t18" style="color:#777;font-size:20px;line-height:20px;">⌄</span>
+      </button>
+    </div>
+  </div>
+</section></div></section>
+<section class="screen" data-screen="s03" data-captures="03"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;max-width:100%;height:866px;box-sizing:border-box;padding:35px 16px 18px;display:flex;flex-direction:column;background:#fff;color:#19191c;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <div data-src="b7" style="height:30px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;">
+    <button data-action="a-s03-01" data-src="b6" aria-label="뒤로" style="width:25px;height:27px;margin-left:-4px;padding:0;border:0;background:#fff;color:#222;display:grid;place-items:center;font-size:34px;line-height:27px;">
+      <span style="grid-area:1 / 1;">‹</span>
+      <div data-action="a-s03-02" data-src="t3" role="button" aria-label="뒤로" style="grid-area:1 / 1;width:17px;height:27px;background:#fff;line-height:27px;">‹</div>
+    </button>
+    <button data-action="a-s03-03" data-src="b4" aria-label="닫기" style="width:23px;height:24px;padding:0;border:0;background:transparent;display:flex;align-items:center;justify-content:center;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:17px;height:18px;border:1px solid #999;box-sizing:border-box;background:linear-gradient(45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),#eee;"></div>
+    </button>
+  </div>
+
+  <h1 data-src="t4" style="margin:14px 0 20px;font-size:26px;line-height:37px;font-weight:700;letter-spacing:-1px;">누구에게 보낼까요?</h1>
+
+  <div style="display:flex;flex-direction:column;gap:12px;margin:0 3px;">
+    <div data-action="a-s03-04" data-src="b1" data-ocr="계좌번호 |없이 숫자만 입력" style="height:83px;box-sizing:border-box;border:2px solid #326bff;border-radius:14px;padding:12px 17px;display:flex;flex-direction:column;gap:6px;">
+      <span data-src="t5" style="color:#326bff;font-size:15px;line-height:19px;font-weight:700;">계좌번호</span>
+      <span data-src="t6" data-ocr="|없이 숫자만 입력" style="color:#999da6;font-size:23px;line-height:30px;font-weight:700;letter-spacing:-0.8px;">없이 숫자만 입력</span>
+    </div>
+
+    <button data-action="a-s03-05" data-src="b0" style="height:66px;box-sizing:border-box;border:1px solid #eef0f4;border-radius:13px;padding:0 18px;background:#f6f7f9;display:flex;align-items:center;justify-content:space-between;text-align:left;">
+      <span data-src="t7" style="font-size:20px;line-height:27px;color:#999da6;letter-spacing:-0.6px;">은행 또는 증권사 선택</span>
+      <span aria-hidden="true" style="font-size:25px;line-height:20px;color:#6c6d72;">⌄</span>
+    </button>
+  </div>
+
+  <button data-action="a-s03-06" data-src="b2" disabled style="width:100%;height:64px;flex-shrink:0;margin-top:auto;padding:0;border:0;border-radius:14px;background:#edeef2;display:flex;align-items:center;justify-content:center;color:#999da6;">
+    <span data-src="t8" style="font-size:21px;line-height:28px;font-weight:700;">다음</span>
+  </button>
+</section></div></section>
+<section class="screen" data-screen="s04" data-captures="04"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;height:866px;box-sizing:border-box;background:#fff;color:#1d1d1f;font-family:Arial,'Noto Sans KR',sans-serif;display:flex;flex-direction:column;padding:35px 0 19px;overflow:hidden;">
+  <div data-src="b10" style="height:30px;flex-shrink:0;margin:0 15px 0 12px;display:flex;align-items:center;justify-content:space-between;">
+    <button data-action="a-s04-01" data-src="b7" style="width:25px;height:27px;padding:0;border:0;background:transparent;display:flex;align-items:center;justify-content:center;">
+      <div data-action="a-s04-02" data-src="t3" role="button" style="font-size:36px;line-height:22px;font-weight:400;">‹</div>
+    </button>
+    <button data-action="a-s04-03" data-src="b4" aria-label="닫기" style="width:24px;height:24px;border:0;background:transparent;padding:3px;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:18px;height:18px;box-sizing:border-box;border:1px solid #aaa;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+    </button>
+  </div>
+
+  <h1 data-src="t4" style="margin:14px 16px 0;font-size:26px;font-weight:700;line-height:37px;letter-spacing:-1.2px;">누구에게 보낼까요?</h1>
+
+  <div style="display:flex;flex-direction:column;gap:12px;margin:20px 20px 0 19px;">
+    <div data-action="a-s04-04" data-src="b1" data-ocr="계좌번호 |없이 숫자만 입력" style="height:83px;box-sizing:border-box;border:1.5px solid #3671ff;border-radius:14px;padding:12px 17px;display:flex;flex-direction:column;gap:5px;">
+      <span data-src="t5" style="color:#3671ff;font-size:14px;font-weight:700;line-height:19px;">계좌번호</span>
+      <span data-src="t6" data-ocr="|없이 숫자만 입력" style="color:#999da5;font-size:23px;font-weight:700;line-height:30px;letter-spacing:-.8px;">없이 숫자만 입력</span>
+    </div>
+    <button data-action="a-s04-05" data-src="b0" style="height:66px;box-sizing:border-box;border:1px solid #f0f1f4;border-radius:13px;background:#f6f7f9;padding:0 23px 0 16px;display:flex;align-items:center;justify-content:space-between;text-align:left;">
+      <span data-src="t7" style="color:#999da5;font-size:21px;letter-spacing:-.7px;line-height:27px;">은행 또는 증권사 선택</span>
+      <span aria-hidden="true" style="color:#6c6e73;font-size:26px;line-height:24px;">⌄</span>
+    </button>
+  </div>
+
+  <!-- b11은 검출 상자대로 숫자판 전체를 감싸되, 실제 그림의 순서에 맞춰 숫자를 1–9와 0의 행으로 배치한다. -->
+  <div data-src="b11" style="margin-top:auto;height:237px;flex-shrink:0;display:flex;flex-direction:column;border-radius:20px 20px 0 0;background:#fff;box-shadow:0 -5px 16px rgba(0,0,0,.025);">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+      <button data-action="a-s04-g1" data-v="1" data-src="t8" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">1</button>
+      <button data-action="a-s04-g1" data-v="2" data-src="t9" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">2</button>
+      <button data-action="a-s04-g1" data-v="3" data-src="t10" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">3</button>
+    </div>
+    <div data-src="b8" style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+      <button data-action="a-s04-g1" data-v="4" data-src="t11" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">4</button>
+      <button data-action="a-s04-g1" data-v="5" data-src="t12" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">5</button>
+      <button data-action="a-s04-g1" data-v="6" data-src="t13" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">6</button>
+    </div>
+    <div data-src="b6" style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+      <button data-action="a-s04-g1" data-v="7" data-src="t14" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">7</button>
+      <button data-action="a-s04-g1" data-v="8" data-src="t15" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">8</button>
+      <button data-action="a-s04-g1" data-v="9" data-src="t16" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">9</button>
+    </div>
+    <div data-src="b5" style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+      <button data-action="a-s04-g1" data-v="0" data-src="t17" style="grid-column:2;border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">0</button>
+      <button data-action="a-s04-g1" data-v="삭제 아이콘" data-src="b9" aria-label="삭제" style="grid-column:3;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="삭제 아이콘" style="width:20px;height:21px;box-sizing:border-box;border:1px solid #aaa;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      </button>
+    </div>
+  </div>
+
+  <button data-action="a-s04-06" data-src="b2" disabled style="height:63px;flex-shrink:0;margin:8px 15px 0;border:0;border-radius:13px;background:#edeef2;color:#999da5;display:flex;align-items:center;justify-content:center;">
+    <span data-src="t18" style="font-size:21px;font-weight:700;line-height:28px;">다음</span>
+  </button>
+</section></div></section>
+<section class="screen" data-screen="s05" data-captures="05a+05b+05c"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;min-height:1997px;box-sizing:border-box;padding-top:122px;background:#777;font-family:Arial,'Noto Sans KR',sans-serif;color:#202124;">
+  <!-- 목록에 없는 상태바와 뒤쪽 화면의 글·버튼은 만들지 않는다. -->
+  <div style="background:#fff;border-radius:22px 22px 0 0;padding-bottom:23px;overflow:hidden;">
+    <header style="height:64px;padding:0 19px 0 16px;display:flex;align-items:center;justify-content:space-between;box-sizing:border-box;">
+      <h2 data-src="05a:t4" style="margin:0;font-size:22px;font-weight:700;white-space:nowrap;">은행 또는 증권사 선택</h2>
+      <button data-action="a-s05-01" data-src="05a:b17" style="padding:0;border:0;background:transparent;width:20px;height:24px;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="닫기 아이콘" style="width:17px;height:19px;background:linear-gradient(45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),#e2e2e2;"></div>
+      </button>
+    </header>
+    <nav style="display:flex;height:49px;">
+      <button data-action="a-s05-02" data-src="05a:b15" style="flex:1;border:0;border-bottom:2px solid #202124;background:#fff;font:600 20px Arial,sans-serif;color:#202124;">
+        <span data-src="05a:t5">은행</span>
+      </button>
+      <button data-action="a-s05-03" data-src="05a:b16" style="flex:1;border:0;border-bottom:2px solid transparent;background:#fff;font:400 20px Arial,sans-serif;color:#9b9da5;">
+        <span data-src="05a:t6">증권사</span>
+      </button>
+    </nav>
+    <!-- g3~g40을 각각 카드로 묶는다. 캡처 경계에서 짧게 검출된 버튼도 그림의 바탕 구역에 맞춰 높이 122px로 통일한다. -->
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:122px;gap:11.5px 12px;padding:15px 15px 0;">
+      <button data-action="a-s05-g1" data-v="신한" data-src="05a:b11" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="신한 로고" data-src="05a:i11" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05a:t7">신한</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="제주" data-src="05a:b9" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="제주 로고" data-src="05a:i9" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05a:t8">제주</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="국민" data-src="05a:b10" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="국민 로고" data-src="05a:i10" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05a:t9">국민</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="기업" data-src="05a:b8" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="기업 로고" data-src="05a:i8" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05a:t11">기업</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="NH 농협" data-src="05a:b5" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;">
+          <div class="pic" role="img" aria-label="농협 로고" data-src="05a:i5" style="width:40px;height:10px;background:linear-gradient(45deg,transparent 47%,#aaa 48%,#aaa 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 48%,#aaa 52%,transparent 53%),#ddd;"></div>
+          <div class="pic" role="img" aria-label="농협 로고" data-src="05a:t10" style="width:45px;height:24px;background:linear-gradient(45deg,transparent 47%,#aaa 48%,#aaa 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 48%,#aaa 52%,transparent 53%),#ddd;"></div>
+          <div class="pic" role="img" aria-label="농협 로고" data-src="05a:i6" style="width:41px;height:11px;background:linear-gradient(45deg,transparent 47%,#aaa 48%,#aaa 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 48%,#aaa 52%,transparent 53%),#ddd;"></div>
+        </div>
+        <span data-src="05a:t12">농협</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="산업" data-src="05a:b3" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="산업 로고" data-src="05a:i3" style="width:34px;height:30px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05a:t13">산업</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="Sh 수협" data-src="05a:b7" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="수협 로고" data-src="05a:t14" style="width:44px;height:36px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05a:t15">수협</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="신협" data-src="05a:b0" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="신협 로고" data-src="05a:i0" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05a:t16">신협</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="우리" data-src="05a:b4" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="우리 로고" data-src="05a:i4" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05a:t17">우리</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="하나" data-src="05a:b6" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="하나 로고" data-src="05a:i7" style="width:48px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05a:t20">하나</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="citi 한국씨티" data-src="05a:b1" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="한국씨티 로고" data-src="05a:i1" style="grid-area:1/1;width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+          <div class="pic" role="img" aria-label="한국씨티 로고" data-src="05a:t19" style="grid-area:1/1;width:37px;height:25px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05a:t21">한국씨티</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="B 카카오뱅크" data-src="05a:b2" data-ocr="D 카카오뱅크" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="카카오뱅크 로고" data-src="05a:i2" style="grid-area:1/1;width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+          <div class="pic" role="img" aria-label="카카오뱅크 로고" data-src="05a:t18" style="grid-area:1/1;width:26px;height:31px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05a:t22">카카오뱅크</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="Kbank 케이뱅크" data-src="05b:b10" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="케이뱅크 로고" data-src="05a:i13" style="grid-area:1/1;width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+          <div class="pic" role="img" aria-label="케이뱅크 로고" data-src="05b:t7" style="grid-area:1/1;width:40px;height:14px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05b:t9">케이뱅크</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="토스뱅크" data-src="05b:b9" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="토스뱅크 로고" data-src="05b:i9" style="width:31px;height:28px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05b:t10">토스뱅크</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="BNK 경남" data-src="05b:b11" data-ocr="BiNV 경남" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="경남 로고" data-src="05a:i12" style="grid-area:1/1;width:47px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+          <div class="pic" role="img" aria-label="경남 로고" data-src="05a:t24" data-ocr="BNV" style="grid-area:1/1;width:43px;height:17px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+          <div class="pic" role="img" aria-label="경남 로고" data-src="05b:t8" data-ocr="BiNV" style="grid-area:1/1;width:45px;height:19px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+          <div class="pic" role="img" aria-label="경남 로고" data-src="05b:i10" style="grid-area:1/1;align-self:end;width:44px;height:13px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05b:t11">경남</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="광주" data-src="05b:b8" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="광주 로고" data-src="05b:i8" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05b:t13">광주</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="아이엠뱅크(대..." data-src="05b:b5" data-ocr="아이엠뱅크(대." style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;overflow:hidden;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="아이엠뱅크(대... 로고" data-src="05b:i4" style="width:34px;height:17px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05b:t14" data-ocr="아이엠뱅크(대." style="max-width:100%;white-space:nowrap;overflow:hidden;">아이엠뱅크(대...</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="BNK 부산" data-src="05b:b6" data-ocr="BNV 부산" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="부산 로고" data-src="05b:i5" style="grid-area:1/1;align-self:start;width:43px;height:12px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+          <div class="pic" role="img" aria-label="부산 로고" data-src="05b:i6" style="grid-area:1/1;align-self:end;width:46px;height:31px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+          <div class="pic" role="img" aria-label="부산 로고" data-src="05b:t12" data-ocr="BNV" style="grid-area:1/1;width:43px;height:18px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05b:t15">부산</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="전북" data-src="05b:b3" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="전북 로고" data-src="05b:i2" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05b:t16">전북</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="회원수협" data-src="05b:b0" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="회원수협 로고" data-src="05b:i0" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05b:t17">회원수협</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="새마을" data-src="05b:b1" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="새마을 로고" data-src="05b:i1" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05b:t18">새마을</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="우체국" data-src="05b:b7" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="우체국 로고" data-src="05b:i7" style="width:36px;height:18px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05b:t20">우체국</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="SB 저축은행" data-src="05b:b2" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="저축은행 로고" data-src="05b:t19" style="width:34px;height:37px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05b:t21">저축은행</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="지역농.축협" data-src="05b:b4" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="지역농.축협 로고" data-src="05b:i3" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05b:t22">지역농.축협</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="도이치" data-src="05b:b14" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="도이치 로고" data-src="05b:i13" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05c:t7">도이치</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="중국" data-src="05b:b12" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="중국 로고" data-src="05b:i11" style="width:37px;height:37px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05b:t24">중국</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="중국건설" data-src="05b:b13" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="중국건설 로고" data-src="05b:i12" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05c:t9">중국건설</span>
+      </button>
+
+      <!-- 중국공상 이미지는 in_box가 없지만 g30과 그림에 따라 해당 카드 안에 둔다. -->
+      <button data-action="a-s05-g1" data-v="중국공상" data-src="05c:b8" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="중국공상 로고" data-src="05c:b21" style="width:43px;height:43px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05c:t10">중국공상</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="BNP파리바" data-src="05c:b6" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="BNP파리바 로고" data-src="05c:i6" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05c:t11">BNP파리바</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="BOA" data-src="05c:b7" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="BOA 로고" data-src="05c:i7" style="width:40px;height:22px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05c:t12">BOA</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="HSBC" data-src="05c:b3" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="HSBC 로고" data-src="05c:i3" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05c:t13">HSBC</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="JP모간" data-src="05c:b0" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="JP모간 로고" data-src="05c:i0" style="width:49px;height:49px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        <span data-src="05c:t14">JP모간</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="SC" data-src="05c:b2" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="SC 로고" data-src="05c:i2" style="width:21px;height:33px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05c:t15">SC</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="산림조합" data-src="05c:b4" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="산림조합 로고" data-src="05c:i4" style="width:40px;height:25px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05c:t16">산림조합</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="국세" data-src="05c:b1" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="국세 로고" data-src="05c:i1" style="width:33px;height:32px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05c:t17">국세</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="지방세" data-src="05c:b5" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="지방세 로고" data-src="05c:i5" style="width:33px;height:32px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05c:t18">지방세</span>
+      </button>
+
+      <button data-action="a-s05-g1" data-v="국고금" data-src="05c:b9" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="국고금 로고" data-src="05c:i8" style="width:34px;height:32px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05c:t19">국고금</span>
+      </button>
+      <button data-action="a-s05-g1" data-v="관세" data-src="05c:b10" style="height:122px;box-sizing:border-box;border:0;border-radius:13px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;gap:10px;padding:21px 0 0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="관세 로고" data-src="05c:i9" style="width:34px;height:32px;background:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;"></div>
+        </div>
+        <span data-src="05c:t20">관세</span>
+      </button>
+    </div>
+  </div>
+</section></div></section>
+<section class="screen" data-screen="s06" data-captures="06a+06b+06c"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;min-height:1596px;box-sizing:border-box;background:#777;color:#191919;font-family:Arial,'Noto Sans KR',sans-serif;--pic:linear-gradient(45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),linear-gradient(-45deg,transparent 48%,#aaa 49%,#aaa 51%,transparent 52%),#ddd;">
+  <!-- 목록에 없는 상태바와 배경 화면의 글·버튼은 재현하지 않는다. -->
+  <div style="height:122px;"></div>
+  <div style="background:#fff;border-radius:22px 22px 0 0;overflow:hidden;">
+    <header style="height:64px;padding:0 19px;display:flex;align-items:center;justify-content:space-between;box-sizing:border-box;">
+      <h2 data-src="06a:t4" style="margin:0;font-size:23px;font-weight:700;white-space:nowrap;">은행 또는 증권사 선택</h2>
+      <button data-action="a-s06-01" data-src="06a:b17" style="border:0;background:none;padding:0;display:flex;align-items:center;justify-content:center;width:22px;height:26px;">
+        <div class="pic" role="img" aria-label="닫기 아이콘" style="width:17px;height:19px;background:var(--pic);"></div>
+      </button>
+    </header>
+    <nav style="display:flex;height:49px;border-bottom:1px solid #eee;box-sizing:border-box;">
+      <button data-action="a-s06-02" data-src="06a:b16" style="flex:1;border:0;background:#fff;color:#999da5;font:inherit;font-size:20px;">
+        <span data-src="06a:t5">은행</span>
+      </button>
+      <button data-action="a-s06-03" data-src="06a:b15" aria-selected="true" style="flex:1;border:0;border-bottom:2px solid #171717;background:#fff;color:#191919;font:inherit;font-size:20px;font-weight:700;">
+        <span data-src="06a:t6">증권사</span>
+      </button>
+    </nav>
+
+    <div style="display:grid;grid-template-columns:repeat(3,112px);grid-auto-rows:122px;column-gap:12px;row-gap:11.55px;padding:15px 15px 22px;">
+      <button data-action="a-s06-g1" data-v="신한투자증권" data-src="06a:b11" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="신한투자증권 로고" data-src="06a:i14" style="width:49px;height:49px;background:var(--pic);"></div>
+        <span data-src="06a:t8">신한투자증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="교보증권" data-src="06a:b9" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="교보증권 로고" data-src="06a:i12" style="width:33px;height:27px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06a:t9">교보증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="DAOL 다올투자증권" data-src="06a:b10" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="다올투자증권 로고" data-src="06a:i13" style="grid-area:1/1;width:48px;height:49px;background:var(--pic);"></div>
+          <span data-src="06a:t7" style="grid-area:1/1;font-size:14px;font-weight:400;">DAOL</span>
+        </div>
+        <span data-src="06a:t10">다올투자증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="대신증권" data-src="06a:b7" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="대신증권 로고" data-src="06a:i10" style="width:49px;height:49px;background:var(--pic);"></div>
+        <span data-src="06a:t13">대신증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="meritz 메리츠증권" data-src="06a:b4" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="메리츠증권 로고" data-src="06a:i7" style="grid-area:1/1;width:49px;height:49px;background:var(--pic);"></div>
+          <span data-src="06a:t11" style="grid-area:1/1;font-size:14px;">meritz</span>
+        </div>
+        <span data-src="06a:t14">메리츠증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="MIRAE ASSET 미래에셋증권" data-src="06a:b5" data-ocr="MIRAEASSET 미래에셋증권" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="미래에셋증권 로고" data-src="06a:i8" style="grid-area:1/1;width:49px;height:49px;background:var(--pic);"></div>
+          <span data-src="06a:t12" data-ocr="MIRAEASSET" style="grid-area:1/1;font-size:7px;white-space:nowrap;">MIRAE ASSET</span>
+        </div>
+        <span data-src="06a:t15">미래에셋증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="부국증권" data-src="06a:b8" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="부국증권 로고" data-src="06a:i11" style="width:39px;height:27px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06a:t17">부국증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="삼성증권 삼성증권" data-src="06a:b0" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="삼성증권 로고" data-src="06a:i0" style="width:44px;height:14px;background:var(--pic);"></div>
+          <span data-src="06a:t16" style="font-size:12px;line-height:20px;">삼성증권</span>
+          <div class="pic" role="img" aria-label="삼성증권 로고" data-src="06a:i1" style="width:44px;height:14px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06a:t18">삼성증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="상상인증권" data-src="06a:b1" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="상상인증권 로고" data-src="06a:i2" style="width:29px;height:23px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06a:t19">상상인증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="신영증권" data-src="06a:b6" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="신영증권 로고" data-src="06a:i9" style="width:49px;height:49px;background:var(--pic);"></div>
+        <span data-src="06a:t21">신영증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="SK증권 에스케이증권" data-src="06a:b2" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="에스케이증권 로고" data-src="06a:i3" style="grid-area:1/1;width:49px;height:49px;background:var(--pic);"></div>
+          <span data-src="06a:t20" data-ocr="SK증권" style="grid-area:1/1;font-size:11px;">SK 증권</span>
+        </div>
+        <span data-src="06a:t22">에스케이증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="유안타증권" data-src="06a:b3" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;align-content:center;justify-content:center;grid-template-columns:13px 14px;gap:4px;">
+          <div class="pic" role="img" aria-label="유안타증권 로고" data-src="06a:i4" style="width:13px;height:12px;background:var(--pic);"></div>
+          <div class="pic" role="img" aria-label="유안타증권 로고" data-src="06a:i5" style="width:14px;height:12px;background:var(--pic);"></div>
+          <div class="pic" role="img" aria-label="유안타증권 로고" data-src="06a:i6" style="grid-column:1/3;width:33px;height:17px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06a:t23">유안타증권</span>
+      </button>
+
+      <!-- g15~g17은 캡처 경계에서 상·하 버튼으로 나뉘었으므로 각 구역을 하나의 카드 바탕으로 묶는다. 목록에 없는 유진 로고는 만들지 않는다. -->
+      <div style="height:122px;background:#f4f5f7;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;">
+        <button data-action="a-s06-g1" data-v="06a:b14" data-src="06a:b14" style="height:82px;flex-shrink:0;width:112px;border:0;background:none;"></button>
+        <button data-action="a-s06-g1" data-v="유진투자증권" data-src="06b:b14" style="height:40px;width:112px;border:0;background:none;padding:0 0 18px;font:600 16px Arial,sans-serif;color:inherit;">
+          <span data-src="06b:t7">유진투자증권</span>
+        </button>
+      </div>
+
+      <div style="height:122px;background:#f4f5f7;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;">
+        <button data-action="a-s06-g1" data-v="LS" data-src="06a:b13" style="height:82px;flex-shrink:0;width:112px;border:0;background:none;display:grid;place-items:center;padding:14px 0 0;box-sizing:border-box;">
+          <div class="pic" role="img" aria-label="LS증권 로고" data-src="06a:t24" style="width:34px;height:18px;background:var(--pic);"></div>
+        </button>
+        <button data-action="a-s06-g1" data-v="LS증권" data-src="06b:b16" style="height:40px;width:112px;border:0;background:none;padding:0 0 18px;font:600 16px Arial,sans-serif;color:inherit;">
+          <span data-src="06b:t8">LS증권</span>
+        </button>
+      </div>
+
+      <div style="height:122px;background:#f4f5f7;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;">
+        <button data-action="a-s06-g1" data-v="pay" data-src="06a:b12" style="height:82px;flex-shrink:0;width:112px;border:0;background:none;display:grid;place-items:center;padding:14px 0 0;box-sizing:border-box;">
+          <div style="width:49px;height:49px;display:grid;place-items:center;">
+            <div class="pic" role="img" aria-label="카카오페이증권 로고" data-src="06a:i15" style="grid-area:1/1;width:49px;height:49px;background:var(--pic);"></div>
+            <span data-src="06a:t25" style="grid-area:1/1;font-size:13px;">pay</span>
+          </div>
+        </button>
+        <button data-action="a-s06-g1" data-v="카카오페이증권" data-src="06b:b19" style="height:40px;width:112px;border:0;background:none;padding:0 0 18px;font:600 16px Arial,sans-serif;color:inherit;">
+          <span data-src="06b:t9">카카오페이증권</span>
+        </button>
+      </div>
+
+      <button data-action="a-s06-g1" data-v="케이프투자증권" data-src="06b:b11" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="케이프투자증권 로고" data-src="06b:i11" style="width:49px;height:49px;background:var(--pic);"></div>
+        <span data-src="06c:t7">케이프투자증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="키움증권" data-src="06b:b9" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="키움증권 로고" data-src="06b:i9" style="width:26px;height:31px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06b:t11">키움증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="토스증권" data-src="06b:b10" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="토스증권 로고" data-src="06b:i10" style="width:31px;height:28px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06c:t9">토스증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="우리투자증권" data-src="06b:b7" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="우리투자증권 로고" data-src="06c:i9" style="width:49px;height:49px;background:var(--pic);"></div>
+        <span data-src="06c:t10">우리투자증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="하나증권" data-src="06b:b1" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="하나증권 로고" data-src="06c:i8" style="width:37px;height:34px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06c:t11">하나증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="아이엠증권" data-src="06b:b3" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="아이엠증권 로고" data-src="06c:i7" style="width:35px;height:18px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06c:t12">아이엠증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="한국투자증권" data-src="06c:b3" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="한국투자증권 로고" data-src="06c:i3" style="width:49px;height:49px;background:var(--pic);"></div>
+        <span data-src="06b:t16">한국투자증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="한화투자증권" data-src="06c:b0" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="한화투자증권 로고" data-src="06c:i0" style="width:49px;height:49px;background:var(--pic);"></div>
+        <span data-src="06c:t14">한화투자증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="현대차증권" data-src="06b:b4" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="현대차증권 로고" data-src="06c:i1" style="width:49px;height:49px;background:var(--pic);"></div>
+        <span data-src="06b:t18">현대차증권</span>
+      </button>
+
+      <!-- BNK는 겹친 캡처의 전체 로고·부분 로고·OCR을 같은 그리드 영역에 겹쳐 보존한다. -->
+      <button data-action="a-s06-g1" data-v="BNK BNK투자증권" data-src="06c:b4" data-ocr="BiNV BNK투자증권" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="BNK투자증권 로고" data-src="06b:i6" style="grid-area:1/1;width:47px;height:49px;background:var(--pic);"></div>
+          <div style="grid-area:1/1;width:49px;height:49px;display:grid;grid-template-rows:13px 22px 14px;justify-items:center;align-items:center;">
+            <div class="pic" role="img" aria-label="BNK투자증권 로고" data-src="06c:i4" style="width:44px;height:13px;background:var(--pic);"></div>
+            <div style="display:grid;place-items:center;">
+              <span data-src="06b:t19" style="grid-area:1/1;font-size:18px;">BNK</span>
+              <span data-src="06c:t16" data-ocr="BiNV" style="grid-area:1/1;font-size:18px;">BNK</span>
+            </div>
+            <div class="pic" role="img" aria-label="BNK투자증권 로고" data-src="06c:i5" style="width:44px;height:14px;background:var(--pic);"></div>
+          </div>
+        </div>
+        <span data-src="06c:t17">BNK투자증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="DB증권" data-src="06c:b2" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:49px;height:49px;display:grid;place-items:center;">
+          <div class="pic" role="img" aria-label="DB증권 로고" data-src="06c:i2" style="width:26px;height:32px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06c:t18">DB증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="IBK투자증권" data-src="06c:b5" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div class="pic" role="img" aria-label="IBK투자증권 로고" data-src="06c:i6" style="width:49px;height:49px;background:var(--pic);"></div>
+        <span data-src="06c:t19">IBK투자증권</span>
+      </button>
+
+      <!-- g30·g31의 앞 캡처에서 검출된 빈 버튼 조각은 완성 카드 안에 보존한다. 중첩 버튼은 role="button"을 사용한다. -->
+      <button data-action="a-s06-g1" data-v="KB증권" data-src="06c:b9" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:112px;height:49px;display:grid;place-items:center;">
+          <div data-action="a-s06-04" data-src="06b:b12" role="button" tabindex="0" style="grid-area:1/1;align-self:start;width:112px;height:39px;"></div>
+          <div class="pic" role="img" aria-label="KB증권 로고" data-src="06c:i10" style="grid-area:1/1;width:49px;height:49px;background:var(--pic);"></div>
+        </div>
+        <span data-src="06c:t21">KB증권</span>
+      </button>
+
+      <button data-action="a-s06-g1" data-v="NH NH투자증권" data-src="06c:b10" style="width:112px;height:122px;border:0;border-radius:14px;background:#f4f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;font:600 16px Arial,sans-serif;color:inherit;">
+        <div style="width:112px;height:49px;display:grid;place-items:center;">
+          <div data-action="a-s06-05" data-src="06b:b13" role="button" tabindex="0" style="grid-area:1/1;align-self:start;width:112px;height:39px;"></div>
+          <div class="pic" role="img" aria-label="NH투자증권 로고" data-src="06c:i11" style="grid-area:1/1;width:49px;height:49px;background:var(--pic);"></div>
+          <span data-src="06c:t20" style="grid-area:1/1;font-size:22px;font-weight:400;">NH</span>
+        </div>
+        <span data-src="06c:t22">NH투자증권</span>
+      </button>
+    </div>
+  </div>
+</section></div></section>
+<section class="screen" data-screen="s07" data-captures="07"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;height:866px;box-sizing:border-box;padding-top:35px;background:#fff;color:#191a1c;font-family:Arial,'Noto Sans KR',sans-serif;display:flex;flex-direction:column;overflow:hidden;">
+  <div data-src="b19" style="height:33px;flex-shrink:0;margin:0 16px;display:flex;align-items:flex-start;justify-content:space-between;">
+    <button data-action="a-s07-01" data-src="b11" style="border:0;background:none;padding:0;width:26px;height:27px;display:flex;align-items:center;font-size:34px;line-height:27px;color:#191a1c;">‹<div data-action="a-s07-02" data-src="t2" role="button" style="flex-shrink:0;width:14px;margin-left:-14px;font-size:34px;line-height:27px;">‹</div></button>
+    <button data-action="a-s07-03" data-src="b7" aria-label="닫기" style="border:0;background:none;padding:6px 0 0;width:20px;height:27px;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:16px;height:18px;border:1px solid #a5a8ad;box-sizing:border-box;background:linear-gradient(45deg,transparent 47%,#a5a8ad 48%,#a5a8ad 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#a5a8ad 48%,#a5a8ad 52%,transparent 53%),#eee;"></div>
+    </button>
+  </div>
+
+  <button data-action="a-s07-04" data-src="b8" style="display:flex;align-items:center;justify-content:space-between;flex-shrink:0;margin:5px 16px 0;padding:0;border:0;background:none;text-align:left;color:inherit;height:61px;">
+    <div style="min-width:0;font-size:21px;font-weight:700;line-height:30px;letter-spacing:-.8px;">
+      <span data-src="t3" style="display:block;white-space:nowrap;">[금융거래한도계좌2]신한 주거래 우대</span>
+      <span data-src="t4" style="display:block;">통장 계좌에서</span>
+    </div>
+    <div data-action="a-s07-05" data-src="b18" role="button" style="width:15px;flex-shrink:0;font-size:21px;line-height:20px;color:#6c6d71;">⌄</div>
+  </button>
+
+  <div style="margin:7px 16px 0;display:flex;flex-direction:column;gap:8px;">
+    <span data-src="t5" style="font-size:21px;font-weight:700;line-height:27px;">아래 계좌로</span>
+    <span data-src="t6" style="margin-left:2px;font-size:16px;line-height:18px;color:#8d8e94;">신한110234567890</span>
+  </div>
+
+  <div style="margin-top:46px;display:flex;flex-direction:column;align-items:center;">
+    <div style="display:flex;align-items:center;gap:6px;color:#afb2ba;font-size:34px;font-weight:700;line-height:42px;letter-spacing:-1.5px;">
+      <span data-src="t7">얼마를</span>
+      <span data-src="t8">보낼까요?</span>
+    </div>
+    <span data-src="t9" style="margin-top:16px;font-size:17px;line-height:22px;color:#6f7075;text-decoration:underline;text-underline-offset:2px;">출금가능금액 1,000,000원</span>
+  </div>
+
+  <div style="margin-top:auto;flex-shrink:0;height:301px;box-sizing:border-box;padding-top:14px;background:#fff;border-radius:18px 18px 0 0;box-shadow:0 -5px 20px rgba(0,0,0,.035);">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 14px;height:46px;">
+      <button data-action="a-s07-06" data-src="b1" style="border:0;border-radius:25px;background:#eff0f3;color:#414246;font-size:16px;padding:0;"><span data-src="t10">+1만</span></button>
+      <button data-action="a-s07-07" data-src="b2" style="border:0;border-radius:25px;background:#eff0f3;color:#414246;font-size:16px;padding:0;"><span data-src="t11">+5만</span></button>
+      <button data-action="a-s07-08" data-src="b3" style="border:0;border-radius:25px;background:#eff0f3;color:#414246;font-size:16px;padding:0;"><span data-src="t12">+10만</span></button>
+      <button data-action="a-s07-09" data-src="b0" style="border:0;border-radius:25px;background:#eff0f3;color:#414246;font-size:16px;padding:0;"><span data-src="t13">전액</span></button>
+    </div>
+
+    <!-- b20의 검출 상자는 숫자판 전체에 걸치므로 흐름 배치의 숫자판 묶음으로 사용한다. b10, b9, b6의 겹친 검출 상자는 그림의 세 칸짜리 행으로 정리한다. -->
+    <div data-src="b20" style="display:flex;flex-direction:column;height:241px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);height:63px;">
+        <button data-action="a-s07-g1" data-v="1" data-src="b14" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;"><span data-src="t14">1</span></button>
+        <button data-action="a-s07-g1" data-v="2" data-src="t15" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;">2</button>
+        <button data-action="a-s07-g1" data-v="3" data-src="t16" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;">3</button>
+      </div>
+      <div data-src="b10" style="display:grid;grid-template-columns:repeat(3,1fr);height:59px;">
+        <button data-action="a-s07-g1" data-v="4" data-src="b13" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;"><span data-src="t17">4</span></button>
+        <button data-action="a-s07-g1" data-v="5" data-src="t18" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;">5</button>
+        <button data-action="a-s07-g1" data-v="6" data-src="t19" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;">6</button>
+      </div>
+      <div data-src="b9" style="display:grid;grid-template-columns:repeat(3,1fr);height:60px;">
+        <button data-action="a-s07-g1" data-v="7" data-src="b12" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;"><span data-src="t20">7</span></button>
+        <button data-action="a-s07-g1" data-v="8" data-src="t21" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;">8</button>
+        <button data-action="a-s07-g1" data-v="9" data-src="t22" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;">9</button>
+      </div>
+      <div data-src="b6" style="display:grid;grid-template-columns:repeat(3,1fr);height:59px;">
+        <button data-action="a-s07-g1" data-v="00" data-src="t23" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;">00</button>
+        <button data-action="a-s07-g1" data-v="0" data-src="t24" style="border:0;background:none;color:inherit;font-size:28px;font-weight:600;padding:0;">0</button>
+        <button data-action="a-s07-g1" data-v="지우기 아이콘" data-src="b16" style="border:0;background:none;display:flex;align-items:center;justify-content:center;padding:0;">
+          <div class="pic" role="img" aria-label="지우기 아이콘" data-src="b17" style="width:18px;height:20px;box-sizing:border-box;border:1px solid #a5a8ad;background:linear-gradient(45deg,transparent 47%,#a5a8ad 48%,#a5a8ad 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#a5a8ad 48%,#a5a8ad 52%,transparent 53%),#eee;"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button data-action="a-s07-10" data-src="b15" disabled style="height:65px;flex-shrink:0;width:100%;border:0;border-radius:0;background:#e5e7eb;color:#969ba4;font-size:21px;font-weight:700;padding:0;">
+    <span data-src="t25">다음</span>
+  </button>
+</section></div></section>
+<section class="screen" data-screen="s08" data-captures="07a"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;height:866px;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;background:#fff;color:#1e1e1e;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <div style="padding:35px 16px 0;display:flex;flex-direction:column;">
+    <div style="height:27px;display:flex;align-items:center;justify-content:space-between;">
+      <button data-action="a-s08-01" data-src="b10" aria-label="뒤로 가기" style="width:26px;height:27px;padding:0;border:0;background:transparent;display:flex;align-items:center;justify-content:center;">
+        <div data-src="t2" style="font-size:34px;line-height:24px;">‹</div>
+      </button>
+      <button data-action="a-s08-02" data-src="b8" aria-label="닫기" style="width:24px;height:27px;padding:0;border:0;background:transparent;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="닫기 아이콘" style="width:16px;height:18px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      </button>
+    </div>
+
+    <button data-action="a-s08-03" data-src="b7" style="margin-top:11px;width:100%;min-height:61px;display:flex;align-items:center;justify-content:space-between;gap:2px;padding:0;border:0;background:transparent;color:inherit;text-align:left;">
+      <span style="display:flex;flex-direction:column;font-size:21px;font-weight:700;line-height:30px;letter-spacing:-0.8px;">
+        <span data-src="t3" style="white-space:nowrap;">[금융거래한도계좌2]신한 주거래 우대</span>
+        <span data-src="t4">통장 계좌에서</span>
+      </span>
+      <div data-action="a-s08-04" data-src="b17" role="button" tabindex="0" aria-label="계좌 선택" style="flex:none;width:15px;height:20px;font-size:22px;line-height:15px;color:#666;text-align:center;">⌄</div>
+    </button>
+
+    <div data-src="t5" style="margin-top:6px;font-size:22px;font-weight:700;line-height:28px;">아래 계좌로</div>
+    <div data-src="b19" style="margin-top:2px;height:29px;display:flex;align-items:center;color:#939397;">
+      <span data-src="t6" style="font-size:16px;">신한110234567890</span>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;margin-top:39px;">
+    <div data-action="a-s08-05" data-src="t7" role="textbox" aria-label="금액" tabindex="0" style="box-sizing:border-box;min-width:133px;height:44px;border:1px solid #f4f4f4;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:700;letter-spacing:-1px;">10,000원</div>
+    <div data-src="t8" style="margin-top:17px;font-size:17px;line-height:22px;color:#747478;white-space:pre;">출금가능금액 <span style="color:#363639;font-weight:700;text-decoration:underline;">1,000,000원</span></div>
+  </div>
+
+  <!-- g2~g5는 각각 빠른 금액 버튼의 바탕이다. 겹쳐 검출된 숫자판 상자 b20·b11·b9·b6는 실제 그림의 행과 열 흐름에 맞춰 묶었다. -->
+  <div style="margin-top:auto;height:301px;box-sizing:border-box;padding-top:15px;background:#fff;border-radius:18px 18px 0 0;box-shadow:0 -5px 22px rgba(0,0,0,0.045);display:flex;flex-direction:column;">
+    <div style="padding:0 14px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;height:45px;flex:none;">
+      <button data-action="a-s08-06" data-src="b1" style="padding:0;border:0;border-radius:25px;background:#eff0f3;color:#424246;font:inherit;font-size:16px;">
+        <span data-src="t9">+1만</span>
+      </button>
+      <button data-action="a-s08-07" data-src="b2" style="padding:0;border:0;border-radius:25px;background:#eff0f3;color:#424246;font:inherit;font-size:16px;">
+        <span data-src="t10">+5만</span>
+      </button>
+      <button data-action="a-s08-08" data-src="b3" style="padding:0;border:0;border-radius:25px;background:#eff0f3;color:#424246;font:inherit;font-size:16px;">
+        <span data-src="t11">+10만</span>
+      </button>
+      <button data-action="a-s08-09" data-src="b0" style="padding:0;border:0;border-radius:25px;background:#eff0f3;color:#424246;font:inherit;font-size:16px;">
+        <span data-src="t12">전액</span>
+      </button>
+    </div>
+
+    <div data-src="b20" style="display:grid;grid-template-rows:repeat(4,1fr);flex:1;min-height:0;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);">
+        <button data-action="a-s08-g1" data-v="1" data-src="b14" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">
+          <span data-src="t13">1</span>
+        </button>
+        <button data-action="a-s08-g1" data-v="2" data-src="t14" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">2</button>
+        <button data-action="a-s08-g1" data-v="3" data-src="t15" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">3</button>
+      </div>
+      <div data-src="b11" style="display:grid;grid-template-columns:repeat(3,1fr);">
+        <button data-action="a-s08-g1" data-v="4" data-src="b13" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">
+          <span data-src="t16">4</span>
+        </button>
+        <button data-action="a-s08-g1" data-v="5" data-src="t17" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">5</button>
+        <button data-action="a-s08-g1" data-v="6" data-src="t18" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">6</button>
+      </div>
+      <div data-src="b9" style="display:grid;grid-template-columns:repeat(3,1fr);">
+        <button data-action="a-s08-g1" data-v="7" data-src="b12" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">
+          <span data-src="t19">7</span>
+        </button>
+        <button data-action="a-s08-g1" data-v="8" data-src="t20" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">8</button>
+        <button data-action="a-s08-g1" data-v="9" data-src="t21" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">9</button>
+      </div>
+      <div data-src="b6" style="display:grid;grid-template-columns:repeat(3,1fr);">
+        <button data-action="a-s08-g1" data-v="00" data-src="t22" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">00</button>
+        <button data-action="a-s08-g1" data-v="0" data-src="t23" style="padding:0;border:0;background:transparent;color:inherit;font:inherit;font-size:28px;font-weight:600;">0</button>
+        <button data-action="a-s08-g1" data-v="지우기 아이콘" data-src="b16" aria-label="지우기" style="padding:0;border:0;background:transparent;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="지우기 아이콘" data-src="b18" style="width:18px;height:20px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 다음 버튼은 검출 상자보다 넓게 화면 전체를 채우는 파란 띠로 보인다. -->
+  <button data-action="a-s08-10" data-src="b15" style="height:65px;flex:none;width:100%;padding:0;border:0;background:#2d68ef;color:#fff;font:inherit;font-size:22px;font-weight:700;">
+    <span data-src="t24">다음</span>
+  </button>
+</section></div></section>
+<section class="screen" data-screen="s09" data-captures="08"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;height:866px;box-sizing:border-box;display:flex;flex-direction:column;background:#fff;color:#191919;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <header style="height:63px;box-sizing:border-box;padding:35px 20px 0 11px;display:flex;justify-content:space-between;align-items:center;">
+    <button data-action="a-s09-01" data-src="b3" aria-label="뒤로" style="width:26px;height:28px;padding:0;border:0;background:transparent;color:#191919;font-size:38px;line-height:24px;">‹</button>
+    <button data-action="a-s09-02" data-src="b1" aria-label="닫기" style="width:16px;height:18px;padding:0;border:0;background:transparent;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:16px;height:18px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+    </button>
+  </header>
+
+  <div style="margin-top:131px;display:flex;flex-direction:column;align-items:center;text-align:center;">
+    <div data-src="t3" data-ocr="아래계좌로" style="height:37px;font-size:26px;font-weight:700;line-height:37px;">아래 계좌로</div>
+    <div data-src="t4" style="margin-top:3px;height:33px;font-size:26px;font-weight:700;line-height:33px;white-space:nowrap;">10,000원 보낼까요?</div>
+    <div data-src="t5" style="margin-top:17px;height:24px;font-size:19px;line-height:24px;color:#929397;">수수료 무료</div>
+  </div>
+
+  <!-- g0의 바탕과 b5의 범위가 겹치므로 하나의 카드로 묶고, 그림처럼 메모 행도 그 안에 배치한다. -->
+  <div data-src="b5" style="margin:29px 19px 0 17px;height:188px;box-sizing:border-box;padding:14px 8px 12px 19px;border-radius:17px;background:#f5f5f7;display:flex;flex-direction:column;">
+    <div style="min-height:40px;display:flex;align-items:center;justify-content:space-between;padding-right:9px;">
+      <span data-src="t6" style="font-size:18px;color:#929397;white-space:nowrap;">보내는 계좌</span>
+      <span data-src="t7" data-ocr="신한110-000-000000" style="font-size:18px;font-weight:600;letter-spacing:-0.6px;white-space:nowrap;">신한 110-000-000000</span>
+    </div>
+    <div style="min-height:40px;display:flex;align-items:center;justify-content:space-between;padding-right:9px;">
+      <span data-src="t8" style="font-size:18px;color:#929397;white-space:nowrap;">받는 계좌</span>
+      <span data-src="t9" data-ocr="신한110234567890" style="font-size:18px;font-weight:600;letter-spacing:-0.6px;white-space:nowrap;">신한 110234567890</span>
+    </div>
+    <button data-action="a-s09-03" data-src="b2" style="min-height:41px;width:100%;display:flex;align-items:center;gap:4px;padding:0 9px 0 0;border:0;background:transparent;font:inherit;color:inherit;text-align:left;">
+      <span data-src="t10" style="margin-right:auto;font-size:18px;color:#929397;white-space:nowrap;">받는분 메모</span>
+      <span data-src="t11" style="font-size:19px;font-weight:600;white-space:nowrap;">김철수</span>
+      <div class="pic" role="img" aria-label="받는분 메모 아이콘" data-src="t12" style="width:17px;height:17px;flex-shrink:0;background:linear-gradient(45deg,transparent 46%,#aaa 47%,#aaa 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#aaa 47%,#aaa 53%,transparent 54%),#e5e5e5;"></div>
+    </button>
+    <button data-action="a-s09-04" data-src="b4" style="min-height:41px;width:100%;display:flex;align-items:center;gap:6px;padding:0 11px 0 0;border:0;background:transparent;font:inherit;color:inherit;text-align:left;">
+      <span data-src="t13" style="margin-right:auto;font-size:18px;color:#929397;white-space:nowrap;">내통장 메모</span>
+      <span data-src="t14" style="font-size:19px;font-weight:600;white-space:nowrap;">김철수</span>
+      <div class="pic" role="img" aria-label="내통장 메모 아이콘" data-src="i0" style="width:13px;height:13px;flex-shrink:0;background:linear-gradient(45deg,transparent 46%,#aaa 47%,#aaa 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#aaa 47%,#aaa 53%,transparent 54%),#e5e5e5;"></div>
+    </button>
+  </div>
+
+  <button data-action="a-s09-05" data-src="t15" style="margin-top:auto;width:100%;height:65px;flex-shrink:0;padding:0;border:0;border-radius:0;background:#2d68f3;color:#fff;font-size:22px;font-weight:700;">보내기</button>
+</section></div></section>
+<section class="screen" data-screen="s10" data-captures="09a"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;height:866px;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;background:#fff;color:#19191d;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <div style="height:59px;flex-shrink:0;box-sizing:border-box;padding:41px 20px 0;display:flex;justify-content:flex-end;">
+    <button data-action="a-s10-01" data-src="b4" aria-label="닫기" style="width:16px;height:18px;padding:0;border:0;background:transparent;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:16px;height:18px;background:linear-gradient(45deg,transparent 45%,#888 46%,#888 54%,transparent 55%),linear-gradient(-45deg,transparent 45%,#888 46%,#888 54%,transparent 55%),#eee;"></div>
+    </button>
+  </div>
+
+  <div style="margin-top:221px;display:flex;flex-direction:column;align-items:center;">
+    <div data-src="t2" style="height:33px;line-height:33px;font-size:24px;font-weight:700;white-space:nowrap;">계좌 비밀번호</div>
+    <div style="display:flex;gap:23px;margin-top:35px;">
+      <div data-action="a-s10-02" data-src="b1" style="width:20px;height:20px;box-sizing:border-box;border:1.5px solid #c8cbd0;border-radius:50%;"></div>
+      <div data-action="a-s10-03" data-src="b2" style="width:20px;height:20px;box-sizing:border-box;border:1.5px solid #c8cbd0;border-radius:50%;"></div>
+      <div data-action="a-s10-04" data-src="b3" style="width:20px;height:20px;box-sizing:border-box;border:1.5px solid #c8cbd0;border-radius:50%;"></div>
+      <div data-action="a-s10-05" data-src="b5" style="width:20px;height:20px;box-sizing:border-box;border:1.5px solid #c8cbd0;border-radius:50%;"></div>
+    </div>
+  </div>
+
+  <div style="flex:1;"></div>
+
+  <div data-src="b11" style="height:287px;flex-shrink:0;box-sizing:border-box;padding:9px 0 7px;display:flex;flex-direction:column;background:#1260ff;color:#fff;">
+    <div data-src="b10" data-ocr="8 6 0" style="height:68px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-action="a-s10-g1" data-v="8" data-src="t3" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">8</button>
+      <button data-action="a-s10-g1" data-v="0" data-src="t4" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">0</button>
+      <button data-action="a-s10-g1" data-v="6" data-src="t5" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">6</button>
+    </div>
+    <div data-src="b8" data-ocr="2 4 1" style="height:67px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-action="a-s10-g1" data-v="2" data-src="t6" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">2</button>
+      <button data-action="a-s10-g1" data-v="1" data-src="t7" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">1</button>
+      <button data-action="a-s10-g1" data-v="4" data-src="t8" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">4</button>
+    </div>
+    <div data-src="b6" data-ocr="9 3 5" style="height:67px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-action="a-s10-g1" data-v="5" data-src="t9" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">5</button>
+      <button data-action="a-s10-g1" data-v="9" data-src="t10" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">9</button>
+      <button data-action="a-s10-g1" data-v="3" data-src="t11" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">3</button>
+    </div>
+    <div data-src="b7" data-ocr="7 재배열" style="height:69px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-action="a-s10-g1" data-v="재배열" data-src="t12" style="border:0;background:transparent;color:#dbe6ff;font:18px Arial,'Noto Sans KR',sans-serif;padding:0;">재배열</button>
+      <button data-action="a-s10-g1" data-v="7" data-src="t13" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">7</button>
+      <button data-action="a-s10-g1" data-v="지우기 아이콘" data-src="b9" aria-label="지우기" style="border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="지우기 아이콘" style="width:24px;height:19px;box-sizing:border-box;border:1px solid #aaa;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#ddd;"></div>
+      </button>
+    </div>
+  </div>
+</section></div></section>
+<section class="screen" data-screen="s11" data-captures="09b"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;height:866px;box-sizing:border-box;display:flex;flex-direction:column;background:#fff;color:#19191d;font-family:Arial,'Noto Sans KR',sans-serif;overflow:hidden;">
+  <div style="display:flex;justify-content:flex-end;padding:41px 20px 0;flex-shrink:0;">
+    <button data-action="a-s11-01" data-src="b5" aria-label="닫기" style="width:16px;height:18px;padding:0;border:0;background:transparent;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:16px;height:18px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+    </button>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;margin-top:220px;flex-shrink:0;">
+    <div data-src="t2" style="height:33px;line-height:33px;font-size:24px;font-weight:700;white-space:nowrap;">계좌 비밀번호</div>
+    <div style="display:flex;gap:23px;margin-top:35px;height:21px;align-items:center;">
+      <div class="pic" role="img" aria-label="비밀번호 입력 표시 아이콘" data-src="b0" style="width:21px;height:20px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      <div class="pic" role="img" aria-label="비밀번호 입력 표시 아이콘" data-src="b1" style="width:21px;height:21px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      <div class="pic" role="img" aria-label="비밀번호 입력 표시 아이콘" data-src="b2" style="width:21px;height:21px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      <div class="pic" role="img" aria-label="비밀번호 미입력 표시 아이콘" data-src="b3" style="width:20px;height:20px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+    </div>
+  </div>
+
+  <div style="flex:1;"></div>
+
+  <!-- 구역 정보는 없으며, 그림의 숫자판 행을 흐름으로 묶었다. 행의 교정 글은 내부 키로 표시하여 중복하지 않는다. -->
+  <div data-src="b11" style="height:287px;flex-shrink:0;box-sizing:border-box;padding:9px 0 7px;background:#145fff;display:flex;flex-direction:column;">
+    <div data-src="b10" data-ocr="8 6 0" style="height:68px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-action="a-s11-g1" data-v="8" data-src="t3" style="border:0;background:transparent;color:white;font:700 28px Arial;">8</button>
+      <button data-action="a-s11-g1" data-v="0" data-src="t4" style="border:0;background:transparent;color:white;font:700 28px Arial;">0</button>
+      <button data-action="a-s11-g1" data-v="6" data-src="t5" style="border:0;background:transparent;color:white;font:700 28px Arial;">6</button>
+    </div>
+    <div data-src="b8" data-ocr="2 4 1" style="height:67px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-action="a-s11-g1" data-v="2" data-src="t6" style="border:0;background:transparent;color:white;font:700 28px Arial;">2</button>
+      <button data-action="a-s11-g1" data-v="1" data-src="t7" style="border:0;background:transparent;color:white;font:700 28px Arial;">1</button>
+      <button data-action="a-s11-g1" data-v="4" data-src="t8" style="border:0;background:transparent;color:white;font:700 28px Arial;">4</button>
+    </div>
+    <div data-src="b6" data-ocr="9 3 5" style="height:68px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-action="a-s11-g1" data-v="5" data-src="t9" style="border:0;background:transparent;color:white;font:700 28px Arial;">5</button>
+      <button data-action="a-s11-g1" data-v="9" data-src="t10" style="border:0;background:transparent;color:white;font:700 28px Arial;">9</button>
+      <button data-action="a-s11-g1" data-v="3" data-src="t11" style="border:0;background:transparent;color:white;font:700 28px Arial;">3</button>
+    </div>
+    <!-- 지우기 키는 in_box가 없지만 그림에서 마지막 행의 세 번째 칸에 있다. -->
+    <div data-src="b7" data-ocr="7 재배열" style="height:68px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-action="a-s11-g1" data-v="재배열" data-src="t12" style="border:0;background:transparent;color:#e1ebff;font:400 17px Arial,'Noto Sans KR',sans-serif;">재배열</button>
+      <button data-action="a-s11-g1" data-v="7" data-src="t13" style="border:0;background:transparent;color:white;font:700 28px Arial;">7</button>
+      <button data-action="a-s11-g1" data-v="지우기 아이콘" data-src="b9" aria-label="지우기" style="border:0;background:transparent;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="지우기 아이콘" style="width:24px;height:19px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      </button>
+    </div>
+  </div>
+</section></div></section>
+<section class="screen" data-screen="s12" data-captures="10"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;height:866px;box-sizing:border-box;display:flex;flex-direction:column;background:#fff;color:#191919;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <div style="padding-top:269px;display:flex;flex-direction:column;align-items:center;">
+    <div class="pic" role="img" aria-label="이체 완료 아이콘" data-src="b5" style="width:87px;height:89px;box-sizing:border-box;border:1px solid #bfc2c7;background:linear-gradient(to top right,transparent calc(50% - 1px),#bfc2c7 50%,transparent calc(50% + 1px)),linear-gradient(to bottom right,transparent calc(50% - 1px),#bfc2c7 50%,transparent calc(50% + 1px)),#eee;"></div>
+    <div style="margin-top:24px;display:flex;flex-direction:column;align-items:center;font-size:26px;font-weight:700;letter-spacing:-1px;">
+      <div data-src="t2" style="height:37px;line-height:37px;">아래 계좌로</div>
+      <div data-src="t3" style="height:34px;line-height:34px;white-space:nowrap;">10,000원 보냈어요.</div>
+    </div>
+    <div style="display:flex;gap:13px;margin-top:32px;align-items:center;">
+      <button data-action="a-s12-01" data-src="b1" style="width:113px;height:49px;border:0;border-radius:12px;background:#f5f5f7;color:#191919;font:inherit;font-size:18px;font-weight:600;padding:0;">
+        <span data-src="t4">추가이체</span>
+      </button>
+      <button data-action="a-s12-02" data-src="b0" style="width:113px;height:49px;border:0;border-radius:12px;background:#f5f5f7;color:#191919;font:inherit;font-size:18px;font-weight:600;padding:0;">
+        <span data-src="t5">상세보기</span>
+      </button>
+    </div>
+  </div>
+  <div style="margin-top:auto;padding:0 16px 22px 15px;display:grid;grid-template-columns:100px 1fr;gap:11px;">
+    <button data-action="a-s12-03" data-src="b3" style="height:64px;border:0;border-radius:15px;background:#eaf0ff;color:#2c6bfa;font:inherit;font-size:20px;font-weight:700;padding:0;">
+      <span data-src="t6">공유</span>
+    </button>
+    <button data-action="a-s12-04" data-src="b2" style="height:64px;border:0;border-radius:15px;background:#2b67f2;color:#fff;font:inherit;font-size:20px;font-weight:700;padding:0;">
+      <span data-src="t7">확인</span>
+    </button>
+  </div>
+</section></div></section>
+<section class="screen" data-screen="s13" data-captures="11"><div class="canvas" data-markup="llm"><!-- LLM 마크업 (LLM_PROMPT_V3) - 동작 (data-action · data-v) 은 규칙 부분이 붙임 --><section style="width:390px;height:866px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;padding-top:317px;background:#777;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <!-- 목록에 없는 배경 화면의 글과 조작 요소는 재현하지 않는다. g3은 그림처럼 안내 상자 안에 배치한다. -->
+  <div data-src="b9" style="width:339px;box-sizing:border-box;padding:24px 21px 14px;background:#eee8f3;border-radius:17px;color:#242424;">
+    <div data-src="t7" style="font-size:18px;font-weight:700;line-height:22px;color:#f13e38;margin-bottom:13px;">ELB00016</div>
+    <div style="display:flex;flex-direction:column;font-size:18px;line-height:26px;letter-spacing:-0.4px;">
+      <div data-src="t8">계좌번호[100]</div>
+      <div data-src="t9" style="white-space:nowrap;">입력하신 계좌번호가 올바르지 않습니다.</div>
+      <div data-src="t10" style="white-space:nowrap;">계좌번호를 확인하시기 바랍니다.</div>
+    </div>
+    <div style="display:flex;margin-top:21px;">
+      <button data-action="a-s13-01" data-src="b1" style="width:100%;height:58px;display:flex;align-items:center;justify-content:center;padding:0;border:0;border-radius:10px;background:#1c60f4;color:#fff;font-family:inherit;cursor:pointer;">
+        <span data-src="t11" style="font-size:20px;font-weight:700;line-height:27px;">확인</span>
+      </button>
+    </div>
+  </div>
+</section></div></section>
+</div>
+<script>
+function show(name){
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.dataset.screen === name));
+  window.__task = {screen: name};
+}
+window.__screen = () => (document.querySelector('.screen.on') || {dataset: {}}).dataset.screen;
+document.getElementById('phone').addEventListener('click', function(e){
+  const el = e.target.closest('[data-action]'); if(!el) return;
+  const a = el.dataset.action;
+  if(a==='a-s01-07') show('s02');
+  else if(a==='a-s02-06') show('s03');
+  else if(a==='a-s03-04') show('s04');
+  else if(a==='a-s04-05') show('s05');
+  else if(a==='a-s05-03') show('s06');
+  else if(a==='a-s06-02') show('s07');
+  else if(a==='a-s07-06') show('s08');
+  else if(a==='a-s08-10') show('s09');
+  else if(a==='a-s09-05') show('s10');
+  else if(a==='a-s10-g1' && /^\d$/.test(el.dataset.v || '')) show('s11');
+  else if(a==='a-s11-g1' && /^\d$/.test(el.dataset.v || '')) show('s12');
+  else if(a==='a-s13-01') show('s12');
+});
+show('s01');
+</script>
+</body></html>

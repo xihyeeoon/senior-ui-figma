@@ -1,0 +1,11 @@
+{
+ "ok": true,
+ "problems": [],
+ "rules": [
+  "① data-src 한 번씩",
+  "② data-src 없는 보이는 글 · 버튼 · 그림 자리 없음",
+  "③ 글은 text · text_fixed 그대로",
+  "④ 그림 자리 .pic[role=img][aria-label]",
+  "⑤ 꺾쇠는 글자"
+ ]
+}

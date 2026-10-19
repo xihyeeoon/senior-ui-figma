@@ -1,0 +1,414 @@
+{
+ "name": "screenshot-assembly-v0",
+ "task": null,
+ "note": "스크린샷 19장 (파일 이름 순) 에서 조립한 원본 (조립 2단계, 규칙 부분 + 규칙 시안 마크업). 화면 = 이어 붙이기 단위, 이동 = 흐름 추정 strict3 의 tap 짝 + 끊긴 짝을 규칙 a 로 이은 것 (via). steps 는 s01 에서 캡처 차례대로 이동을 따라간 과제 길 - 오류 되돌아감은 transitions 에 있다. 비운 칸은 blank 에.",
+ "derived_from_original": true,
+ "truth": {},
+ "required_ids": [],
+ "steps": [
+  {
+   "screen": "s01"
+  },
+  {
+   "screen": "s02",
+   "click": "[data-action='a-s01-07']",
+   "via": "skipped-states"
+  },
+  {
+   "screen": "s03",
+   "click": "[data-action='a-s02-06']",
+   "via": "tap"
+  },
+  {
+   "screen": "s04",
+   "click": "[data-action='a-s03-04']",
+   "via": "tap"
+  },
+  {
+   "screen": "s05",
+   "click": "[data-action='a-s04-05']",
+   "via": "tap"
+  },
+  {
+   "screen": "s06",
+   "click": "[data-action='a-s05-03']",
+   "via": "tap"
+  },
+  {
+   "screen": "s07",
+   "click": "[data-action='a-s06-02']",
+   "via": "skipped-states"
+  },
+  {
+   "screen": "s08",
+   "click": "[data-action='a-s07-06']",
+   "via": "tap"
+  },
+  {
+   "screen": "s09",
+   "click": "[data-action='a-s08-10']",
+   "via": "tap"
+  },
+  {
+   "screen": "s10",
+   "click": "[data-action='a-s09-05']",
+   "via": "tap"
+  },
+  {
+   "screen": "s11",
+   "click": "[data-action='a-s10-g1'][data-v='8']",
+   "via": "keypad-advance"
+  },
+  {
+   "screen": "s12",
+   "click": "[data-action='a-s11-g1'][data-v='8']",
+   "via": "keypad-advance"
+  }
+ ],
+ "expect": {},
+ "error_paths": [
+  {
+   "id": "e1",
+   "about": "",
+   "condition": "",
+   "uses": [],
+   "notice_any": [],
+   "from_step": "s12",
+   "inputs": [],
+   "expect_screen": "s13",
+   "recover": [
+    {
+     "click": "[data-action='a-s13-01']"
+    }
+   ],
+   "back_to": "s12",
+   "pair": "10.png → 11.png"
+  }
+ ],
+ "screens": [
+  {
+   "screen": "s01",
+   "captures": [
+    "01a.png",
+    "01b.png",
+    "01c.png"
+   ],
+   "elements": 111,
+   "pressable": 37,
+   "groups": {}
+  },
+  {
+   "screen": "s02",
+   "captures": [
+    "02.png"
+   ],
+   "elements": 24,
+   "pressable": 12,
+   "groups": {}
+  },
+  {
+   "screen": "s03",
+   "captures": [
+    "03.png"
+   ],
+   "elements": 12,
+   "pressable": 6,
+   "groups": {}
+  },
+  {
+   "screen": "s04",
+   "captures": [
+    "04.png"
+   ],
+   "elements": 27,
+   "pressable": 17,
+   "groups": {
+    "숫자판": "a-s04-g1"
+   }
+  },
+  {
+   "screen": "s05",
+   "captures": [
+    "05a.png",
+    "05b.png",
+    "05c.png"
+   ],
+   "elements": 130,
+   "pressable": 41,
+   "groups": {
+    "금융기관 선택": "a-s05-g1"
+   }
+  },
+  {
+   "screen": "s06",
+   "captures": [
+    "06a.png",
+    "06b.png",
+    "06c.png"
+   ],
+   "elements": 111,
+   "pressable": 37,
+   "groups": {
+    "증권사 선택 목록": "a-s06-g1"
+   }
+  },
+  {
+   "screen": "s07",
+   "captures": [
+    "07.png"
+   ],
+   "elements": 43,
+   "pressable": 22,
+   "groups": {
+    "숫자판": "a-s07-g1"
+   }
+  },
+  {
+   "screen": "s08",
+   "captures": [
+    "07a.png"
+   ],
+   "elements": 42,
+   "pressable": 22,
+   "groups": {
+    "금액 숫자판": "a-s08-g1"
+   }
+  },
+  {
+   "screen": "s09",
+   "captures": [
+    "08.png"
+   ],
+   "elements": 19,
+   "pressable": 5,
+   "groups": {}
+  },
+  {
+   "screen": "s10",
+   "captures": [
+    "09a.png"
+   ],
+   "elements": 23,
+   "pressable": 17,
+   "groups": {
+    "보안 숫자판": "a-s10-g1"
+   }
+  },
+  {
+   "screen": "s11",
+   "captures": [
+    "09b.png"
+   ],
+   "elements": 23,
+   "pressable": 13,
+   "groups": {
+    "보안 숫자판": "a-s11-g1"
+   }
+  },
+  {
+   "screen": "s12",
+   "captures": [
+    "10.png"
+   ],
+   "elements": 11,
+   "pressable": 4,
+   "groups": {}
+  },
+  {
+   "screen": "s13",
+   "captures": [
+    "11.png"
+   ],
+   "elements": 7,
+   "pressable": 1,
+   "groups": {}
+  }
+ ],
+ "transitions": [
+  {
+   "from": "s01",
+   "to": "s02",
+   "element": "01a:b18",
+   "text": "이체",
+   "click": "[data-action='a-s01-07']",
+   "action": "a-s01-07",
+   "v": null,
+   "pair": "01c.png → 02.png",
+   "via": "skipped-states",
+   "kind": "skipped"
+  },
+  {
+   "from": "s02",
+   "to": "s03",
+   "element": "t7",
+   "text": "계좌번호 직접",
+   "click": "[data-action='a-s02-06']",
+   "action": "a-s02-06",
+   "v": null,
+   "pair": "02.png → 03.png",
+   "via": "tap",
+   "kind": "tap"
+  },
+  {
+   "from": "s03",
+   "to": "s04",
+   "element": "b1",
+   "text": "계좌번호 |없이 숫자만 입력",
+   "click": "[data-action='a-s03-04']",
+   "action": "a-s03-04",
+   "v": null,
+   "pair": "03.png → 04.png",
+   "via": "tap",
+   "kind": "tap"
+  },
+  {
+   "from": "s04",
+   "to": "s05",
+   "element": "b0",
+   "text": "은행 또는 증권사 선택",
+   "click": "[data-action='a-s04-05']",
+   "action": "a-s04-05",
+   "v": null,
+   "pair": "04.png → 05a.png",
+   "via": "tap",
+   "kind": "tap"
+  },
+  {
+   "from": "s05",
+   "to": "s06",
+   "element": "05a:b16",
+   "text": "증권사",
+   "click": "[data-action='a-s05-03']",
+   "action": "a-s05-03",
+   "v": null,
+   "pair": "05c.png → 06a.png",
+   "via": "tap",
+   "kind": "tap"
+  },
+  {
+   "from": "s06",
+   "to": "s07",
+   "element": "06a:b16",
+   "text": "은행",
+   "click": "[data-action='a-s06-02']",
+   "action": "a-s06-02",
+   "v": null,
+   "pair": "06c.png → 07.png",
+   "via": "skipped-states",
+   "kind": "skipped"
+  },
+  {
+   "from": "s07",
+   "to": "s08",
+   "element": "b1",
+   "text": "+1만",
+   "click": "[data-action='a-s07-06']",
+   "action": "a-s07-06",
+   "v": null,
+   "pair": "07.png → 07a.png",
+   "via": "tap",
+   "kind": "tap"
+  },
+  {
+   "from": "s08",
+   "to": "s09",
+   "element": "b15",
+   "text": "다음",
+   "click": "[data-action='a-s08-10']",
+   "action": "a-s08-10",
+   "v": null,
+   "pair": "07a.png → 08.png",
+   "via": "tap",
+   "kind": "tap"
+  },
+  {
+   "from": "s09",
+   "to": "s10",
+   "element": "t15",
+   "text": "보내기",
+   "click": "[data-action='a-s09-05']",
+   "action": "a-s09-05",
+   "v": null,
+   "pair": "08.png → 09a.png",
+   "via": "tap",
+   "kind": "tap"
+  },
+  {
+   "from": "s10",
+   "to": "s11",
+   "element": null,
+   "keys": [
+    "t3",
+    "t5",
+    "t4",
+    "t6",
+    "t8",
+    "t7",
+    "t10",
+    "t11",
+    "t9",
+    "t13"
+   ],
+   "other_keys": [
+    "t12",
+    "b9"
+   ],
+   "text": null,
+   "click": "[data-action='a-s10-g1'][data-v='8']",
+   "action": "a-s10-g1",
+   "v": null,
+   "v_match": "^\\d$",
+   "pair": "09a.png → 09b.png",
+   "via": "keypad-advance",
+   "kind": "skipped"
+  },
+  {
+   "from": "s11",
+   "to": "s12",
+   "element": null,
+   "keys": [
+    "t3",
+    "t5",
+    "t4",
+    "t6",
+    "t8",
+    "t7",
+    "t10",
+    "t11",
+    "t9",
+    "t13"
+   ],
+   "other_keys": [
+    "t12",
+    "b9"
+   ],
+   "text": null,
+   "click": "[data-action='a-s11-g1'][data-v='8']",
+   "action": "a-s11-g1",
+   "v": null,
+   "v_match": "^\\d$",
+   "pair": "09b.png → 10.png",
+   "via": "keypad-advance",
+   "kind": "unknown"
+  },
+  {
+   "from": "s13",
+   "to": "s12",
+   "element": "b1",
+   "text": "확인",
+   "click": "[data-action='a-s13-01']",
+   "action": "a-s13-01",
+   "v": null,
+   "pair": "오류 화면에서 되돌아감 (10.png → 11.png 의 반대)",
+   "via": "error-recover",
+   "kind": "error_path"
+  }
+ ],
+ "blank": {
+  "truth": "정답 값 (은행 · 계좌번호 · 금액 · 틀린 값) - 스크린샷에 '정답' 은 없다",
+  "required_ids": "꼭 있어야 할 DOM id - 규칙 마크업에는 id 를 짓지 않았다 (요소는 data-src · data-action)",
+  "expect": "화면마다 확인할 값 - 정답 값이 없어 비움",
+  "done_amount": "완료 화면의 금액 선택자 - 정답 값이 없어 넣지 않음",
+  "error_paths[].about · condition · uses · notice_any · inputs": "오류 조건 · 입력 - 스크린샷에 보이지 않는다 (만들지 않는다)"
+ }
+}

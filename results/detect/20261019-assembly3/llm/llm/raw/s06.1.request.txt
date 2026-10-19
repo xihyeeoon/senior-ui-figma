@@ -1,0 +1,191 @@
+너는 모바일 앱 화면 한 장을 HTML 로 다시 짜는 사람이다. 아래는 스크린샷 한 장에서 검출 · 분류한 요소 목록과 묶음(구역)
+정보다. 이 화면을 HTML `<section>` 하나로 다시 짜라.
+
+화면: 06a.png + 06b.png + 06c.png (캡처 파일 이름. 여럿이면 한 화면을 스크롤하며 찍어 이어 붙인 것이다)
+화면 크기: 가로 390px, 세로 1596px (CSS px). 아래 좌표는 모두 이 크기 기준 [x, y, 가로, 세로] 다.
+
+## 지킬 것
+1. 목록에 있는 요소만 쓴다. 목록에 없는 글 · 버튼 · 그림을 새로 만들지 마라. 목록의 요소는 하나도 빠뜨리지 말고, 각 요소를
+   나타내는 HTML 요소에 `data-src="<요소 id>"` 를 그대로 달아라. 한 id 는 한 번만 쓴다.
+2. 글이 든 박스 요소와 그 안의 글 줄 요소(글 줄의 in_box 가 그 박스 id)는 둘 다 쓴다 - 박스는 감싸는 요소로, 글 줄은 그 안의
+   글로 (예: `<button data-src="b18" data-action="transfer"><span data-src="t6">이체</span></button>`). 글은 목록의 text 를
+   그대로 쓰고 고치거나 늘리지 마라 (잘린 글을 채우지 마라).
+3. 배치는 절대 위치가 아니라 묶음을 살린 흐름 배치(flex · grid)로 하라. 구역 목록(regions - 바탕 상자, parent 로 나무)을 묶음의
+   근거로 쓰되, 그림과 다르면 그림을 따르고 그 차이를 HTML 주석(`<!-- … -->`)으로 적어라. 띠 목록(bands - 화면 너비의 바탕
+   조각)은 화면을 위아래로 나누는 경계로만 참고하라.
+4. kind 가 image 인 요소는 `<div class="pic" role="img" aria-label="<image_name>" data-src="…">` 로 쓴다 (class pic 은 회색 X
+   상자로 그려진다 - 그림을 그리지 마라). image_name 이 없으면 aria-label 을 비워 둔다.
+5. 누를 수 있는 것(pressable 이 true 이거나 kind 가 button · link · back_close · tab · choice · keypad_key)은 `<button>` 에
+   `data-action="<짧은 영어 이름>"` 을 지어 단다. 버튼 안에 또 누를 수 있는 것이 있으면 안쪽은 `<div role="button">` 으로 쓴다
+   (버튼 안에 버튼을 넣지 마라). kind 가 input 이면 테두리 있는 `<div>` 로 쓴다. 누른 뒤 어느 화면으로 가는지는 쓰지 마라 -
+   주어지지 않았다 (화면 이동은 따로 붙인다).
+6. 색 · 글자 크기 · 둥근 모서리는 그림에서 대략 맞춰라. 꾸밈은 `style` 속성으로만 쓴다 - `<style>` · `<script>` · 외부 파일 ·
+   그림 파일을 쓰지 마라.
+7. kind 가 system (상태바) 인 것은 목록에 없다 - 상태바를 새로 그리지 마라.
+8. icon 이 있는 요소는 그 요소 안에 `<div class="pic" role="img" aria-label="<icon.name>">` 을 넣는다 (누를 수 있는 요소면
+   그 button 안에). kind 가 image 인 요소는 규칙 4 대로 쓰고 icon 을 따로 넣지 않는다.
+9. text_is_icon 이 true 인 요소는 OCR 글을 쓰지 않는다 - 그 자리에 규칙 8 의 그림 자리만 둔다 (data-src 는 그대로).
+10. text_fixed 가 있는 요소는 text 대신 text_fixed 를 글로 쓰고, 원래 text 를 `data-ocr="<text>"` 로 단다.
+11. 줄 · 카드 끝에서 다음으로 넘어감을 알리는 방향 표시 (›, ⌄, ⌃ 같은 꺾쇠) 는 icon 이 있어도 그림 자리를 만들지 않고
+    글자 › (또는 ⌄ · ⌃) 로 둔다 (규칙 8 · 9 보다 앞선다. data-src 는 그대로 그 요소에 단다). 새로고침 · 고정 핀처럼 뜻이 있는
+    아이콘은 그대로 그림 자리다. 꺾쇠인지는 mark 그림과 icon.shape 를 보고 정한다.
+
+## 그림
+[그림 1/1] 화면 전체 - 요소마다 mark 번호  <그림: _sent/s06/marks.png 600x2456 · 예상 1756토큰>
+위 그림은 화면 전체를 폭 600 으로 줄이고 요소마다 테두리와 mark 번호를 적은 것이다 (요소 목록의 mark 와 같다).
+
+## 요소 (한 줄에 하나, JSON)
+id · mark · kind (의미 층: button · link · back_close · tab · choice · input · keypad_key · image · text) · pressable · text ·
+image_name · group (같은 무리) · in_box (이 글 줄을 담은 박스 요소 id) · region (든 구역 id) · box ·
+icon (담은 아이콘 · 로고 {name, shape} 또는 null) · text_is_icon (OCR 글이 아이콘을 글자로 잘못 읽은 것인가) ·
+text_fixed (그림에 보이는 대로 고친 글 또는 null)
+{"id":"06a:t4","mark":1,"kind":"text","pressable":false,"text":"은행 또는 증권사 선택","image_name":null,"group":null,"in_box":null,"region":null,"box":[16,142,204,29],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t5","mark":2,"kind":"text","pressable":false,"text":"은행","image_name":null,"group":"금융기관 종류 탭","in_box":"06a:b16","region":null,"box":[78,196,39,25],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t6","mark":3,"kind":"text","pressable":false,"text":"증권사","image_name":null,"group":"금융기관 종류 탭","in_box":"06a:b15","region":null,"box":[264,195,57,25],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t7","mark":4,"kind":"text","pressable":false,"text":"DAOL","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b10","region":"g5","box":[297,288,42,14],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t8","mark":5,"kind":"text","pressable":false,"text":"신한투자증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b11","region":"g3","box":[28,331,86,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t9","mark":6,"kind":"text","pressable":false,"text":"교보증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b9","region":"g4","box":[164,331,60,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t10","mark":7,"kind":"text","pressable":false,"text":"다올투자증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b10","region":"g5","box":[275,331,87,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t11","mark":8,"kind":"text","pressable":false,"text":"meritz","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b4","region":"g7","box":[174,422,43,14],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t12","mark":9,"kind":"text","pressable":false,"text":"MIRAEASSET","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b5","region":"g8","box":[295,423,40,8],"icon":null,"text_is_icon":false,"text_fixed":"MIRAE ASSET"}
+{"id":"06a:t13","mark":10,"kind":"text","pressable":false,"text":"대신증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b7","region":"g6","box":[40,464,60,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t14","mark":11,"kind":"text","pressable":false,"text":"메리츠증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b4","region":"g7","box":[158,465,72,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t15","mark":12,"kind":"text","pressable":false,"text":"미래에셋증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b5","region":"g8","box":[275,466,85,17],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t16","mark":13,"kind":"text","pressable":false,"text":"삼성증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b0","region":"g10","box":[173,554,45,17],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t17","mark":14,"kind":"text","pressable":false,"text":"부국증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b8","region":"g9","box":[41,598,59,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t18","mark":15,"kind":"text","pressable":false,"text":"삼성증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b0","region":"g10","box":[165,599,58,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t19","mark":16,"kind":"text","pressable":false,"text":"상상인증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b1","region":"g11","box":[282,599,72,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t20","mark":17,"kind":"text","pressable":false,"text":"SK증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b2","region":"g13","box":[176,693,39,14],"icon":null,"text_is_icon":false,"text_fixed":"SK 증권"}
+{"id":"06a:t21","mark":18,"kind":"text","pressable":false,"text":"신영증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b6","region":"g12","box":[42,732,58,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t22","mark":19,"kind":"text","pressable":false,"text":"에스케이증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b2","region":"g13","box":[152,733,85,17],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t23","mark":20,"kind":"text","pressable":false,"text":"유안타증권","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b3","region":"g14","box":[281,732,73,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t24","mark":21,"kind":"image","pressable":false,"text":"LS","image_name":"LS증권 로고","group":"증권사 선택 목록","in_box":"06a:b13","region":"g16","box":[177,821,34,18],"icon":{"name":"LS증권 로고","shape":"남색의 기울어진 LS 글자와 빨간 작은 무늬"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:t25","mark":22,"kind":"text","pressable":false,"text":"pay","image_name":null,"group":"증권사 선택 목록","in_box":"06a:b12","region":"g17","box":[313,823,25,13],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b0","mark":23,"kind":"choice","pressable":true,"text":"삼성증권 삼성증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g10","box":[139,517,111,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b1","mark":24,"kind":"choice","pressable":true,"text":"상상인증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g11","box":[263,518,113,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b2","mark":25,"kind":"choice","pressable":true,"text":"SK증권 에스케이증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g13","box":[139,651,111,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b3","mark":26,"kind":"choice","pressable":true,"text":"유안타증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g14","box":[263,650,113,123],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b4","mark":27,"kind":"choice","pressable":true,"text":"meritz 메리츠증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g7","box":[139,384,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b5","mark":28,"kind":"choice","pressable":true,"text":"MIRAEASSET 미래에셋증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g8","box":[263,384,112,122],"icon":null,"text_is_icon":false,"text_fixed":"MIRAE ASSET 미래에셋증권"}
+{"id":"06a:b6","mark":29,"kind":"choice","pressable":true,"text":"신영증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g12","box":[15,651,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b7","mark":30,"kind":"choice","pressable":true,"text":"대신증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g6","box":[15,384,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b8","mark":31,"kind":"choice","pressable":true,"text":"부국증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g9","box":[15,517,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b9","mark":32,"kind":"choice","pressable":true,"text":"교보증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g4","box":[139,250,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b10","mark":33,"kind":"choice","pressable":true,"text":"DAOL 다올투자증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g5","box":[263,249,112,123],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b11","mark":34,"kind":"choice","pressable":true,"text":"신한투자증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g3","box":[15,251,113,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b12","mark":35,"kind":"choice","pressable":true,"text":"pay","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g17","box":[263,784,112,82],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b13","mark":36,"kind":"choice","pressable":true,"text":"LS","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g16","box":[139,784,112,82],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b14","mark":37,"kind":"choice","pressable":true,"text":null,"image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g15","box":[15,784,112,82],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b15","mark":38,"kind":"tab","pressable":true,"text":"증권사","image_name":null,"group":"금융기관 종류 탭","in_box":null,"region":null,"box":[195,186,193,49],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b16","mark":39,"kind":"tab","pressable":true,"text":"은행","image_name":null,"group":"금융기관 종류 탭","in_box":null,"region":null,"box":[3,186,192,48],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06a:b17","mark":40,"kind":"back_close","pressable":true,"text":null,"image_name":null,"group":null,"in_box":null,"region":null,"box":[354,147,17,19],"icon":{"name":"닫기 아이콘","shape":"검은 X자"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i0","mark":41,"kind":"image","pressable":false,"text":null,"image_name":"삼성증권 로고","group":"증권사 선택 목록","in_box":"06a:b0","region":"g10","box":[174,538,44,14],"icon":{"name":"삼성증권 로고","shape":"파란 원의 위쪽 둥근 부분"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i1","mark":42,"kind":"image","pressable":false,"text":null,"image_name":"삼성증권 로고","group":"증권사 선택 목록","in_box":"06a:b0","region":"g10","box":[173,573,44,14],"icon":{"name":"삼성증권 로고","shape":"파란 원의 아래쪽 둥근 부분"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i2","mark":43,"kind":"image","pressable":false,"text":null,"image_name":"상상인증권 로고","group":"증권사 선택 목록","in_box":"06a:b1","region":"g11","box":[304,550,29,23],"icon":{"name":"상상인증권 로고","shape":"청록색 원 세 개가 연결된 형태"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i3","mark":44,"kind":"image","pressable":false,"text":null,"image_name":"에스케이증권 로고","group":"증권사 선택 목록","in_box":"06a:b2","region":"g13","box":[171,672,49,49],"icon":{"name":"에스케이증권 로고","shape":"빨간 원 안의 흰 나비 무늬와 SK 증권 글자"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i4","mark":45,"kind":"image","pressable":false,"text":null,"image_name":"유안타증권 로고","group":"증권사 선택 목록","in_box":"06a:b3","region":"g14","box":[304,681,13,12],"icon":{"name":"유안타증권 로고","shape":"파란 부채꼴의 왼쪽 조각"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i5","mark":46,"kind":"image","pressable":false,"text":null,"image_name":"유안타증권 로고","group":"증권사 선택 목록","in_box":"06a:b3","region":"g14","box":[321,681,14,12],"icon":{"name":"유안타증권 로고","shape":"파란 부채꼴의 오른쪽 조각"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i6","mark":47,"kind":"image","pressable":false,"text":null,"image_name":"유안타증권 로고","group":"증권사 선택 목록","in_box":"06a:b3","region":"g14","box":[303,697,33,17],"icon":{"name":"유안타증권 로고","shape":"파란 삼각형과 양옆의 쐐기형 조각"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i7","mark":48,"kind":"image","pressable":false,"text":null,"image_name":"메리츠증권 로고","group":"증권사 선택 목록","in_box":"06a:b4","region":"g7","box":[171,405,49,49],"icon":{"name":"메리츠증권 로고","shape":"빨간 원 안의 흰 meritz 글자"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i8","mark":49,"kind":"image","pressable":false,"text":null,"image_name":"미래에셋증권 로고","group":"증권사 선택 목록","in_box":"06a:b5","region":"g8","box":[294,405,49,49],"icon":{"name":"미래에셋증권 로고","shape":"남색 원 안의 MIRAE ASSET 글자와 상승 곡선"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i9","mark":50,"kind":"image","pressable":false,"text":null,"image_name":"신영증권 로고","group":"증권사 선택 목록","in_box":"06a:b6","region":"g12","box":[47,672,49,49],"icon":{"name":"신영증권 로고","shape":"초록 원 안의 흰 나무 모양"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i10","mark":51,"kind":"image","pressable":false,"text":null,"image_name":"대신증권 로고","group":"증권사 선택 목록","in_box":"06a:b7","region":"g6","box":[47,405,49,49],"icon":{"name":"대신증권 로고","shape":"회색 원 안의 흰 각진 맞물림 무늬"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i11","mark":52,"kind":"image","pressable":false,"text":null,"image_name":"부국증권 로고","group":"증권사 선택 목록","in_box":"06a:b8","region":"g9","box":[52,550,39,27],"icon":{"name":"부국증권 로고","shape":"파란 겹마름모와 내부 기하학 무늬"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i12","mark":53,"kind":"image","pressable":false,"text":null,"image_name":"교보증권 로고","group":"증권사 선택 목록","in_box":"06a:b9","region":"g4","box":[178,284,33,27],"icon":{"name":"교보증권 로고","shape":"초록색 새 모양"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i13","mark":54,"kind":"image","pressable":false,"text":null,"image_name":"다올투자증권 로고","group":"증권사 선택 목록","in_box":"06a:b10","region":"g5","box":[295,271,48,49],"icon":{"name":"다올투자증권 로고","shape":"검은 원 안의 흰 DAOL 글자"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i14","mark":55,"kind":"image","pressable":false,"text":null,"image_name":"신한투자증권 로고","group":"증권사 선택 목록","in_box":"06a:b11","region":"g3","box":[47,271,49,49],"icon":{"name":"신한투자증권 로고","shape":"파란 원 안의 흰 S형 곡선과 새 모양"},"text_is_icon":false,"text_fixed":null}
+{"id":"06a:i15","mark":56,"kind":"image","pressable":false,"text":null,"image_name":"카카오페이증권 로고","group":"증권사 선택 목록","in_box":"06a:b12","region":"g17","box":[294,806,49,49],"icon":{"name":"카카오페이증권 로고","shape":"노란 원 안의 검은 말풍선과 pay 글자"},"text_is_icon":false,"text_fixed":null}
+{"id":"06b:t7","mark":57,"kind":"text","pressable":false,"text":"유진투자증권","image_name":null,"group":"증권사 선택 목록","in_box":"06b:b14","region":"g15","box":[27,865,88,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:t8","mark":58,"kind":"text","pressable":false,"text":"LS증권","image_name":null,"group":"증권사 선택 목록","in_box":"06b:b16","region":"g16","box":[168,864,50,21],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:t9","mark":59,"kind":"text","pressable":false,"text":"카카오페이증권","image_name":null,"group":"증권사 선택 목록","in_box":"06b:b19","region":"g17","box":[266,864,103,21],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t7","mark":60,"kind":"text","pressable":false,"text":"케이프투자증권","image_name":null,"group":"증권사 선택 목록","in_box":"06b:b11","region":"g18","box":[21,1000,99,17],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:t11","mark":61,"kind":"text","pressable":false,"text":"키움증권","image_name":null,"group":"증권사 선택 목록","in_box":"06b:b9","region":"g19","box":[164,998,61,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t9","mark":62,"kind":"text","pressable":false,"text":"토스증권","image_name":null,"group":"증권사 선택 목록","in_box":"06b:b10","region":"g20","box":[287,998,61,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t10","mark":63,"kind":"text","pressable":false,"text":"우리투자증권","image_name":null,"group":"증권사 선택 목록","in_box":"06b:b7","region":"g21","box":[27,1132,87,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t11","mark":64,"kind":"text","pressable":false,"text":"하나증권","image_name":null,"group":"증권사 선택 목록","in_box":"06b:b1","region":"g22","box":[165,1132,60,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t12","mark":65,"kind":"text","pressable":false,"text":"아이엠증권","image_name":null,"group":"증권사 선택 목록","in_box":"06b:b3","region":"g23","box":[282,1133,73,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:t16","mark":66,"kind":"text","pressable":false,"text":"한국투자증권","image_name":null,"group":"증권사 선택 목록","in_box":"06c:b3","region":"g24","box":[27,1266,86,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t14","mark":67,"kind":"text","pressable":false,"text":"한화투자증권","image_name":null,"group":"증권사 선택 목록","in_box":"06c:b0","region":"g25","box":[151,1266,87,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:t18","mark":68,"kind":"text","pressable":false,"text":"현대차증권","image_name":null,"group":"증권사 선택 목록","in_box":"06b:b4","region":"g26","box":[282,1266,72,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:t19","mark":69,"kind":"text","pressable":false,"text":"BNK","image_name":null,"group":"증권사 선택 목록","in_box":"06c:b4","region":"g27","box":[49,1354,44,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t17","mark":70,"kind":"text","pressable":false,"text":"BNK투자증권","image_name":null,"group":"증권사 선택 목록","in_box":"06c:b4","region":"g27","box":[26,1399,89,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t18","mark":71,"kind":"text","pressable":false,"text":"DB증권","image_name":null,"group":"증권사 선택 목록","in_box":"06c:b2","region":"g28","box":[168,1398,53,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t19","mark":72,"kind":"text","pressable":false,"text":"IBK투자증권","image_name":null,"group":"증권사 선택 목록","in_box":"06c:b5","region":"g29","box":[275,1399,84,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:b0","mark":73,"kind":"choice","pressable":true,"text":"한화투자증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g25","box":[139,1185,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b1","mark":74,"kind":"choice","pressable":true,"text":"하나증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g22","box":[139,1051,111,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:b2","mark":75,"kind":"choice","pressable":true,"text":"DB증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g28","box":[139,1318,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b3","mark":76,"kind":"choice","pressable":true,"text":"아이엠증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g23","box":[263,1051,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b4","mark":77,"kind":"choice","pressable":true,"text":"현대차증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g26","box":[263,1185,113,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:b3","mark":78,"kind":"choice","pressable":true,"text":"한국투자증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g24","box":[15,1185,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:b4","mark":79,"kind":"choice","pressable":true,"text":"BiNV BNK투자증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g27","box":[15,1318,112,123],"icon":null,"text_is_icon":false,"text_fixed":"BNK BNK투자증권"}
+{"id":"06b:b7","mark":80,"kind":"choice","pressable":true,"text":"우리투자증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g21","box":[15,1051,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:b5","mark":81,"kind":"choice","pressable":true,"text":"IBK투자증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g29","box":[263,1318,113,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b9","mark":82,"kind":"choice","pressable":true,"text":"키움증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g19","box":[139,918,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b10","mark":83,"kind":"choice","pressable":true,"text":"토스증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g20","box":[263,918,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b11","mark":84,"kind":"choice","pressable":true,"text":"케이프투자증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g18","box":[15,918,113,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b12","mark":85,"kind":"choice","pressable":true,"text":null,"image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g30","box":[15,1452,112,39],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b13","mark":86,"kind":"choice","pressable":true,"text":null,"image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g31","box":[139,1452,112,39],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b14","mark":87,"kind":"choice","pressable":true,"text":"유진투자증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g15","box":[15,858,112,48],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b16","mark":88,"kind":"choice","pressable":true,"text":"LS증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g16","box":[138,860,113,45],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06b:b19","mark":89,"kind":"choice","pressable":true,"text":"카카오페이증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g17","box":[263,860,112,46],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i0","mark":90,"kind":"image","pressable":false,"text":null,"image_name":"한화투자증권 로고","group":"증권사 선택 목록","in_box":"06c:b0","region":"g25","box":[170,1205,49,49],"icon":{"name":"한화투자증권 로고","shape":"주황색 원 안의 서로 겹친 흰 고리"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i8","mark":91,"kind":"image","pressable":false,"text":null,"image_name":"하나증권 로고","group":"증권사 선택 목록","in_box":"06b:b1","region":"g22","box":[176,1081,37,34],"icon":{"name":"하나증권 로고","shape":"청록색 곡선으로 된 사람 형태와 빨간 점"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i2","mark":92,"kind":"image","pressable":false,"text":null,"image_name":"DB증권 로고","group":"증권사 선택 목록","in_box":"06c:b2","region":"g28","box":[182,1347,26,32],"icon":{"name":"DB증권 로고","shape":"주황색·파란색·초록색의 둥근 세 조각"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i7","mark":93,"kind":"image","pressable":false,"text":null,"image_name":"아이엠증권 로고","group":"증권사 선택 목록","in_box":"06b:b3","region":"g23","box":[302,1087,35,18],"icon":{"name":"아이엠증권 로고","shape":"초록색과 청록색의 갈라지는 곡선 및 사각형"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i1","mark":94,"kind":"image","pressable":false,"text":null,"image_name":"현대차증권 로고","group":"증권사 선택 목록","in_box":"06b:b4","region":"g26","box":[294,1205,49,49],"icon":{"name":"현대차증권 로고","shape":"남색 원 안의 흰색과 금색 각진 조각"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i3","mark":95,"kind":"image","pressable":false,"text":null,"image_name":"한국투자증권 로고","group":"증권사 선택 목록","in_box":"06c:b3","region":"g24","box":[47,1205,49,49],"icon":{"name":"한국투자증권 로고","shape":"갈색 원 안의 흰 友 형태와 파란 곡선"},"text_is_icon":false,"text_fixed":null}
+{"id":"06b:i6","mark":96,"kind":"image","pressable":false,"text":null,"image_name":"BNK투자증권 로고","group":"증권사 선택 목록","in_box":"06c:b4","region":"g27","box":[49,1338,47,49],"icon":{"name":"BNK투자증권 로고","shape":"빨간 원 안의 흰 BNK 글자"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i9","mark":97,"kind":"image","pressable":false,"text":null,"image_name":"우리투자증권 로고","group":"증권사 선택 목록","in_box":"06b:b7","region":"g21","box":[47,1072,49,49],"icon":{"name":"우리투자증권 로고","shape":"파란 원 안의 흰 곡선 띠와 밝은 그라데이션"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i6","mark":98,"kind":"image","pressable":false,"text":null,"image_name":"IBK투자증권 로고","group":"증권사 선택 목록","in_box":"06c:b5","region":"g29","box":[294,1338,49,49],"icon":{"name":"IBK투자증권 로고","shape":"파란 원 안의 기울어진 사각 테두리와 IBK 형상"},"text_is_icon":false,"text_fixed":null}
+{"id":"06b:i9","mark":99,"kind":"image","pressable":false,"text":null,"image_name":"키움증권 로고","group":"증권사 선택 목록","in_box":"06b:b9","region":"g19","box":[183,948,26,31],"icon":{"name":"키움증권 로고","shape":"남색 K와 오른쪽 위로 향한 자홍색 화살표"},"text_is_icon":false,"text_fixed":null}
+{"id":"06b:i10","mark":100,"kind":"image","pressable":false,"text":null,"image_name":"토스증권 로고","group":"증권사 선택 목록","in_box":"06b:b10","region":"g20","box":[303,949,31,28],"icon":{"name":"토스증권 로고","shape":"파란색의 서로 엇갈린 둥근 두 조각"},"text_is_icon":false,"text_fixed":null}
+{"id":"06b:i11","mark":101,"kind":"image","pressable":false,"text":null,"image_name":"케이프투자증권 로고","group":"증권사 선택 목록","in_box":"06b:b11","region":"g18","box":[47,939,49,49],"icon":{"name":"케이프투자증권 로고","shape":"하늘색 원 안의 CAPE 문자와 둘레의 흰 삼각 무늬"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t16","mark":102,"kind":"text","pressable":false,"text":"BiNV","image_name":null,"group":"증권사 선택 목록","in_box":"06c:b4","region":"g27","box":[48,1353,45,19],"icon":null,"text_is_icon":false,"text_fixed":"BNK"}
+{"id":"06c:t20","mark":103,"kind":"text","pressable":false,"text":"NH","image_name":null,"group":"증권사 선택 목록","in_box":"06c:b10","region":"g31","box":[174,1484,41,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t21","mark":104,"kind":"text","pressable":false,"text":"KB증권","image_name":null,"group":"증권사 선택 목록","in_box":"06c:b9","region":"g30","box":[44,1532,53,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:t22","mark":105,"kind":"text","pressable":false,"text":"NH투자증권","image_name":null,"group":"증권사 선택 목록","in_box":"06c:b10","region":"g31","box":[153,1532,81,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:b9","mark":106,"kind":"choice","pressable":true,"text":"KB증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g30","box":[15,1452,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:b10","mark":107,"kind":"choice","pressable":true,"text":"NH NH투자증권","image_name":null,"group":"증권사 선택 목록","in_box":null,"region":"g31","box":[139,1452,111,121],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i4","mark":108,"kind":"image","pressable":false,"text":null,"image_name":"BNK투자증권 로고","group":"증권사 선택 목록","in_box":"06c:b4","region":"g27","box":[50,1338,44,13],"icon":{"name":"BNK투자증권 로고","shape":"빨간 원의 위쪽 둥근 부분"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i5","mark":109,"kind":"image","pressable":false,"text":null,"image_name":"BNK투자증권 로고","group":"증권사 선택 목록","in_box":"06c:b4","region":"g27","box":[49,1374,44,14],"icon":{"name":"BNK투자증권 로고","shape":"빨간 원의 아래쪽 둥근 부분"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i10","mark":110,"kind":"image","pressable":false,"text":null,"image_name":"KB증권 로고","group":"증권사 선택 목록","in_box":"06c:b9","region":"g30","box":[47,1472,49,49],"icon":{"name":"KB증권 로고","shape":"짙은 회갈색 원 안의 노란 별 모양과 손글씨형 글자"},"text_is_icon":false,"text_fixed":null}
+{"id":"06c:i11","mark":111,"kind":"image","pressable":false,"text":null,"image_name":"NH투자증권 로고","group":"증권사 선택 목록","in_box":"06c:b10","region":"g31","box":[170,1472,49,49],"icon":{"name":"NH투자증권 로고","shape":"파란 원 안의 흰 NH 글자"},"text_is_icon":false,"text_fixed":null}
+
+## 구역 (바탕 상자, 한 줄에 하나)
+{"id":"g3","parent":null,"box":[15,250,112,122]}
+{"id":"g4","parent":null,"box":[139,250,112,122]}
+{"id":"g5","parent":null,"box":[263,250,112,122]}
+{"id":"g6","parent":null,"box":[15,384,112,122]}
+{"id":"g7","parent":null,"box":[139,384,112,122]}
+{"id":"g8","parent":null,"box":[263,384,112,122]}
+{"id":"g9","parent":null,"box":[15,517,112,122]}
+{"id":"g10","parent":null,"box":[139,517,112,122]}
+{"id":"g11","parent":null,"box":[263,517,112,122]}
+{"id":"g12","parent":null,"box":[15,651,112,122]}
+{"id":"g13","parent":null,"box":[139,651,112,122]}
+{"id":"g14","parent":null,"box":[263,651,112,122]}
+{"id":"g15","parent":null,"box":[15,784,112,122]}
+{"id":"g16","parent":null,"box":[139,784,112,122]}
+{"id":"g17","parent":null,"box":[263,784,112,122]}
+{"id":"g18","parent":null,"box":[15,918,112,122]}
+{"id":"g19","parent":null,"box":[139,918,112,122]}
+{"id":"g20","parent":null,"box":[263,918,112,122]}
+{"id":"g21","parent":null,"box":[15,1051,112,122]}
+{"id":"g22","parent":null,"box":[139,1051,112,122]}
+{"id":"g23","parent":null,"box":[263,1051,112,122]}
+{"id":"g24","parent":null,"box":[15,1185,112,122]}
+{"id":"g25","parent":null,"box":[139,1185,112,122]}
+{"id":"g26","parent":null,"box":[263,1185,112,122]}
+{"id":"g27","parent":null,"box":[15,1318,112,122]}
+{"id":"g28","parent":null,"box":[139,1318,112,122]}
+{"id":"g29","parent":null,"box":[263,1318,112,122]}
+{"id":"g30","parent":null,"box":[15,1452,112,122]}
+{"id":"g31","parent":null,"box":[139,1452,112,122]}
+
+## 띠 (화면 너비 바탕 조각)
+{"id":"g0","box":[0,0,390,137]}
+{"id":"g1","box":[0,122,390,112]}
+{"id":"g2","box":[0,235,390,1362]}
+
+## 답
+`<section>` 하나만 ```html 블록 하나에 담아 답하라. 설명 글은 쓰지 마라.

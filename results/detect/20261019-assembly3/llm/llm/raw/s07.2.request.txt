@@ -1,0 +1,102 @@
+너는 모바일 앱 화면 한 장을 HTML 로 다시 짜는 사람이다. 아래는 스크린샷 한 장에서 검출 · 분류한 요소 목록과 묶음(구역)
+정보다. 이 화면을 HTML `<section>` 하나로 다시 짜라.
+
+화면: 07.png (캡처 파일 이름. 여럿이면 한 화면을 스크롤하며 찍어 이어 붙인 것이다)
+화면 크기: 가로 390px, 세로 866px (CSS px). 아래 좌표는 모두 이 크기 기준 [x, y, 가로, 세로] 다.
+
+## 지킬 것
+1. 목록에 있는 요소만 쓴다. 목록에 없는 글 · 버튼 · 그림을 새로 만들지 마라. 목록의 요소는 하나도 빠뜨리지 말고, 각 요소를
+   나타내는 HTML 요소에 `data-src="<요소 id>"` 를 그대로 달아라. 한 id 는 한 번만 쓴다.
+2. 글이 든 박스 요소와 그 안의 글 줄 요소(글 줄의 in_box 가 그 박스 id)는 둘 다 쓴다 - 박스는 감싸는 요소로, 글 줄은 그 안의
+   글로 (예: `<button data-src="b18" data-action="transfer"><span data-src="t6">이체</span></button>`). 글은 목록의 text 를
+   그대로 쓰고 고치거나 늘리지 마라 (잘린 글을 채우지 마라).
+3. 배치는 절대 위치가 아니라 묶음을 살린 흐름 배치(flex · grid)로 하라. 구역 목록(regions - 바탕 상자, parent 로 나무)을 묶음의
+   근거로 쓰되, 그림과 다르면 그림을 따르고 그 차이를 HTML 주석(`<!-- … -->`)으로 적어라. 띠 목록(bands - 화면 너비의 바탕
+   조각)은 화면을 위아래로 나누는 경계로만 참고하라.
+4. kind 가 image 인 요소는 `<div class="pic" role="img" aria-label="<image_name>" data-src="…">` 로 쓴다 (class pic 은 회색 X
+   상자로 그려진다 - 그림을 그리지 마라). image_name 이 없으면 aria-label 을 비워 둔다.
+5. 누를 수 있는 것(pressable 이 true 이거나 kind 가 button · link · back_close · tab · choice · keypad_key)은 `<button>` 에
+   `data-action="<짧은 영어 이름>"` 을 지어 단다. 버튼 안에 또 누를 수 있는 것이 있으면 안쪽은 `<div role="button">` 으로 쓴다
+   (버튼 안에 버튼을 넣지 마라). kind 가 input 이면 테두리 있는 `<div>` 로 쓴다. 누른 뒤 어느 화면으로 가는지는 쓰지 마라 -
+   주어지지 않았다 (화면 이동은 따로 붙인다).
+6. 색 · 글자 크기 · 둥근 모서리는 그림에서 대략 맞춰라. 꾸밈은 `style` 속성으로만 쓴다 - `<style>` · `<script>` · 외부 파일 ·
+   그림 파일을 쓰지 마라.
+7. kind 가 system (상태바) 인 것은 목록에 없다 - 상태바를 새로 그리지 마라.
+8. icon 이 있는 요소는 그 요소 안에 `<div class="pic" role="img" aria-label="<icon.name>">` 을 넣는다 (누를 수 있는 요소면
+   그 button 안에). kind 가 image 인 요소는 규칙 4 대로 쓰고 icon 을 따로 넣지 않는다.
+9. text_is_icon 이 true 인 요소는 OCR 글을 쓰지 않는다 - 그 자리에 규칙 8 의 그림 자리만 둔다 (data-src 는 그대로).
+10. text_fixed 가 있는 요소는 text 대신 text_fixed 를 글로 쓰고, 원래 text 를 `data-ocr="<text>"` 로 단다.
+11. 줄 · 카드 끝에서 다음으로 넘어감을 알리는 방향 표시 (›, ⌄, ⌃ 같은 꺾쇠) 는 icon 이 있어도 그림 자리를 만들지 않고
+    글자 › (또는 ⌄ · ⌃) 로 둔다 (규칙 8 · 9 보다 앞선다. data-src 는 그대로 그 요소에 단다). 새로고침 · 고정 핀처럼 뜻이 있는
+    아이콘은 그대로 그림 자리다. 꺾쇠인지는 mark 그림과 icon.shape 를 보고 정한다.
+
+## 그림
+[그림 1/1] 화면 전체 - 요소마다 mark 번호  <그림: _sent/s07/marks.png 600x1333 · 예상 958토큰>
+위 그림은 화면 전체를 폭 600 으로 줄이고 요소마다 테두리와 mark 번호를 적은 것이다 (요소 목록의 mark 와 같다).
+
+## 요소 (한 줄에 하나, JSON)
+id · mark · kind (의미 층: button · link · back_close · tab · choice · input · keypad_key · image · text) · pressable · text ·
+image_name · group (같은 무리) · in_box (이 글 줄을 담은 박스 요소 id) · region (든 구역 id) · box ·
+icon (담은 아이콘 · 로고 {name, shape} 또는 null) · text_is_icon (OCR 글이 아이콘을 글자로 잘못 읽은 것인가) ·
+text_fixed (그림에 보이는 대로 고친 글 또는 null)
+{"id":"t2","mark":1,"kind":"back_close","pressable":true,"text":"<","image_name":null,"group":"상단 탐색","in_box":"b11","region":null,"box":[18,40,14,19],"icon":{"name":"뒤로 아이콘","shape":"왼쪽을 향한 꺾쇠"},"text_is_icon":true,"text_fixed":null}
+{"id":"t3","mark":2,"kind":"text","pressable":false,"text":"[금융거래한도계좌2]신한 주거래 우대","image_name":null,"group":"출금 계좌","in_box":"b8","region":null,"box":[18,75,327,27],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t4","mark":3,"kind":"text","pressable":false,"text":"통장 계좌에서","image_name":null,"group":"출금 계좌","in_box":"b8","region":null,"box":[16,105,126,28],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t5","mark":4,"kind":"text","pressable":false,"text":"아래 계좌로","image_name":null,"group":"받는 계좌","in_box":null,"region":null,"box":[16,141,107,27],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t6","mark":5,"kind":"text","pressable":false,"text":"신한110234567890","image_name":null,"group":"받는 계좌","in_box":null,"region":null,"box":[18,176,147,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t7","mark":6,"kind":"text","pressable":false,"text":"얼마를","image_name":null,"group":"송금액 안내","in_box":null,"region":null,"box":[77,240,94,40],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t8","mark":7,"kind":"text","pressable":false,"text":"보낼까요?","image_name":null,"group":"송금액 안내","in_box":null,"region":null,"box":[172,241,141,37],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t9","mark":8,"kind":"text","pressable":false,"text":"출금가능금액 1,000,000원","image_name":null,"group":"송금액 안내","in_box":null,"region":null,"box":[98,298,193,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t10","mark":9,"kind":"text","pressable":false,"text":"+1만","image_name":null,"group":"금액 빠른 입력","in_box":"b1","region":"g2","box":[37,526,39,21],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t11","mark":10,"kind":"text","pressable":false,"text":"+5만","image_name":null,"group":"금액 빠른 입력","in_box":"b2","region":"g3","box":[128,525,40,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t12","mark":11,"kind":"text","pressable":false,"text":"+10만","image_name":null,"group":"금액 빠른 입력","in_box":"b3","region":"g4","box":[217,526,47,21],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t13","mark":12,"kind":"text","pressable":false,"text":"전액","image_name":null,"group":"금액 빠른 입력","in_box":"b0","region":"g5","box":[315,526,35,23],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t14","mark":13,"kind":"text","pressable":false,"text":"1","image_name":null,"group":"숫자판","in_box":"b14","region":null,"box":[54,581,21,27],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t15","mark":14,"kind":"keypad_key","pressable":true,"text":"2","image_name":null,"group":"숫자판","in_box":"b20","region":null,"box":[184,581,22,27],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t16","mark":15,"kind":"keypad_key","pressable":true,"text":"3","image_name":null,"group":"숫자판","in_box":"b20","region":null,"box":[314,581,22,28],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t17","mark":16,"kind":"text","pressable":false,"text":"4","image_name":null,"group":"숫자판","in_box":"b13","region":null,"box":[54,640,22,27],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t18","mark":17,"kind":"keypad_key","pressable":true,"text":"5","image_name":null,"group":"숫자판","in_box":"b10","region":null,"box":[185,640,21,28],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t19","mark":18,"kind":"keypad_key","pressable":true,"text":"6","image_name":null,"group":"숫자판","in_box":"b10","region":null,"box":[313,639,23,29],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t20","mark":19,"kind":"text","pressable":false,"text":"7","image_name":null,"group":"숫자판","in_box":"b12","region":null,"box":[53,699,23,27],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t21","mark":20,"kind":"keypad_key","pressable":true,"text":"8","image_name":null,"group":"숫자판","in_box":"b9","region":null,"box":[185,699,20,26],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t22","mark":21,"kind":"keypad_key","pressable":true,"text":"9","image_name":null,"group":"숫자판","in_box":"b9","region":null,"box":[315,699,19,27],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t23","mark":22,"kind":"keypad_key","pressable":true,"text":"00","image_name":null,"group":"숫자판","in_box":"b6","region":null,"box":[47,756,36,30],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t24","mark":23,"kind":"keypad_key","pressable":true,"text":"0","image_name":null,"group":"숫자판","in_box":"b6","region":null,"box":[185,758,20,26],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"t25","mark":24,"kind":"text","pressable":false,"text":"다음","image_name":null,"group":null,"in_box":"b15","region":null,"box":[173,819,43,29],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b0","mark":25,"kind":"button","pressable":true,"text":"전액","image_name":null,"group":"금액 빠른 입력","in_box":null,"region":"g5","box":[290,515,86,45],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b1","mark":26,"kind":"button","pressable":true,"text":"+1만","image_name":null,"group":"금액 빠른 입력","in_box":null,"region":"g2","box":[14,514,86,46],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b2","mark":27,"kind":"button","pressable":true,"text":"+5만","image_name":null,"group":"금액 빠른 입력","in_box":null,"region":"g3","box":[106,515,86,45],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b3","mark":28,"kind":"button","pressable":true,"text":"+10만","image_name":null,"group":"금액 빠른 입력","in_box":null,"region":"g4","box":[198,515,86,45],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b6","mark":29,"kind":"text","pressable":false,"text":"00 0","image_name":null,"group":"숫자판","in_box":null,"region":null,"box":[27,743,324,58],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b7","mark":30,"kind":"back_close","pressable":true,"text":null,"image_name":null,"group":"상단 탐색","in_box":null,"region":null,"box":[354,41,16,18],"icon":{"name":"닫기 아이콘","shape":"교차한 두 대각선의 X자"},"text_is_icon":false,"text_fixed":null}
+{"id":"b8","mark":31,"kind":"choice","pressable":true,"text":"[금융거래한도계좌2]신한 주거래 우대 통장 계좌에서","image_name":null,"group":"출금 계좌","in_box":null,"region":null,"box":[16,73,360,61],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b9","mark":32,"kind":"text","pressable":false,"text":"9 8","image_name":null,"group":"숫자판","in_box":null,"region":null,"box":[26,683,324,60],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b10","mark":33,"kind":"text","pressable":false,"text":"6 5","image_name":null,"group":"숫자판","in_box":null,"region":null,"box":[24,626,332,56],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b11","mark":34,"kind":"back_close","pressable":true,"text":"<","image_name":null,"group":"상단 탐색","in_box":null,"region":null,"box":[12,35,26,27],"icon":{"name":"뒤로 아이콘","shape":"왼쪽을 향한 꺾쇠"},"text_is_icon":true,"text_fixed":null}
+{"id":"b12","mark":35,"kind":"keypad_key","pressable":true,"text":"7","image_name":null,"group":"숫자판","in_box":null,"region":null,"box":[27,682,67,61],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b13","mark":36,"kind":"keypad_key","pressable":true,"text":"4","image_name":null,"group":"숫자판","in_box":null,"region":null,"box":[23,627,76,54],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b14","mark":37,"kind":"keypad_key","pressable":true,"text":"1","image_name":null,"group":"숫자판","in_box":null,"region":null,"box":[31,568,64,56],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b15","mark":38,"kind":"button","pressable":false,"text":"다음","image_name":null,"group":null,"in_box":null,"region":null,"box":[17,801,333,65],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b16","mark":39,"kind":"keypad_key","pressable":true,"text":null,"image_name":null,"group":"숫자판","in_box":null,"region":null,"box":[303,747,40,48],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b17","mark":40,"kind":"image","pressable":false,"text":null,"image_name":"지우기 아이콘","group":"숫자판","in_box":null,"region":null,"box":[315,762,18,20],"icon":{"name":"지우기 아이콘","shape":"왼쪽을 향한 화살표"},"text_is_icon":false,"text_fixed":null}
+{"id":"b18","mark":41,"kind":"button","pressable":true,"text":null,"image_name":null,"group":"출금 계좌","in_box":null,"region":null,"box":[352,96,15,15],"icon":{"name":"계좌 선택 아이콘","shape":"아래를 향한 꺾쇠"},"text_is_icon":false,"text_fixed":null}
+{"id":"b19","mark":42,"kind":"text","pressable":false,"text":null,"image_name":null,"group":"상단 탐색","in_box":null,"region":null,"box":[16,35,346,33],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"b20","mark":43,"kind":"text","pressable":false,"text":"3 2","image_name":null,"group":"숫자판","in_box":null,"region":null,"box":[22,560,325,246],"icon":null,"text_is_icon":false,"text_fixed":null}
+
+## 구역 (바탕 상자, 한 줄에 하나)
+{"id":"g2","parent":null,"box":[14,515,86,45]}
+{"id":"g3","parent":null,"box":[106,515,86,45]}
+{"id":"g4","parent":null,"box":[198,515,86,45]}
+{"id":"g5","parent":null,"box":[290,515,86,44]}
+
+## 띠 (화면 너비 바탕 조각)
+{"id":"g0","box":[0,0,390,513]}
+{"id":"g1","box":[0,500,390,301]}
+{"id":"g6","box":[0,801,390,66]}
+
+## 답
+`<section>` 하나만 ```html 블록 하나에 담아 답하라. 설명 글은 쓰지 마라.
+
+
+## 앞 답의 문제 (고쳐서 section 전체를 다시 답하라)
+- [⑤] data-src=b11: 꺾쇠인데 글자 '' · 그림 자리 0 - 꺾쇠 요소는 그림 자리 없이 글자 하나만 (써야 할 글자: ‹)

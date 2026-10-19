@@ -1,0 +1,52 @@
+{
+ "screen": "s08",
+ "captures": [
+  "07a.png"
+ ],
+ "model": "gpt-6.1-sol",
+ "reasoning_effort": "medium",
+ "prompt_sha": "91c9e887cc2e",
+ "estimate": {
+  "images": 1,
+  "image_tokens": 958,
+  "text_tokens": 4480,
+  "input_tokens": 5438,
+  "answer_tokens": 2820,
+  "cost_usd": 0.039076,
+  "cost_usd_with_reasoning": 0.067276,
+  "cost_usd_cap": 0.260876
+ },
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 5443,
+    "completion": 2655,
+    "reasoning": 342
+   },
+   "cost_usd": 0.037436,
+   "seconds": 54.9,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "truncated": false,
+   "problems": [
+    "[⑤] data-src=t2: 꺾쇠인데 글자 '' · 그림 자리 1 - 꺾쇠 요소는 그림 자리 없이 글자 하나만 (써야 할 글자: ‹)"
+   ]
+  },
+  {
+   "n": 2,
+   "usage": {
+    "prompt": 5507,
+    "completion": 2448,
+    "reasoning": 203
+   },
+   "cost_usd": 0.035494,
+   "seconds": 41.3,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "truncated": false,
+   "problems": []
+  }
+ ],
+ "status": "ok (다시 물음)"
+}

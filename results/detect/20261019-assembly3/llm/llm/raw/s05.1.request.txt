@@ -1,0 +1,219 @@
+너는 모바일 앱 화면 한 장을 HTML 로 다시 짜는 사람이다. 아래는 스크린샷 한 장에서 검출 · 분류한 요소 목록과 묶음(구역)
+정보다. 이 화면을 HTML `<section>` 하나로 다시 짜라.
+
+화면: 05a.png + 05b.png + 05c.png (캡처 파일 이름. 여럿이면 한 화면을 스크롤하며 찍어 이어 붙인 것이다)
+화면 크기: 가로 390px, 세로 1997px (CSS px). 아래 좌표는 모두 이 크기 기준 [x, y, 가로, 세로] 다.
+
+## 지킬 것
+1. 목록에 있는 요소만 쓴다. 목록에 없는 글 · 버튼 · 그림을 새로 만들지 마라. 목록의 요소는 하나도 빠뜨리지 말고, 각 요소를
+   나타내는 HTML 요소에 `data-src="<요소 id>"` 를 그대로 달아라. 한 id 는 한 번만 쓴다.
+2. 글이 든 박스 요소와 그 안의 글 줄 요소(글 줄의 in_box 가 그 박스 id)는 둘 다 쓴다 - 박스는 감싸는 요소로, 글 줄은 그 안의
+   글로 (예: `<button data-src="b18" data-action="transfer"><span data-src="t6">이체</span></button>`). 글은 목록의 text 를
+   그대로 쓰고 고치거나 늘리지 마라 (잘린 글을 채우지 마라).
+3. 배치는 절대 위치가 아니라 묶음을 살린 흐름 배치(flex · grid)로 하라. 구역 목록(regions - 바탕 상자, parent 로 나무)을 묶음의
+   근거로 쓰되, 그림과 다르면 그림을 따르고 그 차이를 HTML 주석(`<!-- … -->`)으로 적어라. 띠 목록(bands - 화면 너비의 바탕
+   조각)은 화면을 위아래로 나누는 경계로만 참고하라.
+4. kind 가 image 인 요소는 `<div class="pic" role="img" aria-label="<image_name>" data-src="…">` 로 쓴다 (class pic 은 회색 X
+   상자로 그려진다 - 그림을 그리지 마라). image_name 이 없으면 aria-label 을 비워 둔다.
+5. 누를 수 있는 것(pressable 이 true 이거나 kind 가 button · link · back_close · tab · choice · keypad_key)은 `<button>` 에
+   `data-action="<짧은 영어 이름>"` 을 지어 단다. 버튼 안에 또 누를 수 있는 것이 있으면 안쪽은 `<div role="button">` 으로 쓴다
+   (버튼 안에 버튼을 넣지 마라). kind 가 input 이면 테두리 있는 `<div>` 로 쓴다. 누른 뒤 어느 화면으로 가는지는 쓰지 마라 -
+   주어지지 않았다 (화면 이동은 따로 붙인다).
+6. 색 · 글자 크기 · 둥근 모서리는 그림에서 대략 맞춰라. 꾸밈은 `style` 속성으로만 쓴다 - `<style>` · `<script>` · 외부 파일 ·
+   그림 파일을 쓰지 마라.
+7. kind 가 system (상태바) 인 것은 목록에 없다 - 상태바를 새로 그리지 마라.
+8. icon 이 있는 요소는 그 요소 안에 `<div class="pic" role="img" aria-label="<icon.name>">` 을 넣는다 (누를 수 있는 요소면
+   그 button 안에). kind 가 image 인 요소는 규칙 4 대로 쓰고 icon 을 따로 넣지 않는다.
+9. text_is_icon 이 true 인 요소는 OCR 글을 쓰지 않는다 - 그 자리에 규칙 8 의 그림 자리만 둔다 (data-src 는 그대로).
+10. text_fixed 가 있는 요소는 text 대신 text_fixed 를 글로 쓰고, 원래 text 를 `data-ocr="<text>"` 로 단다.
+11. 줄 · 카드 끝에서 다음으로 넘어감을 알리는 방향 표시 (›, ⌄, ⌃ 같은 꺾쇠) 는 icon 이 있어도 그림 자리를 만들지 않고
+    글자 › (또는 ⌄ · ⌃) 로 둔다 (규칙 8 · 9 보다 앞선다. data-src 는 그대로 그 요소에 단다). 새로고침 · 고정 핀처럼 뜻이 있는
+    아이콘은 그대로 그림 자리다. 꺾쇠인지는 mark 그림과 icon.shape 를 보고 정한다.
+
+## 그림
+[그림 1/1] 화면 전체 - 요소마다 mark 번호  <그림: _sent/s05/marks.png 600x3073 · 예상 2212토큰>
+위 그림은 화면 전체를 폭 600 으로 줄이고 요소마다 테두리와 mark 번호를 적은 것이다 (요소 목록의 mark 와 같다).
+
+## 요소 (한 줄에 하나, JSON)
+id · mark · kind (의미 층: button · link · back_close · tab · choice · input · keypad_key · image · text) · pressable · text ·
+image_name · group (같은 무리) · in_box (이 글 줄을 담은 박스 요소 id) · region (든 구역 id) · box ·
+icon (담은 아이콘 · 로고 {name, shape} 또는 null) · text_is_icon (OCR 글이 아이콘을 글자로 잘못 읽은 것인가) ·
+text_fixed (그림에 보이는 대로 고친 글 또는 null)
+{"id":"05a:t4","mark":1,"kind":"text","pressable":false,"text":"은행 또는 증권사 선택","image_name":null,"group":null,"in_box":null,"region":null,"box":[16,141,205,30],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t5","mark":2,"kind":"text","pressable":false,"text":"은행","image_name":null,"group":"금융기관 유형 탭","in_box":"05a:b15","region":null,"box":[75,194,43,28],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t6","mark":3,"kind":"text","pressable":false,"text":"증권사","image_name":null,"group":"금융기관 유형 탭","in_box":"05a:b16","region":null,"box":[264,195,57,26],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t7","mark":4,"kind":"text","pressable":false,"text":"신한","image_name":null,"group":"금융기관 선택","in_box":"05a:b11","region":"g3","box":[54,329,35,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t8","mark":5,"kind":"text","pressable":false,"text":"제주","image_name":null,"group":"금융기관 선택","in_box":"05a:b9","region":"g4","box":[176,328,36,24],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t9","mark":6,"kind":"text","pressable":false,"text":"국민","image_name":null,"group":"금융기관 선택","in_box":"05a:b10","region":"g5","box":[301,329,35,23],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t10","mark":7,"kind":"image","pressable":false,"text":"NH","image_name":"농협 로고","group":"금융기관 선택","in_box":"05a:b5","region":"g7","box":[173,417,45,24],"icon":{"name":"농협 로고","shape":"파란 바탕의 흰색 NH 글자"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t11","mark":8,"kind":"text","pressable":false,"text":"기업","image_name":null,"group":"금융기관 선택","in_box":"05a:b8","region":"g6","box":[54,463,34,23],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t12","mark":9,"kind":"text","pressable":false,"text":"농협","image_name":null,"group":"금융기관 선택","in_box":"05a:b5","region":"g7","box":[177,463,35,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t13","mark":10,"kind":"text","pressable":false,"text":"산업","image_name":null,"group":"금융기관 선택","in_box":"05a:b3","region":"g8","box":[301,463,35,23],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t14","mark":11,"kind":"image","pressable":false,"text":"Sh","image_name":"수협 로고","group":"금융기관 선택","in_box":"05a:b7","region":"g9","box":[49,543,44,36],"icon":{"name":"수협 로고","shape":"흰 원 안 파란색 기울어진 Sh 글자"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t15","mark":12,"kind":"text","pressable":false,"text":"수협","image_name":null,"group":"금융기관 선택","in_box":"05a:b7","region":"g9","box":[54,597,34,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t16","mark":13,"kind":"text","pressable":false,"text":"신협","image_name":null,"group":"금융기관 선택","in_box":"05a:b0","region":"g10","box":[177,597,35,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t17","mark":14,"kind":"text","pressable":false,"text":"우리","image_name":null,"group":"금융기관 선택","in_box":"05a:b4","region":"g11","box":[301,597,34,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t18","mark":15,"kind":"image","pressable":false,"text":"D","image_name":"카카오뱅크 로고","group":"금융기관 선택","in_box":"05a:b2","region":"g14","box":[307,681,26,31],"icon":{"name":"카카오뱅크 로고","shape":"검은색 B형 기호와 세로 틈"},"text_is_icon":true,"text_fixed":null}
+{"id":"05a:t19","mark":16,"kind":"image","pressable":false,"text":"citi","image_name":"한국씨티 로고","group":"금융기관 선택","in_box":"05a:b1","region":"g13","box":[176,685,37,25],"icon":{"name":"한국씨티 로고","shape":"흰색 소문자 citi"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t20","mark":17,"kind":"text","pressable":false,"text":"하나","image_name":null,"group":"금융기관 선택","in_box":"05a:b6","region":"g12","box":[53,730,35,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t21","mark":18,"kind":"text","pressable":false,"text":"한국씨티","image_name":null,"group":"금융기관 선택","in_box":"05a:b1","region":"g13","box":[165,731,60,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t22","mark":19,"kind":"text","pressable":false,"text":"카카오뱅크","image_name":null,"group":"금융기관 선택","in_box":"05a:b2","region":"g14","box":[282,732,74,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t7","mark":20,"kind":"image","pressable":false,"text":"Kbank","image_name":"케이뱅크 로고","group":"금융기관 선택","in_box":"05b:b10","region":"g15","box":[51,823,40,14],"icon":{"name":"케이뱅크 로고","shape":"흰색 Kbank 문자"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:t24","mark":21,"kind":"image","pressable":false,"text":"BNV","image_name":"경남 로고","group":"금융기관 선택","in_box":"05b:b11","region":"g17","box":[297,821,43,17],"icon":{"name":"경남 로고","shape":"흰색 BNK 문자"},"text_is_icon":false,"text_fixed":"BNK"}
+{"id":"05a:b0","mark":22,"kind":"choice","pressable":true,"text":"신협","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g10","box":[139,517,111,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b1","mark":23,"kind":"choice","pressable":true,"text":"citi 한국씨티","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g13","box":[139,651,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b2","mark":24,"kind":"choice","pressable":true,"text":"D 카카오뱅크","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g14","box":[263,651,113,123],"icon":null,"text_is_icon":false,"text_fixed":"B 카카오뱅크"}
+{"id":"05a:b3","mark":25,"kind":"choice","pressable":true,"text":"산업","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g8","box":[263,384,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b4","mark":26,"kind":"choice","pressable":true,"text":"우리","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g11","box":[263,518,113,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b5","mark":27,"kind":"choice","pressable":true,"text":"NH 농협","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g7","box":[139,384,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b6","mark":28,"kind":"choice","pressable":true,"text":"하나","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g12","box":[15,651,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b7","mark":29,"kind":"choice","pressable":true,"text":"Sh 수협","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g9","box":[15,518,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b8","mark":30,"kind":"choice","pressable":true,"text":"기업","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g6","box":[15,384,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b9","mark":31,"kind":"choice","pressable":true,"text":"제주","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g4","box":[138,250,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b10","mark":32,"kind":"choice","pressable":true,"text":"국민","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g5","box":[263,250,113,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b11","mark":33,"kind":"choice","pressable":true,"text":"신한","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g3","box":[15,250,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b11","mark":34,"kind":"choice","pressable":true,"text":"BiNV 경남","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g17","box":[263,800,112,106],"icon":null,"text_is_icon":false,"text_fixed":"BNK 경남"}
+{"id":"05b:b9","mark":35,"kind":"choice","pressable":true,"text":"토스뱅크","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g16","box":[138,800,113,106],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b10","mark":36,"kind":"choice","pressable":true,"text":"Kbank 케이뱅크","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g15","box":[15,802,112,104],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b15","mark":37,"kind":"tab","pressable":true,"text":"은행","image_name":null,"group":"금융기관 유형 탭","in_box":null,"region":null,"box":[1,186,194,49],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b16","mark":38,"kind":"tab","pressable":true,"text":"증권사","image_name":null,"group":"금융기관 유형 탭","in_box":null,"region":null,"box":[195,188,192,46],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05a:b17","mark":39,"kind":"back_close","pressable":true,"text":null,"image_name":null,"group":null,"in_box":null,"region":null,"box":[354,147,17,19],"icon":{"name":"닫기 아이콘","shape":"검은 X자"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i0","mark":40,"kind":"image","pressable":false,"text":null,"image_name":"신협 로고","group":"금융기관 선택","in_box":"05a:b0","region":"g10","box":[171,538,49,49],"icon":{"name":"신협 로고","shape":"파란 원 안 흰색 대칭 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i1","mark":41,"kind":"image","pressable":false,"text":null,"image_name":"한국씨티 로고","group":"금융기관 선택","in_box":"05a:b1","region":"g13","box":[171,672,49,49],"icon":{"name":"한국씨티 로고","shape":"파란 원 바탕과 빨간 아치"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i2","mark":42,"kind":"image","pressable":false,"text":null,"image_name":"카카오뱅크 로고","group":"금융기관 선택","in_box":"05a:b2","region":"g14","box":[294,672,49,49],"icon":{"name":"카카오뱅크 로고","shape":"노란 원형 바탕"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i3","mark":43,"kind":"image","pressable":false,"text":null,"image_name":"산업 로고","group":"금융기관 선택","in_box":"05a:b3","region":"g8","box":[302,415,34,30],"icon":{"name":"산업 로고","shape":"파란 그라데이션의 마주 보는 각진 리본"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i4","mark":44,"kind":"image","pressable":false,"text":null,"image_name":"우리 로고","group":"금융기관 선택","in_box":"05a:b4","region":"g11","box":[294,538,49,49],"icon":{"name":"우리 로고","shape":"파란 원 안 흰색 둥근 띠와 하늘색 그라데이션"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i5","mark":45,"kind":"image","pressable":false,"text":null,"image_name":"농협 로고","group":"금융기관 선택","in_box":"05a:b5","region":"g7","box":[176,405,40,10],"icon":{"name":"농협 로고","shape":"파란 원의 위쪽 일부"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i6","mark":46,"kind":"image","pressable":false,"text":null,"image_name":"농협 로고","group":"금융기관 선택","in_box":"05a:b5","region":"g7","box":[175,443,41,11],"icon":{"name":"농협 로고","shape":"파란 원의 아래쪽 일부"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i7","mark":47,"kind":"image","pressable":false,"text":null,"image_name":"하나 로고","group":"금융기관 선택","in_box":"05a:b6","region":"g12","box":[47,672,48,49],"icon":{"name":"하나 로고","shape":"초록 원 안 흰색 사람 같은 곡선 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i8","mark":48,"kind":"image","pressable":false,"text":null,"image_name":"기업 로고","group":"금융기관 선택","in_box":"05a:b8","region":"g6","box":[47,405,49,49],"icon":{"name":"기업 로고","shape":"파란 원 안 기울어진 흰 테두리와 하늘색·주황색 도형"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i9","mark":49,"kind":"image","pressable":false,"text":null,"image_name":"제주 로고","group":"금융기관 선택","in_box":"05a:b9","region":"g4","box":[171,271,49,49],"icon":{"name":"제주 로고","shape":"파란 원 안 흰색 S자와 새 모양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i10","mark":50,"kind":"image","pressable":false,"text":null,"image_name":"국민 로고","group":"금융기관 선택","in_box":"05a:b10","region":"g5","box":[294,271,49,49],"icon":{"name":"국민 로고","shape":"짙은 회색 원 안 노란 KB 형상"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i11","mark":51,"kind":"image","pressable":false,"text":null,"image_name":"신한 로고","group":"금융기관 선택","in_box":"05a:b11","region":"g3","box":[47,271,49,49],"icon":{"name":"신한 로고","shape":"파란 원 안 흰색 S자와 새 모양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i12","mark":52,"kind":"image","pressable":false,"text":null,"image_name":"경남 로고","group":"금융기관 선택","in_box":"05b:b11","region":"g17","box":[296,806,47,49],"icon":{"name":"경남 로고","shape":"빨간 원형 바탕"},"text_is_icon":false,"text_fixed":null}
+{"id":"05a:i13","mark":53,"kind":"image","pressable":false,"text":null,"image_name":"케이뱅크 로고","group":"금융기관 선택","in_box":"05b:b10","region":"g15","box":[47,806,49,49],"icon":{"name":"케이뱅크 로고","shape":"짙은 보라색 원형 바탕"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t8","mark":54,"kind":"image","pressable":false,"text":"BiNV","image_name":"경남 로고","group":"금융기관 선택","in_box":"05b:b11","region":"g17","box":[295,820,45,19],"icon":{"name":"경남 로고","shape":"흰색 BNK 문자"},"text_is_icon":false,"text_fixed":"BNK"}
+{"id":"05b:t9","mark":55,"kind":"text","pressable":false,"text":"케이뱅크","image_name":null,"group":"금융기관 선택","in_box":"05b:b10","region":"g15","box":[40,865,62,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t10","mark":56,"kind":"text","pressable":false,"text":"토스뱅크","image_name":null,"group":"금융기관 선택","in_box":"05b:b9","region":"g16","box":[165,866,59,17],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t11","mark":57,"kind":"text","pressable":false,"text":"경남","image_name":null,"group":"금융기관 선택","in_box":"05b:b11","region":"g17","box":[301,864,35,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t12","mark":58,"kind":"image","pressable":false,"text":"BNV","image_name":"부산 로고","group":"금융기관 선택","in_box":"05b:b6","region":"g20","box":[297,953,43,18],"icon":{"name":"부산 로고","shape":"흰색 BNK 문자"},"text_is_icon":false,"text_fixed":"BNK"}
+{"id":"05b:t13","mark":59,"kind":"text","pressable":false,"text":"광주","image_name":null,"group":"금융기관 선택","in_box":"05b:b8","region":"g18","box":[54,998,34,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t14","mark":60,"kind":"text","pressable":false,"text":"아이엠뱅크(대.","image_name":null,"group":"금융기관 선택","in_box":"05b:b5","region":"g19","box":[143,998,95,19],"icon":null,"text_is_icon":false,"text_fixed":"아이엠뱅크(대..."}
+{"id":"05b:t15","mark":61,"kind":"text","pressable":false,"text":"부산","image_name":null,"group":"금융기관 선택","in_box":"05b:b6","region":"g20","box":[302,998,33,21],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t16","mark":62,"kind":"text","pressable":false,"text":"전북","image_name":null,"group":"금융기관 선택","in_box":"05b:b3","region":"g21","box":[54,1131,33,21],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t17","mark":63,"kind":"text","pressable":false,"text":"회원수협","image_name":null,"group":"금융기관 선택","in_box":"05b:b0","region":"g22","box":[164,1132,60,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t18","mark":64,"kind":"text","pressable":false,"text":"새마을","image_name":null,"group":"금융기관 선택","in_box":"05b:b1","region":"g23","box":[294,1130,48,24],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t19","mark":65,"kind":"image","pressable":false,"text":"SB","image_name":"저축은행 로고","group":"금융기관 선택","in_box":"05b:b2","region":"g25","box":[179,1211,34,37],"icon":{"name":"저축은행 로고","shape":"초록색 SB 형태와 밑줄"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t20","mark":66,"kind":"text","pressable":false,"text":"우체국","image_name":null,"group":"금융기관 선택","in_box":"05b:b7","region":"g24","box":[47,1264,48,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t21","mark":67,"kind":"text","pressable":false,"text":"저축은행","image_name":null,"group":"금융기관 선택","in_box":"05b:b2","region":"g25","box":[163,1265,62,21],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t22","mark":68,"kind":"text","pressable":false,"text":"지역농.축협","image_name":null,"group":"금융기관 선택","in_box":"05b:b4","region":"g26","box":[280,1266,77,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t7","mark":69,"kind":"text","pressable":false,"text":"도이치","image_name":null,"group":"금융기관 선택","in_box":"05b:b14","region":"g27","box":[47,1400,46,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:t24","mark":70,"kind":"text","pressable":false,"text":"중국","image_name":null,"group":"금융기관 선택","in_box":"05b:b12","region":"g28","box":[177,1397,35,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t9","mark":71,"kind":"text","pressable":false,"text":"중국건설","image_name":null,"group":"금융기관 선택","in_box":"05b:b13","region":"g29","box":[288,1399,61,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b0","mark":72,"kind":"choice","pressable":true,"text":"회원수협","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g22","box":[139,1052,111,121],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b1","mark":73,"kind":"choice","pressable":true,"text":"새마을","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g23","box":[263,1052,112,120],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b2","mark":74,"kind":"choice","pressable":true,"text":"SB 저축은행","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g25","box":[139,1184,111,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b3","mark":75,"kind":"choice","pressable":true,"text":"전북","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g21","box":[15,1052,112,121],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b4","mark":76,"kind":"choice","pressable":true,"text":"지역농.축협","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g26","box":[263,1184,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b5","mark":77,"kind":"choice","pressable":true,"text":"아이엠뱅크(대.","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g19","box":[139,918,112,122],"icon":null,"text_is_icon":false,"text_fixed":"아이엠뱅크(대..."}
+{"id":"05b:b6","mark":78,"kind":"choice","pressable":true,"text":"BNV 부산","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g20","box":[263,917,113,123],"icon":null,"text_is_icon":false,"text_fixed":"BNK 부산"}
+{"id":"05b:b7","mark":79,"kind":"choice","pressable":true,"text":"우체국","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g24","box":[15,1185,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b8","mark":80,"kind":"choice","pressable":true,"text":"광주","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g18","box":[15,918,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b12","mark":81,"kind":"choice","pressable":true,"text":"중국","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g28","box":[139,1318,112,114],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b13","mark":82,"kind":"choice","pressable":true,"text":"중국건설","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g29","box":[263,1318,112,114],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:b14","mark":83,"kind":"choice","pressable":true,"text":"도이치","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g27","box":[16,1318,112,114],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i0","mark":84,"kind":"image","pressable":false,"text":null,"image_name":"회원수협 로고","group":"금융기관 선택","in_box":"05b:b0","region":"g22","box":[171,1072,49,49],"icon":{"name":"회원수협 로고","shape":"파란 원 안 네 개의 흰색 물고기 모양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i1","mark":85,"kind":"image","pressable":false,"text":null,"image_name":"새마을 로고","group":"금융기관 선택","in_box":"05b:b1","region":"g23","box":[294,1072,49,49],"icon":{"name":"새마을 로고","shape":"하늘색 원 안 흰색 세 갈래 둥근 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i2","mark":86,"kind":"image","pressable":false,"text":null,"image_name":"전북 로고","group":"금융기관 선택","in_box":"05b:b3","region":"g21","box":[47,1072,49,49],"icon":{"name":"전북 로고","shape":"파란 다면체 원 안 흰색 꺾인 띠"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i3","mark":87,"kind":"image","pressable":false,"text":null,"image_name":"지역농.축협 로고","group":"금융기관 선택","in_box":"05b:b4","region":"g26","box":[294,1205,49,49],"icon":{"name":"지역농.축협 로고","shape":"초록 원 안 노란 고리와 위로 뻗은 가지"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i4","mark":88,"kind":"image","pressable":false,"text":null,"image_name":"아이엠뱅크(대... 로고","group":"금융기관 선택","in_box":"05b:b5","region":"g19","box":[179,955,34,17],"icon":{"name":"아이엠뱅크(대... 로고","shape":"청록색과 연두색의 갈라지는 곡선 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i5","mark":89,"kind":"image","pressable":false,"text":null,"image_name":"부산 로고","group":"금융기관 선택","in_box":"05b:b6","region":"g20","box":[298,939,43,12],"icon":{"name":"부산 로고","shape":"빨간 원의 위쪽 일부"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i6","mark":90,"kind":"image","pressable":false,"text":null,"image_name":"부산 로고","group":"금융기관 선택","in_box":"05b:b6","region":"g20","box":[297,955,46,31],"icon":{"name":"부산 로고","shape":"빨간 원의 아래쪽과 흰색 문자 일부"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i7","mark":91,"kind":"image","pressable":false,"text":null,"image_name":"우체국 로고","group":"금융기관 선택","in_box":"05b:b7","region":"g24","box":[55,1222,36,18],"icon":{"name":"우체국 로고","shape":"빨간 제비 같은 기하학 문양과 노란 줄"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i8","mark":92,"kind":"image","pressable":false,"text":null,"image_name":"광주 로고","group":"금융기관 선택","in_box":"05b:b8","region":"g18","box":[47,939,49,49],"icon":{"name":"광주 로고","shape":"파란 다면체 원 안 흰색 꺾인 띠"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i9","mark":93,"kind":"image","pressable":false,"text":null,"image_name":"토스뱅크 로고","group":"금융기관 선택","in_box":"05b:b9","region":"g16","box":[180,816,31,28],"icon":{"name":"토스뱅크 로고","shape":"파란 그라데이션의 서로 어긋난 둥근 두 조각"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i10","mark":94,"kind":"image","pressable":false,"text":null,"image_name":"경남 로고","group":"금융기관 선택","in_box":"05b:b11","region":"g17","box":[297,841,44,13],"icon":{"name":"경남 로고","shape":"빨간 원의 아래쪽 일부"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i11","mark":95,"kind":"image","pressable":false,"text":null,"image_name":"중국 로고","group":"금융기관 선택","in_box":"05b:b12","region":"g28","box":[177,1345,37,37],"icon":{"name":"중국 로고","shape":"빨간 원형 테두리 안 네모와 세로선"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i12","mark":96,"kind":"image","pressable":false,"text":null,"image_name":"중국건설 로고","group":"금융기관 선택","in_box":"05b:b13","region":"g29","box":[294,1339,49,49],"icon":{"name":"중국건설 로고","shape":"파란 원 안 흰 C형 고리와 마름모 빈칸"},"text_is_icon":false,"text_fixed":null}
+{"id":"05b:i13","mark":97,"kind":"image","pressable":false,"text":null,"image_name":"도이치 로고","group":"금융기관 선택","in_box":"05b:b14","region":"g27","box":[47,1339,49,49],"icon":{"name":"도이치 로고","shape":"짙은 파란 원 안 흰 사각형과 파란 사선"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t10","mark":98,"kind":"text","pressable":false,"text":"중국공상","image_name":null,"group":"금융기관 선택","in_box":"05c:b8","region":"g30","box":[40,1532,62,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t11","mark":99,"kind":"text","pressable":false,"text":"BNP파리바","image_name":null,"group":"금융기관 선택","in_box":"05c:b6","region":"g31","box":[157,1533,75,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t12","mark":100,"kind":"text","pressable":false,"text":"BOA","image_name":null,"group":"금융기관 선택","in_box":"05c:b7","region":"g32","box":[301,1533,35,18],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t13","mark":101,"kind":"text","pressable":false,"text":"HSBC","image_name":null,"group":"금융기관 선택","in_box":"05c:b3","region":"g33","box":[49,1667,45,17],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t14","mark":102,"kind":"text","pressable":false,"text":"JP모간","image_name":null,"group":"금융기관 선택","in_box":"05c:b0","region":"g34","box":[169,1666,51,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t15","mark":103,"kind":"text","pressable":false,"text":"SC","image_name":null,"group":"금융기관 선택","in_box":"05c:b2","region":"g35","box":[305,1666,27,19],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t16","mark":104,"kind":"text","pressable":false,"text":"산림조합","image_name":null,"group":"금융기관 선택","in_box":"05c:b4","region":"g36","box":[41,1799,62,20],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t17","mark":105,"kind":"text","pressable":false,"text":"국세","image_name":null,"group":"금융기관 선택","in_box":"05c:b1","region":"g37","box":[176,1797,36,24],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t18","mark":106,"kind":"text","pressable":false,"text":"지방세","image_name":null,"group":"금융기관 선택","in_box":"05c:b5","region":"g38","box":[293,1797,49,24],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t19","mark":107,"kind":"text","pressable":false,"text":"국고금","image_name":null,"group":"금융기관 선택","in_box":"05c:b9","region":"g39","box":[46,1932,49,22],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:t20","mark":108,"kind":"text","pressable":false,"text":"관세","image_name":null,"group":"금융기관 선택","in_box":"05c:b10","region":"g40","box":[177,1930,35,24],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b0","mark":109,"kind":"choice","pressable":true,"text":"JP모간","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g34","box":[139,1586,112,121],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b1","mark":110,"kind":"choice","pressable":true,"text":"국세","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g37","box":[139,1719,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b2","mark":111,"kind":"choice","pressable":true,"text":"SC","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g35","box":[263,1586,113,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b3","mark":112,"kind":"choice","pressable":true,"text":"HSBC","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g33","box":[15,1586,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b4","mark":113,"kind":"choice","pressable":true,"text":"산림조합","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g36","box":[15,1719,112,123],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b5","mark":114,"kind":"choice","pressable":true,"text":"지방세","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g38","box":[263,1719,113,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b6","mark":115,"kind":"choice","pressable":true,"text":"BNP파리바","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g31","box":[139,1452,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b7","mark":116,"kind":"choice","pressable":true,"text":"BOA","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g32","box":[263,1453,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b8","mark":117,"kind":"choice","pressable":true,"text":"중국공상","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g30","box":[15,1453,112,121],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b9","mark":118,"kind":"choice","pressable":true,"text":"국고금","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g39","box":[15,1853,112,122],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b10","mark":119,"kind":"choice","pressable":true,"text":"관세","image_name":null,"group":"금융기관 선택","in_box":null,"region":"g40","box":[139,1853,111,121],"icon":null,"text_is_icon":false,"text_fixed":null}
+{"id":"05c:b21","mark":120,"kind":"image","pressable":false,"text":null,"image_name":"중국공상 로고","group":"금융기관 선택","in_box":null,"region":"g30","box":[50,1476,43,43],"icon":{"name":"중국공상 로고","shape":"빨간 원 안 흰 원형 선과 工 형태 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:i0","mark":121,"kind":"image","pressable":false,"text":null,"image_name":"JP모간 로고","group":"금융기관 선택","in_box":"05c:b0","region":"g34","box":[171,1606,49,49],"icon":{"name":"JP모간 로고","shape":"파란 원 안 흰색 네 조각의 팔각 고리"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:i1","mark":122,"kind":"image","pressable":false,"text":null,"image_name":"국세 로고","group":"금융기관 선택","in_box":"05c:b1","region":"g37","box":[179,1746,33,32],"icon":{"name":"국세 로고","shape":"남색과 빨간색 곡선이 감싼 태극 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:i2","mark":123,"kind":"image","pressable":false,"text":null,"image_name":"SC 로고","group":"금융기관 선택","in_box":"05c:b2","region":"g35","box":[308,1615,21,33],"icon":{"name":"SC 로고","shape":"파란색과 초록색의 엇갈린 S자 리본"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:i3","mark":124,"kind":"image","pressable":false,"text":null,"image_name":"HSBC 로고","group":"금융기관 선택","in_box":"05c:b3","region":"g33","box":[47,1607,49,49],"icon":{"name":"HSBC 로고","shape":"빨간 원 안 흰색 삼각형들이 이룬 육각 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:i4","mark":125,"kind":"image","pressable":false,"text":null,"image_name":"산림조합 로고","group":"금융기관 선택","in_box":"05c:b4","region":"g36","box":[51,1750,40,25],"icon":{"name":"산림조합 로고","shape":"청록색과 연두색의 둥근 산 모양 획"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:i5","mark":126,"kind":"image","pressable":false,"text":null,"image_name":"지방세 로고","group":"금융기관 선택","in_box":"05c:b5","region":"g38","box":[302,1746,33,32],"icon":{"name":"지방세 로고","shape":"남색과 빨간색 곡선이 감싼 태극 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:i6","mark":127,"kind":"image","pressable":false,"text":null,"image_name":"BNP파리바 로고","group":"금융기관 선택","in_box":"05c:b6","region":"g31","box":[171,1473,49,49],"icon":{"name":"BNP파리바 로고","shape":"초록 원 안 흰색 별과 새 같은 네 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:i7","mark":128,"kind":"image","pressable":false,"text":null,"image_name":"BOA 로고","group":"금융기관 선택","in_box":"05c:b7","region":"g32","box":[299,1487,40,22],"icon":{"name":"BOA 로고","shape":"빨간색과 파란색 사선 띠로 된 깃발 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:i8","mark":129,"kind":"image","pressable":false,"text":null,"image_name":"국고금 로고","group":"금융기관 선택","in_box":"05c:b9","region":"g39","box":[54,1879,34,32],"icon":{"name":"국고금 로고","shape":"남색과 빨간색 곡선이 감싼 태극 문양"},"text_is_icon":false,"text_fixed":null}
+{"id":"05c:i9","mark":130,"kind":"image","pressable":false,"text":null,"image_name":"관세 로고","group":"금융기관 선택","in_box":"05c:b10","region":"g40","box":[178,1879,34,32],"icon":{"name":"관세 로고","shape":"남색과 빨간색 곡선이 감싼 태극 문양"},"text_is_icon":false,"text_fixed":null}
+
+## 구역 (바탕 상자, 한 줄에 하나)
+{"id":"g3","parent":null,"box":[15,250,112,122]}
+{"id":"g4","parent":null,"box":[139,250,112,122]}
+{"id":"g5","parent":null,"box":[263,250,112,122]}
+{"id":"g6","parent":null,"box":[15,384,112,122]}
+{"id":"g7","parent":null,"box":[139,384,112,122]}
+{"id":"g8","parent":null,"box":[263,384,112,122]}
+{"id":"g9","parent":null,"box":[15,517,112,122]}
+{"id":"g10","parent":null,"box":[139,517,112,122]}
+{"id":"g11","parent":null,"box":[263,517,112,122]}
+{"id":"g12","parent":null,"box":[15,651,112,122]}
+{"id":"g13","parent":null,"box":[139,651,112,122]}
+{"id":"g14","parent":null,"box":[263,651,112,122]}
+{"id":"g15","parent":null,"box":[15,784,112,122]}
+{"id":"g16","parent":null,"box":[139,784,112,122]}
+{"id":"g17","parent":null,"box":[263,784,112,122]}
+{"id":"g18","parent":null,"box":[15,918,112,122]}
+{"id":"g19","parent":null,"box":[139,918,112,122]}
+{"id":"g20","parent":null,"box":[263,918,112,122]}
+{"id":"g21","parent":null,"box":[15,1052,112,122]}
+{"id":"g22","parent":null,"box":[139,1052,112,122]}
+{"id":"g23","parent":null,"box":[263,1052,112,122]}
+{"id":"g24","parent":null,"box":[15,1185,112,122]}
+{"id":"g25","parent":null,"box":[139,1185,112,122]}
+{"id":"g26","parent":null,"box":[263,1185,112,122]}
+{"id":"g27","parent":null,"box":[15,1318,112,123]}
+{"id":"g28","parent":null,"box":[139,1318,112,123]}
+{"id":"g29","parent":null,"box":[263,1318,112,123]}
+{"id":"g30","parent":null,"box":[15,1452,112,122]}
+{"id":"g31","parent":null,"box":[139,1452,112,122]}
+{"id":"g32","parent":null,"box":[263,1452,112,122]}
+{"id":"g33","parent":null,"box":[15,1586,112,122]}
+{"id":"g34","parent":null,"box":[139,1586,112,122]}
+{"id":"g35","parent":null,"box":[263,1586,112,122]}
+{"id":"g36","parent":null,"box":[15,1719,112,122]}
+{"id":"g37","parent":null,"box":[139,1719,112,122]}
+{"id":"g38","parent":null,"box":[263,1719,112,122]}
+{"id":"g39","parent":null,"box":[15,1852,112,122]}
+{"id":"g40","parent":null,"box":[139,1852,112,122]}
+
+## 띠 (화면 너비 바탕 조각)
+{"id":"g0","box":[0,0,390,137]}
+{"id":"g1","box":[0,122,390,112]}
+{"id":"g2","box":[0,235,390,1763]}
+
+## 답
+`<section>` 하나만 ```html 블록 하나에 담아 답하라. 설명 글은 쓰지 마라.

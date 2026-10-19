@@ -1,0 +1,97 @@
+```html
+<section style="width:390px;height:866px;display:flex;flex-direction:column;overflow:hidden;background:#fff;color:#1d1d1f;font-family:Arial,'Noto Sans KR',sans-serif;box-sizing:border-box;">
+  <div style="height:500px;flex-shrink:0;padding:35px 16px 0;box-sizing:border-box;">
+    <nav style="height:27px;display:flex;align-items:center;justify-content:space-between;">
+      <button data-src="b10" data-action="back" style="width:26px;height:27px;padding:3px 5px;border:0;background:transparent;">
+        <div class="pic" role="img" aria-label="뒤로 가기 아이콘" data-src="t2" style="width:14px;height:19px;background:linear-gradient(45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),#eee;border:1px solid #aaa;box-sizing:border-box;"></div>
+      </button>
+      <button data-src="b8" data-action="close" style="width:26px;height:27px;padding:4px;border:0;background:transparent;">
+        <div class="pic" role="img" aria-label="닫기 아이콘" style="width:18px;height:18px;background:linear-gradient(45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),#eee;border:1px solid #aaa;box-sizing:border-box;"></div>
+      </button>
+    </nav>
+
+    <button data-src="b7" data-action="select-source" style="display:flex;align-items:center;width:100%;height:61px;margin-top:11px;padding:0;border:0;background:transparent;text-align:left;color:inherit;font:inherit;">
+      <span style="display:flex;flex:1;min-width:0;flex-direction:column;font-size:21px;font-weight:700;line-height:30px;letter-spacing:-.8px;">
+        <span data-src="t3" style="white-space:nowrap;">[금융거래한도계좌2]신한 주거래 우대</span>
+        <span data-src="t4">통장 계좌에서</span>
+      </span>
+      <div role="button" tabindex="0" data-src="b17" data-action="expand-accounts" style="width:18px;flex-shrink:0;font-size:23px;color:#69696d;text-align:center;">⌄</div>
+    </button>
+
+    <div data-src="t5" style="margin-top:6px;font-size:22px;font-weight:700;line-height:34px;letter-spacing:-.7px;">아래 계좌로</div>
+    <div data-src="b19" style="height:29px;display:flex;align-items:center;">
+      <span data-src="t6" style="font-size:17px;color:#929296;line-height:24px;">신한110234567890</span>
+    </div>
+
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:40px;">
+      <div data-src="t7" style="box-sizing:border-box;min-height:44px;padding:0 2px;border:1px solid #fff;font-size:36px;font-weight:700;line-height:44px;letter-spacing:-1.4px;">10,000원</div>
+      <div data-src="t8" style="margin-top:16px;font-size:18px;line-height:24px;color:#757579;white-space:pre;">출금가능금액 <span style="font-weight:700;color:#38383b;text-decoration:underline;">1,000,000원</span></div>
+    </div>
+  </div>
+
+  <div style="height:301px;flex-shrink:0;display:flex;flex-direction:column;border-radius:18px 18px 0 0;background:#fff;box-shadow:0 -5px 24px rgba(0,0,0,.045);box-sizing:border-box;padding-top:14px;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 14px;height:46px;flex-shrink:0;">
+      <div style="display:flex;">
+        <button data-src="b1" data-action="add-10000" style="width:100%;height:46px;border:0;border-radius:28px;background:#eff0f3;font:inherit;color:#444;font-size:16px;">
+          <span data-src="t9">+1만</span>
+        </button>
+      </div>
+      <div style="display:flex;">
+        <button data-src="b2" data-action="add-50000" style="width:100%;height:46px;border:0;border-radius:28px;background:#eff0f3;font:inherit;color:#444;font-size:16px;">
+          <span data-src="t10">+5만</span>
+        </button>
+      </div>
+      <div style="display:flex;">
+        <button data-src="b3" data-action="add-100000" style="width:100%;height:46px;border:0;border-radius:28px;background:#eff0f3;font:inherit;color:#444;font-size:16px;">
+          <span data-src="t11">+10만</span>
+        </button>
+      </div>
+      <div style="display:flex;">
+        <button data-src="b0" data-action="use-all" style="width:100%;height:46px;border:0;border-radius:28px;background:#eff0f3;font:inherit;color:#444;font-size:16px;">
+          <span data-src="t12">전액</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- b20의 검출 상자는 숫자판 전체에 걸쳐 있으므로 전체 묶음으로 사용한다. 겹치는 행 상자는 그림의 3열 순서에 맞춰 중첩한다. -->
+    <div data-src="b20" style="display:flex;flex-direction:column;flex:1;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+        <button data-src="b14" data-action="digit-1" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">
+          <span data-src="t13">1</span>
+        </button>
+        <button data-src="t14" data-action="digit-2" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">2</button>
+        <button data-src="t15" data-action="digit-3" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">3</button>
+      </div>
+
+      <div data-src="b11" style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+        <button data-src="b13" data-action="digit-4" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">
+          <span data-src="t16">4</span>
+        </button>
+        <button data-src="t17" data-action="digit-5" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">5</button>
+        <button data-src="t18" data-action="digit-6" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">6</button>
+      </div>
+
+      <div data-src="b9" style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+        <button data-src="b12" data-action="digit-7" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">
+          <span data-src="t19">7</span>
+        </button>
+        <button data-src="t20" data-action="digit-8" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">8</button>
+        <button data-src="t21" data-action="digit-9" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">9</button>
+      </div>
+
+      <div data-src="b6" style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+        <button data-src="t22" data-action="double-zero" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">00</button>
+        <button data-src="t23" data-action="digit-0" style="border:0;background:transparent;color:inherit;font:inherit;font-size:29px;font-weight:500;">0</button>
+        <button data-src="b16" data-action="delete-digit" style="display:flex;align-items:center;justify-content:center;border:0;background:transparent;">
+          <div class="pic" role="img" aria-label="지우기 아이콘" data-src="b18" style="width:18px;height:20px;background:linear-gradient(45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),#eee;border:1px solid #aaa;box-sizing:border-box;"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 다음 버튼의 검출 폭보다 그림의 파란 바탕이 넓어 화면 전체 너비로 배치한다. -->
+  <button data-src="b15" data-action="next" style="width:100%;height:65px;flex-shrink:0;border:0;background:#2c68ef;color:#fff;font:inherit;font-size:23px;font-weight:700;">
+    <span data-src="t24">다음</span>
+  </button>
+</section>
+```
