@@ -16,9 +16,13 @@ import argparse
 import io
 import json
 import os
+import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
+sys.path.insert(0, HERE)
+
+import strict as ST  # noqa: E402
 
 # 고정 띠 - 줄마다 바탕(줄의 중앙값)을 빼고 남은 "잉크" 를 견준다. 바탕색이 다르거나(홈의 회색
 # 바탕) 덮개로 어두워진 캡처(시트 · 팝업 뒤)도 같은 상태바로 보기 위해서다.
@@ -137,7 +141,9 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--dir", required=True)
     ap.add_argument("--captures", default=os.path.join(ROOT, "inputs", "captures", "transfer"))
+    ST.add_arg(ap)
     a = ap.parse_args(argv)
+    ST.from_args(a)          # 사람 정보를 쓰지 않는 단계지만 strict 실행에서는 감사 훅을 켠 채 돈다
     names = sorted(f[:-5] for f in os.listdir(a.dir) if f.endswith(".json")
                    and not f.startswith("_") and f not in ("truth.json", "compare.json"))
     dets = {n: json.load(io.open(os.path.join(a.dir, n + ".json"), encoding="utf-8"))
