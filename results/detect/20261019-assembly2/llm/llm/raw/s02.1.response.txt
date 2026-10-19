@@ -1,0 +1,66 @@
+```html
+<section style="box-sizing:border-box;width:390px;min-height:866px;margin:0;background:#fff;color:#1d1d1f;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <header style="display:flex;align-items:center;gap:14px;padding:35px 17px 0 11px;height:27px;box-sizing:content-box;">
+    <button data-src="b7" data-action="back" style="display:flex;align-items:center;justify-content:center;width:26px;height:27px;padding:0;border:0;background:transparent;color:inherit;">
+      <span data-src="t2" style="font-size:36px;line-height:24px;">‹</span>
+    </button>
+    <div style="flex:1;"></div>
+    <button data-src="t3" data-action="multiple-transfer" style="padding:0;border:0;background:transparent;color:#3276ff;font-size:20px;font-weight:700;white-space:nowrap;">다건이체</button>
+    <button data-src="t4" data-action="add-person" style="display:flex;align-items:center;justify-content:center;width:28px;height:25px;padding:0;border:0;background:transparent;">
+      <div class="pic" role="img" aria-label="사람 추가 아이콘" style="width:28px;height:22px;background:linear-gradient(45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),#eee;"></div>
+    </button>
+    <button data-src="t5" data-action="close" style="display:flex;align-items:center;justify-content:center;width:23px;height:25px;padding:0;border:0;background:transparent;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:23px;height:21px;background:linear-gradient(45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),#eee;"></div>
+    </button>
+  </header>
+
+  <div style="padding:15px 19px 16px 17px;border-bottom:1px solid #e5e6ea;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;height:46px;">
+      <h1 data-src="t6" style="margin:0;font-size:26px;line-height:32px;font-weight:700;letter-spacing:-1px;white-space:nowrap;">누구에게 보낼까요?</h1>
+      <button data-src="b0" data-action="search" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:45px;height:46px;padding:0;border:0;border-radius:13px;background:#f0f0f3;">
+        <div class="pic" role="img" aria-label="검색 아이콘" style="width:22px;height:22px;background:linear-gradient(45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),#ddd;"></div>
+      </button>
+    </div>
+
+    <div style="display:flex;align-items:center;height:28px;margin-top:23px;">
+      <!-- 두 입력 검출 영역은 그림에서 하나의 연속된 입력 안내 문구로 보이므로 붙여 배치한다. -->
+      <div data-src="t7" style="box-sizing:border-box;height:28px;border:1px solid transparent;border-bottom-color:#eee;color:#999da7;font-size:21px;line-height:26px;white-space:nowrap;">계좌번호 직접</div>
+      <div data-src="t8" style="box-sizing:border-box;height:28px;border:1px solid transparent;border-bottom-color:#eee;color:#999da7;font-size:21px;line-height:26px;white-space:nowrap;">입력</div>
+      <div style="flex:1;"></div>
+      <button data-src="b6" data-action="scan-account" style="display:flex;align-items:center;justify-content:center;width:23px;height:25px;padding:0;border:0;background:transparent;">
+        <div class="pic" role="img" aria-label="계좌번호 직접 입력 아이콘" style="width:20px;height:19px;background:linear-gradient(45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),linear-gradient(-45deg,transparent 47%,#aaa 49%,#aaa 51%,transparent 53%),#eee;"></div>
+      </button>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:34px;padding:25px 19px 0 16px;">
+    <div style="display:flex;align-items:center;gap:8px;min-height:40px;">
+      <h2 data-src="t9" style="margin:0;font-size:20px;line-height:26px;font-weight:700;letter-spacing:-0.7px;white-space:nowrap;">자주쓰는 계좌</h2>
+      <button data-src="b3" data-action="edit-accounts" style="display:flex;align-items:center;justify-content:center;width:45px;height:26px;padding:0;border:1px solid #dedee2;border-radius:3px;background:#f4f4f5;color:#777;font:inherit;">
+        <span data-src="t10" style="font-size:16px;line-height:20px;">편집</span>
+      </button>
+      <div style="flex:1;"></div>
+      <button data-src="b1" data-action="expand-favorites" style="display:flex;align-items:center;justify-content:center;gap:7px;flex-shrink:0;width:75px;height:40px;padding:0;border:1px solid #dfe1e7;border-radius:24px;background:#fff;color:#27272a;font:inherit;">
+        <span data-src="t11" style="font-size:18px;">0개</span>
+        <span data-src="t12" style="color:#777;font-size:20px;line-height:20px;">⌄</span>
+      </button>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;min-height:40px;">
+      <h2 data-src="t13" style="margin:0;font-size:20px;line-height:26px;font-weight:700;letter-spacing:-0.7px;">내 계좌</h2>
+      <button data-src="b4" data-action="expand-my-accounts" style="display:flex;align-items:center;justify-content:center;gap:7px;width:75px;height:39px;padding:0;border:1px solid #dfe1e7;border-radius:24px;background:#fff;color:#27272a;font:inherit;">
+        <span data-src="t14" style="font-size:18px;">0개</span>
+        <span data-src="t15" style="color:#777;font-size:20px;line-height:20px;">⌄</span>
+      </button>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;min-height:39px;">
+      <h2 data-src="t16" style="margin:0;font-size:21px;line-height:29px;font-weight:700;letter-spacing:-0.7px;">최근</h2>
+      <button data-src="b2" data-action="expand-recent" style="display:flex;align-items:center;justify-content:center;gap:7px;width:75px;height:39px;padding:0;border:1px solid #dfe1e7;border-radius:24px;background:#fff;color:#27272a;font:inherit;">
+        <span data-src="t17" style="font-size:18px;">0개</span>
+        <span data-src="t18" style="color:#777;font-size:20px;line-height:20px;">⌄</span>
+      </button>
+    </div>
+  </div>
+</section>
+```

@@ -1,0 +1,203 @@
+{
+ "model": "gpt-6.1-sol",
+ "price": {
+  "input": 2.0,
+  "output": 10.0
+ },
+ "prompt_file": "tools/screen_detect/sketch/LLM_PROMPT_V3.md",
+ "screens": {
+  "s01": {
+   "images": 1,
+   "image_tokens": 2121,
+   "text_tokens": 10902,
+   "input_tokens": 13023,
+   "answer_tokens": 6960,
+   "cost_usd": 0.095646,
+   "cost_usd_with_reasoning": 0.165246,
+   "cost_usd_cap": 0.276046,
+   "elements": 111,
+   "captures": [
+    "01a.png",
+    "01b.png",
+    "01c.png"
+   ]
+  },
+  "s02": {
+   "images": 1,
+   "image_tokens": 958,
+   "text_tokens": 3252,
+   "input_tokens": 4210,
+   "answer_tokens": 1740,
+   "cost_usd": 0.02582,
+   "cost_usd_with_reasoning": 0.04322,
+   "cost_usd_cap": 0.25842,
+   "elements": 24,
+   "captures": [
+    "02.png"
+   ]
+  },
+  "s03": {
+   "images": 1,
+   "image_tokens": 958,
+   "text_tokens": 2248,
+   "input_tokens": 3206,
+   "answer_tokens": 1020,
+   "cost_usd": 0.016612,
+   "cost_usd_with_reasoning": 0.026812,
+   "cost_usd_cap": 0.256412,
+   "elements": 12,
+   "captures": [
+    "03.png"
+   ]
+  },
+  "s04": {
+   "images": 1,
+   "image_tokens": 958,
+   "text_tokens": 3375,
+   "input_tokens": 4333,
+   "answer_tokens": 1920,
+   "cost_usd": 0.027866,
+   "cost_usd_with_reasoning": 0.047066,
+   "cost_usd_cap": 0.258666,
+   "elements": 27,
+   "captures": [
+    "04.png"
+   ]
+  },
+  "s05": {
+   "images": 1,
+   "image_tokens": 2212,
+   "text_tokens": 13291,
+   "input_tokens": 15503,
+   "answer_tokens": 8100,
+   "cost_usd": 0.112006,
+   "cost_usd_with_reasoning": 0.193006,
+   "cost_usd_cap": 0.281006,
+   "elements": 130,
+   "captures": [
+    "05a.png",
+    "05b.png",
+    "05c.png"
+   ]
+  },
+  "s06": {
+   "images": 1,
+   "image_tokens": 1756,
+   "text_tokens": 11620,
+   "input_tokens": 13376,
+   "answer_tokens": 6960,
+   "cost_usd": 0.096352,
+   "cost_usd_with_reasoning": 0.165952,
+   "cost_usd_cap": 0.276752,
+   "elements": 111,
+   "captures": [
+    "06a.png",
+    "06b.png",
+    "06c.png"
+   ]
+  },
+  "s07": {
+   "images": 1,
+   "image_tokens": 958,
+   "text_tokens": 4590,
+   "input_tokens": 5548,
+   "answer_tokens": 2880,
+   "cost_usd": 0.039896,
+   "cost_usd_with_reasoning": 0.068696,
+   "cost_usd_cap": 0.261096,
+   "elements": 43,
+   "captures": [
+    "07.png"
+   ]
+  },
+  "s08": {
+   "images": 1,
+   "image_tokens": 958,
+   "text_tokens": 4480,
+   "input_tokens": 5438,
+   "answer_tokens": 2820,
+   "cost_usd": 0.039076,
+   "cost_usd_with_reasoning": 0.067276,
+   "cost_usd_cap": 0.260876,
+   "elements": 42,
+   "captures": [
+    "07a.png"
+   ]
+  },
+  "s09": {
+   "images": 1,
+   "image_tokens": 958,
+   "text_tokens": 2788,
+   "input_tokens": 3746,
+   "answer_tokens": 1440,
+   "cost_usd": 0.021892,
+   "cost_usd_with_reasoning": 0.036292,
+   "cost_usd_cap": 0.257492,
+   "elements": 19,
+   "captures": [
+    "08.png"
+   ]
+  },
+  "s10": {
+   "images": 1,
+   "image_tokens": 958,
+   "text_tokens": 3001,
+   "input_tokens": 3959,
+   "answer_tokens": 1680,
+   "cost_usd": 0.024718,
+   "cost_usd_with_reasoning": 0.041518,
+   "cost_usd_cap": 0.257918,
+   "elements": 23,
+   "captures": [
+    "09a.png"
+   ]
+  },
+  "s11": {
+   "images": 1,
+   "image_tokens": 958,
+   "text_tokens": 3101,
+   "input_tokens": 4059,
+   "answer_tokens": 1680,
+   "cost_usd": 0.024918,
+   "cost_usd_with_reasoning": 0.041718,
+   "cost_usd_cap": 0.258118,
+   "elements": 23,
+   "captures": [
+    "09b.png"
+   ]
+  },
+  "s12": {
+   "images": 1,
+   "image_tokens": 958,
+   "text_tokens": 2154,
+   "input_tokens": 3112,
+   "answer_tokens": 960,
+   "cost_usd": 0.015824,
+   "cost_usd_with_reasoning": 0.025424,
+   "cost_usd_cap": 0.256224,
+   "elements": 11,
+   "captures": [
+    "10.png"
+   ]
+  },
+  "s13": {
+   "images": 1,
+   "image_tokens": 958,
+   "text_tokens": 1916,
+   "input_tokens": 2874,
+   "answer_tokens": 720,
+   "cost_usd": 0.012948,
+   "cost_usd_with_reasoning": 0.020148,
+   "cost_usd_cap": 0.255748,
+   "elements": 7,
+   "captures": [
+    "11.png"
+   ]
+  }
+ },
+ "input_tokens": 82387,
+ "answer_tokens": 38880,
+ "cost_usd": 0.553574,
+ "cost_usd_with_reasoning": 0.942374,
+ "cost_usd_cap": 3.414774
+}

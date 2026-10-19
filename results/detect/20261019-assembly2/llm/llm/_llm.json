@@ -1,0 +1,157 @@
+{
+ "model": "gpt-6.1-sol",
+ "reasoning_effort": "medium",
+ "inputs": "strict",
+ "prompt_file": "tools/screen_detect/sketch/LLM_PROMPT_V3.md",
+ "prompt_sha": "91c9e887cc2e",
+ "max_usd": 2.5,
+ "spent_usd": 0.6768,
+ "stopped": null,
+ "estimate_usd": 0.9424,
+ "reused": true,
+ "screens": {
+  "s01": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 13028,
+   "completion_tokens": 7747,
+   "reasoning_tokens": 132,
+   "cost_usd": 0.103526,
+   "estimate_usd": 0.165246,
+   "truncated": [],
+   "problems_first": 0
+  },
+  "s02": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 4215,
+   "completion_tokens": 1998,
+   "reasoning_tokens": 138,
+   "cost_usd": 0.02841,
+   "estimate_usd": 0.04322,
+   "truncated": [],
+   "problems_first": 0
+  },
+  "s03": {
+   "status": "ok (다시 물음)",
+   "attempts": 2,
+   "prompt_tokens": 6533,
+   "completion_tokens": 2562,
+   "reasoning_tokens": 551,
+   "cost_usd": 0.038686,
+   "estimate_usd": 0.026812,
+   "truncated": [],
+   "problems_first": 2
+  },
+  "s04": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 4338,
+   "completion_tokens": 1961,
+   "reasoning_tokens": 240,
+   "cost_usd": 0.028286,
+   "estimate_usd": 0.047066,
+   "truncated": [],
+   "problems_first": 0
+  },
+  "s05": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 15508,
+   "completion_tokens": 10259,
+   "reasoning_tokens": 418,
+   "cost_usd": 0.133606,
+   "estimate_usd": 0.193006,
+   "truncated": [],
+   "problems_first": 0
+  },
+  "s06": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 13381,
+   "completion_tokens": 7126,
+   "reasoning_tokens": 510,
+   "cost_usd": 0.098022,
+   "estimate_usd": 0.165952,
+   "truncated": [],
+   "problems_first": 0
+  },
+  "s07": {
+   "status": "ok (다시 물음)",
+   "attempts": 2,
+   "prompt_tokens": 11170,
+   "completion_tokens": 5135,
+   "reasoning_tokens": 750,
+   "cost_usd": 0.07369,
+   "estimate_usd": 0.068696,
+   "truncated": [],
+   "problems_first": 1
+  },
+  "s08": {
+   "status": "ok (다시 물음)",
+   "attempts": 2,
+   "prompt_tokens": 10950,
+   "completion_tokens": 5103,
+   "reasoning_tokens": 545,
+   "cost_usd": 0.07293,
+   "estimate_usd": 0.067276,
+   "truncated": [],
+   "problems_first": 1
+  },
+  "s09": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 3751,
+   "completion_tokens": 1596,
+   "reasoning_tokens": 223,
+   "cost_usd": 0.023462,
+   "estimate_usd": 0.036292,
+   "truncated": [],
+   "problems_first": 0
+  },
+  "s10": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 3964,
+   "completion_tokens": 1560,
+   "reasoning_tokens": 202,
+   "cost_usd": 0.023528,
+   "estimate_usd": 0.041518,
+   "truncated": [],
+   "problems_first": 0
+  },
+  "s11": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 4064,
+   "completion_tokens": 1817,
+   "reasoning_tokens": 251,
+   "cost_usd": 0.026298,
+   "estimate_usd": 0.041718,
+   "truncated": [],
+   "problems_first": 0
+  },
+  "s12": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 3117,
+   "completion_tokens": 696,
+   "reasoning_tokens": 0,
+   "cost_usd": 0.013194,
+   "estimate_usd": 0.025424,
+   "truncated": [],
+   "problems_first": 0
+  },
+  "s13": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 2879,
+   "completion_tokens": 742,
+   "reasoning_tokens": 318,
+   "cost_usd": 0.013178,
+   "estimate_usd": 0.020148,
+   "truncated": [],
+   "problems_first": 0
+  }
+ }
+}

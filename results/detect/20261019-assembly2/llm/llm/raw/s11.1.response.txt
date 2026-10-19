@@ -1,0 +1,48 @@
+```html
+<section style="width:390px;height:866px;box-sizing:border-box;display:flex;flex-direction:column;background:#fff;color:#19191d;font-family:Arial,'Noto Sans KR',sans-serif;overflow:hidden;">
+  <div style="display:flex;justify-content:flex-end;padding:41px 20px 0;flex-shrink:0;">
+    <button data-src="b5" data-action="close" aria-label="닫기" style="width:16px;height:18px;padding:0;border:0;background:transparent;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:16px;height:18px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+    </button>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;margin-top:220px;flex-shrink:0;">
+    <div data-src="t2" style="height:33px;line-height:33px;font-size:24px;font-weight:700;white-space:nowrap;">계좌 비밀번호</div>
+    <div style="display:flex;gap:23px;margin-top:35px;height:21px;align-items:center;">
+      <div class="pic" role="img" aria-label="비밀번호 입력 표시 아이콘" data-src="b0" style="width:21px;height:20px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      <div class="pic" role="img" aria-label="비밀번호 입력 표시 아이콘" data-src="b1" style="width:21px;height:21px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      <div class="pic" role="img" aria-label="비밀번호 입력 표시 아이콘" data-src="b2" style="width:21px;height:21px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      <div class="pic" role="img" aria-label="비밀번호 미입력 표시 아이콘" data-src="b3" style="width:20px;height:20px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+    </div>
+  </div>
+
+  <div style="flex:1;"></div>
+
+  <!-- 구역 정보는 없으며, 그림의 숫자판 행을 흐름으로 묶었다. 행의 교정 글은 내부 키로 표시하여 중복하지 않는다. -->
+  <div data-src="b11" style="height:287px;flex-shrink:0;box-sizing:border-box;padding:9px 0 7px;background:#145fff;display:flex;flex-direction:column;">
+    <div data-src="b10" data-ocr="8 6 0" style="height:68px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-src="t3" data-action="digit-8" style="border:0;background:transparent;color:white;font:700 28px Arial;">8</button>
+      <button data-src="t4" data-action="digit-0" style="border:0;background:transparent;color:white;font:700 28px Arial;">0</button>
+      <button data-src="t5" data-action="digit-6" style="border:0;background:transparent;color:white;font:700 28px Arial;">6</button>
+    </div>
+    <div data-src="b8" data-ocr="2 4 1" style="height:67px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-src="t6" data-action="digit-2" style="border:0;background:transparent;color:white;font:700 28px Arial;">2</button>
+      <button data-src="t7" data-action="digit-1" style="border:0;background:transparent;color:white;font:700 28px Arial;">1</button>
+      <button data-src="t8" data-action="digit-4" style="border:0;background:transparent;color:white;font:700 28px Arial;">4</button>
+    </div>
+    <div data-src="b6" data-ocr="9 3 5" style="height:68px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-src="t9" data-action="digit-5" style="border:0;background:transparent;color:white;font:700 28px Arial;">5</button>
+      <button data-src="t10" data-action="digit-9" style="border:0;background:transparent;color:white;font:700 28px Arial;">9</button>
+      <button data-src="t11" data-action="digit-3" style="border:0;background:transparent;color:white;font:700 28px Arial;">3</button>
+    </div>
+    <!-- 지우기 키는 in_box가 없지만 그림에서 마지막 행의 세 번째 칸에 있다. -->
+    <div data-src="b7" data-ocr="7 재배열" style="height:68px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-src="t12" data-action="shuffle" style="border:0;background:transparent;color:#e1ebff;font:400 17px Arial,'Noto Sans KR',sans-serif;">재배열</button>
+      <button data-src="t13" data-action="digit-7" style="border:0;background:transparent;color:white;font:700 28px Arial;">7</button>
+      <button data-src="b9" data-action="delete" aria-label="지우기" style="border:0;background:transparent;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="지우기 아이콘" style="width:24px;height:19px;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      </button>
+    </div>
+  </div>
+</section>
+```

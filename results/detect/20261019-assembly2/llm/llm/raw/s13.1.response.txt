@@ -1,0 +1,18 @@
+```html
+<section style="width:390px;height:866px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;padding-top:317px;background:#777;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <!-- 목록에 없는 배경 화면의 글과 조작 요소는 재현하지 않는다. g3은 그림처럼 안내 상자 안에 배치한다. -->
+  <div data-src="b9" style="width:339px;box-sizing:border-box;padding:24px 21px 14px;background:#eee8f3;border-radius:17px;color:#242424;">
+    <div data-src="t7" style="font-size:18px;font-weight:700;line-height:22px;color:#f13e38;margin-bottom:13px;">ELB00016</div>
+    <div style="display:flex;flex-direction:column;font-size:18px;line-height:26px;letter-spacing:-0.4px;">
+      <div data-src="t8">계좌번호[100]</div>
+      <div data-src="t9" style="white-space:nowrap;">입력하신 계좌번호가 올바르지 않습니다.</div>
+      <div data-src="t10" style="white-space:nowrap;">계좌번호를 확인하시기 바랍니다.</div>
+    </div>
+    <div style="display:flex;margin-top:21px;">
+      <button data-src="b1" data-action="confirm" style="width:100%;height:58px;display:flex;align-items:center;justify-content:center;padding:0;border:0;border-radius:10px;background:#1c60f4;color:#fff;font-family:inherit;cursor:pointer;">
+        <span data-src="t11" style="font-size:20px;font-weight:700;line-height:27px;">확인</span>
+      </button>
+    </div>
+  </div>
+</section>
+```

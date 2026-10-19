@@ -1,0 +1,46 @@
+```html
+<section style="width:390px;height:866px;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;background:#fff;color:#19191d;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <div style="height:59px;flex-shrink:0;box-sizing:border-box;padding:41px 20px 0;display:flex;justify-content:flex-end;">
+    <button data-src="b4" data-action="close" aria-label="닫기" style="width:16px;height:18px;padding:0;border:0;background:transparent;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:16px;height:18px;background:linear-gradient(45deg,transparent 45%,#888 46%,#888 54%,transparent 55%),linear-gradient(-45deg,transparent 45%,#888 46%,#888 54%,transparent 55%),#eee;"></div>
+    </button>
+  </div>
+
+  <div style="margin-top:221px;display:flex;flex-direction:column;align-items:center;">
+    <div data-src="t2" style="height:33px;line-height:33px;font-size:24px;font-weight:700;white-space:nowrap;">계좌 비밀번호</div>
+    <div style="display:flex;gap:23px;margin-top:35px;">
+      <div data-src="b1" style="width:20px;height:20px;box-sizing:border-box;border:1.5px solid #c8cbd0;border-radius:50%;"></div>
+      <div data-src="b2" style="width:20px;height:20px;box-sizing:border-box;border:1.5px solid #c8cbd0;border-radius:50%;"></div>
+      <div data-src="b3" style="width:20px;height:20px;box-sizing:border-box;border:1.5px solid #c8cbd0;border-radius:50%;"></div>
+      <div data-src="b5" style="width:20px;height:20px;box-sizing:border-box;border:1.5px solid #c8cbd0;border-radius:50%;"></div>
+    </div>
+  </div>
+
+  <div style="flex:1;"></div>
+
+  <div data-src="b11" style="height:287px;flex-shrink:0;box-sizing:border-box;padding:9px 0 7px;display:flex;flex-direction:column;background:#1260ff;color:#fff;">
+    <div data-src="b10" data-ocr="8 6 0" style="height:68px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-src="t3" data-action="digit-eight" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">8</button>
+      <button data-src="t4" data-action="digit-zero" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">0</button>
+      <button data-src="t5" data-action="digit-six" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">6</button>
+    </div>
+    <div data-src="b8" data-ocr="2 4 1" style="height:67px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-src="t6" data-action="digit-two" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">2</button>
+      <button data-src="t7" data-action="digit-one" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">1</button>
+      <button data-src="t8" data-action="digit-four" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">4</button>
+    </div>
+    <div data-src="b6" data-ocr="9 3 5" style="height:67px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-src="t9" data-action="digit-five" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">5</button>
+      <button data-src="t10" data-action="digit-nine" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">9</button>
+      <button data-src="t11" data-action="digit-three" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">3</button>
+    </div>
+    <div data-src="b7" data-ocr="7 재배열" style="height:69px;display:grid;grid-template-columns:repeat(3,1fr);">
+      <button data-src="t12" data-action="shuffle" style="border:0;background:transparent;color:#dbe6ff;font:18px Arial,'Noto Sans KR',sans-serif;padding:0;">재배열</button>
+      <button data-src="t13" data-action="digit-seven" style="border:0;background:transparent;color:inherit;font:600 28px Arial;padding:0;">7</button>
+      <button data-src="b9" data-action="delete" aria-label="지우기" style="border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="지우기 아이콘" style="width:24px;height:19px;box-sizing:border-box;border:1px solid #aaa;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#ddd;"></div>
+      </button>
+    </div>
+  </div>
+</section>
+```

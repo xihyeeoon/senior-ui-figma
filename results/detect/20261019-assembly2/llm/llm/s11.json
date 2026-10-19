@@ -1,0 +1,36 @@
+{
+ "screen": "s11",
+ "captures": [
+  "09b.png"
+ ],
+ "model": "gpt-6.1-sol",
+ "reasoning_effort": "medium",
+ "prompt_sha": "91c9e887cc2e",
+ "estimate": {
+  "images": 1,
+  "image_tokens": 958,
+  "text_tokens": 3101,
+  "input_tokens": 4059,
+  "answer_tokens": 1680,
+  "cost_usd": 0.024918,
+  "cost_usd_with_reasoning": 0.041718,
+  "cost_usd_cap": 0.258118
+ },
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 4064,
+    "completion": 1817,
+    "reasoning": 251
+   },
+   "cost_usd": 0.026298,
+   "seconds": 31.2,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "truncated": false,
+   "problems": []
+  }
+ ],
+ "status": "ok"
+}

@@ -1,0 +1,54 @@
+```html
+<section style="width:390px;height:866px;box-sizing:border-box;background:#fff;color:#1d1d1f;font-family:Arial,'Noto Sans KR',sans-serif;display:flex;flex-direction:column;padding:35px 0 19px;overflow:hidden;">
+  <div data-src="b10" style="height:30px;flex-shrink:0;margin:0 15px 0 12px;display:flex;align-items:center;justify-content:space-between;">
+    <button data-src="b7" data-action="back" style="width:25px;height:27px;padding:0;border:0;background:transparent;display:flex;align-items:center;justify-content:center;">
+      <div data-src="t3" role="button" data-action="back" style="font-size:36px;line-height:22px;font-weight:400;">‹</div>
+    </button>
+    <button data-src="b4" data-action="close" aria-label="닫기" style="width:24px;height:24px;border:0;background:transparent;padding:3px;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:18px;height:18px;box-sizing:border-box;border:1px solid #aaa;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+    </button>
+  </div>
+
+  <h1 data-src="t4" style="margin:14px 16px 0;font-size:26px;font-weight:700;line-height:37px;letter-spacing:-1.2px;">누구에게 보낼까요?</h1>
+
+  <div style="display:flex;flex-direction:column;gap:12px;margin:20px 20px 0 19px;">
+    <div data-src="b1" data-ocr="계좌번호 |없이 숫자만 입력" style="height:83px;box-sizing:border-box;border:1.5px solid #3671ff;border-radius:14px;padding:12px 17px;display:flex;flex-direction:column;gap:5px;">
+      <span data-src="t5" style="color:#3671ff;font-size:14px;font-weight:700;line-height:19px;">계좌번호</span>
+      <span data-src="t6" data-ocr="|없이 숫자만 입력" style="color:#999da5;font-size:23px;font-weight:700;line-height:30px;letter-spacing:-.8px;">없이 숫자만 입력</span>
+    </div>
+    <button data-src="b0" data-action="select-bank" style="height:66px;box-sizing:border-box;border:1px solid #f0f1f4;border-radius:13px;background:#f6f7f9;padding:0 23px 0 16px;display:flex;align-items:center;justify-content:space-between;text-align:left;">
+      <span data-src="t7" style="color:#999da5;font-size:21px;letter-spacing:-.7px;line-height:27px;">은행 또는 증권사 선택</span>
+      <span aria-hidden="true" style="color:#6c6e73;font-size:26px;line-height:24px;">⌄</span>
+    </button>
+  </div>
+
+  <!-- b11은 검출 상자대로 숫자판 전체를 감싸되, 실제 그림의 순서에 맞춰 숫자를 1–9와 0의 행으로 배치한다. -->
+  <div data-src="b11" style="margin-top:auto;height:237px;flex-shrink:0;display:flex;flex-direction:column;border-radius:20px 20px 0 0;background:#fff;box-shadow:0 -5px 16px rgba(0,0,0,.025);">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+      <button data-src="t8" data-action="digit-1" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">1</button>
+      <button data-src="t9" data-action="digit-2" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">2</button>
+      <button data-src="t10" data-action="digit-3" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">3</button>
+    </div>
+    <div data-src="b8" style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+      <button data-src="t11" data-action="digit-4" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">4</button>
+      <button data-src="t12" data-action="digit-5" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">5</button>
+      <button data-src="t13" data-action="digit-6" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">6</button>
+    </div>
+    <div data-src="b6" style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+      <button data-src="t14" data-action="digit-7" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">7</button>
+      <button data-src="t15" data-action="digit-8" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">8</button>
+      <button data-src="t16" data-action="digit-9" style="border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">9</button>
+    </div>
+    <div data-src="b5" style="display:grid;grid-template-columns:repeat(3,1fr);flex:1;">
+      <button data-src="t17" data-action="digit-0" style="grid-column:2;border:0;background:transparent;color:#1d1d1f;font-size:29px;padding:0;">0</button>
+      <button data-src="b9" data-action="delete" aria-label="삭제" style="grid-column:3;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="삭제 아이콘" style="width:20px;height:21px;box-sizing:border-box;border:1px solid #aaa;background:linear-gradient(45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#999 47%,#999 53%,transparent 54%),#eee;"></div>
+      </button>
+    </div>
+  </div>
+
+  <button data-src="b2" data-action="next" disabled style="height:63px;flex-shrink:0;margin:8px 15px 0;border:0;border-radius:13px;background:#edeef2;color:#999da5;display:flex;align-items:center;justify-content:center;">
+    <span data-src="t18" style="font-size:21px;font-weight:700;line-height:28px;">다음</span>
+  </button>
+</section>
+```

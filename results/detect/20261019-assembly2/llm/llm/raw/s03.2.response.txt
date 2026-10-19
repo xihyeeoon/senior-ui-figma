@@ -1,0 +1,31 @@
+```html
+<section style="width:390px;max-width:100%;height:866px;box-sizing:border-box;padding:35px 16px 18px;display:flex;flex-direction:column;background:#fff;color:#19191c;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <div data-src="b7" style="height:30px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;">
+    <button data-src="b6" data-action="back" aria-label="뒤로" style="width:25px;height:27px;margin-left:-4px;padding:0;border:0;background:#fff;color:#222;display:grid;place-items:center;font-size:34px;line-height:27px;">
+      <span style="grid-area:1 / 1;">‹</span>
+      <div data-src="t3" role="button" data-action="back" aria-label="뒤로" style="grid-area:1 / 1;width:17px;height:27px;background:#fff;line-height:27px;">‹</div>
+    </button>
+    <button data-src="b4" data-action="close" aria-label="닫기" style="width:23px;height:24px;padding:0;border:0;background:transparent;display:flex;align-items:center;justify-content:center;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:17px;height:18px;border:1px solid #999;box-sizing:border-box;background:linear-gradient(45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),#eee;"></div>
+    </button>
+  </div>
+
+  <h1 data-src="t4" style="margin:14px 0 20px;font-size:26px;line-height:37px;font-weight:700;letter-spacing:-1px;">누구에게 보낼까요?</h1>
+
+  <div style="display:flex;flex-direction:column;gap:12px;margin:0 3px;">
+    <div data-src="b1" data-ocr="계좌번호 |없이 숫자만 입력" style="height:83px;box-sizing:border-box;border:2px solid #326bff;border-radius:14px;padding:12px 17px;display:flex;flex-direction:column;gap:6px;">
+      <span data-src="t5" style="color:#326bff;font-size:15px;line-height:19px;font-weight:700;">계좌번호</span>
+      <span data-src="t6" data-ocr="|없이 숫자만 입력" style="color:#999da6;font-size:23px;line-height:30px;font-weight:700;letter-spacing:-0.8px;">없이 숫자만 입력</span>
+    </div>
+
+    <button data-src="b0" data-action="select-bank" style="height:66px;box-sizing:border-box;border:1px solid #eef0f4;border-radius:13px;padding:0 18px;background:#f6f7f9;display:flex;align-items:center;justify-content:space-between;text-align:left;">
+      <span data-src="t7" style="font-size:20px;line-height:27px;color:#999da6;letter-spacing:-0.6px;">은행 또는 증권사 선택</span>
+      <span aria-hidden="true" style="font-size:25px;line-height:20px;color:#6c6d72;">⌄</span>
+    </button>
+  </div>
+
+  <button data-src="b2" data-action="next" disabled style="width:100%;height:64px;flex-shrink:0;margin-top:auto;padding:0;border:0;border-radius:14px;background:#edeef2;display:flex;align-items:center;justify-content:center;color:#999da6;">
+    <span data-src="t8" style="font-size:21px;line-height:28px;font-weight:700;">다음</span>
+  </button>
+</section>
+```

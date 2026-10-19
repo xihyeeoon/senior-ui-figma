@@ -1,0 +1,33 @@
+```html
+<section style="box-sizing:border-box;width:390px;max-width:100%;height:866px;padding:35px 16px 18px;display:flex;flex-direction:column;background:#ffffff;color:#1d1d1f;font-family:Arial,'Noto Sans KR',sans-serif;">
+  <!-- b7은 별도 글이 없는 상단 탐색 묶음으로 사용한다. 겹쳐 검출된 뒤로 요소는 같은 grid 칸에 둔다. -->
+  <div data-src="b7" style="height:30px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;">
+    <button data-src="b6" data-action="back" aria-label="뒤로" style="width:25px;height:27px;margin-left:-4px;padding:0;border:0;background:transparent;display:grid;place-items:center;">
+      <div class="pic" role="img" aria-label="뒤로 아이콘" style="grid-area:1 / 1;width:17px;height:22px;background:linear-gradient(45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),#eeeeee;"></div>
+      <div data-src="t3" role="button" data-action="back" aria-label="뒤로" style="grid-area:1 / 1;display:flex;align-items:center;justify-content:center;width:17px;height:22px;">
+        <div class="pic" role="img" aria-label="뒤로 아이콘" style="width:17px;height:22px;background:linear-gradient(45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),#eeeeee;"></div>
+      </div>
+    </button>
+    <button data-src="b4" data-action="close" aria-label="닫기" style="width:24px;height:27px;padding:0;border:0;background:transparent;display:flex;align-items:center;justify-content:center;">
+      <div class="pic" role="img" aria-label="닫기 아이콘" style="width:17px;height:18px;background:linear-gradient(45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),linear-gradient(-45deg,transparent 47%,#999 48%,#999 52%,transparent 53%),#eeeeee;"></div>
+    </button>
+  </div>
+
+  <h1 data-src="t4" style="margin:14px 0 20px;font-size:26px;line-height:37px;letter-spacing:-1.2px;font-weight:700;">누구에게 보낼까요?</h1>
+
+  <div style="display:flex;flex-direction:column;gap:12px;padding:0 3px;">
+    <div data-src="b1" data-ocr="계좌번호 |없이 숫자만 입력" role="textbox" aria-label="계좌번호" contenteditable="false" style="box-sizing:border-box;height:83px;border:1.5px solid #326bff;border-radius:14px;padding:12px 17px 10px;display:flex;flex-direction:column;gap:5px;">
+      <span data-src="t5" style="font-size:14px;line-height:19px;font-weight:700;color:#326bff;">계좌번호</span>
+      <span data-src="t6" data-ocr="|없이 숫자만 입력" style="font-size:23px;line-height:33px;font-weight:700;letter-spacing:-0.8px;color:#9b9ea6;">없이 숫자만 입력</span>
+    </div>
+
+    <button data-src="b0" data-action="select-bank" style="box-sizing:border-box;height:66px;width:100%;padding:0 16px;border:0;border-radius:13px;background:#f6f7f9;text-align:left;display:flex;align-items:center;">
+      <span data-src="t7" style="font-size:21px;line-height:27px;font-weight:400;letter-spacing:-0.6px;color:#9b9ea6;">은행 또는 증권사 선택</span>
+    </button>
+  </div>
+
+  <button data-src="b2" data-action="next" disabled style="box-sizing:border-box;width:100%;height:64px;flex-shrink:0;margin-top:auto;padding:0;border:0;border-radius:14px;background:#edeef2;display:flex;align-items:center;justify-content:center;opacity:1;">
+    <span data-src="t8" style="font-size:20px;line-height:28px;font-weight:700;color:#9b9ea6;">다음</span>
+  </button>
+</section>
+```
