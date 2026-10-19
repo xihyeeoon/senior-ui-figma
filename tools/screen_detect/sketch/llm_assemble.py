@@ -8,7 +8,8 @@ r"""탐색용 시안 — 조립 설계 전. (나) LLM 시안: 같은 입력을 �
 단위마다 모델 한 번 (gpt-6.1-sol, 의미 층과 같은 모델 · 같은 키 읽는 방식 - senior_ui.restructure.model). 보내는 것:
   그림   단위 그림 (이은 화면은 이은 그림) 을 폭 600 으로 줄이고 요소마다 mark 번호를 적은 것 한 장 (의미 층 semantic.py 의
          draw_marks 와 같은 크기 규칙 · 같은 그리기)
-  글     LLM_PROMPT.md 의 `---` 아래 + 공통 입력 (common.py - 요소 · 구역 · 띠 · 이름표, 좌표는 CSS px)
+  글     LLM_PROMPT.md 의 `---` 아래 + 공통 입력 (common.py - 요소 · 구역 · 띠, 좌표는 CSS px). 화면은 캡처 파일
+         이름으로만 부른다 - 이름표(label) · 단위 이름은 넣지 않는다 (10/19 "스크린샷만")
 출력 검사 (코드): data-src 가 요소 id 와 하나씩 맞나 (빠짐 · 없는 id · 겹침), data-src 를 단 요소 밖의 보이는 글이
 있나 (새로 만든 글), <script> · <style> 이 있나. 틀리면 문제를 적어 한 번 다시 묻고, 그래도 틀리면 그대로 저장하고
 "검사 실패" 로 적는다 (짐작해 고치지 않는다). 화면 이동은 코드가 흐름 짝(kind tap)으로 data-go 를 붙인다.
@@ -61,7 +62,8 @@ def build(u, folder):
                                "in_box": e["in_box"], "region": e["region"], "box": e["box_css"]},
                               ensure_ascii=False, separators=(",", ":"))
     body = io.open(PROMPT_FILE, encoding="utf-8").read().split("\n---\n", 1)[1]
-    prompt = (body.replace("{{UNIT}}", u["unit"]).replace("{{LABEL}}", u["label"] or "-")
+    # 캡처 파일 이름만 - 이름표(label) · 단위 이름(GROUPS 의 화면 이름)은 사람이 쓴 것이라 넣지 않는다 (10/19)
+    prompt = (body.replace("{{CAPTURES}}", " + ".join(c + ".png" for c in u["captures"]))
               .replace("{{HEIGHT}}", str(u["size_css"][1]))
               .replace("{{ELEMENTS}}", "\n".join(el(e) for e in rows))
               .replace("{{REGIONS}}", "\n".join(json.dumps({"id": r["id"], "parent": r["parent"], "box": r["box_css"]},
