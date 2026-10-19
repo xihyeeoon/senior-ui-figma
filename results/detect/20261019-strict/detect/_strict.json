@@ -1,0 +1,858 @@
+{
+ "from": "results/detect/20261013-d25/final",
+ "note": "검출(OmniParser · OCR · 설명 · 칸 안 그림 후보)은 D2.5 final 그대로. LOGO_HEAD 규칙이 붙인 로고 이름(name)과 그 칸 글(label)만 지웠다 - 그림 후보를 찾을 때 은행 칸에서 칸 글만 지운 차이는 남아 있다 (후보 자체를 다시 찾으려면 설명 모델을 다시 돌려야 한다)",
+ "stripped": [
+  {
+   "file": "05a.json",
+   "id": "i0",
+   "field": "name",
+   "value": "신협 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i0",
+   "field": "label",
+   "value": "t16"
+  },
+  {
+   "file": "05a.json",
+   "id": "i1",
+   "field": "name",
+   "value": "한국씨티 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i1",
+   "field": "label",
+   "value": "t21"
+  },
+  {
+   "file": "05a.json",
+   "id": "i2",
+   "field": "name",
+   "value": "카카오뱅크 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i2",
+   "field": "label",
+   "value": "t22"
+  },
+  {
+   "file": "05a.json",
+   "id": "i3",
+   "field": "name",
+   "value": "산업 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i3",
+   "field": "label",
+   "value": "t13"
+  },
+  {
+   "file": "05a.json",
+   "id": "i4",
+   "field": "name",
+   "value": "우리 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i4",
+   "field": "label",
+   "value": "t17"
+  },
+  {
+   "file": "05a.json",
+   "id": "i5",
+   "field": "name",
+   "value": "농협 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i5",
+   "field": "label",
+   "value": "t12"
+  },
+  {
+   "file": "05a.json",
+   "id": "i6",
+   "field": "name",
+   "value": "하나 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i6",
+   "field": "label",
+   "value": "t20"
+  },
+  {
+   "file": "05a.json",
+   "id": "i7",
+   "field": "name",
+   "value": "수협 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i7",
+   "field": "label",
+   "value": "t15"
+  },
+  {
+   "file": "05a.json",
+   "id": "i8",
+   "field": "name",
+   "value": "기업 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i8",
+   "field": "label",
+   "value": "t11"
+  },
+  {
+   "file": "05a.json",
+   "id": "i9",
+   "field": "name",
+   "value": "제주 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i9",
+   "field": "label",
+   "value": "t8"
+  },
+  {
+   "file": "05a.json",
+   "id": "i10",
+   "field": "name",
+   "value": "국민 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i10",
+   "field": "label",
+   "value": "t9"
+  },
+  {
+   "file": "05a.json",
+   "id": "i11",
+   "field": "name",
+   "value": "신한 로고"
+  },
+  {
+   "file": "05a.json",
+   "id": "i11",
+   "field": "label",
+   "value": "t7"
+  },
+  {
+   "file": "05b.json",
+   "id": "i0",
+   "field": "name",
+   "value": "회원수협 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i0",
+   "field": "label",
+   "value": "t17"
+  },
+  {
+   "file": "05b.json",
+   "id": "i1",
+   "field": "name",
+   "value": "새마을 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i1",
+   "field": "label",
+   "value": "t18"
+  },
+  {
+   "file": "05b.json",
+   "id": "i2",
+   "field": "name",
+   "value": "저축은행 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i2",
+   "field": "label",
+   "value": "t21"
+  },
+  {
+   "file": "05b.json",
+   "id": "i3",
+   "field": "name",
+   "value": "전북 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i3",
+   "field": "label",
+   "value": "t16"
+  },
+  {
+   "file": "05b.json",
+   "id": "i4",
+   "field": "name",
+   "value": "지역농.축협 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i4",
+   "field": "label",
+   "value": "t22"
+  },
+  {
+   "file": "05b.json",
+   "id": "i5",
+   "field": "name",
+   "value": "아이엠뱅크(대. 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i5",
+   "field": "label",
+   "value": "t14"
+  },
+  {
+   "file": "05b.json",
+   "id": "i6",
+   "field": "name",
+   "value": "부산 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i6",
+   "field": "label",
+   "value": "t15"
+  },
+  {
+   "file": "05b.json",
+   "id": "i7",
+   "field": "name",
+   "value": "우체국 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i7",
+   "field": "label",
+   "value": "t20"
+  },
+  {
+   "file": "05b.json",
+   "id": "i8",
+   "field": "name",
+   "value": "광주 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i8",
+   "field": "label",
+   "value": "t13"
+  },
+  {
+   "file": "05b.json",
+   "id": "i9",
+   "field": "name",
+   "value": "토스뱅크 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i9",
+   "field": "label",
+   "value": "t10"
+  },
+  {
+   "file": "05b.json",
+   "id": "i10",
+   "field": "name",
+   "value": "중국 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i10",
+   "field": "label",
+   "value": "t24"
+  },
+  {
+   "file": "05b.json",
+   "id": "i11",
+   "field": "name",
+   "value": "중국건설 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i11",
+   "field": "label",
+   "value": "t25"
+  },
+  {
+   "file": "05b.json",
+   "id": "i12",
+   "field": "name",
+   "value": "도이치 로고"
+  },
+  {
+   "file": "05b.json",
+   "id": "i12",
+   "field": "label",
+   "value": "t23"
+  },
+  {
+   "file": "05c.json",
+   "id": "b21",
+   "field": "name",
+   "value": "중국공상 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "b21",
+   "field": "label",
+   "value": "t10"
+  },
+  {
+   "file": "05c.json",
+   "id": "i0",
+   "field": "name",
+   "value": "JP모간 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "i0",
+   "field": "label",
+   "value": "t14"
+  },
+  {
+   "file": "05c.json",
+   "id": "i1",
+   "field": "name",
+   "value": "국세 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "i1",
+   "field": "label",
+   "value": "t17"
+  },
+  {
+   "file": "05c.json",
+   "id": "i2",
+   "field": "name",
+   "value": "SC 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "i2",
+   "field": "label",
+   "value": "t15"
+  },
+  {
+   "file": "05c.json",
+   "id": "i3",
+   "field": "name",
+   "value": "HSBC 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "i3",
+   "field": "label",
+   "value": "t13"
+  },
+  {
+   "file": "05c.json",
+   "id": "i4",
+   "field": "name",
+   "value": "산림조합 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "i4",
+   "field": "label",
+   "value": "t16"
+  },
+  {
+   "file": "05c.json",
+   "id": "i5",
+   "field": "name",
+   "value": "지방세 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "i5",
+   "field": "label",
+   "value": "t18"
+  },
+  {
+   "file": "05c.json",
+   "id": "i6",
+   "field": "name",
+   "value": "BNP파리바 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "i6",
+   "field": "label",
+   "value": "t11"
+  },
+  {
+   "file": "05c.json",
+   "id": "i7",
+   "field": "name",
+   "value": "BOA 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "i7",
+   "field": "label",
+   "value": "t12"
+  },
+  {
+   "file": "05c.json",
+   "id": "i8",
+   "field": "name",
+   "value": "국고금 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "i8",
+   "field": "label",
+   "value": "t19"
+  },
+  {
+   "file": "05c.json",
+   "id": "i9",
+   "field": "name",
+   "value": "관세 로고"
+  },
+  {
+   "file": "05c.json",
+   "id": "i9",
+   "field": "label",
+   "value": "t20"
+  },
+  {
+   "file": "06a.json",
+   "id": "i0",
+   "field": "name",
+   "value": "삼성증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i0",
+   "field": "label",
+   "value": "t18"
+  },
+  {
+   "file": "06a.json",
+   "id": "i1",
+   "field": "name",
+   "value": "상상인증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i1",
+   "field": "label",
+   "value": "t19"
+  },
+  {
+   "file": "06a.json",
+   "id": "i2",
+   "field": "name",
+   "value": "에스케이증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i2",
+   "field": "label",
+   "value": "t22"
+  },
+  {
+   "file": "06a.json",
+   "id": "i5",
+   "field": "name",
+   "value": "유안타증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i5",
+   "field": "label",
+   "value": "t23"
+  },
+  {
+   "file": "06a.json",
+   "id": "i6",
+   "field": "name",
+   "value": "메리츠증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i6",
+   "field": "label",
+   "value": "t14"
+  },
+  {
+   "file": "06a.json",
+   "id": "i7",
+   "field": "name",
+   "value": "미래에셋증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i7",
+   "field": "label",
+   "value": "t15"
+  },
+  {
+   "file": "06a.json",
+   "id": "i8",
+   "field": "name",
+   "value": "신영증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i8",
+   "field": "label",
+   "value": "t21"
+  },
+  {
+   "file": "06a.json",
+   "id": "i9",
+   "field": "name",
+   "value": "대신증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i9",
+   "field": "label",
+   "value": "t13"
+  },
+  {
+   "file": "06a.json",
+   "id": "i10",
+   "field": "name",
+   "value": "부국증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i10",
+   "field": "label",
+   "value": "t17"
+  },
+  {
+   "file": "06a.json",
+   "id": "i11",
+   "field": "name",
+   "value": "교보증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i11",
+   "field": "label",
+   "value": "t9"
+  },
+  {
+   "file": "06a.json",
+   "id": "i12",
+   "field": "name",
+   "value": "다올투자증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i12",
+   "field": "label",
+   "value": "t10"
+  },
+  {
+   "file": "06a.json",
+   "id": "i13",
+   "field": "name",
+   "value": "신한투자증권 로고"
+  },
+  {
+   "file": "06a.json",
+   "id": "i13",
+   "field": "label",
+   "value": "t8"
+  },
+  {
+   "file": "06b.json",
+   "id": "i0",
+   "field": "name",
+   "value": "한화투자증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i0",
+   "field": "label",
+   "value": "t17"
+  },
+  {
+   "file": "06b.json",
+   "id": "i1",
+   "field": "name",
+   "value": "하나증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i1",
+   "field": "label",
+   "value": "t14"
+  },
+  {
+   "file": "06b.json",
+   "id": "i2",
+   "field": "name",
+   "value": "DB증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i2",
+   "field": "label",
+   "value": "t21"
+  },
+  {
+   "file": "06b.json",
+   "id": "i3",
+   "field": "name",
+   "value": "아이엠증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i3",
+   "field": "label",
+   "value": "t15"
+  },
+  {
+   "file": "06b.json",
+   "id": "i4",
+   "field": "name",
+   "value": "현대차증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i4",
+   "field": "label",
+   "value": "t18"
+  },
+  {
+   "file": "06b.json",
+   "id": "i5",
+   "field": "name",
+   "value": "한국투자증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i5",
+   "field": "label",
+   "value": "t16"
+  },
+  {
+   "file": "06b.json",
+   "id": "i6",
+   "field": "name",
+   "value": "BNK투자증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i6",
+   "field": "label",
+   "value": "t20"
+  },
+  {
+   "file": "06b.json",
+   "id": "i7",
+   "field": "name",
+   "value": "우리투자증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i7",
+   "field": "label",
+   "value": "t13"
+  },
+  {
+   "file": "06b.json",
+   "id": "i8",
+   "field": "name",
+   "value": "IBK투자증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i8",
+   "field": "label",
+   "value": "t22"
+  },
+  {
+   "file": "06b.json",
+   "id": "i9",
+   "field": "name",
+   "value": "키움증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i9",
+   "field": "label",
+   "value": "t11"
+  },
+  {
+   "file": "06b.json",
+   "id": "i10",
+   "field": "name",
+   "value": "토스증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i10",
+   "field": "label",
+   "value": "t12"
+  },
+  {
+   "file": "06b.json",
+   "id": "i11",
+   "field": "name",
+   "value": "케이프투자증권 로고"
+  },
+  {
+   "file": "06b.json",
+   "id": "i11",
+   "field": "label",
+   "value": "t10"
+  },
+  {
+   "file": "06c.json",
+   "id": "i0",
+   "field": "name",
+   "value": "한화투자증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i0",
+   "field": "label",
+   "value": "t14"
+  },
+  {
+   "file": "06c.json",
+   "id": "i1",
+   "field": "name",
+   "value": "현대차증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i1",
+   "field": "label",
+   "value": "t15"
+  },
+  {
+   "file": "06c.json",
+   "id": "i2",
+   "field": "name",
+   "value": "DB증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i2",
+   "field": "label",
+   "value": "t18"
+  },
+  {
+   "file": "06c.json",
+   "id": "i3",
+   "field": "name",
+   "value": "한국투자증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i3",
+   "field": "label",
+   "value": "t13"
+  },
+  {
+   "file": "06c.json",
+   "id": "i4",
+   "field": "name",
+   "value": "BNK투자증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i4",
+   "field": "label",
+   "value": "t17"
+  },
+  {
+   "file": "06c.json",
+   "id": "i5",
+   "field": "name",
+   "value": "IBK투자증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i5",
+   "field": "label",
+   "value": "t19"
+  },
+  {
+   "file": "06c.json",
+   "id": "i6",
+   "field": "name",
+   "value": "아이엠증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i6",
+   "field": "label",
+   "value": "t12"
+  },
+  {
+   "file": "06c.json",
+   "id": "i7",
+   "field": "name",
+   "value": "하나증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i7",
+   "field": "label",
+   "value": "t11"
+  },
+  {
+   "file": "06c.json",
+   "id": "i8",
+   "field": "name",
+   "value": "우리투자증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i8",
+   "field": "label",
+   "value": "t10"
+  },
+  {
+   "file": "06c.json",
+   "id": "i9",
+   "field": "name",
+   "value": "KB증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i9",
+   "field": "label",
+   "value": "t21"
+  },
+  {
+   "file": "06c.json",
+   "id": "i10",
+   "field": "name",
+   "value": "NH투자증권 로고"
+  },
+  {
+   "file": "06c.json",
+   "id": "i10",
+   "field": "label",
+   "value": "t22"
+  }
+ ]
+}
