@@ -42,7 +42,7 @@ REF = "origin/feat/db-principles"
 PAIR_MIN = 0.3
 CATS = ["같음", "다름", "새에만", "옛에만", "캡처 없음"]
 
-NEW = r"""(id) => {
+NEW = r"""([id, inputs]) => {
   const s = document.querySelector('.screen[data-screen="' + id + '"]');
   const vis = e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
   const clean = t => (t || '').replace(/\s+/g, ' ').trim();
@@ -66,7 +66,10 @@ NEW = r"""(id) => {
     return {action: el.dataset.action, v: el.dataset.v || null, text: clean(el.innerText),
             aria: el.getAttribute('aria-label') || (img ? img.getAttribute('aria-label') : null)};
   });
-  const fields = Array.from(s.querySelectorAll('.input')).filter(vis).map(e => clean(e.innerText));
+  // 입력칸 = .input (규칙 마크업) 또는 의미 층 kind input 인 data-src 요소 (LLM 마크업은 class 를 짓지 않는다)
+  const fl = new Set(Array.from(s.querySelectorAll('.input')));
+  s.querySelectorAll('[data-src]').forEach(e => { if (inputs.includes(e.dataset.src)) fl.add(e); });
+  const fields = Array.from(fl).filter(vis).map(e => clean(e.innerText));
   return {texts, images, choices, press, fields};
 }"""
 
@@ -79,13 +82,18 @@ def git_json(path):
 async def new_lists(folder, screens):
     from playwright.async_api import async_playwright
     out = {}
+    trace = json.load(io.open(os.path.join(folder, "trace.json"), encoding="utf-8"))
+    inputs = {}
+    for t in trace.values():
+        if (t["semantic"] or {}).get("kind") == "input":
+            inputs.setdefault(t["screen"], []).append(t["element"])
     async with async_playwright() as pw:
         browser = await pw.chromium.launch()
         page = await browser.new_page(viewport={"width": 390, "height": 844})
         await page.goto("file:///" + os.path.join(folder, "original.html").replace("\\", "/"))
         for s in screens:
             await page.evaluate("(s) => show(s)", s)
-            out[s] = await page.evaluate(NEW, s)
+            out[s] = await page.evaluate(NEW, [s, inputs.get(s, [])])
         await browser.close()
     return out
 
