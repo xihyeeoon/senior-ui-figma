@@ -1,0 +1,853 @@
+{
+ "variants": {
+  "원본": {
+   "scale": 1.0,
+   "jpeg": null
+  },
+  "JPEG 90": {
+   "scale": 1.0,
+   "jpeg": 90
+  },
+  "JPEG 75": {
+   "scale": 1.0,
+   "jpeg": 75
+  },
+  "0.75배": {
+   "scale": 0.75,
+   "jpeg": null
+  },
+  "0.75배 + JPEG 75": {
+   "scale": 0.75,
+   "jpeg": 75
+  }
+ },
+ "diffs": [
+  2,
+  3,
+  4
+ ],
+ "blur_rule": {
+  "box_below": 12,
+  "extra_over": 62
+ },
+ "blurred": true,
+ "rows": [
+  {
+   "variant": "원본",
+   "diff": 2,
+   "blur": false,
+   "totals": {
+    "box": [
+     16,
+     17
+    ],
+    "control": [
+     92,
+     97
+    ],
+    "extra": 31,
+    "found": 139,
+    "group_bg": [
+     653,
+     666
+    ],
+    "group_bg_in": [
+     374,
+     387
+    ],
+    "group": [
+     412,
+     447
+    ],
+    "all": [
+     108,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.93
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  },
+  {
+   "variant": "원본",
+   "diff": 3,
+   "blur": false,
+   "totals": {
+    "box": [
+     16,
+     17
+    ],
+    "control": [
+     92,
+     97
+    ],
+    "extra": 30,
+    "found": 138,
+    "group_bg": [
+     653,
+     666
+    ],
+    "group_bg_in": [
+     374,
+     387
+    ],
+    "group": [
+     412,
+     447
+    ],
+    "all": [
+     108,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.93
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  },
+  {
+   "variant": "원본",
+   "diff": 4,
+   "blur": false,
+   "totals": {
+    "box": [
+     16,
+     17
+    ],
+    "control": [
+     92,
+     97
+    ],
+    "extra": 30,
+    "found": 138,
+    "group_bg": [
+     653,
+     666
+    ],
+    "group_bg_in": [
+     374,
+     387
+    ],
+    "group": [
+     412,
+     447
+    ],
+    "all": [
+     108,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.93
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  },
+  {
+   "variant": "JPEG 90",
+   "diff": 2,
+   "blur": false,
+   "totals": {
+    "box": [
+     16,
+     17
+    ],
+    "control": [
+     92,
+     97
+    ],
+    "extra": 30,
+    "found": 138,
+    "group_bg": [
+     653,
+     666
+    ],
+    "group_bg_in": [
+     374,
+     387
+    ],
+    "group": [
+     412,
+     447
+    ],
+    "all": [
+     108,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.93
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  },
+  {
+   "variant": "JPEG 90",
+   "diff": 3,
+   "blur": false,
+   "totals": {
+    "box": [
+     12,
+     17
+    ],
+    "control": [
+     61,
+     97
+    ],
+    "extra": 23,
+    "found": 96,
+    "group_bg": [
+     608,
+     666
+    ],
+    "group_bg_in": [
+     329,
+     387
+    ],
+    "group": [
+     273,
+     447
+    ],
+    "all": [
+     73,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.93
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": false,
+     "best_iou": 0.22
+    }
+   }
+  },
+  {
+   "variant": "JPEG 90",
+   "diff": 4,
+   "blur": false,
+   "totals": {
+    "box": [
+     9,
+     17
+    ],
+    "control": [
+     24,
+     97
+    ],
+    "extra": 20,
+    "found": 53,
+    "group_bg": [
+     570,
+     666
+    ],
+    "group_bg_in": [
+     291,
+     387
+    ],
+    "group": [
+     114,
+     447
+    ],
+    "all": [
+     33,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": false,
+     "best_iou": 0.0
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": false,
+     "best_iou": 0.05
+    }
+   }
+  },
+  {
+   "variant": "JPEG 75",
+   "diff": 2,
+   "blur": false,
+   "totals": {
+    "box": [
+     11,
+     17
+    ],
+    "control": [
+     71,
+     97
+    ],
+    "extra": 31,
+    "found": 113,
+    "group_bg": [
+     594,
+     666
+    ],
+    "group_bg_in": [
+     315,
+     387
+    ],
+    "group": [
+     291,
+     447
+    ],
+    "all": [
+     82,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.93
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  },
+  {
+   "variant": "JPEG 75",
+   "diff": 3,
+   "blur": false,
+   "totals": {
+    "box": [
+     9,
+     17
+    ],
+    "control": [
+     24,
+     97
+    ],
+    "extra": 21,
+    "found": 54,
+    "group_bg": [
+     570,
+     666
+    ],
+    "group_bg_in": [
+     291,
+     387
+    ],
+    "group": [
+     114,
+     447
+    ],
+    "all": [
+     33,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": false,
+     "best_iou": 0.0
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": false,
+     "best_iou": 0.05
+    }
+   }
+  },
+  {
+   "variant": "JPEG 75",
+   "diff": 4,
+   "blur": false,
+   "totals": {
+    "box": [
+     9,
+     17
+    ],
+    "control": [
+     23,
+     97
+    ],
+    "extra": 18,
+    "found": 50,
+    "group_bg": [
+     570,
+     666
+    ],
+    "group_bg_in": [
+     291,
+     387
+    ],
+    "group": [
+     112,
+     447
+    ],
+    "all": [
+     32,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": false,
+     "best_iou": 0.0
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": false,
+     "best_iou": 0.05
+    }
+   }
+  },
+  {
+   "variant": "0.75배",
+   "diff": 2,
+   "blur": false,
+   "totals": {
+    "box": [
+     16,
+     17
+    ],
+    "control": [
+     87,
+     97
+    ],
+    "extra": 33,
+    "found": 136,
+    "group_bg": [
+     653,
+     666
+    ],
+    "group_bg_in": [
+     374,
+     387
+    ],
+    "group": [
+     395,
+     447
+    ],
+    "all": [
+     103,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.92
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  },
+  {
+   "variant": "0.75배",
+   "diff": 3,
+   "blur": false,
+   "totals": {
+    "box": [
+     16,
+     17
+    ],
+    "control": [
+     87,
+     97
+    ],
+    "extra": 33,
+    "found": 136,
+    "group_bg": [
+     653,
+     666
+    ],
+    "group_bg_in": [
+     374,
+     387
+    ],
+    "group": [
+     395,
+     447
+    ],
+    "all": [
+     103,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.92
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  },
+  {
+   "variant": "0.75배",
+   "diff": 4,
+   "blur": false,
+   "totals": {
+    "box": [
+     16,
+     17
+    ],
+    "control": [
+     87,
+     97
+    ],
+    "extra": 33,
+    "found": 136,
+    "group_bg": [
+     653,
+     666
+    ],
+    "group_bg_in": [
+     374,
+     387
+    ],
+    "group": [
+     395,
+     447
+    ],
+    "all": [
+     103,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.92
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  },
+  {
+   "variant": "0.75배 + JPEG 75",
+   "diff": 2,
+   "blur": false,
+   "totals": {
+    "box": [
+     12,
+     17
+    ],
+    "control": [
+     75,
+     97
+    ],
+    "extra": 26,
+    "found": 113,
+    "group_bg": [
+     615,
+     666
+    ],
+    "group_bg_in": [
+     336,
+     387
+    ],
+    "group": [
+     325,
+     447
+    ],
+    "all": [
+     87,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.92
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": false,
+     "best_iou": 0.22
+    }
+   }
+  },
+  {
+   "variant": "0.75배 + JPEG 75",
+   "diff": 3,
+   "blur": false,
+   "totals": {
+    "box": [
+     9,
+     17
+    ],
+    "control": [
+     23,
+     97
+    ],
+    "extra": 14,
+    "found": 46,
+    "group_bg": [
+     579,
+     666
+    ],
+    "group_bg_in": [
+     300,
+     387
+    ],
+    "group": [
+     117,
+     447
+    ],
+    "all": [
+     32,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": false,
+     "best_iou": 0.19
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": false,
+     "best_iou": 0.0
+    }
+   }
+  },
+  {
+   "variant": "0.75배 + JPEG 75",
+   "diff": 4,
+   "blur": false,
+   "totals": {
+    "box": [
+     9,
+     17
+    ],
+    "control": [
+     23,
+     97
+    ],
+    "extra": 14,
+    "found": 46,
+    "group_bg": [
+     570,
+     666
+    ],
+    "group_bg_in": [
+     291,
+     387
+    ],
+    "group": [
+     112,
+     447
+    ],
+    "all": [
+     32,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": false,
+     "best_iou": 0.0
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": false,
+     "best_iou": 0.03
+    }
+   }
+  },
+  {
+   "variant": "JPEG 75",
+   "diff": 2,
+   "blur": true,
+   "totals": {
+    "box": [
+     11,
+     17
+    ],
+    "control": [
+     76,
+     97
+    ],
+    "extra": 26,
+    "found": 113,
+    "group_bg": [
+     594,
+     666
+    ],
+    "group_bg_in": [
+     315,
+     387
+    ],
+    "group": [
+     309,
+     447
+    ],
+    "all": [
+     87,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.93
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  },
+  {
+   "variant": "JPEG 75",
+   "diff": 4,
+   "blur": true,
+   "totals": {
+    "box": [
+     9,
+     17
+    ],
+    "control": [
+     23,
+     97
+    ],
+    "extra": 19,
+    "found": 51,
+    "group_bg": [
+     570,
+     666
+    ],
+    "group_bg_in": [
+     291,
+     387
+    ],
+    "group": [
+     112,
+     447
+    ],
+    "all": [
+     32,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": false,
+     "best_iou": 0.0
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": false,
+     "best_iou": 0.05
+    }
+   }
+  },
+  {
+   "variant": "원본",
+   "diff": 2,
+   "blur": true,
+   "totals": {
+    "box": [
+     16,
+     17
+    ],
+    "control": [
+     92,
+     97
+    ],
+    "extra": 31,
+    "found": 139,
+    "group_bg": [
+     653,
+     666
+    ],
+    "group_bg_in": [
+     374,
+     387
+    ],
+    "group": [
+     412,
+     447
+    ],
+    "all": [
+     108,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.93
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  },
+  {
+   "variant": "원본",
+   "diff": 4,
+   "blur": true,
+   "totals": {
+    "box": [
+     16,
+     17
+    ],
+    "control": [
+     92,
+     97
+    ],
+    "extra": 30,
+    "found": 138,
+    "group_bg": [
+     653,
+     666
+    ],
+    "group_bg_in": [
+     374,
+     387
+    ],
+    "group": [
+     412,
+     447
+    ],
+    "all": [
+     108,
+     114
+    ],
+    "irp": {
+     "truth": "r2",
+     "hit": true,
+     "best_iou": 0.93
+    },
+    "ddanggyo": {
+     "truth": "r5",
+     "hit": true,
+     "best_iou": 0.95
+    }
+   }
+  }
+ ]
+}
