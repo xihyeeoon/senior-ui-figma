@@ -1,7 +1,7 @@
-r"""조립 1단계 - 목록 대조 도구 (채점 쪽 - 사람 파일을 읽는다, strict 를 켜지 않는다). 유료 호출 없음.
+r"""조립 1 · 2단계 - 목록 대조 도구 (채점 쪽 - 사람 파일을 읽는다, strict 를 켜지 않는다). 유료 호출 없음.
 
     C:\Users\xihye\venvs\detect\Scripts\python.exe tools/screen_detect/assemble/list_compare.py
-        [--dir results/detect/20261019-assembly] → <dir>/lists.json, lists.md
+        [--dir results/detect/20261019-assembly2/rule] → <dir>/lists.json, lists.md
 
 옛 원본과 새 원본에서 같은 목록을 뽑아 이름이 아니라 글 · 뜻으로 견준다. 목록은 파이프라인 검사기가 원본에서 읽는 것에
 맞춘다 (origin/feat/db-principles 의 senior_ui/audit - 인수인계 기록):
@@ -116,7 +116,7 @@ def match(olds, news, eq, pair_rest=False):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly"))
+    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly2", "rule"))
     a = ap.parse_args(argv)
     truth = json.load(io.open(TRUTH, encoding="utf-8"))
     old_flow = git_json("flows/original.json")
@@ -244,7 +244,7 @@ def main(argv=None):
            "old_screens": len(truth["states"]), "new_screens": len(screens), "new": new}
     with io.open(os.path.join(a.dir, "lists.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
-    md = ["# 목록 대조 - 옛 원본 대 새 원본 (조립 1단계)\n",
+    md = ["# 목록 대조 - 옛 원본 대 새 원본 (%s)\n" % os.path.relpath(a.dir, ROOT).replace(os.sep, "/"),
           "옛: `results/detect/20261013-d3b/truth.json` (옛 원본을 옛 흐름대로 걸은 목록) + `git show %s:flows/original.json`. "
           "새: `original.html` · `flow.json`. 화면 짝은 글이 가장 많이 찾아지는 것 (찾은 비율 %.1f 이상).\n" % (REF, PAIR_MIN),
           "## 화면 짝 (옛 상태 %d · 새 화면 %d)\n" % (len(truth["states"]), len(screens)),

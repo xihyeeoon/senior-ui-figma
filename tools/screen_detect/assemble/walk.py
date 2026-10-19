@@ -1,7 +1,7 @@
-r"""조립 1단계 - 걷기 시험 (유료 호출 없음). 헤드리스 chromium (Playwright 1.62, venvs\detect 에 이미 있음).
+r"""조립 1 · 2단계 - 걷기 시험 (유료 호출 없음). 헤드리스 chromium (Playwright 1.62, venvs\detect 에 이미 있음).
 
     C:\Users\xihye\venvs\detect\Scripts\python.exe tools/screen_detect/assemble/walk.py
-        [--dir results/detect/20261019-assembly] → <dir>/walk.json, walk.md
+        [--dir results/detect/20261019-assembly2/rule] → <dir>/walk.json, walk.md
 
 original.html 을 열고 (창 390x844, truth.py 와 같다)
   1. steps   flow.json 의 steps 대로 s01 부터 누르고 화면이 맞는지
@@ -51,7 +51,8 @@ async def run(folder):
         for st in flow["steps"][1:]:
             err = await press(st["click"])
             now = await screen()
-            out["steps"].append({"want": st["screen"], "got": now, "error": err, "ok": now == st["screen"]})
+            out["steps"].append({"want": st["screen"], "got": now, "error": err, "ok": now == st["screen"],
+                                 "via": st.get("via")})
             if now != st["screen"]:
                 break
         # 3. 이동마다
@@ -60,7 +61,14 @@ async def run(folder):
             err = await press(m["click"])
             now = await screen()
             out["edges"].append({"from": m["from"], "to": m["to"], "click": m["click"], "got": now, "error": err,
-                                 "ok": now == m["to"], "pair": m["pair"]})
+                                 "ok": now == m["to"], "pair": m["pair"], "via": m.get("via")})
+            if m.get("keys"):                            # keypad-advance - 무리의 키마다 눌러 본다 (어느 키든 넘어가야)
+                good = []
+                for k in m["keys"]:
+                    await page.evaluate("(s) => show(s)", m["from"])
+                    await press("[data-src='%s']" % k)
+                    good.append(await screen() == m["to"])
+                out["edges"][-1]["keys"] = "%d/%d" % (sum(good), len(good))
         # 2. s01 에서 눌러서 닿는 화면 (된 이동만 따라)
         ok = [e for e in out["edges"] if e["ok"]]
         reach, todo = {start}, [start]
@@ -88,22 +96,25 @@ async def run(folder):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly"))
+    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly2", "rule"))
     a = ap.parse_args(argv)
     out = asyncio.run(run(a.dir))
     with io.open(os.path.join(a.dir, "walk.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     md = ["# 걷기 시험 (헤드리스 chromium, 창 390x844)\n",
           "- 시작 화면: %s" % out["start"],
-          "- steps: %s" % (" → ".join([out["start"]] + [s["got"] for s in out["steps"]]) if out["steps"]
-                           else "%s 하나뿐 (s01 에서 나가는 이동이 없다)" % out["start"]),
+          "- steps: %s" % (" → ".join([out["start"]] + ["(%s) %s" % (s.get("via") or "-", s["got"]) for s in out["steps"]])
+                           + ("" if all(s["ok"] for s in out["steps"]) else " - 여기서 끊김 (바라던 %s)" % out["steps"][-1]["want"])
+                           if out["steps"] else "%s 하나뿐 (s01 에서 나가는 이동이 없다)" % out["start"]),
           "- s01 에서 눌러서 닿는 화면: %s" % ", ".join(out["reached"]),
           "- 닿지 않는 화면: %s" % (", ".join(out["unreached"]) or "없음"),
           "\n## 이동마다 (그 화면을 띄우고 눌러 봄)\n",
-          "| 이동 | 누른 것 | 결과 | 짝 |\n|---|---|---|---|"]
-    md += ["| %s → %s | `%s` | %s | %s |" % (e["from"], e["to"], e["click"],
+          "| 이동 | via | 누른 것 | 결과 | 짝 |\n|---|---|---|---|---|"]
+    md += ["| %s → %s | %s | `%s` | %s | %s |" % (e["from"], e["to"], e.get("via") or "-", e["click"],
                                            "됨" if e["ok"] else "안 바뀜 (%s%s)" % (e["got"], ", " + e["error"] if e["error"] else ""),
                                            e["pair"]) for e in out["edges"]]
+    md += ["\n- keypad-advance 키마다 눌러 넘어간 수: %s" % (", ".join(
+        "%s → %s %s" % (e["from"], e["to"], e["keys"]) for e in out["edges"] if e.get("keys")) or "없음")]
     md += ["\n## 오류 경로\n"] + ["- %s: %s 에서 recover → %s (%s)" % (
         e["id"], e["expect_screen"], e.get("got"), "됨" if e.get("ok") else "안 됨") for e in out["errors"]]
     with io.open(os.path.join(a.dir, "walk.md"), "w", encoding="utf-8", newline="\n") as f:

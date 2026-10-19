@@ -1,7 +1,7 @@
 r"""조립 1단계 - 견주기 페이지: 새 원본 (조립) 화면과 짝지은 옛 원본 화면을 나란히 (채점 쪽, 유료 호출 없음).
 
     C:\Users\xihye\venvs\detect\Scripts\python.exe tools/screen_detect/assemble/compare_page.py
-        [--dir results/detect/20261019-assembly] → <dir>/compare.html, <dir>/renders/new/<화면>.png
+        [--dir results/detect/20261019-assembly2/rule] → <dir>/compare.html, <dir>/renders/new/<화면>.png
 
 짝은 list_compare.py 의 lists.json (옛 상태마다 글이 가장 많이 찾아지는 새 화면). 옛 원본 그림은 sketch/compare_page.py 가
 truth.py 와 같은 걷기로 찍어 둔 results/detect/20261019-sketch/renders/original/<상태>.png 를 쓴다. 새 원본은 화면마다 show()
@@ -42,7 +42,7 @@ async def shoot(folder, screens):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly"))
+    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly2", "rule"))
     a = ap.parse_args(argv)
     flow = json.load(io.open(os.path.join(a.dir, "flow.json"), encoding="utf-8"))
     lists = json.load(io.open(os.path.join(a.dir, "lists.json"), encoding="utf-8"))
