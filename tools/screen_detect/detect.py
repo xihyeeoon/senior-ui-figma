@@ -38,6 +38,9 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
+sys.path.insert(0, HERE)
+
+import strict as ST  # noqa: E402
 
 TOOLS = r"C:\Users\xihye\tools"
 OMNIPARSER = os.path.join(TOOLS, "OmniParser")
@@ -474,7 +477,8 @@ def img_candidates(image, els):
     texts = {e["id"]: e for e in els if e["kind"] == "text"}
     boxes = [e for e in els if e["kind"] == "box"]
     filled = [b for b in boxes if b["text_in"]]
-    heading = any(LOGO_HEAD.search(t["text"]) for t in texts.values())
+    # 은행 · 증권사 칸 이름 규칙 - 과제 분야 낱말(LOGO_HEAD)이다. 스크린샷만(--inputs strict)에서는 끈다
+    heading = False if ST.STRICT else any(LOGO_HEAD.search(t["text"]) for t in texts.values())
 
     def like(a, b):
         return all(abs(a["box"][i] - b["box"][i]) <= GRID_TOL * b["box"][i] for i in (2, 3))
@@ -603,7 +607,9 @@ def main(argv=None):
     ap.add_argument("--ocr-cache", help="OCR 결과 JSON - 있으면 읽고(OCR 을 건너뛴다), 없으면 써 둔다")
     ap.add_argument("--stage", choices=["all", "ocr"], default="all")
     ap.add_argument("--ocr-out")
+    ST.add_arg(ap)
     a = ap.parse_args(argv)
+    ST.from_args(a)
     if a.stage == "ocr":
         run_ocr(a.names, a.ocr_out)
         return
