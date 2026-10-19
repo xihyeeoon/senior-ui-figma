@@ -452,6 +452,30 @@ text_fixed (그림과 다르게 읽힌 글을 보이는 대로, 원래 text 는 
 & $py tools/screen_detect/strict_report.py                                    # 채점 → 20261019-strict/summary.md
 ```
 
+### strict2 (2026-10-19 오후) - 검출부터 스크린샷만
+
+결과 `results/detect/20261019-strict2/` (`summary.md` - 검출 전후 · 세 판 그림 이름 · 흐름 · text_fixed). 바뀐 것:
+검출을 `--inputs strict` 로 다시 (로고 규칙 꺼짐, 같은 설정 · 같은 OCR 캐시 - OmniParser 박스는 같고 은행 · 증권사 캡처의 칸 안
+그림 후보만 바뀜), 의미 층 v2 에 "icon 은 아이콘 · 로고 그 자체인 가장 작은 요소에만" 규칙을 더해 단위 전부, 흐름은
+`--images` (짝마다 앞 · 뒤 캡처를 폭 390 으로 줄인 그림 두 장) 와 strict2 의미 층 역할. 채점 고침 (compare.py): 그림 이름의
+띄어쓰기 · 끝말 로고/아이콘 차이는 같게, 그림 자리는 옮긴 자리가 닻 범위에 걸치면 캡처 안 (은행 첫 줄), `--truth`.
+
+```powershell
+$S = "results/detect/20261019-strict2"
+& $py tools/screen_detect/detect.py --inputs strict --out $S/detect --ocr-cache results/detect/20261013-d25/_ocr.json
+& $py tools/screen_detect/flags.py --dir $S/detect --inputs strict
+& $py tools/screen_detect/stitch.py --dir $S/detect --inputs strict
+& $py tools/screen_detect/semantic.py --in $S/detect --prompt v2 --inputs strict --out $S/semantic
+& $py tools/screen_detect/flow.py --inputs strict --images --elements $S/detect --roles $S/semantic --out $S/flow
+& $py tools/screen_detect/sketch/rule_assemble.py --inputs strict --root $S --units "01a+01b+01c"
+& $py tools/screen_detect/sketch/llm_assemble.py --inputs strict --root $S --units "01a+01b+01c"
+# 채점 (strict 아님)
+& $py tools/screen_detect/compare.py --dir $S/detect --truth results/detect/20261013-d3b/truth.json --out $S/score/detect-strict2
+& $py tools/screen_detect/compare_flow.py --dir $S/flow
+& $py tools/screen_detect/strict_report.py --root $S
+& $py tools/screen_detect/strict.py check --out $S/detect
+```
+
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
 | 무엇 | 라이선스 | 근거 |
