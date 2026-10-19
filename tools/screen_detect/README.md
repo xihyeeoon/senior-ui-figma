@@ -409,6 +409,49 @@ DIFF 6 · 12 가 크게 떨어진 까닭: 둥근 모서리의 앤티에일리어
 - tree - 단위마다 구역 나무 (`tree/<단위>.regions.json`): 부모 = 감싼 가장 작은 구역 (2px 넘침 허용), 깊이 맨 바깥 1,
   요소는 중심을 감싼 가장 작은 구역에만. 의미 층 group 과 견주기 · 홈 01a 나무 글 (`tree/home_01a.txt`).
 
+## 스크린샷만 (`--inputs strict`, 2026-10-19)
+
+원칙 (연구자 10/19 확정): 만드는 줄 (검출 → 이어 붙이기 → 의미 → 흐름 → 구역 → 시안 · 조립) 의 입력은 과제 순서대로 찍은
+스크린샷 (파일 이름 순) 뿐이다. 사람이 만든 것 (truth.json · truth_regions.json · 옛 원본 HTML · captures.json 의 label ·
+flows/ · tasks/) 은 채점 쪽 (truth · compare · compare_flow · compare_page · strict_report) 에서만 쓴다. 옛 판은 옵션 없이
+그대로 다시 돌릴 수 있다. 결과 `results/detect/20261019-strict/`.
+
+**검출 설정:** conf 0.1 · nms 0.3 · CLAHE · IoU 겹침 등은 이 앱 19장으로 고름 — 다른 앱에서 다시 고르지 않음 (고정 설정).
+
+| 사람 정보 | strict 에서 | 어디 |
+|---|---|---|
+| captures.json label (흐름 프롬프트) | 뺀다 - 캡처 목록은 파일 이름 순 · 파일 이름 · 단위만 | `flow.py` · `FLOW_PROMPT_STRICT.md` |
+| `stitch.GROUPS` (이어 붙이기 묶음) | 그림만 보고 자동 판정 (`strict.auto_groups`) | `stitch.py` |
+| 과제 이름 한 줄 (TASK) | 의미 층 · 흐름 프롬프트에서 줄째 뺀다 | `semantic.py` · `flow.py` |
+| 단위 이름 (home · bank · bank-tab-sec) | 묶인 캡처 파일 이름 ("01a+01b+01c") | `stitch.py` · `compare.load_units` |
+| 시안 HTML 의 data-label | 뺀다 | `sketch/rule_assemble.py` · `llm_assemble.py` |
+| `detect.LOGO_HEAD` ("은행\|증권" 칸 이름 규칙) | 끈다. 검출은 다시 돌리지 않고 D2.5 final 의 규칙 이름 (name · label 142칸) 만 지운다 (`strict.py prepare`) | `detect.py` · `strict.py` |
+
+**막기 (`strict.py`):** `--inputs strict` 인 프로세스는 감사 훅으로 사람 파일 (captures.json · truth.json · truth_regions.json ·
+flows/ · tasks/ · original_*.html) 을 열거나 git show 로 읽으면 오류, 사람 상수 (GROUPS · TASK · 이름표 읽기) 를 쓰면 오류.
+`strict.py check` 가 하나씩 해 보고 모두 막히는지 적는다 (`strict_check.txt`).
+
+**이어 붙이기 자동 판정:** 파일 이름 순으로 이웃한 캡처마다 stitch.py 의 어긋남 찾기 (고정 띠 · 닻 글 · 잘린 칸 · 화소) 로
+어긋남 d 와 근거 수를 얻고, d 와 근거가 기준 이상이면 같은 화면. 시험한 설정 셋 - A (닻 글 1 · 잘린 칸 1 · 화소, d ≥ 1px):
+01a-01c 는 맞지만 02+03 · 04~07 을 잘못 잇는다. C (A 와 같고 d ≥ 100px): 06c → 07 을 화소로 잘못 잇는다. **B (닻 글 2개 이상
+· 잘린 칸 1개 이상, 화소 안 씀, d ≥ 100px, 기본)**: 01a+01b+01c · 05a+05b+05c · 06a+06b+06c - GROUPS 와 같다 (03 · 04, 07 · 07a,
+09a · 09b 는 내용이 밀리지 않아 잇지 않는다).
+
+**의미 층 v2 (`--prompt v2`, `SEMANTIC_PROMPT_V2.md`):** 과제 이름 줄 없음. 요소마다 icon (`{name, shape}` - 아이콘 · 로고를
+담았으면, 누를 수 있는 아이콘은 kind 를 두고 icon 을 채움) · text_is_icon (OCR 글이 아이콘을 글자로 잘못 읽었나) ·
+text_fixed (그림과 다르게 읽힌 글을 보이는 대로, 원래 text 는 남김). 한두 글자 글 · ocr_guess 가 있는 요소도 잘라 보낸다.
+
+```powershell
+& $py tools/screen_detect/strict.py prepare                                   # D2.5 final → 20261019-strict/detect (규칙 이름만 지움)
+& $py tools/screen_detect/stitch.py --dir results/detect/20261019-strict/detect --inputs strict
+& $py tools/screen_detect/semantic.py --in results/detect/20261019-strict/detect --units "01a+01b+01c,05a+05b+05c" --prompt v2 --inputs strict --out results/detect/20261019-strict/semantic
+& $py tools/screen_detect/flow.py --inputs strict --elements results/detect/20261019-strict/detect --out results/detect/20261019-strict/flow
+& $py tools/screen_detect/sketch/rule_assemble.py --inputs strict --units "01a+01b+01c"
+& $py tools/screen_detect/sketch/llm_assemble.py --inputs strict --units "01a+01b+01c"
+& $py tools/screen_detect/strict.py check                                     # 막기 점검
+& $py tools/screen_detect/strict_report.py                                    # 채점 → 20261019-strict/summary.md
+```
+
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
 | 무엇 | 라이선스 | 근거 |
