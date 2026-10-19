@@ -21,6 +21,9 @@ prompt_sha(그때의 SEMANTIC_PROMPT.md)와 reused_from 이 남는다.
   (나) 화면 전체를 폭 MARK_WIDTH 로 줄이고 요소마다 mark 번호를 적은 그림 한 장.
   (다) 글 없는 박스 · img_candidate 의 잘라낸 그림 - 변마다 CROP_PAD 넓혀 CROP_SCALE 배 (긴 변
        CROP_MAX 까지). 글만 있는 요소는 보내지 않는다.
+  --prompt v2 (2026-10-19): SEMANTIC_PROMPT_V2.md - 과제 이름 줄 없음, 요소마다 icon · text_is_icon · text_fixed,
+  한두 글자 글 · ocr_guess 가 있는 요소도 잘라 보낸다. --inputs strict (스크린샷만): 과제 이름(TASK)을 넣지 않는다
+  (v1 프롬프트면 그 줄을 지운다), 사람 파일을 열면 오류 (strict.py).
   과제 이름 한 줄(TASK)만 알려 준다 - 어느 버튼이 과제 경로인지는 알려 주지 않는다. 과제 버튼 대
   과제 밖 입구는 이 층이 정하지 않는다 (흐름 층에서 captures.json 의 taps 로).
 
@@ -58,9 +61,20 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, ROOT)
 
 import compare as C  # noqa: E402  (단위 읽기 - 이은 화면이 조각을 대신한다)
+import strict as ST  # noqa: E402
 
-PROMPT_FILE = os.path.join(HERE, "SEMANTIC_PROMPT.md")
+PROMPTS = {"v1": os.path.join(HERE, "SEMANTIC_PROMPT.md"),
+           # v2 (2026-10-19, 스크린샷만) - 과제 이름 줄 없음, 요소마다 icon · text_is_icon · text_fixed
+           "v2": os.path.join(HERE, "SEMANTIC_PROMPT_V2.md")}
+PROMPT_FILE = PROMPTS["v1"]
+V2 = False
 TASK = "이체 — 받는 사람 계좌로 돈 보내기"
+
+
+def task_line():
+    """과제 이름 한 줄 - 사람이 쓴 것이다. strict(스크린샷만)에서는 쓰지 않는다."""
+    ST.human("semantic.TASK")
+    return TASK
 KINDS = ["button", "link", "back_close", "tab", "choice", "input", "keypad_key", "image",
          "text", "system"]
 FIELDS = ["id", "mark", "kind", "box", "text", "ocr_guess", "caption", "name", "in_box",
@@ -71,6 +85,7 @@ CROP_SCALE = 2        # 잘라낸 그림을 키우는 배수
 CROP_MAX = 512        # 잘라낸 그림의 긴 변 상한 (큰 빈 박스가 그림 토큰을 다 먹지 않게)
 BELOW_GAP = 1.0       # 바로 아래 글로 보는 틈 - 요소 높이(40px 이상)의 이만큼
 ANSWER_TOKENS = 45    # 어림 - 요소 하나의 답 토큰 (id · 칸 · 짧은 note)
+ANSWER_TOKENS_V2 = 65  # v2 - icon · text_is_icon · text_fixed 칸이 더 붙는다
 MAX_TOKENS = 25000    # 출력 상한 (생각 토큰 포함) - 파이프라인의 진단 · 계획 호출과 같은 값
 FONT = r"C:\Windows\Fonts\malgun.ttf"
 
@@ -136,7 +151,10 @@ def element_rows(det):
 
 
 def needs_crop(r):
-    return r["kind"] == "img_candidate" or (r["kind"] == "box" and not r["text"])
+    if r["kind"] == "img_candidate" or (r["kind"] == "box" and not r["text"]):
+        return True
+    # v2 - 한두 글자 글 · ocr_guess 가 있는 요소도 잘라 보낸다 (아이콘을 글자로 읽었나 보려고)
+    return V2 and (bool(r.get("ocr_guess")) or (r["kind"] == "text" and 0 < len((r["text"] or "").strip()) <= 2))
 
 
 def draw_marks(image, rows, path):
@@ -187,7 +205,11 @@ def build(unit, det, captures, folder):
     fixed = {r["id"]: r["name"] for r in rows if r.get("name")}
     text = io.open(PROMPT_FILE, encoding="utf-8").read()
     body = text.split("\n---\n", 1)[1]
-    prompt = (body.replace("{{TASK}}", TASK).replace("{{UNIT}}", unit)
+    if "{{TASK}}" in body:
+        # 스크린샷만(strict) - 과제 이름 줄을 통째로 뺀다. 아니면 사람이 쓴 한 줄을 넣는다
+        body = ("\n".join(ln for ln in body.split("\n") if "{{TASK}}" not in ln) if ST.STRICT
+                else body.replace("{{TASK}}", task_line()))
+    prompt = (body.replace("{{UNIT}}", unit)
               .replace("{{FIXED}}", "\n".join("%s: %s" % kv for kv in fixed.items()) or "(없음)")
               .replace("{{ELEMENTS}}", "\n".join(json.dumps(r, ensure_ascii=False,
                                                             separators=(",", ":")) for r in rows))
@@ -257,11 +279,37 @@ def check(obj, ids):
         got[i] = {"id": i, "pressable": a.get("pressable"), "kind": a.get("kind"),
                   "group": a.get("group"), "image_name": name, "image_shape": shape,
                   "note": a.get("note")}
+        if V2:
+            probs += check_v2(i, a)
+            got[i].update(icon=a.get("icon"), text_is_icon=a.get("text_is_icon"),
+                          text_fixed=a.get("text_fixed"))
     missing = [i for i in ids if i not in got]
     if missing:
         probs.append("답이 없는 id %d개: %s" % (len(missing), ", ".join(missing[:20])
                                               + (" …" if len(missing) > 20 else "")))
     return got, probs
+
+
+def check_v2(i, a):
+    """v2 의 칸 셋 - icon · text_is_icon · text_fixed."""
+    probs = []
+    icon = a.get("icon")
+    if icon is not None:
+        if not (isinstance(icon, dict) and isinstance(icon.get("name"), str)
+                and IMAGE_NAME.match(icon["name"].strip()) and isinstance(icon.get("shape"), str)):
+            probs.append("%s: icon 이 {name: '<무엇> 아이콘/로고', shape: '<모양>'} 이나 null 이 아니다" % i)
+    if a.get("kind") == "image" and (not isinstance(icon, dict) or icon.get("name") != a.get("image_name")):
+        probs.append("%s: kind 가 image 인데 icon.name 이 image_name 과 같지 않다" % i)
+    if not isinstance(a.get("text_is_icon"), bool):
+        probs.append("%s: text_is_icon 이 true/false 가 아니다" % i)
+    elif a["text_is_icon"] and icon is None:
+        probs.append("%s: text_is_icon 이 true 인데 icon 이 없다" % i)
+    tf = a.get("text_fixed")
+    if tf is not None and not (isinstance(tf, str) and tf.strip()):
+        probs.append("%s: text_fixed 가 글이나 null 이 아니다" % i)
+    if tf is not None and a.get("text_is_icon"):
+        probs.append("%s: text_is_icon 이 true 인데 text_fixed 가 있다" % i)
+    return probs
 
 
 def reask(prompt, probs):
@@ -303,6 +351,10 @@ def mock_answer(r):
 
 def mock_reply(rows, mode, attempt):
     ans = [dict(dict(image_shape=None), id=r["id"], **mock_answer(r)) for r in rows]
+    if V2:
+        for x in ans:
+            x.update(icon={"name": x["image_name"], "shape": x["image_shape"]} if x["kind"] == "image" else None,
+                     text_is_icon=False, text_fixed=None)
     if mode == "bad-once" and attempt == 1 or mode == "bad-twice":
         ans = ans[1:] + [dict(ans[0], id="없는-id")]     # 하나 빠지고 없는 id 하나
     text = json.dumps({"elements": ans}, ensure_ascii=False)
@@ -316,7 +368,7 @@ def estimate(prompt, images, rows, model, max_tokens):
     from senior_ui.restructure import model as M
     text_tokens, how = M.estimate_tokens(M.model_text(prompt, images), model)
     im = M.describe_images(images, model)
-    answer = ANSWER_TOKENS * len(rows)
+    answer = (ANSWER_TOKENS_V2 if V2 else ANSWER_TOKENS) * len(rows)
     price = M.price_for(model)
     cost = lambda inp, out: (inp * price["input"] + out * price["output"]) / 1e6 if price else None
     inp = text_tokens + im["estimated"]
@@ -405,7 +457,13 @@ def main(argv=None):
     ap.add_argument("--units", help='고른 단위만 - 쉼표로 ("home(01a+01b+01c),02,08")')
     ap.add_argument("--reuse", help="고르지 않은 단위의 답을 가져올 앞 실행 폴더 (예 results/detect/"
                                     "20261013-d3). 비교는 13단위 전체로 한다")
+    ap.add_argument("--prompt", choices=sorted(PROMPTS), default="v1",
+                    help="v2 (2026-10-19) - 과제 이름 줄 없음, icon · text_is_icon · text_fixed 칸")
+    ST.add_arg(ap)
     a = ap.parse_args(argv)
+    ST.from_args(a)
+    global PROMPT_FILE, V2
+    PROMPT_FILE, V2 = PROMPTS[a.prompt], a.prompt == "v2"
     a.spent = 0.0
     from senior_ui import config
     a.model = a.model or config.DEFAULT_MODEL
@@ -493,7 +551,8 @@ def main(argv=None):
     summ = {"model": "mock:%s" % a.mock if a.mock else a.model, "reasoning_effort": None if a.mock else effort,
             "units_run": names, "reuse": (os.path.relpath(a.reuse, ROOT).replace("\\", "/")
                                           if a.reuse else None),
-            "in": os.path.relpath(a.inp, ROOT).replace("\\", "/"), "task": TASK,
+            "in": os.path.relpath(a.inp, ROOT).replace("\\", "/"), "task": None if ST.STRICT else TASK,
+            "inputs": "strict" if ST.STRICT else "legacy",
             "prompt_file": os.path.relpath(PROMPT_FILE, ROOT).replace("\\", "/"),
             "units": {}, "totals": {}}
     for r in done + reused:
