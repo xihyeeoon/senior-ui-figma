@@ -42,3 +42,6 @@ desktop.ini
 
 # mock 실행이 쓰는 산출물 폴더 (tests/capture_baseline.py 의 MOCK_OUTPUTS)
 .mock-outputs/
+
+# 구역 흔들림 시험의 캡처 사본 (regions_robust.py shake) - 커밋하지 않는다
+results/detect/20261019-robust/_copies/
