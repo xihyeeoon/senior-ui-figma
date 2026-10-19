@@ -34,6 +34,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -51,6 +52,7 @@ CAPTURES_REF = "origin/feat/see-captures"
 CAPTURES_PATH = "inputs/captures/transfer/captures.json"
 KINDS = ["tap", "scroll", "skipped", "error_path", "unknown"]
 ANSWER_TOKENS = 80    # 어림 - 짝 하나의 답 토큰
+IMAGE_WIDTH = 390     # --images 의 줄인 그림 폭 (파이프라인 captures.py 의 WIDTH 와 같다)
 MAX_TOKENS = 25000
 
 
@@ -106,7 +108,7 @@ def pressable(units, roles_dir):
     return out
 
 
-def build(caps, umap, plist):
+def build(caps, umap, plist, pics=None):
     images = caps["images"]
     pairs = [(a["file"], b["file"]) for a, b in zip(images, images[1:])]
     lines = [json.dumps({"file": im["file"], "unit": umap[im["file"]]} if ST.STRICT else
@@ -120,10 +122,34 @@ def build(caps, umap, plist):
     if "{{TASK}}" in body:
         ST.human("flow.TASK")
         body = body.replace("{{TASK}}", TASK)
+    if "{{IMAGES}}" in body:
+        if pics:
+            from senior_ui.restructure.model import IMAGE_MARK
+            body = body.replace("{{IMAGES}}", IMAGE_MARK)
+        else:
+            # 그림을 보내지 않는다 - 그림 절 · 그림 줄을 지운다
+            body = "\n".join(ln for ln in body.split("\n")
+                             if "{{IMAGES}}" not in ln and not ln.startswith("- 그림:") and ln != "그림")
     prompt = (body.replace("{{CAPTURES}}","\n".join(lines))
               .replace("{{UNITS}}", units_txt)
               .replace("{{PAIRS}}", "\n".join("%s -> %s" % p for p in pairs)))
     return prompt, pairs
+
+
+def pair_images(pairs, captures, folder):
+    """짝마다 앞 · 뒤 캡처를 줄인 그림 두 장 (2026-10-19) - 가로 IMAGE_WIDTH 로 줄인다 (파이프라인 captures.py 와
+    같은 폭 · 같은 LANCZOS). 같은 캡처는 한 파일을 다시 쓴다."""
+    from PIL import Image
+    os.makedirs(folder, exist_ok=True)
+    out = []
+    for k, (a, b) in enumerate(pairs, 1):
+        for side, f in (("앞", a), ("뒤", b)):
+            p = os.path.join(folder, f)
+            if not os.path.exists(p):
+                im = Image.open(os.path.join(captures, f)).convert("RGB")
+                im.resize((IMAGE_WIDTH, round(im.height * IMAGE_WIDTH / im.width)), Image.LANCZOS).save(p)
+            out.append({"path": p, "label": "짝 %d %s: %s" % (k, side, f)})
+    return out
 
 
 def parse(text):
@@ -205,9 +231,11 @@ def mock_reply(pairs, umap, plist, caps, mode, n):
             "sent": {"model": "mock"}, "finish_reason": "stop", "seconds": 0.0}
 
 
-def estimate(prompt, pairs, model, max_tokens):
+def estimate(prompt, pairs, model, max_tokens, images=None):
     from senior_ui.restructure import model as M
-    tokens, how = M.estimate_tokens(prompt, model)
+    tokens, how = M.estimate_tokens(M.model_text(prompt, images or []), model)
+    if images:
+        tokens += M.describe_images(images, model)["estimated"]
     price = M.price_for(model)
     cost = (lambda o: (tokens * price["input"] + o * price["output"]) / 1e6) if price else (lambda o: None)
     answer = ANSWER_TOKENS * len(pairs)
@@ -238,6 +266,7 @@ def main(argv=None):
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--captures", default=os.path.join(ROOT, "inputs", "captures", "transfer"),
                     help="strict 에서 캡처 목록을 읽는 폴더 (파일 이름 순)")
+    ap.add_argument("--images", action="store_true", help="짝마다 앞 · 뒤 캡처를 줄인 그림 두 장을 함께 보낸다 (2026-10-19)")
     ST.add_arg(ap)
     a = ap.parse_args(argv)
     ST.from_args(a)
@@ -252,32 +281,37 @@ def main(argv=None):
     if missing:
         raise SystemExit("요소 단위가 없는 캡처: %s" % ", ".join(missing))
     plist = pressable(units, a.roles)
-    prompt, pairs = build(caps, umap, plist)
-    est = estimate(prompt, pairs, model, a.max_tokens)
+    _, pairs = build(caps, umap, plist)
+    today = datetime.date.today().strftime("%Y%m%d")
+    out = a.out or os.path.join(ROOT, "results", "detect", today + "-d4" + ("-mock" if a.mock else ""))
+    images = pair_images(pairs, a.captures, os.path.join(out if not a.dry_run else
+                                                         tempfile.mkdtemp(prefix="flow_dry_"), "_sent")) if a.images else None
+    prompt, pairs = build(caps, umap, plist, images)
+    est = estimate(prompt, pairs, model, a.max_tokens, images)
     pfile = PROMPT_STRICT if ST.STRICT else PROMPT_FILE
     sha = hashlib.sha256(io.open(pfile, "rb").read()).hexdigest()[:12]
     if a.dry_run:
-        print("모델 %s · 가격 %s · 캡처 %d · 짝 %d · 단위 %d · 누를 수 있는 요소 %d · 그림 0 (글만)"
+        print("모델 %s · 가격 %s · 캡처 %d · 짝 %d · 단위 %d · 누를 수 있는 요소 %d · 그림 %d"
               % (model, config.MODEL_PRICES.get(model), len(caps["images"]), len(pairs),
-                 len(set(umap.values())), sum(len(v) for v in plist.values())))
+                 len(set(umap.values())), sum(len(v) for v in plist.values()), len(images or [])))
         print(json.dumps(est, ensure_ascii=False, indent=1))
         return
-    today = datetime.date.today().strftime("%Y%m%d")
-    out = a.out or os.path.join(ROOT, "results", "detect", today + "-d4" + ("-mock" if a.mock else ""))
     os.makedirs(out, exist_ok=True)
     if a.mock:
         call = lambda ask, n: mock_reply(pairs, umap, plist, caps, a.mock, n)
     else:
         M.load_env()                 # 실제 호출일 때만 - 환경 변수 또는 이 레포 뿌리의 .envs
         call = lambda ask, n: M.call_model(model, ask, a.max_tokens, log=lambda m: print("  " + m),
-                                           reasoning_effort=effort)
+                                           reasoning_effort=effort, images=images,
+                                           detail=config.IMAGE_DETAIL if images else None)
     res = {"model": "mock:%s" % a.mock if a.mock else model, "reasoning_effort": None if a.mock else effort,
            "inputs": "strict" if ST.STRICT else "legacy",
            "prompt_file": os.path.relpath(pfile, ROOT).replace("\\", "/"), "prompt_sha": sha,
            "captures": None if ST.STRICT else "%s:%s" % (a.captures_ref, a.captures_path),
            "elements": os.path.relpath(a.elements, ROOT).replace("\\", "/"),
            "roles": os.path.relpath(a.roles, ROOT).replace("\\", "/"),
-           "sent": "글만 (그림 0) - 캡처 목록 · 단위마다 누를 수 있는 요소 · 짝 목록",
+           "sent": ("글 + 그림 %d (짝마다 앞 · 뒤 캡처, 폭 %d)" % (len(images), IMAGE_WIDTH) if images
+                    else "글만 (그림 0)") + " - 캡처 목록 · 단위마다 누를 수 있는 요소 · 짝 목록",
            "pressable_elements": sum(len(v) for v in plist.values()),
            "estimate": est, "status": None, "attempts": [], "pairs": None}
     ask, spent = prompt, 0.0
@@ -287,7 +321,8 @@ def main(argv=None):
             res["status"] = "stopped"
             res["stopped"] = "쓴 돈 $%.4f + 이 호출의 최악 $%.4f > 상한 $%.2f" % (spent, worst, a.max_usd)
             break
-        write(os.path.join(out, "raw", "flow.%d.request.txt" % n), ask)
+        write(os.path.join(out, "raw", "flow.%d.request.txt" % n),
+              M.prompt_record(ask, images, model, base=out) if images else ask)
         reply = call(ask, n)
         write(os.path.join(out, "raw", "flow.%d.request.json" % n),
               json.dumps({k: v for k, v in reply.items() if k in ("sent", "api", "max_tokens",
