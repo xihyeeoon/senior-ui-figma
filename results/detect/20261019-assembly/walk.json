@@ -1,0 +1,120 @@
+{
+ "steps": [],
+ "edges": [
+  {
+   "from": "s02",
+   "to": "s03",
+   "click": "[data-action='a-s02-06']",
+   "got": "s03",
+   "error": null,
+   "ok": true,
+   "pair": "02.png → 03.png"
+  },
+  {
+   "from": "s03",
+   "to": "s04",
+   "click": "[data-action='a-s03-04']",
+   "got": "s04",
+   "error": null,
+   "ok": true,
+   "pair": "03.png → 04.png"
+  },
+  {
+   "from": "s04",
+   "to": "s05",
+   "click": "[data-action='a-s04-05']",
+   "got": "s05",
+   "error": null,
+   "ok": true,
+   "pair": "04.png → 05a.png"
+  },
+  {
+   "from": "s05",
+   "to": "s06",
+   "click": "[data-action='a-s05-03']",
+   "got": "s06",
+   "error": null,
+   "ok": true,
+   "pair": "05c.png → 06a.png"
+  },
+  {
+   "from": "s07",
+   "to": "s08",
+   "click": "[data-action='a-s07-06']",
+   "got": "s08",
+   "error": null,
+   "ok": true,
+   "pair": "07.png → 07a.png"
+  },
+  {
+   "from": "s08",
+   "to": "s09",
+   "click": "[data-action='a-s08-10']",
+   "got": "s09",
+   "error": null,
+   "ok": true,
+   "pair": "07a.png → 08.png"
+  },
+  {
+   "from": "s09",
+   "to": "s10",
+   "click": "[data-action='a-s09-05']",
+   "got": "s10",
+   "error": null,
+   "ok": true,
+   "pair": "08.png → 09a.png"
+  },
+  {
+   "from": "s13",
+   "to": "s12",
+   "click": "[data-action='a-s13-01']",
+   "got": "s12",
+   "error": null,
+   "ok": true,
+   "pair": "오류 화면에서 되돌아감 (10.png → 11.png 의 반대)"
+  }
+ ],
+ "errors": [
+  {
+   "id": "e1",
+   "expect_screen": "s13",
+   "back_to": "s12",
+   "error": null,
+   "got": "s12",
+   "ok": true
+  }
+ ],
+ "start": "s01",
+ "reached": [
+  "s01"
+ ],
+ "screens": [
+  "s01",
+  "s02",
+  "s03",
+  "s04",
+  "s05",
+  "s06",
+  "s07",
+  "s08",
+  "s09",
+  "s10",
+  "s11",
+  "s12",
+  "s13"
+ ],
+ "unreached": [
+  "s02",
+  "s03",
+  "s04",
+  "s05",
+  "s06",
+  "s07",
+  "s08",
+  "s09",
+  "s10",
+  "s11",
+  "s12",
+  "s13"
+ ]
+}
