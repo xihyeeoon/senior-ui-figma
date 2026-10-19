@@ -1,0 +1,74 @@
+{
+ "unit": "10",
+ "method": "M1 색 차이 2 · 원본",
+ "regions": [
+  {
+   "id": "g0",
+   "box": [
+    160,
+    1025,
+    238,
+    104
+   ],
+   "parent": null,
+   "depth": 1,
+   "elements": [
+    "t4",
+    "b1"
+   ]
+  },
+  {
+   "id": "g1",
+   "box": [
+    426,
+    1025,
+    238,
+    104
+   ],
+   "parent": null,
+   "depth": 1,
+   "elements": [
+    "t5",
+    "b0"
+   ]
+  },
+  {
+   "id": "g2",
+   "box": [
+    32,
+    1648,
+    210,
+    134
+   ],
+   "parent": null,
+   "depth": 1,
+   "elements": [
+    "t6",
+    "b3"
+   ]
+  },
+  {
+   "id": "g3",
+   "box": [
+    267,
+    1648,
+    525,
+    134
+   ],
+   "parent": null,
+   "depth": 1,
+   "elements": [
+    "t7",
+    "b2"
+   ]
+  }
+ ],
+ "loose": [
+  "t0",
+  "t1",
+  "t2",
+  "t3",
+  "b4",
+  "b5"
+ ]
+}
