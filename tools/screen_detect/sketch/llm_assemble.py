@@ -178,8 +178,10 @@ def main(argv=None):
     ap.add_argument("--model", default=None)
     ap.add_argument("--units", help='고른 단위만 - 쉼표로 ("home(01a+01b+01c),02"). 없으면 13단위 전부')
     K.ST.add_arg(ap)
+    ap.add_argument("--root", default=K.STRICT_ROOT, help="strict 결과 폴더 (detect/ · semantic/ · flow/, 시안도 여기에)")
     a = ap.parse_args(argv)
     strict = K.ST.from_args(a)
+    K.set_strict_root(a.root)
     global PROMPT_FILE, OUT, PAGE_DIR
     if strict:
         PROMPT_FILE, PAGE_DIR = PROMPT_V2, K.STRICT_PATHS["out"]

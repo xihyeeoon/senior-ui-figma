@@ -244,8 +244,10 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--units", help="고른 단위만 - 쉼표로")
     K.ST.add_arg(ap)
+    ap.add_argument("--root", default=K.STRICT_ROOT, help="strict 결과 폴더 (detect/ · semantic/ · flow/, 시안도 여기에)")
     a = ap.parse_args(argv)
     strict = K.ST.from_args(a)
+    K.set_strict_root(a.root)
     units = K.load_units(strict=strict, only=[x.strip() for x in (a.units or "").split(",") if x.strip()] or None)
     sections = []
     for u in units.values():

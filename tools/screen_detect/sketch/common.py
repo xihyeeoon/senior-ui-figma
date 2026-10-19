@@ -40,8 +40,16 @@ OUT = os.path.join(ROOT, "results", "detect", "20261019-sketch")
 # 스크린샷만 (--inputs strict, 2026-10-19) - 단위 이름 = 묶인 캡처 파일 이름, 이름표 없음, 의미 층 v2, 흐름 strict,
 # 구역 나무는 같은 M1 (색 차이 2) 으로 그 자리에서 만든다
 STRICT_ROOT = os.path.join(ROOT, "results", "detect", "20261019-strict")
-STRICT_PATHS = {"final": os.path.join(STRICT_ROOT, "detect"), "semantic": os.path.join(STRICT_ROOT, "semantic"),
-                "flow": os.path.join(STRICT_ROOT, "flow", "flow.proposed.json"), "out": STRICT_ROOT}
+STRICT_PATHS = {}
+
+
+def set_strict_root(root):
+    """strict 결과 폴더 (detect/ · semantic/ · flow/ 가 든 곳, 시안도 여기에 쓴다) - 20261019-strict · -strict2."""
+    STRICT_PATHS.update(final=os.path.join(root, "detect"), semantic=os.path.join(root, "semantic"),
+                        flow=os.path.join(root, "flow", "flow.proposed.json"), out=root)
+
+
+set_strict_root(STRICT_ROOT)
 WIDTH = 390
 SCALE = WIDTH / 824
 WIDE = 0.95
