@@ -1,15 +1,17 @@
-r"""조립 2단계 B - LLM 생김새 (만드는 줄, --inputs strict, 유료). 동작 · 이름 · 처리기 · 흐름 파일 · 추적표는 build.py 의
+r"""조립 2단계 B · 마무리 - LLM 생김새 (만드는 줄, --inputs strict, 유료). 동작 · 이름 · 처리기 · 흐름 파일 · 추적표는 build.py 의
 plan() 그대로 (규칙 판과 같다), 화면마다 마크업 · CSS 만 LLM 이 짠다.
 
     $py = "C:\Users\xihye\venvs\detect\Scripts\python.exe"
     & $py tools/screen_detect/assemble/llm_build.py --inputs strict --dry-run       # 13화면 어림만 (키를 읽지 않는다)
-    & $py tools/screen_detect/assemble/llm_build.py --inputs strict --max-usd 2.5   # 실제 호출
-        → results/detect/20261019-assembly2/llm/{original.html, flow.json, trace.json, limits.md, check.json}
+    & $py tools/screen_detect/assemble/llm_build.py --inputs strict --max-usd 2.5   # 실제 호출 (--prompt, 기본 v4)
+    & $py tools/screen_detect/assemble/llm_build.py --inputs strict --reuse results/detect/20261019-assembly2/llm
+                                                    # 부르지 않고 앞 실행의 답으로 (그 답의 프롬프트 판으로) 다시 짓기
+        → results/detect/20261019-assembly3/llm/{original.html, flow.json, trace.json, limits.md, check.json}
           llm/<화면>.json (시도마다 토큰 · 비용 · 문제), llm/raw/<화면>.<n>.request.txt · .response.txt, llm/_llm.json,
           llm/_dry.json (어림), llm/_sent/<화면>/marks.png
 
 보내는 것은 LLM 시안과 같다 (sketch/llm_assemble.build - strict3 의미 층 · 구역 나무 · 띠 · mark 그림, 화면은 캡처 파일
-이름으로만, 프롬프트 LLM_PROMPT_V3.md 규칙 1~11). 이은 긴 화면 (s01 · s05 · s06) 도 한 번에 보낸다.
+이름으로만, 프롬프트 LLM_PROMPT_V4.md 규칙 1~12 - 2단계는 V3 규칙 1~11). 이은 긴 화면 (s01 · s05 · s06) 도 한 번에 보낸다.
   검사    check_markup ①~⑤ (규칙 판과 같은 기대값) + <script> · <style> 없음. 동작을 붙인 뒤의 section 을 검사한다
   다시    걸리면 문제를 적어 한 번 더 묻는다. 또 걸리면 (또는 답이 잘리면) 그 화면은 규칙 마크업으로 대신하고 limits 에 적는다
   동작    LLM 이 지은 data-action (규칙 5) · data-v · data-go 는 모두 지우고, data-src 로 찾은 요소의 태그 이름 바로 뒤에 규칙
@@ -36,8 +38,8 @@ import check_markup as CM  # noqa: E402
 import common as K  # noqa: E402
 import llm_assemble as LA  # noqa: E402
 
-OUT = os.path.join(B.R, "20261019-assembly2", "llm")
-PROMPT = "v3"
+OUT = os.path.join(B.R, "20261019-assembly3", "llm")
+PROMPT = "v4"
 HINT = {"①": "data-src 는 목록의 id 마다 꼭 한 번 쓴다",
         "②": "data-src 를 단 요소 밖에 글 · button · 그림 자리를 두지 마라 (감싸는 그릇은 button 이 아닌 div 로)",
         "③": "그 요소 바로 안의 글은 목록의 text (text_fixed 가 있으면 text_fixed) 그대로 - 고치거나 늘리지 마라",
@@ -138,17 +140,30 @@ def main(argv=None):
     ap.add_argument("--max-usd", type=float, default=2.5)
     ap.add_argument("--stop-over", type=float, default=1.8, help="13화면 어림 합 (생각 = 답) 이 이것을 넘으면 부르지 않는다")
     ap.add_argument("--model", default=None)
-    ap.add_argument("--reuse", action="store_true", help="부르지 않고 llm/raw 의 앞 답 (llm/<화면>.json 의 시도) 으로 다시 짓는다")
+    ap.add_argument("--prompt", choices=sorted(LA.PROMPTS), default=PROMPT, help="새로 부를 때의 프롬프트 판")
+    ap.add_argument("--reuse", nargs="?", const="", metavar="DIR",
+                    help="부르지 않고 앞 실행의 답 (DIR/llm/<화면>.json 의 시도 · raw 답, DIR 을 빼면 --out) 으로 다시 짓는다. "
+                         "프롬프트는 그 답을 받은 판 (prompt_sha 로 찾음), 답 파일은 이 --out 으로 옮겨 적는다")
     a = ap.parse_args(argv)
     if not K.ST.from_args(a):
         raise SystemExit("조립은 --inputs strict 로만 돈다 (스크린샷만)")
     from senior_ui import config
     from senior_ui.restructure import model as M
-    LA.PROMPT_FILE = LA.PROMPTS[PROMPT]
+    LOG = os.path.join(a.out, "llm")
+    reuse = None if a.reuse is None else os.path.join(a.reuse or a.out, "llm")
+    shas = {hashlib.sha256(io.open(p, "rb").read()).hexdigest()[:12]: p for p in LA.PROMPTS.values()}
+    if reuse:
+        prev = {f[:-5]: json.load(io.open(os.path.join(reuse, f), encoding="utf-8"))
+                for f in os.listdir(reuse) if re.fullmatch(r"s\d+\.json", f)}
+        got = {r["prompt_sha"] for r in prev.values()}
+        if len(got) != 1 or next(iter(got)) not in shas:
+            raise SystemExit("앞 답의 프롬프트를 하나로 찾지 못했다: %s" % sorted(got))
+        LA.PROMPT_FILE = shas[next(iter(got))]
+    else:
+        LA.PROMPT_FILE = LA.PROMPTS[a.prompt]
     model = a.model or config.DEFAULT_MODEL
     effort = config.DEFAULT_REASONING_EFFORT
     S = B.plan(a.out)
-    LOG = os.path.join(a.out, "llm")
     jobs = []
     for u, s in zip(S["units"], S["screens"]):
         prompt, images, rows = LA.build(u, os.path.join(LOG, "_sent", s["screen"]))
@@ -167,18 +182,20 @@ def main(argv=None):
             e["answer_tokens"], e["cost_usd"], e["cost_usd_with_reasoning"], e["cost_usd_cap"]))
     print("합계 입력 %d · 답 %d · $%.4f (생각 = 답 $%.4f, 상한 $%.3f)" % (
         dry["input_tokens"], dry["answer_tokens"], dry["cost_usd"], dry["cost_usd_with_reasoning"], dry["cost_usd_cap"]))
-    if dry["cost_usd_with_reasoning"] > a.stop_over and not a.reuse:
+    if dry["cost_usd_with_reasoning"] > a.stop_over and not reuse:
         print("어림 $%.4f > $%.2f - 부르지 않고 멈춘다" % (dry["cost_usd_with_reasoning"], a.stop_over))
         return
     if a.dry_run:
         return
-    if a.reuse:
-        prev = {s["screen"]: json.load(io.open(os.path.join(LOG, "%s.json" % s["screen"]), encoding="utf-8"))
-                for s, *_ in jobs}
-
+    if reuse:
         def call(sid, n, ask, images):
             at = prev[sid]["attempts"][n - 1]
-            return dict(at, text=io.open(os.path.join(LOG, "raw", "%s.%d.response.txt" % (sid, n)), encoding="utf-8").read())
+            raw = {k: io.open(os.path.join(reuse, "raw", "%s.%d.%s.txt" % (sid, n, k)), encoding="utf-8").read()
+                   for k in ("request", "response")}
+            if os.path.abspath(reuse) != os.path.abspath(LOG):
+                for k, text in raw.items():
+                    write(os.path.join(LOG, "raw", "%s.%d.%s.txt" % (sid, n, k)), text)
+            return dict(at, text=raw["response"])
     else:
         M.load_env()                     # 실제 호출일 때만 - 환경 변수 또는 이 레포 뿌리의 .envs (의미 층과 같다)
 
@@ -200,15 +217,16 @@ def main(argv=None):
             if stopped:
                 break
             need = est["cost_usd_with_reasoning"] or 0
-            if a.reuse and n > len(prev[sid]["attempts"]):
+            if reuse and n > len(prev[sid]["attempts"]):
                 break
-            if spent + need > a.max_usd and not a.reuse:
+            if spent + need > a.max_usd and not reuse:
                 stopped = "쓴 돈 $%.4f + %s 어림 $%.4f > 상한 $%.2f" % (spent, sid, need, a.max_usd)
                 break
             reply = call(sid, n, ask, images)
             usage = reply.get("usage") or {}
             cost = M.cost_usd(usage, M.price_for(model))
-            spent += cost if cost is not None else need
+            if not reuse:                        # 앞 답을 다시 쓰면 이번에 쓴 돈은 없다 (그때 비용은 시도마다 남는다)
+                spent += cost if cost is not None else need
             section = LA.extract(reply.get("text"))
             wrapped = wrap(attach(section, sid, S["actions"]), s) if section else None
             probs, raw = problems(section, wrapped, exp)
@@ -224,7 +242,7 @@ def main(argv=None):
         if good:
             res["status"] = "ok" if len(res["attempts"]) == 1 else "ok (다시 물음)"
             sections.append(good)
-            markup[sid] = "LLM 마크업 (LLM_PROMPT_V3, %s) + 규칙 동작" % res["status"]
+            markup[sid] = "LLM 마크업 (%s, %s) + 규칙 동작" % (os.path.basename(LA.PROMPT_FILE)[:-3], res["status"])
         else:
             truncated = any(x["truncated"] for x in res["attempts"])
             res["status"] = ("호출 안 함 (%s)" % stopped if not res["attempts"] else
@@ -235,7 +253,8 @@ def main(argv=None):
         write(os.path.join(LOG, "%s.json" % sid), json.dumps(res, ensure_ascii=False, indent=1))
     summ = {"model": model, "reasoning_effort": effort, "inputs": "strict", "prompt_file": dry["prompt_file"],
             "prompt_sha": sha, "max_usd": a.max_usd, "spent_usd": round(spent, 4), "stopped": stopped,
-            "estimate_usd": round(dry["cost_usd_with_reasoning"], 4), "reused": a.reuse,
+            "estimate_usd": round(dry["cost_usd_with_reasoning"], 4), "reused_from": os.path.relpath(reuse, K.ROOT).replace(os.sep, "/") if reuse else None,
+            "earlier_cost_usd": round(sum(x["cost_usd"] or 0 for r in results.values() for x in r["attempts"]), 4) if reuse else None,
             "screens": {k: {"status": r["status"], "attempts": len(r["attempts"]),
                             "prompt_tokens": sum((x["usage"] or {}).get("prompt") or 0 for x in r["attempts"]),
                             "completion_tokens": sum((x["usage"] or {}).get("completion") or 0 for x in r["attempts"]),
@@ -248,18 +267,22 @@ def main(argv=None):
     write(os.path.join(LOG, "_llm.json"), json.dumps(summ, ensure_ascii=False, indent=1))
     split = split_groups(sections, S)
     more = ["\n## LLM 마크업 (이 판)\n",
-            "모델 %s · 프롬프트 %s (%s) · 쓴 돈 $%.4f / 상한 $%.2f%s\n" % (
-                model, summ["prompt_file"], sha, spent, a.max_usd, " · 멈춤: " + stopped if stopped else ""),
+            "모델 %s · 프롬프트 %s (%s) · 쓴 돈 $%.4f / 상한 $%.2f%s%s\n" % (
+                model, summ["prompt_file"], sha, spent, a.max_usd, " · 멈춤: " + stopped if stopped else "",
+                " · 앞 실행의 답을 다시 씀 (%s, 그때 비용 $%.4f - 아래 표의 비용)" % (
+                    summ["reused_from"], summ["earlier_cost_usd"]) if reuse else ""),
             K.C.table(["화면", "캡처", "상태", "시도", "첫 답 문제", "잘림", "비용 (어림)"],
                       [[k, "+".join(c[:-4] for c in results[k]["captures"]), r["status"], r["attempts"],
                         "-" if r["problems_first"] is None else r["problems_first"], ",".join(map(str, r["truncated"])) or "-",
                         "$%.4f ($%.4f)" % (r["cost_usd"], r["estimate_usd"])] for k, r in summ["screens"].items()]),
-            "\n## 무리가 여러 부모로 갈린 것 (LLM 이 줄 · 행으로 나눠 짬 - 검사 I 는 같은 부모 형제만 무리로 본다)\n",
+            "\n## 무리가 여러 부모로 갈린 것 (LLM 이 줄 · 행으로 나눠 짬)\n",
+            "파이프라인 검사 I (probes._CHOICES) 는 원본을 걸을 때 같은 data-action 을 부모마다 묶어 형제 2개 이상인 묶음을 모두 "
+            "합쳐 한 무리로 센다 - 갈려도 값은 같다. 형제가 하나뿐인 부모의 값은 빠진다 ('부모마다' 에 1 이 있으면).\n",
             K.C.table(["화면", "data-action", "부모 수", "요소 수", "부모마다"], split or [["-"] * 5]),
             "\n- LLM 이 지은 data-action (규칙 5) 은 지우고 규칙 부분의 이름으로 바꿨다 - 처리기 · flow.json · trace.json 은 규칙 "
             "판과 같다.\n"]
     chk = B.write(S, a.out, sections, markup,
-                  page_vars={"which": "LLM 판", "markup": "LLM 마크업 (LLM_PROMPT_V3) - 대신한 화면은 규칙 시안 마크업",
+                  page_vars={"which": "LLM 판", "markup": "LLM 마크업 (%s) - 대신한 화면은 규칙 시안 마크업" % os.path.basename(LA.PROMPT_FILE)[:-3],
                              "maker": "llm_build.py", "css": CSS}, more_limits=more)
     print("쓴 돈 $%.4f %s · 검사 %s (%d) · 무리 갈림 %d" % (spent, stopped or "", chk["ok"], len(chk["problems"]), len(split)))
 
