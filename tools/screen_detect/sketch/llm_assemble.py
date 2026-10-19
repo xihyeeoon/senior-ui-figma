@@ -40,10 +40,13 @@ sys.path.insert(0, K.ROOT)
 import semantic as S  # noqa: E402  (draw_marks · estimate - 같은 크기 규칙)
 
 PROMPT_FILE = os.path.join(HERE, "LLM_PROMPT.md")
+# 스크린샷만 (--inputs strict, 2026-10-19) - 의미 층 v2 의 칸 셋과 그것을 쓰는 지시 셋
+PROMPT_V2 = os.path.join(HERE, "LLM_PROMPT_V2.md")
 ANSWER_TOKENS = 60     # 어림 - 요소 하나의 HTML (태그 · data-src · style)
 ANSWER_BASE = 300
 MAX_TOKENS = 25000
 OUT = os.path.join(K.OUT, "llm")
+PAGE_DIR = K.OUT
 
 
 def rows_of(u):
@@ -57,9 +60,11 @@ def build(u, folder):
     marks = [{"box": e["box"], "kind": e["det"], "text": e["text"], "mark": e["mark"]} for e in rows]
     img = S.draw_marks(K.unit_image(u), marks, os.path.join(folder, "marks.png"))
     images = [{"path": img, "label": "화면 전체 - 요소마다 mark 번호"}]
-    el = lambda e: json.dumps({"id": e["id"], "mark": e["mark"], "kind": e["kind"], "pressable": e["pressable"],
-                               "text": e["text"], "image_name": e["image_name"], "group": e["group"],
-                               "in_box": e["in_box"], "region": e["region"], "box": e["box_css"]},
+    v2 = ("icon", "text_is_icon", "text_fixed") if u.get("strict") else ()
+    el = lambda e: json.dumps(dict({"id": e["id"], "mark": e["mark"], "kind": e["kind"], "pressable": e["pressable"],
+                                    "text": e["text"], "image_name": e["image_name"], "group": e["group"],
+                                    "in_box": e["in_box"], "region": e["region"], "box": e["box_css"]},
+                                   **{k: e.get(k) for k in v2}),
                               ensure_ascii=False, separators=(",", ":"))
     body = io.open(PROMPT_FILE, encoding="utf-8").read().split("\n---\n", 1)[1]
     # 캡처 파일 이름만 - 이름표(label) · 단위 이름(GROUPS 의 화면 이름)은 사람이 쓴 것이라 넣지 않는다 (10/19)
@@ -172,12 +177,18 @@ def main(argv=None):
     ap.add_argument("--max-usd", type=float, default=2.0)
     ap.add_argument("--model", default=None)
     ap.add_argument("--units", help='고른 단위만 - 쉼표로 ("home(01a+01b+01c),02"). 없으면 13단위 전부')
+    K.ST.add_arg(ap)
     a = ap.parse_args(argv)
+    strict = K.ST.from_args(a)
+    global PROMPT_FILE, OUT, PAGE_DIR
+    if strict:
+        PROMPT_FILE, PAGE_DIR = PROMPT_V2, K.STRICT_PATHS["out"]
+        OUT = os.path.join(PAGE_DIR, "llm")
     from senior_ui import config
     from senior_ui.restructure import model as M
     model = a.model or config.DEFAULT_MODEL
     effort = config.DEFAULT_REASONING_EFFORT
-    units = K.load_units()
+    units = K.load_units(strict=strict)
     if a.units:
         pick = [x.strip() for x in a.units.split(",") if x.strip()]
         bad = [x for x in pick if x not in units]
@@ -240,15 +251,18 @@ def main(argv=None):
         results[u["unit"]] = res
         write(os.path.join(OUT, "%s.json" % u["unit"]), json.dumps(res, ensure_ascii=False, indent=1))
         if section:
-            sections.append('<section class="screen" id="%s" data-unit="%s" data-label="%s" data-check="%s">'
+            # 스크린샷만(strict) 에서는 이름표(data-label)를 넣지 않는다
+            label = "" if strict else ' data-label="%s"' % html.escape(u["label"] or "")
+            sections.append('<section class="screen" id="%s" data-unit="%s"%s data-check="%s">'
                             '<!-- 모델 답 (%s) -->%s</section>' % (
-                                u["section"], html.escape(u["unit"]), html.escape(u["label"] or ""), res["status"],
+                                u["section"], html.escape(u["unit"]), label, res["status"],
                                 res["status"], add_go(section, u["taps"])))
         if stopped:
             break
-    write(os.path.join(K.OUT, "llm.html"),
+    write(os.path.join(PAGE_DIR, "llm.html"),
           RA.page("LLM 시안", "llm_assemble.py", [u for u in units.values() if u["unit"] in results], sections))
-    summ = {"model": model, "reasoning_effort": effort, "prompt_file": "tools/screen_detect/sketch/LLM_PROMPT.md",
+    summ = {"model": model, "reasoning_effort": effort, "inputs": "strict" if strict else "legacy",
+            "prompt_file": os.path.relpath(PROMPT_FILE, K.ROOT).replace(os.sep, "/"),
             "prompt_sha": sha, "max_usd": a.max_usd, "spent_usd": round(spent, 4), "stopped": stopped,
             "units": {k: {"status": r["status"], "attempts": len(r["attempts"]),
                           "prompt_tokens": sum((x["usage"] or {}).get("prompt") or 0 for x in r["attempts"]),

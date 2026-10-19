@@ -20,6 +20,10 @@ r"""탐색용 시안 — 조립 설계 전. (가) 규칙 시안: 정한 규칙�
             이름이 없다)를 안에 그린다. 그림 후보를 품은 버튼은 그 .pic 이 버튼 안에 들어간다 (부모 규칙)
   이동      흐름 짝(kind tap)의 누른 요소에 data-go="<다음 화면 section id>" - 누르면 그 화면으로
   추적      모든 요소에 data-src="<요소 id>". 상태바(의미 층 system)는 넣지 않는다
+  strict    --inputs strict (스크린샷만, 2026-10-19): results/detect/20261019-strict/ 의 입력 (단위 이름 = 캡처 파일
+            이름, 의미 층 v2, 흐름 strict) → 20261019-strict/rule.html. 이름표(data-label)를 넣지 않는다. v2 칸 -
+            icon 이 있으면 그 요소 안에 .pic role="img" aria-label=icon.name (누를 수 있으면 버튼 안),
+            text_is_icon 이면 글 대신 그림 자리만, text_fixed 가 있으면 고친 글 + data-ocr="<원래 글>"
 규칙 밖 꾸밈(그림자 · 굵기 · 정렬 다듬기)은 하지 않는다.
 """
 import html
@@ -152,6 +156,18 @@ def build_section(u, arr):
         if e["id"] in go:
             attrs += ' data-go="%s"' % go[e["id"]]
         own_text = html.escape(e["text"] or "") if e["det"] == "text" else ""
+        # 의미 층 v2 (strict) - 아이콘을 글자로 잘못 읽은 글은 글 대신 그림 자리만, 그림과 다르게 읽힌 글은 고친 글
+        # (원래 글은 data-ocr), 아이콘 · 로고를 담은 요소는 그 안에 .pic role="img" aria-label=icon.name
+        icon_v2 = e.get("icon") if e["kind"] != "image" else None
+        if e.get("text_is_icon"):
+            own_text = ""
+        elif own_text and e.get("text_fixed"):
+            attrs += ' data-ocr="%s"' % html.escape(e["text"])
+            own_text = html.escape(e["text_fixed"])
+        if icon_v2:
+            pic_st = "position:absolute; inset:10%" if not own_text else                 "position:absolute; left:0; top:0; width:%dpx; height:%dpx" % (b[3], b[3])
+            inner = '<div class="pic" role="img" aria-label="%s" style="%s"></div>' % (
+                html.escape(icon_v2.get("name") or ""), pic_st) + inner
         if own_text:
             st.update({"font-size": "%dpx" % max(8, round(b[3] * FONT_K)), "line-height": "%dpx" % b[3],
                        "color": text_color(arr, e["box"]), "white-space": "nowrap"})
@@ -161,7 +177,7 @@ def build_section(u, arr):
                 html.escape(e["image_name"] or ""), attrs, style(st), inner)
         if kind in K.BUTTONS:
             icon = ""
-            if e["det"] == "box" and not e["text"] and not inner:
+            if e["det"] == "box" and not e["text"] and not inner and not icon_v2:
                 icon = '<span class="pic" style="position:absolute; inset:15%"></span>'
             # 버튼 안의 버튼은 HTML 이 허락하지 않는다 (안쪽 <button> 이 바깥을 닫는다) - 안쪽은 role="button" div
             tag = '<div role="button" %s style="%s">%s%s%s</div>' if in_btn else                 '<button %s style="%s">%s%s%s</button>'
@@ -175,8 +191,10 @@ def build_section(u, arr):
         r["id"], style(dict(place([0, K.css(r["box"][1]), K.WIDTH, K.css(r["box"][3])], (0, 0)),
                             **{"background": region_style(arr, r["box"]).get("background", "transparent")})))
         for r in u["bands"])
-    return ('<section class="screen" id="%s" data-unit="%s" data-label="%s" style="height:%dpx; background:%s">'
-            '%s%s</section>' % (u["section"], html.escape(u["unit"]), html.escape(u["label"] or ""),
+    # 스크린샷만(strict) 에서는 연구자 이름표(data-label)를 넣지 않는다 - data-src · 캡처 파일 이름만
+    label = "" if u.get("strict") else ' data-label="%s"' % html.escape(u["label"] or "")
+    return ('<section class="screen" id="%s" data-unit="%s"%s style="height:%dpx; background:%s">'
+            '%s%s</section>' % (u["section"], html.escape(u["unit"]), label,
                                 u["size_css"][1], page_bg(arr), bands, render(("sec", None), (0, 0))))
 
 
@@ -220,15 +238,22 @@ def page(title, script, units, sections, extra_css=""):
                    "extra_css": extra_css}
 
 
-def main():
+def main(argv=None):
+    import argparse
     import numpy as np
-    units = K.load_units()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--units", help="고른 단위만 - 쉼표로")
+    K.ST.add_arg(ap)
+    a = ap.parse_args(argv)
+    strict = K.ST.from_args(a)
+    units = K.load_units(strict=strict, only=[x.strip() for x in (a.units or "").split(",") if x.strip()] or None)
     sections = []
     for u in units.values():
         arr = np.asarray(K.unit_image(u)).astype(np.int16)
         sections.append(build_section(u, arr))
-    os.makedirs(K.OUT, exist_ok=True)
-    path = os.path.join(K.OUT, "rule.html")
+    out = K.STRICT_PATHS["out"] if strict else K.OUT
+    os.makedirs(out, exist_ok=True)
+    path = os.path.join(out, "rule.html")
     with io.open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(page("규칙 시안", "rule_assemble.py", list(units.values()), sections))
     print(path, sum(len(u["elements"]) for u in units.values()), "요소")

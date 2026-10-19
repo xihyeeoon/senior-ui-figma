@@ -27,6 +27,7 @@ ROOT = os.path.dirname(os.path.dirname(TOOLS))
 sys.path.insert(0, TOOLS)
 
 import compare as C  # noqa: E402
+import strict as ST  # noqa: E402
 import truth_regions as TRG  # noqa: E402
 
 FINAL = os.path.join(ROOT, "results", "detect", "20261013-d25", "final")
@@ -36,6 +37,11 @@ FLOW = os.path.join(ROOT, "results", "detect", "20261013-d4", "flow.proposed.jso
 CAPTURES = os.path.join(ROOT, "inputs", "captures", "transfer")
 CAPTURES_JSON = ("origin/feat/db-principles", "inputs/captures/transfer/captures.json")
 OUT = os.path.join(ROOT, "results", "detect", "20261019-sketch")
+# 스크린샷만 (--inputs strict, 2026-10-19) - 단위 이름 = 묶인 캡처 파일 이름, 이름표 없음, 의미 층 v2, 흐름 strict,
+# 구역 나무는 같은 M1 (색 차이 2) 으로 그 자리에서 만든다
+STRICT_ROOT = os.path.join(ROOT, "results", "detect", "20261019-strict")
+STRICT_PATHS = {"final": os.path.join(STRICT_ROOT, "detect"), "semantic": os.path.join(STRICT_ROOT, "semantic"),
+                "flow": os.path.join(STRICT_ROOT, "flow", "flow.proposed.json"), "out": STRICT_ROOT}
 WIDTH = 390
 SCALE = WIDTH / 824
 WIDE = 0.95
@@ -47,30 +53,43 @@ def css(v):
 
 
 def section_id(unit):
-    return "u-" + unit.split("(")[0]
+    return "u-" + unit.split("(")[0].replace("+", "_")
 
 
 def read_captures():
+    ST.human("captures.json (이름표)")
     ref, path = CAPTURES_JSON
     out = subprocess.run(["git", "-C", ROOT, "show", "%s:%s" % (ref, path)], capture_output=True, check=True)
     return json.loads(out.stdout.decode("utf-8"))
 
 
-def load_units():
-    """단위 이름 → 공통 입력 dict. 단위 순서는 캡처 순서."""
-    dets = C.load_units(FINAL)
-    sem, _ = C.load_semantic(SEMANTIC)
-    labels = {i["file"]: i["label"] for i in read_captures()["images"]}
-    flow = json.load(io.open(FLOW, encoding="utf-8"))
+def m1_tree(det, image):
+    """구역 나무를 그 자리에서 - regions_robust.py tree 와 같은 M1 (색 차이 2) · 같은 나무 규칙."""
+    import regions as RG
+    import regions_robust as RR
+    els = [e for e in det["elements"] if e["kind"] in ("box", "text", "img_candidate")]
+    regs, loose = RR.build_tree(RG.m1(image, 2, 1.0), els)
+    return {"regions": regs, "loose": loose}
+
+
+def load_units(strict=False, only=None):
+    """단위 이름 → 공통 입력 dict. 단위 순서는 캡처 순서. strict 이면 스크린샷만 (이름표를 읽지 않는다)."""
+    final = STRICT_PATHS["final"] if strict else FINAL
+    every = C.load_units(final)
+    dets = {k: v for k, v in every.items() if not only or k in only}
+    sem, _ = C.load_semantic(STRICT_PATHS["semantic"] if strict else SEMANTIC)
+    labels = {} if strict else {i["file"]: i["label"] for i in read_captures()["images"]}
+    flow_path = STRICT_PATHS["flow"] if strict else FLOW
+    flow = json.load(io.open(flow_path, encoding="utf-8")) if os.path.exists(flow_path) else {"pairs": []}
     cap_unit = {}
-    for n, d in dets.items():
+    for n, d in every.items():
         for c in d.get("captures") or [os.path.splitext(os.path.basename(d["capture"]))[0]]:
             cap_unit[c + ".png"] = n
     units = {}
     for n, d in dets.items():
         ans = sem.get(n) or {}
         caps = d.get("captures") or [os.path.splitext(os.path.basename(d["capture"]))[0]]
-        tree = json.load(io.open(os.path.join(TREES, "%s.regions.json" % n), encoding="utf-8"))
+        tree = m1_tree(d, TRG.unit_image(d, CAPTURES)) if strict else             json.load(io.open(os.path.join(TREES, "%s.regions.json" % n), encoding="utf-8"))
         w = d["size"][0]
         regions = [r for r in tree["regions"] if r["box"][2] < WIDE * w]
         bands = [r for r in tree["regions"] if r["box"][2] >= WIDE * w]
@@ -83,6 +102,7 @@ def load_units():
                 continue
             els.append({"id": e["id"], "det": e["kind"], "kind": g["kind"], "pressable": g["pressable"],
                         "group": g.get("group"), "image_name": g.get("image_name"),
+                        "icon": g.get("icon"), "text_is_icon": g.get("text_is_icon"), "text_fixed": g.get("text_fixed"),
                         "text": e.get("text"), "in_box": e.get("in_box"), "box": e["box"],
                         "box_css": [css(v) for v in e["box"]]})
         keep = {e["id"] for e in els}
@@ -104,11 +124,11 @@ def load_units():
         for e in els:
             e["region"] = up(home.get(e["id"]))
         taps = []
-        for p in flow["pairs"]:
+        for p in flow.get("pairs") or []:
             if p["kind"] == "tap" and p.get("tap") and cap_unit.get(p["from"]) == n and p["tap"] in keep:
                 taps.append({"tap": p["tap"], "to": section_id(cap_unit[p["to"]]), "to_unit": cap_unit[p["to"]],
                              "tap_text": p.get("tap_text"), "from": p["from"], "to_capture": p["to"]})
-        units[n] = {"unit": n, "section": section_id(n), "captures": caps,
+        units[n] = {"unit": n, "section": section_id(n), "captures": caps, "strict": strict,
                     "label": labels.get(caps[0] + ".png"), "labels": [labels.get(c + ".png") for c in caps],
                     "size": d["size"], "size_css": [WIDTH, css(d["size"][1])], "det": d,
                     "elements": els, "regions": regions, "bands": bands, "taps": taps}
