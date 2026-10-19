@@ -3,6 +3,7 @@ r"""탐색용 시안 — 조립 설계 전. (나) LLM 시안: 같은 입력을 �
     $py = "C:\Users\xihye\venvs\detect\Scripts\python.exe"
     & $py tools/screen_detect/sketch/llm_assemble.py --dry-run          # 어림 토큰 · 비용만 (키를 읽지 않는다)
     & $py tools/screen_detect/sketch/llm_assemble.py --max-usd 2.0      # 실제 호출 → results/detect/20261019-sketch/llm.html
+    & $py tools/screen_detect/sketch/llm_assemble.py --units "home(01a+01b+01c)" --max-usd 1.73   # 고른 단위만
 
 단위마다 모델 한 번 (gpt-6.1-sol, 의미 층과 같은 모델 · 같은 키 읽는 방식 - senior_ui.restructure.model). 보내는 것:
   그림   단위 그림 (이은 화면은 이은 그림) 을 폭 600 으로 줄이고 요소마다 mark 번호를 적은 것 한 장 (의미 층 semantic.py 의
@@ -168,12 +169,19 @@ def main(argv=None):
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--max-usd", type=float, default=2.0)
     ap.add_argument("--model", default=None)
+    ap.add_argument("--units", help='고른 단위만 - 쉼표로 ("home(01a+01b+01c),02"). 없으면 13단위 전부')
     a = ap.parse_args(argv)
     from senior_ui import config
     from senior_ui.restructure import model as M
     model = a.model or config.DEFAULT_MODEL
     effort = config.DEFAULT_REASONING_EFFORT
     units = K.load_units()
+    if a.units:
+        pick = [x.strip() for x in a.units.split(",") if x.strip()]
+        bad = [x for x in pick if x not in units]
+        if bad:
+            raise SystemExit("모르는 단위: %s (있는 단위: %s)" % (", ".join(bad), ", ".join(units)))
+        units = {k: v for k, v in units.items() if k in pick}
     if a.dry_run:
         tmp = tempfile.mkdtemp(prefix="sketch_dry_")
         tot = {"input_tokens": 0, "answer_tokens": 0, "cost_usd": 0, "cost_usd_with_reasoning": 0, "cost_usd_cap": 0}
