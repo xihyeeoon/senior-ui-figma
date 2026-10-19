@@ -9,6 +9,8 @@ detect.py 의 <dir>/<캡처>.json 과 캡처 PNG 를 읽어 GROUPS 의 화면마
     <dir>/overlay/stitched/<화면>.png  이어 붙인 확인 그림
 
 을 쓴다. 어느 캡처가 한 화면의 조각인지는 연구자가 정한다 (GROUPS - 캡처 이름 순이 스크롤 순).
+--inputs strict (스크린샷만, 2026-10-19) 이면 GROUPS 를 쓰지 않고 strict.auto_groups 로 그림만 보고 가린다 -
+묶음 이름은 묶인 캡처 파일 이름("01a+01b+01c"), 판정 기록은 <dir>/_groups.json.
 
 이웃한 두 조각 A → B 마다
 
@@ -41,10 +43,19 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 
 import detect as D  # noqa: E402  (확인 그림을 같은 모양으로 그린다)
+import strict as ST  # noqa: E402
 
 GROUPS = {"home": ["01a", "01b", "01c"],
           "bank": ["05a", "05b", "05c"],
           "bank-tab-sec": ["06a", "06b", "06c"]}
+
+
+
+def human_groups():
+    """연구자가 정한 묶음 - strict(스크린샷만)에서는 쓰지 않는다 (strict.auto_groups)."""
+    ST.human("stitch.GROUPS")
+    return GROUPS
+
 
 BAND_DIFF = 2.0      # 같은 줄로 보는 화소 평균 차 (0~255)
 ANCHOR_X = 8         # 닻 짝의 x · 너비 차 (캡처 픽셀)
@@ -297,8 +308,18 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261012-d2"))
     ap.add_argument("--captures", default=os.path.join(ROOT, "inputs", "captures", "transfer"))
+    ST.add_arg(ap)
     a = ap.parse_args(argv)
-    for name, caps in GROUPS.items():
+    if ST.from_args(a):
+        # 스크린샷만 (2026-10-19) - 묶음을 그림만 보고 가린다. 묶음 이름 = 묶인 캡처 파일 이름
+        groups, log = ST.auto_groups(a.dir, a.captures)
+        with io.open(os.path.join(a.dir, "_groups.json"), "w", encoding="utf-8") as fh:
+            json.dump({"config": ST.GROUP_CONFIG, "settings": ST.GROUP_CONFIGS[ST.GROUP_CONFIG],
+                       "groups": groups, "pairs": log}, fh, ensure_ascii=False, indent=1)
+        groups = dict(groups)
+    else:
+        groups = human_groups()
+    for name, caps in groups.items():
         r = stitch(name, caps, a.dir, a.captures)
         print(name, r["size"], "merged", r["merged"], "dropped_fixed", r["dropped_fixed"],
               [(f["capture"], f["offset"], f["top_band"], f["bottom_band"], f["method"],

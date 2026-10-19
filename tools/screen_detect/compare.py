@@ -592,7 +592,9 @@ def load_units(folder):
                 st = load(os.path.join("stitched", f))
                 for c in st["captures"]:
                     units.pop(c, None)
-                units["%s(%s)" % (st["screen"], "+".join(st["captures"]))] = st
+                # strict(스크린샷만)의 이은 화면은 이름이 곧 캡처 파일 이름 ("01a+01b+01c")
+                name = st["screen"] if st["screen"] == "+".join(st["captures"]) else                     "%s(%s)" % (st["screen"], "+".join(st["captures"]))
+                units[name] = st
     first = lambda n: units[n].get("captures", [n])[0]
     return {n: units[n] for n in sorted(units, key=first)}
 
