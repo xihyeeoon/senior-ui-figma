@@ -73,7 +73,9 @@ def _hook(event, args):
         if _forbidden(path):
             raise StrictInputError("strict: 사람 파일을 열려 했다 - %s" % path)
     elif event == "subprocess.Popen":
-        cmd = " ".join(str(x) for x in (args[1] or [])) if len(args) > 1 else ""
+        raw = args[1] if len(args) > 1 else ""
+        # Windows 에서는 명령이 한 줄 글로 온다 (list2cmdline)
+        cmd = raw if isinstance(raw, str) else " ".join(str(x) for x in (raw or []))
         if any(f in cmd for f in FORBIDDEN):
             raise StrictInputError("strict: 사람 파일을 읽으려 했다 - %s" % cmd)
 
@@ -174,14 +176,59 @@ def prepare(src, out):
     return stripped
 
 
+def check():
+    """strict 막기가 걸리는지 - 사람 파일 열기 · git show · 사람 상수 쓰기를 하나씩 해 보고 오류가 나는지."""
+    import subprocess
+    sys.path.insert(0, os.path.join(HERE, "sketch"))
+    tries = [
+        ("truth.json 열기", lambda: open(os.path.join(ROOT, "results", "detect", "20261013-d3b", "truth.json"))),
+        ("truth_regions.json 열기", lambda: open(os.path.join(ROOT, "results", "detect", "20261019-regions",
+                                                            "truth_regions.json"))),
+        ("flows/original.json 열기", lambda: open(os.path.join(ROOT, "flows", "original.json"))),
+        ("tasks/transfer.json 열기", lambda: open(os.path.join(ROOT, "tasks", "transfer.json"))),
+        ("옛 원본 HTML 열기", lambda: open(os.path.join(ROOT, "inputs", "original_transfer.html"))),
+        ("git show captures.json", lambda: subprocess.run(["git", "-C", ROOT, "show",
+                                                           "origin/feat/db-principles:inputs/captures/transfer/captures.json"],
+                                                          capture_output=True)),
+        ("stitch.GROUPS", lambda: __import__("stitch").human_groups()),
+        ("semantic.TASK", lambda: __import__("semantic").task_line()),
+        ("flow.read_captures (이름표)", lambda: __import__("flow").read_captures(
+            "origin/feat/see-captures", "inputs/captures/transfer/captures.json")),
+        ("sketch/common.read_captures (이름표)", lambda: __import__("common").read_captures()),
+    ]
+    out = []
+    for name, fn in tries:
+        try:
+            fn()
+            out.append((name, "막히지 않음"))
+        except StrictInputError as e:
+            out.append((name, "막힘 - %s" % e))
+    return out
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["prepare", "groups"])
+    ap.add_argument("cmd", choices=["prepare", "groups", "check"])
     ap.add_argument("--from", dest="src", default=os.path.join(ROOT, "results", "detect", "20261013-d25", "final"))
     ap.add_argument("--out", default=os.path.join(ROOT, "results", "detect", "20261019-strict", "detect"))
     ap.add_argument("--captures", default=os.path.join(ROOT, "inputs", "captures", "transfer"))
     a = ap.parse_args(argv)
-    enable()
+    if a.cmd != "check":
+        enable()
+    if a.cmd == "check":
+        # 다른 스크립트처럼 import 한 strict 모듈로 켜고 막는다 (__main__ 으로 돈 이 파일과는 다른 모듈이다)
+        mod = __import__("strict")
+        mod.enable()
+        res = mod.check()
+        lines = ["%-34s %s" % r for r in res]
+        print("\n".join(lines))
+        path = os.path.join(os.path.dirname(a.out), "strict_check.txt")
+        with io.open(path, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write("strict.py check - strict 를 켠 프로세스에서 사람 파일 · 상수를 하나씩 읽어 본 결과\n\n"
+                     + "\n".join(lines) + "\n")
+        if any(r[1] == "막히지 않음" for r in res):
+            raise SystemExit("막히지 않은 것이 있다")
+        return
     if a.cmd == "prepare":
         s = prepare(a.src, a.out)
         print("지운 칸 %d (name %d · label %d) → %s" % (len(s), sum(x["field"] == "name" for x in s),
