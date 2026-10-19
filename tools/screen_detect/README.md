@@ -38,6 +38,7 @@
 | OmniParser v2 가중치 | `C:\Users\xihye\tools\OmniParser-v2.0-weights\{icon_detect_v3, icon_caption}` |
 | Florence-2 처리기 · 모델 코드 (HF 캐시) | `C:\Users\xihye\tools\hf` (`microsoft/Florence-2-base@5ca5edf`) |
 | PaddleOCR 모델 | `C:\Users\xihye\tools\paddlex\official_models\{PP-OCRv5_server_det, korean_PP-OCRv5_mobile_rec}` |
+| (비교만) UI-DETR-1 가중치 `model.pth` · 모델 카드 | `C:\Users\xihye\tools\UI-DETR-1\` (racineai/UI-DETR-1 @ `0f0dda5`, 2026-10-19) |
 
 ```powershell
 uv venv C:\Users\xihye\venvs\detect --python 3.12
@@ -476,6 +477,30 @@ $S = "results/detect/20261019-strict2"
 & $py tools/screen_detect/strict.py check --out $S/detect
 ```
 
+### strict3 · UI-DETR-1 비교 (2026-10-19 저녁)
+
+- **출력 검사 바꿈 (`semantic.py`, v2):** 칸끼리 짝을 보는 검사 둘 ("kind image 인데 icon.name ≠ image_name", "text_is_icon
+  true 인데 icon 없음") 은 단위를 실패시키지 않고 경고로 적는다 (`<단위>.semantic.json` 의 `warnings` - 요소 id · 까닭, 그 요소의
+  칸은 모델 답 그대로). 나머지 검사 (id 빠짐 · 없는 id · 새 요소 · 값 모양) 는 그대로 실패 조건. strict3
+  (`results/detect/20261019-strict3/`) = 은행 단위만 이 검사로 다시 (`--reuse` 로 나머지는 strict2 답) + 흐름 다시.
+- **UI-DETR-1 단독 비교 (`uidetr.py` · `uidetr_report.py`, `results/detect/20261019-uidetr/`):** 검출 상자만 UI-DETR-1 로 바꾸고
+  OCR · 아이콘 글 규칙 · 겹친 박스 정리 · 칸 안 그림 후보 · 상태바 표시 · 채점은 strict2 와 같게. 설정은 모델 카드 Quick Start 그대로
+  (resolution 1600, threshold 0.3 - 고르지 않았다). 이어 붙이기는 자동 판정 (UI-DETR-1 상자) 과 strict2 묶음 그대로
+  (`stitch.py --groups-from`) 둘로 잰다. 기본 검출기는 바꾸지 않았다.
+
+```powershell
+$env:NO_ALBUMENTATIONS_UPDATE = "1"
+$U = "results/detect/20261019-uidetr"
+& $py tools/screen_detect/uidetr.py --inputs strict                           # → $U/detect
+& $py tools/screen_detect/flags.py --dir $U/detect --inputs strict
+& $py tools/screen_detect/stitch.py --dir $U/detect --inputs strict
+& $py tools/screen_detect/compare.py --dir $U/detect --truth results/detect/20261013-d3b/truth.json --out $U/score-auto
+#   같은 묶음: $U/detect 의 캡처 json 을 $U/detect-samegroups 로 옮겨
+& $py tools/screen_detect/stitch.py --dir $U/detect-samegroups --inputs strict --groups-from results/detect/20261019-strict2/detect/_groups.json
+& $py tools/screen_detect/compare.py --dir $U/detect-samegroups --truth results/detect/20261013-d3b/truth.json --out $U/score-samegroups
+& $py tools/screen_detect/uidetr_report.py                                    # → $U/summary.md, $U/home_01a.png
+```
+
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
 | 무엇 | 라이선스 | 근거 |
@@ -488,6 +513,8 @@ $S = "results/detect/20261019-strict2"
 | `PP-OCRv5_server_det` · `korean_PP-OCRv5_mobile_rec` | Apache-2.0 | HF 모델 카드 (PaddlePaddle/…) |
 | `icon_detect` (v1, YOLOv8) | AGPL-3.0 — **쓰지 않았다, 받지도 않았다** | 가중치 README |
 | UIED (MulongXie/UIED @ `0a9862a`, `detect_compo/` 만 레포 밖 `C:\Users\xihye\tools\UIED` 에서 import - `--classic`) | Apache-2.0 | 저장소 `LICENSE` · GitHub API (2026-10-13). 기본값에서는 쓰지 않는다 |
+| UI-DETR-1 (racineai/UI-DETR-1 @ `0f0dda5`, RF-DETR-M 미세조정 가중치, `uidetr.py` 비교에서만) | MIT | Hugging Face 모델 카드 · API `license:mit` (2026-10-19) |
+| rfdetr 1.5.0 (Roboflow, venvs\detect 에 설치 - transformers 4.45.2 와 같이 설 수 있는 마지막 판. 함께 들어온 supervision · peft · roboflow · albumentations 등은 더해지기만 했고 있던 패키지 판은 그대로) | Apache-2.0 | PyPI 메타데이터 (2026-10-19) |
 
 ## 정답지 (`truth.py`)
 
