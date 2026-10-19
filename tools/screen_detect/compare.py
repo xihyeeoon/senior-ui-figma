@@ -51,11 +51,12 @@ VIEW = (390, 844)
 NEAR = 40        # 옮긴 정답 자리를 이만큼 넓혀 그 안의 글 없는 박스를 곁 설명 후보로
 FAR = 120        # 그 안에 없으면 중심이 이만큼 안인 가장 가까운 것
 SPAN_PAD = 80    # 맞은 닻의 세로 범위를 이만큼 넓혀 "자리상 캡처 안" 으로 본다
-# 자리 옮기기 방식 (2026-10-19, --frame). "line" 은 무리마다 직선 하나 (D1 부터의 기본값). "local" 은
+# 자리 옮기기 방식 (2026-10-19, --frame). "line" 은 무리마다 직선 하나 (D1 ~ 10/19 의 기본값). "local" 은
 # 이웃한 닻 둘 사이를 잇는 꺾은선 + 글 없는 것(그림 자리 · 아이콘만인 입구)을 후보와 하나씩 짝짓기
 # (Frame.map · judge_capture). 홈처럼 구역마다 줄 높이가 다른 화면에서 직선이 한 줄씩 밀리고, 홈 머리처럼
-# 아이콘 사이 간격이 다른 줄에서 가로 비율이 옆 아이콘을 가리켰다 (results/detect/20261019-miss)
-FRAME = "line"
+# 아이콘 사이 간격이 다른 줄에서 가로 비율이 옆 아이콘을 가리켰다 (results/detect/20261019-miss).
+# 10/19 연구자 결정으로 기본값이 local 이다 (line 은 --frame line 으로 남는다)
+FRAME = "local"
 
 
 def norm(s):
@@ -844,8 +845,8 @@ def main(argv=None):
     ap.add_argument("--semantic", help="semantic.py 의 결과 폴더 (D3). 주면 역할 지표를 더하고 "
                                        "summary.md · compare.json 을 그 폴더에 쓴다. 정답지는 그 "
                                        "폴더의 truth.json 이 있으면 그것")
-    ap.add_argument("--frame", choices=["line", "local"], default="line",
-                    help="정답 자리 옮기기 - line 직선 (기본), local 꺾은선 + 글 없는 것 하나씩 짝짓기")
+    ap.add_argument("--frame", choices=["line", "local"], default="local",
+                    help="정답 자리 옮기기 - local 꺾은선 + 글 없는 것 하나씩 짝짓기 (기본), line 직선 (10/19 이전)")
     ap.add_argument("--out", help="summary.md · compare.json 을 쓸 폴더 (기본: --semantic, 없으면 --dir)")
     a = ap.parse_args(argv)
     globals()["FRAME"] = a.frame
