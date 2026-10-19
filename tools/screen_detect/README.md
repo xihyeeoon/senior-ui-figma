@@ -525,6 +525,34 @@ $U = "results/detect/20261019-uidetr"
 flow.json 은 파이프라인 flows/ 형식 (git show origin/feat/db-principles:flows/original.json 과 senior_ui/audit/flow.py 의
 load_flow 를 개발 중에 읽어 맞춤 - 값은 베끼지 않음). 채울 수 없는 칸 (truth · required_ids · expect · done_amount · 오류 조건 ·
 입력) 은 비우고 `blank` 에 까닭. steps 는 s01 에서 이동을 따라 닿는 길만, 모든 이동은 `transitions` (우리 칸).
+(1단계 결과는 아래 2단계 고침 전의 build.py 로 만든 것 - 지금 build.py 를 `--out results/detect/20261019-assembly` 로 돌리면
+2단계 규칙 판이 나온다.)
+
+## 조립 2단계 - 과제 길 잇기 + LLM 생김새 (2026-10-19)
+
+연구자 결정 (10/19): a. 끊긴 짝은 (가) 처음 누른 것이 적혔고 앞 화면에 있으면 그것으로 (`via: "skipped-states"`), (나) 누른 것이
+없고 앞 화면에 숫자판 무리가 있으면 그 무리의 아무 키로 (`via: "keypad-advance"`) 만 잇는다 - 둘 다 아니면 limits. 사이 상태는 짓지
+않는다. b. 줄 · 카드가 누를 것이 되어 생긴 과제 밖 입구는 그대로 (수만 보고). c. 글 없는 무리 요소의 data-v 는 그림 이름 (자기 것, 없으면
+안에 든 첫 그림 자리), 없으면 요소 id. d. steps 는 s01 에서 캡처 차례대로 마지막 과제 화면까지. 결과 `results/detect/20261019-assembly2/`.
+
+| 파일 | 하는 일 | 쪽 |
+|---|---|---|
+| `assemble/build.py` | `plan()` (화면 · 이름 · 이동 · 오류 경로 · steps · 추적표 + 규칙 마크업) 과 `write()` 로 나눔. a · c · d. 이동마다 `via` (tap · skipped-states · keypad-advance · error-recover). 처리기는 값 (data-v) 을 보는 갈래가 먼저 | 만드는 줄 (strict) |
+| `assemble/llm_build.py` | LLM 판 - 화면마다 `sketch/llm_assemble.build` 와 같은 입력 · `LLM_PROMPT_V3.md`, check_markup ①~⑤ (+ script · style 없음), 걸리면 한 번 다시, 또 걸리면 (답 잘림 포함) 규칙 마크업. LLM 이 지은 data-action 은 지우고 plan() 의 data-action · data-v 를 data-src 요소 태그 바로 뒤에. 무리가 여러 부모로 갈린 것을 limits 에 | 만드는 줄 (strict, 유료) |
+| `assemble/walk.py` | via 열 · steps 에 via · keypad-advance 는 무리의 키마다 눌러 봄 | 시험 |
+| `assemble/list_compare.py` | 입력칸 = `.input` 또는 trace.json 의 의미 층 kind input 인 data-src 요소 | 채점 |
+| `assemble/compare_page.py` | `--also 이름=폴더` 로 판을 더하고 `--captures` 로 캡처 열 | 채점 |
+
+```powershell
+& $py tools/screen_detect/assemble/build.py --inputs strict                       # → assembly2/rule
+& $py tools/screen_detect/assemble/llm_build.py --inputs strict --dry-run         # 13화면 어림 ($1.8 넘으면 부르지 않음)
+& $py tools/screen_detect/assemble/llm_build.py --inputs strict --max-usd 2.5      # → assembly2/llm
+foreach ($d in "rule", "llm") {
+  & $py tools/screen_detect/assemble/walk.py --dir results/detect/20261019-assembly2/$d
+  & $py tools/screen_detect/assemble/list_compare.py --dir results/detect/20261019-assembly2/$d }
+& $py tools/screen_detect/assemble/compare_page.py --dir results/detect/20261019-assembly2/rule `
+    --also "LLM 판=results/detect/20261019-assembly2/llm" --captures --page results/detect/20261019-assembly2/compare.html
+```
 
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
