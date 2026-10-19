@@ -1,0 +1,1630 @@
+{
+ "unit": "06a+06b+06c",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 17185,
+    "completion": 9570,
+    "reasoning": 174
+   },
+   "seconds": 150.2,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.13007,
+   "problems": [
+    "06b:i6: kind 가 image 인데 icon.name 이 image_name 과 같지 않다"
+   ]
+  },
+  {
+   "n": 2,
+   "usage": {
+    "prompt": 17225,
+    "completion": 9334,
+    "reasoning": 119
+   },
+   "seconds": 133.9,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.12779,
+   "problems": []
+  }
+ ],
+ "prompt_sha": "8d9840a9a9d6",
+ "elements": [
+  {
+   "id": "06a:t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 시각 표시.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 배터리 수치.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b18",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 통신 신호 표시.",
+   "icon": {
+    "name": "이동통신 신호 아이콘",
+    "shape": "검은 삼각형 형태의 신호 표시"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b20",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 와이파이 표시.",
+   "icon": {
+    "name": "와이파이 아이콘",
+    "shape": "겹친 곡선과 점"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b22",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "시트 뒤로 어두워진 상단 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b24",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "어두워진 배경의 닫기 버튼 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b21",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "어두워진 배경의 뒤로 가기 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t2",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "OCR의 부등호는 배경 화면의 뒤로 화살표.",
+   "icon": {
+    "name": "뒤로 아이콘",
+    "shape": "왼쪽 꺾쇠"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b19",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "어두워진 배경의 닫기 아이콘.",
+   "icon": {
+    "name": "닫기 아이콘",
+    "shape": "X자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b23",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "시트 뒤 화면의 제목 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t3",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "어두워진 배경 화면의 제목.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 시트의 제목.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b17",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "시트 오른쪽 위의 닫기 표시.",
+   "icon": {
+    "name": "닫기 아이콘",
+    "shape": "검은 X자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b16",
+   "pressable": true,
+   "kind": "tab",
+   "group": "금융기관 종류 탭",
+   "image_name": null,
+   "image_shape": null,
+   "note": "은행 목록으로 전환하는 비선택 탭.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b15",
+   "pressable": true,
+   "kind": "tab",
+   "group": "금융기관 종류 탭",
+   "image_name": null,
+   "image_shape": null,
+   "note": "하단 선으로 선택 상태를 나타내는 증권사 탭.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 종류 탭",
+   "image_name": null,
+   "image_shape": null,
+   "note": "증권사 탭 안의 글자.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 종류 탭",
+   "image_name": null,
+   "image_shape": null,
+   "note": "은행 탭 안의 회색 글자.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "다올투자증권 로고와 이름을 담은 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "교보증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b11",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "신한투자증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i14",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "신한투자증권 로고",
+   "image_shape": "파란 원 안의 흰 S형 곡선과 새 모양",
+   "note": "신한투자증권 이름 위의 로고.",
+   "icon": {
+    "name": "신한투자증권 로고",
+    "shape": "파란 원 안의 흰 S형 곡선과 새 모양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i13",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "다올투자증권 로고",
+   "image_shape": "검은 원 안의 흰 DAOL 글자",
+   "note": "다올투자증권 카드의 로고.",
+   "icon": {
+    "name": "다올투자증권 로고",
+    "shape": "검은 원 안의 흰 DAOL 글자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i12",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "교보증권 로고",
+   "image_shape": "초록색 새 모양",
+   "note": "교보증권 이름 위의 로고.",
+   "icon": {
+    "name": "교보증권 로고",
+    "shape": "초록색 새 모양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고 안의 DAOL 글자.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "메리츠증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b5",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고 영문에 보이는 단어 사이 공백을 반영.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "MIRAE ASSET 미래에셋증권"
+  },
+  {
+   "id": "06a:b7",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "대신증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "대신증권 로고",
+   "image_shape": "회색 원 안의 흰 각진 맞물림 무늬",
+   "note": "대신증권 이름 위의 로고.",
+   "icon": {
+    "name": "대신증권 로고",
+    "shape": "회색 원 안의 흰 각진 맞물림 무늬"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "메리츠증권 로고",
+   "image_shape": "빨간 원 안의 흰 meritz 글자",
+   "note": "메리츠증권 카드의 로고.",
+   "icon": {
+    "name": "메리츠증권 로고",
+    "shape": "빨간 원 안의 흰 meritz 글자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "미래에셋증권 로고",
+   "image_shape": "남색 원 안의 MIRAE ASSET 글자와 상승 곡선",
+   "note": "미래에셋증권 이름 위의 로고.",
+   "icon": {
+    "name": "미래에셋증권 로고",
+    "shape": "남색 원 안의 MIRAE ASSET 글자와 상승 곡선"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고 안의 meritz 글자.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "그림에서 영문 두 단어 사이가 띄어져 있음.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "MIRAE ASSET"
+  },
+  {
+   "id": "06a:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b8",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "부국증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "삼성증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b1",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상상인증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "삼성증권 로고",
+   "image_shape": "파란 원의 위쪽 둥근 부분",
+   "note": "삼성증권 로고의 윗부분만 검출됨.",
+   "icon": {
+    "name": "삼성증권 로고",
+    "shape": "파란 원의 위쪽 둥근 부분"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "부국증권 로고",
+   "image_shape": "파란 겹마름모와 내부 기하학 무늬",
+   "note": "부국증권 카드의 로고.",
+   "icon": {
+    "name": "부국증권 로고",
+    "shape": "파란 겹마름모와 내부 기하학 무늬"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "상상인증권 로고",
+   "image_shape": "청록색 원 세 개가 연결된 형태",
+   "note": "상상인증권 이름 위의 로고.",
+   "icon": {
+    "name": "상상인증권 로고",
+    "shape": "청록색 원 세 개가 연결된 형태"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "파란 로고 안의 삼성증권 글자.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "삼성증권 로고",
+   "image_shape": "파란 원의 아래쪽 둥근 부분",
+   "note": "삼성증권 로고의 아랫부분만 검출됨.",
+   "icon": {
+    "name": "삼성증권 로고",
+    "shape": "파란 원의 아래쪽 둥근 부분"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "유안타증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b6",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "신영증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b2",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "에스케이증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "신영증권 로고",
+   "image_shape": "초록 원 안의 흰 나무 모양",
+   "note": "신영증권 카드의 로고.",
+   "icon": {
+    "name": "신영증권 로고",
+    "shape": "초록 원 안의 흰 나무 모양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "에스케이증권 로고",
+   "image_shape": "빨간 원 안의 흰 나비 무늬와 SK 증권 글자",
+   "note": "에스케이증권 이름 위의 로고.",
+   "icon": {
+    "name": "에스케이증권 로고",
+    "shape": "빨간 원 안의 흰 나비 무늬와 SK 증권 글자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "유안타증권 로고",
+   "image_shape": "파란 부채꼴의 왼쪽 조각",
+   "note": "유안타증권 로고의 왼쪽 위 부분.",
+   "icon": {
+    "name": "유안타증권 로고",
+    "shape": "파란 부채꼴의 왼쪽 조각"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "유안타증권 로고",
+   "image_shape": "파란 부채꼴의 오른쪽 조각",
+   "note": "유안타증권 로고의 오른쪽 위 부분.",
+   "icon": {
+    "name": "유안타증권 로고",
+    "shape": "파란 부채꼴의 오른쪽 조각"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고에서 SK와 증권 사이가 띄어져 있음.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "SK 증권"
+  },
+  {
+   "id": "06a:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "유안타증권 로고",
+   "image_shape": "파란 삼각형과 양옆의 쐐기형 조각",
+   "note": "유안타증권 로고의 아래쪽 부분.",
+   "icon": {
+    "name": "유안타증권 로고",
+    "shape": "파란 삼각형과 양옆의 쐐기형 조각"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t23",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b14",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "유진투자증권 선택 카드의 상단 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b13",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "LS증권 선택 카드의 상단 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:b12",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "카카오페이증권 선택 카드의 상단 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:i15",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "카카오페이증권 로고",
+   "image_shape": "노란 원 안의 검은 말풍선과 pay 글자",
+   "note": "카카오페이증권 이름 위의 로고.",
+   "icon": {
+    "name": "카카오페이증권 로고",
+    "shape": "노란 원 안의 검은 말풍선과 pay 글자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t24",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "LS증권 로고",
+   "image_shape": "남색의 기울어진 LS 글자와 빨간 작은 무늬",
+   "note": "단순 본문이 아닌 LS 워드마크.",
+   "icon": {
+    "name": "LS증권 로고",
+    "shape": "남색의 기울어진 LS 글자와 빨간 작은 무늬"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06a:t25",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "카카오페이 로고 안의 pay 글자.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b14",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "유진투자증권 선택 카드의 이름 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b16",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "LS증권 선택 카드의 이름 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b19",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "카카오페이증권 선택 카드의 이름 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "키움증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "토스증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b11",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "케이프투자증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "케이프투자증권 로고",
+   "image_shape": "하늘색 원 안의 CAPE 문자와 둘레의 흰 삼각 무늬",
+   "note": "케이프투자증권 이름 위의 로고.",
+   "icon": {
+    "name": "케이프투자증권 로고",
+    "shape": "하늘색 원 안의 CAPE 문자와 둘레의 흰 삼각 무늬"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "키움증권 로고",
+   "image_shape": "남색 K와 오른쪽 위로 향한 자홍색 화살표",
+   "note": "키움증권 카드의 로고.",
+   "icon": {
+    "name": "키움증권 로고",
+    "shape": "남색 K와 오른쪽 위로 향한 자홍색 화살표"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "토스증권 로고",
+   "image_shape": "파란색의 서로 엇갈린 둥근 두 조각",
+   "note": "토스증권 이름 위의 로고.",
+   "icon": {
+    "name": "토스증권 로고",
+    "shape": "파란색의 서로 엇갈린 둥근 두 조각"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b7",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "우리투자증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b1",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "하나증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "아이엠증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "우리투자증권 로고",
+   "image_shape": "파란 원 안의 흰 곡선 띠와 밝은 그라데이션",
+   "note": "우리투자증권 이름 위의 로고.",
+   "icon": {
+    "name": "우리투자증권 로고",
+    "shape": "파란 원 안의 흰 곡선 띠와 밝은 그라데이션"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "하나증권 로고",
+   "image_shape": "청록색 곡선으로 된 사람 형태와 빨간 점",
+   "note": "하나증권 이름 위의 로고.",
+   "icon": {
+    "name": "하나증권 로고",
+    "shape": "청록색 곡선으로 된 사람 형태와 빨간 점"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "아이엠증권 로고",
+   "image_shape": "초록색과 청록색의 갈라지는 곡선 및 사각형",
+   "note": "아이엠증권 카드의 로고.",
+   "icon": {
+    "name": "아이엠증권 로고",
+    "shape": "초록색과 청록색의 갈라지는 곡선 및 사각형"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "현대차증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "한국투자증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "한화투자증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "한국투자증권 로고",
+   "image_shape": "갈색 원 안의 흰 友 형태와 파란 곡선",
+   "note": "한국투자증권 이름 위의 로고.",
+   "icon": {
+    "name": "한국투자증권 로고",
+    "shape": "갈색 원 안의 흰 友 형태와 파란 곡선"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "한화투자증권 로고",
+   "image_shape": "주황색 원 안의 서로 겹친 흰 고리",
+   "note": "한화투자증권 이름 위의 로고.",
+   "icon": {
+    "name": "한화투자증권 로고",
+    "shape": "주황색 원 안의 서로 겹친 흰 고리"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "현대차증권 로고",
+   "image_shape": "남색 원 안의 흰색과 금색 각진 조각",
+   "note": "현대차증권 이름 위의 로고.",
+   "icon": {
+    "name": "현대차증권 로고",
+    "shape": "남색 원 안의 흰색과 금색 각진 조각"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고의 BNK를 BiNV로 잘못 읽음.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "BNK BNK투자증권"
+  },
+  {
+   "id": "06c:b5",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "IBK투자증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:b2",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "DB증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "BNK투자증권 로고",
+   "image_shape": "빨간 원 안의 흰 BNK 글자",
+   "note": "BNK투자증권 이름 위의 원형 로고.",
+   "icon": {
+    "name": "BNK투자증권 로고",
+    "shape": "빨간 원 안의 흰 BNK 글자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "BNK투자증권 로고",
+   "image_shape": "빨간 원의 위쪽 둥근 부분",
+   "note": "BNK투자증권 로고의 윗부분만 검출됨.",
+   "icon": {
+    "name": "BNK투자증권 로고",
+    "shape": "빨간 원의 위쪽 둥근 부분"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "IBK투자증권 로고",
+   "image_shape": "파란 원 안의 기울어진 사각 테두리와 IBK 형상",
+   "note": "IBK투자증권 이름 위의 로고.",
+   "icon": {
+    "name": "IBK투자증권 로고",
+    "shape": "파란 원 안의 기울어진 사각 테두리와 IBK 형상"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "DB증권 로고",
+   "image_shape": "주황색·파란색·초록색의 둥근 세 조각",
+   "note": "DB증권 이름 위의 로고.",
+   "icon": {
+    "name": "DB증권 로고",
+    "shape": "주황색·파란색·초록색의 둥근 세 조각"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "흰 BNK 워드마크를 BiNV로 잘못 읽음.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "BNK"
+  },
+  {
+   "id": "06b:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "원형 로고 안의 BNK 글자.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "BNK투자증권 로고",
+   "image_shape": "빨간 원의 아래쪽 둥근 부분",
+   "note": "BNK투자증권 로고의 아랫부분만 검출됨.",
+   "icon": {
+    "name": "BNK투자증권 로고",
+    "shape": "빨간 원의 아래쪽 둥근 부분"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b12",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "KB증권 선택 카드의 잘린 상단 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "KB증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06b:b13",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "NH투자증권 선택 카드의 잘린 상단 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "NH투자증권 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "KB증권 로고",
+   "image_shape": "짙은 회갈색 원 안의 노란 별 모양과 손글씨형 글자",
+   "note": "KB증권 이름 위의 로고.",
+   "icon": {
+    "name": "KB증권 로고",
+    "shape": "짙은 회갈색 원 안의 노란 별 모양과 손글씨형 글자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": "증권사 선택 목록",
+   "image_name": "NH투자증권 로고",
+   "image_shape": "파란 원 안의 흰 NH 글자",
+   "note": "NH투자증권 이름 위의 로고.",
+   "icon": {
+    "name": "NH투자증권 로고",
+    "shape": "파란 원 안의 흰 NH 글자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "원형 로고 안의 NH 글자.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "06c:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": "증권사 선택 목록",
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 카드의 증권사 이름.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 47,
+ "estimate": {
+  "images": 47,
+  "image_tokens": 4984,
+  "text_tokens": 12263,
+  "input_tokens": 17247,
+  "answer_tokens": 7930,
+  "cost_usd": 0.113794,
+  "cost_usd_with_reasoning": 0.193094,
+  "cost_usd_cap": 0.284494,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 122 x 45"
+ }
+}

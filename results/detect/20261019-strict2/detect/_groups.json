@@ -1,0 +1,181 @@
+{
+ "config": "B",
+ "settings": {
+  "text_min": 2,
+  "boxes_min": 1,
+  "pixels": false,
+  "min_shift": 100
+ },
+ "groups": [
+  [
+   "01a+01b+01c",
+   [
+    "01a",
+    "01b",
+    "01c"
+   ]
+  ],
+  [
+   "05a+05b+05c",
+   [
+    "05a",
+    "05b",
+    "05c"
+   ]
+  ],
+  [
+   "06a+06b+06c",
+   [
+    "06a",
+    "06b",
+    "06c"
+   ]
+  ]
+ ],
+ "pairs": [
+  {
+   "a": "01a",
+   "b": "01b",
+   "same": true,
+   "shift": 1759,
+   "method": "boxes",
+   "evidence": 1
+  },
+  {
+   "a": "01b",
+   "b": "01c",
+   "same": true,
+   "shift": 473,
+   "method": "text",
+   "evidence": 13
+  },
+  {
+   "a": "01c",
+   "b": "02",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "02",
+   "b": "03",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "03",
+   "b": "04",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "04",
+   "b": "05a",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "05a",
+   "b": "05b",
+   "same": true,
+   "shift": 1194,
+   "method": "boxes",
+   "evidence": 3
+  },
+  {
+   "a": "05b",
+   "b": "05c",
+   "same": true,
+   "shift": 1195,
+   "method": "text",
+   "evidence": 3
+  },
+  {
+   "a": "05c",
+   "b": "06a",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "06a",
+   "b": "06b",
+   "same": true,
+   "shift": 1319,
+   "method": "boxes",
+   "evidence": 3
+  },
+  {
+   "a": "06b",
+   "b": "06c",
+   "same": true,
+   "shift": 224,
+   "method": "text",
+   "evidence": 12
+  },
+  {
+   "a": "06c",
+   "b": "07",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "07",
+   "b": "07a",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "07a",
+   "b": "08",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "08",
+   "b": "09a",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "09a",
+   "b": "09b",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "09b",
+   "b": "10",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  },
+  {
+   "a": "10",
+   "b": "11",
+   "same": false,
+   "shift": null,
+   "method": null,
+   "evidence": 0
+  }
+ ]
+}

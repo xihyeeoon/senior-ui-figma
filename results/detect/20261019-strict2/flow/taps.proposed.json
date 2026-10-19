@@ -1,0 +1,139 @@
+{
+ "task": null,
+ "source": "inputs/captures/transfer",
+ "images": [
+  {
+   "file": "01a.png",
+   "taps": []
+  },
+  {
+   "file": "01b.png",
+   "taps": []
+  },
+  {
+   "file": "01c.png",
+   "taps": [
+    {
+     "text": "이체",
+     "to": "02.png",
+     "kind": "skipped",
+     "confidence": 0.9
+    }
+   ]
+  },
+  {
+   "file": "02.png",
+   "taps": [
+    {
+     "text": "계좌번호 직접",
+     "to": "03.png",
+     "kind": "tap",
+     "confidence": 0.98
+    }
+   ]
+  },
+  {
+   "file": "03.png",
+   "taps": [
+    {
+     "text": "계좌번호 |없이 숫자만 입력",
+     "to": "04.png",
+     "kind": "tap",
+     "confidence": 0.96
+    }
+   ]
+  },
+  {
+   "file": "04.png",
+   "taps": [
+    {
+     "text": "은행 또는 증권사 선택",
+     "to": "05a.png",
+     "kind": "tap",
+     "confidence": 0.99
+    }
+   ]
+  },
+  {
+   "file": "05a.png",
+   "taps": []
+  },
+  {
+   "file": "05b.png",
+   "taps": []
+  },
+  {
+   "file": "05c.png",
+   "taps": []
+  },
+  {
+   "file": "06a.png",
+   "taps": []
+  },
+  {
+   "file": "06b.png",
+   "taps": []
+  },
+  {
+   "file": "06c.png",
+   "taps": [
+    {
+     "text": "은행",
+     "to": "07.png",
+     "kind": "skipped",
+     "confidence": 0.8
+    }
+   ]
+  },
+  {
+   "file": "07.png",
+   "taps": [
+    {
+     "text": "+1만",
+     "to": "07a.png",
+     "kind": "tap",
+     "confidence": 0.98
+    }
+   ]
+  },
+  {
+   "file": "07a.png",
+   "taps": [
+    {
+     "text": "다음",
+     "to": "08.png",
+     "kind": "tap",
+     "confidence": 0.99
+    }
+   ]
+  },
+  {
+   "file": "08.png",
+   "taps": [
+    {
+     "text": "보내기",
+     "to": "09a.png",
+     "kind": "tap",
+     "confidence": 0.99
+    }
+   ]
+  },
+  {
+   "file": "09a.png",
+   "taps": []
+  },
+  {
+   "file": "09b.png",
+   "taps": []
+  },
+  {
+   "file": "10.png",
+   "taps": []
+  },
+  {
+   "file": "11.png",
+   "taps": []
+  }
+ ],
+ "note": "흐름 추정 (flow.py) 의 제안 - 연구자 검토용. captures.json 이 아니다"
+}

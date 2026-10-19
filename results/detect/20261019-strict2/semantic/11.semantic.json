@@ -1,0 +1,475 @@
+{
+ "unit": "11",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 5803,
+    "completion": 2600,
+    "reasoning": 163
+   },
+   "seconds": 40.0,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.037606,
+   "problems": []
+  }
+ ],
+ "prompt_sha": "8d9840a9a9d6",
+ "elements": [
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 통신 상태와 숫자 표시다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 시각 표시다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바에 있는 신호 표시다.",
+   "icon": {
+    "name": "통신 신호 아이콘",
+    "shape": "검은 직각삼각형"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b7",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 닫기 영역이며 아이콘은 b4에 별도로 검출됐다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b8",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤의 뒤로가기 영역이며 아이콘은 t2에 별도로 검출됐다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "글자 <가 아니라 뒤로가기 꺾쇠다.",
+   "icon": {
+    "name": "뒤로가기 아이콘",
+    "shape": "왼쪽을 향한 꺾쇠"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "b4",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 화면의 닫기 아이콘이다.",
+   "icon": {
+    "name": "닫기 아이콘",
+    "shape": "검은 X자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t3",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤 화면의 제목이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b2",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤 입력칸이며 입력 커서를 |로 잘못 읽었다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "계좌번호 100"
+  },
+  {
+   "id": "t4",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤 입력칸의 계좌번호 이름표다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t5",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "입력값은 100이며 앞의 세로선은 입력 커서다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "100"
+  },
+  {
+   "id": "b6",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤 계좌번호 입력칸의 지우기 표시다.",
+   "icon": {
+    "name": "입력 지우기 아이콘",
+    "shape": "회색 원 안의 X자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b0",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤의 은행 선택 영역이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "i0",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "신한 이름표 옆의 은행 로고이며 팝업 뒤에 있다.",
+   "icon": {
+    "name": "신한 로고",
+    "shape": "파란 원 안의 흰색 S자형 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤 은행 선택 영역의 신한 글자다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b9",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌번호 오류 안내",
+   "image_name": null,
+   "image_shape": null,
+   "note": "오류 코드와 안내문을 담은 팝업 본문 영역이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌번호 오류 안내",
+   "image_name": null,
+   "image_shape": null,
+   "note": "빨간색으로 표시된 오류 코드다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t8",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌번호 오류 안내",
+   "image_name": null,
+   "image_shape": null,
+   "note": "오류가 발생한 계좌번호를 표시한다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌번호 오류 안내",
+   "image_name": null,
+   "image_shape": null,
+   "note": "입력한 계좌번호가 올바르지 않다는 안내문이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌번호 오류 안내",
+   "image_name": null,
+   "image_shape": null,
+   "note": "계좌번호 확인을 요청하는 안내문이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "button",
+   "group": "계좌번호 오류 안내",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 하단의 파란색 확인 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌번호 오류 안내",
+   "image_name": null,
+   "image_shape": null,
+   "note": "확인 버튼 내부의 글자다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t13",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 숫자판의 2다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t14",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 숫자판의 3이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t12",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 숫자판의 1이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t15",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 숫자판의 4다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t16",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 숫자판의 5다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t17",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 숫자판의 6이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t19",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 숫자판의 8이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t20",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 숫자판의 9다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t18",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 숫자판의 7이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b10",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤 숫자판 오른쪽 아래의 화살표다.",
+   "icon": {
+    "name": "왼쪽 화살표 아이콘",
+    "shape": "왼쪽을 향한 화살표"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t21",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 숫자판의 0이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b3",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤로 어두워진 하단 다음 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t22",
+   "pressable": false,
+   "kind": "system",
+   "group": "팝업 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "팝업 뒤 다음 버튼 내부의 글자다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 22,
+ "estimate": {
+  "images": 22,
+  "image_tokens": 1663,
+  "text_tokens": 4163,
+  "input_tokens": 5826,
+  "answer_tokens": 2275,
+  "cost_usd": 0.034402,
+  "cost_usd_with_reasoning": 0.057152,
+  "cost_usd_cap": 0.261652,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 35 x 45"
+ }
+}

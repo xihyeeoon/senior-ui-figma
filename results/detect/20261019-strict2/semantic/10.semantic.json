@@ -1,0 +1,211 @@
+{
+ "unit": "10",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 3794,
+    "completion": 1088,
+    "reasoning": 135
+   },
+   "seconds": 18.9,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.018468,
+   "problems": []
+  }
+ ],
+ "prompt_sha": "8d9840a9a9d6",
+ "elements": [
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 시각 표시다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "와이파이 기호 옆 숫자는 67이며 기호를 5로 오인했다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "67"
+  },
+  {
+   "id": "b4",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바에 있는 통신 신호 표시다.",
+   "icon": {
+    "name": "이동통신 신호 아이콘",
+    "shape": "오른쪽으로 높아지는 검은 삼각형"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "이체 완료 아이콘",
+   "image_shape": "파란 원 안의 흰색 체크 표시",
+   "note": "완료 안내 위에 표시된 체크 그림이며 버튼 형태는 아니다.",
+   "icon": {
+    "name": "이체 완료 아이콘",
+    "shape": "파란 원 안의 흰색 체크 표시"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "text",
+   "group": "이체 완료 안내",
+   "image_name": null,
+   "image_shape": null,
+   "note": "이체 결과를 설명하는 안내 문장이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t3",
+   "pressable": false,
+   "kind": "text",
+   "group": "이체 완료 안내",
+   "image_name": null,
+   "image_shape": null,
+   "note": "보낸 금액과 완료 상태를 나타내는 문장이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "button",
+   "group": "이체 후속 기능",
+   "image_name": null,
+   "image_shape": null,
+   "note": "추가이체 글을 담은 둥근 사각형 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b0",
+   "pressable": true,
+   "kind": "button",
+   "group": "이체 후속 기능",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상세보기 글을 담은 둥근 사각형 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t4",
+   "pressable": false,
+   "kind": "text",
+   "group": "이체 후속 기능",
+   "image_name": null,
+   "image_shape": null,
+   "note": "추가이체 버튼 내부의 이름표 글이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t5",
+   "pressable": false,
+   "kind": "text",
+   "group": "이체 후속 기능",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상세보기 버튼 내부의 이름표 글이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b3",
+   "pressable": true,
+   "kind": "button",
+   "group": "하단 동작",
+   "image_name": null,
+   "image_shape": null,
+   "note": "연한 파란 배경에 공유 글이 있는 하단 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b2",
+   "pressable": true,
+   "kind": "button",
+   "group": "하단 동작",
+   "image_name": null,
+   "image_shape": null,
+   "note": "파란 배경에 확인 글이 있는 하단 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "하단 동작",
+   "image_name": null,
+   "image_shape": null,
+   "note": "확인 버튼 내부의 흰색 이름표 글이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "text",
+   "group": "하단 동작",
+   "image_name": null,
+   "image_shape": null,
+   "note": "공유 버튼 내부의 파란색 이름표 글이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 5,
+ "estimate": {
+  "images": 5,
+  "image_tokens": 1373,
+  "text_tokens": 2422,
+  "input_tokens": 3795,
+  "answer_tokens": 910,
+  "cost_usd": 0.01669,
+  "cost_usd_with_reasoning": 0.02579,
+  "cost_usd_cap": 0.25759,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 14 x 45"
+ }
+}

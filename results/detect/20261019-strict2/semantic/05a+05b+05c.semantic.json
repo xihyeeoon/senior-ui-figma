@@ -1,0 +1,53 @@
+{
+ "unit": "05a+05b+05c",
+ "model": "gpt-6.1-sol",
+ "status": "failed",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 20078,
+    "completion": 11060,
+    "reasoning": 275
+   },
+   "seconds": 418.7,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.150756,
+   "problems": [
+    "05a:i2: kind 가 image 인데 icon.name 이 image_name 과 같지 않다"
+   ]
+  },
+  {
+   "n": 2,
+   "usage": {
+    "prompt": 20118,
+    "completion": 10845,
+    "reasoning": 117
+   },
+   "seconds": 171.9,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.148686,
+   "problems": [
+    "05a:b21: text_is_icon 이 true 인데 icon 이 없다"
+   ]
+  }
+ ],
+ "prompt_sha": "8d9840a9a9d6",
+ "elements": null,
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 71,
+ "estimate": {
+  "images": 71,
+  "image_tokens": 6438,
+  "text_tokens": 13739,
+  "input_tokens": 20177,
+  "answer_tokens": 9165,
+  "cost_usd": 0.132004,
+  "cost_usd_with_reasoning": 0.223654,
+  "cost_usd_cap": 0.290354,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 141 x 45"
+ }
+}

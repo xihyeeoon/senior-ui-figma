@@ -1,0 +1,914 @@
+{
+ "capture": "inputs/captures/transfer/05c.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    40,
+    24,
+    64,
+    34
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9938,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    736,
+    23,
+    48,
+    38
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9949,
+   "in_box": null,
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    33,
+    79,
+    37,
+    47
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.9988,
+   "in_box": "b18",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    33,
+    167,
+    454,
+    73
+   ],
+   "text": "누구에게 보낼까요?",
+   "caption": null,
+   "score": 0.9819,
+   "in_box": null,
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    33,
+    298,
+    433,
+    63
+   ],
+   "text": "은행 또는 증권사 선택",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": null
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    161,
+    411,
+    87,
+    57
+   ],
+   "text": "은행",
+   "caption": null,
+   "score": 0.9973,
+   "in_box": "b19"
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    558,
+    413,
+    120,
+    55
+   ],
+   "text": "증권사",
+   "caption": null,
+   "score": 0.9991,
+   "in_box": "b19"
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    100,
+    567,
+    98,
+    41
+   ],
+   "text": "도이치",
+   "caption": null,
+   "score": 0.9992,
+   "in_box": "b11"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    376,
+    567,
+    71,
+    39
+   ],
+   "text": "중국",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b13"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    608,
+    566,
+    129,
+    42
+   ],
+   "text": "중국건설",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b12"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    84,
+    847,
+    132,
+    46
+   ],
+   "text": "중국공상",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b8"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    332,
+    849,
+    158,
+    38
+   ],
+   "text": "BNP파리바",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "b6"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    636,
+    850,
+    74,
+    37
+   ],
+   "text": "BOA",
+   "caption": null,
+   "score": 0.9945,
+   "in_box": "b7"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    103,
+    1132,
+    95,
+    36
+   ],
+   "text": "HSBC",
+   "caption": null,
+   "score": 0.9966,
+   "in_box": "b3"
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    357,
+    1130,
+    108,
+    40
+   ],
+   "text": "JP모간",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b0"
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    644,
+    1129,
+    56,
+    40
+   ],
+   "text": "SC",
+   "caption": null,
+   "score": 0.8473,
+   "in_box": "b2"
+  },
+  {
+   "id": "t16",
+   "kind": "text",
+   "box": [
+    86,
+    1411,
+    130,
+    43
+   ],
+   "text": "산림조합",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "b4"
+  },
+  {
+   "id": "t17",
+   "kind": "text",
+   "box": [
+    372,
+    1407,
+    77,
+    51
+   ],
+   "text": "국세",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": "b1"
+  },
+  {
+   "id": "t18",
+   "kind": "text",
+   "box": [
+    620,
+    1406,
+    104,
+    51
+   ],
+   "text": "지방세",
+   "caption": null,
+   "score": 0.9976,
+   "in_box": "b5"
+  },
+  {
+   "id": "t19",
+   "kind": "text",
+   "box": [
+    98,
+    1691,
+    103,
+    47
+   ],
+   "text": "국고금",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b9"
+  },
+  {
+   "id": "t20",
+   "kind": "text",
+   "box": [
+    373,
+    1688,
+    75,
+    51
+   ],
+   "text": "관세",
+   "caption": null,
+   "score": 0.9981,
+   "in_box": "b10"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    294,
+    961,
+    236,
+    256
+   ],
+   "text": "JP모간",
+   "caption": null,
+   "score": 0.9507,
+   "text_in": [
+    "t14"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    293,
+    1242,
+    236,
+    258
+   ],
+   "text": "국세",
+   "caption": null,
+   "score": 0.9502,
+   "text_in": [
+    "t17"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    555,
+    960,
+    238,
+    257
+   ],
+   "text": "SC",
+   "caption": null,
+   "score": 0.9478,
+   "text_in": [
+    "t15"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    32,
+    961,
+    237,
+    257
+   ],
+   "text": "HSBC",
+   "caption": null,
+   "score": 0.938,
+   "text_in": [
+    "t13"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    32,
+    1241,
+    237,
+    260
+   ],
+   "text": "산림조합",
+   "caption": null,
+   "score": 0.9365,
+   "text_in": [
+    "t16"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    555,
+    1241,
+    238,
+    258
+   ],
+   "text": "지방세",
+   "caption": null,
+   "score": 0.9292,
+   "text_in": [
+    "t18"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    293,
+    678,
+    236,
+    257
+   ],
+   "text": "BNP파리바",
+   "caption": null,
+   "score": 0.9136,
+   "text_in": [
+    "t11"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    556,
+    679,
+    236,
+    257
+   ],
+   "text": "BOA",
+   "caption": null,
+   "score": 0.9116,
+   "text_in": [
+    "t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    32,
+    680,
+    236,
+    256
+   ],
+   "text": "중국공상",
+   "caption": null,
+   "score": 0.9092,
+   "text_in": [
+    "t10"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    32,
+    1525,
+    236,
+    257
+   ],
+   "text": "국고금",
+   "caption": null,
+   "score": 0.8896,
+   "text_in": [
+    "t19"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    294,
+    1525,
+    235,
+    255
+   ],
+   "text": "관세",
+   "caption": null,
+   "score": 0.8521,
+   "text_in": [
+    "t20"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    33,
+    495,
+    237,
+    158
+   ],
+   "text": "도이치",
+   "caption": null,
+   "score": 0.7432,
+   "text_in": [
+    "t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b12",
+   "kind": "box",
+   "box": [
+    556,
+    495,
+    236,
+    159
+   ],
+   "text": "중국건설",
+   "caption": null,
+   "score": 0.7417,
+   "text_in": [
+    "t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b13",
+   "kind": "box",
+   "box": [
+    293,
+    495,
+    237,
+    158
+   ],
+   "text": "중국",
+   "caption": null,
+   "score": 0.6909,
+   "text_in": [
+    "t8"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b14",
+   "kind": "box",
+   "box": [
+    747,
+    310,
+    36,
+    40
+   ],
+   "text": null,
+   "caption": "closing or cancel action.",
+   "score": 0.3337,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector"
+  },
+  {
+   "id": "b15",
+   "kind": "box",
+   "box": [
+    748,
+    87,
+    34,
+    37
+   ],
+   "text": null,
+   "caption": "closing or cancel a window or dialog.",
+   "score": 0.3032,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b16",
+   "kind": "box",
+   "box": [
+    671,
+    26,
+    32,
+    30
+   ],
+   "text": null,
+   "caption": "Play or Start.",
+   "score": 0.2659,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b17",
+   "kind": "box",
+   "box": [
+    712,
+    27,
+    28,
+    27
+   ],
+   "text": null,
+   "caption": "Wi-Fi connectivity.",
+   "score": 0.2532,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band",
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b18",
+   "kind": "box",
+   "box": [
+    26,
+    76,
+    51,
+    56
+   ],
+   "text": "<",
+   "caption": null,
+   "score": 0.1461,
+   "text_in": [
+    "t2"
+   ],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b19",
+   "kind": "box",
+   "box": [
+    24,
+    388,
+    776,
+    106
+   ],
+   "text": "은행 증권사",
+   "caption": null,
+   "score": 0.126,
+   "text_in": [
+    "t5",
+    "t6"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b20",
+   "kind": "box",
+   "box": [
+    729,
+    75,
+    69,
+    64
+   ],
+   "text": null,
+   "caption": "Close",
+   "score": 0.114,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector",
+   "flags": [
+    "behind_overlay"
+   ]
+  },
+  {
+   "id": "b21",
+   "kind": "box",
+   "box": [
+    105,
+    729,
+    90,
+    90
+   ],
+   "text": null,
+   "caption": "A Chinese translation or translation function.",
+   "score": 0.6698,
+   "text_in": [],
+   "ocr_guess": "E3",
+   "source": "ocr_icon"
+  },
+  {
+   "id": "i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "the history or history of a document.",
+   "score": null,
+   "box": [
+    361,
+    1004,
+    103,
+    103
+   ],
+   "in_box": "b0",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i1",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Refresh or reload the page.",
+   "score": null,
+   "box": [
+    378,
+    1299,
+    70,
+    67
+   ],
+   "in_box": "b1",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i2",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a digital assistant or service.",
+   "score": null,
+   "box": [
+    651,
+    1022,
+    45,
+    70
+   ],
+   "in_box": "b2",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i3",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Movies or TV.",
+   "score": null,
+   "box": [
+    99,
+    1005,
+    104,
+    103
+   ],
+   "in_box": "b3",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i4",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "A document or file.",
+   "score": null,
+   "box": [
+    108,
+    1308,
+    84,
+    52
+   ],
+   "in_box": "b4",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i5",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Refresh or reload the page.",
+   "score": null,
+   "box": [
+    638,
+    1299,
+    70,
+    67
+   ],
+   "in_box": "b5",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i6",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "a flight or flight-related function.",
+   "score": null,
+   "box": [
+    361,
+    722,
+    103,
+    103
+   ],
+   "in_box": "b6",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i7",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Blender",
+   "score": null,
+   "box": [
+    631,
+    751,
+    85,
+    47
+   ],
+   "in_box": "b7",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i8",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Refresh or reload the page.",
+   "score": null,
+   "box": [
+    115,
+    1581,
+    71,
+    67
+   ],
+   "in_box": "b9",
+   "name": null,
+   "label": null
+  },
+  {
+   "id": "i9",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "Refresh or reload the page.",
+   "score": null,
+   "box": [
+    376,
+    1581,
+    71,
+    67
+   ],
+   "in_box": "b10",
+   "name": null,
+   "label": null
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9878,
+   "box": [
+    742,
+    81,
+    45,
+    47
+   ],
+   "into": "b20"
+  },
+  {
+   "text": "×",
+   "score": 0.9488,
+   "box": [
+    742,
+    307,
+    46,
+    49
+   ],
+   "into": "b14"
+  },
+  {
+   "text": "E3",
+   "score": 0.6698,
+   "box": [
+    122,
+    746,
+    56,
+    56
+   ],
+   "into": "b21"
+  }
+ ]
+}

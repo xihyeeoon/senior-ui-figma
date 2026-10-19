@@ -1,0 +1,325 @@
+앱으로 한 과제를 하며 차례대로 찍은 캡처들이다. 캡처 짝마다, 앞 캡처에서 무엇을 눌러 뒤 캡처가 되었는지 추정하라.
+
+받는 것
+- 캡처 목록 (찍은 순서 = 파일 이름 순, JSON 한 줄에 하나): file · unit(요소 목록의 단위 - 한 화면을 스크롤하며 찍은 캡처들은 한 단위다).
+- 단위마다 누를 수 있는 요소 목록 (JSON 한 줄에 하나): id · text(화면 글, 글 없는 그림은 그림 이름) · kind(역할) · group(무리).
+- 답할 캡처 짝 목록.
+- 그림: 짝마다 앞 캡처와 뒤 캡처를 줄인 그림 두 장 (그림 이름표에 짝 번호와 file 이 있다). 글 목록과 그림이 다르면 그림을 따른다.
+
+지키는 규칙
+1. 캡처 짝 목록의 짝마다 답을 하나씩, 빠짐없이 낸다.
+2. tap 은 앞 캡처(from)의 단위의 요소 목록에 있는 id 이거나 null 이다. 목록에 없는 요소를 만들지 않는다.
+3. tap_text 는 그 요소의 text 를 그대로 쓴다. 화면 글을 바꾸지 않는다. tap 이 null 이면 tap_text 도 null 이다.
+4. 캡처에 없는 화면을 지어내지 않는다. 두 캡처 사이에 캡처되지 않은 상태가 있었다고 보이면 kind 를 skipped 로 적고, tap 에는 앞 캡처에서 처음 누른 것으로 보이는 요소를 적는다 (모르면 null).
+5. 같은 화면을 스크롤했을 뿐이면 kind 는 scroll, tap 은 null 이다.
+6. 뒤 캡처가 잘못된 입력 때문에 생긴 오류 상태이면 kind 는 error_path 다. 앞 캡처에 그 오류를 낸 요소가 없으면 tap 은 null 이다.
+7. 모르면 kind 를 unknown 으로 적는다. confidence 는 그 답이 맞을 확률(0~1)이다.
+8. JSON 하나만 답한다. 그 앞뒤에 다른 글을 붙이지 않는다.
+
+답의 모양
+{"pairs": [{"from": "<file>", "to": "<file>", "tap": "<id>" 또는 null, "tap_text": "<글>" 또는 null, "kind": "<kind>", "confidence": 0~1, "reason": "<짧은 근거>"}]}
+
+- kind 는 다음 가운데 하나다.
+  - tap: 앞 캡처에서 하나를 눌러 바로 뒤 캡처가 되었다
+  - scroll: 같은 화면을 스크롤했다
+  - skipped: 사이에 캡처되지 않은 상태가 있다
+  - error_path: 뒤 캡처는 잘못된 입력이 낸 오류 상태다
+  - unknown: 모른다
+
+캡처 목록
+{"file": "01a.png", "unit": "01a+01b+01c"}
+{"file": "01b.png", "unit": "01a+01b+01c"}
+{"file": "01c.png", "unit": "01a+01b+01c"}
+{"file": "02.png", "unit": "02"}
+{"file": "03.png", "unit": "03"}
+{"file": "04.png", "unit": "04"}
+{"file": "05a.png", "unit": "05a+05b+05c"}
+{"file": "05b.png", "unit": "05a+05b+05c"}
+{"file": "05c.png", "unit": "05a+05b+05c"}
+{"file": "06a.png", "unit": "06a+06b+06c"}
+{"file": "06b.png", "unit": "06a+06b+06c"}
+{"file": "06c.png", "unit": "06a+06b+06c"}
+{"file": "07.png", "unit": "07"}
+{"file": "07a.png", "unit": "07a"}
+{"file": "08.png", "unit": "08"}
+{"file": "09a.png", "unit": "09a"}
+{"file": "09b.png", "unit": "09b"}
+{"file": "10.png", "unit": "10"}
+{"file": "11.png", "unit": "11"}
+
+단위마다 누를 수 있는 요소
+[01a+01b+01c]
+{"id":"01a:b2","text":null,"kind":"button","group":"상단 도구"}
+{"id":"01a:b1","text":null,"kind":"button","group":"상단 도구"}
+{"id":"01a:b0","text":"요","kind":"button","group":"상단 도구"}
+{"id":"01a:b3","text":"Q","kind":"button","group":"상단 도구"}
+{"id":"01a:b8","text":"홍길동님 C","kind":"link","group":null}
+{"id":"01a:b21","text":"7","kind":"button","group":null}
+{"id":"01a:b18","text":"이체","kind":"button","group":null}
+{"id":"01a:b13","text":"절세혜택과 안정적인 노후,IRP로 준비하세요","kind":"button","group":null}
+{"id":"01a:b6","text":"앱카드 가입","kind":"button","group":null}
+{"id":"01a:b20","text":"팽겨요","kind":"link","group":null}
+{"id":"01a:b19","text":"바로받기","kind":"button","group":null}
+{"id":"01a:t18","text":"이벤트","kind":"link","group":"땡겨요 바로가기"}
+{"id":"01a:t19","text":"쿠폰","kind":"link","group":"땡겨요 바로가기"}
+{"id":"01a:t20","text":"포인트","kind":"link","group":"땡겨요 바로가기"}
+{"id":"01a:b4","text":"7월 소비 C","kind":"link","group":null}
+{"id":"01a:b22","text":"7","kind":"button","group":null}
+{"id":"01a:t22","text":"C","kind":"button","group":null}
+{"id":"01b:b16","text":"오늘쓴 돈 0원","kind":"link","group":null}
+{"id":"01b:b1","text":"시작하기","kind":"button","group":null}
+{"id":"01c:b5","text":null,"kind":"button","group":null}
+{"id":"01c:b6","text":"추천서비스","kind":"link","group":null}
+{"id":"01c:b1","text":"SOL패밀리 가족과 함께하는 금융생활","kind":"link","group":"추천서비스 목록"}
+{"id":"01c:b0","text":"급여클럽+ 푸 급여이체 우대 혜택","kind":"link","group":"추천서비스 목록"}
+{"id":"01c:t4","text":"푸","kind":"button","group":"추천서비스 고정"}
+{"id":"01c:b3","text":"내 카드 승인내역 푸 모든 카드 실시간 승인내역","kind":"link","group":"추천서비스 목록"}
+{"id":"01b:t15","text":"푸","kind":"button","group":"추천서비스 고정"}
+{"id":"01c:b14","text":"이벤트 바로가기 ^","kind":"link","group":null}
+{"id":"01b:b17","text":"신한카드 나에게 맞는 카드 찾기","kind":"link","group":"신한금융그룹 목록"}
+{"id":"01c:b2","text":"신한투자증권 지금 뜨는 주식 보러가기","kind":"link","group":"신한금융그룹 목록"}
+{"id":"01c:b7","text":"신한라이프 내게 필요한 보험,보장분석으로 확인하기","kind":"link","group":"신한금융그룹 목록"}
+{"id":"01c:t20","text":"쉬운홈|홈화면 설정","kind":"link","group":"홈 설정 링크"}
+{"id":"01c:t21","text":"| 금액 숨기기","kind":"link","group":"홈 설정 링크"}
+{"id":"01c:b10","text":"혜택","kind":"tab","group":"하단 내비게이션"}
+{"id":"01c:b8","text":"상품","kind":"tab","group":"하단 내비게이션"}
+{"id":"01c:b9","text":"금융","kind":"tab","group":"하단 내비게이션"}
+{"id":"01c:b12","text":"주식","kind":"tab","group":"하단 내비게이션"}
+{"id":"01c:b11","text":"홈","kind":"tab","group":"하단 내비게이션"}
+
+[02]
+{"id":"b7","text":"<","kind":"back_close","group":null}
+{"id":"t4","text":"8+","kind":"button","group":null}
+{"id":"t5","text":"×","kind":"back_close","group":null}
+{"id":"t3","text":"다건이체","kind":"link","group":null}
+{"id":"b0","text":"Q","kind":"button","group":null}
+{"id":"t7","text":"계좌번호 직접","kind":"input","group":"계좌번호 입력"}
+{"id":"t8","text":"입력","kind":"input","group":"계좌번호 입력"}
+{"id":"b6","text":null,"kind":"button","group":"계좌번호 입력"}
+{"id":"b1","text":"0개 <","kind":"button","group":"계좌 목록 펼치기"}
+{"id":"b3","text":"편집","kind":"button","group":"자주쓰는 계좌"}
+{"id":"b4","text":"0개 <","kind":"button","group":"계좌 목록 펼치기"}
+{"id":"b2","text":"0개 L","kind":"button","group":"계좌 목록 펼치기"}
+
+[03]
+{"id":"b6","text":"<","kind":"back_close","group":"상단 탐색"}
+{"id":"t3","text":"<","kind":"back_close","group":"상단 탐색"}
+{"id":"b4","text":null,"kind":"back_close","group":"상단 탐색"}
+{"id":"b1","text":"계좌번호 |없이 숫자만 입력","kind":"input","group":"송금 정보"}
+{"id":"b0","text":"은행 또는 증권사 선택","kind":"choice","group":"송금 정보"}
+
+[04]
+{"id":"b7","text":"<","kind":"back_close","group":"상단 탐색"}
+{"id":"t3","text":"<","kind":"back_close","group":"상단 탐색"}
+{"id":"b4","text":null,"kind":"back_close","group":"상단 탐색"}
+{"id":"b1","text":"계좌번호 |없이 숫자만 입력","kind":"input","group":"받는 계좌"}
+{"id":"b0","text":"은행 또는 증권사 선택","kind":"choice","group":"받는 계좌"}
+{"id":"t10","text":"3","kind":"keypad_key","group":"숫자판"}
+{"id":"t9","text":"2","kind":"keypad_key","group":"숫자판"}
+{"id":"t8","text":"1","kind":"keypad_key","group":"숫자판"}
+{"id":"t13","text":"6","kind":"keypad_key","group":"숫자판"}
+{"id":"t11","text":"4","kind":"keypad_key","group":"숫자판"}
+{"id":"t12","text":"5","kind":"keypad_key","group":"숫자판"}
+{"id":"t15","text":"8","kind":"keypad_key","group":"숫자판"}
+{"id":"t16","text":"9","kind":"keypad_key","group":"숫자판"}
+{"id":"t14","text":"7","kind":"keypad_key","group":"숫자판"}
+{"id":"t17","text":"0","kind":"keypad_key","group":"숫자판"}
+{"id":"b9","text":"←","kind":"keypad_key","group":"숫자판"}
+
+[05a+05b+05c]
+
+
+[06a+06b+06c]
+{"id":"06a:b17","text":"×","kind":"back_close","group":null}
+{"id":"06a:b16","text":"은행","kind":"tab","group":"금융기관 종류 탭"}
+{"id":"06a:b15","text":"증권사","kind":"tab","group":"금융기관 종류 탭"}
+{"id":"06a:b10","text":"DAOL 다올투자증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b9","text":"교보증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b11","text":"신한투자증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b4","text":"meritz 메리츠증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b5","text":"MIRAEASSET 미래에셋증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b7","text":"대신증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b8","text":"부국증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b0","text":"삼성증권 삼성증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b1","text":"상상인증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b3","text":"유안타증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b6","text":"신영증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b2","text":"SK증권 에스케이증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b14","text":null,"kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b13","text":"LS","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06a:b12","text":"pay","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b14","text":"유진투자증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b16","text":"LS증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b19","text":"카카오페이증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b9","text":"키움증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b10","text":"토스증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b11","text":"케이프투자증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b7","text":"우리투자증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b1","text":"하나증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b3","text":"아이엠증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b4","text":"현대차증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06c:b3","text":"한국투자증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06c:b0","text":"한화투자증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06c:b4","text":"BiNV BNK투자증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06c:b5","text":"IBK투자증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06c:b2","text":"DB증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b12","text":null,"kind":"choice","group":"증권사 선택 목록"}
+{"id":"06c:b9","text":"KB증권","kind":"choice","group":"증권사 선택 목록"}
+{"id":"06b:b13","text":null,"kind":"choice","group":"증권사 선택 목록"}
+{"id":"06c:b10","text":"NH NH투자증권","kind":"choice","group":"증권사 선택 목록"}
+
+[07]
+{"id":"b11","text":"<","kind":"back_close","group":"상단 탐색"}
+{"id":"t2","text":"<","kind":"back_close","group":"상단 탐색"}
+{"id":"b7","text":"×","kind":"back_close","group":"상단 탐색"}
+{"id":"b8","text":"[금융거래한도계좌2]신한 주거래 우대 통장 계좌에서","kind":"choice","group":"출금 계좌"}
+{"id":"b18","text":"L","kind":"button","group":"출금 계좌"}
+{"id":"b1","text":"+1만","kind":"button","group":"금액 빠른 입력"}
+{"id":"b2","text":"+5만","kind":"button","group":"금액 빠른 입력"}
+{"id":"b3","text":"+10만","kind":"button","group":"금액 빠른 입력"}
+{"id":"b0","text":"전액","kind":"button","group":"금액 빠른 입력"}
+{"id":"b14","text":"1","kind":"keypad_key","group":"숫자판"}
+{"id":"t16","text":"3","kind":"keypad_key","group":"숫자판"}
+{"id":"t15","text":"2","kind":"keypad_key","group":"숫자판"}
+{"id":"b13","text":"4","kind":"keypad_key","group":"숫자판"}
+{"id":"t19","text":"6","kind":"keypad_key","group":"숫자판"}
+{"id":"t18","text":"5","kind":"keypad_key","group":"숫자판"}
+{"id":"b12","text":"7","kind":"keypad_key","group":"숫자판"}
+{"id":"t22","text":"9","kind":"keypad_key","group":"숫자판"}
+{"id":"t21","text":"8","kind":"keypad_key","group":"숫자판"}
+{"id":"b16","text":"←","kind":"keypad_key","group":"숫자판"}
+{"id":"t23","text":"00","kind":"keypad_key","group":"숫자판"}
+{"id":"t24","text":"0","kind":"keypad_key","group":"숫자판"}
+
+[07a]
+{"id":"b10","text":"<","kind":"back_close","group":null}
+{"id":"b8","text":"×","kind":"back_close","group":null}
+{"id":"b7","text":"[금융거래한도계좌2]신한 주거래 우대 통장 계좌에서","kind":"link","group":null}
+{"id":"b17","text":"L","kind":"button","group":null}
+{"id":"t7","text":"10,000원","kind":"input","group":null}
+{"id":"b1","text":"+1만","kind":"button","group":"금액 빠른 설정"}
+{"id":"b2","text":"+5만","kind":"button","group":"금액 빠른 설정"}
+{"id":"b3","text":"+10만","kind":"button","group":"금액 빠른 설정"}
+{"id":"b0","text":"전액","kind":"button","group":"금액 빠른 설정"}
+{"id":"b14","text":"1","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"t15","text":"3","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"t14","text":"2","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"b13","text":"4","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"t18","text":"6","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"t17","text":"5","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"b12","text":"7","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"t21","text":"9","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"t20","text":"8","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"b16","text":"←","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"t22","text":"00","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"t23","text":"0","kind":"keypad_key","group":"금액 숫자판"}
+{"id":"b15","text":"다음","kind":"button","group":null}
+
+[08]
+{"id":"b3","text":"<","kind":"back_close","group":null}
+{"id":"b1","text":"×","kind":"back_close","group":null}
+{"id":"b2","text":"김철수 받는분 메모 0","kind":"link","group":"메모 설정"}
+{"id":"b4","text":"내통장 메모 김철수","kind":"link","group":"메모 설정"}
+{"id":"t15","text":"보내기","kind":"button","group":null}
+
+[09a]
+{"id":"b4","text":"×","kind":"back_close","group":null}
+{"id":"t3","text":"8","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t5","text":"6","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t4","text":"0","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t6","text":"2","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t8","text":"4","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t7","text":"1","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t10","text":"9","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t11","text":"3","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t9","text":"5","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t13","text":"7","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t12","text":"재배열","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"b9","text":null,"kind":"keypad_key","group":"보안 숫자판"}
+
+[09b]
+{"id":"b5","text":"×","kind":"back_close","group":null}
+{"id":"t3","text":"8","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t5","text":"6","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t4","text":"0","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t6","text":"2","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t8","text":"4","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t7","text":"1","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t10","text":"9","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t11","text":"3","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t9","text":"5","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t13","text":"7","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"t12","text":"재배열","kind":"keypad_key","group":"보안 숫자판"}
+{"id":"b9","text":null,"kind":"keypad_key","group":"보안 숫자판"}
+
+[10]
+{"id":"b1","text":"추가이체","kind":"button","group":"이체 후속 기능"}
+{"id":"b0","text":"상세보기","kind":"button","group":"이체 후속 기능"}
+{"id":"b3","text":"공유","kind":"button","group":"하단 동작"}
+{"id":"b2","text":"확인","kind":"button","group":"하단 동작"}
+
+[11]
+{"id":"b1","text":"확인","kind":"button","group":"계좌번호 오류 안내"}
+
+답할 캡처 짝
+01a.png -> 01b.png
+01b.png -> 01c.png
+01c.png -> 02.png
+02.png -> 03.png
+03.png -> 04.png
+04.png -> 05a.png
+05a.png -> 05b.png
+05b.png -> 05c.png
+05c.png -> 06a.png
+06a.png -> 06b.png
+06b.png -> 06c.png
+06c.png -> 07.png
+07.png -> 07a.png
+07a.png -> 08.png
+08.png -> 09a.png
+09a.png -> 09b.png
+09b.png -> 10.png
+10.png -> 11.png
+
+그림
+[그림 1/36] 짝 1 앞: 01a.png  <그림: _sent/01a.png 390x866 · 예상 437토큰>
+[그림 2/36] 짝 1 뒤: 01b.png  <그림: _sent/01b.png 390x866 · 예상 437토큰>
+[그림 3/36] 짝 2 앞: 01b.png  <그림: _sent/01b.png 390x866 · 예상 437토큰>
+[그림 4/36] 짝 2 뒤: 01c.png  <그림: _sent/01c.png 390x866 · 예상 437토큰>
+[그림 5/36] 짝 3 앞: 01c.png  <그림: _sent/01c.png 390x866 · 예상 437토큰>
+[그림 6/36] 짝 3 뒤: 02.png  <그림: _sent/02.png 390x866 · 예상 437토큰>
+[그림 7/36] 짝 4 앞: 02.png  <그림: _sent/02.png 390x866 · 예상 437토큰>
+[그림 8/36] 짝 4 뒤: 03.png  <그림: _sent/03.png 390x866 · 예상 437토큰>
+[그림 9/36] 짝 5 앞: 03.png  <그림: _sent/03.png 390x866 · 예상 437토큰>
+[그림 10/36] 짝 5 뒤: 04.png  <그림: _sent/04.png 390x866 · 예상 437토큰>
+[그림 11/36] 짝 6 앞: 04.png  <그림: _sent/04.png 390x866 · 예상 437토큰>
+[그림 12/36] 짝 6 뒤: 05a.png  <그림: _sent/05a.png 390x866 · 예상 437토큰>
+[그림 13/36] 짝 7 앞: 05a.png  <그림: _sent/05a.png 390x866 · 예상 437토큰>
+[그림 14/36] 짝 7 뒤: 05b.png  <그림: _sent/05b.png 390x866 · 예상 437토큰>
+[그림 15/36] 짝 8 앞: 05b.png  <그림: _sent/05b.png 390x866 · 예상 437토큰>
+[그림 16/36] 짝 8 뒤: 05c.png  <그림: _sent/05c.png 390x866 · 예상 437토큰>
+[그림 17/36] 짝 9 앞: 05c.png  <그림: _sent/05c.png 390x866 · 예상 437토큰>
+[그림 18/36] 짝 9 뒤: 06a.png  <그림: _sent/06a.png 390x866 · 예상 437토큰>
+[그림 19/36] 짝 10 앞: 06a.png  <그림: _sent/06a.png 390x866 · 예상 437토큰>
+[그림 20/36] 짝 10 뒤: 06b.png  <그림: _sent/06b.png 390x866 · 예상 437토큰>
+[그림 21/36] 짝 11 앞: 06b.png  <그림: _sent/06b.png 390x866 · 예상 437토큰>
+[그림 22/36] 짝 11 뒤: 06c.png  <그림: _sent/06c.png 390x866 · 예상 437토큰>
+[그림 23/36] 짝 12 앞: 06c.png  <그림: _sent/06c.png 390x866 · 예상 437토큰>
+[그림 24/36] 짝 12 뒤: 07.png  <그림: _sent/07.png 390x866 · 예상 437토큰>
+[그림 25/36] 짝 13 앞: 07.png  <그림: _sent/07.png 390x866 · 예상 437토큰>
+[그림 26/36] 짝 13 뒤: 07a.png  <그림: _sent/07a.png 390x866 · 예상 437토큰>
+[그림 27/36] 짝 14 앞: 07a.png  <그림: _sent/07a.png 390x866 · 예상 437토큰>
+[그림 28/36] 짝 14 뒤: 08.png  <그림: _sent/08.png 390x866 · 예상 437토큰>
+[그림 29/36] 짝 15 앞: 08.png  <그림: _sent/08.png 390x866 · 예상 437토큰>
+[그림 30/36] 짝 15 뒤: 09a.png  <그림: _sent/09a.png 390x866 · 예상 437토큰>
+[그림 31/36] 짝 16 앞: 09a.png  <그림: _sent/09a.png 390x866 · 예상 437토큰>
+[그림 32/36] 짝 16 뒤: 09b.png  <그림: _sent/09b.png 390x866 · 예상 437토큰>
+[그림 33/36] 짝 17 앞: 09b.png  <그림: _sent/09b.png 390x866 · 예상 437토큰>
+[그림 34/36] 짝 17 뒤: 10.png  <그림: _sent/10.png 390x866 · 예상 437토큰>
+[그림 35/36] 짝 18 앞: 10.png  <그림: _sent/10.png 390x866 · 예상 437토큰>
+[그림 36/36] 짝 18 뒤: 11.png  <그림: _sent/11.png 390x866 · 예상 437토큰>
+
+
+앞 답에 문제가 있었다. 고친 답 전체를 JSON 하나로 다시 내라.
+- 05c.png -> 06a.png: kind 가 tap 인데 tap 이 null 이다
+- 09b.png -> 10.png: kind 가 tap 인데 tap 이 null 이다
