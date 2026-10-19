@@ -399,7 +399,8 @@ def plan(out):
                           ("%s (%s)" % (m["text"], m["element"])) if m["element"] else
                           "숫자판 무리 %s 의 아무 키 (%d개)" % (m["action"], len(m["keys"])),
                           "사이 상태 (캡처 없음) - 앞 화면에서 처음 누른 것 다음은 모른다" if m["via"] == "skipped-states" else
-                          "몇 번 · 어느 키를 눌러야 넘어가는지 (키 하나로 넘어가게 했다)"]
+                          "몇 번 · 어느 키를 눌러야 넘어가는지 (키 하나로 넘어가게 했다. 무리의 숫자 아닌 키 - 지우기 · "
+                          "재배열 등 - 도 넘어간다)"]
                          for m in moves if m["via"] in ("skipped-states", "keypad-advance")] or [["-"] * 6]),
               "\n## 찍지 않은 상태로 보이는 것 (skipped 짝)\n",
               ", ".join([m["pair"] for m in moves if m["kind"] == "skipped"] +
