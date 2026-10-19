@@ -293,6 +293,22 @@ $py = "C:\Users\xihye\venvs\detect\Scripts\python.exe"
 **첫 실제 실행 (`results/detect/20261013-d4`, gpt-6.1-sol, $0.026, 시도 1):** 누른 것 14/18 · kind 14/18 · 둘 다
 13/18. confidence 가 모두 0.85 이상이라 confidence 로 틀린 것을 가려내지 못했다 (틀린 5짝도 0.85~0.98).
 
+## 그림 자리 놓침 진단 (2026-10-19)
+
+`miss_diag.py` - D3.1(`20261013-d3b`) 이 놓친 그림 자리(90 중 12)를 단계별로 따라간다. 읽기만 하고 기본
+실행 경로는 바꾸지 않는다 (유료 호출 없음, 의미 층 다시 안 돌림, OCR 은 캐시). 검출기만 다시 돌려 NMS 전 원
+출력 → NMS → 사본 합치기 → 겹친 박스 정리 → OCR 글 박스 안 박스 버림 의 어디서 무엇에 지워졌는지, 점수 문턱
+0.1 · 0.01 두 번. `--virtual` 은 detect.py 의 함수를 이 프로세스에서만 바꿔 끼워 Soft-NMS · "종류가 다르면
+안 지우기" · (참고) 짧은 글 안 박스 남기기를 `results/detect/20261019-miss/<이름>/` 에 돌리고 박스 수준으로 견준다.
+
+```powershell
+& $py tools/screen_detect/miss_diag.py --text "08:보내기" --virtual    # → results/detect/20261019-miss/
+```
+
+결과 (`results/detect/20261019-miss/summary.md`): A 분류 6 (모두 누를 수 있는 아이콘 - kind 하나라 button) ·
+B 정리 단계 1 (OCR "8+" 글 박스 안이라 버림) · C 민감도 3 (0.015~0.066) · D 1 · E 1 (견주기 자리 어긋남 - 실제로는
+맞음). 겹침 정리 · NMS 에서 지워진 것은 없었다.
+
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
 | 무엇 | 라이선스 | 근거 |
