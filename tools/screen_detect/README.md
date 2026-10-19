@@ -501,6 +501,31 @@ $U = "results/detect/20261019-uidetr"
 & $py tools/screen_detect/uidetr_report.py                                    # → $U/summary.md, $U/home_01a.png
 ```
 
+## 조립 1단계 - 규칙 부분 + 목록 대조 (2026-10-19)
+
+조립 설계 v0 (연구자 확정): 생김새는 LLM (2단계), 동작 · 이름 · 처리기 · 흐름 파일 · 추적표는 규칙. 1단계는 LLM 자리에 규칙 시안
+마크업을 넣어 전체를 한 번 돈다. 코드 `tools/screen_detect/assemble/`, 결과 `results/detect/20261019-assembly/`. 입력은 strict3
+(검출 strict2 · 의미 층 strict3 · 흐름 strict3) 만 - 만드는 줄은 `--inputs strict` (감사 훅).
+
+| 파일 | 하는 일 | 쪽 |
+|---|---|---|
+| `assemble/build.py` | 화면 sNN · 규칙 마크업 · 기계 이름 `a-<화면>-<차례>` · 선택지 무리 (같은 group 의 choice · keypad_key → 같은 부모 · 같은 `a-<화면>-g<차례>` · data-v) · tap 짝 이동 · 위임 처리기 · flow.json · trace.json · limits.md · check.json | 만드는 줄 (strict) |
+| `assemble/check_markup.py` | 출력 검사 ①~⑤ (2단계 LLM 마크업에도 쓴다) | 만드는 줄 |
+| `assemble/walk.py` | 걷기 시험 - steps · s01 에서 닿는 화면 · 이동마다 눌러 보기 · 오류 경로 | 시험 |
+| `assemble/list_compare.py` | 목록 대조 - 옛 원본 (truth.json + git show flows/original.json) 대 새 원본, 검사기가 읽는 목록 (I · L · K · J) 에 맞춰 글 · 뜻으로 | 채점 (사람 파일) |
+| `assemble/compare_page.py` | 새 화면과 짝지은 옛 상태 그림을 나란히 | 채점 |
+
+```powershell
+& $py tools/screen_detect/assemble/build.py --inputs strict
+& $py tools/screen_detect/assemble/walk.py
+& $py tools/screen_detect/assemble/list_compare.py
+& $py tools/screen_detect/assemble/compare_page.py
+```
+
+flow.json 은 파이프라인 flows/ 형식 (git show origin/feat/db-principles:flows/original.json 과 senior_ui/audit/flow.py 의
+load_flow 를 개발 중에 읽어 맞춤 - 값은 베끼지 않음). 채울 수 없는 칸 (truth · required_ids · expect · done_amount · 오류 조건 ·
+입력) 은 비우고 `blank` 에 까닭. steps 는 s01 에서 이동을 따라 닿는 길만, 모든 이동은 `transitions` (우리 칸).
+
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
 | 무엇 | 라이선스 | 근거 |
