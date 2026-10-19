@@ -33,13 +33,17 @@ import truth as TR  # noqa: E402
 TRUTH = os.path.join(K.ROOT, "results", "detect", "20261013-d3b", "truth.json")
 SIDES = [("capture", "캡처"), ("original", "옛 원본 재현 HTML"), ("rule", "(가) 규칙 시안"), ("llm", "(나) LLM 시안"),
          ("rule_strict", "strict 규칙 시안"), ("llm_strict", "strict LLM 시안"),
-         ("rule_strict2", "strict2 규칙 시안"), ("llm_strict2", "strict2 LLM 시안")]
+         ("rule_strict2", "strict2 규칙 시안"), ("llm_strict2", "strict2 LLM 시안"),
+         ("llm_strict3", "strict3 LLM 시안 (꺾쇠 규칙)")]
 # strict (스크린샷만, 2026-10-19) 시안 - results/detect/20261019-strict/{rule,llm}.html. 같은 캡처 묶음의 줄에 붙인다
 SKETCHES = {"rule": "rule", "llm": "llm", "rule_strict": "rule", "llm_strict": "llm",
-            "rule_strict2": "rule", "llm_strict2": "llm"}
+            "rule_strict2": "rule", "llm_strict2": "llm", "llm_strict3": "llm"}
 # strict 판마다의 결과 폴더 - strict2 (10/19 오후): 검출을 로고 규칙 없이 다시, 의미 층 v2 (icon 규칙) 단위 전부, 흐름 그림 포함
-STRICT_SIDES = {"rule_strict": "20261019-strict", "llm_strict": "20261019-strict",
-                "rule_strict2": "20261019-strict2", "llm_strict2": "20261019-strict2"}
+# 판마다 (시안 html 이 든 폴더, 시안을 만든 입력 폴더) - strict3 LLM (10/19) 은 strict2 입력에 프롬프트 v3 (꺾쇠 규칙)
+STRICT_SIDES = {"rule_strict": ("20261019-strict", "20261019-strict"), "llm_strict": ("20261019-strict", "20261019-strict"),
+                "rule_strict2": ("20261019-strict2", "20261019-strict2"),
+                "llm_strict2": ("20261019-strict2", "20261019-strict2"),
+                "llm_strict3": ("20261019-strict3/sketch", "20261019-strict2")}
 
 EXTRA = r"""() => {
   const on = document.querySelector('.screen.on') || document.body;
@@ -150,9 +154,9 @@ def main():
         sk[side] = asyncio.run(shoot_sketch(f, units, os.path.join(rd, side))) if os.path.exists(f) else {}
     # strict 시안 - 그 html 에 있는 단위만 (strict 입력으로 다시 읽어 요소 수를 센다)
     sunits = {}
-    for side, folder in STRICT_SIDES.items():
+    for side, (html_dir, folder) in STRICT_SIDES.items():
         root = os.path.join(K.ROOT, "results", "detect", folder)
-        f = os.path.join(root, "%s.html" % SKETCHES[side])
+        f = os.path.join(K.ROOT, "results", "detect", html_dir, "%s.html" % SKETCHES[side])
         if not os.path.exists(f):
             sk[side] = {}
             continue
@@ -178,7 +182,7 @@ def main():
             key = "+".join(u["captures"]) if side in STRICT_SIDES else u["unit"]
             r = sk[side].get(key)
             if side in STRICT_SIDES and r:
-                ids = [e["id"] for e in sunits[STRICT_SIDES[side]][key]["elements"]]
+                ids = [e["id"] for e in sunits[STRICT_SIDES[side][1]][key]["elements"]]
                 c[side + "_inputs"] = len(ids)
             if r:
                 got = [i for i in r["src"] if i in set(ids)]
@@ -212,7 +216,7 @@ def main():
         for side, _ in SIDES:
             img, note = cell(side, c)
             tds.append('<td><div class="n">%s</div>%s</td>' % (html.escape(note), img))
-        trs.append('<tr><th colspan="8">%s — %s</th></tr><tr>%s</tr>' % (html.escape(c["unit"]),
+        trs.append('<tr><th colspan="%d">%s — %s</th></tr><tr>%s</tr>' % (len(SIDES), html.escape(c["unit"]),
                                                                         html.escape(c["label"] or ""), "".join(tds)))
     doc = """<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>조립 시안 견주기</title>
 <!-- 탐색용 시안 — 조립 설계 전. 만든 것: tools/screen_detect/sketch/compare_page.py -->
@@ -225,7 +229,8 @@ td{vertical-align:top; padding:4px; width:400px;} td img{width:390px; border:1px
 짝은 captures.json 의 label (채점 쪽). strict 열 = 스크린샷만 (이름표 · 묶음 · 과제 이름 · 로고 규칙 없이, 의미 층 v2) - 홈만.
 시안은 직접 열어 눌러 볼 수 있다: <a href="rule.html">rule.html</a> · <a href="llm.html">llm.html</a> ·
 <a href="../20261019-strict/rule.html">strict rule.html</a> · <a href="../20261019-strict/llm.html">strict llm.html</a> ·
-<a href="../20261019-strict2/rule.html">strict2 rule.html</a> · <a href="../20261019-strict2/llm.html">strict2 llm.html</a>.
+<a href="../20261019-strict2/rule.html">strict2 rule.html</a> · <a href="../20261019-strict2/llm.html">strict2 llm.html</a> ·
+<a href="../20261019-strict3/sketch/llm.html">strict3 llm.html (꺾쇠 규칙)</a>.
 strict2 = 검출을 로고 규칙 없이 다시 · 의미 층 v2 (icon 은 아이콘 그 자체에만) 단위 전부 · 흐름 그림 포함.</p>
 <table><thead><tr>%s</tr></thead>%s</table></body></html>""" % (
         "".join("<th>%s</th>" % t for _, t in SIDES), "".join(trs))
