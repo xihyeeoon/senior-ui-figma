@@ -554,6 +554,14 @@ foreach ($d in "rule", "llm") {
     --also "LLM 판=results/detect/20261019-assembly2/llm" --captures --page results/detect/20261019-assembly2/compare.html
 ```
 
+## 조립 마무리 (2026-10-19)
+
+연구자 결정: a. 뒤로가기 꺾쇠도 글자 ‹ (규칙 판은 이미 그렇다 - icon.shape 의 "왼쪽 꺾쇠") - 프롬프트 v4 규칙 11.
+b. 갈린 무리는 검사 I 가 따로 세면 다시 받는다 - 코드 (`probes._CHOICES`) 는 부모마다 형제 2개 이상인 묶음을 합쳐 세므로 다시
+받지 않았다 (v4 규칙 12 "무리는 한 부모 아래" 는 다음 실행용). c. keypad-advance 는 숫자 키만 (처리기 `/^\d$/.test(el.dataset.v)`).
+d. 파이프라인 쪽 설명서 `results/detect/20261019-assembly3/HANDOFF.md`. 결과 `results/detect/20261019-assembly3/{rule, llm}` -
+LLM 판은 2단계 답을 다시 씀 (`llm_build.py --reuse results/detect/20261019-assembly2/llm`, 이번 돈 0).
+
 ## 라이선스 (저장소 · 모델 카드에서 확인, 2026-10-12)
 
 | 무엇 | 라이선스 | 근거 |
