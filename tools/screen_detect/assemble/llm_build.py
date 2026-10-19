@@ -43,6 +43,9 @@ HINT = {"①": "data-src 는 목록의 id 마다 꼭 한 번 쓴다",
         "③": "그 요소 바로 안의 글은 목록의 text (text_fixed 가 있으면 text_fixed) 그대로 - 고치거나 늘리지 마라",
         "④": '그림 자리는 <div class="pic" role="img" aria-label="이름"> 꼴',
         "⑤": "꺾쇠 요소는 그림 자리 없이 글자 하나만"}
+# 쪽 공통 css 의 button{all:unset} 이 브라우저 기본 버튼의 가운데 맞춤까지 지운다 - LLM 은 기본 버튼을 생각하고 짰으므로
+# LLM 마크업 안의 버튼에만 가운데 맞춤을 돌려준다 (LLM 출력은 건드리지 않는다, 인라인 style 이 이것보다 앞선다)
+CSS = '  .canvas[data-markup="llm"] button{text-align:center;}\n'
 TAG = re.compile(r"<([a-zA-Z][\w-]*)(\s[^<>]*?)?(/?)>")
 OURS = re.compile(r"""\s+data-(?:action|v|go)\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)""")
 SRC = re.compile(r"""\sdata-src\s*=\s*(?:"([^"]*)"|'([^']*)')""")
@@ -135,6 +138,7 @@ def main(argv=None):
     ap.add_argument("--max-usd", type=float, default=2.5)
     ap.add_argument("--stop-over", type=float, default=1.8, help="13화면 어림 합 (생각 = 답) 이 이것을 넘으면 부르지 않는다")
     ap.add_argument("--model", default=None)
+    ap.add_argument("--reuse", action="store_true", help="부르지 않고 llm/raw 의 앞 답 (llm/<화면>.json 의 시도) 으로 다시 짓는다")
     a = ap.parse_args(argv)
     if not K.ST.from_args(a):
         raise SystemExit("조립은 --inputs strict 로만 돈다 (스크린샷만)")
@@ -163,12 +167,27 @@ def main(argv=None):
             e["answer_tokens"], e["cost_usd"], e["cost_usd_with_reasoning"], e["cost_usd_cap"]))
     print("합계 입력 %d · 답 %d · $%.4f (생각 = 답 $%.4f, 상한 $%.3f)" % (
         dry["input_tokens"], dry["answer_tokens"], dry["cost_usd"], dry["cost_usd_with_reasoning"], dry["cost_usd_cap"]))
-    if dry["cost_usd_with_reasoning"] > a.stop_over:
+    if dry["cost_usd_with_reasoning"] > a.stop_over and not a.reuse:
         print("어림 $%.4f > $%.2f - 부르지 않고 멈춘다" % (dry["cost_usd_with_reasoning"], a.stop_over))
         return
     if a.dry_run:
         return
-    M.load_env()                         # 실제 호출일 때만 - 환경 변수 또는 이 레포 뿌리의 .envs (의미 층과 같다)
+    if a.reuse:
+        prev = {s["screen"]: json.load(io.open(os.path.join(LOG, "%s.json" % s["screen"]), encoding="utf-8"))
+                for s, *_ in jobs}
+
+        def call(sid, n, ask, images):
+            at = prev[sid]["attempts"][n - 1]
+            return dict(at, text=io.open(os.path.join(LOG, "raw", "%s.%d.response.txt" % (sid, n)), encoding="utf-8").read())
+    else:
+        M.load_env()                     # 실제 호출일 때만 - 환경 변수 또는 이 레포 뿌리의 .envs (의미 층과 같다)
+
+        def call(sid, n, ask, images):
+            write(os.path.join(LOG, "raw", "%s.%d.request.txt" % (sid, n)), M.prompt_record(ask, images, model, base=LOG))
+            reply = M.call_model(model, ask, LA.MAX_TOKENS, log=log, reasoning_effort=effort, images=images,
+                                 detail=config.IMAGE_DETAIL)
+            write(os.path.join(LOG, "raw", "%s.%d.response.txt" % (sid, n)), reply.get("text") or "")
+            return reply
     log = lambda m: print("  " + m, flush=True)
     sha = hashlib.sha256(io.open(LA.PROMPT_FILE, "rb").read()).hexdigest()[:12]
     spent, results, sections, markup, stopped = 0.0, {}, [], {}, None
@@ -181,16 +200,15 @@ def main(argv=None):
             if stopped:
                 break
             need = est["cost_usd_with_reasoning"] or 0
-            if spent + need > a.max_usd:
+            if a.reuse and n > len(prev[sid]["attempts"]):
+                break
+            if spent + need > a.max_usd and not a.reuse:
                 stopped = "쓴 돈 $%.4f + %s 어림 $%.4f > 상한 $%.2f" % (spent, sid, need, a.max_usd)
                 break
-            write(os.path.join(LOG, "raw", "%s.%d.request.txt" % (sid, n)), M.prompt_record(ask, images, model, base=LOG))
-            reply = M.call_model(model, ask, LA.MAX_TOKENS, log=log, reasoning_effort=effort, images=images,
-                                 detail=config.IMAGE_DETAIL)
+            reply = call(sid, n, ask, images)
             usage = reply.get("usage") or {}
             cost = M.cost_usd(usage, M.price_for(model))
             spent += cost if cost is not None else need
-            write(os.path.join(LOG, "raw", "%s.%d.response.txt" % (sid, n)), reply.get("text") or "")
             section = LA.extract(reply.get("text"))
             wrapped = wrap(attach(section, sid, S["actions"]), s) if section else None
             probs, raw = problems(section, wrapped, exp)
@@ -217,7 +235,7 @@ def main(argv=None):
         write(os.path.join(LOG, "%s.json" % sid), json.dumps(res, ensure_ascii=False, indent=1))
     summ = {"model": model, "reasoning_effort": effort, "inputs": "strict", "prompt_file": dry["prompt_file"],
             "prompt_sha": sha, "max_usd": a.max_usd, "spent_usd": round(spent, 4), "stopped": stopped,
-            "estimate_usd": round(dry["cost_usd_with_reasoning"], 4),
+            "estimate_usd": round(dry["cost_usd_with_reasoning"], 4), "reused": a.reuse,
             "screens": {k: {"status": r["status"], "attempts": len(r["attempts"]),
                             "prompt_tokens": sum((x["usage"] or {}).get("prompt") or 0 for x in r["attempts"]),
                             "completion_tokens": sum((x["usage"] or {}).get("completion") or 0 for x in r["attempts"]),
@@ -242,7 +260,7 @@ def main(argv=None):
             "판과 같다.\n"]
     chk = B.write(S, a.out, sections, markup,
                   page_vars={"which": "LLM 판", "markup": "LLM 마크업 (LLM_PROMPT_V3) - 대신한 화면은 규칙 시안 마크업",
-                             "maker": "llm_build.py"}, more_limits=more)
+                             "maker": "llm_build.py", "css": CSS}, more_limits=more)
     print("쓴 돈 $%.4f %s · 검사 %s (%d) · 무리 갈림 %d" % (spent, stopped or "", chk["ok"], len(chk["problems"]), len(split)))
 
 
