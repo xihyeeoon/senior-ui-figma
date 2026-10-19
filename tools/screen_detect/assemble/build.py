@@ -28,8 +28,9 @@ M1 (색 차이 2) 으로 그 자리에서. 사람 파일은 읽지 않는다 (�
             찍은 캡처라 이웃한 캡처 사이에 이동이 있었다는 것은 입력에서 온 사실이다. 사이 상태는 짓지 않는다
               (가) 짝이 처음 누른 것을 적었고 그 요소가 앞 화면의 누를 것이면 → 그 요소가 다음 캡처 화면을 show,
                    via = "skipped-states"
-              (나) 누른 것이 없고 앞 화면에 숫자판 무리 (값이 숫자 하나인 키 3개 이상) 가 있으면 → 그 무리의 어느 키든
-                   다음 캡처 화면 (data-v 를 보지 않음), via = "keypad-advance"
+              (나) 누른 것이 없고 앞 화면에 숫자판 무리 (값이 숫자 하나인 키 3개 이상) 가 있으면 → 그 무리의 숫자 키
+                   (data-v 가 숫자 하나) 어느 것이든 다음 캡처 화면, via = "keypad-advance". 숫자 아닌 키 (지우기 ·
+                   재배열) 는 넘어가지 않는다 (결정 c, 10/19 조립 마무리). 이동에 v_match = "^\d$"
             둘 다 아니면 이동을 만들지 않고 limits 에 적는다
   처리기    #phone 위임 처리기 하나 (a==='…' → show('sNN')), 시작 화면 s01. window.__screen() 은 지금 화면
   오류      kind = error_path 짝 → flow.json error_paths (from_step = 앞 화면, expect_screen = 오류 화면). 오류 화면의 누를 것이
@@ -306,11 +307,13 @@ def plan(out):
                           "click": selector(act), "action": act[0], "v": act[1], "pair": pair,
                           "via": "tap" if p["kind"] == "tap" else "skipped-states", "kind": p["kind"]})
         elif p["kind"] != "scroll" and not p.get("tap") and src in keypad:
-            # (나) 누른 것이 적히지 않았고 앞 화면에 숫자판 무리가 있다 - 그 무리의 어느 키든 다음 화면 (어느 키인지 정하지 않음)
+            # (나) 누른 것이 적히지 않았고 앞 화면에 숫자판 무리가 있다 - 그 무리의 숫자 키 (값이 숫자 하나) 어느 것이든
+            # 다음 화면 (어느 숫자인지 정하지 않음). 지우기 · 재배열 같은 숫자 아닌 키는 넘어가지 않는다 (연구자 결정 10/19 c)
             act, keys = keypad[src]
-            moves.append({"from": src, "to": dst, "element": None, "keys": keys, "text": None,
-                          "click": selector((act, None)), "action": act, "v": None, "pair": pair,
-                          "via": "keypad-advance", "kind": p["kind"]})
+            others = [i for (s_, i), (a_, v) in actions.items() if s_ == src and a_ == act and i not in keys]
+            moves.append({"from": src, "to": dst, "element": None, "keys": keys, "other_keys": others, "text": None,
+                          "click": selector((act, actions[(src, keys[0])][1])), "action": act, "v": None,
+                          "v_match": r"^\d$", "pair": pair, "via": "keypad-advance", "kind": p["kind"]})
         else:
             why = {"skipped": "사이 상태가 캡처에 없고 (skipped) 처음 누른 것도 앞 화면 숫자판도 없다",
                    "unknown": "누른 것을 모르고 (unknown) 앞 화면에 숫자판도 없다"}.get(p["kind"], "kind %s" % p["kind"])
@@ -397,10 +400,10 @@ def plan(out):
               K.C.table(["짝", "화면", "kind", "via", "누르는 것", "모르는 것"],
                         [[m["pair"], "%s → %s" % (m["from"], m["to"]), m["kind"], m["via"],
                           ("%s (%s)" % (m["text"], m["element"])) if m["element"] else
-                          "숫자판 무리 %s 의 아무 키 (%d개)" % (m["action"], len(m["keys"])),
+                          "숫자판 무리 %s 의 숫자 키 아무것 (%d개, 숫자 아닌 키 %d개는 넘어가지 않음)" % (
+                              m["action"], len(m["keys"]), len(m["other_keys"])),
                           "사이 상태 (캡처 없음) - 앞 화면에서 처음 누른 것 다음은 모른다" if m["via"] == "skipped-states" else
-                          "몇 번 · 어느 키를 눌러야 넘어가는지 (키 하나로 넘어가게 했다. 무리의 숫자 아닌 키 - 지우기 · "
-                          "재배열 등 - 도 넘어간다)"]
+                          "몇 번 · 어느 숫자를 눌러야 넘어가는지 (숫자 키 하나로 넘어가게 했다)"]
                          for m in moves if m["via"] in ("skipped-states", "keypad-advance")] or [["-"] * 6]),
               "\n## 찍지 않은 상태로 보이는 것 (skipped 짝)\n",
               ", ".join([m["pair"] for m in moves if m["kind"] == "skipped"] +
@@ -417,11 +420,14 @@ def plan(out):
 
 
 def handler(moves):
-    """값을 보는 갈래가 먼저 - 값 없이 무리 전체를 보는 갈래 (keypad-advance) 가 같은 data-action 의 다른 갈래를 가리지 않게."""
+    """값을 보는 갈래가 먼저 - 값 꼴로 무리를 보는 갈래 (keypad-advance, v_match) 가 같은 data-action 의 다른 갈래를
+    가리지 않게."""
     lines = []
     for m in sorted(moves, key=lambda m: m["v"] is None):
         cond = "a==='%s'" % m["action"] + (" && el.dataset.v===%s" % json.dumps(m["v"], ensure_ascii=False)
                                          if m["v"] is not None else "")
+        if m.get("v_match"):
+            cond += " && /%s/.test(el.dataset.v || '')" % m["v_match"]
         lines.append("  %sif(%s) show('%s');" % ("else " if lines else "", cond, m["to"]))
     return lines
 
