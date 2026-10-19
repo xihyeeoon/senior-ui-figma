@@ -249,16 +249,11 @@ def selector(act):
     return "[data-action='%s']" % a + ("[data-v='%s']" % v.replace("'", "\\'") if v is not None else "")
 
 
-def main(argv=None):
+def plan(out):
+    """규칙 부분 - 화면 · 이름 · 이동 · 오류 경로 · steps · 추적표, 그리고 규칙 마크업 (sections). 마크업만 바꿔 끼우는
+    판 (2단계 LLM) 도 이것을 그대로 쓴다 - write() 에 sections · markup 을 넘긴다."""
     import numpy as np
-    ap = argparse.ArgumentParser()
-    K.ST.add_arg(ap)
-    ap.add_argument("--out", default=OUT)
-    a = ap.parse_args(argv)
-    strict = K.ST.from_args(a)
-    if not strict:
-        raise SystemExit("조립은 --inputs strict 로만 돈다 (스크린샷만)")
-    K.STRICT_PATHS.update(final=INPUTS["final"], semantic=INPUTS["semantic"], flow=INPUTS["flow"], out=a.out)
+    K.STRICT_PATHS.update(final=INPUTS["final"], semantic=INPUTS["semantic"], flow=INPUTS["flow"], out=out)
     units = list(K.load_units(strict=True).values())
     sems, _ = K.C.load_semantic(INPUTS["semantic"])
     flow = json.load(io.open(INPUTS["flow"], encoding="utf-8"))
@@ -312,13 +307,6 @@ def main(argv=None):
         error_paths.append({"id": "e%d" % n, "about": "", "condition": "", "uses": [], "notice_any": [],
                             "from_step": e["from"], "inputs": [], "expect_screen": e["to"], "recover": recover,
                             "back_to": e["from"] if press else None, "pair": e["pair"]})
-    # 처리기
-    lines = []
-    for m in moves:
-        cond = "a==='%s'" % m["action"] + (" && el.dataset.v===%s" % json.dumps(m["v"], ensure_ascii=False)
-                                         if m["v"] is not None else "")
-        lines.append("  %sif(%s) show('%s');" % ("else " if lines else "", cond, m["to"]))
-    page = PAGE % {"sections": "\n".join(sections), "branches": "\n".join(lines) or "  // 이동 없음"}
     # 닿는 화면 (s01 부터 이동을 따라) · 과제 길
     reach, frontier = {"s01"}, ["s01"]
     while frontier:
@@ -362,15 +350,8 @@ def main(argv=None):
                               "semantic": {k: g.get(k) for k in ("kind", "pressable", "group", "image_name", "image_shape",
                                                                  "icon", "text_is_icon", "text_fixed")},
                               "chevron": (expected.get((sid, e["id"])) or {}).get("chevron"),
-                              "markup": "규칙 시안 (sketch/rule_assemble 의 놓기 규칙)",
+                              "markup": None,
                               "flow": [m["pair"] for m in moves if m["element"] == e["id"] and m["from"] == sid]}
-    # 출력 검사는 화면마다 (요소 id 는 단위 안에서만 하나다)
-    chk = {"ok": True, "problems": []}
-    for sec, u in zip(sections, units):
-        sid = sid_of[u["unit"]]
-        r = CM.check("<body>%s</body>" % sec, {i: v for (s_, i), v in expected.items() if s_ == sid})
-        chk["problems"] += [dict(x, screen=sid) for x in r["problems"]]
-    chk["ok"] = not chk["problems"]
     warns = [(u, w) for u, r in ((u, json.load(io.open(os.path.join(INPUTS["semantic"], u + ".semantic.json"),
                                                          encoding="utf-8"))) for u in sid_of) for w in r.get("warnings") or []]
     limits = ["# 조립 1단계 - 한계 (이번 실행)\n",
@@ -389,17 +370,66 @@ def main(argv=None):
               "- 검출 놓침은 만드는 줄에서는 알 수 없다 (정답과 견주는 것은 채점 쪽 - list_compare.py).\n"
               "- 오류 경로의 recover 는 오류 화면의 첫 누를 것, back_to 는 그 짝의 앞 화면이다 - 실제로 어느 화면에서 오류가 났는지는 "
               "스크린샷에 없다.\n"]
-    os.makedirs(a.out, exist_ok=True)
-    w = lambda name, text: io.open(os.path.join(a.out, name), "w", encoding="utf-8", newline="\n").write(text)
+    return {"units": units, "sid_of": sid_of, "sems": sems, "actions": actions, "expected": expected,
+            "sections": sections, "screens": screens, "moves": moves, "error_paths": error_paths, "unlinked": unlinked,
+            "reach": reach, "flow": flow_out, "trace": trace, "limits": limits,
+            "markup": {s["screen"]: "규칙 시안 (sketch/rule_assemble 의 놓기 규칙)" for s in screens}}
+
+
+def handler(moves):
+    lines = []
+    for m in moves:
+        cond = "a==='%s'" % m["action"] + (" && el.dataset.v===%s" % json.dumps(m["v"], ensure_ascii=False)
+                                         if m["v"] is not None else "")
+        lines.append("  %sif(%s) show('%s');" % ("else " if lines else "", cond, m["to"]))
+    return lines
+
+
+def check_sections(S, sections):
+    """출력 검사는 화면마다 (요소 id 는 단위 안에서만 하나다)."""
+    chk = {"ok": True, "problems": []}
+    for sec, s in zip(sections, S["screens"]):
+        sid = s["screen"]
+        r = CM.check("<body>%s</body>" % sec, {i: v for (s_, i), v in S["expected"].items() if s_ == sid})
+        chk["problems"] += [dict(x, screen=sid) for x in r["problems"]]
+    chk["ok"] = not chk["problems"]
+    return chk
+
+
+def write(S, out, sections=None, markup=None, page_tpl=None, more_limits=()):
+    """original.html · flow.json · trace.json · limits.md · check.json. sections · markup (화면 → 마크업 출처) 를 넘기면
+    그 마크업으로 (동작 · 흐름 · 추적표는 S 그대로)."""
+    sections = sections or S["sections"]
+    markup = dict(S["markup"], **(markup or {}))
+    page = (page_tpl or PAGE) % {"sections": "\n".join(sections),
+                                 "branches": "\n".join(handler(S["moves"])) or "  // 이동 없음"}
+    trace = {k: dict(v, markup=markup[v["screen"]]) for k, v in S["trace"].items()}
+    chk = check_sections(S, sections)
+    os.makedirs(out, exist_ok=True)
+    w = lambda name, text: io.open(os.path.join(out, name), "w", encoding="utf-8", newline="\n").write(text)
     w("original.html", page)
-    w("flow.json", json.dumps(flow_out, ensure_ascii=False, indent=1))
+    w("flow.json", json.dumps(S["flow"], ensure_ascii=False, indent=1))
     w("trace.json", json.dumps(trace, ensure_ascii=False, indent=1))
-    w("limits.md", "\n".join(limits) + "\n")
+    w("limits.md", "\n".join(S["limits"] + list(more_limits)) + "\n")
     w("check.json", json.dumps(dict(chk, rules=["① data-src 한 번씩", "② data-src 없는 보이는 글 · 버튼 · 그림 자리 없음",
                                                   "③ 글은 text · text_fixed 그대로", "④ 그림 자리 .pic[role=img][aria-label]",
                                                   "⑤ 꺾쇠는 글자"]), ensure_ascii=False, indent=1))
+    return chk
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    K.ST.add_arg(ap)
+    ap.add_argument("--out", default=OUT)
+    a = ap.parse_args(argv)
+    if not K.ST.from_args(a):
+        raise SystemExit("조립은 --inputs strict 로만 돈다 (스크린샷만)")
+    S = plan(a.out)
+    chk = write(S, a.out)
+    screens, moves, reach = S["screens"], S["moves"], S["reach"]
     print("화면 %d · 이동 %d · 오류 경로 %d · 못 이은 짝 %d · 닿는 화면 %s · 검사 %s (%d)" % (
-        len(screens), len(moves), len(error_paths), len(unlinked), sorted(reach), chk["ok"], len(chk["problems"])))
+        len(screens), len(moves), len(S["error_paths"]), len(S["unlinked"]), sorted(reach), chk["ok"],
+        len(chk["problems"])))
     for s in screens:
         print(s["screen"], "+".join(c[:-4] for c in s["captures"]), s["elements"], s["pressable"],
               sum(1 for m in moves if m["from"] == s["screen"]))
