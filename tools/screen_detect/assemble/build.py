@@ -342,25 +342,25 @@ def plan(out):
             if m["from"] == s and m["to"] not in reach:
                 reach.add(m["to"])
                 frontier.append(m["to"])
-    steps, cur, used = [{"screen": "s01"}], "s01", set()
-    while True:
-        nxt = next((m for m in moves if m["from"] == cur and m["to"] not in used | {"s01"}
-                    and not m["pair"].startswith("오류")), None)
-        if not nxt:
-            break
-        steps.append({"screen": nxt["to"], "click": nxt["click"]})
-        used.add(nxt["to"])
-        cur = nxt["to"]
+    # steps - s01 에서 캡처 차례 (흐름 짝 차례) 대로 이동을 따라간다 (연구자 결정 d). 오류 짝 · 되돌아감은 넣지 않는다
+    steps, cur = [{"screen": "s01"}], "s01"
+    for m in moves:
+        if m["via"] != "error-recover" and m["from"] == cur:
+            steps.append({"screen": m["to"], "click": m["click"], "via": m["via"]})
+            cur = m["to"]
+    task_last = max((cap_screen[p["to"]] for p in flow["pairs"] if p["kind"] != "error_path"), key=lambda s: int(s[1:]))
     blank = {"truth": "정답 값 (은행 · 계좌번호 · 금액 · 틀린 값) - 스크린샷에 '정답' 은 없다",
              "required_ids": "꼭 있어야 할 DOM id - 규칙 마크업에는 id 를 짓지 않았다 (요소는 data-src · data-action)",
              "expect": "화면마다 확인할 값 - 정답 값이 없어 비움",
              "done_amount": "완료 화면의 금액 선택자 - 정답 값이 없어 넣지 않음",
-             "error_paths[].about · condition · uses · notice_any · inputs": "오류 조건 · 입력 - 스크린샷에 보이지 않는다 (만들지 않는다)",
-             "steps (s01 다음)": "s01 → s02 짝이 skipped 라 이동이 없다 - 과제 길이 s01 에서 끊긴다"}
+             "error_paths[].about · condition · uses · notice_any · inputs": "오류 조건 · 입력 - 스크린샷에 보이지 않는다 (만들지 않는다)"}
+    if cur != task_last:
+        blank["steps (%s 다음)" % cur] = "%s 에서 나가는 이동이 없다 - 과제 길이 %s 에서 끊긴다 (마지막 과제 화면 %s)" % (
+            cur, cur, task_last)
     flow_out = {"name": "screenshot-assembly-v0", "task": None,
                 "note": "스크린샷 19장 (파일 이름 순) 에서 조립한 원본 (조립 1단계, 규칙 부분 + 규칙 시안 마크업). 화면 = 이어 붙이기 "
-                        "단위, 이동 = 흐름 추정 strict3 의 tap 짝. steps 는 s01 에서 이동을 따라 닿는 길만 - 나머지 이동은 "
-                        "transitions 에 있다. 비운 칸은 blank 에.",
+                        "단위, 이동 = 흐름 추정 strict3 의 tap 짝 + 끊긴 짝을 규칙 a 로 이은 것 (via). steps 는 s01 에서 "
+                        "캡처 차례대로 이동을 따라간 과제 길 - 오류 되돌아감은 transitions 에 있다. 비운 칸은 blank 에.",
                 "derived_from_original": True, "truth": {}, "required_ids": [], "steps": steps, "expect": {},
                 "error_paths": error_paths, "screens": screens, "transitions": moves, "blank": blank}
     trace = {}
