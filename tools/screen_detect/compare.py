@@ -51,6 +51,11 @@ VIEW = (390, 844)
 NEAR = 40        # 옮긴 정답 자리를 이만큼 넓혀 그 안의 글 없는 박스를 곁 설명 후보로
 FAR = 120        # 그 안에 없으면 중심이 이만큼 안인 가장 가까운 것
 SPAN_PAD = 80    # 맞은 닻의 세로 범위를 이만큼 넓혀 "자리상 캡처 안" 으로 본다
+# 자리 옮기기 방식 (2026-10-19, --frame). "line" 은 무리마다 직선 하나 (D1 부터의 기본값). "local" 은
+# 이웃한 닻 둘 사이를 잇는 꺾은선 + 글 없는 것(그림 자리 · 아이콘만인 입구)을 후보와 하나씩 짝짓기
+# (Frame.map · judge_capture). 홈처럼 구역마다 줄 높이가 다른 화면에서 직선이 한 줄씩 밀리고, 홈 머리처럼
+# 아이콘 사이 간격이 다른 줄에서 가로 비율이 옆 아이콘을 가리켰다 (results/detect/20261019-miss)
+FRAME = "line"
 
 
 def norm(s):
@@ -153,6 +158,7 @@ class Frame:
             pts[group(a)].append((a["rect"][1] + a["rect"][3] / 2, e["box"][1] + e["box"][3] / 2))
         self.fit = {k: self._fit(v) for k, v in pts.items()}
         self.anchors = {k: len(v) for k, v in pts.items()}
+        self.knots = {k: knots(v) for k, v in pts.items()}
         # 맞은 닻이 걸친 세로 범위 - 그 밖으로 늘여 옮긴 자리는 믿지 않는다 (아래 inside)
         self.span = {k: (min(y for _, y in v), max(y for _, y in v)) if v else None
                      for k, v in pts.items()}
@@ -175,7 +181,24 @@ class Frame:
         if f is None:
             return None
         x, y, w, h = thing["rect"]
+        if FRAME == "local":
+            g = group(thing)
+            top, bot = self._local(g, y), self._local(g, y + h)
+            return [x * self.sx, top, w * self.sx, bot - top if bot > top else h * f[0]]
         return [x * self.sx, y * f[0] + f[1], w * self.sx, h * f[0]]
+
+    def _local(self, g, y):
+        """꺾은선 - y 를 사이에 둔 이웃한 닻 둘을 잇는 선, 닻 밖이면 끝 닻에서 직선의 기울기로."""
+        ks, (a, b) = self.knots[g], self.fit[g]
+        if len(ks) < 2:
+            return a * y + b
+        if y <= ks[0][0]:
+            return ks[0][1] + a * (y - ks[0][0])
+        if y >= ks[-1][0]:
+            return ks[-1][1] + a * (y - ks[-1][0])
+        for (u1, v1), (u2, v2) in zip(ks, ks[1:]):
+            if u1 <= y <= u2:
+                return v1 + (v2 - v1) * (y - u1) / (u2 - u1)
 
     def inside(self, thing):
         """옮긴 자리의 중심이 이 캡처에 보이는 범위 안인가 - 같은 무리(움직임/고정)의 맞은 닻이
@@ -190,12 +213,75 @@ class Frame:
         return span[0] - SPAN_PAD <= cy <= span[1] + SPAN_PAD and 0 <= cy <= self.size[1]
 
 
+def knots(pts):
+    """꺾은선의 마디 - 닻 (정답 y, 캡처 y) 를 정답 y 순으로, 캡처 y 도 함께 늘어나는 가장 긴 줄만
+    (잘못 맞은 닻 하나가 선을 뒤집지 않게). 정답 y 가 4 CSS px 안으로 겹치면 첫 것만."""
+    pts = sorted(pts)
+    pts = [p for i, p in enumerate(pts) if i == 0 or p[0] - pts[i - 1][0] > 4]
+    best = [[p] for p in pts]
+    for i, p in enumerate(pts):
+        for j in range(i):
+            if pts[j][1] < p[1] and len(best[j]) + 1 > len(best[i]):
+                best[i] = best[j] + [p]
+    return max(best, key=len) if best else []
+
+
+def assign(cost, none):
+    """비용 행렬(행 = 정답 것, 열 = 후보, None = 안 됨)의 하나씩 짝짓기 - 짝 없음의 비용은 none.
+    헝가리안(Kuhn-Munkres). 행마다 짝지은 열 번호 또는 None."""
+    n, m = len(cost), len(cost[0]) if cost else 0
+    size = n + m
+    big = none * 10 + 1
+    c = [[(cost[i][j] if cost[i][j] is not None else big) if i < n and j < m
+          else (none if (i < n) != (j < m) else 0) for j in range(size)] for i in range(size)]
+    u, v, p, way = [0.0] * (size + 1), [0.0] * (size + 1), [0] * (size + 1), [0] * (size + 1)
+    for i in range(1, size + 1):
+        p[0], j0 = i, 0
+        minv, used = [float("inf")] * (size + 1), [False] * (size + 1)
+        while True:
+            used[j0] = True
+            i0, delta, j1 = p[j0], float("inf"), 0
+            for j in range(1, size + 1):
+                if not used[j]:
+                    cur = c[i0 - 1][j - 1] - u[i0] - v[j]
+                    if cur < minv[j]:
+                        minv[j], way[j] = cur, j0
+                    if minv[j] < delta:
+                        delta, j1 = minv[j], j
+            for j in range(size + 1):
+                if used[j]:
+                    u[p[j]] += delta
+                    v[j] -= delta
+                else:
+                    minv[j] -= delta
+            j0 = j1
+            if p[j0] == 0:
+                break
+        while j0:
+            j1 = way[j0]
+            p[j0] = p[j1]
+            j0 = j1
+    out = [None] * n
+    for j in range(1, size + 1):
+        i = p[j] - 1
+        if i < n and j - 1 < m and cost[i][j - 1] is not None:
+            out[i] = j - 1
+    return out
+
+
 def centre(b):
     return (b[0] + b[2] / 2, b[1] + b[3] / 2)
 
 
 def within(p, r, pad=0):
     return r[0] - pad <= p[0] <= r[0] + r[2] + pad and r[1] - pad <= p[1] <= r[1] + r[3] + pad
+
+
+def near_cost(r, b):
+    """near_box 의 고르는 셈을 비용으로 - 옮긴 자리(NEAR 넓힘) 안이거나 중심 거리 FAR 안이면 그 거리."""
+    c, d = centre(r), centre(b["box"])
+    dist = ((c[0] - d[0]) ** 2 + (c[1] - d[1]) ** 2) ** 0.5
+    return dist if within(d, r, NEAR) or dist <= FAR else None
 
 
 def near_box(r, boxes):
@@ -352,6 +438,27 @@ def judge_capture(det, st):
         if r is None or frame.inside(thing) is False:
             return []
         return [e["id"] for e in det["elements"] if within(centre(e["box"]), r, NEAR / 2)]
+    pool = [c for c in plain + cands if not c.get("name")]
+    chosen = {}
+    if FRAME == "local":
+        # 글 없는 것을 후보와 하나씩 짝짓는다 - 그림 자리끼리, 아이콘만인 버튼 · 입구끼리 따로 (한 아이콘이
+        # 입구이면서 그림 자리다). 홈 머리처럼 정답과 캡처의 아이콘 간격이 다르면 가장 가까운 것 고르기는
+        # 두 정답이 한 박스를 가리킨다
+        bare = [it for it in items_of(st) if it["kind"] == "slot" or not it["n"]]
+        bare = [it for it in bare if not (it["kind"] == "slot" and (
+            it["label"].strip() in names or truncated_match(it["label"], names)))]
+        for part in ([it for it in bare if it["kind"] == "slot"],
+                     [it for it in bare if it["kind"] != "slot"]):
+            rs = [frame.map(it["thing"]) if frame.inside(it["thing"]) is not False else None
+                  for it in part]
+            # 고정 띠(상태바)의 아이콘은 짝 후보에서 뺀다 - 정답(재현 HTML)의 상태바에는 그림 자리 · 입구가
+            # 없는데, 머리 아이콘 줄 바로 위라 짝짓기 비용으로는 머리 아이콘과 겨룬다
+            cand = [c for c in pool if "system_band" not in (c.get("flags") or [])]
+            if not part or not cand:
+                continue
+            got = assign([[near_cost(r, c) if r else None for c in cand] for r in rs], FAR + 1)
+            for it, k in zip(part, got):
+                chosen[key(it)] = cand[k] if k is not None else None
     for it in items_of(st):
         r = frame.map(it["thing"])
         row = {"kind": it["kind"], "label": it["label"], "action": it.get("action"),
@@ -365,8 +472,10 @@ def judge_capture(det, st):
             row.update(icon=True, named=c["id"], near=c["id"], caption=c["caption"],
                        truncated=c["name"] if cut and it["label"].strip() not in names else None)
         elif it["kind"] == "slot" or not it["n"]:
-            pool = [c for c in plain + cands if not c.get("name")]
-            nb = near_box(r, pool) if row["in_frame"] is not False else None
+            if FRAME == "local":
+                nb = chosen.get(key(it))
+            else:
+                nb = near_box(r, pool) if row["in_frame"] is not False else None
             row.update(icon=True, named=None, near=nb and nb["id"], caption=nb and nb["caption"],
                        ocr_guess=nb and nb.get("ocr_guess"))
             if nb:
@@ -735,12 +844,17 @@ def main(argv=None):
     ap.add_argument("--semantic", help="semantic.py 의 결과 폴더 (D3). 주면 역할 지표를 더하고 "
                                        "summary.md · compare.json 을 그 폴더에 쓴다. 정답지는 그 "
                                        "폴더의 truth.json 이 있으면 그것")
+    ap.add_argument("--frame", choices=["line", "local"], default="line",
+                    help="정답 자리 옮기기 - line 직선 (기본), local 꺾은선 + 글 없는 것 하나씩 짝짓기")
+    ap.add_argument("--out", help="summary.md · compare.json 을 쓸 폴더 (기본: --semantic, 없으면 --dir)")
     a = ap.parse_args(argv)
+    globals()["FRAME"] = a.frame
     if a.table:
         print(row_table(a.table))
         return
     load = lambda p: json.load(io.open(os.path.join(a.dir, p), encoding="utf-8"))
-    out_dir = a.semantic or a.dir
+    out_dir = a.out or a.semantic or a.dir
+    os.makedirs(out_dir, exist_ok=True)
     tp = os.path.join(a.semantic, "truth.json") if a.semantic else None
     truth = (json.load(io.open(tp, encoding="utf-8")) if tp and os.path.exists(tp)
              else load("truth.json"))
@@ -1041,7 +1155,8 @@ def main(argv=None):
                    "per_capture": per, "per_state": merged, "totals": tot, "logos": logos,
                    "row": row, "roles": ro,
                    "icon_from_ocr": moved,
-                   "settings": {"found": FOUND, "short": SHORT, "near": NEAR, "far": FAR}},
+                   "settings": {"found": FOUND, "short": SHORT, "near": NEAR, "far": FAR,
+                                "frame": FRAME}},
                   f, ensure_ascii=False, indent=1)
     print("\n".join(md[:12]))
 
