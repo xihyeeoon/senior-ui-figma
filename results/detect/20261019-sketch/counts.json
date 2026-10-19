@@ -1,0 +1,275 @@
+{
+ "home(01a+01b+01c)": {
+  "unit": "home(01a+01b+01c)",
+  "label": "원본 화면 home — 스크롤 1/3 (맨 위)",
+  "inputs": 111,
+  "original": {
+   "state": "home",
+   "images": 19,
+   "pressable": 22,
+   "choices": 0,
+   "png": "renders/original/home.png"
+  },
+  "rule": {
+   "shown": 111,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 19,
+   "pressable": 42,
+   "png": "renders/rule/u-home.png"
+  }
+ },
+ "02": {
+  "unit": "02",
+  "label": "원본 화면 recipient",
+  "inputs": 24,
+  "original": {
+   "state": "recipient",
+   "images": 3,
+   "pressable": 9,
+   "choices": 0,
+   "png": "renders/original/recipient.png"
+  },
+  "rule": {
+   "shown": 24,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 3,
+   "pressable": 12,
+   "png": "renders/rule/u-02.png"
+  }
+ },
+ "03": {
+  "unit": "03",
+  "label": "원본 화면 account",
+  "inputs": 13,
+  "original": {
+   "state": "account",
+   "images": 0,
+   "pressable": 5,
+   "choices": 0,
+   "png": "renders/original/account.png"
+  },
+  "rule": {
+   "shown": 13,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 2,
+   "pressable": 6,
+   "png": "renders/rule/u-03.png"
+  }
+ },
+ "04": {
+  "unit": "04",
+  "label": "원본 화면 account#2 — 키패드 열림 — 계좌번호 입력란을 누른 뒤",
+  "inputs": 27,
+  "original": {
+   "state": "account#2",
+   "images": 0,
+   "pressable": 16,
+   "choices": 10,
+   "png": "renders/original/account_2.png"
+  },
+  "rule": {
+   "shown": 27,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 0,
+   "pressable": 16,
+   "png": "renders/rule/u-04.png"
+  }
+ },
+ "bank(05a+05b+05c)": {
+  "unit": "bank(05a+05b+05c)",
+  "label": "원본 화면 bank — 스크롤 1/3 (맨 위)",
+  "inputs": 129,
+  "original": {
+   "state": "bank",
+   "images": 38,
+   "pressable": 41,
+   "choices": 38,
+   "png": "renders/original/bank.png"
+  },
+  "rule": {
+   "shown": 129,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 38,
+   "pressable": 41,
+   "png": "renders/rule/u-bank.png"
+  }
+ },
+ "bank-tab-sec(06a+06b+06c)": {
+  "unit": "bank-tab-sec(06a+06b+06c)",
+  "label": "원본 화면 bank — [증권사] 탭 — 스크롤 1/3 (맨 위)",
+  "inputs": 108,
+  "original": {
+   "state": "bank+tab-sec",
+   "images": 29,
+   "pressable": 32,
+   "choices": 29,
+   "png": "renders/original/bank_tab-sec.png"
+  },
+  "rule": {
+   "shown": 108,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 29,
+   "pressable": 37,
+   "png": "renders/rule/u-bank-tab-sec.png"
+  }
+ },
+ "07": {
+  "unit": "07",
+  "label": "원본 화면 amount",
+  "inputs": 43,
+  "original": {
+   "state": "amount",
+   "images": 0,
+   "pressable": 20,
+   "choices": 15,
+   "png": "renders/original/amount.png"
+  },
+  "rule": {
+   "shown": 43,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 1,
+   "pressable": 29,
+   "png": "renders/rule/u-07.png"
+  }
+ },
+ "07a": {
+  "unit": "07a",
+  "label": "원본 화면 amount — 금액 입력",
+  "inputs": 42,
+  "original": {
+   "state": "confirm~1",
+   "images": 0,
+   "pressable": 20,
+   "choices": 15,
+   "png": "renders/original/confirm_1.png"
+  },
+  "rule": {
+   "shown": 42,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 1,
+   "pressable": 22,
+   "png": "renders/rule/u-07a.png"
+  }
+ },
+ "08": {
+  "unit": "08",
+  "label": "원본 화면 confirm",
+  "inputs": 19,
+  "original": {
+   "state": "confirm",
+   "images": 1,
+   "pressable": 3,
+   "choices": 0,
+   "png": "renders/original/confirm.png"
+  },
+  "rule": {
+   "shown": 19,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 2,
+   "pressable": 5,
+   "png": "renders/rule/u-08.png"
+  }
+ },
+ "09a": {
+  "unit": "09a",
+  "label": "원본 화면 password — 비밀번호 입력 전",
+  "inputs": 23,
+  "original": {
+   "state": "password",
+   "images": 0,
+   "pressable": 13,
+   "choices": 10,
+   "png": "renders/original/password.png"
+  },
+  "rule": {
+   "shown": 23,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 5,
+   "pressable": 13,
+   "png": "renders/rule/u-09a.png"
+  }
+ },
+ "09b": {
+  "unit": "09b",
+  "label": "원본 화면 password — 비밀번호 입력 중",
+  "inputs": 23,
+  "original": {
+   "state": "password",
+   "images": 0,
+   "pressable": 13,
+   "choices": 10,
+   "png": "renders/original/password.png"
+  },
+  "rule": {
+   "shown": 23,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 5,
+   "pressable": 13,
+   "png": "renders/rule/u-09b.png"
+  }
+ },
+ "10": {
+  "unit": "10",
+  "label": "원본 화면 done",
+  "inputs": 11,
+  "original": {
+   "state": "done",
+   "images": 0,
+   "pressable": 4,
+   "choices": 0,
+   "png": "renders/original/done.png"
+  },
+  "rule": {
+   "shown": 11,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 1,
+   "pressable": 4,
+   "png": "renders/rule/u-10.png"
+  }
+ },
+ "11": {
+  "unit": "11",
+  "label": "원본 오류 상태 wrong-account — 잘못된 계좌번호 입력 직후",
+  "inputs": 7,
+  "original": {
+   "state": "error:wrong-account",
+   "images": 0,
+   "pressable": 2,
+   "choices": 0,
+   "png": "renders/original/error_wrong-account.png"
+  },
+  "rule": {
+   "shown": 7,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 0,
+   "pressable": 1,
+   "png": "renders/rule/u-11.png"
+  }
+ }
+}
