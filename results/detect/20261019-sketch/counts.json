@@ -18,6 +18,15 @@
    "images": 19,
    "pressable": 42,
    "png": "renders/rule/u-home.png"
+  },
+  "llm": {
+   "shown": 111,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 19,
+   "pressable": 42,
+   "png": "renders/llm/u-home.png"
   }
  },
  "02": {

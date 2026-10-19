@@ -1,0 +1,171 @@
+너는 모바일 앱 화면 한 장을 HTML 로 다시 짜는 사람이다. 아래는 스크린샷 한 장에서 검출 · 분류한 요소 목록과 묶음(구역)
+정보다. 이 화면을 HTML `<section>` 하나로 다시 짜라.
+
+화면: home(01a+01b+01c) (이름표: 원본 화면 home — 스크롤 1/3 (맨 위))
+화면 크기: 가로 390px, 세로 1923px (CSS px). 아래 좌표는 모두 이 크기 기준 [x, y, 가로, 세로] 다.
+
+## 지킬 것
+1. 목록에 있는 요소만 쓴다. 목록에 없는 글 · 버튼 · 그림을 새로 만들지 마라. 목록의 요소는 하나도 빠뜨리지 말고, 각 요소를
+   나타내는 HTML 요소에 `data-src="<요소 id>"` 를 그대로 달아라. 한 id 는 한 번만 쓴다.
+2. 글이 든 박스 요소와 그 안의 글 줄 요소(글 줄의 in_box 가 그 박스 id)는 둘 다 쓴다 - 박스는 감싸는 요소로, 글 줄은 그 안의
+   글로 (예: `<button data-src="b18" data-action="transfer"><span data-src="t6">이체</span></button>`). 글은 목록의 text 를
+   그대로 쓰고 고치거나 늘리지 마라 (잘린 글을 채우지 마라).
+3. 배치는 절대 위치가 아니라 묶음을 살린 흐름 배치(flex · grid)로 하라. 구역 목록(regions - 바탕 상자, parent 로 나무)을 묶음의
+   근거로 쓰되, 그림과 다르면 그림을 따르고 그 차이를 HTML 주석(`<!-- … -->`)으로 적어라. 띠 목록(bands - 화면 너비의 바탕
+   조각)은 화면을 위아래로 나누는 경계로만 참고하라.
+4. kind 가 image 인 요소는 `<div class="pic" role="img" aria-label="<image_name>" data-src="…">` 로 쓴다 (class pic 은 회색 X
+   상자로 그려진다 - 그림을 그리지 마라). image_name 이 없으면 aria-label 을 비워 둔다.
+5. 누를 수 있는 것(pressable 이 true 이거나 kind 가 button · link · back_close · tab · choice · keypad_key)은 `<button>` 에
+   `data-action="<짧은 영어 이름>"` 을 지어 단다. 버튼 안에 또 누를 수 있는 것이 있으면 안쪽은 `<div role="button">` 으로 쓴다
+   (버튼 안에 버튼을 넣지 마라). kind 가 input 이면 테두리 있는 `<div>` 로 쓴다. 누른 뒤 어느 화면으로 가는지는 쓰지 마라 -
+   주어지지 않았다 (화면 이동은 따로 붙인다).
+6. 색 · 글자 크기 · 둥근 모서리는 그림에서 대략 맞춰라. 꾸밈은 `style` 속성으로만 쓴다 - `<style>` · `<script>` · 외부 파일 ·
+   그림 파일을 쓰지 마라.
+7. kind 가 system (상태바) 인 것은 목록에 없다 - 상태바를 새로 그리지 마라.
+
+## 그림
+[그림 1/1] 화면 전체 - 요소마다 mark 번호  <그림: _sent/home(01a+01b+01c)/marks.png 600x2958 · 예상 2121토큰>
+위 그림은 화면 전체를 폭 600 으로 줄이고 요소마다 테두리와 mark 번호를 적은 것이다 (요소 목록의 mark 와 같다).
+
+## 요소 (한 줄에 하나, JSON)
+id · mark · kind (의미 층: button · link · back_close · tab · choice · input · keypad_key · image · text) · pressable · text ·
+image_name · group (같은 무리) · in_box (이 글 줄을 담은 박스 요소 id) · region (든 구역 id) · box
+{"id":"01a:t2","mark":1,"kind":"image","pressable":false,"text":"C","image_name":"홍길동님 아이콘","group":null,"in_box":"01a:b8","region":null,"box":[23,44,17,19]}
+{"id":"01a:t3","mark":2,"kind":"text","pressable":false,"text":"홍길동님","image_name":null,"group":null,"in_box":"01a:b8","region":null,"box":[52,41,80,27]}
+{"id":"01a:t4","mark":3,"kind":"text","pressable":false,"text":"자산","image_name":null,"group":null,"in_box":"01a:b10","region":"g1","box":[29,108,45,30]}
+{"id":"01a:t5","mark":4,"kind":"text","pressable":false,"text":"[금융거래한도계좌2]신한 주거","image_name":null,"group":null,"in_box":"01a:b10","region":"g1","box":[85,151,193,19]}
+{"id":"01a:t6","mark":5,"kind":"text","pressable":false,"text":"이체","image_name":null,"group":null,"in_box":"01a:b18","region":"g2","box":[299,160,39,27]}
+{"id":"01a:t7","mark":6,"kind":"text","pressable":false,"text":"래 우대통장","image_name":null,"group":null,"in_box":"01a:b10","region":"g1","box":[85,173,78,18]}
+{"id":"01a:t8","mark":7,"kind":"text","pressable":false,"text":"(저축예금)","image_name":null,"group":null,"in_box":"01a:b10","region":"g1","box":[85,196,71,21]}
+{"id":"01a:t9","mark":8,"kind":"text","pressable":false,"text":"금액 숨김","image_name":null,"group":null,"in_box":"01a:b10","region":"g1","box":[83,225,89,30]}
+{"id":"01a:t10","mark":9,"kind":"text","pressable":false,"text":"절세혜택과 안정적인 노후,IRP로 준비하세요","image_name":null,"group":null,"in_box":"01a:b13","region":"g3","box":[53,291,283,16]}
+{"id":"01a:t11","mark":10,"kind":"text","pressable":false,"text":"Pick E체크캐릭터형(하리보)","image_name":null,"group":null,"in_box":null,"region":"g4","box":[88,383,220,19]}
+{"id":"01a:t12","mark":11,"kind":"text","pressable":false,"text":"금액 숨김","image_name":null,"group":null,"in_box":null,"region":"g4","box":[86,410,65,20]}
+{"id":"01a:t13","mark":12,"kind":"text","pressable":false,"text":"앱카드 가입","image_name":null,"group":null,"in_box":"01a:b6","region":"g6","box":[152,462,85,21]}
+{"id":"01a:t14","mark":13,"kind":"text","pressable":false,"text":"팽겨요","image_name":null,"group":null,"in_box":"01a:b20","region":"g7","box":[32,555,57,24]}
+{"id":"01a:t15","mark":14,"kind":"text","pressable":false,"text":"할인쿠폰 드려요","image_name":null,"group":null,"in_box":"01a:b14","region":"g7","box":[89,597,98,15]}
+{"id":"01a:t16","mark":15,"kind":"text","pressable":false,"text":"바로받기","image_name":null,"group":null,"in_box":"01a:b19","region":"g9","box":[284,611,57,18]}
+{"id":"01a:t17","mark":16,"kind":"text","pressable":false,"text":"bhc치킨 최대 9,000원","image_name":null,"group":null,"in_box":"01a:b14","region":"g7","box":[87,621,170,21]}
+{"id":"01a:t18","mark":17,"kind":"link","pressable":true,"text":"이벤트","image_name":null,"group":"땡겨요 바로가기","in_box":"01a:b14","region":"g7","box":[48,675,47,19]}
+{"id":"01a:t19","mark":18,"kind":"link","pressable":true,"text":"쿠폰","image_name":null,"group":"땡겨요 바로가기","in_box":"01a:b14","region":"g7","box":[177,675,35,20]}
+{"id":"01a:t20","mark":19,"kind":"link","pressable":true,"text":"포인트","image_name":null,"group":"땡겨요 바로가기","in_box":"01a:b14","region":"g7","box":[295,676,47,17]}
+{"id":"01a:t21","mark":20,"kind":"text","pressable":false,"text":"7월 소비","image_name":null,"group":null,"in_box":"01a:b4","region":null,"box":[30,751,75,24]}
+{"id":"01a:t22","mark":21,"kind":"button","pressable":true,"text":"C","image_name":null,"group":null,"in_box":"01a:b4","region":null,"box":[111,753,17,18]}
+{"id":"01a:b0","mark":22,"kind":"button","pressable":true,"text":null,"image_name":null,"group":"상단 도구","in_box":null,"region":null,"box":[297,39,30,30]}
+{"id":"01a:b1","mark":23,"kind":"button","pressable":true,"text":null,"image_name":null,"group":"상단 도구","in_box":null,"region":null,"box":[250,39,32,31]}
+{"id":"01a:b2","mark":24,"kind":"button","pressable":true,"text":null,"image_name":null,"group":"상단 도구","in_box":null,"region":null,"box":[202,38,32,30]}
+{"id":"01a:b3","mark":25,"kind":"button","pressable":true,"text":null,"image_name":null,"group":"상단 도구","in_box":null,"region":null,"box":[345,39,30,31]}
+{"id":"01a:b4","mark":26,"kind":"link","pressable":true,"text":"7월 소비 C","image_name":null,"group":null,"in_box":null,"region":null,"box":[15,729,356,65]}
+{"id":"01a:b6","mark":27,"kind":"button","pressable":true,"text":"앱카드 가입","image_name":null,"group":null,"in_box":null,"region":"g6","box":[35,447,321,54]}
+{"id":"01a:b8","mark":28,"kind":"link","pressable":true,"text":"홍길동님 C","image_name":null,"group":null,"in_box":null,"region":null,"box":[17,40,115,29]}
+{"id":"01a:b10","mark":29,"kind":"text","pressable":false,"text":"자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저축예금) 금액 숨김","image_name":null,"group":null,"in_box":null,"region":"g1","box":[18,89,354,250]}
+{"id":"01a:b13","mark":30,"kind":"link","pressable":true,"text":"절세혜택과 안정적인 노후,IRP로 준비하세요","image_name":null,"group":null,"in_box":null,"region":"g3","box":[35,273,321,53]}
+{"id":"01a:b14","mark":31,"kind":"text","pressable":false,"text":"할인쿠폰 드려요 bhc치킨 최대 9,000원 이벤트 쿠폰 포인트","image_name":null,"group":null,"in_box":null,"region":"g7","box":[14,534,357,181]}
+{"id":"01a:b18","mark":32,"kind":"button","pressable":true,"text":"이체","image_name":null,"group":null,"in_box":null,"region":"g2","box":[283,150,72,45]}
+{"id":"01a:b19","mark":33,"kind":"button","pressable":true,"text":"바로받기","image_name":null,"group":null,"in_box":null,"region":"g9","box":[268,602,88,36]}
+{"id":"01a:b20","mark":34,"kind":"link","pressable":true,"text":"팽겨요","image_name":null,"group":null,"in_box":null,"region":"g7","box":[19,539,339,48]}
+{"id":"01a:b21","mark":35,"kind":"button","pressable":true,"text":null,"image_name":null,"group":null,"in_box":null,"region":"g1","box":[329,108,28,28]}
+{"id":"01a:b22","mark":36,"kind":"button","pressable":true,"text":null,"image_name":null,"group":null,"in_box":null,"region":null,"box":[328,748,29,29]}
+{"id":"01a:i1","mark":37,"kind":"image","pressable":false,"text":null,"image_name":"신한 로고","group":null,"in_box":"01a:b10","region":"g1","box":[35,150,41,42]}
+{"id":"01a:i3","mark":38,"kind":"image","pressable":false,"text":null,"image_name":"할인쿠폰 드려요 아이콘","group":null,"in_box":"01a:b14","region":"g8","box":[34,598,44,44]}
+{"id":"01b:t0","mark":39,"kind":"text","pressable":false,"text":"오늘쓴 돈","image_name":null,"group":null,"in_box":"01b:b16","region":null,"box":[82,841,65,20]}
+{"id":"01b:t1","mark":40,"kind":"text","pressable":false,"text":"0원","image_name":null,"group":null,"in_box":"01b:b16","region":null,"box":[80,864,38,27]}
+{"id":"01b:t2","mark":41,"kind":"text","pressable":false,"text":"카드","image_name":null,"group":null,"in_box":"01b:b2","region":"g12","box":[35,950,31,17]}
+{"id":"01b:t3","mark":42,"kind":"text","pressable":false,"text":"쓸때마다 쌓이고,현금처럼 쓰는","image_name":null,"group":null,"in_box":"01b:b2","region":"g12","box":[64,949,191,19]}
+{"id":"01b:t4","mark":43,"kind":"text","pressable":false,"text":"P","image_name":null,"group":null,"in_box":"01b:b2","region":"g12","box":[319,963,20,25]}
+{"id":"01b:t5","mark":44,"kind":"text","pressable":false,"text":"마이신한포인트","image_name":null,"group":null,"in_box":"01b:b2","region":"g12","box":[35,976,144,26]}
+{"id":"01b:t6","mark":45,"kind":"text","pressable":false,"text":"시작하기","image_name":null,"group":null,"in_box":"01b:b1","region":"g13","box":[160,1034,68,24]}
+{"id":"01c:t0","mark":46,"kind":"text","pressable":false,"text":"추천서비스","image_name":null,"group":null,"in_box":"01c:b6","region":"g14","box":[32,1129,93,25]}
+{"id":"01b:t8","mark":47,"kind":"image","pressable":false,"text":">","image_name":"오른쪽 화살표 아이콘","group":null,"in_box":"01c:b6","region":"g14","box":[339,1134,9,13]}
+{"id":"01b:t9","mark":48,"kind":"text","pressable":false,"text":"SOL패밀리","image_name":null,"group":null,"in_box":"01c:b1","region":"g14","box":[84,1172,84,22]}
+{"id":"01c:t2","mark":49,"kind":"text","pressable":false,"text":"가족과 함께하는 금융생활","image_name":null,"group":null,"in_box":"01c:b1","region":"g14","box":[86,1198,155,16]}
+{"id":"01b:t11","mark":50,"kind":"text","pressable":false,"text":"급여클럽+","image_name":null,"group":null,"in_box":"01c:b0","region":"g14","box":[84,1238,79,23]}
+{"id":"01c:t4","mark":51,"kind":"button","pressable":true,"text":"푸","image_name":null,"group":"추천서비스 고정","in_box":"01c:b0","region":"g14","box":[337,1248,18,23]}
+{"id":"01c:t5","mark":52,"kind":"text","pressable":false,"text":"급여이체 우대 혜택","image_name":null,"group":null,"in_box":"01c:b0","region":"g14","box":[85,1263,116,18]}
+{"id":"01c:t6","mark":53,"kind":"text","pressable":false,"text":"내 카드 승인내역","image_name":null,"group":null,"in_box":"01c:b3","region":"g14","box":[84,1304,125,23]}
+{"id":"01b:t15","mark":54,"kind":"button","pressable":true,"text":"푸","image_name":null,"group":"추천서비스 고정","in_box":"01c:b3","region":"g14","box":[337,1314,18,22]}
+{"id":"01b:t16","mark":55,"kind":"text","pressable":false,"text":"모든 카드 실시간 승인내역","image_name":null,"group":null,"in_box":"01c:b3","region":"g14","box":[84,1329,160,19]}
+{"id":"01c:t9","mark":56,"kind":"text","pressable":false,"text":"더 많은 금융자산 모두","image_name":null,"group":null,"in_box":"01b:b12","region":null,"box":[18,1398,159,21]}
+{"id":"01c:t10","mark":57,"kind":"text","pressable":false,"text":"연결하면 커피쿠폰 즉시지급!","image_name":null,"group":null,"in_box":"01b:b12","region":null,"box":[18,1425,205,19]}
+{"id":"01c:t11","mark":58,"kind":"link","pressable":true,"text":"이벤트 바로가기","image_name":null,"group":null,"in_box":"01c:b14","region":null,"box":[18,1454,98,17]}
+{"id":"01b:t20","mark":59,"kind":"image","pressable":false,"text":"^","image_name":"이벤트 바로가기 아이콘","group":null,"in_box":"01b:b12","region":null,"box":[122,1460,6,8]}
+{"id":"01b:t21","mark":60,"kind":"text","pressable":false,"text":"신한금융그룹","image_name":null,"group":null,"in_box":"01b:b9","region":"g19","box":[32,1512,109,24]}
+{"id":"01c:t14","mark":61,"kind":"text","pressable":false,"text":"신한카드","image_name":null,"group":null,"in_box":"01b:b17","region":"g19","box":[70,1555,67,22]}
+{"id":"01c:t15","mark":62,"kind":"text","pressable":false,"text":"나에게 맞는 카드 찾기","image_name":null,"group":null,"in_box":"01b:b17","region":"g19","box":[70,1579,124,16]}
+{"id":"01c:b0","mark":63,"kind":"link","pressable":true,"text":"급여클럽+ 푸 급여이체 우대 혜택","image_name":null,"group":"추천서비스 목록","in_box":null,"region":"g14","box":[23,1229,343,62]}
+{"id":"01b:b1","mark":64,"kind":"button","pressable":true,"text":"시작하기","image_name":null,"group":null,"in_box":null,"region":"g13","box":[36,1019,319,53]}
+{"id":"01b:b2","mark":65,"kind":"text","pressable":false,"text":"쓸때마다 쌓이고,현금처럼 쓰는 카드 P 마이신한포인트","image_name":null,"group":null,"in_box":null,"region":"g12","box":[14,926,358,169]}
+{"id":"01c:b1","mark":66,"kind":"link","pressable":true,"text":"SOL패밀리 가족과 함께하는 금융생활","image_name":null,"group":"추천서비스 목록","in_box":null,"region":"g14","box":[23,1165,342,59]}
+{"id":"01c:b3","mark":67,"kind":"link","pressable":true,"text":"내 카드 승인내역 푸 모든 카드 실시간 승인내역","image_name":null,"group":"추천서비스 목록","in_box":null,"region":"g14","box":[24,1294,345,59]}
+{"id":"01b:b9","mark":68,"kind":"text","pressable":false,"text":"신한금융그룹","image_name":null,"group":null,"in_box":null,"region":"g19","box":[15,1490,362,135]}
+{"id":"01b:b10","mark":69,"kind":"text","pressable":false,"text":null,"image_name":null,"group":null,"in_box":null,"region":"g14","box":[18,1109,358,270]}
+{"id":"01b:b12","mark":70,"kind":"link","pressable":true,"text":"더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! 이벤트 바로가기 ^","image_name":null,"group":null,"in_box":null,"region":null,"box":[16,1380,359,99]}
+{"id":"01c:b6","mark":71,"kind":"link","pressable":true,"text":"추천서비스","image_name":null,"group":null,"in_box":null,"region":"g14","box":[20,1113,349,48]}
+{"id":"01b:b16","mark":72,"kind":"link","pressable":true,"text":"오늘쓴 돈 0원","image_name":null,"group":null,"in_box":null,"region":null,"box":[16,833,359,78]}
+{"id":"01b:b17","mark":73,"kind":"link","pressable":true,"text":"신한카드 나에게 맞는 카드 찾기","image_name":null,"group":"신한금융그룹 목록","in_box":null,"region":"g19","box":[21,1548,348,62]}
+{"id":"01c:b18","mark":74,"kind":"button","pressable":true,"text":null,"image_name":null,"group":"계열사 진입 화살표","in_box":null,"region":"g19","box":[328,1561,28,29]}
+{"id":"01c:i0","mark":75,"kind":"image","pressable":false,"text":null,"image_name":"급여클럽+ 아이콘","group":null,"in_box":"01c:b0","region":"g16","box":[45,1250,19,18]}
+{"id":"01b:i1","mark":76,"kind":"image","pressable":false,"text":null,"image_name":"마이신한포인트 아이콘","group":null,"in_box":"01b:b2","region":"g12","box":[305,951,49,49]}
+{"id":"01c:i1","mark":77,"kind":"image","pressable":false,"text":null,"image_name":"SOL패밀리 아이콘","group":null,"in_box":"01c:b1","region":"g15","box":[47,1185,15,17]}
+{"id":"01c:i3","mark":78,"kind":"image","pressable":false,"text":null,"image_name":"내 카드 승인내역 아이콘","group":null,"in_box":"01c:b3","region":"g17","box":[45,1319,19,15]}
+{"id":"01c:i10","mark":79,"kind":"image","pressable":false,"text":null,"image_name":"연결하면 커피쿠폰 즉시지급! 아이콘","group":null,"in_box":"01b:b12","region":"g18","box":[331,1423,24,24]}
+{"id":"01b:i9","mark":80,"kind":"image","pressable":false,"text":null,"image_name":"오늘쓴 돈 아이콘","group":null,"in_box":"01b:b16","region":null,"box":[46,858,16,18]}
+{"id":"01c:i4","mark":81,"kind":"image","pressable":false,"text":null,"image_name":"신한카드 아이콘","group":null,"in_box":"01b:b17","region":"g19","box":[36,1567,21,17]}
+{"id":"01c:t16","mark":82,"kind":"text","pressable":false,"text":"신한투자증권","image_name":null,"group":null,"in_box":"01c:b2","region":"g19","box":[71,1621,97,20]}
+{"id":"01c:t17","mark":83,"kind":"text","pressable":false,"text":"지금 뜨는 주식 보러가기","image_name":null,"group":null,"in_box":"01c:b2","region":"g19","box":[71,1645,136,15]}
+{"id":"01c:t18","mark":84,"kind":"text","pressable":false,"text":"신한라이프","image_name":null,"group":null,"in_box":"01c:b7","region":"g19","box":[71,1686,81,20]}
+{"id":"01c:t19","mark":85,"kind":"text","pressable":false,"text":"내게 필요한 보험,보장분석으로 확인하기","image_name":null,"group":null,"in_box":"01c:b7","region":"g19","box":[71,1710,230,15]}
+{"id":"01c:t20","mark":86,"kind":"link","pressable":true,"text":"쉬운홈|홈화면 설정","image_name":null,"group":"홈 설정 링크","in_box":null,"region":null,"box":[64,1789,157,21]}
+{"id":"01c:t21","mark":87,"kind":"link","pressable":true,"text":"| 금액 숨기기","image_name":null,"group":"홈 설정 링크","in_box":null,"region":null,"box":[224,1790,100,18]}
+{"id":"01c:t22","mark":88,"kind":"text","pressable":false,"text":"홈","image_name":null,"group":"하단 탭 이름표","in_box":"01c:b11","region":null,"box":[30,1892,17,18]}
+{"id":"01c:t23","mark":89,"kind":"text","pressable":false,"text":"금융","image_name":null,"group":"하단 탭 이름표","in_box":"01c:b9","region":null,"box":[103,1892,27,17]}
+{"id":"01c:t24","mark":90,"kind":"text","pressable":false,"text":"상품","image_name":null,"group":"하단 탭 이름표","in_box":"01c:b8","region":null,"box":[181,1892,28,17]}
+{"id":"01c:t25","mark":91,"kind":"text","pressable":false,"text":"혜택","image_name":null,"group":"하단 탭 이름표","in_box":"01c:b10","region":null,"box":[259,1892,27,17]}
+{"id":"01c:t26","mark":92,"kind":"text","pressable":false,"text":"주식","image_name":null,"group":"하단 탭 이름표","in_box":"01c:b12","region":null,"box":[337,1893,27,17]}
+{"id":"01c:b2","mark":93,"kind":"link","pressable":true,"text":"신한투자증권 지금 뜨는 주식 보러가기","image_name":null,"group":"신한금융그룹 목록","in_box":null,"region":"g19","box":[22,1609,346,61]}
+{"id":"01c:b5","mark":94,"kind":"button","pressable":true,"text":null,"image_name":null,"group":null,"in_box":null,"region":"g13","box":[36,1056,319,16]}
+{"id":"01c:b7","mark":95,"kind":"link","pressable":true,"text":"신한라이프 내게 필요한 보험,보장분석으로 확인하기","image_name":null,"group":"신한금융그룹 목록","in_box":null,"region":"g19","box":[22,1673,346,71]}
+{"id":"01c:b8","mark":96,"kind":"tab","pressable":true,"text":"상품","image_name":null,"group":"하단 내비게이션","in_box":null,"region":null,"box":[155,1852,77,67]}
+{"id":"01c:b9","mark":97,"kind":"tab","pressable":true,"text":"금융","image_name":null,"group":"하단 내비게이션","in_box":null,"region":null,"box":[77,1853,77,67]}
+{"id":"01c:b10","mark":98,"kind":"tab","pressable":true,"text":"혜택","image_name":null,"group":"하단 내비게이션","in_box":null,"region":null,"box":[232,1852,80,67]}
+{"id":"01c:b11","mark":99,"kind":"tab","pressable":true,"text":"홈","image_name":null,"group":"하단 내비게이션","in_box":null,"region":null,"box":[1,1853,75,66]}
+{"id":"01c:b12","mark":100,"kind":"tab","pressable":true,"text":"주식","image_name":null,"group":"하단 내비게이션","in_box":null,"region":null,"box":[312,1853,71,65]}
+{"id":"01c:b14","mark":101,"kind":"link","pressable":true,"text":"이벤트 바로가기 ^","image_name":null,"group":null,"in_box":null,"region":null,"box":[19,1453,353,19]}
+{"id":"01c:b16","mark":102,"kind":"image","pressable":false,"text":null,"image_name":"홈 아이콘","group":"하단 탭 아이콘","in_box":null,"region":null,"box":[30,1868,18,20]}
+{"id":"01c:b17","mark":103,"kind":"text","pressable":false,"text":null,"image_name":null,"group":null,"in_box":null,"region":null,"box":[5,1848,372,74]}
+{"id":"01c:b19","mark":104,"kind":"button","pressable":true,"text":null,"image_name":null,"group":"계열사 진입 화살표","in_box":null,"region":"g19","box":[328,1626,28,28]}
+{"id":"01c:b20","mark":105,"kind":"button","pressable":true,"text":null,"image_name":null,"group":"계열사 진입 화살표","in_box":null,"region":"g19","box":[328,1692,28,29]}
+{"id":"01c:i2","mark":106,"kind":"image","pressable":false,"text":null,"image_name":"신한투자증권 아이콘","group":null,"in_box":"01c:b2","region":"g19","box":[36,1634,20,13]}
+{"id":"01c:i5","mark":107,"kind":"image","pressable":false,"text":null,"image_name":"신한라이프 아이콘","group":null,"in_box":"01c:b7","region":"g19","box":[38,1696,17,21]}
+{"id":"01c:i6","mark":108,"kind":"image","pressable":false,"text":null,"image_name":"상품 아이콘","group":"하단 탭 아이콘","in_box":"01c:b8","region":null,"box":[187,1866,16,20]}
+{"id":"01c:i7","mark":109,"kind":"image","pressable":false,"text":null,"image_name":"금융 아이콘","group":"하단 탭 아이콘","in_box":"01c:b9","region":null,"box":[108,1867,19,18]}
+{"id":"01c:i8","mark":110,"kind":"image","pressable":false,"text":null,"image_name":"혜택 아이콘","group":"하단 탭 아이콘","in_box":"01c:b10","region":null,"box":[263,1866,20,19]}
+{"id":"01c:i9","mark":111,"kind":"image","pressable":false,"text":null,"image_name":"주식 아이콘","group":"하단 탭 아이콘","in_box":"01c:b12","region":null,"box":[341,1870,19,12]}
+
+## 구역 (바탕 상자, 한 줄에 하나)
+{"id":"g1","parent":null,"box":[15,90,360,255]}
+{"id":"g2","parent":"g1","box":[283,150,73,45]}
+{"id":"g3","parent":"g1","box":[34,273,322,53]}
+{"id":"g4","parent":null,"box":[15,360,360,160]}
+{"id":"g5","parent":"g4","box":[34,383,44,44]}
+{"id":"g6","parent":"g4","box":[34,447,322,54]}
+{"id":"g7","parent":null,"box":[15,535,360,180]}
+{"id":"g8","parent":"g7","box":[34,598,44,44]}
+{"id":"g9","parent":"g7","box":[269,602,87,37]}
+{"id":"g12","parent":null,"box":[15,927,360,166]}
+{"id":"g13","parent":"g12","box":[36,1020,318,53]}
+{"id":"g14","parent":null,"box":[15,1108,360,270]}
+{"id":"g15","parent":"g14","box":[34,1173,42,42]}
+{"id":"g16","parent":"g14","box":[34,1239,42,42]}
+{"id":"g17","parent":"g14","box":[34,1305,42,42]}
+{"id":"g18","parent":null,"box":[314,1406,57,57]}
+{"id":"g19","parent":null,"box":[15,1491,360,267]}
+
+## 띠 (화면 너비 바탕 조각)
+{"id":"g0","box":[0,0,390,795]}
+{"id":"g10","box":[0,730,390,182]}
+{"id":"g11","box":[0,833,390,1018]}
+{"id":"g20","box":[0,1852,390,71]}
+
+## 답
+`<section>` 하나만 ```html 블록 하나에 담아 답하라. 설명 글은 쓰지 마라.
