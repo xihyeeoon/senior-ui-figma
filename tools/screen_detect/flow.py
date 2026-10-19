@@ -41,14 +41,35 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, ROOT)
 
 import compare as C  # noqa: E402
+import strict as ST  # noqa: E402
 
 PROMPT_FILE = os.path.join(HERE, "FLOW_PROMPT.md")
+# 스크린샷만 (--inputs strict, 2026-10-19) - 과제 이름 줄 없음, 캡처 목록은 파일 이름 순 · 파일 이름 · 단위만
+PROMPT_STRICT = os.path.join(HERE, "FLOW_PROMPT_STRICT.md")
 TASK = "이체 — 받는 사람 계좌로 돈 보내기"
 CAPTURES_REF = "origin/feat/see-captures"
 CAPTURES_PATH = "inputs/captures/transfer/captures.json"
 KINDS = ["tap", "scroll", "skipped", "error_path", "unknown"]
 ANSWER_TOKENS = 80    # 어림 - 짝 하나의 답 토큰
 MAX_TOKENS = 25000
+
+
+def captures_from_files(folder):
+    """스크린샷만 - 캡처 폴더의 PNG 를 파일 이름 순으로 (이름표 · taps 없음). captures.json 대신."""
+    return {"task": None, "source": os.path.relpath(folder, ROOT).replace(os.sep, "/"),
+            "images": [{"file": f, "taps": []} for f in sorted(os.listdir(folder)) if f.endswith(".png")]}
+
+
+def roles_file(roles_dir, name, units):
+    """의미 층 답 파일 - 같은 이름, 없으면 같은 캡처 묶음의 옛 이름 (home(01a+01b+01c) ↔ 01a+01b+01c)."""
+    p = os.path.join(roles_dir, name + ".semantic.json")
+    if os.path.exists(p):
+        return p
+    caps = "+".join(units[name].get("captures") or [name])
+    for f in os.listdir(roles_dir):
+        if f.endswith(".semantic.json") and f[:-len(".semantic.json")].endswith("(%s)" % caps):
+            return os.path.join(roles_dir, f)
+    return p
 
 
 def read_captures(ref, path):
@@ -71,7 +92,7 @@ def pressable(units, roles_dir):
     """단위마다 누를 수 있는 요소 [{id, text, kind, group}] - 위에서 아래 순."""
     out = {}
     for name, d in units.items():
-        r = json.load(io.open(os.path.join(roles_dir, name + ".semantic.json"), encoding="utf-8"))
+        r = json.load(io.open(roles_file(roles_dir, name, units), encoding="utf-8"))
         ans = {e["id"]: e for e in r["elements"] or []}
         rows = []
         for e in sorted(d["elements"], key=lambda e: (e["box"][1], e["box"][0])):
@@ -88,14 +109,18 @@ def pressable(units, roles_dir):
 def build(caps, umap, plist):
     images = caps["images"]
     pairs = [(a["file"], b["file"]) for a, b in zip(images, images[1:])]
-    lines = [json.dumps({"file": im["file"], "label": im["label"], "unit": umap[im["file"]]},
+    lines = [json.dumps({"file": im["file"], "unit": umap[im["file"]]} if ST.STRICT else
+                        {"file": im["file"], "label": im["label"], "unit": umap[im["file"]]},
                         ensure_ascii=False) for im in images]
     used = list(dict.fromkeys(umap[im["file"]] for im in images))
     units_txt = "\n\n".join("[%s]\n%s" % (u, "\n".join(json.dumps(r, ensure_ascii=False,
                                                                    separators=(",", ":"))
                                                         for r in plist[u])) for u in used)
-    body = io.open(PROMPT_FILE, encoding="utf-8").read().split("\n---\n", 1)[1]
-    prompt = (body.replace("{{TASK}}", TASK).replace("{{CAPTURES}}", "\n".join(lines))
+    body = io.open(PROMPT_STRICT if ST.STRICT else PROMPT_FILE, encoding="utf-8").read().split("\n---\n", 1)[1]
+    if "{{TASK}}" in body:
+        ST.human("flow.TASK")
+        body = body.replace("{{TASK}}", TASK)
+    prompt = (body.replace("{{CAPTURES}}","\n".join(lines))
               .replace("{{UNITS}}", units_txt)
               .replace("{{PAIRS}}", "\n".join("%s -> %s" % p for p in pairs)))
     return prompt, pairs
@@ -162,7 +187,7 @@ def check(obj, pairs, umap, plist):
 def mock_reply(pairs, umap, plist, caps, mode, n):
     """가짜 답 - 같은 단위면 scroll, 이름표가 오류 상태면 error_path, 아니면 앞 단위의 첫 button 을
     tap (코드가 끝까지 도는지 보려는 것, 품질 측정이 아니다)."""
-    label = {im["file"]: im["label"] for im in caps["images"]}
+    label = {im["file"]: im.get("label") or "" for im in caps["images"]}
     out = []
     for a, b in pairs:
         if umap[a] == umap[b] and "스크롤" in label[a] and "스크롤" in label[b]:
@@ -211,12 +236,16 @@ def main(argv=None):
                                                 "최악(출력 상한을 다 씀)이 넘을 것 같으면 부르지 않는다")
     ap.add_argument("--mock", nargs="?", const="ok", choices=["ok", "bad-once", "bad-twice"])
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--captures", default=os.path.join(ROOT, "inputs", "captures", "transfer"),
+                    help="strict 에서 캡처 목록을 읽는 폴더 (파일 이름 순)")
+    ST.add_arg(ap)
     a = ap.parse_args(argv)
+    ST.from_args(a)
     from senior_ui import config
     from senior_ui.restructure import model as M
     model = a.model or config.DEFAULT_MODEL
     effort = a.reasoning_effort or config.DEFAULT_REASONING_EFFORT
-    caps = read_captures(a.captures_ref, a.captures_path)
+    caps = captures_from_files(a.captures) if ST.STRICT else read_captures(a.captures_ref, a.captures_path)
     units = C.load_units(a.elements)
     umap = unit_of(units)
     missing = [im["file"] for im in caps["images"] if im["file"] not in umap]
@@ -225,7 +254,8 @@ def main(argv=None):
     plist = pressable(units, a.roles)
     prompt, pairs = build(caps, umap, plist)
     est = estimate(prompt, pairs, model, a.max_tokens)
-    sha = hashlib.sha256(io.open(PROMPT_FILE, "rb").read()).hexdigest()[:12]
+    pfile = PROMPT_STRICT if ST.STRICT else PROMPT_FILE
+    sha = hashlib.sha256(io.open(pfile, "rb").read()).hexdigest()[:12]
     if a.dry_run:
         print("모델 %s · 가격 %s · 캡처 %d · 짝 %d · 단위 %d · 누를 수 있는 요소 %d · 그림 0 (글만)"
               % (model, config.MODEL_PRICES.get(model), len(caps["images"]), len(pairs),
@@ -242,8 +272,9 @@ def main(argv=None):
         call = lambda ask, n: M.call_model(model, ask, a.max_tokens, log=lambda m: print("  " + m),
                                            reasoning_effort=effort)
     res = {"model": "mock:%s" % a.mock if a.mock else model, "reasoning_effort": None if a.mock else effort,
-           "prompt_file": os.path.relpath(PROMPT_FILE, ROOT).replace("\\", "/"), "prompt_sha": sha,
-           "captures": "%s:%s" % (a.captures_ref, a.captures_path),
+           "inputs": "strict" if ST.STRICT else "legacy",
+           "prompt_file": os.path.relpath(pfile, ROOT).replace("\\", "/"), "prompt_sha": sha,
+           "captures": None if ST.STRICT else "%s:%s" % (a.captures_ref, a.captures_path),
            "elements": os.path.relpath(a.elements, ROOT).replace("\\", "/"),
            "roles": os.path.relpath(a.roles, ROOT).replace("\\", "/"),
            "sent": "글만 (그림 0) - 캡처 목록 · 단위마다 누를 수 있는 요소 · 짝 목록",

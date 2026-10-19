@@ -138,7 +138,8 @@ def main(argv=None):
     a = ap.parse_args(argv)
     res = json.load(io.open(os.path.join(a.dir, "flow.proposed.json"), encoding="utf-8"))
     truth = json.load(io.open(a.truth or os.path.join(a.dir, "truth.json"), encoding="utf-8"))
-    ref, path = res["captures"].split(":", 1)
+    # 채점 쪽 - 스크린샷만(strict) 실행은 captures.json 을 읽지 않았으므로 짝짓기용 이름표를 기본 자리에서 읽는다
+    ref, path = res["captures"].split(":", 1) if res.get("captures") else (F.CAPTURES_REF, F.CAPTURES_PATH)
     caps = F.read_captures(ref, path)
     label = {im["file"]: im["label"] for im in caps["images"]}
     units = C.load_units(os.path.join(ROOT, res["elements"]))
