@@ -1,10 +1,10 @@
 r"""조립 1 · 2단계 - 견주기 페이지: 새 원본 (조립) 화면과 짝지은 옛 원본 화면을 나란히 (채점 쪽, 유료 호출 없음).
 
     C:\Users\xihye\venvs\detect\Scripts\python.exe tools/screen_detect/assemble/compare_page.py
-        [--dir results/detect/20261019-assembly2/rule] → <dir>/compare.html, <dir>/renders/new/<화면>.png
+        [--dir results/detect/20261019-assembly3/rule] → <dir>/compare.html, <dir>/renders/new/<화면>.png
     2단계 (캡처 · 옛 원본 · 규칙 판 · LLM 판 네 열):
-        ... compare_page.py --dir results/detect/20261019-assembly2/rule --also "LLM 판=results/detect/20261019-assembly2/llm"
-            --captures --page results/detect/20261019-assembly2/compare.html
+        ... compare_page.py --dir results/detect/20261019-assembly3/rule --also "LLM 판=results/detect/20261019-assembly3/llm"
+            --captures --page results/detect/20261019-assembly3/compare.html
 
 짝은 list_compare.py 의 lists.json (옛 상태마다 글이 가장 많이 찾아지는 새 화면). 옛 원본 그림은 sketch/compare_page.py 가
 truth.py 와 같은 걷기로 찍어 둔 results/detect/20261019-sketch/renders/original/<상태>.png 를 쓴다. 새 원본은 화면마다 show()
@@ -46,7 +46,7 @@ async def shoot(folder, screens):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly2", "rule"),
+    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly3", "rule"),
                     help="첫 판 (옛 화면 짝 · 이동은 이 판의 lists.json · flow.json)")
     ap.add_argument("--label", default="규칙 판")
     ap.add_argument("--also", nargs="*", default=[], help="같은 화면 id 의 다른 판 - 이름=폴더 (열을 더한다)")

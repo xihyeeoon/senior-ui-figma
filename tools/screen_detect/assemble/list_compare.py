@@ -1,7 +1,7 @@
 r"""조립 1 · 2단계 - 목록 대조 도구 (채점 쪽 - 사람 파일을 읽는다, strict 를 켜지 않는다). 유료 호출 없음.
 
     C:\Users\xihye\venvs\detect\Scripts\python.exe tools/screen_detect/assemble/list_compare.py
-        [--dir results/detect/20261019-assembly2/rule] → <dir>/lists.json, lists.md
+        [--dir results/detect/20261019-assembly3/rule] → <dir>/lists.json, lists.md
 
 옛 원본과 새 원본에서 같은 목록을 뽑아 이름이 아니라 글 · 뜻으로 견준다. 목록은 파이프라인 검사기가 원본에서 읽는 것에
 맞춘다 (origin/feat/db-principles 의 senior_ui/audit - 인수인계 기록):
@@ -124,7 +124,7 @@ def match(olds, news, eq, pair_rest=False):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly2", "rule"))
+    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly3", "rule"))
     a = ap.parse_args(argv)
     truth = json.load(io.open(TRUTH, encoding="utf-8"))
     old_flow = git_json("flows/original.json")

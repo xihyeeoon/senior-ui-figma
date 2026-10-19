@@ -1,7 +1,7 @@
 r"""조립 1 · 2단계 - 걷기 시험 (유료 호출 없음). 헤드리스 chromium (Playwright 1.62, venvs\detect 에 이미 있음).
 
     C:\Users\xihye\venvs\detect\Scripts\python.exe tools/screen_detect/assemble/walk.py
-        [--dir results/detect/20261019-assembly2/rule] → <dir>/walk.json, walk.md
+        [--dir results/detect/20261019-assembly3/rule] → <dir>/walk.json, walk.md
 
 original.html 을 열고 (창 390x844, truth.py 와 같다)
   1. steps   flow.json 의 steps 대로 s01 부터 누르고 화면이 맞는지
@@ -102,7 +102,7 @@ async def run(folder):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly2", "rule"))
+    ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261019-assembly3", "rule"))
     a = ap.parse_args(argv)
     out = asyncio.run(run(a.dir))
     with io.open(os.path.join(a.dir, "walk.json"), "w", encoding="utf-8") as f:

@@ -1,7 +1,7 @@
 r"""조립 2단계 - 규칙 부분 (만드는 줄, --inputs strict). 2026-10-19 조립 설계 v0 + 연구자 결정 a · c · d (10/19).
 
     C:\Users\xihye\venvs\detect\Scripts\python.exe tools/screen_detect/assemble/build.py --inputs strict
-        → results/detect/20261019-assembly2/rule/{original.html, flow.json, trace.json, limits.md, check.json}
+        → results/detect/20261019-assembly3/rule/{original.html, flow.json, trace.json, limits.md, check.json}
         (1단계 결과 20261019-assembly 는 a · c · d 전의 이 파일)
 
 설계 v0 (연구자 확정): 생김새는 LLM, 동작 · 이름 · 처리기 · 흐름 파일 · 추적표는 규칙 (이 파일). 이 파일만 돌리면 LLM
@@ -61,7 +61,7 @@ R = os.path.join(ROOT, "results", "detect")
 INPUTS = {"final": os.path.join(R, "20261019-strict2", "detect"),
           "semantic": os.path.join(R, "20261019-strict3", "semantic"),
           "flow": os.path.join(R, "20261019-strict3", "flow", "flow.proposed.json")}
-OUT = os.path.join(R, "20261019-assembly2", "rule")
+OUT = os.path.join(R, "20261019-assembly3", "rule")
 PRESS_KINDS = set(K.BUTTONS) | {"input"}
 GROUP_KINDS = {"choice", "keypad_key"}
 
