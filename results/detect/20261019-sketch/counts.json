@@ -27,6 +27,26 @@
    "images": 19,
    "pressable": 42,
    "png": "renders/llm/u-home.png"
+  },
+  "rule_strict_inputs": 111,
+  "rule_strict": {
+   "shown": 111,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 51,
+   "pressable": 42,
+   "png": "renders/rule_strict/u-01a_01b_01c.png"
+  },
+  "llm_strict_inputs": 111,
+  "llm_strict": {
+   "shown": 111,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 51,
+   "pressable": 42,
+   "png": "renders/llm_strict/u-01a_01b_01c.png"
   }
  },
  "02": {

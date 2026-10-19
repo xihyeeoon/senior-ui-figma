@@ -1,0 +1,271 @@
+```html
+<section style="width:390px;min-height:1923px;box-sizing:border-box;margin:0;background:#f4f5f7;color:#202124;font-family:Arial,'Noto Sans KR',sans-serif;font-size:16px;line-height:1.35;">
+  <!-- 상태바는 생략하고 원래 상단 여백만 유지한다. -->
+  <header style="height:89px;padding:38px 16px 19px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;">
+    <button data-src="01a:b8" data-action="profile" style="border:0;background:none;padding:0;display:flex;align-items:center;gap:7px;color:inherit;font:inherit;">
+      <div class="pic" role="img" aria-label="C 로고" style="width:28px;height:28px;background:#e5e5e5;border-radius:7px;">
+        <div class="pic" role="img" aria-label="C 로고" data-src="01a:t2" style="width:28px;height:28px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#e5e5e5;border-radius:7px;"></div>
+      </div>
+      <span data-src="01a:t3" style="font-size:22px;font-weight:700;white-space:nowrap;">홍길동님</span>
+    </button>
+    <div style="display:flex;align-items:center;gap:15px;">
+      <button data-src="01a:b2" data-action="chat" style="border:0;background:none;padding:0;">
+        <div class="pic" role="img" aria-label="웃는 말풍선 아이콘" style="width:30px;height:30px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </button>
+      <button data-src="01a:b1" data-action="wallet" style="border:0;background:none;padding:0;">
+        <div class="pic" role="img" aria-label="지갑 아이콘" style="width:30px;height:30px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </button>
+      <button data-src="01a:b0" data-action="notifications" style="border:0;background:none;padding:0;">
+        <div class="pic" role="img" aria-label="알림 아이콘" style="width:30px;height:30px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </button>
+      <button data-src="01a:b3" data-action="search" style="border:0;background:none;padding:0;">
+        <div class="pic" role="img" aria-label="검색 아이콘" style="width:30px;height:30px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </button>
+    </div>
+  </header>
+
+  <main style="display:flex;flex-direction:column;gap:15px;padding:0 15px;">
+    <div data-src="01a:b10" style="height:255px;box-sizing:border-box;padding:19px 19px 18px;background:white;border-radius:20px;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:15px;">
+        <span data-src="01a:t4" style="font-size:22px;font-weight:700;">자산</span>
+        <button data-src="01a:b21" data-action="assets" style="padding:0;border:0;background:none;">
+          <div class="pic" role="img" aria-label="자산 아이콘" style="width:28px;height:28px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;">
+        <div class="pic" role="img" aria-label="신한은행 로고" data-src="01a:i1" style="width:41px;height:42px;flex-shrink:0;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;">
+          <span data-src="01a:t5" style="font-size:15px;white-space:nowrap;">[금융거래한도계좌2]신한 주거</span>
+          <span data-src="01a:t7" style="font-size:15px;margin-top:3px;">래 우대통장</span>
+          <span data-src="01a:t8" style="font-size:15px;margin-top:3px;">(저축예금)</span>
+          <span data-src="01a:t9" style="font-size:23px;font-weight:700;color:#999da6;margin-top:9px;">금액 숨김</span>
+        </div>
+        <button data-src="01a:b18" data-action="transfer" style="width:72px;height:45px;flex-shrink:0;border:0;border-radius:10px;background:#eaf0ff;color:#2869ff;font:inherit;font-size:21px;font-weight:700;">
+          <span data-src="01a:t6">이체</span>
+        </button>
+      </div>
+      <button data-src="01a:b13" data-action="retirement" style="margin-top:auto;width:100%;height:53px;border:0;border-radius:12px;background:#f5f5f7;color:#222;font:inherit;font-size:14px;font-weight:700;white-space:nowrap;">
+        <span data-src="01a:t10">절세혜택과 안정적인 노후,IRP로 준비하세요</span>
+      </button>
+    </div>
+
+    <div style="height:160px;box-sizing:border-box;padding:24px 19px 18px;background:white;border-radius:20px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div style="display:flex;gap:10px;align-items:center;">
+        <div style="width:44px;height:44px;flex-shrink:0;border-radius:9px;background:#fce9c8;"></div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <span data-src="01a:t11" data-ocr="Pick E체크캐릭터형(하리보)" style="font-size:18px;font-weight:700;letter-spacing:-.6px;">Pick E 체크캐릭터형(하리보)</span>
+          <span data-src="01a:t12" style="font-size:16px;color:#999da6;">금액 숨김</span>
+        </div>
+      </div>
+      <button data-src="01a:b6" data-action="join-card" style="height:54px;border:0;border-radius:12px;background:#eaf0ff;color:#2869ff;font:inherit;font-size:20px;font-weight:700;">
+        <span data-src="01a:t13">앱카드 가입</span>
+      </button>
+    </div>
+
+    <div data-src="01a:b14" style="height:180px;box-sizing:border-box;background:white;border-radius:20px;padding:5px 19px 14px;display:flex;flex-direction:column;">
+      <button data-src="01a:b20" data-action="delivery" data-ocr="팽겨요" style="height:48px;padding:0;border:0;background:none;color:inherit;font:inherit;display:flex;justify-content:space-between;align-items:center;">
+        <span data-src="01a:t14" data-ocr="팽겨요" style="font-size:22px;font-weight:700;">땡겨요</span>
+        <div class="pic" role="img" aria-label="땡겨요 아이콘" style="width:18px;height:22px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </button>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:9px;">
+        <div class="pic" role="img" aria-label="bhc치킨 최대 9,000원 아이콘" data-src="01a:i3" style="width:44px;height:44px;flex-shrink:0;border-radius:9px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;">
+          <span data-src="01a:t15" style="font-size:14px;color:#93969d;">할인쿠폰 드려요</span>
+          <span data-src="01a:t17" style="font-size:18px;font-weight:700;white-space:nowrap;letter-spacing:-.7px;">bhc치킨 최대 9,000원</span>
+        </div>
+        <button data-src="01a:b19" data-action="get-coupon" style="width:87px;height:37px;border:0;border-radius:18px;background:#eaf0ff;color:#2869ff;font:inherit;font-size:16px;font-weight:700;">
+          <span data-src="01a:t16">바로받기</span>
+        </button>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:14px;border-top:1px solid #ececf0;">
+        <button data-src="01a:t18" data-action="events" style="flex:1;border:0;background:none;color:inherit;font:inherit;">이벤트</button>
+        <button data-src="01a:t19" data-action="coupons" style="flex:1;border:0;border-left:1px solid #dddfe6;border-right:1px solid #dddfe6;background:none;color:inherit;font:inherit;">쿠폰</button>
+        <button data-src="01a:t20" data-action="points" style="flex:1;border:0;background:none;color:inherit;font:inherit;">포인트</button>
+      </div>
+    </div>
+
+    <button data-src="01a:b4" data-action="spending" style="height:65px;box-sizing:border-box;padding:0 16px;background:white;border:0;border-radius:18px 18px 0 0;color:inherit;font:inherit;display:flex;align-items:center;gap:8px;text-align:left;">
+      <span data-src="01a:t21" style="font-size:22px;font-weight:700;">7월 소비</span>
+      <div role="button" data-src="01a:t22" data-action="refresh-spending" style="display:flex;">
+        <div class="pic" role="img" aria-label="7월 소비 아이콘" style="width:18px;height:18px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </div>
+      <div class="pic" role="img" aria-label="7월 소비 아이콘" style="width:12px;height:12px;margin-left:auto;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      <div role="button" data-src="01a:b22" data-action="spending-details">
+        <div class="pic" role="img" aria-label="7월 소비 아이콘" style="width:28px;height:28px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </div>
+    </button>
+
+    <div style="height:24px;margin:0 -15px;background:white;"></div>
+
+    <button data-src="01b:b16" data-action="today-spending" data-ocr="오늘쓴 돈 0원" style="height:78px;box-sizing:border-box;padding:12px 19px;background:white;border:0;border-radius:0 0 20px 20px;color:inherit;font:inherit;display:flex;align-items:center;gap:10px;text-align:left;">
+      <div class="pic" role="img" aria-label="오늘 쓴 돈 아이콘" style="width:40px;height:40px;border-radius:10px;background:#eee;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="오늘 쓴 돈 아이콘" data-src="01b:i9" style="width:16px;height:18px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#e2e2e2;"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px;">
+        <span data-src="01b:t0" data-ocr="오늘쓴 돈" style="font-size:15px;color:#93969d;">오늘 쓴 돈</span>
+        <span data-src="01b:t1" style="font-size:25px;font-weight:700;">0원</span>
+      </div>
+    </button>
+
+    <div data-src="01b:b2" style="height:169px;box-sizing:border-box;padding:23px 21px 20px;background:linear-gradient(120deg,#3878fa,#5b94fa);border-radius:20px;color:white;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="display:flex;font-size:15px;color:#d5e2ff;white-space:nowrap;">
+            <span data-src="01b:t2">카드</span><span data-src="01b:t3">쓸때마다 쌓이고,현금처럼 쓰는</span>
+          </div>
+          <div data-src="01b:t5" style="margin-top:8px;font-size:24px;font-weight:700;">마이신한포인트</div>
+        </div>
+        <div class="pic" role="img" aria-label="마이신한포인트 아이콘" style="width:49px;height:49px;border-radius:50%;background:#ddd;">
+          <div class="pic" role="img" aria-label="마이신한포인트 아이콘" data-src="01b:i1" style="width:49px;height:49px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;">
+            <div class="pic" role="img" aria-label="마이신한포인트 아이콘" data-src="01b:t4" style="width:20px;height:25px;background:linear-gradient(45deg,transparent 48%,#aaa 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#aaa 48% 52%,transparent 52%),#ddd;"></div>
+          </div>
+        </div>
+      </div>
+      <!-- b5는 시작하기 버튼의 하단과 겹쳐 검출된 영역이므로 버튼 내부의 별도 누름 영역으로 보존한다. -->
+      <button data-src="01b:b1" data-action="start-points" style="margin-top:auto;height:53px;padding:0;border:0;border-radius:12px;background:#285fd0;color:white;font:inherit;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;">
+        <span data-src="01b:t6" style="font-size:21px;font-weight:700;line-height:32px;">시작하기</span>
+        <div role="button" data-src="01c:b5" data-action="points-bottom" style="height:16px;flex-shrink:0;"></div>
+      </button>
+    </div>
+
+    <div data-src="01b:b10" style="height:270px;box-sizing:border-box;padding:4px 19px 17px;background:white;border-radius:20px;display:flex;flex-direction:column;gap:6px;">
+      <button data-src="01c:b6" data-action="recommended" style="height:48px;flex-shrink:0;padding:0;border:0;background:none;color:inherit;font:inherit;display:flex;align-items:center;justify-content:space-between;">
+        <span data-src="01c:t0" style="font-size:22px;font-weight:700;">추천서비스</span>
+        <div class="pic" role="img" aria-label="추천서비스 아이콘" style="width:17px;height:22px;background:#eee;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="추천서비스 아이콘" data-src="01b:t8" style="width:9px;height:13px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </div>
+      </button>
+      <button data-src="01c:b1" data-action="sol-family" style="height:60px;flex-shrink:0;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;display:flex;align-items:center;gap:10px;">
+        <div class="pic" role="img" aria-label="SOL패밀리 아이콘" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:#eee;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="SOL패밀리 아이콘" data-src="01c:i1" style="width:15px;height:17px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#ddd;"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <span data-src="01b:t9" style="font-size:20px;font-weight:700;">SOL패밀리</span>
+          <span data-src="01c:t2" style="font-size:15px;color:#92959d;">가족과 함께하는 금융생활</span>
+        </div>
+      </button>
+      <button data-src="01c:b0" data-action="salary-club" data-ocr="급여클럽+ 푸 급여이체 우대 혜택" style="height:60px;flex-shrink:0;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;display:flex;align-items:center;gap:10px;">
+        <div class="pic" role="img" aria-label="급여클럽+ 아이콘" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:#eee;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="급여클럽+ 아이콘" data-src="01c:i0" style="width:19px;height:18px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#ddd;"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;flex:1;">
+          <span data-src="01b:t11" style="font-size:20px;font-weight:700;">급여클럽+</span>
+          <span data-src="01c:t5" style="font-size:15px;color:#92959d;">급여이체 우대 혜택</span>
+        </div>
+        <div role="button" data-src="01c:t4" data-action="pin-salary">
+          <div class="pic" role="img" aria-label="급여클럽+ 아이콘" style="width:18px;height:23px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </div>
+      </button>
+      <button data-src="01c:b3" data-action="card-history" data-ocr="내 카드 승인내역 푸 모든 카드 실시간 승인내역" style="height:60px;flex-shrink:0;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;display:flex;align-items:center;gap:10px;">
+        <div class="pic" role="img" aria-label="내 카드 승인내역 아이콘" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:#eee;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="내 카드 승인내역 아이콘" data-src="01c:i3" style="width:19px;height:15px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#ddd;"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;flex:1;">
+          <span data-src="01c:t6" style="font-size:20px;font-weight:700;">내 카드 승인내역</span>
+          <span data-src="01b:t16" style="font-size:15px;color:#92959d;white-space:nowrap;">모든 카드 실시간 승인내역</span>
+        </div>
+        <div role="button" data-src="01b:t15" data-action="pin-card-history">
+          <div class="pic" role="img" aria-label="내 카드 승인내역 아이콘" style="width:18px;height:22px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </div>
+      </button>
+    </div>
+
+    <button data-src="01b:b12" data-action="asset-event" data-ocr="더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! 이벤트 바로가기 ^" style="height:99px;box-sizing:border-box;padding:0 3px;border:0;background:none;color:inherit;font:inherit;text-align:left;display:flex;flex-direction:column;justify-content:center;">
+      <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <span data-src="01c:t9" style="font-size:19px;font-weight:700;">더 많은 금융자산 모두</span>
+          <span data-src="01c:t10" style="font-size:19px;font-weight:700;letter-spacing:-.5px;">연결하면 커피쿠폰 즉시지급!</span>
+        </div>
+        <div class="pic" role="img" aria-label="꽃 아이콘" style="width:57px;height:57px;flex-shrink:0;border-radius:15px;background:#eee;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="꽃 아이콘" data-src="01c:i10" style="width:24px;height:24px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#ddd;"></div>
+        </div>
+      </div>
+      <div role="button" data-src="01c:b14" data-action="event-details" data-ocr="이벤트 바로가기 ^" style="display:flex;align-items:center;gap:5px;margin-top:7px;color:#2869ff;">
+        <div role="button" data-src="01c:t11" data-action="event-link" style="font-size:15px;">이벤트 바로가기</div>
+        <div class="pic" role="img" aria-label="이벤트 바로가기 아이콘" style="width:10px;height:12px;background:#eee;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="이벤트 바로가기 아이콘" data-src="01b:t20" style="width:6px;height:8px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </div>
+      </div>
+    </button>
+
+    <!-- b9의 검출 높이는 첫 계열사까지만 포함하지만 g19와 화면의 흰 배경은 세 계열사 전체를 감싸므로 확장한다. -->
+    <div data-src="01b:b9" style="height:267px;box-sizing:border-box;padding:19px 18px 13px;background:white;border-radius:20px;display:flex;flex-direction:column;">
+      <span data-src="01b:t21" style="font-size:22px;font-weight:700;margin-bottom:10px;">신한금융그룹</span>
+      <button data-src="01b:b17" data-action="shinhan-card" style="height:62px;flex-shrink:0;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;display:flex;align-items:center;gap:14px;">
+        <div class="pic" role="img" aria-label="신한카드 아이콘" style="width:24px;height:25px;flex-shrink:0;background:#eee;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="신한카드 아이콘" data-src="01c:i4" style="width:21px;height:17px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;flex:1;">
+          <span data-src="01c:t14" style="font-size:21px;font-weight:700;">신한카드</span>
+          <span data-src="01c:t15" style="font-size:14px;color:#92959d;">나에게 맞는 카드 찾기</span>
+        </div>
+        <div role="button" data-src="01c:b18" data-action="card-details">
+          <div class="pic" role="img" aria-label="신한카드 아이콘" style="width:28px;height:29px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </div>
+      </button>
+      <button data-src="01c:b2" data-action="shinhan-securities" style="height:64px;flex-shrink:0;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;display:flex;align-items:center;gap:14px;">
+        <div class="pic" role="img" aria-label="신한투자증권 아이콘" style="width:24px;height:25px;flex-shrink:0;background:#eee;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="신한투자증권 아이콘" data-src="01c:i2" style="width:20px;height:13px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;flex:1;">
+          <span data-src="01c:t16" style="font-size:21px;font-weight:700;">신한투자증권</span>
+          <span data-src="01c:t17" style="font-size:14px;color:#92959d;">지금 뜨는 주식 보러가기</span>
+        </div>
+        <div role="button" data-src="01c:b19" data-action="securities-details">
+          <div class="pic" role="img" aria-label="신한투자증권 아이콘" style="width:28px;height:28px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </div>
+      </button>
+      <button data-src="01c:b7" data-action="shinhan-life" style="height:71px;flex-shrink:0;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;display:flex;align-items:center;gap:14px;">
+        <div class="pic" role="img" aria-label="신한라이프 아이콘" style="width:24px;height:25px;flex-shrink:0;background:#eee;display:flex;align-items:center;justify-content:center;">
+          <div class="pic" role="img" aria-label="신한라이프 아이콘" data-src="01c:i5" style="width:17px;height:21px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;">
+          <span data-src="01c:t18" style="font-size:21px;font-weight:700;">신한라이프</span>
+          <span data-src="01c:t19" style="font-size:13px;letter-spacing:-.5px;color:#92959d;white-space:nowrap;">내게 필요한 보험,보장분석으로 확인하기</span>
+        </div>
+        <div role="button" data-src="01c:b20" data-action="life-details">
+          <div class="pic" role="img" aria-label="신한라이프 아이콘" style="width:28px;height:29px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+        </div>
+      </button>
+    </div>
+  </main>
+
+  <footer style="height:93px;display:flex;align-items:center;justify-content:center;gap:4px;">
+    <button data-src="01c:t20" data-action="home-settings" style="border:0;padding:0;background:none;color:#57595f;font:inherit;font-size:16px;">쉬운홈|홈화면 설정</button>
+    <button data-src="01c:t21" data-action="hide-amount" style="border:0;padding:0;background:none;color:#57595f;font:inherit;font-size:16px;">| 금액 숨기기</button>
+  </footer>
+
+  <nav data-src="01c:b17" style="height:74px;background:white;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #eee;">
+    <button data-src="01c:b11" data-action="home" style="padding:10px 0 7px;border:0;background:none;color:#2869ff;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;">
+      <div class="pic" role="img" aria-label="홈 아이콘" style="width:22px;height:22px;background:#eee;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="홈 아이콘" data-src="01c:b16" style="width:18px;height:20px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </div>
+      <span data-src="01c:t22" style="font-size:13px;">홈</span>
+    </button>
+    <button data-src="01c:b9" data-action="finance" style="padding:10px 0 7px;border:0;background:none;color:#999da6;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;">
+      <div class="pic" role="img" aria-label="금융 아이콘" style="width:22px;height:22px;background:#eee;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="금융 아이콘" data-src="01c:i7" style="width:19px;height:18px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </div>
+      <span data-src="01c:t23" style="font-size:13px;">금융</span>
+    </button>
+    <button data-src="01c:b8" data-action="products" style="padding:10px 0 7px;border:0;background:none;color:#999da6;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;">
+      <div class="pic" role="img" aria-label="상품 아이콘" style="width:22px;height:22px;background:#eee;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="상품 아이콘" data-src="01c:i6" style="width:16px;height:20px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </div>
+      <span data-src="01c:t24" style="font-size:13px;">상품</span>
+    </button>
+    <button data-src="01c:b10" data-action="benefits" style="padding:10px 0 7px;border:0;background:none;color:#999da6;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;">
+      <div class="pic" role="img" aria-label="혜택 아이콘" style="width:22px;height:22px;background:#eee;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="혜택 아이콘" data-src="01c:i8" style="width:20px;height:19px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </div>
+      <span data-src="01c:t25" style="font-size:13px;">혜택</span>
+    </button>
+    <button data-src="01c:b12" data-action="stocks" style="padding:10px 0 7px;border:0;background:none;color:#999da6;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;">
+      <div class="pic" role="img" aria-label="주식 아이콘" style="width:22px;height:22px;background:#eee;display:flex;align-items:center;justify-content:center;">
+        <div class="pic" role="img" aria-label="주식 아이콘" data-src="01c:i9" style="width:19px;height:12px;background:linear-gradient(45deg,transparent 48%,#bbb 48% 52%,transparent 52%),linear-gradient(135deg,transparent 48%,#bbb 48% 52%,transparent 52%),#eee;"></div>
+      </div>
+      <span data-src="01c:t26" style="font-size:13px;">주식</span>
+    </button>
+  </nav>
+</section>
+```

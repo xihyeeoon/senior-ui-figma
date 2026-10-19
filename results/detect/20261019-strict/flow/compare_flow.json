@@ -1,0 +1,454 @@
+{
+ "totals": {
+  "pairs": 18,
+  "tap_ok": 13,
+  "kind_ok": 15,
+  "both_ok": 13,
+  "low_wrong": [
+   1,
+   1
+  ],
+  "high_wrong": [
+   4,
+   17
+  ]
+ },
+ "buckets": [
+  {
+   "range": "0.0~0.5",
+   "n": 0,
+   "wrong": 0
+  },
+  {
+   "range": "0.5~0.8",
+   "n": 1,
+   "wrong": 1
+  },
+  {
+   "range": "0.8~1.0",
+   "n": 17,
+   "wrong": 4
+  }
+ ],
+ "pairs": [
+  {
+   "from": "01a.png",
+   "to": "01b.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "같은 홈 화면의 아래쪽으로 스크롤했다.",
+   "state_from": "home",
+   "state_to": "home",
+   "truth": {
+    "kind": "scroll",
+    "first": null,
+    "presses": 0,
+    "note": "같은 상태"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "01b.png",
+   "to": "01c.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "같은 홈 화면의 더 아래쪽을 확인했다.",
+   "state_from": "home",
+   "state_to": "home",
+   "truth": {
+    "kind": "scroll",
+    "first": null,
+    "presses": 0,
+    "note": "같은 상태"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "01c.png",
+   "to": "02.png",
+   "tap": "01a:b18",
+   "tap_text": "이체",
+   "kind": "tap",
+   "confidence": 0.88,
+   "reason": "홈의 이체 버튼을 눌러 받는 계좌 선택 화면으로 이동한 것으로 보인다.",
+   "state_from": "home",
+   "state_to": "recipient",
+   "truth": {
+    "kind": "tap",
+    "first": {
+     "action": "go-recipient",
+     "text": "이체",
+     "aria": null,
+     "img": null,
+     "key": false,
+     "n": 1
+    },
+    "presses": 1,
+    "note": "누름 1번"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "02.png",
+   "to": "03.png",
+   "tap": "t7",
+   "tap_text": "계좌번호 직접",
+   "kind": "tap",
+   "confidence": 0.96,
+   "reason": "계좌번호 직접 입력을 선택하여 입력 화면을 열었다.",
+   "state_from": "recipient",
+   "state_to": "account",
+   "truth": {
+    "kind": "tap",
+    "first": {
+     "action": "go-account",
+     "text": "계좌번호 직접 입력",
+     "aria": null,
+     "img": "카메라 아이콘",
+     "key": false,
+     "n": 1
+    },
+    "presses": 1,
+    "note": "누름 1번"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "03.png",
+   "to": "04.png",
+   "tap": "b1",
+   "tap_text": "계좌번호 |없이 숫자만 입력",
+   "kind": "tap",
+   "confidence": 0.99,
+   "reason": "계좌번호 입력란을 눌러 숫자 키패드가 나타났다.",
+   "state_from": "account",
+   "state_to": "account#2",
+   "truth": {
+    "kind": "tap",
+    "first": {
+     "action": "acc-field",
+     "text": "계좌번호",
+     "aria": null,
+     "img": null,
+     "key": false,
+     "n": 1
+    },
+    "presses": 1,
+    "note": "누름 1번"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "04.png",
+   "to": "05a.png",
+   "tap": "b0",
+   "tap_text": "은행 또는 증권사 선택",
+   "kind": "tap",
+   "confidence": 0.99,
+   "reason": "금융기관 선택 버튼을 눌러 은행 목록을 열었다.",
+   "state_from": "account#2",
+   "state_to": "bank",
+   "truth": {
+    "kind": "tap",
+    "first": {
+     "action": "open-bank",
+     "text": "은행 또는 증권사 선택 ⌄",
+     "aria": null,
+     "img": null,
+     "key": false,
+     "n": 1
+    },
+    "presses": 1,
+    "note": "누름 1번"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "05a.png",
+   "to": "05b.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "은행 선택 목록을 아래로 스크롤했다.",
+   "state_from": "bank",
+   "state_to": "bank",
+   "truth": {
+    "kind": "scroll",
+    "first": null,
+    "presses": 0,
+    "note": "같은 상태"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "05b.png",
+   "to": "05c.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "같은 은행 목록의 하단으로 스크롤했다.",
+   "state_from": "bank",
+   "state_to": "bank",
+   "truth": {
+    "kind": "scroll",
+    "first": null,
+    "presses": 0,
+    "note": "같은 상태"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "05c.png",
+   "to": "06a.png",
+   "tap": "05a:b16",
+   "tap_text": "증권사",
+   "kind": "tap",
+   "confidence": 0.99,
+   "reason": "증권사 탭을 선택하여 기관 목록을 전환했다.",
+   "state_from": "bank",
+   "state_to": "bank+tab-sec",
+   "truth": {
+    "kind": "tap",
+    "first": {
+     "action": "tab-sec",
+     "text": "증권사",
+     "aria": null,
+     "img": null,
+     "key": false,
+     "n": 1
+    },
+    "presses": 1,
+    "note": "누름 1번"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "06a.png",
+   "to": "06b.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "증권사 목록을 아래로 스크롤했다.",
+   "state_from": "bank+tab-sec",
+   "state_to": "bank+tab-sec",
+   "truth": {
+    "kind": "scroll",
+    "first": null,
+    "presses": 0,
+    "note": "같은 상태"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "06b.png",
+   "to": "06c.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "같은 증권사 목록의 하단으로 스크롤했다.",
+   "state_from": "bank+tab-sec",
+   "state_to": "bank+tab-sec",
+   "truth": {
+    "kind": "scroll",
+    "first": null,
+    "presses": 0,
+    "note": "같은 상태"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "06c.png",
+   "to": "07.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "skipped",
+   "confidence": 0.93,
+   "reason": "기관 선택과 계좌번호 입력·확인 과정이 생략된 것으로 보이며 선택한 기관은 알 수 없다.",
+   "state_from": "bank+tab-sec",
+   "state_to": "amount",
+   "truth": {
+    "kind": "skipped",
+    "first": {
+     "action": "tab-bank",
+     "text": "은행",
+     "aria": null,
+     "img": null,
+     "key": false,
+     "n": 1
+    },
+    "presses": 15,
+    "note": "누름 15번 · 사이 상태 bank, amount~1, amount~2"
+   },
+   "tap_ok": false,
+   "kind_ok": true
+  },
+  {
+   "from": "07.png",
+   "to": "07a.png",
+   "tap": "b1",
+   "tap_text": "+1만",
+   "kind": "tap",
+   "confidence": 0.98,
+   "reason": "금액이 10,000원으로 설정되어 +1만 버튼을 누른 것으로 보인다.",
+   "state_from": "amount",
+   "state_to": "confirm~1",
+   "truth": {
+    "kind": "skipped",
+    "first": {
+     "action": "type",
+     "text": "32000",
+     "aria": null,
+     "img": null,
+     "key": true,
+     "n": 5
+    },
+    "presses": 5,
+    "note": "누름 5번"
+   },
+   "tap_ok": false,
+   "kind_ok": false
+  },
+  {
+   "from": "07a.png",
+   "to": "08.png",
+   "tap": "b15",
+   "tap_text": "다음",
+   "kind": "tap",
+   "confidence": 0.99,
+   "reason": "금액 입력 후 다음을 눌러 이체 확인 화면으로 이동했다.",
+   "state_from": "confirm~1",
+   "state_to": "confirm",
+   "truth": {
+    "kind": "tap",
+    "first": {
+     "action": "amount-next",
+     "text": "다음",
+     "aria": null,
+     "img": null,
+     "key": false,
+     "n": 1
+    },
+    "presses": 1,
+    "note": "누름 1번"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "08.png",
+   "to": "09a.png",
+   "tap": "t15",
+   "tap_text": "보내기",
+   "kind": "tap",
+   "confidence": 0.99,
+   "reason": "보내기를 눌러 비밀번호 인증 숫자판을 열었다.",
+   "state_from": "confirm",
+   "state_to": "password",
+   "truth": {
+    "kind": "tap",
+    "first": {
+     "action": "send",
+     "text": "보내기",
+     "aria": null,
+     "img": null,
+     "key": false,
+     "n": 1
+    },
+    "presses": 1,
+    "note": "누름 1번"
+   },
+   "tap_ok": true,
+   "kind_ok": true
+  },
+  {
+   "from": "09a.png",
+   "to": "09b.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "skipped",
+   "confidence": 0.68,
+   "reason": "인증 숫자를 입력하는 과정으로 보이나 입력 횟수와 처음 누른 숫자는 알 수 없다.",
+   "state_from": "password",
+   "state_to": "password",
+   "truth": {
+    "kind": "skipped",
+    "first": {
+     "action": "pw",
+     "text": "2",
+     "aria": null,
+     "img": null,
+     "key": true,
+     "n": 1
+    },
+    "presses": 3,
+    "note": "누름 3번"
+   },
+   "tap_ok": false,
+   "kind_ok": true
+  },
+  {
+   "from": "09b.png",
+   "to": "10.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "skipped",
+   "confidence": 0.88,
+   "reason": "비밀번호 입력과 인증 완료 과정이 생략된 뒤 이체 완료 화면으로 이동한 것으로 보인다.",
+   "state_from": "password",
+   "state_to": "done",
+   "truth": {
+    "kind": "tap",
+    "first": {
+     "action": "pw",
+     "text": "2",
+     "aria": null,
+     "img": null,
+     "key": true,
+     "n": 1
+    },
+    "presses": 1,
+    "note": "누름 1번"
+   },
+   "tap_ok": false,
+   "kind_ok": false
+  },
+  {
+   "from": "10.png",
+   "to": "11.png",
+   "tap": "b0",
+   "tap_text": "상세보기",
+   "kind": "tap",
+   "confidence": 0.87,
+   "reason": "이체 완료 화면의 상세보기를 눌러 확인 버튼이 있는 상세 화면을 연 것으로 보인다.",
+   "state_from": "done",
+   "state_to": "error:wrong-account",
+   "truth": {
+    "kind": "error_path",
+    "first": null,
+    "presses": 15,
+    "note": "오류 경로 error:wrong-account (갈라지는 상태 bank)"
+   },
+   "tap_ok": false,
+   "kind_ok": false
+  }
+ ]
+}

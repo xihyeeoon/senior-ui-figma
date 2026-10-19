@@ -1,0 +1,12 @@
+strict.py check - strict 를 켠 프로세스에서 사람 파일 · 상수를 하나씩 읽어 본 결과
+
+truth.json 열기                      막힘 - strict: 사람 파일을 열려 했다 - C:\Users\xihye\senior-ui-figma-detect\results\detect\20261013-d3b\truth.json
+truth_regions.json 열기              막힘 - strict: 사람 파일을 열려 했다 - C:\Users\xihye\senior-ui-figma-detect\results\detect\20261019-regions\truth_regions.json
+flows/original.json 열기             막힘 - strict: 사람 파일을 열려 했다 - C:\Users\xihye\senior-ui-figma-detect\flows\original.json
+tasks/transfer.json 열기             막힘 - strict: 사람 파일을 열려 했다 - C:\Users\xihye\senior-ui-figma-detect\tasks\transfer.json
+옛 원본 HTML 열기                       막힘 - strict: 사람 파일을 열려 했다 - C:\Users\xihye\senior-ui-figma-detect\inputs\original_transfer.html
+git show captures.json             막힘 - strict: 사람 파일을 읽으려 했다 - git -C C:\Users\xihye\senior-ui-figma-detect show origin/feat/db-principles:inputs/captures/transfer/captures.json
+stitch.GROUPS                      막힘 - strict: 사람이 정한 것을 쓰려 했다 - stitch.GROUPS
+semantic.TASK                      막힘 - strict: 사람이 정한 것을 쓰려 했다 - semantic.TASK
+flow.read_captures (이름표)           막힘 - strict: 사람 파일을 읽으려 했다 - git -C C:\Users\xihye\senior-ui-figma-detect show origin/feat/see-captures:inputs/captures/transfer/captures.json
+sketch/common.read_captures (이름표)  막힘 - strict: 사람이 정한 것을 쓰려 했다 - captures.json (이름표)

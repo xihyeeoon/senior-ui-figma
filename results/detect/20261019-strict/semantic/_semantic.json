@@ -1,0 +1,71 @@
+{
+ "model": "gpt-6.1-sol",
+ "reasoning_effort": "medium",
+ "units_run": [
+  "01a+01b+01c",
+  "05a+05b+05c"
+ ],
+ "reuse": null,
+ "in": "results/detect/20261019-strict/detect",
+ "task": null,
+ "inputs": "strict",
+ "prompt_file": "tools/screen_detect/SEMANTIC_PROMPT_V2.md",
+ "units": {
+  "01a+01b+01c": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 49,
+   "reused_from": null,
+   "prompt_sha": "6d0ff389557c",
+   "elements": 115,
+   "fixed_overrides": 0,
+   "prompt_tokens": 15558,
+   "completion_tokens": 8989,
+   "reasoning_tokens": 311,
+   "cost_usd": 0.121006,
+   "estimate": {
+    "images": 49,
+    "image_tokens": 3963,
+    "text_tokens": 11677,
+    "input_tokens": 15640,
+    "answer_tokens": 7475,
+    "cost_usd": 0.10603,
+    "cost_usd_with_reasoning": 0.18078,
+    "cost_usd_cap": 0.28128,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 115 x 45"
+   }
+  },
+  "05a+05b+05c": {
+   "status": "ok",
+   "attempts": 1,
+   "images": 70,
+   "reused_from": null,
+   "prompt_sha": "6d0ff389557c",
+   "elements": 140,
+   "fixed_overrides": 0,
+   "prompt_tokens": 20042,
+   "completion_tokens": 11081,
+   "reasoning_tokens": 146,
+   "cost_usd": 0.150894,
+   "estimate": {
+    "images": 70,
+    "image_tokens": 6546,
+    "text_tokens": 13590,
+    "input_tokens": 20136,
+    "answer_tokens": 9100,
+    "cost_usd": 0.131272,
+    "cost_usd_with_reasoning": 0.222272,
+    "cost_usd_cap": 0.290272,
+    "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 140 x 45"
+   }
+  }
+ },
+ "totals": {
+  "prompt_tokens": 35600,
+  "completion_tokens": 20070,
+  "reasoning_tokens": 457,
+  "cost_usd": 0.27190000000000003,
+  "images": 119,
+  "failed": []
+ }
+}

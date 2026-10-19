@@ -1,0 +1,222 @@
+앱 화면 캡처에서 검출된 요소마다 역할을 적어라.
+
+화면: 01a+01b+01c
+
+받는 것
+- 요소 목록 (JSON, 한 줄에 요소 하나). 칸의 뜻:
+  - id: 요소의 이름. 답에 그대로 쓴다.
+  - mark: 첫 그림 위에 적힌 번호.
+  - kind: 검출 종류 - box(검출 박스), text(OCR 글 줄), img_candidate(박스 안 그림 덩어리).
+  - box: [x, y, w, h], 캡처 픽셀.
+  - text: 그 자리에서 OCR 이 읽은 글. 박스는 안에 든 글을 이은 것.
+  - ocr_guess: 아이콘을 OCR 이 글자로 읽은 것.
+  - caption: 아이콘 설명 모델이 붙인 영어 설명.
+  - name: 규칙으로 붙인 로고 이름 (없으면 null).
+  - in_box: 이 요소를 담은 박스의 id.
+  - near: 곁의 글 (inside 안에 든 글, row 같은 줄의 글, below 바로 아래 글, parent 담은 박스의 글).
+  - flags: system_band(여러 캡처에서 같은 자리 · 같은 모습인 띠 - 상태바 등), behind_overlay(시트 · 팝업 뒤의 어두워진 화면).
+  - 값이 없는 칸은 null 이다.
+- 그림: 첫 그림은 화면 전체를 줄이고 요소마다 mark 번호를 적은 것이다. 그다음 그림들은 글 없는 박스 · 박스 안 그림 덩어리 · 한두 글자 글 · ocr_guess 가 있는 요소를 잘라 키운 것이고, 이름표에 mark 와 id 가 있다.
+
+지키는 규칙
+1. 요소 목록의 id 마다 답을 정확히 하나씩, 빠짐없이 낸다.
+2. 목록에 없는 id 를 만들지 않는다. 요소를 합치거나 나누지 않는다.
+3. ocr_guess · caption · name · near · flags 는 힌트일 뿐이다. 그림에 보이는 것으로 정한다. 힌트와 그림이 다르면 그림을 따른다.
+4. image_name 은 그림에 보이는 것으로만 짓는다. 글이 잘려 보이면 보이는 데까지만 쓰고 뒷부분을 채우지 않는다. 무엇인지 알아볼 수 없으면 "알 수 없는 아이콘" 이라고 쓴다.
+5. 아이콘 이름(image_name)은 그 아이콘이 가리키는 것으로 짓는다. 곁에 이름표 글(near 의 같은 박스 · 같은 줄 · 바로 아래 글)이 있으면 그 글을 쓴다 (예: 이름표 '혜택' → '혜택 아이콘'). 이름표가 없으면 보이는 모양으로 짓는다. 모양은 image_shape 칸에 따로 적는다 (예: '선물상자').
+6. 고정값 목록에 있는 id 는 image_name 을 그 값 그대로 쓴다.
+7. 무엇을 눌러야 하는지는 정하지 않는다. 누를 수 있게 생겼는지만 본다.
+8. icon: 이 요소가 아이콘 · 로고를 담고 있으면 {"name": "<무엇> 아이콘" 또는 "<무엇> 로고", "shape": "<보이는 모양>"}, 아니면 null. 이름은 규칙 5 와 같이 짓는다. 누를 수 있는 아이콘이면 kind(button 등)는 그대로 두고 icon 을 채운다. kind 가 image 이면 icon 의 name · shape 는 image_name · image_shape 와 같게 쓴다.
+9. text_is_icon: 요소의 OCR 글(text)이 실제로는 아이콘 모양을 글자로 잘못 읽은 것이면 true (예: 고정 핀을 '푸', 새로고침 화살표를 'C' 로 읽음), 아니면 false. true 이면 icon 도 채운다. 글이 없는 요소는 false.
+10. text_fixed: OCR 글이 그림에 보이는 글과 다르게 읽혔으면 그림에 보이는 글 그대로 (예: '팽겨요' → '땡겨요'), 같으면 null. 보이는 글만 쓴다 - 잘린 글의 뒷부분을 짐작해 채우지 않는다. 고쳤으면 그 까닭을 note 에 짧게 적는다. text_is_icon 이 true 인 요소는 null.
+11. JSON 하나만 답한다. 그 앞뒤에 다른 글을 붙이지 않는다.
+
+답의 모양
+{"elements": [{"id": "<id>", "pressable": true 또는 false, "kind": "<kind>", "group": "<무리 이름>" 또는 null, "image_name": "<이름>" 또는 null, "image_shape": "<모양>" 또는 null, "icon": {"name": "<이름>", "shape": "<모양>"} 또는 null, "text_is_icon": true 또는 false, "text_fixed": "<글>" 또는 null, "note": "<짧은 근거>"}]}
+
+- kind 는 다음 가운데 하나다.
+  - button: 버튼
+  - link: 테두리 없는 글 링크, 또는 줄 전체가 누르는 곳인 것
+  - back_close: 뒤로 · 닫기
+  - tab: 탭
+  - choice: 여럿 가운데 고르는 것
+  - input: 입력칸
+  - keypad_key: 숫자판의 키
+  - image: 그림 · 아이콘 · 로고
+  - text: 누르지 않는 글
+  - system: 상태바 · 덮개 뒤처럼 이 화면의 요소가 아닌 것
+- group: 같은 무리(한 목록의 선택지, 한 숫자판의 키, 한 줄의 탭 등)는 같은 이름을 쓴다. 무리가 없으면 null.
+- image_name: kind 가 image 일 때만 "<무엇> 아이콘" 또는 "<무엇> 로고". 그 밖에는 null.
+- image_shape: kind 가 image 일 때만 보이는 모양 (예: "선물상자"). 그 밖에는 null.
+- note: 그렇게 정한 근거 한 줄.
+
+고정값 (규칙으로 이름이 붙은 로고 - image_name 을 바꾸지 않는다)
+(없음)
+
+요소 목록
+{"id":"01a:t0","mark":1,"kind":"text","box":[38,22,69,37],"text":"4:31","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["67"]},"flags":["system_band"]}
+{"id":"01a:t1","mark":2,"kind":"text","box":[744,23,40,33],"text":"67","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["4:31"]},"flags":["system_band"]}
+{"id":"01a:b5","mark":3,"kind":"box","box":[672,28,29,28],"text":null,"ocr_guess":null,"caption":"a triangle or \"Play\" function.","name":null,"in_box":null,"near":{"row":["67","4:31"]},"flags":["system_band"]}
+{"id":"01a:b7","mark":4,"kind":"box","box":[712,28,28,28],"text":null,"ocr_guess":null,"caption":"Wi-Fi connectivity.","name":null,"in_box":null,"near":{"row":["67","4:31"]},"flags":["system_band"]}
+{"id":"01a:b2","mark":5,"kind":"box","box":[426,81,67,64],"text":null,"ocr_guess":null,"caption":"WhatsApp","name":null,"in_box":null,"near":{"row":["홍길동님","C"]},"flags":null}
+{"id":"01a:b1","mark":6,"kind":"box","box":[528,82,67,65],"text":null,"ocr_guess":null,"caption":"Open Document","name":null,"in_box":null,"near":{"row":["홍길동님","C"]},"flags":null}
+{"id":"01a:b0","mark":7,"kind":"box","box":[627,82,64,64],"text":null,"ocr_guess":"요","caption":"Notifications","name":null,"in_box":null,"near":{"row":["홍길동님","C"]},"flags":null}
+{"id":"01a:b3","mark":8,"kind":"box","box":[729,82,63,65],"text":null,"ocr_guess":"Q","caption":"Find and Replace","name":null,"in_box":null,"near":{"row":["홍길동님","C"]},"flags":null}
+{"id":"01a:b8","mark":9,"kind":"box","box":[36,84,242,62],"text":"홍길동님 C","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["홍길동님","C"]},"flags":null}
+{"id":"01a:t3","mark":10,"kind":"text","box":[110,87,170,57],"text":"홍길동님","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b8","near":{"row":["C"],"parent":"홍길동님 C"},"flags":null}
+{"id":"01a:t2","mark":11,"kind":"text","box":[49,93,35,40],"text":"C","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b8","near":{"row":["홍길동님"],"parent":"홍길동님 C"},"flags":null}
+{"id":"01a:b10","mark":12,"kind":"box","box":[37,187,747,529],"text":"자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저축예금) 금액 숨김","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["자산","[금융거래한도계좌2]신한 주거","이체","래 우대통장"]},"flags":null}
+{"id":"01a:t4","mark":13,"kind":"text","box":[61,228,95,63],"text":"자산","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b10","near":{"parent":"자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저…"},"flags":null}
+{"id":"01a:b21","mark":14,"kind":"box","box":[695,228,59,59],"text":null,"ocr_guess":"7","caption":"Forward","name":null,"in_box":null,"near":{"row":["자산"]},"flags":null}
+{"id":"01a:i1","mark":15,"kind":"img_candidate","box":[73,316,87,88],"text":null,"ocr_guess":null,"caption":"Sending a message or message.","name":null,"in_box":"01a:b10","near":{"row":["래 우대통장","[금융거래한도계좌2]신한 주거"],"parent":"자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저…"},"flags":null}
+{"id":"01a:b18","mark":16,"kind":"box","box":[598,317,153,95],"text":"이체","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["이체"],"row":["[금융거래한도계좌2]신한 주거","래 우대통장"]},"flags":null}
+{"id":"01a:t5","mark":17,"kind":"text","box":[180,318,408,40],"text":"[금융거래한도계좌2]신한 주거","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b10","near":{"parent":"자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저…"},"flags":null}
+{"id":"01a:t6","mark":18,"kind":"text","box":[632,337,83,56],"text":"이체","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b18","near":{"row":["[금융거래한도계좌2]신한 주거","래 우대통장"],"parent":"이체"},"flags":null}
+{"id":"01a:t7","mark":19,"kind":"text","box":[180,366,165,38],"text":"래 우대통장","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b10","near":{"parent":"자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저…"},"flags":null}
+{"id":"01a:t8","mark":20,"kind":"text","box":[180,414,150,44],"text":"(저축예금)","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b10","near":{"parent":"자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저…"},"flags":null}
+{"id":"01a:t9","mark":21,"kind":"text","box":[175,476,188,63],"text":"금액 숨김","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b10","near":{"parent":"자산 [금융거래한도계좌2]신한 주거 래 우대통장 (저…"},"flags":null}
+{"id":"01a:b13","mark":22,"kind":"box","box":[73,576,679,112],"text":"절세혜택과 안정적인 노후,IRP로 준비하세요","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["절세혜택과 안정적인 노후,IRP로 준비하세요"]},"flags":null}
+{"id":"01a:t10","mark":23,"kind":"text","box":[113,614,598,33],"text":"절세혜택과 안정적인 노후,IRP로 준비하세요","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b13","near":{"parent":"절세혜택과 안정적인 노후,IRP로 준비하세요"},"flags":null}
+{"id":"01a:t11","mark":24,"kind":"text","box":[185,809,464,41],"text":"Pick E체크캐릭터형(하리보)","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":null,"flags":null}
+{"id":"01a:t12","mark":25,"kind":"text","box":[182,866,137,42],"text":"금액 숨김","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":null,"flags":null}
+{"id":"01a:b6","mark":26,"kind":"box","box":[74,944,678,114],"text":"앱카드 가입","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["앱카드 가입"]},"flags":null}
+{"id":"01a:t13","mark":27,"kind":"text","box":[322,977,180,45],"text":"앱카드 가입","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b6","near":{"parent":"앱카드 가입"},"flags":null}
+{"id":"01a:b14","mark":28,"kind":"box","box":[30,1129,755,383],"text":"할인쿠폰 드려요 bhc치킨 최대 9,000원 이벤트 쿠폰 포인트","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["팽겨요","할인쿠폰 드려요","바로받기","bhc치킨 최대 9,000원"]},"flags":null}
+{"id":"01a:b20","mark":29,"kind":"box","box":[40,1139,716,102],"text":"팽겨요","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["팽겨요"]},"flags":null}
+{"id":"01a:t14","mark":30,"kind":"text","box":[67,1173,120,50],"text":"팽겨요","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b20","near":{"parent":"팽겨요"},"flags":null}
+{"id":"01a:t15","mark":31,"kind":"text","box":[187,1261,206,31],"text":"할인쿠폰 드려요","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b14","near":{"parent":"할인쿠폰 드려요 bhc치킨 최대 9,000원 이벤트 …"},"flags":null}
+{"id":"01a:i3","mark":32,"kind":"img_candidate","box":[72,1264,92,92],"text":null,"ocr_guess":null,"caption":"a hamburger or sandwich.","name":null,"in_box":"01a:b14","near":{"row":["할인쿠폰 드려요","bhc치킨 최대 9,000원"],"below":"이벤트","parent":"할인쿠폰 드려요 bhc치킨 최대 9,000원 이벤트 …"},"flags":null}
+{"id":"01a:b19","mark":33,"kind":"box","box":[567,1272,185,77],"text":"바로받기","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["바로받기"],"row":["bhc치킨 최대 9,000원","할인쿠폰 드려요"]},"flags":null}
+{"id":"01a:t16","mark":34,"kind":"text","box":[599,1290,120,39],"text":"바로받기","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b19","near":{"parent":"바로받기"},"flags":null}
+{"id":"01a:t17","mark":35,"kind":"text","box":[184,1312,360,44],"text":"bhc치킨 최대 9,000원","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b14","near":{"parent":"할인쿠폰 드려요 bhc치킨 최대 9,000원 이벤트 …"},"flags":null}
+{"id":"01a:t18","mark":36,"kind":"text","box":[101,1427,100,41],"text":"이벤트","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b14","near":{"row":["쿠폰","포인트"],"parent":"할인쿠폰 드려요 bhc치킨 최대 9,000원 이벤트 …"},"flags":null}
+{"id":"01a:t19","mark":37,"kind":"text","box":[375,1427,73,42],"text":"쿠폰","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b14","near":{"row":["이벤트","포인트"],"parent":"할인쿠폰 드려요 bhc치킨 최대 9,000원 이벤트 …"},"flags":null}
+{"id":"01a:t20","mark":38,"kind":"text","box":[623,1429,100,36],"text":"포인트","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b14","near":{"row":["쿠폰","이벤트"],"parent":"할인쿠폰 드려요 bhc치킨 최대 9,000원 이벤트 …"},"flags":null}
+{"id":"01a:b4","mark":39,"kind":"box","box":[31,1540,753,138],"text":"7월 소비 C","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["7월 소비","C"]},"flags":null}
+{"id":"01a:b22","mark":40,"kind":"box","box":[694,1580,61,61],"text":null,"ocr_guess":"7","caption":"Forward","name":null,"in_box":null,"near":{"row":["C","7월 소비"]},"flags":null}
+{"id":"01a:t21","mark":41,"kind":"text","box":[64,1586,158,50],"text":"7월 소비","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b4","near":{"row":["C"],"parent":"7월 소비 C"},"flags":null}
+{"id":"01a:t22","mark":42,"kind":"text","box":[234,1591,36,38],"text":"C","ocr_guess":null,"caption":null,"name":null,"in_box":"01a:b4","near":{"row":["7월 소비"],"parent":"7월 소비 C"},"flags":null}
+{"id":"01b:b16","mark":43,"kind":"box","box":[34,1759,759,164],"text":"오늘쓴 돈 0원","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["오늘쓴 돈","0원"]},"flags":null}
+{"id":"01b:t0","mark":44,"kind":"text","box":[174,1777,138,42],"text":"오늘쓴 돈","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b16","near":{"parent":"오늘쓴 돈 0원"},"flags":null}
+{"id":"01b:i9","mark":45,"kind":"img_candidate","box":[97,1812,34,38],"text":null,"ocr_guess":null,"caption":"a calendar or scheduling function.","name":null,"in_box":"01b:b16","near":{"parent":"오늘쓴 돈 0원"},"flags":null}
+{"id":"01b:t1","mark":46,"kind":"text","box":[170,1825,80,56],"text":"0원","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b16","near":{"parent":"오늘쓴 돈 0원"},"flags":null}
+{"id":"01b:b2","mark":47,"kind":"box","box":[30,1956,756,358],"text":"쓸때마다 쌓이고,현금처럼 쓰는 카드 P 마이신한포인트","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["쓸때마다 쌓이고,현금처럼 쓰는","카드","P","마이신한포인트"]},"flags":null}
+{"id":"01b:t3","mark":48,"kind":"text","box":[135,2005,404,41],"text":"쓸때마다 쌓이고,현금처럼 쓰는","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b2","near":{"row":["카드"],"parent":"쓸때마다 쌓이고,현금처럼 쓰는 카드 P 마이신한포인트"},"flags":null}
+{"id":"01b:t2","mark":49,"kind":"text","box":[73,2007,65,35],"text":"카드","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b2","near":{"row":["쓸때마다 쌓이고,현금처럼 쓰는"],"parent":"쓸때마다 쌓이고,현금처럼 쓰는 카드 P 마이신한포인트"},"flags":null}
+{"id":"01b:i1","mark":50,"kind":"img_candidate","box":[644,2010,104,104],"text":null,"ocr_guess":null,"caption":"PowerPoint.","name":null,"in_box":"01b:b2","near":{"inside":["P"],"row":["쓸때마다 쌓이고,현금처럼 쓰는","마이신한포인트"],"parent":"쓸때마다 쌓이고,현금처럼 쓰는 카드 P 마이신한포인트"},"flags":null}
+{"id":"01b:t4","mark":51,"kind":"text","box":[674,2034,43,52],"text":"P","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b2","near":{"parent":"쓸때마다 쌓이고,현금처럼 쓰는 카드 P 마이신한포인트"},"flags":null}
+{"id":"01b:t5","mark":52,"kind":"text","box":[74,2062,304,55],"text":"마이신한포인트","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b2","near":{"parent":"쓸때마다 쌓이고,현금처럼 쓰는 카드 P 마이신한포인트"},"flags":null}
+{"id":"01b:b1","mark":53,"kind":"box","box":[76,2154,674,113],"text":"시작하기","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["시작하기"]},"flags":null}
+{"id":"01b:t6","mark":54,"kind":"text","box":[338,2185,144,51],"text":"시작하기","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b1","near":{"parent":"시작하기"},"flags":null}
+{"id":"01c:b5","mark":55,"kind":"box","box":[76,2232,674,34],"text":null,"ocr_guess":null,"caption":"a stopwatch function.","name":null,"in_box":null,"near":null,"flags":null}
+{"id":"01b:b10","mark":56,"kind":"box","box":[37,2344,757,570],"text":null,"ocr_guess":null,"caption":"Increase","name":null,"in_box":null,"near":{"inside":["추천서비스",">","SOL패밀리","가족과 함께하는 금융생활"],"below":"더 많은 금융자산 모두"},"flags":null}
+{"id":"01c:b6","mark":57,"kind":"box","box":[43,2352,737,102],"text":"추천서비스","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["추천서비스",">"]},"flags":null}
+{"id":"01c:t0","mark":58,"kind":"text","box":[67,2386,196,53],"text":"추천서비스","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b6","near":{"row":[">"],"parent":"추천서비스"},"flags":null}
+{"id":"01b:t8","mark":59,"kind":"text","box":[717,2396,20,28],"text":">","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b6","near":{"row":["추천서비스"],"parent":"추천서비스"},"flags":null}
+{"id":"01c:b1","mark":60,"kind":"box","box":[49,2462,723,124],"text":"SOL패밀리 가족과 함께하는 금융생활","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["SOL패밀리","가족과 함께하는 금융생활"]},"flags":null}
+{"id":"01b:t9","mark":61,"kind":"text","box":[178,2477,177,46],"text":"SOL패밀리","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b1","near":{"parent":"SOL패밀리 가족과 함께하는 금융생활"},"flags":null}
+{"id":"01c:i1","mark":62,"kind":"img_candidate","box":[100,2504,32,36],"text":null,"ocr_guess":null,"caption":"a stop or close button.","name":null,"in_box":"01c:b1","near":{"parent":"SOL패밀리 가족과 함께하는 금융생활"},"flags":null}
+{"id":"01c:t2","mark":63,"kind":"text","box":[181,2531,328,34],"text":"가족과 함께하는 금융생활","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b1","near":{"parent":"SOL패밀리 가족과 함께하는 금융생활"},"flags":null}
+{"id":"01c:b0","mark":64,"kind":"box","box":[49,2596,724,130],"text":"급여클럽+ 푸 급여이체 우대 혜택","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["급여클럽+","푸","급여이체 우대 혜택"]},"flags":null}
+{"id":"01b:t11","mark":65,"kind":"text","box":[178,2615,166,48],"text":"급여클럽+","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b0","near":{"row":["푸"],"parent":"급여클럽+ 푸 급여이체 우대 혜택"},"flags":null}
+{"id":"01c:t4","mark":66,"kind":"text","box":[712,2637,39,49],"text":"푸","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b0","near":{"row":["급여클럽+"],"parent":"급여클럽+ 푸 급여이체 우대 혜택"},"flags":null}
+{"id":"01c:i0","mark":67,"kind":"img_candidate","box":[96,2642,40,38],"text":null,"ocr_guess":null,"caption":"a trash bin or trash bin.","name":null,"in_box":"01c:b0","near":{"row":["푸"],"parent":"급여클럽+ 푸 급여이체 우대 혜택"},"flags":null}
+{"id":"01c:t5","mark":68,"kind":"text","box":[180,2668,246,38],"text":"급여이체 우대 혜택","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b0","near":{"parent":"급여클럽+ 푸 급여이체 우대 혜택"},"flags":null}
+{"id":"01c:b3","mark":69,"kind":"box","box":[50,2735,728,125],"text":"내 카드 승인내역 푸 모든 카드 실시간 승인내역","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["내 카드 승인내역","푸","모든 카드 실시간 승인내역"]},"flags":null}
+{"id":"01c:t6","mark":70,"kind":"text","box":[177,2755,265,49],"text":"내 카드 승인내역","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b3","near":{"row":["푸"],"parent":"내 카드 승인내역 푸 모든 카드 실시간 승인내역"},"flags":null}
+{"id":"01b:t15","mark":71,"kind":"text","box":[713,2777,38,46],"text":"푸","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b3","near":{"row":["내 카드 승인내역"],"parent":"내 카드 승인내역 푸 모든 카드 실시간 승인내역"},"flags":null}
+{"id":"01c:i3","mark":72,"kind":"img_candidate","box":[96,2786,40,32],"text":null,"ocr_guess":null,"caption":"a loading or buffering indicator.","name":null,"in_box":"01c:b3","near":{"row":["푸"],"parent":"내 카드 승인내역 푸 모든 카드 실시간 승인내역"},"flags":null}
+{"id":"01b:t16","mark":73,"kind":"text","box":[178,2807,339,41],"text":"모든 카드 실시간 승인내역","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b3","near":{"parent":"내 카드 승인내역 푸 모든 카드 실시간 승인내역"},"flags":null}
+{"id":"01b:b12","mark":74,"kind":"box","box":[34,2916,758,210],"text":"더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! 이벤트 바로가기 ^","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["더 많은 금융자산 모두","연결하면 커피쿠폰 즉시지급!","이벤트 바로가기","^"]},"flags":null}
+{"id":"01c:t9","mark":75,"kind":"text","box":[37,2953,336,45],"text":"더 많은 금융자산 모두","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b12","near":{"parent":"더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! …"},"flags":null}
+{"id":"01c:i10","mark":76,"kind":"img_candidate","box":[699,3006,50,50],"text":null,"ocr_guess":null,"caption":"Pants","name":null,"in_box":"01b:b12","near":{"row":["연결하면 커피쿠폰 즉시지급!"],"parent":"더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! …"},"flags":null}
+{"id":"01c:t10","mark":77,"kind":"text","box":[39,3010,434,41],"text":"연결하면 커피쿠폰 즉시지급!","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b12","near":{"parent":"더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! …"},"flags":null}
+{"id":"01c:b14","mark":78,"kind":"box","box":[40,3070,745,40],"text":"이벤트 바로가기 ^","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["이벤트 바로가기","^"]},"flags":null}
+{"id":"01c:t11","mark":79,"kind":"text","box":[39,3072,207,35],"text":"이벤트 바로가기","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b14","near":{"row":["^"],"parent":"이벤트 바로가기 ^"},"flags":null}
+{"id":"01b:t20","mark":80,"kind":"text","box":[258,3085,12,17],"text":"^","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b12","near":{"row":["이벤트 바로가기"],"parent":"더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! …"},"flags":null}
+{"id":"01b:b9","mark":81,"kind":"box","box":[32,3148,765,286],"text":"신한금융그룹","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["신한금융그룹","신한카드","나에게 맞는 카드 찾기"]},"flags":null}
+{"id":"01b:t21","mark":82,"kind":"text","box":[68,3195,230,50],"text":"신한금융그룹","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b9","near":{"parent":"신한금융그룹"},"flags":null}
+{"id":"01b:b17","mark":83,"kind":"box","box":[45,3270,736,132],"text":"신한카드 나에게 맞는 카드 찾기","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["신한카드","나에게 맞는 카드 찾기"]},"flags":null}
+{"id":"01c:t14","mark":84,"kind":"text","box":[148,3285,142,47],"text":"신한카드","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b17","near":{"parent":"신한카드 나에게 맞는 카드 찾기"},"flags":null}
+{"id":"01c:b18","mark":85,"kind":"box","box":[694,3298,59,61],"text":null,"ocr_guess":"7","caption":"Forward","name":null,"in_box":null,"near":{"row":["나에게 맞는 카드 찾기","신한카드"]},"flags":null}
+{"id":"01c:i4","mark":86,"kind":"img_candidate","box":[76,3311,44,36],"text":null,"ocr_guess":null,"caption":"a credit card or payment application.","name":null,"in_box":"01b:b17","near":{"parent":"신한카드 나에게 맞는 카드 찾기"},"flags":null}
+{"id":"01c:t15","mark":87,"kind":"text","box":[148,3336,263,34],"text":"나에게 맞는 카드 찾기","ocr_guess":null,"caption":null,"name":null,"in_box":"01b:b17","near":{"parent":"신한카드 나에게 맞는 카드 찾기"},"flags":null}
+{"id":"01c:b2","mark":88,"kind":"box","box":[47,3400,730,128],"text":"신한투자증권 지금 뜨는 주식 보러가기","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["신한투자증권","지금 뜨는 주식 보러가기"]},"flags":null}
+{"id":"01c:t16","mark":89,"kind":"text","box":[150,3425,205,42],"text":"신한투자증권","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b2","near":{"parent":"신한투자증권 지금 뜨는 주식 보러가기"},"flags":null}
+{"id":"01c:b19","mark":90,"kind":"box","box":[694,3436,59,59],"text":null,"ocr_guess":"L","caption":"Forward","name":null,"in_box":null,"near":{"row":["지금 뜨는 주식 보러가기","신한투자증권"]},"flags":null}
+{"id":"01c:i2","mark":91,"kind":"img_candidate","box":[76,3453,43,28],"text":null,"ocr_guess":null,"caption":"a graph or chart.","name":null,"in_box":"01c:b2","near":{"parent":"신한투자증권 지금 뜨는 주식 보러가기"},"flags":null}
+{"id":"01c:t17","mark":92,"kind":"text","box":[150,3476,287,31],"text":"지금 뜨는 주식 보러가기","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b2","near":{"parent":"신한투자증권 지금 뜨는 주식 보러가기"},"flags":null}
+{"id":"01c:b7","mark":93,"kind":"box","box":[46,3535,731,151],"text":"신한라이프 내게 필요한 보험,보장분석으로 확인하기","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["신한라이프","내게 필요한 보험,보장분석으로 확인하기"]},"flags":null}
+{"id":"01c:t18","mark":94,"kind":"text","box":[149,3562,172,43],"text":"신한라이프","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b7","near":{"parent":"신한라이프 내게 필요한 보험,보장분석으로 확인하기"},"flags":null}
+{"id":"01c:b20","mark":95,"kind":"box","box":[694,3574,59,61],"text":null,"ocr_guess":"7","caption":"Forward","name":null,"in_box":null,"near":{"row":["내게 필요한 보험,보장분석으로 확인하기","신한라이프"]},"flags":null}
+{"id":"01c:i5","mark":96,"kind":"img_candidate","box":[80,3583,36,44],"text":null,"ocr_guess":null,"caption":"Adding a new item or creating a new document.","name":null,"in_box":"01c:b7","near":{"row":["신한라이프"],"parent":"신한라이프 내게 필요한 보험,보장분석으로 확인하기"},"flags":null}
+{"id":"01c:t19","mark":97,"kind":"text","box":[150,3613,485,32],"text":"내게 필요한 보험,보장분석으로 확인하기","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b7","near":{"parent":"신한라이프 내게 필요한 보험,보장분석으로 확인하기"},"flags":null}
+{"id":"01c:t20","mark":98,"kind":"text","box":[135,3779,331,44],"text":"쉬운홈|홈화면 설정","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["| 금액 숨기기"]},"flags":null}
+{"id":"01c:t21","mark":99,"kind":"text","box":[474,3781,212,38],"text":"| 금액 숨기기","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["쉬운홈|홈화면 설정"]},"flags":null}
+{"id":"01c:b17","mark":100,"kind":"box","box":[11,3905,785,157],"text":null,"ocr_guess":null,"caption":"a calendar or date list.","name":null,"in_box":null,"near":{"inside":["홈","금융","상품","혜택"]},"flags":null}
+{"id":"01c:b10","mark":101,"kind":"box","box":[490,3913,170,141],"text":"혜택","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["혜택"],"row":["상품","주식"]},"flags":null}
+{"id":"01c:b8","mark":102,"kind":"box","box":[328,3914,162,141],"text":"상품","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["상품"],"row":["금융","혜택"]},"flags":null}
+{"id":"01c:b9","mark":103,"kind":"box","box":[162,3915,163,142],"text":"금융","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["금융"],"row":["홈","상품"]},"flags":null}
+{"id":"01c:b12","mark":104,"kind":"box","box":[660,3915,150,138],"text":"주식","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["주식"],"row":["혜택","상품"]},"flags":null}
+{"id":"01c:b11","mark":105,"kind":"box","box":[2,3916,158,139],"text":"홈","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["홈"],"row":["금융","상품"]},"flags":null}
+{"id":"01c:i6","mark":106,"kind":"img_candidate","box":[395,3943,34,42],"text":null,"ocr_guess":null,"caption":"a shopping or shopping cart function.","name":null,"in_box":"01c:b8","near":{"below":"상품","parent":"상품"},"flags":null}
+{"id":"01c:i8","mark":107,"kind":"img_candidate","box":[556,3943,42,40],"text":null,"ocr_guess":null,"caption":"a tool or function related to a tool or toolbox.","name":null,"in_box":"01c:b10","near":{"below":"혜택","parent":"혜택"},"flags":null}
+{"id":"01c:i7","mark":108,"kind":"img_candidate","box":[228,3945,40,38],"text":null,"ocr_guess":null,"caption":"a video file.","name":null,"in_box":"01c:b9","near":{"below":"금융","parent":"금융"},"flags":null}
+{"id":"01c:b16","mark":109,"kind":"box","box":[63,3946,39,42],"text":null,"ocr_guess":null,"caption":"Home","name":null,"in_box":null,"near":{"below":"홈"},"flags":null}
+{"id":"01c:i9","mark":110,"kind":"img_candidate","box":[721,3951,41,26],"text":null,"ocr_guess":null,"caption":"a graph or chart.","name":null,"in_box":"01c:b12","near":{"below":"주식","parent":"주식"},"flags":null}
+{"id":"01c:t22","mark":111,"kind":"text","box":[64,3998,36,37],"text":"홈","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b11","near":{"row":["금융","상품"],"parent":"홈"},"flags":null}
+{"id":"01c:t23","mark":112,"kind":"text","box":[218,3998,57,36],"text":"금융","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b9","near":{"row":["홈","상품"],"parent":"금융"},"flags":null}
+{"id":"01c:t24","mark":113,"kind":"text","box":[382,3998,59,36],"text":"상품","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b8","near":{"row":["금융","혜택"],"parent":"상품"},"flags":null}
+{"id":"01c:t25","mark":114,"kind":"text","box":[548,3998,57,36],"text":"혜택","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b10","near":{"row":["주식","상품"],"parent":"혜택"},"flags":null}
+{"id":"01c:t26","mark":115,"kind":"text","box":[712,3999,58,35],"text":"주식","ocr_guess":null,"caption":null,"name":null,"in_box":"01c:b12","near":{"row":["혜택","상품"],"parent":"주식"},"flags":null}
+
+그림
+[그림 1/49] 화면 전체 - 요소마다 mark 번호  <그림: _sent/01a+01b+01c/marks.png 600x2958 · 예상 2121토큰>
+[그림 2/49] 잘라낸 그림 - mark 2 · id 01a:t1  <그림: _sent/01a+01b+01c/crop_002.png 112x92 · 예상 15토큰>
+[그림 3/49] 잘라낸 그림 - mark 3 · id 01a:b5  <그림: _sent/01a+01b+01c/crop_003.png 80x78 · 예상 11토큰>
+[그림 4/49] 잘라낸 그림 - mark 4 · id 01a:b7  <그림: _sent/01a+01b+01c/crop_004.png 78x78 · 예상 11토큰>
+[그림 5/49] 잘라낸 그림 - mark 5 · id 01a:b2  <그림: _sent/01a+01b+01c/crop_005.png 188x178 · 예상 44토큰>
+[그림 6/49] 잘라낸 그림 - mark 6 · id 01a:b1  <그림: _sent/01a+01b+01c/crop_006.png 188x182 · 예상 44토큰>
+[그림 7/49] 잘라낸 그림 - mark 7 · id 01a:b0  <그림: _sent/01a+01b+01c/crop_007.png 178x178 · 예상 44토큰>
+[그림 8/49] 잘라낸 그림 - mark 8 · id 01a:b3  <그림: _sent/01a+01b+01c/crop_008.png 176x182 · 예상 44토큰>
+[그림 9/49] 잘라낸 그림 - mark 11 · id 01a:t2  <그림: _sent/01a+01b+01c/crop_011.png 98x112 · 예상 20토큰>
+[그림 10/49] 잘라낸 그림 - mark 13 · id 01a:t4  <그림: _sent/01a+01b+01c/crop_013.png 266x176 · 예상 65토큰>
+[그림 11/49] 잘라낸 그림 - mark 14 · id 01a:b21  <그림: _sent/01a+01b+01c/crop_014.png 164x164 · 예상 44토큰>
+[그림 12/49] 잘라낸 그림 - mark 15 · id 01a:i1  <그림: _sent/01a+01b+01c/crop_015.png 244x246 · 예상 77토큰>
+[그림 13/49] 잘라낸 그림 - mark 18 · id 01a:t6  <그림: _sent/01a+01b+01c/crop_018.png 232x158 · 예상 48토큰>
+[그림 14/49] 잘라낸 그림 - mark 32 · id 01a:i3  <그림: _sent/01a+01b+01c/crop_032.png 258x258 · 예상 98토큰>
+[그림 15/49] 잘라낸 그림 - mark 37 · id 01a:t19  <그림: _sent/01a+01b+01c/crop_037.png 204x118 · 예상 34토큰>
+[그림 16/49] 잘라낸 그림 - mark 40 · id 01a:b22  <그림: _sent/01a+01b+01c/crop_040.png 172x172 · 예상 44토큰>
+[그림 17/49] 잘라낸 그림 - mark 42 · id 01a:t22  <그림: _sent/01a+01b+01c/crop_042.png 102x106 · 예상 20토큰>
+[그림 18/49] 잘라낸 그림 - mark 45 · id 01b:i9  <그림: _sent/01a+01b+01c/crop_045.png 94x106 · 예상 15토큰>
+[그림 19/49] 잘라낸 그림 - mark 46 · id 01b:t1  <그림: _sent/01a+01b+01c/crop_046.png 224x158 · 예상 42토큰>
+[그림 20/49] 잘라낸 그림 - mark 49 · id 01b:t2  <그림: _sent/01a+01b+01c/crop_049.png 182x98 · 예상 29토큰>
+[그림 21/49] 잘라낸 그림 - mark 50 · id 01b:i1  <그림: _sent/01a+01b+01c/crop_050.png 290x290 · 예상 120토큰>
+[그림 22/49] 잘라낸 그림 - mark 51 · id 01b:t4  <그림: _sent/01a+01b+01c/crop_051.png 120x146 · 예상 24토큰>
+[그림 23/49] 잘라낸 그림 - mark 55 · id 01c:b5  <그림: _sent/01a+01b+01c/crop_055.png 511x29 · 예상 20토큰>
+[그림 24/49] 잘라낸 그림 - mark 56 · id 01b:b10  <그림: _sent/01a+01b+01c/crop_056.png 511x495 · 예상 308토큰>
+[그림 25/49] 잘라낸 그림 - mark 59 · id 01b:t8  <그림: _sent/01a+01b+01c/crop_059.png 56x78 · 예상 8토큰>
+[그림 26/49] 잘라낸 그림 - mark 62 · id 01c:i1  <그림: _sent/01a+01b+01c/crop_062.png 90x102 · 예상 15토큰>
+[그림 27/49] 잘라낸 그림 - mark 66 · id 01c:t4  <그림: _sent/01a+01b+01c/crop_066.png 108x136 · 예상 24토큰>
+[그림 28/49] 잘라낸 그림 - mark 67 · id 01c:i0  <그림: _sent/01a+01b+01c/crop_067.png 112x106 · 예상 20토큰>
+[그림 29/49] 잘라낸 그림 - mark 71 · id 01b:t15  <그림: _sent/01a+01b+01c/crop_071.png 106x130 · 예상 24토큰>
+[그림 30/49] 잘라낸 그림 - mark 72 · id 01c:i3  <그림: _sent/01a+01b+01c/crop_072.png 112x90 · 예상 15토큰>
+[그림 31/49] 잘라낸 그림 - mark 76 · id 01c:i10  <그림: _sent/01a+01b+01c/crop_076.png 140x140 · 예상 30토큰>
+[그림 32/49] 잘라낸 그림 - mark 80 · id 01b:t20  <그림: _sent/01a+01b+01c/crop_080.png 34x48 · 예상 5토큰>
+[그림 33/49] 잘라낸 그림 - mark 85 · id 01c:b18  <그림: _sent/01a+01b+01c/crop_085.png 164x172 · 예상 44토큰>
+[그림 34/49] 잘라낸 그림 - mark 86 · id 01c:i4  <그림: _sent/01a+01b+01c/crop_086.png 122x102 · 예상 20토큰>
+[그림 35/49] 잘라낸 그림 - mark 90 · id 01c:b19  <그림: _sent/01a+01b+01c/crop_090.png 164x164 · 예상 44토큰>
+[그림 36/49] 잘라낸 그림 - mark 91 · id 01c:i2  <그림: _sent/01a+01b+01c/crop_091.png 120x78 · 예상 15토큰>
+[그림 37/49] 잘라낸 그림 - mark 95 · id 01c:b20  <그림: _sent/01a+01b+01c/crop_095.png 164x172 · 예상 44토큰>
+[그림 38/49] 잘라낸 그림 - mark 96 · id 01c:i5  <그림: _sent/01a+01b+01c/crop_096.png 102x122 · 예상 20토큰>
+[그림 39/49] 잘라낸 그림 - mark 100 · id 01c:b17  <그림: _sent/01a+01b+01c/crop_100.png 511x117 · 예상 77토큰>
+[그림 40/49] 잘라낸 그림 - mark 106 · id 01c:i6  <그림: _sent/01a+01b+01c/crop_106.png 94x118 · 예상 15토큰>
+[그림 41/49] 잘라낸 그림 - mark 107 · id 01c:i8  <그림: _sent/01a+01b+01c/crop_107.png 118x112 · 예상 20토큰>
+[그림 42/49] 잘라낸 그림 - mark 108 · id 01c:i7  <그림: _sent/01a+01b+01c/crop_108.png 112x106 · 예상 20토큰>
+[그림 43/49] 잘라낸 그림 - mark 109 · id 01c:b16  <그림: _sent/01a+01b+01c/crop_109.png 108x118 · 예상 20토큰>
+[그림 44/49] 잘라낸 그림 - mark 110 · id 01c:i9  <그림: _sent/01a+01b+01c/crop_110.png 116x74 · 예상 15토큰>
+[그림 45/49] 잘라낸 그림 - mark 111 · id 01c:t22  <그림: _sent/01a+01b+01c/crop_111.png 102x104 · 예상 20토큰>
+[그림 46/49] 잘라낸 그림 - mark 112 · id 01c:t23  <그림: _sent/01a+01b+01c/crop_112.png 160x102 · 예상 24토큰>
+[그림 47/49] 잘라낸 그림 - mark 113 · id 01c:t24  <그림: _sent/01a+01b+01c/crop_113.png 164x102 · 예상 29토큰>
+[그림 48/49] 잘라낸 그림 - mark 114 · id 01c:t25  <그림: _sent/01a+01b+01c/crop_114.png 160x102 · 예상 24토큰>
+[그림 49/49] 잘라낸 그림 - mark 115 · id 01c:t26  <그림: _sent/01a+01b+01c/crop_115.png 162x98 · 예상 29토큰>

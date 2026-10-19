@@ -1,0 +1,12 @@
+{
+ "temperature": null,
+ "seed": 20260101,
+ "max_tokens": 25000,
+ "api": "chat",
+ "sent": {
+  "model": "gpt-6.1-sol",
+  "max_completion_tokens": 25000,
+  "seed": 20260101,
+  "reasoning_effort": "medium"
+ }
+}
