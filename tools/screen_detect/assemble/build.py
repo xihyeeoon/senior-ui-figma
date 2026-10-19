@@ -18,7 +18,8 @@ M1 (색 차이 2) 으로 그 자리에서. 사람 파일은 읽지 않는다 (�
             text_fixed 는 고친 글 + data-ocr. 모든 요소에 data-src
   이름      누를 수 있는 요소 (의미 층 pressable · button 류 kind · input) 마다 data-action="a-<화면>-<차례>" (위→아래 ·
             왼→오 차례, 뜻 이름 없음). 선택지 무리 (의미 층 group 이 같은 choice · keypad_key 2개 이상) 는 같은 부모 아래
-            형제로 모으고 무리 하나에 data-action="a-<화면>-g<차례>" 하나, 값은 data-v (그 글). 검사 I 가 "같은 data-action ·
+            형제로 모으고 무리 하나에 data-action="a-<화면>-g<차례>" 하나, 값은 data-v (그 글. 글이 없으면 그림 이름 - 자기
+            icon.name · image_name, 없으면 안에 든 첫 그림 자리 이름, 그것도 없으면 요소 id). 검사 I 가 "같은 data-action ·
             같은 부모 · 형제 2개 이상" 을 무리로 보기 때문이다 (data-v 는 data-src 보다 앞 - 값은 첫 data-*)
   이동      흐름 짝 kind = tap 이고 누른 요소가 있으면 그 요소의 data-action → 다음 화면 show (무리 안 요소면 data-v 까지 본다).
             via = "tap". 끊긴 짝 (skipped · unknown) 은 연구자 결정 a (10/19) 의 두 근거로만 잇는다 - 입력이 과제 순서대로
@@ -113,12 +114,15 @@ def build_screen(sid, u, arr, sem, actions):
             if not any(a in ids for a in ancestors(i)):      # 같은 무리 요소 안에 든 것은 그 자리에 둔다
                 parent[i] = ("grp", n)
                 gid[i] = n
-    # 이름
+    # 이름 - 무리 요소의 값 (data-v) 은 그 글, 글이 없으면 그림 이름 (자기 icon.name · image_name, 없으면 안에 든 첫 그림
+    # 자리의 이름 - 연구자 결정 c), 그것도 없으면 요소 id
+    pic_name = lambda x: (x.get("icon") or {}).get("name") or x.get("image_name")
     k = 0
     for e in els:
         if e["id"] in gid:
-            actions[(sid, e["id"])] = ("a-%s-g%d" % (sid, gid[e["id"]]), shown_text(e).strip() or
-                                       (e.get("icon") or {}).get("name") or e.get("image_name") or e["id"])
+            inner = next((pic_name(x) for x in els if e["id"] in ancestors(x["id"]) and pic_name(x)), None)
+            actions[(sid, e["id"])] = ("a-%s-g%d" % (sid, gid[e["id"]]),
+                                       shown_text(e).strip() or pic_name(e) or inner or e["id"])
         elif e["pressable"] or e["kind"] in PRESS_KINDS:
             k += 1
             actions[(sid, e["id"])] = ("a-%s-%02d" % (sid, k), None)
