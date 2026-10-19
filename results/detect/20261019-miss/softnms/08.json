@@ -1,0 +1,409 @@
+{
+ "capture": "inputs/captures/transfer/08.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    39,
+    22,
+    69,
+    38
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    711,
+    29,
+    34,
+    24
+   ],
+   "text": "517",
+   "caption": null,
+   "score": 0.5202,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    738,
+    24,
+    45,
+    33
+   ],
+   "text": "67",
+   "caption": null,
+   "score": 0.9965,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    268,
+    410,
+    285,
+    79
+   ],
+   "text": "아래계좌로",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": null
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    178,
+    494,
+    467,
+    69
+   ],
+   "text": "10,000원 보낼까요?",
+   "caption": null,
+   "score": 0.9749,
+   "in_box": null
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    314,
+    601,
+    195,
+    47
+   ],
+   "text": "수수료 무료",
+   "caption": null,
+   "score": 0.9982,
+   "in_box": null
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    76,
+    763,
+    186,
+    46
+   ],
+   "text": "보내는 계좌",
+   "caption": null,
+   "score": 0.9922,
+   "in_box": "b6"
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    396,
+    763,
+    350,
+    45
+   ],
+   "text": "신한110-000-000000",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b6"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    75,
+    847,
+    155,
+    50
+   ],
+   "text": "받는 계좌",
+   "caption": null,
+   "score": 0.9873,
+   "in_box": "b6"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    418,
+    852,
+    328,
+    38
+   ],
+   "text": "신한110234567890",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b6"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    77,
+    935,
+    183,
+    46
+   ],
+   "text": "받는분 메모",
+   "caption": null,
+   "score": 0.9885,
+   "in_box": "b2"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    589,
+    933,
+    112,
+    51
+   ],
+   "text": "김철수",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b2"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    707,
+    938,
+    36,
+    36
+   ],
+   "text": "0",
+   "caption": null,
+   "score": 0.9747,
+   "in_box": "b2"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    76,
+    1020,
+    184,
+    45
+   ],
+   "text": "내통장 메모",
+   "caption": null,
+   "score": 0.9812,
+   "in_box": "b4"
+  },
+  {
+   "id": "t14",
+   "kind": "text",
+   "box": [
+    588,
+    1020,
+    111,
+    48
+   ],
+   "text": "김철수",
+   "caption": null,
+   "score": 1.0,
+   "in_box": "b4"
+  },
+  {
+   "id": "t15",
+   "kind": "text",
+   "box": [
+    352,
+    1736,
+    119,
+    52
+   ],
+   "text": "보내기",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": null
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    672,
+    27,
+    31,
+    29
+   ],
+   "text": null,
+   "caption": "Play or Start.",
+   "score": 0.5215,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    748,
+    87,
+    34,
+    37
+   ],
+   "text": null,
+   "caption": "closing or cancel action.",
+   "score": 0.4243,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    53,
+    918,
+    714,
+    80
+   ],
+   "text": "김철수 받는분 메모 0",
+   "caption": null,
+   "score": 0.3276,
+   "text_in": [
+    "t11",
+    "t10",
+    "t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    23,
+    74,
+    55,
+    59
+   ],
+   "text": null,
+   "caption": "Back",
+   "score": 0.2847,
+   "text_in": [],
+   "ocr_guess": "<",
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    54,
+    1004,
+    710,
+    74
+   ],
+   "text": "내통장 메모 김철수",
+   "caption": null,
+   "score": 0.1962,
+   "text_in": [
+    "t13",
+    "t14"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    35,
+    87,
+    32,
+    38
+   ],
+   "text": null,
+   "caption": "the \"Back\" or \"Forward\" action.",
+   "score": 0.1771,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    35,
+    712,
+    744,
+    397
+   ],
+   "text": "보내는 계좌 신한110-000-000000 받는 계좌 신한110234567890",
+   "caption": null,
+   "score": 0.1252,
+   "text_in": [
+    "t6",
+    "t7",
+    "t8",
+    "t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "i0",
+   "kind": "img_candidate",
+   "text": null,
+   "caption": "an eraser tool for editing or writing.",
+   "score": null,
+   "box": [
+    712,
+    1029,
+    28,
+    28
+   ],
+   "in_box": "b4",
+   "name": null,
+   "label": null
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "<",
+   "score": 0.9547,
+   "box": [
+    30,
+    77,
+    45,
+    52
+   ],
+   "into": "b3"
+  },
+  {
+   "text": "×",
+   "score": 0.9652,
+   "box": [
+    741,
+    81,
+    46,
+    46
+   ],
+   "into": "b1"
+  }
+ ]
+}

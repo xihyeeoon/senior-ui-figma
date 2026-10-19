@@ -1,0 +1,8 @@
+{
+ "name": "textkeep",
+ "soft_sigma": 0.5,
+ "kind_ratio": 0.5,
+ "inside": 0.8,
+ "short_text": 2,
+ "detect": "detect.py 기본값 ({\"conf\": 0.1, \"nms\": 0.3, \"tiles\": 0, \"clahe\": true, \"classic\": false, \"overlap\": \"iou\"}) + 바꿔 끼운 함수"
+}

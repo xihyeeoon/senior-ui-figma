@@ -1,0 +1,5126 @@
+{
+ "dir": "results/detect/20261013-d25/final",
+ "semantic": "results/detect/20261013-d3b",
+ "settings": {
+  "conf": 0.1,
+  "nms": 0.3,
+  "tiles": 0,
+  "clahe": true,
+  "classic": false,
+  "overlap": "iou",
+  "pass_iou": 0.5,
+  "overlap_iou": 0.7,
+  "max_area": 4.0,
+  "confs": [
+   0.1,
+   0.01
+  ],
+  "device": "cuda"
+ },
+ "slots": 90,
+ "missed": 12,
+ "rows": [
+  {
+   "state": "home",
+   "label": "메시지 아이콘",
+   "unit": "home(01a+01b+01c)",
+   "rect": [
+    530,
+    101,
+    40,
+    33
+   ],
+   "in_frame": true,
+   "els": [
+    "01a:b1"
+   ],
+   "kinds": {
+    "01a:b1": "button"
+   },
+   "near": [
+    {
+     "id": "01a:b1",
+     "kind": "box",
+     "box": [
+      528,
+      82,
+      67,
+      65
+     ],
+     "text": null,
+     "caption": "Open Document",
+     "name": null,
+     "flags": null,
+     "sem_kind": "button"
+    }
+   ],
+   "captures": [
+    {
+     "capture": "01a",
+     "rect": [
+      530,
+      101,
+      40,
+      33
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 14,
+       "best": [
+        [
+         528,
+         81,
+         593,
+         146
+        ],
+        0.833,
+        "detector:clahe"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         528,
+         81,
+         593,
+         146
+        ],
+        0.833,
+        "detector:clahe"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         528,
+         82,
+         595,
+         147
+        ],
+        0.781,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         528,
+         82,
+         595,
+         147
+        ],
+        0.781,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         528,
+         82,
+         595,
+         147
+        ],
+        0.781,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          527,
+          81,
+          593,
+          147
+         ],
+         "score": 0.812,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           81,
+           593,
+           146
+          ],
+          0.833,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          528,
+          82,
+          592,
+          146
+         ],
+         "score": 0.806,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           81,
+           593,
+           146
+          ],
+          0.833,
+          "detector:clahe",
+          0.98
+         ]
+        },
+        {
+         "box": [
+          528,
+          81,
+          593,
+          146
+         ],
+         "score": 0.798,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           81,
+           593,
+           146
+          ],
+          0.833,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          527,
+          81,
+          593,
+          146
+         ],
+         "score": 0.793,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           81,
+           593,
+           146
+          ],
+          0.833,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          528,
+          81,
+          593,
+          146
+         ],
+         "score": 0.789,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           81,
+           593,
+           146
+          ],
+          0.833,
+          "detector:clahe",
+          0.98
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          528,
+          81,
+          593,
+          146
+         ],
+         "score": 0.833,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           82,
+           595,
+           147
+          ],
+          0.781,
+          "detector",
+          0.97
+         ]
+        }
+       ]
+      },
+      "final": [
+       "b1"
+      ]
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 17,
+       "best": [
+        [
+         528,
+         81,
+         593,
+         146
+        ],
+        0.833,
+        "detector:clahe"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         528,
+         81,
+         593,
+         146
+        ],
+        0.833,
+        "detector:clahe"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         528,
+         82,
+         595,
+         147
+        ],
+        0.781,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         528,
+         82,
+         595,
+         147
+        ],
+        0.781,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         528,
+         82,
+         595,
+         147
+        ],
+        0.781,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          527,
+          81,
+          593,
+          147
+         ],
+         "score": 0.812,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           81,
+           593,
+           146
+          ],
+          0.833,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          528,
+          82,
+          592,
+          146
+         ],
+         "score": 0.806,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           81,
+           593,
+           146
+          ],
+          0.833,
+          "detector:clahe",
+          0.98
+         ]
+        },
+        {
+         "box": [
+          528,
+          81,
+          593,
+          146
+         ],
+         "score": 0.798,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           81,
+           593,
+           146
+          ],
+          0.833,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          527,
+          81,
+          593,
+          146
+         ],
+         "score": 0.793,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           81,
+           593,
+           146
+          ],
+          0.833,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          528,
+          81,
+          593,
+          146
+         ],
+         "score": 0.789,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           81,
+           593,
+           146
+          ],
+          0.833,
+          "detector:clahe",
+          0.98
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          528,
+          81,
+          593,
+          146
+         ],
+         "score": 0.833,
+         "src": "detector:clahe",
+         "by": [
+          [
+           528,
+           82,
+           595,
+           147
+          ],
+          0.781,
+          "detector",
+          0.97
+         ]
+        }
+       ]
+      },
+      "final": [
+       "b1"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "state": "home",
+   "label": "지갑 아이콘",
+   "unit": "home(01a+01b+01c)",
+   "rect": [
+    602,
+    101,
+    40,
+    33
+   ],
+   "in_frame": true,
+   "els": [
+    "01a:b0"
+   ],
+   "kinds": {
+    "01a:b0": "button"
+   },
+   "near": [
+    {
+     "id": "01a:b0",
+     "kind": "box",
+     "box": [
+      627,
+      82,
+      64,
+      64
+     ],
+     "text": null,
+     "caption": "Notifications",
+     "name": null,
+     "flags": null,
+     "sem_kind": "button"
+    }
+   ],
+   "captures": [
+    {
+     "capture": "01a",
+     "rect": [
+      602,
+      101,
+      40,
+      33
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 14,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          627,
+          82,
+          692,
+          146
+         ],
+         "score": 0.819,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          628,
+          82,
+          692,
+          146
+         ],
+         "score": 0.803,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          627,
+          81,
+          692,
+          146
+         ],
+         "score": 0.794,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.98
+         ]
+        },
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.789,
+         "src": "detector:clahe",
+         "by": [
+          [
+           626,
+           81,
+           693,
+           146
+          ],
+          0.803,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.771,
+         "src": "detector:clahe",
+         "by": [
+          [
+           626,
+           81,
+           693,
+           146
+          ],
+          0.803,
+          "detector:clahe",
+          0.99
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.803,
+         "src": "detector:clahe",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.94
+         ]
+        }
+       ]
+      },
+      "final": [
+       "b0"
+      ]
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 18,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          627,
+          82,
+          692,
+          146
+         ],
+         "score": 0.819,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          628,
+          82,
+          692,
+          146
+         ],
+         "score": 0.803,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          627,
+          81,
+          692,
+          146
+         ],
+         "score": 0.794,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.98
+         ]
+        },
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.789,
+         "src": "detector:clahe",
+         "by": [
+          [
+           626,
+           81,
+           693,
+           146
+          ],
+          0.803,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.771,
+         "src": "detector:clahe",
+         "by": [
+          [
+           626,
+           81,
+           693,
+           146
+          ],
+          0.803,
+          "detector:clahe",
+          0.99
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.803,
+         "src": "detector:clahe",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.94
+         ]
+        }
+       ]
+      },
+      "final": [
+       "b0"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "state": "home",
+   "label": "알림 아이콘",
+   "unit": "home(01a+01b+01c)",
+   "rect": [
+    674,
+    101,
+    40,
+    33
+   ],
+   "in_frame": true,
+   "els": [
+    "01a:b0"
+   ],
+   "kinds": {
+    "01a:b0": "button"
+   },
+   "near": [
+    {
+     "id": "01a:b0",
+     "kind": "box",
+     "box": [
+      627,
+      82,
+      64,
+      64
+     ],
+     "text": null,
+     "caption": "Notifications",
+     "name": null,
+     "flags": null,
+     "sem_kind": "button"
+    }
+   ],
+   "captures": [
+    {
+     "capture": "01a",
+     "rect": [
+      674,
+      101,
+      40,
+      33
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 14,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          627,
+          82,
+          692,
+          146
+         ],
+         "score": 0.819,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          628,
+          82,
+          692,
+          146
+         ],
+         "score": 0.803,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          627,
+          81,
+          692,
+          146
+         ],
+         "score": 0.794,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.98
+         ]
+        },
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.789,
+         "src": "detector:clahe",
+         "by": [
+          [
+           626,
+           81,
+           693,
+           146
+          ],
+          0.803,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.771,
+         "src": "detector:clahe",
+         "by": [
+          [
+           626,
+           81,
+           693,
+           146
+          ],
+          0.803,
+          "detector:clahe",
+          0.99
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.803,
+         "src": "detector:clahe",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.94
+         ]
+        }
+       ]
+      },
+      "final": [
+       "b0"
+      ]
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 18,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         627,
+         82,
+         692,
+         146
+        ],
+        0.819,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          627,
+          82,
+          692,
+          146
+         ],
+         "score": 0.819,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          628,
+          82,
+          692,
+          146
+         ],
+         "score": 0.803,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          627,
+          81,
+          692,
+          146
+         ],
+         "score": 0.794,
+         "src": "detector",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.98
+         ]
+        },
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.789,
+         "src": "detector:clahe",
+         "by": [
+          [
+           626,
+           81,
+           693,
+           146
+          ],
+          0.803,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.771,
+         "src": "detector:clahe",
+         "by": [
+          [
+           626,
+           81,
+           693,
+           146
+          ],
+          0.803,
+          "detector:clahe",
+          0.99
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          626,
+          81,
+          693,
+          146
+         ],
+         "score": 0.803,
+         "src": "detector:clahe",
+         "by": [
+          [
+           627,
+           82,
+           692,
+           146
+          ],
+          0.819,
+          "detector",
+          0.94
+         ]
+        }
+       ]
+      },
+      "final": [
+       "b0"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "state": "home",
+   "label": "전체메뉴 아이콘",
+   "unit": "home(01a+01b+01c)",
+   "rect": [
+    746,
+    101,
+    40,
+    33
+   ],
+   "in_frame": true,
+   "els": [
+    "01a:b3"
+   ],
+   "kinds": {
+    "01a:b3": "button"
+   },
+   "near": [
+    {
+     "id": "01a:b3",
+     "kind": "box",
+     "box": [
+      729,
+      82,
+      63,
+      65
+     ],
+     "text": null,
+     "caption": "Find and Replace",
+     "name": null,
+     "flags": null,
+     "sem_kind": "button"
+    }
+   ],
+   "captures": [
+    {
+     "capture": "01a",
+     "rect": [
+      746,
+      101,
+      40,
+      33
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 16,
+       "best": [
+        [
+         728,
+         81,
+         793,
+         148
+        ],
+        0.769,
+        "detector:clahe"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         728,
+         81,
+         793,
+         148
+        ],
+        0.769,
+        "detector:clahe"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         729,
+         82,
+         793,
+         147
+        ],
+        0.706,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         729,
+         82,
+         793,
+         147
+        ],
+        0.706,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         729,
+         82,
+         793,
+         147
+        ],
+        0.706,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          728,
+          81,
+          793,
+          148
+         ],
+         "score": 0.756,
+         "src": "detector:clahe",
+         "by": [
+          [
+           728,
+           81,
+           793,
+           148
+          ],
+          0.769,
+          "detector:clahe",
+          1.0
+         ]
+        },
+        {
+         "box": [
+          728,
+          81,
+          793,
+          148
+         ],
+         "score": 0.743,
+         "src": "detector:clahe",
+         "by": [
+          [
+           728,
+           81,
+           793,
+           148
+          ],
+          0.769,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          728,
+          81,
+          793,
+          148
+         ],
+         "score": 0.734,
+         "src": "detector:clahe",
+         "by": [
+          [
+           728,
+           81,
+           793,
+           148
+          ],
+          0.769,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          728,
+          80,
+          793,
+          148
+         ],
+         "score": 0.725,
+         "src": "detector:clahe",
+         "by": [
+          [
+           728,
+           81,
+           793,
+           148
+          ],
+          0.769,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          728,
+          81,
+          793,
+          148
+         ],
+         "score": 0.715,
+         "src": "detector:clahe",
+         "by": [
+          [
+           728,
+           81,
+           793,
+           148
+          ],
+          0.769,
+          "detector:clahe",
+          0.99
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          728,
+          81,
+          793,
+          148
+         ],
+         "score": 0.769,
+         "src": "detector:clahe",
+         "by": [
+          [
+           729,
+           82,
+           793,
+           147
+          ],
+          0.706,
+          "detector",
+          0.96
+         ]
+        }
+       ]
+      },
+      "final": [
+       "b3"
+      ]
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 20,
+       "best": [
+        [
+         728,
+         81,
+         793,
+         148
+        ],
+        0.769,
+        "detector:clahe"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         728,
+         81,
+         793,
+         148
+        ],
+        0.769,
+        "detector:clahe"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         729,
+         82,
+         793,
+         147
+        ],
+        0.706,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         729,
+         82,
+         793,
+         147
+        ],
+        0.706,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         729,
+         82,
+         793,
+         147
+        ],
+        0.706,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          728,
+          81,
+          793,
+          148
+         ],
+         "score": 0.756,
+         "src": "detector:clahe",
+         "by": [
+          [
+           728,
+           81,
+           793,
+           148
+          ],
+          0.769,
+          "detector:clahe",
+          1.0
+         ]
+        },
+        {
+         "box": [
+          728,
+          81,
+          793,
+          148
+         ],
+         "score": 0.743,
+         "src": "detector:clahe",
+         "by": [
+          [
+           728,
+           81,
+           793,
+           148
+          ],
+          0.769,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          728,
+          81,
+          793,
+          148
+         ],
+         "score": 0.734,
+         "src": "detector:clahe",
+         "by": [
+          [
+           728,
+           81,
+           793,
+           148
+          ],
+          0.769,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          728,
+          80,
+          793,
+          148
+         ],
+         "score": 0.725,
+         "src": "detector:clahe",
+         "by": [
+          [
+           728,
+           81,
+           793,
+           148
+          ],
+          0.769,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          728,
+          81,
+          793,
+          148
+         ],
+         "score": 0.715,
+         "src": "detector:clahe",
+         "by": [
+          [
+           728,
+           81,
+           793,
+           148
+          ],
+          0.769,
+          "detector:clahe",
+          0.99
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          728,
+          81,
+          793,
+          148
+         ],
+         "score": 0.769,
+         "src": "detector:clahe",
+         "by": [
+          [
+           729,
+           82,
+           793,
+           147
+          ],
+          0.706,
+          "detector",
+          0.96
+         ]
+        }
+       ]
+      },
+      "final": [
+       "b3"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "state": "home",
+   "label": "체크카드 아이콘",
+   "unit": "home(01a+01b+01c)",
+   "rect": [
+    63,
+    797,
+    72,
+    85
+   ],
+   "in_frame": true,
+   "els": [],
+   "kinds": {},
+   "near": [],
+   "captures": [
+    {
+     "capture": "01a",
+     "rect": [
+      63,
+      797,
+      72,
+      85
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     }
+    }
+   ]
+  },
+  {
+   "state": "home",
+   "label": "SOL패밀리 아이콘",
+   "unit": "home(01a+01b+01c)",
+   "rect": [
+    63,
+    2342,
+    80,
+    95
+   ],
+   "in_frame": true,
+   "els": [],
+   "kinds": {},
+   "near": [
+    {
+     "id": "01c:t0",
+     "kind": "text",
+     "box": [
+      67,
+      2386,
+      196,
+      53
+     ],
+     "text": "추천서비스",
+     "caption": null,
+     "name": null,
+     "flags": null,
+     "sem_kind": "text"
+    }
+   ],
+   "captures": [
+    {
+     "capture": "01b",
+     "rect": [
+      63,
+      583,
+      80,
+      95
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     }
+    },
+    {
+     "capture": "01c",
+     "rect": [
+      63,
+      110,
+      80,
+      95
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     }
+    }
+   ]
+  },
+  {
+   "state": "recipient",
+   "label": "받는 사람 관리 아이콘",
+   "unit": "02",
+   "rect": [
+    636,
+    79,
+    46,
+    58
+   ],
+   "in_frame": true,
+   "els": [
+    "b5"
+   ],
+   "kinds": {
+    "b5": "system"
+   },
+   "near": [
+    {
+     "id": "t4",
+     "kind": "text",
+     "box": [
+      650,
+      80,
+      60,
+      47
+     ],
+     "text": "8+",
+     "caption": null,
+     "name": null,
+     "flags": null,
+     "sem_kind": "button"
+    },
+    {
+     "id": "b5",
+     "kind": "box",
+     "box": [
+      670,
+      26,
+      33,
+      30
+     ],
+     "text": null,
+     "caption": "Right triangle",
+     "name": null,
+     "flags": [
+      "system_band"
+     ],
+     "sem_kind": "system"
+    }
+   ],
+   "captures": [
+    {
+     "capture": "02",
+     "rect": [
+      636,
+      79,
+      46,
+      58
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 22,
+       "best": [
+        [
+         652,
+         82,
+         700,
+         126
+        ],
+        0.302,
+        "detector:clahe"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         652,
+         82,
+         700,
+         126
+        ],
+        0.302,
+        "detector:clahe"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         652,
+         82,
+         700,
+         127
+        ],
+        0.3,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         652,
+         82,
+         700,
+         127
+        ],
+        0.3,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {
+       "intext": [
+        {
+         "box": [
+          652,
+          82,
+          700,
+          127
+         ],
+         "score": 0.3,
+         "src": "detector",
+         "by": "8+"
+        }
+       ],
+       "nms": [
+        {
+         "box": [
+          637,
+          74,
+          714,
+          137
+         ],
+         "score": 0.252,
+         "src": "detector",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           127
+          ],
+          0.3,
+          "detector",
+          0.43
+         ]
+        },
+        {
+         "box": [
+          637,
+          74,
+          714,
+          138
+         ],
+         "score": 0.249,
+         "src": "detector:clahe",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           126
+          ],
+          0.302,
+          "detector:clahe",
+          0.43
+         ]
+        },
+        {
+         "box": [
+          649,
+          81,
+          705,
+          130
+         ],
+         "score": 0.239,
+         "src": "detector",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           127
+          ],
+          0.3,
+          "detector",
+          0.77
+         ]
+        },
+        {
+         "box": [
+          649,
+          81,
+          705,
+          129
+         ],
+         "score": 0.237,
+         "src": "detector:clahe",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           126
+          ],
+          0.302,
+          "detector:clahe",
+          0.78
+         ]
+        },
+        {
+         "box": [
+          644,
+          76,
+          709,
+          133
+         ],
+         "score": 0.216,
+         "src": "detector",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           127
+          ],
+          0.3,
+          "detector",
+          0.57
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          652,
+          82,
+          700,
+          126
+         ],
+         "score": 0.302,
+         "src": "detector:clahe",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           127
+          ],
+          0.3,
+          "detector",
+          1.0
+         ]
+        }
+       ]
+      },
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 29,
+       "best": [
+        [
+         652,
+         82,
+         700,
+         126
+        ],
+        0.302,
+        "detector:clahe"
+       ]
+      },
+      "nms": {
+       "n": 3,
+       "best": [
+        [
+         652,
+         82,
+         700,
+         126
+        ],
+        0.302,
+        "detector:clahe"
+       ]
+      },
+      "pass": {
+       "n": 2,
+       "best": [
+        [
+         652,
+         82,
+         700,
+         127
+        ],
+        0.3,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 2,
+       "best": [
+        [
+         652,
+         82,
+         700,
+         127
+        ],
+        0.3,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         631,
+         60,
+         721,
+         156
+        ],
+        0.01,
+        "detector:clahe"
+       ]
+      },
+      "lost": {
+       "intext": [
+        {
+         "box": [
+          652,
+          82,
+          700,
+          127
+         ],
+         "score": 0.3,
+         "src": "detector",
+         "by": "8+"
+        }
+       ],
+       "nms": [
+        {
+         "box": [
+          637,
+          74,
+          714,
+          137
+         ],
+         "score": 0.252,
+         "src": "detector",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           127
+          ],
+          0.3,
+          "detector",
+          0.43
+         ]
+        },
+        {
+         "box": [
+          637,
+          74,
+          714,
+          138
+         ],
+         "score": 0.249,
+         "src": "detector:clahe",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           126
+          ],
+          0.302,
+          "detector:clahe",
+          0.43
+         ]
+        },
+        {
+         "box": [
+          649,
+          81,
+          705,
+          130
+         ],
+         "score": 0.239,
+         "src": "detector",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           127
+          ],
+          0.3,
+          "detector",
+          0.77
+         ]
+        },
+        {
+         "box": [
+          649,
+          81,
+          705,
+          129
+         ],
+         "score": 0.237,
+         "src": "detector:clahe",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           126
+          ],
+          0.302,
+          "detector:clahe",
+          0.78
+         ]
+        },
+        {
+         "box": [
+          644,
+          76,
+          709,
+          133
+         ],
+         "score": 0.216,
+         "src": "detector",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           127
+          ],
+          0.3,
+          "detector",
+          0.57
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          652,
+          82,
+          700,
+          126
+         ],
+         "score": 0.302,
+         "src": "detector:clahe",
+         "by": [
+          [
+           652,
+           82,
+           700,
+           127
+          ],
+          0.3,
+          "detector",
+          1.0
+         ]
+        }
+       ]
+      },
+      "final": []
+     }
+    }
+   ]
+  },
+  {
+   "state": "recipient",
+   "label": "검색 아이콘",
+   "unit": "02",
+   "rect": [
+    720,
+    209,
+    40,
+    50
+   ],
+   "in_frame": true,
+   "els": [
+    "b0"
+   ],
+   "kinds": {
+    "b0": "button"
+   },
+   "near": [
+    {
+     "id": "b0",
+     "kind": "box",
+     "box": [
+      687,
+      163,
+      96,
+      97
+     ],
+     "text": null,
+     "caption": "Search function.",
+     "name": null,
+     "flags": null,
+     "sem_kind": "button"
+    }
+   ],
+   "captures": [
+    {
+     "capture": "02",
+     "rect": [
+      720,
+      209,
+      40,
+      50
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 2,
+       "best": [
+        [
+         700,
+         194,
+         778,
+         232
+        ],
+        0.019,
+        "detector"
+       ]
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          700,
+          194,
+          778,
+          232
+         ],
+         "score": 0.019,
+         "src": "detector",
+         "by": [
+          [
+           687,
+           163,
+           784,
+           260
+          ],
+          0.856,
+          "detector",
+          0.32
+         ]
+        },
+        {
+         "box": [
+          700,
+          194,
+          778,
+          232
+         ],
+         "score": 0.019,
+         "src": "detector:clahe",
+         "by": [
+          [
+           687,
+           163,
+           784,
+           260
+          ],
+          0.858,
+          "detector:clahe",
+          0.32
+         ]
+        }
+       ]
+      },
+      "final": []
+     }
+    }
+   ]
+  },
+  {
+   "state": "recipient",
+   "label": "카메라 아이콘",
+   "unit": "02",
+   "rect": [
+    742,
+    329,
+    40,
+    50
+   ],
+   "in_frame": true,
+   "els": [
+    "b6"
+   ],
+   "kinds": {
+    "b6": "button"
+   },
+   "near": [
+    {
+     "id": "b6",
+     "kind": "box",
+     "box": [
+      736,
+      318,
+      43,
+      40
+     ],
+     "text": null,
+     "caption": "Camera functionality.",
+     "name": null,
+     "flags": null,
+     "sem_kind": "button"
+    }
+   ],
+   "captures": [
+    {
+     "capture": "02",
+     "rect": [
+      742,
+      329,
+      40,
+      50
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 10,
+       "best": [
+        [
+         736,
+         318,
+         779,
+         358
+        ],
+        0.35,
+        "detector"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         736,
+         318,
+         779,
+         358
+        ],
+        0.35,
+        "detector"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         736,
+         318,
+         779,
+         358
+        ],
+        0.35,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         736,
+         318,
+         779,
+         358
+        ],
+        0.35,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         736,
+         318,
+         779,
+         358
+        ],
+        0.35,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          736,
+          317,
+          780,
+          359
+         ],
+         "score": 0.346,
+         "src": "detector",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.35,
+          "detector",
+          0.95
+         ]
+        },
+        {
+         "box": [
+          736,
+          317,
+          779,
+          359
+         ],
+         "score": 0.336,
+         "src": "detector:clahe",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.34,
+          "detector:clahe",
+          0.95
+         ]
+        },
+        {
+         "box": [
+          735,
+          315,
+          779,
+          360
+         ],
+         "score": 0.328,
+         "src": "detector",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.35,
+          "detector",
+          0.86
+         ]
+        },
+        {
+         "box": [
+          735,
+          315,
+          780,
+          361
+         ],
+         "score": 0.316,
+         "src": "detector:clahe",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.34,
+          "detector:clahe",
+          0.85
+         ]
+        },
+        {
+         "box": [
+          735,
+          316,
+          781,
+          361
+         ],
+         "score": 0.267,
+         "src": "detector",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.35,
+          "detector",
+          0.83
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          736,
+          318,
+          779,
+          358
+         ],
+         "score": 0.34,
+         "src": "detector:clahe",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.35,
+          "detector",
+          1.0
+         ]
+        }
+       ]
+      },
+      "final": [
+       "b6"
+      ]
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 35,
+       "best": [
+        [
+         736,
+         318,
+         779,
+         358
+        ],
+        0.35,
+        "detector"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         736,
+         318,
+         779,
+         358
+        ],
+        0.35,
+        "detector"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         736,
+         318,
+         779,
+         358
+        ],
+        0.35,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         736,
+         318,
+         779,
+         358
+        ],
+        0.35,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 1,
+       "best": [
+        [
+         736,
+         318,
+         779,
+         358
+        ],
+        0.35,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          736,
+          317,
+          780,
+          359
+         ],
+         "score": 0.346,
+         "src": "detector",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.35,
+          "detector",
+          0.95
+         ]
+        },
+        {
+         "box": [
+          736,
+          317,
+          779,
+          359
+         ],
+         "score": 0.336,
+         "src": "detector:clahe",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.34,
+          "detector:clahe",
+          0.95
+         ]
+        },
+        {
+         "box": [
+          735,
+          315,
+          779,
+          360
+         ],
+         "score": 0.328,
+         "src": "detector",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.35,
+          "detector",
+          0.86
+         ]
+        },
+        {
+         "box": [
+          735,
+          315,
+          780,
+          361
+         ],
+         "score": 0.316,
+         "src": "detector:clahe",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.34,
+          "detector:clahe",
+          0.85
+         ]
+        },
+        {
+         "box": [
+          735,
+          316,
+          781,
+          361
+         ],
+         "score": 0.267,
+         "src": "detector",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.35,
+          "detector",
+          0.83
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          736,
+          318,
+          779,
+          358
+         ],
+         "score": 0.34,
+         "src": "detector:clahe",
+         "by": [
+          [
+           736,
+           318,
+           779,
+           358
+          ],
+          0.35,
+          "detector",
+          1.0
+         ]
+        }
+       ]
+      },
+      "final": [
+       "b6"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "state": "bank+tab-sec",
+   "label": "유진투자증권 로고",
+   "unit": "bank-tab-sec(06a+06b+06c)",
+   "rect": [
+    116,
+    1711,
+    68,
+    93
+   ],
+   "in_frame": true,
+   "els": [
+    "06a:b14"
+   ],
+   "kinds": {
+    "06a:b14": "choice"
+   },
+   "near": [
+    {
+     "id": "06a:b14",
+     "kind": "box",
+     "box": [
+      32,
+      1657,
+      237,
+      173
+     ],
+     "text": null,
+     "caption": "Tennis Club",
+     "name": null,
+     "flags": null,
+     "sem_kind": "choice"
+    }
+   ],
+   "captures": [
+    {
+     "capture": "06a",
+     "rect": [
+      116,
+      1711,
+      68,
+      93
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 29,
+       "best": [
+        [
+         63,
+         1818,
+         247,
+         1830
+        ],
+        0.033,
+        "detector"
+       ]
+      },
+      "nms": {
+       "n": 4,
+       "best": [
+        [
+         63,
+         1818,
+         247,
+         1830
+        ],
+        0.033,
+        "detector"
+       ]
+      },
+      "pass": {
+       "n": 2,
+       "best": [
+        [
+         63,
+         1818,
+         247,
+         1830
+        ],
+        0.033,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 2,
+       "best": [
+        [
+         63,
+         1818,
+         247,
+         1830
+        ],
+        0.033,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 2,
+       "best": [
+        [
+         63,
+         1818,
+         247,
+         1830
+        ],
+        0.033,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          81,
+          1684,
+          224,
+          1830
+         ],
+         "score": 0.026,
+         "src": "detector",
+         "by": [
+          [
+           32,
+           1657,
+           269,
+           1830
+          ],
+          0.743,
+          "detector",
+          0.51
+         ]
+        },
+        {
+         "box": [
+          82,
+          1684,
+          221,
+          1826
+         ],
+         "score": 0.026,
+         "src": "detector",
+         "by": [
+          [
+           32,
+           1657,
+           269,
+           1830
+          ],
+          0.743,
+          "detector",
+          0.48
+         ]
+        },
+        {
+         "box": [
+          80,
+          1678,
+          216,
+          1830
+         ],
+         "score": 0.024,
+         "src": "detector:clahe",
+         "by": [
+          [
+           33,
+           1657,
+           269,
+           1830
+          ],
+          0.743,
+          "detector:clahe",
+          0.5
+         ]
+        },
+        {
+         "box": [
+          82,
+          1818,
+          265,
+          1830
+         ],
+         "score": 0.022,
+         "src": "detector",
+         "by": [
+          [
+           63,
+           1818,
+           247,
+           1830
+          ],
+          0.033,
+          "detector",
+          0.8
+         ]
+        },
+        {
+         "box": [
+          81,
+          1678,
+          214,
+          1830
+         ],
+         "score": 0.021,
+         "src": "detector:clahe",
+         "by": [
+          [
+           33,
+           1657,
+           269,
+           1830
+          ],
+          0.743,
+          "detector:clahe",
+          0.49
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          98,
+          1707,
+          206,
+          1807
+         ],
+         "score": 0.023,
+         "src": "detector:clahe",
+         "by": [
+          [
+           98,
+           1705,
+           209,
+           1807
+          ],
+          0.024,
+          "detector",
+          0.96
+         ]
+        },
+        {
+         "box": [
+          56,
+          1818,
+          256,
+          1830
+         ],
+         "score": 0.021,
+         "src": "detector:clahe",
+         "by": [
+          [
+           63,
+           1818,
+           247,
+           1830
+          ],
+          0.033,
+          "detector",
+          0.92
+         ]
+        }
+       ]
+      },
+      "final": []
+     }
+    },
+    {
+     "capture": "06b",
+     "rect": [
+      116,
+      392,
+      68,
+      93
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 2,
+       "best": [
+        [
+         172,
+         422,
+         234,
+         462
+        ],
+        0.02,
+        "detector"
+       ]
+      },
+      "nms": {
+       "n": 2,
+       "best": [
+        [
+         172,
+         422,
+         234,
+         462
+        ],
+        0.02,
+        "detector"
+       ]
+      },
+      "pass": {
+       "n": 1,
+       "best": [
+        [
+         172,
+         422,
+         234,
+         462
+        ],
+        0.02,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 1,
+       "best": [
+        [
+         172,
+         422,
+         234,
+         462
+        ],
+        0.02,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {
+       "intext": [
+        {
+         "box": [
+          172,
+          422,
+          234,
+          462
+         ],
+         "score": 0.02,
+         "src": "detector",
+         "by": "은행"
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          172,
+          422,
+          234,
+          462
+         ],
+         "score": 0.018,
+         "src": "detector:clahe",
+         "by": [
+          [
+           172,
+           422,
+           234,
+           462
+          ],
+          0.02,
+          "detector",
+          0.99
+         ]
+        }
+       ]
+      },
+      "final": []
+     }
+    },
+    {
+     "capture": "06c",
+     "rect": [
+      116,
+      168,
+      68,
+      93
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     }
+    }
+   ]
+  },
+  {
+   "state": "bank+tab-sec",
+   "label": "LS증권 로고",
+   "unit": "bank-tab-sec(06a+06b+06c)",
+   "rect": [
+    378,
+    1711,
+    68,
+    93
+   ],
+   "in_frame": true,
+   "els": [],
+   "kinds": {},
+   "near": [
+    {
+     "id": "06a:t24",
+     "kind": "text",
+     "box": [
+      374,
+      1734,
+      72,
+      39
+     ],
+     "text": "LS",
+     "caption": null,
+     "name": null,
+     "flags": null,
+     "sem_kind": "text"
+    },
+    {
+     "id": "06a:b13",
+     "kind": "box",
+     "box": [
+      293,
+      1657,
+      236,
+      173
+     ],
+     "text": "LS",
+     "caption": null,
+     "name": null,
+     "flags": null,
+     "sem_kind": "choice"
+    }
+   ],
+   "captures": [
+    {
+     "capture": "06a",
+     "rect": [
+      378,
+      1711,
+      68,
+      93
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 13,
+       "best": [
+        [
+         361,
+         1704,
+         460,
+         1803
+        ],
+        0.026,
+        "detector:clahe"
+       ]
+      },
+      "nms": {
+       "n": 4,
+       "best": [
+        [
+         361,
+         1704,
+         460,
+         1803
+        ],
+        0.026,
+        "detector:clahe"
+       ]
+      },
+      "pass": {
+       "n": 2,
+       "best": [
+        [
+         326,
+         1818,
+         505,
+         1830
+        ],
+        0.017,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 2,
+       "best": [
+        [
+         326,
+         1818,
+         505,
+         1830
+        ],
+        0.017,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 2,
+       "best": [
+        [
+         326,
+         1818,
+         505,
+         1830
+        ],
+        0.017,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          362,
+          1704,
+          461,
+          1803
+         ],
+         "score": 0.025,
+         "src": "detector:clahe",
+         "by": [
+          [
+           361,
+           1704,
+           460,
+           1803
+          ],
+          0.026,
+          "detector:clahe",
+          0.98
+         ]
+        },
+        {
+         "box": [
+          363,
+          1705,
+          463,
+          1807
+         ],
+         "score": 0.018,
+         "src": "detector:clahe",
+         "by": [
+          [
+           361,
+           1704,
+           460,
+           1803
+          ],
+          0.026,
+          "detector:clahe",
+          0.9
+         ]
+        },
+        {
+         "box": [
+          363,
+          1704,
+          460,
+          1801
+         ],
+         "score": 0.016,
+         "src": "detector:clahe",
+         "by": [
+          [
+           361,
+           1704,
+           460,
+           1803
+          ],
+          0.026,
+          "detector:clahe",
+          0.96
+         ]
+        },
+        {
+         "box": [
+          348,
+          1818,
+          519,
+          1830
+         ],
+         "score": 0.015,
+         "src": "detector",
+         "by": [
+          [
+           326,
+           1818,
+           505,
+           1830
+          ],
+          0.017,
+          "detector",
+          0.81
+         ]
+        },
+        {
+         "box": [
+          362,
+          1704,
+          459,
+          1803
+         ],
+         "score": 0.014,
+         "src": "detector",
+         "by": [
+          [
+           363,
+           1704,
+           460,
+           1803
+          ],
+          0.015,
+          "detector",
+          0.98
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          361,
+          1704,
+          460,
+          1803
+         ],
+         "score": 0.026,
+         "src": "detector:clahe",
+         "by": [
+          [
+           363,
+           1704,
+           460,
+           1803
+          ],
+          0.015,
+          "detector",
+          0.98
+         ]
+        },
+        {
+         "box": [
+          333,
+          1818,
+          522,
+          1830
+         ],
+         "score": 0.015,
+         "src": "detector:clahe",
+         "by": [
+          [
+           326,
+           1818,
+           505,
+           1830
+          ],
+          0.017,
+          "detector",
+          0.87
+         ]
+        }
+       ]
+      },
+      "final": []
+     }
+    },
+    {
+     "capture": "06b",
+     "rect": [
+      378,
+      392,
+      68,
+      93
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     }
+    },
+    {
+     "capture": "06c",
+     "rect": [
+      378,
+      168,
+      68,
+      93
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     }
+    }
+   ]
+  },
+  {
+   "state": "confirm",
+   "label": "신한 로고",
+   "unit": "08",
+   "rect": [
+    347,
+    277,
+    131,
+    125
+   ],
+   "in_frame": true,
+   "els": [],
+   "kinds": {},
+   "near": [],
+   "captures": [
+    {
+     "capture": "08",
+     "rect": [
+      347,
+      277,
+      131,
+      125
+     ],
+     "conf 0.1": {
+      "raw": {
+       "n": 0,
+       "best": null
+      },
+      "nms": {
+       "n": 0,
+       "best": null
+      },
+      "pass": {
+       "n": 0,
+       "best": null
+      },
+      "overlap": {
+       "n": 0,
+       "best": null
+      },
+      "intext": {
+       "n": 0,
+       "best": null
+      },
+      "lost": {},
+      "final": []
+     },
+     "conf 0.01": {
+      "raw": {
+       "n": 25,
+       "best": [
+        [
+         329,
+         204,
+         497,
+         373
+        ],
+        0.066,
+        "detector:clahe"
+       ]
+      },
+      "nms": {
+       "n": 4,
+       "best": [
+        [
+         329,
+         204,
+         497,
+         373
+        ],
+        0.066,
+        "detector:clahe"
+       ]
+      },
+      "pass": {
+       "n": 2,
+       "best": [
+        [
+         329,
+         204,
+         497,
+         372
+        ],
+        0.064,
+        "detector"
+       ]
+      },
+      "overlap": {
+       "n": 2,
+       "best": [
+        [
+         329,
+         204,
+         497,
+         372
+        ],
+        0.064,
+        "detector"
+       ]
+      },
+      "intext": {
+       "n": 2,
+       "best": [
+        [
+         329,
+         204,
+         497,
+         372
+        ],
+        0.064,
+        "detector"
+       ]
+      },
+      "lost": {
+       "nms": [
+        {
+         "box": [
+          328,
+          204,
+          496,
+          372
+         ],
+         "score": 0.057,
+         "src": "detector:clahe",
+         "by": [
+          [
+           329,
+           204,
+           497,
+           373
+          ],
+          0.066,
+          "detector:clahe",
+          0.98
+         ]
+        },
+        {
+         "box": [
+          328,
+          204,
+          497,
+          372
+         ],
+         "score": 0.056,
+         "src": "detector:clahe",
+         "by": [
+          [
+           329,
+           204,
+           497,
+           373
+          ],
+          0.066,
+          "detector:clahe",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          328,
+          204,
+          496,
+          372
+         ],
+         "score": 0.054,
+         "src": "detector",
+         "by": [
+          [
+           329,
+           204,
+           497,
+           372
+          ],
+          0.064,
+          "detector",
+          0.98
+         ]
+        },
+        {
+         "box": [
+          329,
+          204,
+          496,
+          372
+         ],
+         "score": 0.053,
+         "src": "detector",
+         "by": [
+          [
+           329,
+           204,
+           497,
+           372
+          ],
+          0.064,
+          "detector",
+          0.99
+         ]
+        },
+        {
+         "box": [
+          329,
+          205,
+          497,
+          372
+         ],
+         "score": 0.051,
+         "src": "detector:clahe",
+         "by": [
+          [
+           329,
+           204,
+           497,
+           373
+          ],
+          0.066,
+          "detector:clahe",
+          0.99
+         ]
+        }
+       ],
+       "pass": [
+        {
+         "box": [
+          329,
+          204,
+          497,
+          373
+         ],
+         "score": 0.066,
+         "src": "detector:clahe",
+         "by": [
+          [
+           329,
+           204,
+           497,
+           372
+          ],
+          0.064,
+          "detector",
+          1.0
+         ]
+        },
+        {
+         "box": [
+          330,
+          263,
+          496,
+          296
+         ],
+         "score": 0.03,
+         "src": "detector:clahe",
+         "by": [
+          [
+           330,
+           263,
+           496,
+           296
+          ],
+          0.03,
+          "detector",
+          0.99
+         ]
+        }
+       ]
+      },
+      "final": []
+     }
+    }
+   ]
+  }
+ ],
+ "texts": [
+  {
+   "capture": "08",
+   "text": "보내기",
+   "box": [
+    352,
+    1736,
+    471,
+    1788
+   ],
+   "conf 0.1": {
+    "raw": {
+     "n": 0,
+     "best": null
+    },
+    "nms": {
+     "n": 0,
+     "best": null
+    },
+    "pass": {
+     "n": 0,
+     "best": null
+    },
+    "overlap": {
+     "n": 0,
+     "best": null
+    },
+    "intext": {
+     "n": 0,
+     "best": null
+    },
+    "lost": {},
+    "final": []
+   },
+   "conf 0.01": {
+    "raw": {
+     "n": 41,
+     "best": [
+      [
+       287,
+       1693,
+       544,
+       1830
+      ],
+      0.051,
+      "detector:clahe"
+     ]
+    },
+    "nms": {
+     "n": 3,
+     "best": [
+      [
+       287,
+       1693,
+       544,
+       1830
+      ],
+      0.051,
+      "detector:clahe"
+     ]
+    },
+    "pass": {
+     "n": 2,
+     "best": [
+      [
+       287,
+       1693,
+       544,
+       1830
+      ],
+      0.051,
+      "detector:clahe"
+     ]
+    },
+    "overlap": {
+     "n": 2,
+     "best": [
+      [
+       287,
+       1693,
+       544,
+       1830
+      ],
+      0.051,
+      "detector:clahe"
+     ]
+    },
+    "intext": {
+     "n": 1,
+     "best": [
+      [
+       287,
+       1693,
+       544,
+       1830
+      ],
+      0.051,
+      "detector:clahe"
+     ]
+    },
+    "lost": {
+     "intext": [
+      {
+       "box": [
+        356,
+        1737,
+        465,
+        1786
+       ],
+       "score": 0.045,
+       "src": "detector",
+       "by": "보내기"
+      }
+     ],
+     "nms": [
+      {
+       "box": [
+        287,
+        1693,
+        544,
+        1830
+       ],
+       "score": 0.047,
+       "src": "detector:clahe",
+       "by": [
+        [
+         287,
+         1693,
+         544,
+         1830
+        ],
+        0.051,
+        "detector:clahe",
+        1.0
+       ]
+      },
+      {
+       "box": [
+        286,
+        1693,
+        545,
+        1830
+       ],
+       "score": 0.047,
+       "src": "detector:clahe",
+       "by": [
+        [
+         287,
+         1693,
+         544,
+         1830
+        ],
+        0.051,
+        "detector:clahe",
+        0.99
+       ]
+      },
+      {
+       "box": [
+        284,
+        1693,
+        546,
+        1830
+       ],
+       "score": 0.045,
+       "src": "detector:clahe",
+       "by": [
+        [
+         287,
+         1693,
+         544,
+         1830
+        ],
+        0.051,
+        "detector:clahe",
+        0.98
+       ]
+      },
+      {
+       "box": [
+        355,
+        1734,
+        465,
+        1789
+       ],
+       "score": 0.044,
+       "src": "detector:clahe",
+       "by": [
+        [
+         356,
+         1734,
+         465,
+         1789
+        ],
+        0.045,
+        "detector:clahe",
+        0.97
+       ]
+      },
+      {
+       "box": [
+        284,
+        1693,
+        546,
+        1830
+       ],
+       "score": 0.044,
+       "src": "detector:clahe",
+       "by": [
+        [
+         287,
+         1693,
+         544,
+         1830
+        ],
+        0.051,
+        "detector:clahe",
+        0.98
+       ]
+      }
+     ],
+     "pass": [
+      {
+       "box": [
+        356,
+        1734,
+        465,
+        1789
+       ],
+       "score": 0.045,
+       "src": "detector:clahe",
+       "by": [
+        [
+         356,
+         1737,
+         465,
+         1786
+        ],
+        0.045,
+        "detector",
+        0.9
+       ]
+      }
+     ]
+    },
+    "final": []
+   }
+  }
+ ],
+ "virtual": {
+  "base": {
+   "row": {
+    "text": [
+     221,
+     226
+    ],
+    "logos": [
+     65,
+     67
+    ],
+    "logos_truncated": 1,
+    "choices": [
+     102,
+     102
+    ],
+    "box_recall": {
+     "button": [
+      5,
+      7
+     ],
+     "entrance": [
+      17,
+      24
+     ],
+     "choice": [
+      102,
+      102
+     ],
+     "field": [
+      2,
+      3
+     ]
+    },
+    "candidates": 164,
+    "boxes": 252,
+    "leftover": {
+     "behind_overlay": 14,
+     "system_band": 12,
+     "other": 12,
+     "total": 38
+    },
+    "sec_per_image": 1.015
+   },
+   "revived": [
+    {
+     "state": "home",
+     "label": "메시지 아이콘",
+     "hit": [
+      "01a:b1"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "지갑 아이콘",
+     "hit": [
+      "01a:b0"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "알림 아이콘",
+     "hit": [
+      "01a:b0"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "전체메뉴 아이콘",
+     "hit": [
+      "01a:b3"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "체크카드 아이콘",
+     "hit": []
+    },
+    {
+     "state": "home",
+     "label": "SOL패밀리 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "받는 사람 관리 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "검색 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "카메라 아이콘",
+     "hit": [
+      "02:b6"
+     ]
+    },
+    {
+     "state": "bank+tab-sec",
+     "label": "유진투자증권 로고",
+     "hit": []
+    },
+    {
+     "state": "bank+tab-sec",
+     "label": "LS증권 로고",
+     "hit": []
+    },
+    {
+     "state": "confirm",
+     "label": "신한 로고",
+     "hit": []
+    }
+   ]
+  },
+  "softnms": {
+   "row": {
+    "text": [
+     221,
+     226
+    ],
+    "logos": [
+     65,
+     67
+    ],
+    "logos_truncated": 1,
+    "choices": [
+     102,
+     102
+    ],
+    "box_recall": {
+     "button": [
+      5,
+      7
+     ],
+     "entrance": [
+      17,
+      24
+     ],
+     "choice": [
+      99,
+      102
+     ],
+     "field": [
+      2,
+      3
+     ]
+    },
+    "candidates": 166,
+    "boxes": 253,
+    "leftover": {
+     "behind_overlay": 14,
+     "system_band": 12,
+     "other": 12,
+     "total": 38
+    },
+    "sec_per_image": 1.024
+   },
+   "revived": [
+    {
+     "state": "home",
+     "label": "메시지 아이콘",
+     "hit": [
+      "01a:b1"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "지갑 아이콘",
+     "hit": [
+      "01a:b0"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "알림 아이콘",
+     "hit": [
+      "01a:b0"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "전체메뉴 아이콘",
+     "hit": [
+      "01a:b3"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "체크카드 아이콘",
+     "hit": []
+    },
+    {
+     "state": "home",
+     "label": "SOL패밀리 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "받는 사람 관리 아이콘",
+     "hit": [
+      "02:b8"
+     ]
+    },
+    {
+     "state": "recipient",
+     "label": "검색 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "카메라 아이콘",
+     "hit": [
+      "02:b6"
+     ]
+    },
+    {
+     "state": "bank+tab-sec",
+     "label": "유진투자증권 로고",
+     "hit": []
+    },
+    {
+     "state": "bank+tab-sec",
+     "label": "LS증권 로고",
+     "hit": []
+    },
+    {
+     "state": "confirm",
+     "label": "신한 로고",
+     "hit": []
+    }
+   ]
+  },
+  "kind": {
+   "row": {
+    "text": [
+     221,
+     226
+    ],
+    "logos": [
+     65,
+     67
+    ],
+    "logos_truncated": 1,
+    "choices": [
+     102,
+     102
+    ],
+    "box_recall": {
+     "button": [
+      5,
+      7
+     ],
+     "entrance": [
+      17,
+      24
+     ],
+     "choice": [
+      102,
+      102
+     ],
+     "field": [
+      2,
+      3
+     ]
+    },
+    "candidates": 182,
+    "boxes": 273,
+    "leftover": {
+     "behind_overlay": 14,
+     "system_band": 12,
+     "other": 13,
+     "total": 39
+    },
+    "sec_per_image": 0.97
+   },
+   "revived": [
+    {
+     "state": "home",
+     "label": "메시지 아이콘",
+     "hit": [
+      "01a:b1"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "지갑 아이콘",
+     "hit": [
+      "01a:b0"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "알림 아이콘",
+     "hit": [
+      "01a:b0"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "전체메뉴 아이콘",
+     "hit": [
+      "01a:b3"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "체크카드 아이콘",
+     "hit": [
+      "01a:i6"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "SOL패밀리 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "받는 사람 관리 아이콘",
+     "hit": [
+      "02:b8"
+     ]
+    },
+    {
+     "state": "recipient",
+     "label": "검색 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "카메라 아이콘",
+     "hit": [
+      "02:b6"
+     ]
+    },
+    {
+     "state": "bank+tab-sec",
+     "label": "유진투자증권 로고",
+     "hit": []
+    },
+    {
+     "state": "bank+tab-sec",
+     "label": "LS증권 로고",
+     "hit": []
+    },
+    {
+     "state": "confirm",
+     "label": "신한 로고",
+     "hit": []
+    }
+   ]
+  },
+  "textkeep": {
+   "row": {
+    "text": [
+     221,
+     226
+    ],
+    "logos": [
+     65,
+     67
+    ],
+    "logos_truncated": 1,
+    "choices": [
+     102,
+     102
+    ],
+    "box_recall": {
+     "button": [
+      5,
+      7
+     ],
+     "entrance": [
+      17,
+      24
+     ],
+     "choice": [
+      102,
+      102
+     ],
+     "field": [
+      2,
+      3
+     ]
+    },
+    "candidates": 190,
+    "boxes": 280,
+    "leftover": {
+     "behind_overlay": 15,
+     "system_band": 14,
+     "other": 12,
+     "total": 41
+    },
+    "sec_per_image": 0.984
+   },
+   "revived": [
+    {
+     "state": "home",
+     "label": "메시지 아이콘",
+     "hit": [
+      "01a:b1"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "지갑 아이콘",
+     "hit": [
+      "01a:b0"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "알림 아이콘",
+     "hit": [
+      "01a:b0"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "전체메뉴 아이콘",
+     "hit": [
+      "01a:b3"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "체크카드 아이콘",
+     "hit": []
+    },
+    {
+     "state": "home",
+     "label": "SOL패밀리 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "받는 사람 관리 아이콘",
+     "hit": [
+      "02:b10"
+     ]
+    },
+    {
+     "state": "recipient",
+     "label": "검색 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "카메라 아이콘",
+     "hit": [
+      "02:b7"
+     ]
+    },
+    {
+     "state": "bank+tab-sec",
+     "label": "유진투자증권 로고",
+     "hit": []
+    },
+    {
+     "state": "bank+tab-sec",
+     "label": "LS증권 로고",
+     "hit": []
+    },
+    {
+     "state": "confirm",
+     "label": "신한 로고",
+     "hit": []
+    }
+   ]
+  },
+  "final": {
+   "row": {
+    "text": [
+     221,
+     226
+    ],
+    "logos": [
+     64,
+     67
+    ],
+    "choices": [
+     102,
+     102
+    ],
+    "box_recall": {
+     "button": [
+      5,
+      7
+     ],
+     "entrance": [
+      17,
+      24
+     ],
+     "choice": [
+      102,
+      102
+     ],
+     "field": [
+      2,
+      3
+     ]
+    },
+    "candidates": 164,
+    "boxes": 252,
+    "leftover": {
+     "behind_overlay": 14,
+     "system_band": 12,
+     "other": 12,
+     "total": 38
+    },
+    "sec_per_image": 1.011
+   },
+   "revived": [
+    {
+     "state": "home",
+     "label": "메시지 아이콘",
+     "hit": [
+      "01a:b1"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "지갑 아이콘",
+     "hit": [
+      "01a:b0"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "알림 아이콘",
+     "hit": [
+      "01a:b0"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "전체메뉴 아이콘",
+     "hit": [
+      "01a:b3"
+     ]
+    },
+    {
+     "state": "home",
+     "label": "체크카드 아이콘",
+     "hit": []
+    },
+    {
+     "state": "home",
+     "label": "SOL패밀리 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "받는 사람 관리 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "검색 아이콘",
+     "hit": []
+    },
+    {
+     "state": "recipient",
+     "label": "카메라 아이콘",
+     "hit": [
+      "02:b6"
+     ]
+    },
+    {
+     "state": "bank+tab-sec",
+     "label": "유진투자증권 로고",
+     "hit": []
+    },
+    {
+     "state": "bank+tab-sec",
+     "label": "LS증권 로고",
+     "hit": []
+    },
+    {
+     "state": "confirm",
+     "label": "신한 로고",
+     "hit": []
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,466 @@
+{
+ "capture": "inputs/captures/transfer/09a.png",
+ "size": [
+  824,
+  1830
+ ],
+ "elements": [
+  {
+   "id": "t0",
+   "kind": "text",
+   "box": [
+    38,
+    22,
+    70,
+    38
+   ],
+   "text": "4:31",
+   "caption": null,
+   "score": 0.9966,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t1",
+   "kind": "text",
+   "box": [
+    703,
+    20,
+    83,
+    41
+   ],
+   "text": "767",
+   "caption": null,
+   "score": 0.7493,
+   "in_box": null,
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "t2",
+   "kind": "text",
+   "box": [
+    253,
+    591,
+    316,
+    69
+   ],
+   "text": "계좌 비밀번호",
+   "caption": null,
+   "score": 0.9884,
+   "in_box": null
+  },
+  {
+   "id": "t3",
+   "kind": "text",
+   "box": [
+    116,
+    1282,
+    41,
+    55
+   ],
+   "text": "8",
+   "caption": null,
+   "score": 0.9988,
+   "in_box": "b11"
+  },
+  {
+   "id": "t4",
+   "kind": "text",
+   "box": [
+    393,
+    1283,
+    37,
+    51
+   ],
+   "text": "0",
+   "caption": null,
+   "score": 0.9962,
+   "in_box": "b11"
+  },
+  {
+   "id": "t5",
+   "kind": "text",
+   "box": [
+    667,
+    1282,
+    40,
+    55
+   ],
+   "text": "6",
+   "caption": null,
+   "score": 0.9994,
+   "in_box": "b11"
+  },
+  {
+   "id": "t6",
+   "kind": "text",
+   "box": [
+    115,
+    1425,
+    45,
+    56
+   ],
+   "text": "2",
+   "caption": null,
+   "score": 0.9997,
+   "in_box": "b8"
+  },
+  {
+   "id": "t7",
+   "kind": "text",
+   "box": [
+    395,
+    1430,
+    28,
+    48
+   ],
+   "text": "1",
+   "caption": null,
+   "score": 0.9984,
+   "in_box": "b8"
+  },
+  {
+   "id": "t8",
+   "kind": "text",
+   "box": [
+    667,
+    1427,
+    41,
+    52
+   ],
+   "text": "4",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b8"
+  },
+  {
+   "id": "t9",
+   "kind": "text",
+   "box": [
+    118,
+    1571,
+    40,
+    53
+   ],
+   "text": "5",
+   "caption": null,
+   "score": 0.9995,
+   "in_box": "b6"
+  },
+  {
+   "id": "t10",
+   "kind": "text",
+   "box": [
+    391,
+    1570,
+    41,
+    53
+   ],
+   "text": "9",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b6"
+  },
+  {
+   "id": "t11",
+   "kind": "text",
+   "box": [
+    666,
+    1570,
+    41,
+    55
+   ],
+   "text": "3",
+   "caption": null,
+   "score": 0.9998,
+   "in_box": "b6"
+  },
+  {
+   "id": "t12",
+   "kind": "text",
+   "box": [
+    84,
+    1720,
+    104,
+    47
+   ],
+   "text": "재배열",
+   "caption": null,
+   "score": 0.9999,
+   "in_box": "b7"
+  },
+  {
+   "id": "t13",
+   "kind": "text",
+   "box": [
+    388,
+    1715,
+    42,
+    52
+   ],
+   "text": "7",
+   "caption": null,
+   "score": 0.9996,
+   "in_box": "b7"
+  },
+  {
+   "id": "b0",
+   "kind": "box",
+   "box": [
+    672,
+    27,
+    31,
+    29
+   ],
+   "text": null,
+   "caption": "Right triangle",
+   "score": 0.5371,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector",
+   "flags": [
+    "system_band"
+   ]
+  },
+  {
+   "id": "b1",
+   "kind": "box",
+   "box": [
+    253,
+    736,
+    43,
+    42
+   ],
+   "text": null,
+   "caption": "a loading or buffering indicator.",
+   "score": 0.5254,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b2",
+   "kind": "box",
+   "box": [
+    345,
+    736,
+    42,
+    41
+   ],
+   "text": null,
+   "caption": "a loading or buffering indicator.",
+   "score": 0.4805,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b3",
+   "kind": "box",
+   "box": [
+    436,
+    736,
+    42,
+    41
+   ],
+   "text": null,
+   "caption": "a loading or buffering indicator.",
+   "score": 0.457,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b4",
+   "kind": "box",
+   "box": [
+    748,
+    87,
+    34,
+    37
+   ],
+   "text": null,
+   "caption": "closing or cancel action.",
+   "score": 0.4485,
+   "text_in": [],
+   "ocr_guess": "×",
+   "source": "detector"
+  },
+  {
+   "id": "b5",
+   "kind": "box",
+   "box": [
+    528,
+    736,
+    42,
+    41
+   ],
+   "text": null,
+   "caption": "a loading or buffering indicator.",
+   "score": 0.4358,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b6",
+   "kind": "box",
+   "box": [
+    64,
+    1526,
+    670,
+    141
+   ],
+   "text": "9 3 5",
+   "caption": null,
+   "score": 0.3757,
+   "text_in": [
+    "t10",
+    "t11",
+    "t9"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b7",
+   "kind": "box",
+   "box": [
+    56,
+    1670,
+    677,
+    146
+   ],
+   "text": "7 재배열",
+   "caption": null,
+   "score": 0.3157,
+   "text_in": [
+    "t13",
+    "t12"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b8",
+   "kind": "box",
+   "box": [
+    69,
+    1384,
+    691,
+    141
+   ],
+   "text": "2 4 1",
+   "caption": null,
+   "score": 0.2659,
+   "text_in": [
+    "t6",
+    "t8",
+    "t7"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b9",
+   "kind": "box",
+   "box": [
+    662,
+    1722,
+    50,
+    41
+   ],
+   "text": null,
+   "caption": "Close or delete action.",
+   "score": 0.1321,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b10",
+   "kind": "box",
+   "box": [
+    668,
+    1432,
+    36,
+    43
+   ],
+   "text": null,
+   "caption": "the number 4.",
+   "score": 0.1128,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b11",
+   "kind": "box",
+   "box": [
+    60,
+    1242,
+    704,
+    144
+   ],
+   "text": "8 6 0",
+   "caption": null,
+   "score": 0.1097,
+   "text_in": [
+    "t3",
+    "t5",
+    "t4"
+   ],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b12",
+   "kind": "box",
+   "box": [
+    672,
+    1289,
+    31,
+    44
+   ],
+   "text": null,
+   "caption": "the number 6.",
+   "score": 0.1078,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector"
+  },
+  {
+   "id": "b13",
+   "kind": "box",
+   "box": [
+    1,
+    1223,
+    813,
+    607
+   ],
+   "text": null,
+   "caption": "Calendar",
+   "score": 0.248,
+   "text_in": [],
+   "ocr_guess": null,
+   "source": "detector:clahe"
+  }
+ ],
+ "icon_from_ocr": [
+  {
+   "text": "×",
+   "score": 0.9111,
+   "box": [
+    741,
+    80,
+    48,
+    49
+   ],
+   "into": "b4"
+  }
+ ]
+}
