@@ -1,0 +1,425 @@
+{
+ "unit": "04",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 5296,
+    "completion": 2286,
+    "reasoning": 215
+   },
+   "seconds": 43.8,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.033452,
+   "problems": []
+  }
+ ],
+ "prompt_sha": "8d9840a9a9d6",
+ "elements": [
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 시각 표시다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바에 표시된 숫자 67이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b3",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 통신 신호 표시다.",
+   "icon": {
+    "name": "이동통신 신호 아이콘",
+    "shape": "오른쪽으로 높아지는 검은 삼각형"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "57이 아니라 와이파이 모양이다.",
+   "icon": {
+    "name": "와이파이 아이콘",
+    "shape": "부채꼴로 겹친 곡선과 아래 작은 점"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "b7",
+   "pressable": true,
+   "kind": "back_close",
+   "group": "상단 탐색",
+   "image_name": null,
+   "image_shape": null,
+   "note": "뒤로가기 아이콘을 감싼 버튼 영역이며 아이콘은 t3에 있다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b10",
+   "pressable": false,
+   "kind": "text",
+   "group": "상단 탐색",
+   "image_name": null,
+   "image_shape": null,
+   "note": "뒤로가기와 닫기를 함께 감싼 상단 영역으로 단일 버튼은 아니다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t3",
+   "pressable": true,
+   "kind": "back_close",
+   "group": "상단 탐색",
+   "image_name": null,
+   "image_shape": null,
+   "note": "문자 <가 아니라 뒤로가기 꺾쇠다.",
+   "icon": {
+    "name": "뒤로가기 아이콘",
+    "shape": "왼쪽을 향한 꺾쇠"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "b4",
+   "pressable": true,
+   "kind": "back_close",
+   "group": "상단 탐색",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상단 오른쪽의 닫기 버튼이다.",
+   "icon": {
+    "name": "닫기 아이콘",
+    "shape": "대각선 두 개가 교차한 X"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "송금받을 대상을 묻는 화면 제목이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "input",
+   "group": "받는 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "파란 테두리의 계좌번호 입력칸이며 OCR의 |는 입력 커서다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "계좌번호 없이 숫자만 입력"
+  },
+  {
+   "id": "t5",
+   "pressable": false,
+   "kind": "text",
+   "group": "받는 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "입력칸 안의 계좌번호 라벨이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "text",
+   "group": "받는 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "맨 앞의 |는 글자가 아니라 파란 입력 커서다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "없이 숫자만 입력"
+  },
+  {
+   "id": "b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "받는 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "아래쪽 꺾쇠가 있는 은행 또는 증권사 선택 상자다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "받는 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "은행 선택 상자 안의 안내 문구다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b11",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "여러 숫자 키를 감싼 숫자판 영역으로 하나의 키가 아니다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t10",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 3 입력 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t9",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 2 입력 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t8",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 1 입력 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b8",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "4, 5, 6 키를 함께 감싼 줄이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t13",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 6 입력 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t11",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 4 입력 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t12",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 5 입력 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b6",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "7, 8, 9 키를 함께 감싼 줄이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t15",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 8 입력 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t16",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 9 입력 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t14",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 7 입력 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "text",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "0과 삭제 키를 함께 감싼 숫자판 마지막 줄이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t17",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 0 입력 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b9",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자판 오른쪽 아래의 입력 삭제 키다.",
+   "icon": {
+    "name": "삭제 아이콘",
+    "shape": "왼쪽을 가리키는 화살표"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b2",
+   "pressable": false,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "회색 배경과 흐린 글자로 표시된 비활성 다음 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t18",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "비활성 버튼 안의 다음 라벨이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 19,
+ "estimate": {
+  "images": 19,
+  "image_tokens": 1491,
+  "text_tokens": 3826,
+  "input_tokens": 5317,
+  "answer_tokens": 2015,
+  "cost_usd": 0.030784,
+  "cost_usd_with_reasoning": 0.050934,
+  "cost_usd_cap": 0.260634,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 31 x 45"
+ },
+ "reused_from": "results/detect/20261019-strict2/semantic"
+}

@@ -1,0 +1,332 @@
+{
+ "unit": "08",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 4291,
+    "completion": 1802,
+    "reasoning": 173
+   },
+   "seconds": 35.6,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.026602,
+   "problems": []
+  }
+ ],
+ "prompt_sha": "8d9840a9a9d6",
+ "elements": [
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 시각 표시다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 배터리 잔량 숫자다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바에 있는 통신 신호 표시다.",
+   "icon": {
+    "name": "통신 신호 아이콘",
+    "shape": "오른쪽 위로 높아지는 검은 삼각형"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자가 아니라 상태바의 와이파이 모양이다.",
+   "icon": {
+    "name": "와이파이 아이콘",
+    "shape": "겹친 곡선과 작은 점"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "b3",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "화면 왼쪽 위의 뒤로 가기 모양이다.",
+   "icon": {
+    "name": "뒤로 아이콘",
+    "shape": "왼쪽을 향한 꺾쇠"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "화면 오른쪽 위의 닫기 모양이다.",
+   "icon": {
+    "name": "닫기 아이콘",
+    "shape": "X자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t3",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "송금 확인 안내이며, 화면에 보이는 띄어쓰기를 반영했다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "아래 계좌로"
+  },
+  {
+   "id": "t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "송금 금액을 확인하는 안내 문구다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "수수료가 무료임을 알리는 글이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "계좌 정보와 메모 행을 담은 회색 정보 영역이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌 정보",
+   "image_name": null,
+   "image_shape": null,
+   "note": "출금 계좌를 설명하는 항목명이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌 정보",
+   "image_name": null,
+   "image_shape": null,
+   "note": "보내는 계좌 정보이며, 은행명 뒤의 보이는 공백을 반영했다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "신한 110-000-000000"
+  },
+  {
+   "id": "t8",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌 정보",
+   "image_name": null,
+   "image_shape": null,
+   "note": "입금 계좌를 설명하는 항목명이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "계좌 정보",
+   "image_name": null,
+   "image_shape": null,
+   "note": "받는 계좌 정보이며, 은행명 뒤의 보이는 공백을 반영했다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "신한 110234567890"
+  },
+  {
+   "id": "b2",
+   "pressable": true,
+   "kind": "link",
+   "group": "메모 설정",
+   "image_name": null,
+   "image_shape": null,
+   "note": "메모 값 옆에 연필이 있어 편집 가능한 행으로 보인다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "메모 설정",
+   "image_name": null,
+   "image_shape": null,
+   "note": "받는분 메모 행에 표시된 현재 값이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "메모 설정",
+   "image_name": null,
+   "image_shape": null,
+   "note": "받는분 메모의 항목명이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t12",
+   "pressable": false,
+   "kind": "image",
+   "group": "메모 설정",
+   "image_name": "받는분 메모 아이콘",
+   "image_shape": "오른쪽 위를 향해 기울어진 회색 연필",
+   "note": "OCR의 숫자 0은 실제로 메모 편집을 나타내는 연필이다.",
+   "icon": {
+    "name": "받는분 메모 아이콘",
+    "shape": "오른쪽 위를 향해 기울어진 회색 연필"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "b4",
+   "pressable": true,
+   "kind": "link",
+   "group": "메모 설정",
+   "image_name": null,
+   "image_shape": null,
+   "note": "메모 값 옆에 연필이 있어 편집 가능한 행으로 보인다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "메모 설정",
+   "image_name": null,
+   "image_shape": null,
+   "note": "내통장 메모의 항목명이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "메모 설정",
+   "image_name": null,
+   "image_shape": null,
+   "note": "내통장 메모 행에 표시된 현재 값이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "메모 설정",
+   "image_name": "내통장 메모 아이콘",
+   "image_shape": "오른쪽 위를 향해 기울어진 회색 연필",
+   "note": "내통장 메모 행 오른쪽의 편집 표시다.",
+   "icon": {
+    "name": "내통장 메모 아이콘",
+    "shape": "오른쪽 위를 향해 기울어진 회색 연필"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t15",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "화면 아래 파란색 전체 너비 버튼의 보내기 문구다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 7,
+ "estimate": {
+  "images": 7,
+  "image_tokens": 1066,
+  "text_tokens": 3231,
+  "input_tokens": 4297,
+  "answer_tokens": 1495,
+  "cost_usd": 0.023544,
+  "cost_usd_with_reasoning": 0.038494,
+  "cost_usd_cap": 0.258594,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 23 x 45"
+ },
+ "reused_from": "results/detect/20261019-strict2/semantic"
+}

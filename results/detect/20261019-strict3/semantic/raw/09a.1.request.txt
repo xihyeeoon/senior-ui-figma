@@ -1,0 +1,103 @@
+앱 화면 캡처에서 검출된 요소마다 역할을 적어라.
+
+화면: 09a
+
+받는 것
+- 요소 목록 (JSON, 한 줄에 요소 하나). 칸의 뜻:
+  - id: 요소의 이름. 답에 그대로 쓴다.
+  - mark: 첫 그림 위에 적힌 번호.
+  - kind: 검출 종류 - box(검출 박스), text(OCR 글 줄), img_candidate(박스 안 그림 덩어리).
+  - box: [x, y, w, h], 캡처 픽셀.
+  - text: 그 자리에서 OCR 이 읽은 글. 박스는 안에 든 글을 이은 것.
+  - ocr_guess: 아이콘을 OCR 이 글자로 읽은 것.
+  - caption: 아이콘 설명 모델이 붙인 영어 설명.
+  - name: 규칙으로 붙인 로고 이름 (없으면 null).
+  - in_box: 이 요소를 담은 박스의 id.
+  - near: 곁의 글 (inside 안에 든 글, row 같은 줄의 글, below 바로 아래 글, parent 담은 박스의 글).
+  - flags: system_band(여러 캡처에서 같은 자리 · 같은 모습인 띠 - 상태바 등), behind_overlay(시트 · 팝업 뒤의 어두워진 화면).
+  - 값이 없는 칸은 null 이다.
+- 그림: 첫 그림은 화면 전체를 줄이고 요소마다 mark 번호를 적은 것이다. 그다음 그림들은 글 없는 박스 · 박스 안 그림 덩어리 · 한두 글자 글 · ocr_guess 가 있는 요소를 잘라 키운 것이고, 이름표에 mark 와 id 가 있다.
+
+지키는 규칙
+1. 요소 목록의 id 마다 답을 정확히 하나씩, 빠짐없이 낸다.
+2. 목록에 없는 id 를 만들지 않는다. 요소를 합치거나 나누지 않는다.
+3. ocr_guess · caption · name · near · flags 는 힌트일 뿐이다. 그림에 보이는 것으로 정한다. 힌트와 그림이 다르면 그림을 따른다.
+4. image_name 은 그림에 보이는 것으로만 짓는다. 글이 잘려 보이면 보이는 데까지만 쓰고 뒷부분을 채우지 않는다. 무엇인지 알아볼 수 없으면 "알 수 없는 아이콘" 이라고 쓴다.
+5. 아이콘 이름(image_name)은 그 아이콘이 가리키는 것으로 짓는다. 곁에 이름표 글(near 의 같은 박스 · 같은 줄 · 바로 아래 글)이 있으면 그 글을 쓴다 (예: 이름표 '혜택' → '혜택 아이콘'). 이름표가 없으면 보이는 모양으로 짓는다. 모양은 image_shape 칸에 따로 적는다 (예: '선물상자').
+6. 고정값 목록에 있는 id 는 image_name 을 그 값 그대로 쓴다.
+7. 무엇을 눌러야 하는지는 정하지 않는다. 누를 수 있게 생겼는지만 본다.
+8. icon: 이 요소가 아이콘 · 로고를 담고 있으면 {"name": "<무엇> 아이콘" 또는 "<무엇> 로고", "shape": "<보이는 모양>"}, 아니면 null. 이름은 규칙 5 와 같이 짓는다. 누를 수 있는 아이콘이면 kind(button 등)는 그대로 두고 icon 을 채운다. kind 가 image 이면 icon 의 name · shape 는 image_name · image_shape 와 같게 쓴다. icon 은 아이콘 · 로고 그 자체인 가장 작은 요소에만 붙인다. 그 아이콘을 품은 줄 · 카드 · 박스 요소에는 붙이지 않는다 (누를 수 있는 아이콘 버튼처럼 박스와 아이콘이 같은 요소이면 그 요소에 붙인다).
+9. text_is_icon: 요소의 OCR 글(text)이 실제로는 아이콘 모양을 글자로 잘못 읽은 것이면 true (예: 고정 핀을 '푸', 새로고침 화살표를 'C' 로 읽음), 아니면 false. true 이면 icon 도 채운다. 글이 없는 요소는 false.
+10. text_fixed: OCR 글이 그림에 보이는 글과 다르게 읽혔으면 그림에 보이는 글 그대로 (예: '팽겨요' → '땡겨요'), 같으면 null. 보이는 글만 쓴다 - 잘린 글의 뒷부분을 짐작해 채우지 않는다. 고쳤으면 그 까닭을 note 에 짧게 적는다. text_is_icon 이 true 인 요소는 null.
+11. JSON 하나만 답한다. 그 앞뒤에 다른 글을 붙이지 않는다.
+
+답의 모양
+{"elements": [{"id": "<id>", "pressable": true 또는 false, "kind": "<kind>", "group": "<무리 이름>" 또는 null, "image_name": "<이름>" 또는 null, "image_shape": "<모양>" 또는 null, "icon": {"name": "<이름>", "shape": "<모양>"} 또는 null, "text_is_icon": true 또는 false, "text_fixed": "<글>" 또는 null, "note": "<짧은 근거>"}]}
+
+- kind 는 다음 가운데 하나다.
+  - button: 버튼
+  - link: 테두리 없는 글 링크, 또는 줄 전체가 누르는 곳인 것
+  - back_close: 뒤로 · 닫기
+  - tab: 탭
+  - choice: 여럿 가운데 고르는 것
+  - input: 입력칸
+  - keypad_key: 숫자판의 키
+  - image: 그림 · 아이콘 · 로고
+  - text: 누르지 않는 글
+  - system: 상태바 · 덮개 뒤처럼 이 화면의 요소가 아닌 것
+- group: 같은 무리(한 목록의 선택지, 한 숫자판의 키, 한 줄의 탭 등)는 같은 이름을 쓴다. 무리가 없으면 null.
+- image_name: kind 가 image 일 때만 "<무엇> 아이콘" 또는 "<무엇> 로고". 그 밖에는 null.
+- image_shape: kind 가 image 일 때만 보이는 모양 (예: "선물상자"). 그 밖에는 null.
+- note: 그렇게 정한 근거 한 줄.
+
+고정값 (규칙으로 이름이 붙은 로고 - image_name 을 바꾸지 않는다)
+(없음)
+
+요소 목록
+{"id":"t1","mark":1,"kind":"text","box":[703,20,83,41],"text":"767","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["4:31"]},"flags":["system_band"]}
+{"id":"t0","mark":2,"kind":"text","box":[38,22,70,38],"text":"4:31","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"row":["767"]},"flags":["system_band"]}
+{"id":"b0","mark":3,"kind":"box","box":[672,27,31,29],"text":null,"ocr_guess":null,"caption":"Right triangle","name":null,"in_box":null,"near":{"row":["767","4:31"]},"flags":["system_band"]}
+{"id":"b4","mark":4,"kind":"box","box":[748,87,34,37],"text":null,"ocr_guess":"×","caption":"closing or cancel action.","name":null,"in_box":null,"near":null,"flags":null}
+{"id":"t2","mark":5,"kind":"text","box":[253,591,316,69],"text":"계좌 비밀번호","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":null,"flags":null}
+{"id":"b1","mark":6,"kind":"box","box":[253,736,43,42],"text":null,"ocr_guess":null,"caption":"a loading or buffering indicator.","name":null,"in_box":null,"near":null,"flags":null}
+{"id":"b2","mark":7,"kind":"box","box":[345,736,42,41],"text":null,"ocr_guess":null,"caption":"a loading or buffering indicator.","name":null,"in_box":null,"near":null,"flags":null}
+{"id":"b3","mark":8,"kind":"box","box":[436,736,42,41],"text":null,"ocr_guess":null,"caption":"a loading or buffering indicator.","name":null,"in_box":null,"near":null,"flags":null}
+{"id":"b5","mark":9,"kind":"box","box":[528,736,42,41],"text":null,"ocr_guess":null,"caption":"a loading or buffering indicator.","name":null,"in_box":null,"near":null,"flags":null}
+{"id":"b11","mark":10,"kind":"box","box":[1,1223,813,607],"text":null,"ocr_guess":null,"caption":"Calendar","name":null,"in_box":null,"near":{"inside":["8","6","0","2"]},"flags":null}
+{"id":"b10","mark":11,"kind":"box","box":[60,1242,704,144],"text":"8 6 0","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["8","6","0"]},"flags":null}
+{"id":"t3","mark":12,"kind":"text","box":[116,1282,41,55],"text":"8","ocr_guess":null,"caption":null,"name":null,"in_box":"b10","near":{"row":["0","6"],"parent":"8 6 0"},"flags":null}
+{"id":"t5","mark":13,"kind":"text","box":[667,1282,40,55],"text":"6","ocr_guess":null,"caption":null,"name":null,"in_box":"b10","near":{"row":["0","8"],"parent":"8 6 0"},"flags":null}
+{"id":"t4","mark":14,"kind":"text","box":[393,1283,37,51],"text":"0","ocr_guess":null,"caption":null,"name":null,"in_box":"b10","near":{"row":["8","6"],"parent":"8 6 0"},"flags":null}
+{"id":"b8","mark":15,"kind":"box","box":[69,1384,691,141],"text":"2 4 1","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["2","4","1"]},"flags":null}
+{"id":"t6","mark":16,"kind":"text","box":[115,1425,45,56],"text":"2","ocr_guess":null,"caption":null,"name":null,"in_box":"b8","near":{"row":["1","4"],"parent":"2 4 1"},"flags":null}
+{"id":"t8","mark":17,"kind":"text","box":[667,1427,41,52],"text":"4","ocr_guess":null,"caption":null,"name":null,"in_box":"b8","near":{"row":["1","2"],"parent":"2 4 1"},"flags":null}
+{"id":"t7","mark":18,"kind":"text","box":[395,1430,28,48],"text":"1","ocr_guess":null,"caption":null,"name":null,"in_box":"b8","near":{"row":["2","4"],"parent":"2 4 1"},"flags":null}
+{"id":"b6","mark":19,"kind":"box","box":[64,1526,670,141],"text":"9 3 5","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["9","3","5"]},"flags":null}
+{"id":"t10","mark":20,"kind":"text","box":[391,1570,41,53],"text":"9","ocr_guess":null,"caption":null,"name":null,"in_box":"b6","near":{"row":["5","3"],"parent":"9 3 5"},"flags":null}
+{"id":"t11","mark":21,"kind":"text","box":[666,1570,41,55],"text":"3","ocr_guess":null,"caption":null,"name":null,"in_box":"b6","near":{"row":["9","5"],"parent":"9 3 5"},"flags":null}
+{"id":"t9","mark":22,"kind":"text","box":[118,1571,40,53],"text":"5","ocr_guess":null,"caption":null,"name":null,"in_box":"b6","near":{"row":["9","3"],"parent":"9 3 5"},"flags":null}
+{"id":"b7","mark":23,"kind":"box","box":[56,1670,677,146],"text":"7 재배열","ocr_guess":null,"caption":null,"name":null,"in_box":null,"near":{"inside":["7","재배열"]},"flags":null}
+{"id":"t13","mark":24,"kind":"text","box":[388,1715,42,52],"text":"7","ocr_guess":null,"caption":null,"name":null,"in_box":"b7","near":{"row":["재배열"],"parent":"7 재배열"},"flags":null}
+{"id":"t12","mark":25,"kind":"text","box":[84,1720,104,47],"text":"재배열","ocr_guess":null,"caption":null,"name":null,"in_box":"b7","near":{"row":["7"],"parent":"7 재배열"},"flags":null}
+{"id":"b9","mark":26,"kind":"box","box":[662,1722,50,41],"text":null,"ocr_guess":null,"caption":"Close or delete action.","name":null,"in_box":null,"near":{"row":["7","재배열"]},"flags":null}
+
+그림
+[그림 1/19] 화면 전체 - 요소마다 mark 번호  <그림: _sent/09a/marks.png 600x1333 · 예상 958토큰>
+[그림 2/19] 잘라낸 그림 - mark 3 · id b0  <그림: _sent/09a/crop_003.png 88x80 · 예상 11토큰>
+[그림 3/19] 잘라낸 그림 - mark 4 · id b4  <그림: _sent/09a/crop_004.png 94x104 · 예상 15토큰>
+[그림 4/19] 잘라낸 그림 - mark 6 · id b1  <그림: _sent/09a/crop_006.png 120x118 · 예상 20토큰>
+[그림 5/19] 잘라낸 그림 - mark 7 · id b2  <그림: _sent/09a/crop_007.png 118x116 · 예상 20토큰>
+[그림 6/19] 잘라낸 그림 - mark 8 · id b3  <그림: _sent/09a/crop_008.png 118x116 · 예상 20토큰>
+[그림 7/19] 잘라낸 그림 - mark 9 · id b5  <그림: _sent/09a/crop_009.png 118x116 · 예상 20토큰>
+[그림 8/19] 잘라낸 그림 - mark 10 · id b11  <그림: _sent/09a/crop_010.png 511x452 · 예상 288토큰>
+[그림 9/19] 잘라낸 그림 - mark 12 · id t3  <그림: _sent/09a/crop_012.png 116x154 · 예상 24토큰>
+[그림 10/19] 잘라낸 그림 - mark 13 · id t5  <그림: _sent/09a/crop_013.png 112x154 · 예상 24토큰>
+[그림 11/19] 잘라낸 그림 - mark 14 · id t4  <그림: _sent/09a/crop_014.png 104x144 · 예상 24토큰>
+[그림 12/19] 잘라낸 그림 - mark 16 · id t6  <그림: _sent/09a/crop_016.png 126x158 · 예상 24토큰>
+[그림 13/19] 잘라낸 그림 - mark 17 · id t8  <그림: _sent/09a/crop_017.png 116x146 · 예상 24토큰>
+[그림 14/19] 잘라낸 그림 - mark 18 · id t7  <그림: _sent/09a/crop_018.png 78x134 · 예상 18토큰>
+[그림 15/19] 잘라낸 그림 - mark 20 · id t10  <그림: _sent/09a/crop_020.png 116x148 · 예상 24토큰>
+[그림 16/19] 잘라낸 그림 - mark 21 · id t11  <그림: _sent/09a/crop_021.png 116x154 · 예상 24토큰>
+[그림 17/19] 잘라낸 그림 - mark 22 · id t9  <그림: _sent/09a/crop_022.png 112x148 · 예상 24토큰>
+[그림 18/19] 잘라낸 그림 - mark 24 · id t13  <그림: _sent/09a/crop_024.png 118x146 · 예상 24토큰>
+[그림 19/19] 잘라낸 그림 - mark 26 · id b9  <그림: _sent/09a/crop_026.png 140x116 · 예상 24토큰>

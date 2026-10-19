@@ -1,0 +1,389 @@
+{
+ "unit": "02",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 4934,
+    "completion": 2115,
+    "reasoning": 166
+   },
+   "seconds": 33.1,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.031018,
+   "problems": []
+  }
+ ],
+ "prompt_sha": "8d9840a9a9d6",
+ "elements": [
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바에 표시된 시각이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "와이파이와 배터리 잔량이 표시된 시스템 영역이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b5",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 통신 신호 표시이다.",
+   "icon": {
+    "name": "통신 신호 아이콘",
+    "shape": "오른쪽이 높은 검은 삼각형"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b7",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "왼쪽 꺾쇠를 담은 뒤로가기 영역이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t4",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "8+라는 글자가 아니라 사람과 더하기 모양의 버튼이다.",
+   "icon": {
+    "name": "사람 추가 아이콘",
+    "shape": "사람 윤곽 오른쪽의 더하기 기호"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "t5",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "화면 상단의 닫기 표시이다.",
+   "icon": {
+    "name": "닫기 아이콘",
+    "shape": "X자"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "image",
+   "group": null,
+   "image_name": "뒤로가기 아이콘",
+   "image_shape": "왼쪽 꺾쇠",
+   "note": "뒤로가기 버튼 내부의 꺾쇠를 글자로 인식했다.",
+   "icon": {
+    "name": "뒤로가기 아이콘",
+    "shape": "왼쪽 꺾쇠"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "t3",
+   "pressable": true,
+   "kind": "link",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "상단의 파란색 다건이체 글 링크이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b0",
+   "pressable": true,
+   "kind": "button",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "둥근 회색 배경에 돋보기가 있는 검색 버튼이다.",
+   "icon": {
+    "name": "검색 아이콘",
+    "shape": "돋보기"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t6",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "받는 사람을 묻는 화면 제목이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t7",
+   "pressable": true,
+   "kind": "input",
+   "group": "계좌번호 입력",
+   "image_name": null,
+   "image_shape": null,
+   "note": "계좌번호 입력란의 안내 문구 앞부분이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t8",
+   "pressable": true,
+   "kind": "input",
+   "group": "계좌번호 입력",
+   "image_name": null,
+   "image_shape": null,
+   "note": "같은 계좌번호 입력란의 안내 문구 뒷부분이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b6",
+   "pressable": true,
+   "kind": "button",
+   "group": "계좌번호 입력",
+   "image_name": null,
+   "image_shape": null,
+   "note": "계좌번호 직접 입력란 오른쪽의 카메라 모양 버튼이다.",
+   "icon": {
+    "name": "계좌번호 직접 입력 아이콘",
+    "shape": "카메라 윤곽과 원형 렌즈"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b1",
+   "pressable": true,
+   "kind": "button",
+   "group": "계좌 목록 펼치기",
+   "image_name": null,
+   "image_shape": null,
+   "note": "자주쓰는 계좌의 개수와 아래 꺾쇠를 담은 둥근 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "자주쓰는 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "자주쓰는 계좌 구역의 제목이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b3",
+   "pressable": true,
+   "kind": "button",
+   "group": "자주쓰는 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "편집 글자를 담은 회색 둥근 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "자주쓰는 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "버튼 안에 표시된 계좌 개수이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "자주쓰는 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "편집 버튼 안의 글자이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t12",
+   "pressable": false,
+   "kind": "image",
+   "group": "자주쓰는 계좌",
+   "image_name": "자주쓰는 계좌 펼치기 아이콘",
+   "image_shape": "아래쪽 꺾쇠",
+   "note": "왼쪽 꺾쇠 글자가 아니라 아래로 향한 펼치기 표시이다.",
+   "icon": {
+    "name": "자주쓰는 계좌 펼치기 아이콘",
+    "shape": "아래쪽 꺾쇠"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "b4",
+   "pressable": true,
+   "kind": "button",
+   "group": "계좌 목록 펼치기",
+   "image_name": null,
+   "image_shape": null,
+   "note": "내 계좌의 개수와 아래 꺾쇠를 담은 둥근 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "내 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "내 계좌 구역의 제목이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "내 계좌",
+   "image_name": null,
+   "image_shape": null,
+   "note": "버튼 안에 표시된 계좌 개수이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t15",
+   "pressable": false,
+   "kind": "image",
+   "group": "내 계좌",
+   "image_name": "내 계좌 펼치기 아이콘",
+   "image_shape": "아래쪽 꺾쇠",
+   "note": "왼쪽 꺾쇠 글자가 아니라 아래로 향한 펼치기 표시이다.",
+   "icon": {
+    "name": "내 계좌 펼치기 아이콘",
+    "shape": "아래쪽 꺾쇠"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "b2",
+   "pressable": true,
+   "kind": "button",
+   "group": "계좌 목록 펼치기",
+   "image_name": null,
+   "image_shape": null,
+   "note": "최근 계좌의 개수와 아래 꺾쇠를 담은 둥근 버튼이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "최근",
+   "image_name": null,
+   "image_shape": null,
+   "note": "최근 계좌 구역의 제목이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "최근",
+   "image_name": null,
+   "image_shape": null,
+   "note": "버튼 안에 표시된 계좌 개수이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t18",
+   "pressable": false,
+   "kind": "image",
+   "group": "최근",
+   "image_name": "최근 펼치기 아이콘",
+   "image_shape": "아래쪽 꺾쇠",
+   "note": "L이라는 글자가 아니라 아래로 향한 펼치기 표시이다.",
+   "icon": {
+    "name": "최근 펼치기 아이콘",
+    "shape": "아래쪽 꺾쇠"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 16,
+ "estimate": {
+  "images": 16,
+  "image_tokens": 1438,
+  "text_tokens": 3516,
+  "input_tokens": 4954,
+  "answer_tokens": 1755,
+  "cost_usd": 0.027458,
+  "cost_usd_with_reasoning": 0.045008,
+  "cost_usd_cap": 0.259908,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 27 x 45"
+ },
+ "reused_from": "results/detect/20261019-strict2/semantic"
+}

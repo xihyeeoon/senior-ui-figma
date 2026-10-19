@@ -1,0 +1,374 @@
+{
+ "unit": "09b",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 5086,
+    "completion": 2115,
+    "reasoning": 150
+   },
+   "seconds": 32.9,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.031322,
+   "problems": []
+  }
+ ],
+ "prompt_sha": "8d9840a9a9d6",
+ "elements": [
+  {
+   "id": "t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 와이파이 표시와 숫자 67이며, 와이파이 모양이 글자로 섞여 인식됐다.",
+   "icon": {
+    "name": "와이파이 아이콘",
+    "shape": "점 위에 겹쳐진 부채꼴 곡선"
+   },
+   "text_is_icon": false,
+   "text_fixed": "67"
+  },
+  {
+   "id": "t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 현재 시각이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b4",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바에 있는 통신 신호 표시다.",
+   "icon": {
+    "name": "통신 신호 아이콘",
+    "shape": "검은색 직각삼각형"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b5",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "화면 오른쪽 위의 X자 닫기 버튼이다.",
+   "icon": {
+    "name": "닫기 아이콘",
+    "shape": "검은색 X자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t2",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "입력할 정보를 안내하는 계좌 비밀번호 제목이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b1",
+   "pressable": false,
+   "kind": "image",
+   "group": "비밀번호 입력 상태",
+   "image_name": "비밀번호 입력 표시 아이콘",
+   "image_shape": "파란색으로 채워진 원",
+   "note": "비밀번호 두 번째 자리의 입력 상태를 나타내는 점이다.",
+   "icon": {
+    "name": "비밀번호 입력 표시 아이콘",
+    "shape": "파란색으로 채워진 원"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b2",
+   "pressable": false,
+   "kind": "image",
+   "group": "비밀번호 입력 상태",
+   "image_name": "비밀번호 입력 표시 아이콘",
+   "image_shape": "파란색으로 채워진 원",
+   "note": "비밀번호 세 번째 자리의 입력 상태를 나타내는 점이다.",
+   "icon": {
+    "name": "비밀번호 입력 표시 아이콘",
+    "shape": "파란색으로 채워진 원"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b0",
+   "pressable": false,
+   "kind": "image",
+   "group": "비밀번호 입력 상태",
+   "image_name": "비밀번호 입력 표시 아이콘",
+   "image_shape": "파란색으로 채워진 원",
+   "note": "비밀번호 첫 번째 자리의 입력 상태를 나타내는 점이다.",
+   "icon": {
+    "name": "비밀번호 입력 표시 아이콘",
+    "shape": "파란색으로 채워진 원"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b3",
+   "pressable": false,
+   "kind": "image",
+   "group": "비밀번호 입력 상태",
+   "image_name": "비밀번호 미입력 표시 아이콘",
+   "image_shape": "속이 빈 회색 원 테두리",
+   "note": "비밀번호 네 번째 자리가 아직 비어 있음을 나타낸다.",
+   "icon": {
+    "name": "비밀번호 미입력 표시 아이콘",
+    "shape": "속이 빈 회색 원 테두리"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b11",
+   "pressable": false,
+   "kind": "text",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "여러 개의 개별 키를 담은 숫자판 전체 영역이며 하나의 버튼은 아니다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b10",
+   "pressable": false,
+   "kind": "text",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자판 첫째 줄을 묶은 영역이며, 보이는 숫자의 순서는 8 0 6이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "8 0 6"
+  },
+  {
+   "id": "t3",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 8을 입력하는 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t5",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 6을 입력하는 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t4",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 0을 입력하는 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b8",
+   "pressable": false,
+   "kind": "text",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자판 둘째 줄을 묶은 영역이며, 보이는 숫자의 순서는 2 1 4이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "2 1 4"
+  },
+  {
+   "id": "t6",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 2를 입력하는 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t8",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 4를 입력하는 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t7",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 1을 입력하는 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b6",
+   "pressable": false,
+   "kind": "text",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자판 셋째 줄을 묶은 영역이며, 보이는 숫자의 순서는 5 9 3이다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "5 9 3"
+  },
+  {
+   "id": "t10",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 9를 입력하는 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t11",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 3을 입력하는 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t9",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 5를 입력하는 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b7",
+   "pressable": false,
+   "kind": "text",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "개별 키를 담은 마지막 줄이며, 글자는 왼쪽부터 재배열, 7 순으로 보인다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "재배열 7"
+  },
+  {
+   "id": "t13",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자 7을 입력하는 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "t12",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자판 안에 있는 재배열 기능 키다.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "b9",
+   "pressable": true,
+   "kind": "keypad_key",
+   "group": "보안 숫자판",
+   "image_name": null,
+   "image_shape": null,
+   "note": "숫자판 오른쪽 아래의 입력 삭제 키다.",
+   "icon": {
+    "name": "지우기 아이콘",
+    "shape": "왼쪽이 뾰족한 흰색 윤곽 안의 X자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 19,
+ "estimate": {
+  "images": 19,
+  "image_tokens": 1610,
+  "text_tokens": 3495,
+  "input_tokens": 5105,
+  "answer_tokens": 1690,
+  "cost_usd": 0.02711,
+  "cost_usd_with_reasoning": 0.04401,
+  "cost_usd_cap": 0.26021,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 26 x 45"
+ },
+ "reused_from": "results/detect/20261019-strict2/semantic"
+}

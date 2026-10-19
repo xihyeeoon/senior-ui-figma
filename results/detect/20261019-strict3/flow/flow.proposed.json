@@ -1,0 +1,216 @@
+{
+ "model": "gpt-6.1-sol",
+ "reasoning_effort": "medium",
+ "inputs": "strict",
+ "prompt_file": "tools/screen_detect/FLOW_PROMPT_STRICT.md",
+ "prompt_sha": "2cdee2fae356",
+ "captures": null,
+ "elements": "results/detect/20261019-strict2/detect",
+ "roles": "results/detect/20261019-strict3/semantic",
+ "sent": "글 + 그림 36 (짝마다 앞 · 뒤 캡처, 폭 390) - 캡처 목록 · 단위마다 누를 수 있는 요소 · 짝 목록",
+ "pressable_elements": 227,
+ "estimate": {
+  "input_tokens": 23232,
+  "answer_tokens": 1440,
+  "how": "tiktoken:o200k_base(대체)",
+  "cost_usd": 0.060864,
+  "cost_usd_with_reasoning": 0.075264,
+  "cost_usd_cap": 0.296464
+ },
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 23167,
+    "completion": 1127,
+    "reasoning": 104
+   },
+   "cost_usd": 0.057604,
+   "seconds": 26.7,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "problems": [
+    "09b.png -> 10.png: kind 가 tap 인데 tap 이 null 이다"
+   ]
+  },
+  {
+   "n": 2,
+   "usage": {
+    "prompt": 23205,
+    "completion": 1094,
+    "reasoning": 83
+   },
+   "cost_usd": 0.05735,
+   "seconds": 26.2,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "problems": []
+  }
+ ],
+ "pairs": [
+  {
+   "from": "01a.png",
+   "to": "01b.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "홈 화면을 아래로 스크롤해 소비 및 추천서비스 영역이 보인다."
+  },
+  {
+   "from": "01b.png",
+   "to": "01c.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "같은 홈 화면에서 더 아래의 금융그룹과 홈 설정 영역으로 이동했다."
+  },
+  {
+   "from": "01c.png",
+   "to": "02.png",
+   "tap": "01a:b18",
+   "tap_text": "이체",
+   "kind": "skipped",
+   "confidence": 0.93,
+   "reason": "홈 상단으로 돌아가 이체를 누른 것으로 보이며, 상단으로 이동한 상태는 생략됐다."
+  },
+  {
+   "from": "02.png",
+   "to": "03.png",
+   "tap": "t7",
+   "tap_text": "계좌번호 직접",
+   "kind": "tap",
+   "confidence": 0.98,
+   "reason": "계좌번호 직접 입력 영역을 눌러 받는 계좌 입력 화면을 열었다."
+  },
+  {
+   "from": "03.png",
+   "to": "04.png",
+   "tap": "b1",
+   "tap_text": "계좌번호 |없이 숫자만 입력",
+   "kind": "tap",
+   "confidence": 0.96,
+   "reason": "계좌번호 입력란을 눌러 숫자판이 나타났다."
+  },
+  {
+   "from": "04.png",
+   "to": "05a.png",
+   "tap": "b0",
+   "tap_text": "은행 또는 증권사 선택",
+   "kind": "tap",
+   "confidence": 0.99,
+   "reason": "금융기관 선택란을 눌러 은행 선택 창을 열었다."
+  },
+  {
+   "from": "05a.png",
+   "to": "05b.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "은행 선택 목록을 아래로 스크롤했다."
+  },
+  {
+   "from": "05b.png",
+   "to": "05c.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "같은 은행 목록의 하단으로 스크롤했다."
+  },
+  {
+   "from": "05c.png",
+   "to": "06a.png",
+   "tap": "05a:b16",
+   "tap_text": "증권사",
+   "kind": "tap",
+   "confidence": 0.99,
+   "reason": "증권사 탭을 눌러 증권사 목록으로 전환했다."
+  },
+  {
+   "from": "06a.png",
+   "to": "06b.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "증권사 목록을 아래로 스크롤했다."
+  },
+  {
+   "from": "06b.png",
+   "to": "06c.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "scroll",
+   "confidence": 0.99,
+   "reason": "증권사 목록 끝부분까지 더 스크롤했다."
+  },
+  {
+   "from": "06c.png",
+   "to": "07.png",
+   "tap": "06a:b16",
+   "tap_text": "은행",
+   "kind": "skipped",
+   "confidence": 0.76,
+   "reason": "뒤 화면의 받는 계좌가 신한이므로 은행 탭으로 돌아가 신한 선택과 계좌번호 입력 등을 거친 것으로 보인다."
+  },
+  {
+   "from": "07.png",
+   "to": "07a.png",
+   "tap": "b1",
+   "tap_text": "+1만",
+   "kind": "tap",
+   "confidence": 0.98,
+   "reason": "+1만 버튼을 눌러 송금액이 10,000원으로 설정됐다."
+  },
+  {
+   "from": "07a.png",
+   "to": "08.png",
+   "tap": "b15",
+   "tap_text": "다음",
+   "kind": "tap",
+   "confidence": 0.99,
+   "reason": "다음을 눌러 송금 정보 확인 화면으로 이동했다."
+  },
+  {
+   "from": "08.png",
+   "to": "09a.png",
+   "tap": "t15",
+   "tap_text": "보내기",
+   "kind": "tap",
+   "confidence": 0.99,
+   "reason": "보내기를 눌러 계좌 비밀번호 입력 화면이 나타났다."
+  },
+  {
+   "from": "09a.png",
+   "to": "09b.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "skipped",
+   "confidence": 0.99,
+   "reason": "비밀번호 세 자리를 입력하는 중간 상태들이 생략됐으며 처음 누른 숫자는 알 수 없다."
+  },
+  {
+   "from": "09b.png",
+   "to": "10.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "unknown",
+   "confidence": 0.98,
+   "reason": "마지막 비밀번호 숫자를 눌러 이체가 완료된 것으로 보이나 어떤 숫자를 눌렀는지는 알 수 없다."
+  },
+  {
+   "from": "10.png",
+   "to": "11.png",
+   "tap": null,
+   "tap_text": null,
+   "kind": "error_path",
+   "confidence": 0.99,
+   "reason": "새 이체에서 잘못된 계좌번호 100을 입력해 발생한 오류이며, 오류를 낸 입력 요소는 앞 캡처에 없다."
+  }
+ ],
+ "cost_usd": 0.114954
+}

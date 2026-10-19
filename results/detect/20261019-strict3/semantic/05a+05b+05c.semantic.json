@@ -1,0 +1,1890 @@
+{
+ "unit": "05a+05b+05c",
+ "model": "gpt-6.1-sol",
+ "status": "ok",
+ "attempts": [
+  {
+   "n": 1,
+   "usage": {
+    "prompt": 20078,
+    "completion": 10811,
+    "reasoning": 325
+   },
+   "seconds": 173.6,
+   "finish_reason": "stop",
+   "model": "gpt-6.1-sol",
+   "cost_usd": 0.148266,
+   "problems": [],
+   "warnings": []
+  }
+ ],
+ "prompt_sha": "8d9840a9a9d6",
+ "elements": [
+  {
+   "id": "05a:t1",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 배터리 잔량 숫자.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t0",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 시각.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b18",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 통신 신호 표시.",
+   "icon": {
+    "name": "이동통신 신호 아이콘",
+    "shape": "검은 삼각형 신호 표시"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b19",
+   "pressable": false,
+   "kind": "system",
+   "group": "상태바",
+   "image_name": null,
+   "image_shape": null,
+   "note": "상태바의 와이파이 표시.",
+   "icon": {
+    "name": "와이파이 아이콘",
+    "shape": "부채꼴 곡선과 점"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b22",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "시트 뒤에서 어두워진 상단 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b23",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "시트 뒤의 닫기 영역이며 별도 검출된 작은 X를 포함.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b21",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "시트 뒤의 뒤로가기 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t2",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "문자 <가 아니라 뒤로가기 화살표.",
+   "icon": {
+    "name": "뒤로 아이콘",
+    "shape": "왼쪽 꺾쇠"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b20",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "시트 뒤에서 어두워진 닫기 아이콘.",
+   "icon": {
+    "name": "닫기 아이콘",
+    "shape": "X자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b24",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "시트 뒤의 화면 제목 영역.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t3",
+   "pressable": false,
+   "kind": "system",
+   "group": "덮개 뒤 화면",
+   "image_name": null,
+   "image_shape": null,
+   "note": "어두워진 이전 화면의 제목.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t4",
+   "pressable": false,
+   "kind": "text",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "선택 시트의 제목.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b17",
+   "pressable": true,
+   "kind": "back_close",
+   "group": null,
+   "image_name": null,
+   "image_shape": null,
+   "note": "시트 우측 상단의 닫기 버튼.",
+   "icon": {
+    "name": "닫기 아이콘",
+    "shape": "검은 X자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b15",
+   "pressable": true,
+   "kind": "tab",
+   "group": "금융기관 유형 탭",
+   "image_name": null,
+   "image_shape": null,
+   "note": "하단 선으로 선택 상태를 표시한 은행 탭.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b16",
+   "pressable": true,
+   "kind": "tab",
+   "group": "금융기관 유형 탭",
+   "image_name": null,
+   "image_shape": null,
+   "note": "은행 탭 옆의 증권사 탭.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t5",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 유형 탭",
+   "image_name": null,
+   "image_shape": null,
+   "note": "은행 탭 안의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t6",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 유형 탭",
+   "image_name": null,
+   "image_shape": null,
+   "note": "증권사 탭 안의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b11",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고와 신한 이름을 담은 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고와 제주 이름을 담은 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고와 국민 이름을 담은 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "신한 로고",
+   "image_shape": "파란 원 안 흰색 S자와 새 모양",
+   "note": "바로 아래 신한 이름표가 있음.",
+   "icon": {
+    "name": "신한 로고",
+    "shape": "파란 원 안 흰색 S자와 새 모양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "제주 로고",
+   "image_shape": "파란 원 안 흰색 S자와 새 모양",
+   "note": "바로 아래 제주 이름표가 있음.",
+   "icon": {
+    "name": "제주 로고",
+    "shape": "파란 원 안 흰색 S자와 새 모양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "국민 로고",
+   "image_shape": "짙은 회색 원 안 노란 KB 형상",
+   "note": "바로 아래 국민 이름표가 있음.",
+   "icon": {
+    "name": "국민 로고",
+    "shape": "짙은 회색 원 안 노란 KB 형상"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t8",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "제주 선택 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "신한 선택 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "국민 선택 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b8",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "기업 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b5",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "NH 표시와 농협 이름을 담은 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "산업 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "기업 로고",
+   "image_shape": "파란 원 안 기울어진 흰 테두리와 하늘색·주황색 도형",
+   "note": "기업 이름표 위의 로고.",
+   "icon": {
+    "name": "기업 로고",
+    "shape": "파란 원 안 기울어진 흰 테두리와 하늘색·주황색 도형"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "농협 로고",
+   "image_shape": "파란 원의 위쪽 일부",
+   "note": "농협 카드의 원형 로고 상단 조각.",
+   "icon": {
+    "name": "농협 로고",
+    "shape": "파란 원의 위쪽 일부"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "산업 로고",
+   "image_shape": "파란 그라데이션의 마주 보는 각진 리본",
+   "note": "산업 이름표 위의 로고.",
+   "icon": {
+    "name": "산업 로고",
+    "shape": "파란 그라데이션의 마주 보는 각진 리본"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t10",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "농협 로고",
+   "image_shape": "파란 바탕의 흰색 NH 글자",
+   "note": "일반 문구가 아닌 NH 로고 문자.",
+   "icon": {
+    "name": "농협 로고",
+    "shape": "파란 바탕의 흰색 NH 글자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "농협 로고",
+   "image_shape": "파란 원의 아래쪽 일부",
+   "note": "농협 카드의 원형 로고 하단 조각.",
+   "icon": {
+    "name": "농협 로고",
+    "shape": "파란 원의 아래쪽 일부"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "기업 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "농협 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "산업 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "신협 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b7",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "수협 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "우리 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "신협 로고",
+   "image_shape": "파란 원 안 흰색 대칭 문양",
+   "note": "신협 이름표 위의 로고.",
+   "icon": {
+    "name": "신협 로고",
+    "shape": "파란 원 안 흰색 대칭 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "우리 로고",
+   "image_shape": "파란 원 안 흰색 둥근 띠와 하늘색 그라데이션",
+   "note": "우리 이름표 위의 로고.",
+   "icon": {
+    "name": "우리 로고",
+    "shape": "파란 원 안 흰색 둥근 띠와 하늘색 그라데이션"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t14",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "수협 로고",
+   "image_shape": "흰 원 안 파란색 기울어진 Sh 글자",
+   "note": "수협의 문자형 로고.",
+   "icon": {
+    "name": "수협 로고",
+    "shape": "흰 원 안 파란색 기울어진 Sh 글자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "수협 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "신협 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "우리 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b6",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "하나 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b1",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "한국씨티 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:b2",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고의 B 형상을 D로 잘못 읽음.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "B 카카오뱅크"
+  },
+  {
+   "id": "05a:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "하나 로고",
+   "image_shape": "초록 원 안 흰색 사람 같은 곡선 문양",
+   "note": "하나 이름표 위의 로고.",
+   "icon": {
+    "name": "하나 로고",
+    "shape": "초록 원 안 흰색 사람 같은 곡선 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "한국씨티 로고",
+   "image_shape": "파란 원 바탕과 빨간 아치",
+   "note": "별도 검출된 citi 문자 뒤의 원과 아치.",
+   "icon": {
+    "name": "한국씨티 로고",
+    "shape": "파란 원 바탕과 빨간 아치"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "카카오뱅크 로고",
+   "image_shape": "노란 원형 바탕",
+   "note": "별도 검출된 검은 로고 기호의 노란 바탕.",
+   "icon": {
+    "name": "카카오뱅크 로고",
+    "shape": "노란 원형 바탕"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t18",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "카카오뱅크 로고",
+   "image_shape": "검은색 B형 기호와 세로 틈",
+   "note": "D 문자가 아니라 카카오뱅크 로고 기호.",
+   "icon": {
+    "name": "카카오뱅크 로고",
+    "shape": "검은색 B형 기호와 세로 틈"
+   },
+   "text_is_icon": true,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t19",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "한국씨티 로고",
+   "image_shape": "흰색 소문자 citi",
+   "note": "한국씨티의 문자형 로고 부분.",
+   "icon": {
+    "name": "한국씨티 로고",
+    "shape": "흰색 소문자 citi"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "하나 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "한국씨티 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "카카오뱅크 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b11",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고 문자는 BiNV가 아니라 BNK.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "BNK 경남"
+  },
+  {
+   "id": "05b:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "토스뱅크 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "케이뱅크 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i13",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "케이뱅크 로고",
+   "image_shape": "짙은 보라색 원형 바탕",
+   "note": "별도 검출된 Kbank 문자 주변의 원형 바탕.",
+   "icon": {
+    "name": "케이뱅크 로고",
+    "shape": "짙은 보라색 원형 바탕"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05a:i12",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "경남 로고",
+   "image_shape": "빨간 원형 바탕",
+   "note": "경남 카드의 BNK 문자 주변 원형 바탕.",
+   "icon": {
+    "name": "경남 로고",
+    "shape": "빨간 원형 바탕"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "토스뱅크 로고",
+   "image_shape": "파란 그라데이션의 서로 어긋난 둥근 두 조각",
+   "note": "토스뱅크 이름표 위의 로고.",
+   "icon": {
+    "name": "토스뱅크 로고",
+    "shape": "파란 그라데이션의 서로 어긋난 둥근 두 조각"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t8",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "경남 로고",
+   "image_shape": "흰색 BNK 문자",
+   "note": "스타일화된 BNK를 BiNV로 오독.",
+   "icon": {
+    "name": "경남 로고",
+    "shape": "흰색 BNK 문자"
+   },
+   "text_is_icon": false,
+   "text_fixed": "BNK"
+  },
+  {
+   "id": "05a:t24",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "경남 로고",
+   "image_shape": "흰색 BNK 문자",
+   "note": "마지막 로고 문자는 V가 아니라 K.",
+   "icon": {
+    "name": "경남 로고",
+    "shape": "흰색 BNK 문자"
+   },
+   "text_is_icon": false,
+   "text_fixed": "BNK"
+  },
+  {
+   "id": "05b:t7",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "케이뱅크 로고",
+   "image_shape": "흰색 Kbank 문자",
+   "note": "케이뱅크의 문자형 로고.",
+   "icon": {
+    "name": "케이뱅크 로고",
+    "shape": "흰색 Kbank 문자"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i10",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "경남 로고",
+   "image_shape": "빨간 원의 아래쪽 일부",
+   "note": "경남 로고의 하단 조각.",
+   "icon": {
+    "name": "경남 로고",
+    "shape": "빨간 원의 아래쪽 일부"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "경남 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "케이뱅크 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "토스뱅크 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b6",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "로고의 마지막 글자는 V가 아니라 K.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "BNK 부산"
+  },
+  {
+   "id": "05b:b8",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "광주 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b5",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "이름 뒤에 보이는 말줄임표를 반영.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "아이엠뱅크(대..."
+  },
+  {
+   "id": "05b:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "부산 로고",
+   "image_shape": "빨간 원의 위쪽 일부",
+   "note": "부산 카드 로고의 상단 조각.",
+   "icon": {
+    "name": "부산 로고",
+    "shape": "빨간 원의 위쪽 일부"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "광주 로고",
+   "image_shape": "파란 다면체 원 안 흰색 꺾인 띠",
+   "note": "광주 이름표 위의 로고.",
+   "icon": {
+    "name": "광주 로고",
+    "shape": "파란 다면체 원 안 흰색 꺾인 띠"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t12",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "부산 로고",
+   "image_shape": "흰색 BNK 문자",
+   "note": "로고의 K를 V로 오독.",
+   "icon": {
+    "name": "부산 로고",
+    "shape": "흰색 BNK 문자"
+   },
+   "text_is_icon": false,
+   "text_fixed": "BNK"
+  },
+  {
+   "id": "05b:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "아이엠뱅크(대... 로고",
+   "image_shape": "청록색과 연두색의 갈라지는 곡선 문양",
+   "note": "아래 이름표는 아이엠뱅크(대...까지만 보임.",
+   "icon": {
+    "name": "아이엠뱅크(대... 로고",
+    "shape": "청록색과 연두색의 갈라지는 곡선 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "부산 로고",
+   "image_shape": "빨간 원의 아래쪽과 흰색 문자 일부",
+   "note": "부산 로고 하단 부분.",
+   "icon": {
+    "name": "부산 로고",
+    "shape": "빨간 원의 아래쪽과 흰색 문자 일부"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "광주 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "잘린 이름 뒤의 말줄임표를 반영.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": "아이엠뱅크(대..."
+  },
+  {
+   "id": "05b:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "부산 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "전북 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "회원수협 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b1",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "새마을 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "전북 로고",
+   "image_shape": "파란 다면체 원 안 흰색 꺾인 띠",
+   "note": "전북 이름표 위의 로고.",
+   "icon": {
+    "name": "전북 로고",
+    "shape": "파란 다면체 원 안 흰색 꺾인 띠"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "회원수협 로고",
+   "image_shape": "파란 원 안 네 개의 흰색 물고기 모양",
+   "note": "회원수협 이름표 위의 로고.",
+   "icon": {
+    "name": "회원수협 로고",
+    "shape": "파란 원 안 네 개의 흰색 물고기 모양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "새마을 로고",
+   "image_shape": "하늘색 원 안 흰색 세 갈래 둥근 문양",
+   "note": "새마을 이름표 위의 로고.",
+   "icon": {
+    "name": "새마을 로고",
+    "shape": "하늘색 원 안 흰색 세 갈래 둥근 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "새마을 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "전북 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "회원수협 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b2",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "저축은행 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "지역농.축협 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b7",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "우체국 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "지역농.축협 로고",
+   "image_shape": "초록 원 안 노란 고리와 위로 뻗은 가지",
+   "note": "지역농.축협 이름표 위의 로고.",
+   "icon": {
+    "name": "지역농.축협 로고",
+    "shape": "초록 원 안 노란 고리와 위로 뻗은 가지"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t19",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "저축은행 로고",
+   "image_shape": "초록색 SB 형태와 밑줄",
+   "note": "저축은행의 문자형 로고.",
+   "icon": {
+    "name": "저축은행 로고",
+    "shape": "초록색 SB 형태와 밑줄"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "우체국 로고",
+   "image_shape": "빨간 제비 같은 기하학 문양과 노란 줄",
+   "note": "우체국 이름표 위의 로고.",
+   "icon": {
+    "name": "우체국 로고",
+    "shape": "빨간 제비 같은 기하학 문양과 노란 줄"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "우체국 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t21",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "저축은행 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t22",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "지역농.축협 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b13",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "중국건설 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b14",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "도이치 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:b12",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "중국 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i13",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "도이치 로고",
+   "image_shape": "짙은 파란 원 안 흰 사각형과 파란 사선",
+   "note": "도이치 이름표 위의 로고.",
+   "icon": {
+    "name": "도이치 로고",
+    "shape": "짙은 파란 원 안 흰 사각형과 파란 사선"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i12",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "중국건설 로고",
+   "image_shape": "파란 원 안 흰 C형 고리와 마름모 빈칸",
+   "note": "중국건설 이름표 위의 로고.",
+   "icon": {
+    "name": "중국건설 로고",
+    "shape": "파란 원 안 흰 C형 고리와 마름모 빈칸"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:i11",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "중국 로고",
+   "image_shape": "빨간 원형 테두리 안 네모와 세로선",
+   "note": "중국 이름표 위의 로고.",
+   "icon": {
+    "name": "중국 로고",
+    "shape": "빨간 원형 테두리 안 네모와 세로선"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05b:t24",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "중국 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t9",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "중국건설 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t7",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "도이치 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b6",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "BNP파리바 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b7",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "BOA 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b8",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "중국공상 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:i6",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "BNP파리바 로고",
+   "image_shape": "초록 원 안 흰색 별과 새 같은 네 문양",
+   "note": "BNP파리바 이름표 위의 로고.",
+   "icon": {
+    "name": "BNP파리바 로고",
+    "shape": "초록 원 안 흰색 별과 새 같은 네 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b21",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "중국공상 로고",
+   "image_shape": "빨간 원 안 흰 원형 선과 工 형태 문양",
+   "note": "E3 문자가 아니라 중국공상 로고.",
+   "icon": {
+    "name": "중국공상 로고",
+    "shape": "빨간 원 안 흰 원형 선과 工 형태 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:i7",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "BOA 로고",
+   "image_shape": "빨간색과 파란색 사선 띠로 된 깃발 문양",
+   "note": "BOA 카드 안의 로고.",
+   "icon": {
+    "name": "BOA 로고",
+    "shape": "빨간색과 파란색 사선 띠로 된 깃발 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t10",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "중국공상 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t11",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "BNP파리바 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t12",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "BOA 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b2",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "SC 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b3",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "HSBC 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b0",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "JP모간 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:i0",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "JP모간 로고",
+   "image_shape": "파란 원 안 흰색 네 조각의 팔각 고리",
+   "note": "JP모간 이름표 위의 로고.",
+   "icon": {
+    "name": "JP모간 로고",
+    "shape": "파란 원 안 흰색 네 조각의 팔각 고리"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:i3",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "HSBC 로고",
+   "image_shape": "빨간 원 안 흰색 삼각형들이 이룬 육각 문양",
+   "note": "HSBC 이름표 위의 로고.",
+   "icon": {
+    "name": "HSBC 로고",
+    "shape": "빨간 원 안 흰색 삼각형들이 이룬 육각 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:i2",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "SC 로고",
+   "image_shape": "파란색과 초록색의 엇갈린 S자 리본",
+   "note": "SC 이름표 위의 로고.",
+   "icon": {
+    "name": "SC 로고",
+    "shape": "파란색과 초록색의 엇갈린 S자 리본"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t15",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "SC 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t14",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "JP모간 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t13",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "HSBC 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b4",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "산림조합 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b5",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "지방세 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b1",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "국세 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:i1",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "국세 로고",
+   "image_shape": "남색과 빨간색 곡선이 감싼 태극 문양",
+   "note": "국세 이름표 위의 로고.",
+   "icon": {
+    "name": "국세 로고",
+    "shape": "남색과 빨간색 곡선이 감싼 태극 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:i5",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "지방세 로고",
+   "image_shape": "남색과 빨간색 곡선이 감싼 태극 문양",
+   "note": "지방세 이름표 위의 로고.",
+   "icon": {
+    "name": "지방세 로고",
+    "shape": "남색과 빨간색 곡선이 감싼 태극 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:i4",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "산림조합 로고",
+   "image_shape": "청록색과 연두색의 둥근 산 모양 획",
+   "note": "산림조합 이름표 위의 로고.",
+   "icon": {
+    "name": "산림조합 로고",
+    "shape": "청록색과 연두색의 둥근 산 모양 획"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t18",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "지방세 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t17",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "국세 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t16",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "산림조합 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b9",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "국고금 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:b10",
+   "pressable": true,
+   "kind": "choice",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "관세 선택 카드.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:i8",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "국고금 로고",
+   "image_shape": "남색과 빨간색 곡선이 감싼 태극 문양",
+   "note": "국고금 이름표 위의 로고.",
+   "icon": {
+    "name": "국고금 로고",
+    "shape": "남색과 빨간색 곡선이 감싼 태극 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:i9",
+   "pressable": false,
+   "kind": "image",
+   "group": "금융기관 선택",
+   "image_name": "관세 로고",
+   "image_shape": "남색과 빨간색 곡선이 감싼 태극 문양",
+   "note": "관세 이름표 위의 로고.",
+   "icon": {
+    "name": "관세 로고",
+    "shape": "남색과 빨간색 곡선이 감싼 태극 문양"
+   },
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t20",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "관세 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  },
+  {
+   "id": "05c:t19",
+   "pressable": false,
+   "kind": "text",
+   "group": "금융기관 선택",
+   "image_name": null,
+   "image_shape": null,
+   "note": "국고금 카드의 이름표.",
+   "icon": null,
+   "text_is_icon": false,
+   "text_fixed": null
+  }
+ ],
+ "fixed": {},
+ "fixed_overrides": [],
+ "images": 71,
+ "estimate": {
+  "images": 71,
+  "image_tokens": 6438,
+  "text_tokens": 13739,
+  "input_tokens": 20177,
+  "answer_tokens": 9165,
+  "cost_usd": 0.132004,
+  "cost_usd_with_reasoning": 0.223654,
+  "cost_usd_cap": 0.290354,
+  "how": "글 tiktoken:o200k_base(대체) · 그림 patch x1.2 · 답 = 요소 141 x 45"
+ },
+ "warnings": []
+}
