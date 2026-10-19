@@ -4,7 +4,7 @@ r"""구역 찾기 시험 - 캡처에서 바탕 상자(카드 · 배너 · 시트
         [--dir results/detect/20261013-d25/final] [--out results/detect/20261019-regions]
 
 기본 검출 경로(detect.py)와 결과는 바꾸지 않는다 - 따로 부르는 단계다. 유료 호출 없음. 구역 정답지는
-truth_regions.py 가 먼저 만든 <out>/truth_regions.json 을 읽는다. 단위(이은 화면 3 + 낱장 10)마다 센다.
+truth_regions.py 가 먼저 만든 truth_regions.json (--truth-regions) 을 읽는다. 단위(이은 화면 3 + 낱장 10)마다 센다.
 
 M1 색 영역 나누기 (학습 모델 없음, OpenCV) - 단위 그림(이은 화면은 stitch.compose 로 이은 그림)에서
   이웃 화소(오른쪽 · 아래)와 채널 차가 DIFF 보다 큰 화소를 경계로 보고, 경계가 아닌 화소의 이어진 영역(4-이웃)
@@ -20,10 +20,15 @@ M2 UIED (MulongXie/UIED @ 0a9862a, Apache-2.0, 레포 밖 C:\Users\xihye\tools\U
 
 재는 것 (단위마다 + 합계)
   구역 재현율   정답 구역(그 단위 안에 옮겨진 것) 가운데 찾은 구역과 맞는 것 - IoU 0.7 이상 또는 네 변이
-                모두 12px 안. 바탕 상자(control=false)와 조작 상자(버튼 · 칸)를 따로도 센다
+                모두 12px 안. 바탕 상자(control=false)와 조작 상자(버튼 · 칸)는 늘 따로 센다 (10/19 연구자
+                결정 - 주 숫자는 바탕 상자 재현율과 묶음 (가). 합친 숫자는 표의 맨 끝 칸)
   정답에 없는 구역  찾은 구역 가운데 어느 정답 구역과도 맞지 않는 것
-  묶음 정확도   D2.5 final 의 요소(박스 · 글 줄 · 그림 후보) 가운데 중심이 정답 구역 안인 것마다, 그것을 담은
-                가장 작은 정답 구역과 가장 작은 찾은 구역이 맞으면 맞음
+  묶음 (가) 바탕  D2.5 final 의 요소(박스 · 글 줄 · 그림 후보)마다 감싸는 가장 작은 정답 바탕 상자 B 를 정하고,
+                요소를 감싸는 찾은 구역들 가운데 B 와 맞는 것이 있으면 맞음. B 가 없는 요소는 감싸는 찾은
+                구역 가운데 정답 바탕 상자와 맞는 것이 하나도 없으면 맞음 (M1 은 바탕 · 조작을 가리지 못하므로
+                "가장 작은 찾은 구역" 대신 "감싸는 구역들 안에 있나")
+  묶음 (나) 전부  중심이 정답 구역 안인 요소마다, 그것을 담은 가장 작은 정답 구역(바탕 · 조작)과 가장 작은
+                찾은 구역이 맞으면 맞음
   IRP 배너 · 땡겨요 카드 - 홈의 그 두 정답 구역이 잡혔나 (가장 잘 맞는 찾은 구역의 IoU)
 쓰는 것: <out>/regions.json, <out>/summary.md, <out>/found/<방법>/<단위>.png (찾은 구역 - 파랑 = 정답과 맞음,
 주황 = 정답에 없음, 얇은 초록 = 정답 구역).
@@ -168,23 +173,36 @@ def innermost(pt, boxes):
 
 
 def score(truth, found, elements):
+    """한 단위의 셈. truth [{box, control, …}] (그 단위 안의 정답 구역), found [[x, y, w, h]], elements 는
+    D2.5 요소. 바탕 상자(control=false)와 조작 상자를 늘 따로 센다 (10/19 연구자 결정)."""
     tb = [t["box"] for t in truth]
+    bg = [t["box"] for t in truth if not t["control"]]
     hit = [any(match(t["box"], f) for f in found) for t in truth]
     extra = [f for f in found if not any(match(t, f) for t in tb)]
-    group = []
+    group, group_bg, group_in = [], [], []
     for e in elements:
         c = C.centre(e["box"])
+        around = [f for f in found if C.within(c, f)]
+        # (가) 바탕 묶음 - 요소를 감싸는 가장 작은 정답 바탕 상자 B 와 맞는 찾은 구역이 감싸는 구역들 가운데
+        # 있으면 맞음. B 가 없으면, 감싸는 찾은 구역 가운데 정답 바탕 상자와 맞는 것이 하나도 없으면 맞음
+        b = innermost(c, bg)
+        if b is not None:
+            group_bg.append(any(match(b, f) for f in around))
+            group_in.append(group_bg[-1])
+        else:
+            group_bg.append(not any(match(t, f) for f in around for t in bg))
+        # (나) 전부 - 담은 가장 작은 정답 구역(바탕 · 조작 모두)과 가장 작은 찾은 구역이 맞나
         t = innermost(c, tb)
-        if t is None:
-            continue
-        f = innermost(c, found)
-        group.append(bool(f) and match(t, f))
+        if t is not None:
+            f = innermost(c, found)
+            group.append(bool(f) and match(t, f))
     return {"truth": len(truth), "hit": sum(hit),
             "hit_box": [sum(h for h, t in zip(hit, truth) if not t["control"]),
                         sum(not t["control"] for t in truth)],
             "hit_control": [sum(h for h, t in zip(hit, truth) if t["control"]),
                             sum(t["control"] for t in truth)],
             "found": len(found), "extra": len(extra),
+            "group_bg": [sum(group_bg), len(group_bg)], "group_bg_in": [sum(group_in), len(group_in)],
             "group": [sum(group), len(group)], "hits": hit}
 
 
@@ -196,81 +214,132 @@ def pc(v):
     return "%d/%d (%.0f%%)" % (v[0], v[1], 100.0 * v[0] / v[1]) if v[1] else "-"
 
 
+def unit_truth(tr, n):
+    """단위 n 의 정답 구역 (그 단위 안에 옮겨진 것) - 글 · 클래스를 붙여서."""
+    reg = {s["state"]: {r["id"]: r for r in s["regions"]} for s in tr["states"]}
+    u = tr["units"][n]
+    return [dict(r, **{k: reg[u["state"]][r["id"]][k] for k in ("text", "cls")})
+            for r in u["regions"] if r["in_unit"]]
+
+
+def find(method, p, image, det, captures, cache):
+    if method == "m1":
+        return m1(image, p["diff"], p["min"])
+    return m2(det, captures, p["block_only"], cache)
+
+
+def run_config(method, p, images, dets, truths, captures, cache, figdir=None):
+    """설정 하나를 단위마다 돌려 센다. images · dets · truths 는 단위 이름으로 (사본이면 줄인 좌표 그대로)."""
+    out = {}
+    for n, det in dets.items():
+        truth = truths[n]
+        found = find(method, p, images[n], det, captures, cache)
+        s = score(truth, found, [e for e in det["elements"]
+                                 if e["kind"] in ("box", "text", "img_candidate")])
+        if n.startswith("home"):
+            for key, want in (("irp", "membership"), ("ddanggyo", "땡겨요")):
+                t = next(t for t in truth if want in t["cls"] or t["text"].startswith(want))
+                s[key] = {"truth": t["id"], "hit": any(match(t["box"], f) for f in found),
+                          "best_iou": round(best_iou(t["box"], found), 2)}
+        s["boxes"] = found
+        out[n] = s
+        if figdir:
+            draw_found(images[n], truth, found, os.path.join(figdir, "%s.png" % n))
+    return out
+
+
+def draw_found(image, truth, found, path):
+    tb = [t["box"] for t in truth]
+    regs = [{"box": f, "ok": any(match(t, f) for t in tb)} for f in found]
+    regs += [{"box": t, "truth": True} for t in tb]
+    TRG.draw_regions(image, regs, path,
+                     lambda r: (0, 170, 80) if r.get("truth")
+                     else (30, 90, 230) if r["ok"] else (240, 130, 0),
+                     lambda r: None)
+
+
+def totals(res):
+    """단위 합계 - 바탕 · 조작 · 정답에 없는 구역 · 묶음 (가)(나) · 합친 재현율 · 홈 두 곳."""
+    s = lambda k: [sum(r[k][i] for r in res.values()) for i in (0, 1)]
+    home = next((r for n, r in res.items() if n.startswith("home")), None)
+    return {"box": s("hit_box"), "control": s("hit_control"),
+            "extra": sum(r["extra"] for r in res.values()), "found": sum(r["found"] for r in res.values()),
+            "group_bg": s("group_bg"), "group_bg_in": s("group_bg_in"), "group": s("group"),
+            "all": [sum(r["hit"] for r in res.values()), sum(r["truth"] for r in res.values())],
+            "irp": home and home["irp"], "ddanggyo": home and home["ddanggyo"]}
+
+
+def yes(x):
+    return "%s (%.2f)" % ("예" if x["hit"] else "아니오", x["best_iou"]) if x else "-"
+
+
+HEAD = ["바탕 재현율", "조작 재현율", "정답에 없는 구역 / 찾은 구역", "묶음 (가) 바탕", "묶음 (나) 전부",
+        "IRP 배너 (IoU)", "땡겨요 카드 (IoU)", "합친 재현율"]
+
+
+def total_row(t):
+    return [pc(t["box"]), pc(t["control"]), "%d / %d" % (t["extra"], t["found"]),
+            "%s · B 안 %s" % (pc(t["group_bg"]), pc(t["group_bg_in"])),
+            pc(t["group"]), yes(t["irp"]), yes(t["ddanggyo"]), pc(t["all"])]
+
+
+GROUPING = ("묶음 (가) 바탕 = D2.5 final 의 요소(박스 · 글 줄 · 그림 후보)마다 감싸는 가장 작은 정답 바탕 상자 B 를 "
+            "정하고, 요소를 감싸는 찾은 구역들 가운데 B 와 맞는 것이 있으면 맞음. B 가 없는 요소는 감싸는 찾은 구역 "
+            "가운데 정답 바탕 상자와 맞는 것이 하나도 없으면 맞음 (\"B 안\" = B 가 있는 요소만). 묶음 (나) 전부 = 중심이 정답 구역(바탕 · 조작) "
+            "안인 요소마다 담은 가장 작은 정답 구역과 가장 작은 찾은 구역이 맞으면 맞음.")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261013-d25", "final"))
     ap.add_argument("--captures", default=os.path.join(ROOT, "inputs", "captures", "transfer"))
+    ap.add_argument("--truth-regions", default=os.path.join(ROOT, "results", "detect", "20261019-regions",
+                                                            "truth_regions.json"))
     ap.add_argument("--out", default=os.path.join(ROOT, "results", "detect", "20261019-regions"))
+    ap.add_argument("--configs", nargs="*", choices=list(CONFIGS), help="돌릴 설정 (없으면 전부)")
     ap.add_argument("--no-figures", action="store_true")
     a = ap.parse_args(argv)
-    tr = json.load(io.open(os.path.join(a.out, "truth_regions.json"), encoding="utf-8"))
-    reg_of = {s["state"]: {r["id"]: r for r in s["regions"]} for s in tr["states"]}
+    tr = json.load(io.open(a.truth_regions, encoding="utf-8"))
     dets = C.load_units(a.dir)
     images = {n: TRG.unit_image(d, a.captures) for n, d in dets.items()}
-    cache = {}
-    res = {}
-    for cfg, (method, p) in CONFIGS.items():
-        res[cfg] = {}
-        for n, det in dets.items():
-            u = tr["units"][n]
-            truth = [dict(r, **{k: reg_of[u["state"]][r["id"]][k] for k in ("text", "cls")})
-                     for r in u["regions"] if r["in_unit"]]
-            found = (m1(images[n], p["diff"], p["min"]) if method == "m1"
-                     else m2(det, a.captures, p["block_only"], cache))
-            s = score(truth, found, [e for e in det["elements"]
-                                     if e["kind"] in ("box", "text", "img_candidate")])
-            if n.startswith("home"):
-                for key, want in (("irp", "membership"), ("ddanggyo", "땡겨요")):
-                    t = next(t for t in truth if want in t["cls"] or t["text"].startswith(want))
-                    s[key] = {"truth": t["id"], "hit": any(match(t["box"], f) for f in found),
-                              "best_iou": round(best_iou(t["box"], found), 2)}
-            s["boxes"] = found
-            res[cfg][n] = s
-            if not a.no_figures:
-                tb = [t["box"] for t in truth]
-                regs = [{"box": f, "ok": any(match(t, f) for t in tb)} for f in found]
-                regs += [{"box": t, "truth": True} for t in tb]
-                TRG.draw_regions(images[n], regs, os.path.join(a.out, "found", cfg, "%s.png" % n),
-                                 lambda r: (0, 170, 80) if r.get("truth")
-                                 else (30, 90, 230) if r["ok"] else (240, 130, 0),
-                                 lambda r: None)
+    truths = {n: unit_truth(tr, n) for n in dets}
+    names = a.configs or list(CONFIGS)
+    cache, res = {}, {}
+    for cfg in names:
+        method, p = CONFIGS[cfg]
+        res[cfg] = run_config(method, p, images, dets, truths, a.captures, cache,
+                              None if a.no_figures else os.path.join(a.out, "found", cfg))
         print(cfg, flush=True)
-
-    tot = lambda cfg, k: [sum(res[cfg][n][k][i] for n in dets) for i in (0, 1)]
-    rows = []
-    for cfg in CONFIGS:
-        h = res[cfg][next(n for n in dets if n.startswith("home"))]
-        rows.append([cfg, pc([sum(res[cfg][n]["hit"] for n in dets), sum(res[cfg][n]["truth"] for n in dets)]),
-                     pc(tot(cfg, "hit_box")), pc(tot(cfg, "hit_control")),
-                     "%d / %d" % (sum(res[cfg][n]["extra"] for n in dets), sum(res[cfg][n]["found"] for n in dets)),
-                     pc(tot(cfg, "group")),
-                     "%s (%.2f)" % ("예" if h["irp"]["hit"] else "아니오", h["irp"]["best_iou"]),
-                     "%s (%.2f)" % ("예" if h["ddanggyo"]["hit"] else "아니오", h["ddanggyo"]["best_iou"])])
+    tot = {cfg: totals(res[cfg]) for cfg in names}
     md = ["# 구역 검출 시험 (2026-10-19)\n",
-          "구역 정답지 `truth_regions.json` (truth_regions.py) 대 캡처에서 찾은 구역 (regions.py). 단위 %d개 "
+          "구역 정답지 `%s` (truth_regions.py) 대 캡처에서 찾은 구역 (regions.py). 단위 %d개 "
           "(이은 화면 3 + 낱장 10). 맞음 = IoU %.1f 이상 또는 네 변이 모두 %dpx 안. 최소 크기 CSS %dx%d "
-          "(캡처 %.0fx%.0f px), M1 의 사각형 채움 %.2f.\n"
-          % (len(dets), MATCH_IOU, MATCH_PX, MIN_CSS[0], MIN_CSS[1], *min_px(1.0), RECT_FILL),
-          C.table(["방법 (기준값)", "구역 재현율", "바탕 상자", "조작 상자 (버튼 · 칸)",
-                   "정답에 없는 구역 / 찾은 구역", "묶음 정확도", "IRP 배너 (IoU)", "땡겨요 카드 (IoU)"], rows),
-          "\n묶음 정확도 = D2.5 final 의 요소 가운데 중심이 정답 구역 안인 것마다, 담은 가장 작은 정답 구역과 "
-          "가장 작은 찾은 구역이 맞은 비율.\n",
-          "\n## 단위별 구역 재현율 · 정답에 없는 구역\n"]
-    md.append(C.table(["단위", "상태", "정답 구역"] + list(CONFIGS),
-                      [[n, tr["units"][n]["state"], res["M1-diff2"][n]["truth"]]
-                       + ["%d · +%d" % (res[c][n]["hit"], res[c][n]["extra"]) for c in CONFIGS]
+          "(캡처 %.0fx%.0f px), M1 의 사각형 채움 %.2f. 바탕 상자와 조작 상자(버튼 · 칸)는 따로 센다 - 합친 "
+          "숫자는 맨 끝 칸.\n"
+          % (os.path.relpath(a.truth_regions, ROOT).replace("\\", "/"), len(dets), MATCH_IOU, MATCH_PX,
+             MIN_CSS[0], MIN_CSS[1], *min_px(1.0), RECT_FILL),
+          C.table(["방법 (기준값)"] + HEAD, [[cfg] + total_row(tot[cfg]) for cfg in names]),
+          "\n" + GROUPING + "\n",
+          "\n## 단위별 - 바탕 · 조작 · 정답에 없는 구역\n"]
+    md.append(C.table(["단위", "상태", "정답 바탕 · 조작"] + names,
+                      [[n, tr["units"][n]["state"], "%d · %d" % (res[names[0]][n]["hit_box"][1],
+                                                               res[names[0]][n]["hit_control"][1])]
+                       + ["%d · %d · +%d" % (res[c][n]["hit_box"][0], res[c][n]["hit_control"][0],
+                                             res[c][n]["extra"]) for c in names]
                        for n in dets]))
-    md.append("\n칸 = 맞은 정답 구역 · 정답에 없는 구역. 그림: `found/<방법>/<단위>.png` (파랑 = 정답과 맞음, "
-              "주황 = 정답에 없음, 초록 = 정답 구역), 정답만: `truth_figures/<단위>.png`.\n")
+    md.append("\n칸 = 맞은 바탕 상자 · 맞은 조작 상자 · 정답에 없는 구역. 그림: `found/<방법>/<단위>.png` (파랑 = "
+              "정답과 맞음, 주황 = 정답에 없음, 초록 = 정답 구역).\n")
+    os.makedirs(a.out, exist_ok=True)
     with io.open(os.path.join(a.out, "summary.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(md) + "\n")
     with io.open(os.path.join(a.out, "regions.json"), "w", encoding="utf-8") as f:
-        json.dump({"configs": {k: {"method": v[0], **v[1]} for k, v in CONFIGS.items()},
+        json.dump({"truth_regions": os.path.relpath(a.truth_regions, ROOT).replace("\\", "/"),
+                   "configs": {k: {"method": CONFIGS[k][0], **CONFIGS[k][1]} for k in names},
                    "settings": {"min_css": MIN_CSS, "sx": SX, "rect_fill": RECT_FILL,
                                 "match_iou": MATCH_IOU, "match_px": MATCH_PX, "same_iou": SAME_IOU,
                                 "uied": D.UIED_PARAMS},
-                   "results": res}, f, ensure_ascii=False, indent=1)
-    print("\n".join(md[2:3]))
+                   "totals": tot, "results": res}, f, ensure_ascii=False, indent=1)
+    print(md[2])
 
 
 if __name__ == "__main__":
