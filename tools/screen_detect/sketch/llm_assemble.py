@@ -42,6 +42,8 @@ import semantic as S  # noqa: E402  (draw_marks · estimate - 같은 크기 규�
 PROMPT_FILE = os.path.join(HERE, "LLM_PROMPT.md")
 # 스크린샷만 (--inputs strict, 2026-10-19) - 의미 층 v2 의 칸 셋과 그것을 쓰는 지시 셋
 PROMPT_V2 = os.path.join(HERE, "LLM_PROMPT_V2.md")
+# v3 (10/19) - 줄 · 카드 끝 꺾쇠는 그림 자리가 아니라 글자로 (규칙 11)
+PROMPTS = {"v2": PROMPT_V2, "v3": os.path.join(HERE, "LLM_PROMPT_V3.md")}
 ANSWER_TOKENS = 60     # 어림 - 요소 하나의 HTML (태그 · data-src · style)
 ANSWER_BASE = 300
 MAX_TOKENS = 25000
@@ -179,12 +181,14 @@ def main(argv=None):
     ap.add_argument("--units", help='고른 단위만 - 쉼표로 ("home(01a+01b+01c),02"). 없으면 13단위 전부')
     K.ST.add_arg(ap)
     ap.add_argument("--root", default=K.STRICT_ROOT, help="strict 결과 폴더 (detect/ · semantic/ · flow/, 시안도 여기에)")
+    ap.add_argument("--prompt", choices=sorted(PROMPTS), default="v2", help="(strict) 프롬프트 판 - v3 는 꺾쇠 규칙 11")
+    ap.add_argument("--out", help="(strict) 시안 · 기록을 쓸 폴더 (기본: --root)")
     a = ap.parse_args(argv)
     strict = K.ST.from_args(a)
     K.set_strict_root(a.root)
     global PROMPT_FILE, OUT, PAGE_DIR
     if strict:
-        PROMPT_FILE, PAGE_DIR = PROMPT_V2, K.STRICT_PATHS["out"]
+        PROMPT_FILE, PAGE_DIR = PROMPTS[a.prompt], a.out or K.STRICT_PATHS["out"]
         OUT = os.path.join(PAGE_DIR, "llm")
     from senior_ui import config
     from senior_ui.restructure import model as M
