@@ -21,7 +21,13 @@ M1 (색 차이 2) 으로 그 자리에서. 사람 파일은 읽지 않는다 (�
             형제로 모으고 무리 하나에 data-action="a-<화면>-g<차례>" 하나, 값은 data-v (그 글). 검사 I 가 "같은 data-action ·
             같은 부모 · 형제 2개 이상" 을 무리로 보기 때문이다 (data-v 는 data-src 보다 앞 - 값은 첫 data-*)
   이동      흐름 짝 kind = tap 이고 누른 요소가 있으면 그 요소의 data-action → 다음 화면 show (무리 안 요소면 data-v 까지 본다).
-            skipped · unknown · 누른 것 없음은 이동을 만들지 않고 limits 에 적는다 (짐작으로 잇지 않는다)
+            via = "tap". 끊긴 짝 (skipped · unknown) 은 연구자 결정 a (10/19) 의 두 근거로만 잇는다 - 입력이 과제 순서대로
+            찍은 캡처라 이웃한 캡처 사이에 이동이 있었다는 것은 입력에서 온 사실이다. 사이 상태는 짓지 않는다
+              (가) 짝이 처음 누른 것을 적었고 그 요소가 앞 화면의 누를 것이면 → 그 요소가 다음 캡처 화면을 show,
+                   via = "skipped-states"
+              (나) 누른 것이 없고 앞 화면에 숫자판 무리 (값이 숫자 하나인 키 3개 이상) 가 있으면 → 그 무리의 어느 키든
+                   다음 캡처 화면 (data-v 를 보지 않음), via = "keypad-advance"
+            둘 다 아니면 이동을 만들지 않고 limits 에 적는다
   처리기    #phone 위임 처리기 하나 (a==='…' → show('sNN')), 시작 화면 s01. window.__screen() 은 지금 화면
   오류      kind = error_path 짝 → flow.json error_paths (from_step = 앞 화면, expect_screen = 오류 화면). 오류 화면의 누를 것이
             있으면 recover 로 그것을 누르고 back_to = 앞 화면 (처리기에도 그 이동). 오류 조건 · 입력은 만들지 않는다
@@ -33,6 +39,7 @@ import html
 import io
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -271,25 +278,40 @@ def plan(out):
                         "pressable": sum(1 for e in u["elements"] if (sid, e["id"]) in actions),
                         "groups": {g: "a-%s-g%d" % (sid, n) for g, n in groups.items()}})
     # 이동 · 오류 경로 · 못 이은 짝
+    # 숫자판 무리 - 화면마다 값 (data-v) 이 숫자 하나인 키가 3개 이상인 무리 (가장 많은 것)
+    keypad = {}
+    for (s_, i), (act, v) in actions.items():
+        if v is not None and re.fullmatch(r"\d", v):
+            keypad.setdefault(s_, {}).setdefault(act, []).append(i)
+    keypad = {s_: max(g.items(), key=lambda kv: len(kv[1])) for s_, g in keypad.items()
+              if max(len(x) for x in g.values()) >= 3}
     moves, errors, unlinked = [], [], []
     for p in flow["pairs"]:
         src, dst = cap_screen[p["from"]], cap_screen[p["to"]]
         pair = "%s → %s" % (p["from"], p["to"])
-        if p["kind"] == "tap" and p.get("tap") and (src, p["tap"]) in actions:
-            act = actions[(src, p["tap"])]
-            moves.append({"from": src, "to": dst, "element": p["tap"], "text": p.get("tap_text"),
-                          "click": selector(act), "action": act[0], "v": act[1], "pair": pair})
-        elif p["kind"] == "error_path":
+        if p["kind"] == "error_path":
             errors.append({"pair": pair, "from": src, "to": dst})
         elif p["kind"] == "scroll" and src == dst:
             continue
+        elif p["kind"] != "scroll" and p.get("tap") and (src, p["tap"]) in actions:
+            # tap 짝, 또는 (가) 끊긴 짝이지만 처음 누른 것이 적혔고 앞 화면에 있다 - 사이 상태는 짓지 않는다
+            act = actions[(src, p["tap"])]
+            moves.append({"from": src, "to": dst, "element": p["tap"], "text": p.get("tap_text"),
+                          "click": selector(act), "action": act[0], "v": act[1], "pair": pair,
+                          "via": "tap" if p["kind"] == "tap" else "skipped-states", "kind": p["kind"]})
+        elif p["kind"] != "scroll" and not p.get("tap") and src in keypad:
+            # (나) 누른 것이 적히지 않았고 앞 화면에 숫자판 무리가 있다 - 그 무리의 어느 키든 다음 화면 (어느 키인지 정하지 않음)
+            act, keys = keypad[src]
+            moves.append({"from": src, "to": dst, "element": None, "keys": keys, "text": None,
+                          "click": selector((act, None)), "action": act, "v": None, "pair": pair,
+                          "via": "keypad-advance", "kind": p["kind"]})
         else:
-            why = {"skipped": "사이 상태가 캡처에 없다 (skipped) - 짐작으로 잇지 않는다",
-                   "unknown": "누른 것을 모른다 (unknown)"}.get(p["kind"], "kind %s" % p["kind"])
-            if p["kind"] == "tap" and not p.get("tap"):
-                why = "tap 인데 누른 요소가 없다"
-            elif p["kind"] == "tap" and (src, p.get("tap")) not in actions:
-                why = "누른 요소 %s 가 누를 것 목록에 없다" % p.get("tap")
+            why = {"skipped": "사이 상태가 캡처에 없고 (skipped) 처음 누른 것도 앞 화면 숫자판도 없다",
+                   "unknown": "누른 것을 모르고 (unknown) 앞 화면에 숫자판도 없다"}.get(p["kind"], "kind %s" % p["kind"])
+            if p.get("tap") and (src, p["tap"]) not in actions:
+                why = "누른 요소 %s 가 앞 화면의 누를 것 목록에 없다" % p["tap"]
+            elif p["kind"] == "tap" and not p.get("tap"):
+                why = "tap 인데 누른 요소가 없고 앞 화면에 숫자판도 없다"
             if p["kind"] == "scroll":
                 why = "scroll 인데 다른 화면이다"
             unlinked.append({"pair": pair, "from": src, "to": dst, "kind": p["kind"], "tap": p.get("tap"),
@@ -303,7 +325,8 @@ def plan(out):
             act = actions[(e["to"], press[0]["id"])]
             moves.append({"from": e["to"], "to": e["from"], "element": press[0]["id"], "text": shown_text(press[0]),
                           "click": recover[0]["click"], "action": act[0], "v": act[1],
-                          "pair": "오류 화면에서 되돌아감 (%s 의 반대)" % e["pair"]})
+                          "pair": "오류 화면에서 되돌아감 (%s 의 반대)" % e["pair"], "via": "error-recover",
+                          "kind": "error_path"})
         error_paths.append({"id": "e%d" % n, "about": "", "condition": "", "uses": [], "notice_any": [],
                             "from_step": e["from"], "inputs": [], "expect_screen": e["to"], "recover": recover,
                             "back_to": e["from"] if press else None, "pair": e["pair"]})
@@ -351,7 +374,8 @@ def plan(out):
                                                                  "icon", "text_is_icon", "text_fixed")},
                               "chevron": (expected.get((sid, e["id"])) or {}).get("chevron"),
                               "markup": None,
-                              "flow": [m["pair"] for m in moves if m["element"] == e["id"] and m["from"] == sid]}
+                              "flow": [m["pair"] for m in moves if m["from"] == sid and
+                                       (m["element"] == e["id"] or e["id"] in m.get("keys", []))]}
     warns = [(u, w) for u, r in ((u, json.load(io.open(os.path.join(INPUTS["semantic"], u + ".semantic.json"),
                                                          encoding="utf-8"))) for u in sid_of) for w in r.get("warnings") or []]
     limits = ["# 조립 1단계 - 한계 (이번 실행)\n",
@@ -363,8 +387,17 @@ def plan(out):
               ", ".join(s["screen"] for s in screens if s["screen"] not in reach) or "없음",
               "\n## flow.json 에서 비운 칸\n",
               K.C.table(["칸", "까닭"], [[k, v] for k, v in blank.items()]),
+              "\n## 끊긴 짝을 규칙 a 로 이은 것 (사이 상태는 짓지 않았다)\n",
+              K.C.table(["짝", "화면", "kind", "via", "누르는 것", "모르는 것"],
+                        [[m["pair"], "%s → %s" % (m["from"], m["to"]), m["kind"], m["via"],
+                          ("%s (%s)" % (m["text"], m["element"])) if m["element"] else
+                          "숫자판 무리 %s 의 아무 키 (%d개)" % (m["action"], len(m["keys"])),
+                          "사이 상태 (캡처 없음) - 앞 화면에서 처음 누른 것 다음은 모른다" if m["via"] == "skipped-states" else
+                          "몇 번 · 어느 키를 눌러야 넘어가는지 (키 하나로 넘어가게 했다)"]
+                         for m in moves if m["via"] in ("skipped-states", "keypad-advance")] or [["-"] * 6]),
               "\n## 찍지 않은 상태로 보이는 것 (skipped 짝)\n",
-              ", ".join(x["pair"] for x in unlinked if x["kind"] == "skipped") or "없음",
+              ", ".join([m["pair"] for m in moves if m["kind"] == "skipped"] +
+                        [x["pair"] for x in unlinked if x["kind"] == "skipped"]) or "없음",
               "\n## 검출 · 의미 층 쪽\n",
               "- 의미 층 경고 (칸 짝 검사): %s\n" % (", ".join("%s %s" % (u, w["id"]) for u, w in warns) or "없음"),
               "- 검출 놓침은 만드는 줄에서는 알 수 없다 (정답과 견주는 것은 채점 쪽 - list_compare.py).\n"
@@ -377,8 +410,9 @@ def plan(out):
 
 
 def handler(moves):
+    """값을 보는 갈래가 먼저 - 값 없이 무리 전체를 보는 갈래 (keypad-advance) 가 같은 data-action 의 다른 갈래를 가리지 않게."""
     lines = []
-    for m in moves:
+    for m in sorted(moves, key=lambda m: m["v"] is None):
         cond = "a==='%s'" % m["action"] + (" && el.dataset.v===%s" % json.dumps(m["v"], ensure_ascii=False)
                                          if m["v"] is not None else "")
         lines.append("  %sif(%s) show('%s');" % ("else " if lines else "", cond, m["to"]))
