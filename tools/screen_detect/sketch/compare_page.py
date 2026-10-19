@@ -31,7 +31,10 @@ import compare_flow as CF  # noqa: E402
 import truth as TR  # noqa: E402
 
 TRUTH = os.path.join(K.ROOT, "results", "detect", "20261013-d3b", "truth.json")
-SIDES = [("capture", "캡처"), ("original", "옛 원본 재현 HTML"), ("rule", "(가) 규칙 시안"), ("llm", "(나) LLM 시안")]
+SIDES = [("capture", "캡처"), ("original", "옛 원본 재현 HTML"), ("rule", "(가) 규칙 시안"), ("llm", "(나) LLM 시안"),
+         ("rule_strict", "strict 규칙 시안"), ("llm_strict", "strict LLM 시안")]
+# strict (스크린샷만, 2026-10-19) 시안 - results/detect/20261019-strict/{rule,llm}.html. 같은 캡처 묶음의 줄에 붙인다
+SKETCHES = {"rule": "rule", "llm": "llm", "rule_strict": "rule", "llm_strict": "llm"}
 
 EXTRA = r"""() => {
   const on = document.querySelector('.screen.on') || document.body;
@@ -140,6 +143,18 @@ def main():
     for side in ("rule", "llm"):
         f = os.path.join(K.OUT, "%s.html" % side)
         sk[side] = asyncio.run(shoot_sketch(f, units, os.path.join(rd, side))) if os.path.exists(f) else {}
+    # strict 시안 - 그 html 에 있는 단위만 (strict 입력으로 다시 읽어 요소 수를 센다)
+    sunits = {}
+    for side in ("rule_strict", "llm_strict"):
+        f = os.path.join(K.STRICT_PATHS["out"], "%s.html" % SKETCHES[side])
+        if not os.path.exists(f):
+            sk[side] = {}
+            continue
+        if not sunits:
+            sunits = {"+".join(v["captures"]): v for v in K.load_units(strict=True).values() if v["elements"]}
+        os.makedirs(os.path.join(rd, side), exist_ok=True)
+        got = asyncio.run(shoot_sketch(f, list(sunits.values()), os.path.join(rd, side)))
+        sk[side] = {"+".join(sunits[k]["captures"]) if k in sunits else k: v for k, v in got.items()}
 
     rows, counts = [], {}
     for u in units:
@@ -149,8 +164,12 @@ def main():
                 "choices": sum(len(v) for v in (s.get("choices") or {}).values()), "png": shots.get(st)}
         ids = [e["id"] for e in u["elements"]]
         c = {"unit": u["unit"], "label": u["label"], "inputs": len(ids), "original": orig}
-        for side in ("rule", "llm"):
-            r = sk[side].get(u["unit"])
+        for side in ("rule", "llm", "rule_strict", "llm_strict"):
+            key = "+".join(u["captures"]) if side.endswith("_strict") else u["unit"]
+            r = sk[side].get(key)
+            if side.endswith("_strict") and r:
+                ids = [e["id"] for e in sunits[key]["elements"]]
+                c[side + "_inputs"] = len(ids)
             if r:
                 got = [i for i in r["src"] if i in set(ids)]
                 c[side] = {"shown": len(got), "missing": [i for i in ids if i not in set(r["src"])],
@@ -172,8 +191,8 @@ def main():
         r = c.get(side)
         if not r:
             return "", ""
-        note = "나온 요소 %d/%d · 빠진 id %d" % (r["shown"], c["inputs"], len(r["missing"]))
-        if side == "llm":
+        note = "나온 요소 %d/%d · 빠진 id %d" % (r["shown"], c.get(side + "_inputs", c["inputs"]), len(r["missing"]))
+        if side.startswith("llm"):
             note += " · 새로 생긴 글 %d" % len(r["stray"])
         note += " · 그림 자리 %d · 누를 것 %d" % (r["images"], r["pressable"])
         return '<img src="%s">' % rel(r["png"]), note
@@ -183,7 +202,7 @@ def main():
         for side, _ in SIDES:
             img, note = cell(side, c)
             tds.append('<td><div class="n">%s</div>%s</td>' % (html.escape(note), img))
-        trs.append('<tr><th colspan="4">%s — %s</th></tr><tr>%s</tr>' % (html.escape(c["unit"]),
+        trs.append('<tr><th colspan="6">%s — %s</th></tr><tr>%s</tr>' % (html.escape(c["unit"]),
                                                                         html.escape(c["label"] or ""), "".join(tds)))
     doc = """<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>조립 시안 견주기</title>
 <!-- 탐색용 시안 — 조립 설계 전. 만든 것: tools/screen_detect/sketch/compare_page.py -->
@@ -193,7 +212,9 @@ td{vertical-align:top; padding:4px; width:400px;} td img{width:390px; border:1px
 .n{font-size:12px; color:#333; min-height:32px;} thead th{position:sticky; top:0; background:#f4f5f7; z-index:2;}</style>
 </head><body><h1>조립 시안 견주기 (탐색용)</h1>
 <p>캡처 | 옛 원본 재현 HTML (truth.py 와 같은 걷기 · 폭 390) | (가) 규칙 시안 rule.html | (나) LLM 시안 llm.html.
-짝은 captures.json 의 label. 시안은 직접 열어 눌러 볼 수 있다: <a href="rule.html">rule.html</a> · <a href="llm.html">llm.html</a>.</p>
+짝은 captures.json 의 label (채점 쪽). strict 열 = 스크린샷만 (이름표 · 묶음 · 과제 이름 · 로고 규칙 없이, 의미 층 v2) - 홈만.
+시안은 직접 열어 눌러 볼 수 있다: <a href="rule.html">rule.html</a> · <a href="llm.html">llm.html</a> ·
+<a href="../20261019-strict/rule.html">strict rule.html</a> · <a href="../20261019-strict/llm.html">strict llm.html</a>.</p>
 <table><thead><tr>%s</tr></thead>%s</table></body></html>""" % (
         "".join("<th>%s</th>" % t for _, t in SIDES), "".join(trs))
     with io.open(os.path.join(K.OUT, "compare.html"), "w", encoding="utf-8", newline="\n") as f:
