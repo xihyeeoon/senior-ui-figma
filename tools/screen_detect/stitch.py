@@ -309,8 +309,16 @@ def main(argv=None):
     ap.add_argument("--dir", default=os.path.join(ROOT, "results", "detect", "20261012-d2"))
     ap.add_argument("--captures", default=os.path.join(ROOT, "inputs", "captures", "transfer"))
     ST.add_arg(ap)
+    ap.add_argument("--groups-from", help="(strict) 다른 실행의 _groups.json 묶음을 그대로 쓴다 - 검출기만 바꿔 견줄 때 "
+                                           "이어 붙이기를 같게 두려고 (그 묶음도 그림만 보고 가린 것이다)")
     a = ap.parse_args(argv)
-    if ST.from_args(a):
+    if ST.from_args(a) and a.groups_from:
+        g = json.load(io.open(a.groups_from, encoding="utf-8"))
+        groups = {n: c for n, c in g["groups"]}
+        with io.open(os.path.join(a.dir, "_groups.json"), "w", encoding="utf-8") as fh:
+            json.dump(dict(g, from_file=os.path.relpath(a.groups_from, ROOT).replace(os.sep, "/")), fh,
+                      ensure_ascii=False, indent=1)
+    elif ST.STRICT:
         # 스크린샷만 (2026-10-19) - 묶음을 그림만 보고 가린다. 묶음 이름 = 묶인 캡처 파일 이름
         groups, log = ST.auto_groups(a.dir, a.captures)
         with io.open(os.path.join(a.dir, "_groups.json"), "w", encoding="utf-8") as fh:
