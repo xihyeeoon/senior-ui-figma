@@ -201,7 +201,7 @@ class Frame:
             if u1 <= y <= u2:
                 return v1 + (v2 - v1) * (y - u1) / (u2 - u1)
 
-    def inside(self, thing):
+    def inside(self, thing, overlap=False):
         """옮긴 자리의 중심이 이 캡처에 보이는 범위 안인가 - 같은 무리(움직임/고정)의 맞은 닻이
         걸친 세로 범위 ± SPAN_PAD 안이면 그렇다. 늘여 짐작하지 않는다: 시트 머리 밑으로 스크롤해
         들어간 줄, 더미앱에서는 스크롤로 사라지는 머리(재현 HTML 에서는 고정)가 '안' 으로
@@ -211,6 +211,11 @@ class Frame:
         if r is None or span is None:
             return None
         cy = r[1] + r[3] / 2
+        if overlap:
+            # 그림 자리 (2026-10-19) - 옮긴 자리가 그 범위에 조금이라도 걸치면 안. 아이콘 · 로고는 이름표 글(닻)
+            # 위에 놓여, 맨 윗줄 로고의 중심이 닻 범위 - SPAN_PAD 바로 바깥에 떨어진다 (은행 시트 첫 줄)
+            return (r[1] <= span[1] + SPAN_PAD and r[1] + r[3] >= span[0] - SPAN_PAD
+                    and r[1] <= self.size[1] and r[1] + r[3] >= 0)
         return span[0] - SPAN_PAD <= cy <= span[1] + SPAN_PAD and 0 <= cy <= self.size[1]
 
 
@@ -450,8 +455,8 @@ def judge_capture(det, st):
             it["label"].strip() in names or truncated_match(it["label"], names)))]
         for part in ([it for it in bare if it["kind"] == "slot"],
                      [it for it in bare if it["kind"] != "slot"]):
-            rs = [frame.map(it["thing"]) if frame.inside(it["thing"]) is not False else None
-                  for it in part]
+            rs = [frame.map(it["thing"]) if frame.inside(it["thing"], overlap=it["kind"] == "slot") is not False
+                  else None for it in part]
             # 고정 띠(상태바)의 아이콘은 짝 후보에서 뺀다 - 정답(재현 HTML)의 상태바에는 그림 자리 · 입구가
             # 없는데, 머리 아이콘 줄 바로 위라 짝짓기 비용으로는 머리 아이콘과 겨룬다
             cand = [c for c in pool if "system_band" not in (c.get("flags") or [])]
@@ -463,7 +468,7 @@ def judge_capture(det, st):
     for it in items_of(st):
         r = frame.map(it["thing"])
         row = {"kind": it["kind"], "label": it["label"], "action": it.get("action"),
-               "key": key(it), "in_frame": frame.inside(it["thing"])}
+               "key": key(it), "in_frame": frame.inside(it["thing"], overlap=it["kind"] == "slot")}
         cut = truncated_match(it["label"], names) if it["kind"] == "slot" else None
         if it["kind"] == "slot" and (it["label"].strip() in names or cut):
             # 로고 - 후보 이름이 정답 이름과 같다 (둘 다 "<이름> 로고" 규칙이라 판정한다).
@@ -649,6 +654,15 @@ def load_semantic(folder):
     return out, (json.load(io.open(summ, encoding="utf-8")) if os.path.exists(summ) else None)
 
 
+def name_key(name):
+    """그림 이름 견주기의 열쇠 (2026-10-19) - 띄어쓰기와 끝말 "로고" / "아이콘" 차이는 같은 것으로 본다."""
+    s = re.sub(r"\s+", "", name or "")
+    for tail in ("로고", "아이콘"):
+        if s.endswith(tail):
+            return s[:-len(tail)]
+    return s
+
+
 def is_cut(name):
     base = (name or "").strip()
     for tail in (" 아이콘", " 로고"):
@@ -718,7 +732,7 @@ def roles(names, per, dets, sem, states, pick):
         names_ = r["image_names"]
         if not names_:
             continue
-        if r["label"].strip() in [x.strip() for x in names_]:
+        if name_key(r["label"]) in [name_key(x) for x in names_]:
             same.append(r)
         elif any(is_cut(x) and r["label"].startswith(x.strip().rstrip(" 아이콘로고").rstrip(CUT_MARKS))
                  for x in names_):
@@ -850,6 +864,8 @@ def main(argv=None):
     ap.add_argument("--frame", choices=["line", "local"], default="local",
                     help="정답 자리 옮기기 - local 꺾은선 + 글 없는 것 하나씩 짝짓기 (기본), line 직선 (10/19 이전)")
     ap.add_argument("--out", help="summary.md · compare.json 을 쓸 폴더 (기본: --semantic, 없으면 --dir)")
+    ap.add_argument("--truth", help="정답지 (기본: --semantic 폴더의 truth.json, 없으면 --dir 의 truth.json). 스크린샷만"
+                                    "(strict) 결과 폴더에는 정답지를 두지 않으므로 채점할 때 이것으로 준다")
     a = ap.parse_args(argv)
     globals()["FRAME"] = a.frame
     if a.table:
@@ -858,7 +874,7 @@ def main(argv=None):
     load = lambda p: json.load(io.open(os.path.join(a.dir, p), encoding="utf-8"))
     out_dir = a.out or a.semantic or a.dir
     os.makedirs(out_dir, exist_ok=True)
-    tp = os.path.join(a.semantic, "truth.json") if a.semantic else None
+    tp = a.truth or (os.path.join(a.semantic, "truth.json") if a.semantic else None)
     truth = (json.load(io.open(tp, encoding="utf-8")) if tp and os.path.exists(tp)
              else load("truth.json"))
     run = load("_run.json")
