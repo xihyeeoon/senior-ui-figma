@@ -146,7 +146,7 @@ def main(argv=None):
     umap = F.unit_of(units)
     roles = {}
     for u in units:
-        r = json.load(io.open(os.path.join(ROOT, res["roles"], u + ".semantic.json"), encoding="utf-8"))
+        r = json.load(io.open(F.roles_file(os.path.join(ROOT, res["roles"]), u, units), encoding="utf-8"))
         roles.update({e["id"]: e for e in r["elements"] or []})
     st = truth["states"]
     rows = []
