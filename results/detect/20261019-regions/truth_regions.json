@@ -1,0 +1,4710 @@
+{
+ "original": "inputs/original_transfer.html",
+ "original_sha256": "f76a8b2f9226e20bfc521325c0b0d0cb040d3ce3f958c9a3376377a7b6141e63",
+ "truth": "results/detect/20261013-d3b/truth.json",
+ "dir": "results/detect/20261013-d25/final",
+ "rule": {
+  "min_css": [
+   40,
+   24
+  ],
+  "same_px": 2,
+  "frame": "local",
+  "why": "background (부모와 다른 배경) | border (네 변) | shadow",
+  "excluded": ".statusbar, role=img, 창의 95% x 90% 이상"
+ },
+ "same_texts_as_truth": true,
+ "states": [
+  {
+   "state": "home",
+   "screen": "home",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "card",
+     "text": "자산 › [금융거래한도계좌2]신한 주거래 우대통장 (저축예금) 금액 숨김",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      14,
+      92,
+      362,
+      209
+     ],
+     "pinned": false,
+     "id": "r0",
+     "items": [
+      "text||자산",
+      "text||›",
+      "text||[금융거래한도계좌2]신한 주거래 우대통장",
+      "text||(저축예금)",
+      "text||금액 숨김",
+      "text||이체",
+      "text||절세혜택과 안정적인 노후, IRP로 준비하세요",
+      "button|go-recipient|이체",
+      "entrance|oos-irp|절세혜택과 안정적인 노후, IRP로 준비하세요",
+      "slot||신한은행 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "btn-sm",
+     "text": "이체",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "go-recipient",
+     "rect": [
+      302,
+      148,
+      58,
+      34
+     ],
+     "pinned": false,
+     "id": "r1",
+     "items": [
+      "text||이체",
+      "button|go-recipient|이체"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "membership",
+     "text": "절세혜택과 안정적인 노후, IRP로 준비하세요",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "oos-irp",
+     "rect": [
+      30,
+      240,
+      330,
+      43
+     ],
+     "pinned": false,
+     "id": "r2",
+     "items": [
+      "text||절세혜택과 안정적인 노후, IRP로 준비하세요",
+      "entrance|oos-irp|절세혜택과 안정적인 노후, IRP로 준비하세요"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "card",
+     "text": "Pick E 체크캐릭터형(하리보) 금액 숨김 앱카드 가입",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      14,
+      313,
+      362,
+      148
+     ],
+     "pinned": false,
+     "id": "r3",
+     "items": [
+      "text||Pick E 체크캐릭터형(하리보)",
+      "text||앱카드 가입",
+      "entrance|oos-appcard|앱카드 가입",
+      "slot||체크카드 아이콘"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "btn-wide",
+     "text": "앱카드 가입",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "oos-appcard",
+     "rect": [
+      30,
+      395,
+      330,
+      48
+     ],
+     "pinned": false,
+     "id": "r4",
+     "items": [
+      "text||앱카드 가입",
+      "entrance|oos-appcard|앱카드 가입"
+     ],
+     "parent": "r3"
+    },
+    {
+     "tag": "div",
+     "cls": "card",
+     "text": "땡겨요 › 할인쿠폰 드려요 bhc치킨 최대 9,000원 바로받기 이벤트 ",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      14,
+      473,
+      362,
+      179
+     ],
+     "pinned": false,
+     "id": "r5",
+     "items": [
+      "text||땡겨요",
+      "text||할인쿠폰 드려요",
+      "text||bhc치킨 최대 9,000원",
+      "text||바로받기",
+      "text||이벤트",
+      "text||쿠폰",
+      "text||포인트",
+      "entrance|oos-coupon|쿠폰",
+      "entrance|oos-event|이벤트",
+      "entrance|oos-get-coupon|바로받기",
+      "entrance|oos-point|포인트",
+      "slot||땡겨요 쿠폰 아이콘"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "btn-sm",
+     "text": "바로받기",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "oos-get-coupon",
+     "rect": [
+      274,
+      542,
+      86,
+      34
+     ],
+     "pinned": false,
+     "id": "r6",
+     "items": [
+      "text||바로받기",
+      "entrance|oos-get-coupon|바로받기"
+     ],
+     "parent": "r5"
+    },
+    {
+     "tag": "div",
+     "cls": "card",
+     "text": "7월 소비 ↻ › 오늘 쓴 돈 0원",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      14,
+      664,
+      362,
+      118
+     ],
+     "pinned": false,
+     "id": "r7",
+     "items": [
+      "text||7월 소비 ↻",
+      "text||오늘 쓴 돈",
+      "text||0원",
+      "entrance|oos-spend-detail|소비 상세",
+      "slot||오늘 쓴 돈 아이콘"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "pointbar",
+     "text": "카드 쓸때마다 쌓이고, 현금처럼 쓰는 마이신한포인트 시작하기",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "oos-my-point",
+     "rect": [
+      14,
+      794,
+      362,
+      75
+     ],
+     "pinned": false,
+     "id": "r8",
+     "items": [
+      "text||카드 쓸때마다 쌓이고, 현금처럼 쓰는",
+      "text||마이신한포인트",
+      "text||시작하기",
+      "text||홈",
+      "text||금융",
+      "text||상품",
+      "text||혜택",
+      "text||주식",
+      "entrance|oos-my-point|카드 쓸때마다 쌓이고, 현금처럼 쓰는 마이신한포인트 시작하기",
+      "entrance|oos-tab-benefit|혜택",
+      "entrance|oos-tab-finance|금융",
+      "entrance|oos-tab-goods|상품",
+      "entrance|oos-tab-home|홈",
+      "entrance|oos-tab-stock|주식",
+      "slot|oos-tab-home|홈 아이콘",
+      "slot|oos-tab-finance|금융 아이콘",
+      "slot|oos-tab-goods|상품 아이콘",
+      "slot|oos-tab-benefit|혜택 아이콘",
+      "slot|oos-tab-stock|주식 아이콘"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "시작하기",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": null,
+     "rect": [
+      278,
+      816,
+      80,
+      31
+     ],
+     "pinned": false,
+     "id": "r9",
+     "items": [
+      "text||시작하기",
+      "text||주식"
+     ],
+     "parent": "r8"
+    },
+    {
+     "tag": "div",
+     "cls": "card",
+     "text": "추천서비스 › SOL패밀리 가족과 함께하는 금융생활 급여클럽+ 급여이체 ",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      14,
+      881,
+      362,
+      254
+     ],
+     "pinned": false,
+     "id": "r10",
+     "items": [
+      "text||추천서비스",
+      "text||SOL패밀리",
+      "text||가족과 함께하는 금융생활",
+      "text||급여클럽+",
+      "text||급여이체 우대 혜택",
+      "text||내 카드 승인내역",
+      "text||모든 카드 실시간 승인내역",
+      "slot||SOL패밀리 아이콘",
+      "slot||급여클럽+ 아이콘",
+      "slot||내 카드 승인내역 아이콘"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "card",
+     "text": "더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! 이벤트 바로가기 ›",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "oos-connect-event",
+     "rect": [
+      14,
+      1147,
+      362,
+      106
+     ],
+     "pinned": false,
+     "id": "r11",
+     "items": [
+      "text||더 많은 금융자산 모두",
+      "text||연결하면 커피쿠폰 즉시지급!",
+      "text||이벤트 바로가기 ›",
+      "entrance|oos-connect-event|더 많은 금융자산 모두 연결하면 커피쿠폰 즉시지급! 이벤트 바로가기 ›"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "card",
+     "text": "신한금융그룹 신한카드 나에게 맞는 카드 찾기 신한투자증권 지금 뜨는 주식",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      14,
+      1265,
+      362,
+      254
+     ],
+     "pinned": false,
+     "id": "r12",
+     "items": [
+      "text||신한금융그룹",
+      "text||신한카드",
+      "text||나에게 맞는 카드 찾기",
+      "text||신한투자증권",
+      "text||지금 뜨는 주식 보러가기",
+      "text||신한라이프",
+      "text||내게 필요한 보험, 보장분석으로 확인하기",
+      "slot||신한카드 아이콘",
+      "slot||신한투자증권 아이콘",
+      "slot||신한라이프 아이콘"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "tabbar",
+     "text": "홈 금융 상품 혜택 주식",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      0,
+      782,
+      390,
+      62
+     ],
+     "pinned": true,
+     "id": "r13",
+     "items": [
+      "text||카드 쓸때마다 쌓이고, 현금처럼 쓰는",
+      "text||마이신한포인트",
+      "text||시작하기",
+      "text||홈",
+      "text||금융",
+      "text||상품",
+      "text||혜택",
+      "text||주식",
+      "entrance|oos-my-point|카드 쓸때마다 쌓이고, 현금처럼 쓰는 마이신한포인트 시작하기",
+      "entrance|oos-tab-benefit|혜택",
+      "entrance|oos-tab-finance|금융",
+      "entrance|oos-tab-goods|상품",
+      "entrance|oos-tab-home|홈",
+      "entrance|oos-tab-stock|주식",
+      "slot|oos-tab-home|홈 아이콘",
+      "slot|oos-tab-finance|금융 아이콘",
+      "slot|oos-tab-goods|상품 아이콘",
+      "slot|oos-tab-benefit|혜택 아이콘",
+      "slot|oos-tab-stock|주식 아이콘"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "recipient",
+   "screen": "recipient",
+   "regions": [
+    {
+     "tag": "span",
+     "cls": "srch",
+     "text": "",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "oos-search",
+     "rect": [
+      330,
+      99,
+      40,
+      40
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "entrance|oos-search|검색",
+      "slot|oos-search|검색 아이콘"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "span",
+     "cls": "pill",
+     "text": "0개 ⌄",
+     "why": [
+      "border"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      310,
+      202,
+      60,
+      32
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||0개 ⌄"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "span",
+     "cls": "pill",
+     "text": "0개 ⌄",
+     "why": [
+      "border"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      310,
+      262,
+      60,
+      32
+     ],
+     "pinned": true,
+     "id": "r2",
+     "items": [],
+     "parent": null
+    },
+    {
+     "tag": "span",
+     "cls": "pill",
+     "text": "0개 ⌄",
+     "why": [
+      "border"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      310,
+      322,
+      60,
+      32
+     ],
+     "pinned": true,
+     "id": "r3",
+     "items": [],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "account",
+   "screen": "account",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "accfield",
+     "text": "계좌번호",
+     "why": [
+      "border"
+     ],
+     "control": true,
+     "action": "acc-field",
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||계좌번호",
+      "button|acc-field|계좌번호",
+      "field|acc-field|계좌번호"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bankpick",
+     "text": "은행 또는 증권사 선택 ⌄",
+     "why": [
+      "border"
+     ],
+     "control": true,
+     "action": "open-bank",
+     "rect": [
+      20,
+      241,
+      350,
+      63
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||은행 또는 증권사 선택",
+      "text||⌄"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "btn-next",
+     "text": "다음",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "account-next",
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true,
+     "id": "r2",
+     "items": [
+      "text||다음"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "account#2",
+   "screen": "account",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "accfield",
+     "text": "계좌번호",
+     "why": [
+      "border"
+     ],
+     "control": true,
+     "action": "acc-field",
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||계좌번호",
+      "field|acc-field|계좌번호"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bankpick",
+     "text": "은행 또는 증권사 선택 ⌄",
+     "why": [
+      "border"
+     ],
+     "control": true,
+     "action": "open-bank",
+     "rect": [
+      20,
+      241,
+      350,
+      63
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||은행 또는 증권사 선택",
+      "text||⌄",
+      "button|open-bank|은행 또는 증권사 선택 ⌄"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "btn-next",
+     "text": "다음",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "account-next",
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true,
+     "id": "r2",
+     "items": [
+      "text||다음"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "bank",
+   "screen": "bank",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "sheet",
+     "text": "은행 또는 증권사 선택 ✕ 은행 증권사 신한 제주 국민 기업 농협 산업 ",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      0,
+      96,
+      390,
+      748
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||은행 또는 증권사 선택",
+      "text||✕",
+      "text||은행",
+      "text||증권사",
+      "text||신한",
+      "text||제주",
+      "text||국민",
+      "text||기업",
+      "text||농협",
+      "text||산업",
+      "text||수협",
+      "text||신협",
+      "text||우리",
+      "text||하나",
+      "text||한국씨티",
+      "text||카카오뱅크",
+      "text||케이뱅크",
+      "text||토스뱅크",
+      "text||경남",
+      "text||광주",
+      "text||아이엠뱅크(대구)",
+      "text||부산",
+      "button|pick-bank|신한",
+      "choice|pick-bank|신한",
+      "choice|pick-bank|제주",
+      "choice|pick-bank|국민",
+      "choice|pick-bank|기업",
+      "choice|pick-bank|농협",
+      "choice|pick-bank|산업",
+      "choice|pick-bank|수협",
+      "choice|pick-bank|신협",
+      "choice|pick-bank|우리",
+      "choice|pick-bank|하나",
+      "choice|pick-bank|한국씨티",
+      "choice|pick-bank|카카오뱅크",
+      "choice|pick-bank|케이뱅크",
+      "choice|pick-bank|토스뱅크",
+      "choice|pick-bank|경남",
+      "choice|pick-bank|광주",
+      "choice|pick-bank|아이엠뱅크(대구)",
+      "choice|pick-bank|부산",
+      "choice|pick-bank|전북",
+      "choice|pick-bank|회원수협",
+      "choice|pick-bank|새마을",
+      "slot|pick-bank|신한 로고",
+      "slot|pick-bank|제주 로고",
+      "slot|pick-bank|국민 로고",
+      "slot|pick-bank|기업 로고",
+      "slot|pick-bank|농협 로고",
+      "slot|pick-bank|산업 로고",
+      "slot|pick-bank|수협 로고",
+      "slot|pick-bank|신협 로고",
+      "slot|pick-bank|우리 로고",
+      "slot|pick-bank|하나 로고",
+      "slot|pick-bank|한국씨티 로고",
+      "slot|pick-bank|카카오뱅크 로고",
+      "slot|pick-bank|케이뱅크 로고",
+      "slot|pick-bank|토스뱅크 로고",
+      "slot|pick-bank|경남 로고",
+      "slot|pick-bank|광주 로고",
+      "slot|pick-bank|아이엠뱅크(대구) 로고",
+      "slot|pick-bank|부산 로고",
+      "slot|pick-bank|전북 로고",
+      "slot|pick-bank|회원수협 로고",
+      "slot|pick-bank|새마을 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "신한",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      216,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r1",
+     "items": [
+      "text||신한",
+      "button|pick-bank|신한",
+      "choice|pick-bank|신한",
+      "slot|pick-bank|신한 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "제주",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      216,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r2",
+     "items": [
+      "text||제주",
+      "choice|pick-bank|제주",
+      "slot|pick-bank|제주 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "국민",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      216,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r3",
+     "items": [
+      "text||국민",
+      "choice|pick-bank|국민",
+      "slot|pick-bank|국민 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "기업",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      313,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r4",
+     "items": [
+      "text||기업",
+      "choice|pick-bank|기업",
+      "slot|pick-bank|기업 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "농협",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      313,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r5",
+     "items": [
+      "text||농협",
+      "choice|pick-bank|농협",
+      "slot|pick-bank|농협 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "산업",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      313,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r6",
+     "items": [
+      "text||산업",
+      "choice|pick-bank|산업",
+      "slot|pick-bank|산업 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "수협",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      410,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r7",
+     "items": [
+      "text||수협",
+      "choice|pick-bank|수협",
+      "slot|pick-bank|수협 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "신협",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      410,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r8",
+     "items": [
+      "text||신협",
+      "choice|pick-bank|신협",
+      "slot|pick-bank|신협 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "우리",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      410,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r9",
+     "items": [
+      "text||우리",
+      "choice|pick-bank|우리",
+      "slot|pick-bank|우리 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "하나",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      507,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r10",
+     "items": [
+      "text||하나",
+      "choice|pick-bank|하나",
+      "slot|pick-bank|하나 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "한국씨티",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      507,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r11",
+     "items": [
+      "text||한국씨티",
+      "choice|pick-bank|한국씨티",
+      "slot|pick-bank|한국씨티 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "카카오뱅크",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      507,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r12",
+     "items": [
+      "text||카카오뱅크",
+      "choice|pick-bank|카카오뱅크",
+      "slot|pick-bank|카카오뱅크 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "케이뱅크",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      604,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r13",
+     "items": [
+      "text||케이뱅크",
+      "choice|pick-bank|케이뱅크",
+      "slot|pick-bank|케이뱅크 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "토스뱅크",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      604,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r14",
+     "items": [
+      "text||토스뱅크",
+      "choice|pick-bank|토스뱅크",
+      "slot|pick-bank|토스뱅크 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "경남",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      604,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r15",
+     "items": [
+      "text||경남",
+      "choice|pick-bank|경남",
+      "slot|pick-bank|경남 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "광주",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      701,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r16",
+     "items": [
+      "text||광주",
+      "choice|pick-bank|광주",
+      "slot|pick-bank|광주 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "아이엠뱅크(대구)",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      701,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r17",
+     "items": [
+      "text||아이엠뱅크(대구)",
+      "choice|pick-bank|아이엠뱅크(대구)",
+      "slot|pick-bank|아이엠뱅크(대구) 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "부산",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      701,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r18",
+     "items": [
+      "text||부산",
+      "choice|pick-bank|부산",
+      "slot|pick-bank|부산 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "전북",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      798,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r19",
+     "items": [
+      "text||전북",
+      "choice|pick-bank|전북",
+      "slot|pick-bank|전북 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "회원수협",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      798,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r20",
+     "items": [
+      "text||회원수협",
+      "choice|pick-bank|회원수협",
+      "slot|pick-bank|회원수협 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "새마을",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      798,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r21",
+     "items": [
+      "text||새마을",
+      "choice|pick-bank|새마을",
+      "slot|pick-bank|새마을 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "우체국",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      895,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r22",
+     "items": [
+      "text||우체국",
+      "choice|pick-bank|우체국",
+      "slot|pick-bank|우체국 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "저축은행",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      895,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r23",
+     "items": [
+      "text||저축은행",
+      "choice|pick-bank|저축은행",
+      "slot|pick-bank|저축은행 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "지역농.축협",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      895,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r24",
+     "items": [
+      "text||지역농.축협",
+      "choice|pick-bank|지역농.축협",
+      "slot|pick-bank|지역농.축협 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "도이치",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      992,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r25",
+     "items": [
+      "text||도이치",
+      "choice|pick-bank|도이치",
+      "slot|pick-bank|도이치 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "중국",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      992,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r26",
+     "items": [
+      "text||중국",
+      "choice|pick-bank|중국",
+      "slot|pick-bank|중국 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "중국건설",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      992,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r27",
+     "items": [
+      "text||중국건설",
+      "choice|pick-bank|중국건설",
+      "slot|pick-bank|중국건설 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "중국공상",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      1089,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r28",
+     "items": [
+      "text||중국공상",
+      "choice|pick-bank|중국공상",
+      "slot|pick-bank|중국공상 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "BNP파리바",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      1089,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r29",
+     "items": [
+      "text||BNP파리바",
+      "choice|pick-bank|BNP파리바",
+      "slot|pick-bank|BNP파리바 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "BOA",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      1089,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r30",
+     "items": [
+      "text||BOA",
+      "choice|pick-bank|BOA",
+      "slot|pick-bank|BOA 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "HSBC",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      1186,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r31",
+     "items": [
+      "text||HSBC",
+      "choice|pick-bank|HSBC",
+      "slot|pick-bank|HSBC 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "JP모간",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      1186,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r32",
+     "items": [
+      "text||JP모간",
+      "choice|pick-bank|JP모간",
+      "slot|pick-bank|JP모간 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "SC",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      1186,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r33",
+     "items": [
+      "text||SC",
+      "choice|pick-bank|SC",
+      "slot|pick-bank|SC 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "산림조합",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      1283,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r34",
+     "items": [
+      "text||산림조합",
+      "choice|pick-bank|산림조합",
+      "slot|pick-bank|산림조합 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "국세",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      1283,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r35",
+     "items": [
+      "text||국세",
+      "choice|pick-bank|국세",
+      "slot|pick-bank|국세 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "지방세",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      1283,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r36",
+     "items": [
+      "text||지방세",
+      "choice|pick-bank|지방세",
+      "slot|pick-bank|지방세 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "국고금",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      1380,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r37",
+     "items": [
+      "text||국고금",
+      "choice|pick-bank|국고금",
+      "slot|pick-bank|국고금 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "관세",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      1380,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r38",
+     "items": [
+      "text||관세",
+      "choice|pick-bank|관세",
+      "slot|pick-bank|관세 로고"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "bank+tab-sec",
+   "screen": "bank",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "sheet",
+     "text": "은행 또는 증권사 선택 ✕ 은행 증권사 신한투자증권 교보증권 다올투자증권",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      0,
+      96,
+      390,
+      748
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||은행 또는 증권사 선택",
+      "text||✕",
+      "text||은행",
+      "text||증권사",
+      "text||신한투자증권",
+      "text||교보증권",
+      "text||다올투자증권",
+      "text||대신증권",
+      "text||메리츠증권",
+      "text||미래에셋증권",
+      "text||부국증권",
+      "text||삼성증권",
+      "text||상상인증권",
+      "text||신영증권",
+      "text||에스케이증권",
+      "text||유안타증권",
+      "text||유진투자증권",
+      "text||LS증권",
+      "text||카카오페이증권",
+      "text||케이프투자증권",
+      "text||키움증권",
+      "text||토스증권",
+      "choice|pick-bank|신한투자증권",
+      "choice|pick-bank|교보증권",
+      "choice|pick-bank|다올투자증권",
+      "choice|pick-bank|대신증권",
+      "choice|pick-bank|메리츠증권",
+      "choice|pick-bank|미래에셋증권",
+      "choice|pick-bank|부국증권",
+      "choice|pick-bank|삼성증권",
+      "choice|pick-bank|상상인증권",
+      "choice|pick-bank|신영증권",
+      "choice|pick-bank|에스케이증권",
+      "choice|pick-bank|유안타증권",
+      "choice|pick-bank|유진투자증권",
+      "choice|pick-bank|LS증권",
+      "choice|pick-bank|카카오페이증권",
+      "choice|pick-bank|케이프투자증권",
+      "choice|pick-bank|키움증권",
+      "choice|pick-bank|토스증권",
+      "choice|pick-bank|우리투자증권",
+      "choice|pick-bank|하나증권",
+      "choice|pick-bank|아이엠증권",
+      "slot|pick-bank|신한투자증권 로고",
+      "slot|pick-bank|교보증권 로고",
+      "slot|pick-bank|다올투자증권 로고",
+      "slot|pick-bank|대신증권 로고",
+      "slot|pick-bank|메리츠증권 로고",
+      "slot|pick-bank|미래에셋증권 로고",
+      "slot|pick-bank|부국증권 로고",
+      "slot|pick-bank|삼성증권 로고",
+      "slot|pick-bank|상상인증권 로고",
+      "slot|pick-bank|신영증권 로고",
+      "slot|pick-bank|에스케이증권 로고",
+      "slot|pick-bank|유안타증권 로고",
+      "slot|pick-bank|유진투자증권 로고",
+      "slot|pick-bank|LS증권 로고",
+      "slot|pick-bank|카카오페이증권 로고",
+      "slot|pick-bank|케이프투자증권 로고",
+      "slot|pick-bank|키움증권 로고",
+      "slot|pick-bank|토스증권 로고",
+      "slot|pick-bank|우리투자증권 로고",
+      "slot|pick-bank|하나증권 로고",
+      "slot|pick-bank|아이엠증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "신한투자증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      216,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r1",
+     "items": [
+      "text||신한투자증권",
+      "choice|pick-bank|신한투자증권",
+      "slot|pick-bank|신한투자증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "교보증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      216,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r2",
+     "items": [
+      "text||교보증권",
+      "choice|pick-bank|교보증권",
+      "slot|pick-bank|교보증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "다올투자증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      216,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r3",
+     "items": [
+      "text||다올투자증권",
+      "choice|pick-bank|다올투자증권",
+      "slot|pick-bank|다올투자증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "대신증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      313,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r4",
+     "items": [
+      "text||대신증권",
+      "choice|pick-bank|대신증권",
+      "slot|pick-bank|대신증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "메리츠증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      313,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r5",
+     "items": [
+      "text||메리츠증권",
+      "choice|pick-bank|메리츠증권",
+      "slot|pick-bank|메리츠증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "미래에셋증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      313,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r6",
+     "items": [
+      "text||미래에셋증권",
+      "choice|pick-bank|미래에셋증권",
+      "slot|pick-bank|미래에셋증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "부국증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      410,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r7",
+     "items": [
+      "text||부국증권",
+      "choice|pick-bank|부국증권",
+      "slot|pick-bank|부국증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "삼성증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      410,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r8",
+     "items": [
+      "text||삼성증권",
+      "choice|pick-bank|삼성증권",
+      "slot|pick-bank|삼성증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "상상인증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      410,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r9",
+     "items": [
+      "text||상상인증권",
+      "choice|pick-bank|상상인증권",
+      "slot|pick-bank|상상인증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "신영증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      507,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r10",
+     "items": [
+      "text||신영증권",
+      "choice|pick-bank|신영증권",
+      "slot|pick-bank|신영증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "에스케이증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      507,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r11",
+     "items": [
+      "text||에스케이증권",
+      "choice|pick-bank|에스케이증권",
+      "slot|pick-bank|에스케이증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "유안타증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      507,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r12",
+     "items": [
+      "text||유안타증권",
+      "choice|pick-bank|유안타증권",
+      "slot|pick-bank|유안타증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "유진투자증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      604,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r13",
+     "items": [
+      "text||유진투자증권",
+      "choice|pick-bank|유진투자증권",
+      "slot|pick-bank|유진투자증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "LS증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      604,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r14",
+     "items": [
+      "text||LS증권",
+      "choice|pick-bank|LS증권",
+      "slot|pick-bank|LS증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "카카오페이증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      604,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r15",
+     "items": [
+      "text||카카오페이증권",
+      "choice|pick-bank|카카오페이증권",
+      "slot|pick-bank|카카오페이증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "케이프투자증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      701,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r16",
+     "items": [
+      "text||케이프투자증권",
+      "choice|pick-bank|케이프투자증권",
+      "slot|pick-bank|케이프투자증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "키움증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      701,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r17",
+     "items": [
+      "text||키움증권",
+      "choice|pick-bank|키움증권",
+      "slot|pick-bank|키움증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "토스증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      701,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r18",
+     "items": [
+      "text||토스증권",
+      "choice|pick-bank|토스증권",
+      "slot|pick-bank|토스증권 로고"
+     ],
+     "parent": "r0"
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "우리투자증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      798,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r19",
+     "items": [
+      "text||우리투자증권",
+      "choice|pick-bank|우리투자증권",
+      "slot|pick-bank|우리투자증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "하나증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      798,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r20",
+     "items": [
+      "text||하나증권",
+      "choice|pick-bank|하나증권",
+      "slot|pick-bank|하나증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "아이엠증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      798,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r21",
+     "items": [
+      "text||아이엠증권",
+      "choice|pick-bank|아이엠증권",
+      "slot|pick-bank|아이엠증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "한국투자증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      895,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r22",
+     "items": [
+      "text||한국투자증권",
+      "choice|pick-bank|한국투자증권",
+      "slot|pick-bank|한국투자증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "한화투자증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      895,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r23",
+     "items": [
+      "text||한화투자증권",
+      "choice|pick-bank|한화투자증권",
+      "slot|pick-bank|한화투자증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "현대차증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      895,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r24",
+     "items": [
+      "text||현대차증권",
+      "choice|pick-bank|현대차증권",
+      "slot|pick-bank|현대차증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "BNK투자증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      992,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r25",
+     "items": [
+      "text||BNK투자증권",
+      "choice|pick-bank|BNK투자증권",
+      "slot|pick-bank|BNK투자증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "DB증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      992,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r26",
+     "items": [
+      "text||DB증권",
+      "choice|pick-bank|DB증권",
+      "slot|pick-bank|DB증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "IBK투자증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      261,
+      992,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r27",
+     "items": [
+      "text||IBK투자증권",
+      "choice|pick-bank|IBK투자증권",
+      "slot|pick-bank|IBK투자증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "KB증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      14,
+      1089,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r28",
+     "items": [
+      "text||KB증권",
+      "choice|pick-bank|KB증권",
+      "slot|pick-bank|KB증권 로고"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bk",
+     "text": "NH투자증권",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "pick-bank",
+     "rect": [
+      138,
+      1089,
+      115,
+      88
+     ],
+     "pinned": false,
+     "id": "r29",
+     "items": [
+      "text||NH투자증권",
+      "choice|pick-bank|NH투자증권",
+      "slot|pick-bank|NH투자증권 로고"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "amount~1",
+   "screen": "account",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "accfield",
+     "text": "계좌번호",
+     "why": [
+      "border"
+     ],
+     "control": true,
+     "action": "acc-field",
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||계좌번호",
+      "field|acc-field|계좌번호"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bankpick",
+     "text": "신한 ⌄",
+     "why": [
+      "border"
+     ],
+     "control": true,
+     "action": "open-bank",
+     "rect": [
+      20,
+      241,
+      350,
+      63
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||신한",
+      "text||⌄"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "btn-next",
+     "text": "다음",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "account-next",
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true,
+     "id": "r2",
+     "items": [
+      "text||다음"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "amount~2",
+   "screen": "account",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "accfield",
+     "text": "계좌번호 110234567890 ⓧ",
+     "why": [
+      "border"
+     ],
+     "control": true,
+     "action": "acc-field",
+     "rect": [
+      20,
+      153,
+      350,
+      74
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||계좌번호",
+      "text||110234567890",
+      "text||ⓧ",
+      "field|acc-field|계좌번호 110234567890 ⓧ"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "div",
+     "cls": "bankpick",
+     "text": "신한 ⌄",
+     "why": [
+      "border"
+     ],
+     "control": true,
+     "action": "open-bank",
+     "rect": [
+      20,
+      241,
+      350,
+      63
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||신한",
+      "text||⌄"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "btn-next on",
+     "text": "다음",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "account-next",
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true,
+     "id": "r2",
+     "items": [
+      "text||다음",
+      "button|account-next|다음"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "amount",
+   "screen": "amount",
+   "regions": [
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "+1만",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "quick",
+     "rect": [
+      16,
+      443,
+      84,
+      40
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||+1만",
+      "choice|quick|+1만"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "+5만",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "quick",
+     "rect": [
+      108,
+      443,
+      84,
+      40
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||+5만",
+      "choice|quick|+5만"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "+10만",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "quick",
+     "rect": [
+      199,
+      443,
+      84,
+      40
+     ],
+     "pinned": true,
+     "id": "r2",
+     "items": [
+      "text||+10만",
+      "choice|quick|+10만"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "전액",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "quick",
+     "rect": [
+      291,
+      443,
+      84,
+      40
+     ],
+     "pinned": true,
+     "id": "r3",
+     "items": [
+      "text||전액",
+      "choice|quick|전액"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "btn-next",
+     "text": "다음",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "amount-next",
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true,
+     "id": "r4",
+     "items": [
+      "text||다음"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "confirm~1",
+   "screen": "amount",
+   "regions": [
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "+1만",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "quick",
+     "rect": [
+      16,
+      443,
+      84,
+      40
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||+1만",
+      "choice|quick|+1만"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "+5만",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "quick",
+     "rect": [
+      108,
+      443,
+      84,
+      40
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||+5만",
+      "choice|quick|+5만"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "+10만",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "quick",
+     "rect": [
+      199,
+      443,
+      84,
+      40
+     ],
+     "pinned": true,
+     "id": "r2",
+     "items": [
+      "text||+10만",
+      "choice|quick|+10만"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "전액",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "quick",
+     "rect": [
+      291,
+      443,
+      84,
+      40
+     ],
+     "pinned": true,
+     "id": "r3",
+     "items": [
+      "text||전액",
+      "choice|quick|전액"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "btn-next on",
+     "text": "다음",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "amount-next",
+     "rect": [
+      16,
+      769,
+      358,
+      57
+     ],
+     "pinned": true,
+     "id": "r4",
+     "items": [
+      "text||다음",
+      "button|amount-next|다음"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "confirm",
+   "screen": "confirm",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "summary",
+     "text": "보내는 계좌 신한 110-000-000000 받는 계좌 신한 110234",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      20,
+      359,
+      350,
+      166
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||보내는 계좌",
+      "text||신한 110-000-000000",
+      "text||받는 계좌",
+      "text||받는분 메모",
+      "text||김철수 ✎",
+      "text||내통장 메모"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "btn-primary",
+     "text": "보내기",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "send",
+     "rect": [
+      16,
+      763,
+      358,
+      59
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||보내기",
+      "button|send|보내기"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "password",
+   "screen": "password",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "pwpad",
+     "text": "1 4 7 6 9 8 5 0 3 재배열 2 ⌫",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      0,
+      460,
+      390,
+      384
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||9",
+      "text||1",
+      "text||3",
+      "text||4",
+      "text||8",
+      "text||7",
+      "text||5",
+      "text||6",
+      "text||0",
+      "text||재배열",
+      "text||2",
+      "text||⌫",
+      "choice|pw|9",
+      "choice|pw|1",
+      "choice|pw|3",
+      "choice|pw|4",
+      "choice|pw|8",
+      "choice|pw|7",
+      "choice|pw|5",
+      "choice|pw|6",
+      "choice|pw|0",
+      "choice|pw|2"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "done",
+   "screen": "done",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "okc",
+     "text": "✓",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      163,
+      120,
+      64,
+      64
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||✓"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "추가이체",
+     "why": [
+      "border"
+     ],
+     "control": true,
+     "action": "oos-more-transfer",
+     "rect": [
+      97,
+      301,
+      94,
+      42
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||추가이체",
+      "entrance|oos-more-transfer|추가이체"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "상세보기",
+     "why": [
+      "border"
+     ],
+     "control": true,
+     "action": "oos-detail",
+     "rect": [
+      200,
+      301,
+      94,
+      42
+     ],
+     "pinned": true,
+     "id": "r2",
+     "items": [
+      "text||상세보기",
+      "entrance|oos-detail|상세보기"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "ghost",
+     "text": "공유",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "oos-share",
+     "rect": [
+      16,
+      763,
+      108,
+      59
+     ],
+     "pinned": true,
+     "id": "r3",
+     "items": [
+      "text||공유",
+      "entrance|oos-share|공유"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "fill",
+     "text": "확인",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "finish",
+     "rect": [
+      133,
+      763,
+      241,
+      59
+     ],
+     "pinned": true,
+     "id": "r4",
+     "items": [
+      "text||확인"
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "state": "error:wrong-account",
+   "screen": "err-account",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "dialog",
+     "text": "ELB00016 계좌번호[110234567891] 입력하신 계좌번호가 올",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      28,
+      294,
+      334,
+      256
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||ELB00016",
+      "text||입력하신 계좌번호가 올바르지 않습니다.",
+      "text||계좌번호를 확인하시기 바랍니다.",
+      "text||확인",
+      "button|close-error|확인"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "ebtn",
+     "text": "확인",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "close-error",
+     "rect": [
+      50,
+      477,
+      290,
+      55
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||확인",
+      "button|close-error|확인"
+     ],
+     "parent": "r0"
+    }
+   ]
+  },
+  {
+   "state": "error:wrong-bank",
+   "screen": "err-bank",
+   "regions": [
+    {
+     "tag": "div",
+     "cls": "dialog",
+     "text": "ETA00325 해당 계좌번호내 과목코드 오류입니다. 입력하신 계좌번호를",
+     "why": [
+      "background"
+     ],
+     "control": false,
+     "action": null,
+     "rect": [
+      28,
+      307,
+      334,
+      231
+     ],
+     "pinned": true,
+     "id": "r0",
+     "items": [
+      "text||ETA00325",
+      "text||해당 계좌번호내 과목코드 오류입니다.",
+      "text||입력하신 계좌번호를 확인해주세요.",
+      "text||확인",
+      "button|close-error|확인"
+     ],
+     "parent": null
+    },
+    {
+     "tag": "button",
+     "cls": "ebtn",
+     "text": "확인",
+     "why": [
+      "background"
+     ],
+     "control": true,
+     "action": "close-error",
+     "rect": [
+      50,
+      464,
+      290,
+      55
+     ],
+     "pinned": true,
+     "id": "r1",
+     "items": [
+      "text||확인",
+      "button|close-error|확인"
+     ],
+     "parent": "r0"
+    }
+   ]
+  }
+ ],
+ "units": {
+  "home(01a+01b+01c)": {
+   "state": "home",
+   "size": [
+    824,
+    4062
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      30,
+      182,
+      765,
+      547
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      638,
+      322,
+      123,
+      95
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r2",
+     "box": [
+      63,
+      574,
+      697,
+      111
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r3",
+     "box": [
+      30,
+      759,
+      765,
+      329
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r4",
+     "box": [
+      63,
+      947,
+      697,
+      103
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r5",
+     "box": [
+      30,
+      1114,
+      765,
+      396
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r6",
+     "box": [
+      579,
+      1260,
+      182,
+      90
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r7",
+     "box": [
+      30,
+      1538,
+      765,
+      395
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r8",
+     "box": [
+      30,
+      1964,
+      765,
+      341
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r9",
+     "box": [
+      587,
+      2020,
+      169,
+      229
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r10",
+     "box": [
+      30,
+      2335,
+      765,
+      563
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r11",
+     "box": [
+      30,
+      2920,
+      765,
+      220
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r12",
+     "box": [
+      30,
+      3162,
+      765,
+      553
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r13",
+     "box": [
+      0,
+      3926,
+      824,
+      136
+     ],
+     "control": false,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 36,
+     "top": 3,
+     "bottom": 4
+    },
+    "knots": {
+     "move": 33,
+     "top": 2,
+     "bottom": 1
+    }
+   }
+  },
+  "02": {
+   "state": "recipient",
+   "size": [
+    824,
+    1830
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      697,
+      168,
+      85,
+      101
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      655,
+      450,
+      127,
+      87
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r2",
+     "box": [
+      655,
+      610,
+      127,
+      83
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r3",
+     "box": [
+      655,
+      766,
+      127,
+      84
+     ],
+     "control": false,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 0,
+     "top": 7,
+     "bottom": 0
+    },
+    "knots": {
+     "move": 0,
+     "top": 6,
+     "bottom": 0
+    }
+   }
+  },
+  "03": {
+   "state": "account",
+   "size": [
+    824,
+    1830
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      42,
+      285,
+      739,
+      169
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      42,
+      485,
+      739,
+      137
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r2",
+     "box": [
+      34,
+      1663,
+      756,
+      120
+     ],
+     "control": true,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 0,
+     "top": 5,
+     "bottom": 1
+    },
+    "knots": {
+     "move": 0,
+     "top": 4,
+     "bottom": 1
+    }
+   }
+  },
+  "04": {
+   "state": "account#2",
+   "size": [
+    824,
+    1830
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      42,
+      285,
+      739,
+      168
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      42,
+      485,
+      739,
+      136
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r2",
+     "box": [
+      34,
+      1663,
+      756,
+      120
+     ],
+     "control": true,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 0,
+     "top": 5,
+     "bottom": 1
+    },
+    "knots": {
+     "move": 0,
+     "top": 4,
+     "bottom": 1
+    }
+   }
+  },
+  "bank(05a+05b+05c)": {
+   "state": "bank",
+   "size": [
+    824,
+    4220
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      0,
+      243,
+      824,
+      3977
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      30,
+      533,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r2",
+     "box": [
+      292,
+      533,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r3",
+     "box": [
+      551,
+      533,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r4",
+     "box": [
+      30,
+      815,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r5",
+     "box": [
+      292,
+      815,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r6",
+     "box": [
+      551,
+      815,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r7",
+     "box": [
+      30,
+      1098,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r8",
+     "box": [
+      292,
+      1098,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r9",
+     "box": [
+      551,
+      1098,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r10",
+     "box": [
+      30,
+      1380,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r11",
+     "box": [
+      292,
+      1380,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r12",
+     "box": [
+      551,
+      1380,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r13",
+     "box": [
+      30,
+      1662,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r14",
+     "box": [
+      292,
+      1662,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r15",
+     "box": [
+      551,
+      1662,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r16",
+     "box": [
+      30,
+      1944,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r17",
+     "box": [
+      292,
+      1944,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r18",
+     "box": [
+      551,
+      1944,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r19",
+     "box": [
+      30,
+      2225,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r20",
+     "box": [
+      292,
+      2225,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r21",
+     "box": [
+      551,
+      2225,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r22",
+     "box": [
+      30,
+      2508,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r23",
+     "box": [
+      292,
+      2508,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r24",
+     "box": [
+      551,
+      2508,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r25",
+     "box": [
+      30,
+      2789,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r26",
+     "box": [
+      292,
+      2789,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r27",
+     "box": [
+      551,
+      2789,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r28",
+     "box": [
+      30,
+      3072,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r29",
+     "box": [
+      292,
+      3072,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r30",
+     "box": [
+      551,
+      3072,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r31",
+     "box": [
+      30,
+      3354,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r32",
+     "box": [
+      292,
+      3354,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r33",
+     "box": [
+      551,
+      3354,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r34",
+     "box": [
+      30,
+      3635,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r35",
+     "box": [
+      292,
+      3635,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r36",
+     "box": [
+      551,
+      3635,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r37",
+     "box": [
+      30,
+      3917,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r38",
+     "box": [
+      292,
+      3917,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 38,
+     "top": 5,
+     "bottom": 0
+    },
+    "knots": {
+     "move": 13,
+     "top": 3,
+     "bottom": 0
+    }
+   }
+  },
+  "bank-tab-sec(06a+06b+06c)": {
+   "state": "bank+tab-sec",
+   "size": [
+    824,
+    3373
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      0,
+      244,
+      824,
+      3129
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      30,
+      533,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r2",
+     "box": [
+      292,
+      533,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r3",
+     "box": [
+      551,
+      533,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r4",
+     "box": [
+      30,
+      816,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r5",
+     "box": [
+      292,
+      816,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r6",
+     "box": [
+      551,
+      816,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r7",
+     "box": [
+      30,
+      1098,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r8",
+     "box": [
+      292,
+      1098,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r9",
+     "box": [
+      551,
+      1098,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r10",
+     "box": [
+      30,
+      1380,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r11",
+     "box": [
+      292,
+      1380,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r12",
+     "box": [
+      551,
+      1380,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r13",
+     "box": [
+      30,
+      1662,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r14",
+     "box": [
+      292,
+      1662,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r15",
+     "box": [
+      551,
+      1662,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r16",
+     "box": [
+      30,
+      1943,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r17",
+     "box": [
+      292,
+      1943,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r18",
+     "box": [
+      551,
+      1943,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r19",
+     "box": [
+      30,
+      2226,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r20",
+     "box": [
+      292,
+      2226,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r21",
+     "box": [
+      551,
+      2226,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r22",
+     "box": [
+      30,
+      2508,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r23",
+     "box": [
+      292,
+      2508,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r24",
+     "box": [
+      551,
+      2508,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r25",
+     "box": [
+      30,
+      2789,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r26",
+     "box": [
+      292,
+      2789,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r27",
+     "box": [
+      551,
+      2789,
+      243,
+      255
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r28",
+     "box": [
+      30,
+      3070,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r29",
+     "box": [
+      292,
+      3070,
+      243,
+      256
+     ],
+     "control": true,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 28,
+     "top": 5,
+     "bottom": 0
+    },
+    "knots": {
+     "move": 10,
+     "top": 3,
+     "bottom": 0
+    }
+   }
+  },
+  "07": {
+   "state": "amount",
+   "size": [
+    824,
+    1830
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      34,
+      1096,
+      177,
+      75
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      228,
+      1096,
+      177,
+      75
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r2",
+     "box": [
+      420,
+      1096,
+      177,
+      75
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r3",
+     "box": [
+      615,
+      1096,
+      177,
+      75
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r4",
+     "box": [
+      34,
+      1708,
+      756,
+      107
+     ],
+     "control": true,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 0,
+     "top": 4,
+     "bottom": 6
+    },
+    "knots": {
+     "move": 0,
+     "top": 3,
+     "bottom": 3
+    }
+   }
+  },
+  "07a": {
+   "state": "amount",
+   "size": [
+    824,
+    1830
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      34,
+      1095,
+      177,
+      75
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      228,
+      1095,
+      177,
+      75
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r2",
+     "box": [
+      420,
+      1095,
+      177,
+      75
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r3",
+     "box": [
+      615,
+      1095,
+      177,
+      75
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r4",
+     "box": [
+      34,
+      1709,
+      756,
+      107
+     ],
+     "control": true,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 0,
+     "top": 4,
+     "bottom": 6
+    },
+    "knots": {
+     "move": 0,
+     "top": 3,
+     "bottom": 3
+    }
+   }
+  },
+  "08": {
+   "state": "confirm",
+   "size": [
+    824,
+    1830
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      42,
+      714,
+      739,
+      411
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      34,
+      1692,
+      756,
+      146
+     ],
+     "control": true,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 0,
+     "top": 6,
+     "bottom": 5
+    },
+    "knots": {
+     "move": 0,
+     "top": 4,
+     "bottom": 4
+    }
+   }
+  },
+  "09a": {
+   "state": "password",
+   "size": [
+    824,
+    1830
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      0,
+      1033,
+      824,
+      797
+     ],
+     "control": false,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 0,
+     "top": 2,
+     "bottom": 1
+    },
+    "knots": {
+     "move": 0,
+     "top": 2,
+     "bottom": 1
+    }
+   }
+  },
+  "09b": {
+   "state": "password",
+   "size": [
+    824,
+    1830
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      0,
+      1033,
+      824,
+      797
+     ],
+     "control": false,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 0,
+     "top": 2,
+     "bottom": 1
+    },
+    "knots": {
+     "move": 0,
+     "top": 2,
+     "bottom": 1
+    }
+   }
+  },
+  "10": {
+   "state": "done",
+   "size": [
+    824,
+    1830
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      344,
+      431,
+      135,
+      254
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      205,
+      1028,
+      199,
+      123
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r2",
+     "box": [
+      423,
+      1028,
+      199,
+      123
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r3",
+     "box": [
+      34,
+      1654,
+      228,
+      125
+     ],
+     "control": true,
+     "in_unit": true
+    },
+    {
+     "id": "r4",
+     "box": [
+      281,
+      1654,
+      509,
+      125
+     ],
+     "control": true,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 0,
+     "top": 4,
+     "bottom": 2
+    },
+    "knots": {
+     "move": 0,
+     "top": 3,
+     "bottom": 1
+    }
+   }
+  },
+  "11": {
+   "state": "error:wrong-account",
+   "size": [
+    824,
+    1830
+   ],
+   "regions": [
+    {
+     "id": "r0",
+     "box": [
+      59,
+      659,
+      706,
+      502
+     ],
+     "control": false,
+     "in_unit": true
+    },
+    {
+     "id": "r1",
+     "box": [
+      106,
+      1005,
+      613,
+      117
+     ],
+     "control": true,
+     "in_unit": true
+    }
+   ],
+   "frame": {
+    "anchors": {
+     "move": 0,
+     "top": 5,
+     "bottom": 2
+    },
+    "knots": {
+     "move": 0,
+     "top": 3,
+     "bottom": 2
+    }
+   }
+  }
+ }
+}
