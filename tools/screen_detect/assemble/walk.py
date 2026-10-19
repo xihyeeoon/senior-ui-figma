@@ -69,6 +69,12 @@ async def run(folder):
                     await press("[data-src='%s']" % k)
                     good.append(await screen() == m["to"])
                 out["edges"][-1]["keys"] = "%d/%d" % (sum(good), len(good))
+                stay = []                                # 숫자 아닌 키 (지우기 · 재배열) 는 넘어가지 않아야
+                for k in m.get("other_keys") or []:
+                    await page.evaluate("(s) => show(s)", m["from"])
+                    await press("[data-src='%s']" % k)
+                    stay.append(await screen() == m["from"])
+                out["edges"][-1]["other_keys"] = "%d/%d" % (sum(stay), len(stay))
         # 2. s01 에서 눌러서 닿는 화면 (된 이동만 따라)
         ok = [e for e in out["edges"] if e["ok"]]
         reach, todo = {start}, [start]
@@ -113,8 +119,10 @@ def main(argv=None):
     md += ["| %s → %s | %s | `%s` | %s | %s |" % (e["from"], e["to"], e.get("via") or "-", e["click"],
                                            "됨" if e["ok"] else "안 바뀜 (%s%s)" % (e["got"], ", " + e["error"] if e["error"] else ""),
                                            e["pair"]) for e in out["edges"]]
-    md += ["\n- keypad-advance 키마다 눌러 넘어간 수: %s" % (", ".join(
-        "%s → %s %s" % (e["from"], e["to"], e["keys"]) for e in out["edges"] if e.get("keys")) or "없음")]
+    md += ["\n- keypad-advance 숫자 키마다 눌러 넘어간 수: %s" % (", ".join(
+        "%s → %s %s" % (e["from"], e["to"], e["keys"]) for e in out["edges"] if e.get("keys")) or "없음"),
+           "- keypad-advance 숫자 아닌 키를 눌러 그 화면에 머문 수: %s" % (", ".join(
+               "%s %s" % (e["from"], e["other_keys"]) for e in out["edges"] if e.get("other_keys")) or "없음")]
     md += ["\n## 오류 경로\n"] + ["- %s: %s 에서 recover → %s (%s)" % (
         e["id"], e["expect_screen"], e.get("got"), "됨" if e.get("ok") else "안 됨") for e in out["errors"]]
     with io.open(os.path.join(a.dir, "walk.md"), "w", encoding="utf-8", newline="\n") as f:
