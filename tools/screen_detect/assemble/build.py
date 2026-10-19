@@ -1,10 +1,12 @@
-r"""조립 1단계 - 규칙 부분 (만드는 줄, --inputs strict). 2026-10-19 조립 설계 v0.
+r"""조립 2단계 - 규칙 부분 (만드는 줄, --inputs strict). 2026-10-19 조립 설계 v0 + 연구자 결정 a · c · d (10/19).
 
     C:\Users\xihye\venvs\detect\Scripts\python.exe tools/screen_detect/assemble/build.py --inputs strict
-        → results/detect/20261019-assembly/{original.html, flow.json, trace.json, limits.md, check.json}
+        → results/detect/20261019-assembly2/rule/{original.html, flow.json, trace.json, limits.md, check.json}
+        (1단계 결과 20261019-assembly 는 a · c · d 전의 이 파일)
 
-설계 v0 (연구자 확정): 생김새는 LLM (2단계), 동작 · 이름 · 처리기 · 흐름 파일 · 추적표는 규칙 (이 파일). 1단계에서는 LLM
-마크업 자리에 규칙 시안 마크업 (sketch/rule_assemble 의 규칙 - 구역 div · 절대 위치 · 캡처 색) 을 넣는다.
+설계 v0 (연구자 확정): 생김새는 LLM, 동작 · 이름 · 처리기 · 흐름 파일 · 추적표는 규칙 (이 파일). 이 파일만 돌리면 LLM
+마크업 자리에 규칙 시안 마크업 (sketch/rule_assemble 의 규칙 - 구역 div · 절대 위치 · 캡처 색) 을 넣는다 (규칙 판).
+LLM 판은 llm_build.py 가 plan() 을 그대로 쓰고 마크업만 바꿔 write() 한다.
 
 입력 (strict3, 모두 스크린샷에서 나온 것): 검출 20261019-strict2/detect (이어 붙이기 13단위 포함), 의미 층
 20261019-strict3/semantic (v2 strict, 은행은 strict3 에서 다시), 흐름 짝 20261019-strict3/flow (그림 포함), 구역 나무는 같은
@@ -58,7 +60,7 @@ R = os.path.join(ROOT, "results", "detect")
 INPUTS = {"final": os.path.join(R, "20261019-strict2", "detect"),
           "semantic": os.path.join(R, "20261019-strict3", "semantic"),
           "flow": os.path.join(R, "20261019-strict3", "flow", "flow.proposed.json")}
-OUT = os.path.join(R, "20261019-assembly")
+OUT = os.path.join(R, "20261019-assembly2", "rule")
 PRESS_KINDS = set(K.BUTTONS) | {"input"}
 GROUP_KINDS = {"choice", "keypad_key"}
 
@@ -220,8 +222,8 @@ def build_screen(sid, u, arr, sem, actions):
 
 PAGE = """<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>스크린샷에서 조립한 원본 (1단계)</title>
-<!-- 조립 1단계 - 규칙 부분 + 규칙 시안 마크업. 만든 것: tools/screen_detect/assemble/build.py (스크린샷만, strict) -->
+<title>스크린샷에서 조립한 원본 (2단계 %(which)s)</title>
+<!-- 조립 2단계 - 규칙 부분 + %(markup)s. 만든 것: tools/screen_detect/assemble/%(maker)s (스크린샷만, strict) -->
 <style>
   html,body{margin:0;padding:0;background:#DFE3EA;font-family:"Malgun Gothic",-apple-system,sans-serif;}
   body{display:flex;justify-content:center;}
@@ -234,7 +236,7 @@ PAGE = """<!doctype html>
   .pic{box-sizing:border-box;border-radius:3px;box-shadow:inset 0 0 0 1px #B8BDC7;background:
     linear-gradient(to top right, transparent calc(50%% - .75px), #9AA0A8 calc(50%% - .75px), #9AA0A8 calc(50%% + .75px), transparent calc(50%% + .75px)),
     linear-gradient(to bottom right, transparent calc(50%% - .75px), #9AA0A8 calc(50%% - .75px), #9AA0A8 calc(50%% + .75px), transparent calc(50%% + .75px)), #E4E7EC;}
-</style></head><body>
+%(css)s</style></head><body>
 <div id="phone">
 %(sections)s
 </div>
@@ -358,7 +360,7 @@ def plan(out):
         blank["steps (%s 다음)" % cur] = "%s 에서 나가는 이동이 없다 - 과제 길이 %s 에서 끊긴다 (마지막 과제 화면 %s)" % (
             cur, cur, task_last)
     flow_out = {"name": "screenshot-assembly-v0", "task": None,
-                "note": "스크린샷 19장 (파일 이름 순) 에서 조립한 원본 (조립 1단계, 규칙 부분 + 규칙 시안 마크업). 화면 = 이어 붙이기 "
+                "note": "스크린샷 19장 (파일 이름 순) 에서 조립한 원본 (조립 2단계, 규칙 부분 + 규칙 시안 마크업). 화면 = 이어 붙이기 "
                         "단위, 이동 = 흐름 추정 strict3 의 tap 짝 + 끊긴 짝을 규칙 a 로 이은 것 (via). steps 는 s01 에서 "
                         "캡처 차례대로 이동을 따라간 과제 길 - 오류 되돌아감은 transitions 에 있다. 비운 칸은 blank 에.",
                 "derived_from_original": True, "truth": {}, "required_ids": [], "steps": steps, "expect": {},
@@ -382,7 +384,7 @@ def plan(out):
                                        (m["element"] == e["id"] or e["id"] in m.get("keys", []))]}
     warns = [(u, w) for u, r in ((u, json.load(io.open(os.path.join(INPUTS["semantic"], u + ".semantic.json"),
                                                          encoding="utf-8"))) for u in sid_of) for w in r.get("warnings") or []]
-    limits = ["# 조립 1단계 - 한계 (이번 실행)\n",
+    limits = ["# 조립 2단계 - 한계 (이번 실행)\n",
               "## 못 이은 흐름 짝 (이동을 만들지 않음)\n",
               K.C.table(["짝", "화면", "kind", "누른 것", "까닭"],
                         [[x["pair"], "%s → %s" % (x["from"], x["to"]), x["kind"], x["tap_text"] or x["tap"] or "-", x["why"]]
@@ -434,13 +436,14 @@ def check_sections(S, sections):
     return chk
 
 
-def write(S, out, sections=None, markup=None, page_tpl=None, more_limits=()):
+def write(S, out, sections=None, markup=None, page_vars=None, more_limits=()):
     """original.html · flow.json · trace.json · limits.md · check.json. sections · markup (화면 → 마크업 출처) 를 넘기면
-    그 마크업으로 (동작 · 흐름 · 추적표는 S 그대로)."""
+    그 마크업으로 (동작 · 흐름 · 추적표는 S 그대로). page_vars: 쪽 제목 (which · markup · maker) 과 덧붙일 css."""
     sections = sections or S["sections"]
     markup = dict(S["markup"], **(markup or {}))
-    page = (page_tpl or PAGE) % {"sections": "\n".join(sections),
-                                 "branches": "\n".join(handler(S["moves"])) or "  // 이동 없음"}
+    page = PAGE % dict({"which": "규칙 판", "markup": "규칙 시안 마크업", "maker": "build.py", "css": ""},
+                       **(page_vars or {}), sections="\n".join(sections),
+                       branches="\n".join(handler(S["moves"])) or "  // 이동 없음")
     trace = {k: dict(v, markup=markup[v["screen"]]) for k, v in S["trace"].items()}
     chk = check_sections(S, sections)
     os.makedirs(out, exist_ok=True)
