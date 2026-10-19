@@ -1,0 +1,21 @@
+{
+ "model": "gpt-6.1-sol",
+ "reasoning_effort": "medium",
+ "inputs": "strict",
+ "prompt_file": "tools/screen_detect/sketch/LLM_PROMPT_V3.md",
+ "prompt_sha": "91c9e887cc2e",
+ "max_usd": 0.3,
+ "spent_usd": 0.1011,
+ "stopped": null,
+ "units": {
+  "01a+01b+01c": {
+   "status": "ok",
+   "attempts": 1,
+   "prompt_tokens": 13028,
+   "completion_tokens": 7501,
+   "reasoning_tokens": 115,
+   "cost_usd": 0.101066,
+   "estimate_usd": 0.165246
+  }
+ }
+}

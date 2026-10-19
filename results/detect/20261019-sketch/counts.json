@@ -67,6 +67,16 @@
    "images": 31,
    "pressable": 37,
    "png": "renders/llm_strict2/u-01a_01b_01c.png"
+  },
+  "llm_strict3_inputs": 111,
+  "llm_strict3": {
+   "shown": 111,
+   "missing": [],
+   "unknown": [],
+   "stray": [],
+   "images": 24,
+   "pressable": 37,
+   "png": "renders/llm_strict3/u-01a_01b_01c.png"
   }
  },
  "02": {
