@@ -171,7 +171,7 @@ def main():
                                                                  o["choices"])
         r = c.get(side)
         if not r:
-            return "<p>(없음)</p>", ""
+            return "", ""
         note = "나온 요소 %d/%d · 빠진 id %d" % (r["shown"], c["inputs"], len(r["missing"]))
         if side == "llm":
             note += " · 새로 생긴 글 %d" % len(r["stray"])
